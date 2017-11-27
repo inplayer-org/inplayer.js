@@ -24,10 +24,12 @@ const HIDE_ALTERNATE_SCREEN = '';
 
 -
 
+### Development
+
 ### Installing
 
 Method 1 using <script> tag:
-
+```html
   - Import the bundle.js inside your html as follows:
     <script src="https://inplayer.com/SDK/bundle.min.js"></script>
   - Initialize the SDK and use any of the functions
@@ -35,7 +37,7 @@ Method 1 using <script> tag:
       var inPlayer = new InPlayer();
       console.log(inPlayer.User.isAuthenticated());
     </script>
-
+```
 Method 2 using NPM:
 
   - Run the following command
