@@ -8,4 +8,4 @@ class InPlayer {
   }
 }
 
-export default InPlayer;
+export default new InPlayer();
