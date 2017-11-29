@@ -1,8 +1,8 @@
 {
-  "name": "inplayer-sdk",
-  "version": "0.1.0",
+  "name": "@inplayer/inplayer-sdk",
+  "version": "0.1.1",
   "description": "A Javascript SDK for Inplayer's RESTful API",
-  "main": "index.js",
+  "main": "dist/bundle.js",
   "scripts": {
     "dev": "rollup -c --watch",
     "build": "rollup -c"
