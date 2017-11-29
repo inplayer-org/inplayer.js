@@ -17,13 +17,17 @@
   ],
   "author": "InPlayer",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "js-cookie": "^2.2.0"
+  },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-es2015-rollup": "^3.0.0",
     "rollup": "^0.52.0",
     "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-livereload": "^0.6.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-serve": "^0.4.2",
     "rollup-watch": "^4.3.1"
   }
