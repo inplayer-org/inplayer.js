@@ -20,12 +20,12 @@ NOTE:
 node_modules/rollup/bin/rollup and change
 
 `const SHOW_ALTERNATE_SCREEN = '\u001B[?1049h';
-const HIDE_ALTERNATE_SCREEN = '\u001B[?1049l';`
+ const HIDE_ALTERNATE_SCREEN = '\u001B[?1049l';`
 
 to
 
 `const SHOW_ALTERNATE_SCREEN = '';
-const HIDE_ALTERNATE_SCREEN = '';`
+ const HIDE_ALTERNATE_SCREEN = '';`
 
 
 ### Installing
@@ -37,6 +37,7 @@ Method 1 using script tag:
     <script src="https://inplayer.com/SDK/bundle.min.js" ></script>
   `
   - Initialize the SDK and use any of the functions
+  
     `<script >
       var inPlayer = new InPlayer();
       console.log(inPlayer.User.isAuthenticated());
@@ -45,10 +46,13 @@ Method 1 using script tag:
 Method 2 using NPM:
 
   - Run the following command
+  
     `$ npm install inplayer-sdk`
   - Import the SDK inside any javascript file:
+  
     `import InPlayer from 'inplayer-sdk';`
   - Run any function you need
+  
     `InPlayer.User.isAuthenticated()`
 
 ## Running the tests
