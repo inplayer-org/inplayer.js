@@ -1,0 +1,47 @@
+{
+  "coverage": "0%",
+  "expectCount": 22,
+  "actualCount": 0,
+  "files": {
+    "src/index.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        6,
+        8,
+        9,
+        13
+      ]
+    },
+    "src/Models/Asset.js": {
+      "expectCount": 9,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        17,
+        34,
+        50,
+        66,
+        80,
+        94,
+        108,
+        122
+      ]
+    },
+    "src/Models/User.js": {
+      "expectCount": 8,
+      "actualCount": 0,
+      "undocumentLines": [
+        9,
+        11,
+        40,
+        63,
+        90,
+        113,
+        135,
+        153
+      ]
+    }
+  }
+}

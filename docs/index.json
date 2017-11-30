@@ -1,0 +1,1172 @@
+[
+  {
+    "__docId__": 1,
+    "kind": "external",
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Infinity",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 2,
+    "kind": "external",
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~NaN",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 3,
+    "kind": "external",
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~undefined",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 4,
+    "kind": "external",
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~null",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 5,
+    "kind": "external",
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 6,
+    "kind": "external",
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 7,
+    "kind": "external",
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 8,
+    "kind": "external",
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 9,
+    "kind": "external",
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 10,
+    "kind": "external",
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 11,
+    "kind": "external",
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Symbol",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 12,
+    "kind": "external",
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Error",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 13,
+    "kind": "external",
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~EvalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 14,
+    "kind": "external",
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~InternalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 15,
+    "kind": "external",
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RangeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 16,
+    "kind": "external",
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ReferenceError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 17,
+    "kind": "external",
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~SyntaxError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 18,
+    "kind": "external",
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~TypeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 19,
+    "kind": "external",
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~URIError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 20,
+    "kind": "external",
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 21,
+    "kind": "external",
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 22,
+    "kind": "external",
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Date",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 23,
+    "kind": "external",
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~String",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 24,
+    "kind": "external",
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~string",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 25,
+    "kind": "external",
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RegExp",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 26,
+    "kind": "external",
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 27,
+    "kind": "external",
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 28,
+    "kind": "external",
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 29,
+    "kind": "external",
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8ClampedArray",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 30,
+    "kind": "external",
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 31,
+    "kind": "external",
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 32,
+    "kind": "external",
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 33,
+    "kind": "external",
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 34,
+    "kind": "external",
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 35,
+    "kind": "external",
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float64Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 36,
+    "kind": "external",
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Map",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 37,
+    "kind": "external",
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Set",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 38,
+    "kind": "external",
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakMap",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 39,
+    "kind": "external",
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakSet",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 40,
+    "kind": "external",
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ArrayBuffer",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 41,
+    "kind": "external",
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~DataView",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 42,
+    "kind": "external",
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~JSON",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 43,
+    "kind": "external",
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Promise",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 44,
+    "kind": "external",
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Generator",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 45,
+    "kind": "external",
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~GeneratorFunction",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 46,
+    "kind": "external",
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Reflect",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 47,
+    "kind": "external",
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Proxy",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 48,
+    "kind": "file",
+    "name": "src/index.js",
+    "content": "import User from './Models/User.js';\r\nimport Asset from './Models/Asset.js';\r\n\r\n\r\nclass InPlayer {\r\n  constructor(){\r\n    // API Models\r\n    this.User = new User();\r\n    this.Asset = new Asset();\r\n  }\r\n}\r\n\r\nexport default new InPlayer();\r\n",
+    "static": true,
+    "longname": "C:/htdocs/inplayer.js/src/index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 49,
+    "kind": "class",
+    "name": "InPlayer",
+    "memberof": "src/index.js",
+    "static": true,
+    "longname": "src/index.js~InPlayer",
+    "access": "public",
+    "export": true,
+    "importPath": "@inplayer/inplayer-sdk/src/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "pseudoExport": true,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "__docId__": 50,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/index.js~InPlayer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/index.js~InPlayer#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true
+  },
+  {
+    "__docId__": 51,
+    "kind": "member",
+    "name": "User",
+    "memberof": "src/index.js~InPlayer",
+    "static": false,
+    "longname": "src/index.js~InPlayer#User",
+    "access": "public",
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 52,
+    "kind": "member",
+    "name": "Asset",
+    "memberof": "src/index.js~InPlayer",
+    "static": false,
+    "longname": "src/index.js~InPlayer#Asset",
+    "access": "public",
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 53,
+    "kind": "variable",
+    "name": "inPlayer",
+    "memberof": "src/index.js",
+    "static": true,
+    "longname": "src/index.js~inPlayer",
+    "access": "public",
+    "export": true,
+    "importPath": "@inplayer/inplayer-sdk/src/index.js",
+    "importStyle": "inPlayer",
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "type": {
+      "types": [
+        "src/index.js~InPlayer"
+      ]
+    }
+  },
+  {
+    "__docId__": 54,
+    "kind": "file",
+    "name": "src/Models/Asset.js",
+    "content": "import {\r\n  API\r\n} from '../../constants/endpoints';\r\n\r\n\r\nclass Asset {\r\n\r\n  /*\r\n   * @desc Checks whether a given authenticated user has access for an asset\r\n   * @param {string} token The Authorization token\r\n   * @param {number} id The id of the asset\r\n   * @example\r\n   * InPlayer.Asset.checkAccessForAsset('eyJ0eXAiOiJKPECENR5Y',36320)\r\n   * .then(data => console.log(data));\r\n   * @return {Boolean}\r\n   */\r\n  async checkAccessForAsset(token, id){\r\n    try{\r\n      const response = await fetch(API.checkAccess(id), {\r\n          headers: {\r\n              'Authorization': 'Bearer ' + token\r\n          }\r\n      });\r\n\r\n      const data = await response.json();\r\n\r\n      return data;\r\n\r\n    } catch(error){\r\n      return false;\r\n    }\r\n  }\r\n\r\n  async checkAccessForMultipleAssets(token, ids){\r\n    try{\r\n      const response = await fetch(API.checkAccess(ids, true), {\r\n          headers: {\r\n              'Authorization': 'Bearer ' + token\r\n          }\r\n      });\r\n\r\n      const data = await response.json();\r\n\r\n      return data;\r\n    }catch(error){\r\n      return false;\r\n    }\r\n  }\r\n\r\n  async getDlcLinks(token,assetId){\r\n    try{\r\n      const response = await fetch(API.getDlcLinks(assetId), {\r\n        headers: {\r\n            'Authorization': 'Bearer ' + token\r\n        }\r\n      });\r\n\r\n      const data = await response.json();\r\n\r\n      return data;\r\n    }catch(error){\r\n      return false;\r\n    }\r\n  }\r\n\r\n  async findAsset(assetId, merchant_uuid){\r\n    try{\r\n      const response = await fetch(API.findAsset(assetId,merchant_uuid),{\r\n        method: 'GET',\r\n      });\r\n\r\n      const data = await response.json();\r\n\r\n      return data;\r\n    }catch(error){\r\n      return false;\r\n    }\r\n  }\r\n\r\n  async findExternalAsset(assetType, externalId){\r\n    try{\r\n      const response = await fetch(API.findExternalAsset(assetType, externalId),{\r\n        method: 'GET',\r\n      });\r\n\r\n      const data = await response.json();\r\n\r\n      return data;\r\n    }catch(error){\r\n      return false;\r\n    }\r\n  }\r\n\r\n  async findPackage(id){\r\n    try{\r\n      const response = await fetch(API.findPackage(id), {\r\n        method: 'GET',\r\n      });\r\n\r\n      const data = await response.json();\r\n\r\n      return data;\r\n    }catch(error){\r\n      return false;\r\n    }\r\n  }\r\n\r\n  async getAssetAccessFees(id) {\r\n    try{\r\n      const response = await fetch(API.findAccessFees(id), {\r\n        method: 'GET',\r\n      });\r\n\r\n      const data = await response.json();\r\n\r\n      return data;\r\n    }catch(error){\r\n      return false;\r\n    }\r\n  }\r\n\r\n  async freemiumAsset(token, data) {\r\n    try{\r\n      const response = await fetch(API.freemium, {\r\n        method: 'POST',\r\n        headers: {\r\n            'Authorization': 'Bearer ' + token\r\n        },\r\n        body: data\r\n      })\r\n    }catch(error){\r\n      return false;\r\n    }\r\n  }\r\n}\r\n\r\nexport default Asset;\r\n",
+    "static": true,
+    "longname": "C:/htdocs/inplayer.js/src/Models/Asset.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 55,
+    "kind": "class",
+    "name": "Asset",
+    "memberof": "src/Models/Asset.js",
+    "static": true,
+    "longname": "src/Models/Asset.js~Asset",
+    "access": "public",
+    "export": true,
+    "importPath": "@inplayer/inplayer-sdk/src/Models/Asset.js",
+    "importStyle": "Asset",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "__docId__": 56,
+    "kind": "method",
+    "name": "checkAccessForAsset",
+    "memberof": "src/Models/Asset.js~Asset",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/Models/Asset.js~Asset#checkAccessForAsset",
+    "access": "public",
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true,
+    "params": [
+      {
+        "name": "token",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "id",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 57,
+    "kind": "method",
+    "name": "checkAccessForMultipleAssets",
+    "memberof": "src/Models/Asset.js~Asset",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/Models/Asset.js~Asset#checkAccessForMultipleAssets",
+    "access": "public",
+    "description": null,
+    "lineNumber": 34,
+    "undocument": true,
+    "params": [
+      {
+        "name": "token",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "ids",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 58,
+    "kind": "method",
+    "name": "getDlcLinks",
+    "memberof": "src/Models/Asset.js~Asset",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/Models/Asset.js~Asset#getDlcLinks",
+    "access": "public",
+    "description": null,
+    "lineNumber": 50,
+    "undocument": true,
+    "params": [
+      {
+        "name": "token",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "assetId",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 59,
+    "kind": "method",
+    "name": "findAsset",
+    "memberof": "src/Models/Asset.js~Asset",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/Models/Asset.js~Asset#findAsset",
+    "access": "public",
+    "description": null,
+    "lineNumber": 66,
+    "undocument": true,
+    "params": [
+      {
+        "name": "assetId",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "merchant_uuid",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 60,
+    "kind": "method",
+    "name": "findExternalAsset",
+    "memberof": "src/Models/Asset.js~Asset",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/Models/Asset.js~Asset#findExternalAsset",
+    "access": "public",
+    "description": null,
+    "lineNumber": 80,
+    "undocument": true,
+    "params": [
+      {
+        "name": "assetType",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "externalId",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 61,
+    "kind": "method",
+    "name": "findPackage",
+    "memberof": "src/Models/Asset.js~Asset",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/Models/Asset.js~Asset#findPackage",
+    "access": "public",
+    "description": null,
+    "lineNumber": 94,
+    "undocument": true,
+    "params": [
+      {
+        "name": "id",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 62,
+    "kind": "method",
+    "name": "getAssetAccessFees",
+    "memberof": "src/Models/Asset.js~Asset",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/Models/Asset.js~Asset#getAssetAccessFees",
+    "access": "public",
+    "description": null,
+    "lineNumber": 108,
+    "undocument": true,
+    "params": [
+      {
+        "name": "id",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 63,
+    "kind": "method",
+    "name": "freemiumAsset",
+    "memberof": "src/Models/Asset.js~Asset",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/Models/Asset.js~Asset#freemiumAsset",
+    "access": "public",
+    "description": null,
+    "lineNumber": 122,
+    "undocument": true,
+    "params": [
+      {
+        "name": "token",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "data",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 64,
+    "kind": "file",
+    "name": "src/Models/User.js",
+    "content": "import * as Cookies from 'js-cookie';\r\n\r\nimport {\r\n  API\r\n} from '../../constants/endpoints';\r\n\r\nimport { config } from '../../config';\r\n\r\nclass User {\r\n\r\n  async signIn(data){\r\n    // Add into form data\r\n    const fd = new FormData();\r\n    fd.append('email', data.email);\r\n    fd.append('password', data.password);\r\n    fd.append('merchant_uuid', data.merchant_uuid);\r\n    fd.append('referrer', data.referrer);\r\n    // request\r\n    try{\r\n      const response = await fetch(API.signIn, {\r\n        method: 'POST',\r\n        body: fd,\r\n      });\r\n\r\n      const data = await response.json();\r\n\r\n      /* set cookies */\r\n      if(data.access_token){\r\n        Cookies.set(config.INPLAYER_TOKEN_NAME, data.access_token);\r\n      }\r\n\r\n      return data;\r\n\r\n    } catch(error) {\r\n      return false;\r\n    }\r\n  }\r\n\r\n\r\n  async signOut(){\r\n    const token = Cookies.get(config.INPLAYER_TOKEN_NAME);\r\n\r\n    try{\r\n      const response = await fetch(API.signOut, {\r\n          headers: {\r\n              'Authorization': 'Bearer ' + token\r\n          }\r\n      });\r\n\r\n      const data = await response.json();\r\n      // if response is okay\r\n      if(data.explain){\r\n        Cookies.remove(config.INPLAYER_TOKEN_NAME);\r\n      }\r\n      return true;\r\n\r\n    } catch(error){\r\n      return false;\r\n    }\r\n\r\n  }\r\n\r\n  async signUp(data) {\r\n\r\n    // Add into form data\r\n    const fd = new FormData();\r\n    fd.append('full_name', data.full_name);\r\n    fd.append('email', data.email);\r\n    fd.append('password', data.password);\r\n    fd.append('password_confirmation', data.password_confirmation);\r\n    fd.append('merchant_uuid', data.merchant_uuid);\r\n    fd.append('type', data.type);\r\n    fd.append('referrer', data.referrer);\r\n\r\n    try{\r\n      const response = await fetch(API.signUp, {\r\n        method: 'POST',\r\n        body: fd,\r\n      });\r\n\r\n      const data = await response.json();\r\n\r\n      return data;\r\n\r\n    }catch(error) {\r\n      return false;\r\n    }\r\n  }\r\n\r\n  async requestNewPassword(data) {\r\n\r\n    // Add into from FormData\r\n    const fd = new FormData();\r\n    fd.append('email', data.email);\r\n    fd.append('merchant_uuid', data.merchant_uuid);\r\n\r\n    try {\r\n      const response = await fetch(API.requestNewPassword, {\r\n          method: 'POST',\r\n          body: fd\r\n      });\r\n\r\n      const data = await response.json();\r\n\r\n      return data;\r\n\r\n    }catch(error){\r\n      return false;\r\n    }\r\n\r\n  }\r\n\r\n  async setNewPassword(data, token) {\r\n\r\n        const body = `password=${data.password}&password_confirmation=${data.password_confirmation}`;\r\n\r\n        try{\r\n          const response = await fetch(API.setNewPassword(token),{\r\n            method: 'PUT',\r\n            body: body,\r\n            headers: {\r\n              'Content-Type': 'x-www-form-urlencoded'\r\n            }\r\n          });\r\n\r\n          const data = await response.json();\r\n\r\n          return data;\r\n\r\n        }catch(error){\r\n          return false;\r\n        }\r\n  }\r\n\r\n  async getAccountInfo(token) {\r\n    try{\r\n      const response = await fetch(API.getAccountInfo, {\r\n        method: 'GET',\r\n        headers: {\r\n          'Authorization': 'Bearer ' + token\r\n        }\r\n      });\r\n\r\n      const data = await response.json();\r\n      if(data)\r\n        return data;\r\n\r\n    }catch(error){\r\n      return false;\r\n    }\r\n  }\r\n\r\n  async getSocialLoginUrls(state) {\r\n    try{\r\n      const response = await fetch(API.social(state), {\r\n        method: 'GET',\r\n      });\r\n\r\n      const data = await response.json();\r\n\r\n      if(data)\r\n        return data;\r\n\r\n    }catch(error){\r\n      return false;\r\n    }\r\n  }\r\n}\r\n\r\nexport default User;\r\n",
+    "static": true,
+    "longname": "C:/htdocs/inplayer.js/src/Models/User.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 65,
+    "kind": "class",
+    "name": "User",
+    "memberof": "src/Models/User.js",
+    "static": true,
+    "longname": "src/Models/User.js~User",
+    "access": "public",
+    "export": true,
+    "importPath": "@inplayer/inplayer-sdk/src/Models/User.js",
+    "importStyle": "User",
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "__docId__": 66,
+    "kind": "method",
+    "name": "signIn",
+    "memberof": "src/Models/User.js~User",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/Models/User.js~User#signIn",
+    "access": "public",
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "params": [
+      {
+        "name": "data",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 67,
+    "kind": "method",
+    "name": "signOut",
+    "memberof": "src/Models/User.js~User",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/Models/User.js~User#signOut",
+    "access": "public",
+    "description": null,
+    "lineNumber": 40,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 68,
+    "kind": "method",
+    "name": "signUp",
+    "memberof": "src/Models/User.js~User",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/Models/User.js~User#signUp",
+    "access": "public",
+    "description": null,
+    "lineNumber": 63,
+    "undocument": true,
+    "params": [
+      {
+        "name": "data",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 69,
+    "kind": "method",
+    "name": "requestNewPassword",
+    "memberof": "src/Models/User.js~User",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/Models/User.js~User#requestNewPassword",
+    "access": "public",
+    "description": null,
+    "lineNumber": 90,
+    "undocument": true,
+    "params": [
+      {
+        "name": "data",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 70,
+    "kind": "method",
+    "name": "setNewPassword",
+    "memberof": "src/Models/User.js~User",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/Models/User.js~User#setNewPassword",
+    "access": "public",
+    "description": null,
+    "lineNumber": 113,
+    "undocument": true,
+    "params": [
+      {
+        "name": "data",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "token",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 71,
+    "kind": "method",
+    "name": "getAccountInfo",
+    "memberof": "src/Models/User.js~User",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/Models/User.js~User#getAccountInfo",
+    "access": "public",
+    "description": null,
+    "lineNumber": 135,
+    "undocument": true,
+    "params": [
+      {
+        "name": "token",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 72,
+    "kind": "method",
+    "name": "getSocialLoginUrls",
+    "memberof": "src/Models/User.js~User",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/Models/User.js~User#getSocialLoginUrls",
+    "access": "public",
+    "description": null,
+    "lineNumber": 153,
+    "undocument": true,
+    "params": [
+      {
+        "name": "state",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "kind": "index",
+    "content": "# Project Title\r\n\r\nInPlayer SDK\r\n\r\n## Getting Started\r\n\r\nThese instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.\r\n\r\n\r\n\r\n### Prerequisites\r\n\r\n-\r\n\r\n### Development\r\n\r\nNOTE:\r\n\r\n- CMD/Powershell on Windows is crashing on WATCH mode, go to\r\nnode_modules/rollup/bin/rollup and change\r\n\r\n`const SHOW_ALTERNATE_SCREEN = '\\u001B[?1049h';\r\n const HIDE_ALTERNATE_SCREEN = '\\u001B[?1049l';`\r\n\r\nto\r\n\r\n`const SHOW_ALTERNATE_SCREEN = '';\r\n const HIDE_ALTERNATE_SCREEN = '';`\r\n\r\n\r\n### Installing\r\n\r\nMethod 1 using script tag:\r\n\r\n  - Import the bundle.js inside your html as follows:\r\n  `\r\n    <script src=\"https://inplayer.com/SDK/bundle.min.js\" ></script>\r\n  `\r\n  - Initialize the SDK and use any of the functions\r\n  \r\n    `<script >\r\n      var inPlayer = new InPlayer();\r\n      console.log(inPlayer.User.isAuthenticated());\r\n    </script >`\r\n\r\nMethod 2 using NPM:\r\n\r\n  - Run the following command\r\n  \r\n    `$ npm install inplayer-sdk`\r\n  - Import the SDK inside any javascript file:\r\n  \r\n    `import InPlayer from 'inplayer-sdk';`\r\n  - Run any function you need\r\n  \r\n    `InPlayer.User.isAuthenticated()`\r\n\r\n## Running the tests\r\n\r\n-\r\n\r\n## Deployment\r\n\r\n-\r\n\r\n\r\n## Contributing\r\n\r\n-\r\n\r\n## Versioning\r\n\r\n0.1.0\r\n\r\n## Authors\r\n\r\n\r\n## License\r\n\r\nInPlayer Ltd.\r\n",
+    "longname": "C:\\htdocs\\inplayer.js\\README.md",
+    "name": "./README.md",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "packageJSON",
+    "content": "{\n  \"name\": \"@inplayer/inplayer-sdk\",\n  \"version\": \"0.1.2\",\n  \"description\": \"A Javascript SDK for Inplayer's RESTful API\",\n  \"main\": \"dist/inplayer.umd.js\",\n  \"cjs:main\": \"dist/inplayer.cjs.js\",\n  \"browser\": \"dist/inplayer.umd.js\",\n  \"scripts\": {\n    \"dev\": \"rollup -c --watch\",\n    \"build\": \"rollup -c\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://repo.inplayer.com/platform/inplayer.js.git\"\n  },\n  \"keywords\": [\n    \"sdk\",\n    \"inplayer\"\n  ],\n  \"author\": \"InPlayer\",\n  \"license\": \"ISC\",\n  \"dependencies\": {\n    \"js-cookie\": \"^2.2.0\"\n  },\n  \"devDependencies\": {\n    \"babel-core\": \"^6.26.0\",\n    \"babel-plugin-async-to-promises\": \"^1.0.5\",\n    \"babel-preset-es2015-rollup\": \"^3.0.0\",\n    \"esdoc\": \"^1.0.4\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"rollup\": \"^0.52.0\",\n    \"rollup-plugin-async\": \"^1.2.0\",\n    \"rollup-plugin-babel\": \"^3.0.2\",\n    \"rollup-plugin-buble\": \"^0.18.0\",\n    \"rollup-plugin-commonjs\": \"^8.2.6\",\n    \"rollup-plugin-json\": \"^2.3.0\",\n    \"rollup-plugin-livereload\": \"^0.6.0\",\n    \"rollup-plugin-node-resolve\": \"^3.0.0\",\n    \"rollup-plugin-uglify\": \"^2.0.1\",\n    \"rollup-watch\": \"^4.3.1\",\n    \"uglify-es\": \"^3.2.0\"\n  }\n}\n",
+    "longname": "C:\\htdocs\\inplayer.js\\package.json",
+    "name": "package.json",
+    "static": true,
+    "access": "public"
+  }
+]

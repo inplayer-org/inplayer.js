@@ -8,7 +8,6 @@ import { config } from '../../config';
 
 class User {
 
-  /* SIGN IN */
   async signIn(data){
     // Add into form data
     const fd = new FormData();
@@ -37,7 +36,7 @@ class User {
     }
   }
 
-  /* SIGN OUT */
+
   async signOut(){
     const token = Cookies.get(config.INPLAYER_TOKEN_NAME);
 
@@ -61,7 +60,6 @@ class User {
 
   }
 
-  /* SIGN UP/Register */
   async signUp(data) {
 
     // Add into form data
@@ -89,8 +87,6 @@ class User {
     }
   }
 
-
-  /* Request new password */
   async requestNewPassword(data) {
 
     // Add into from FormData
@@ -114,7 +110,6 @@ class User {
 
   }
 
-   /* Set new password */
   async setNewPassword(data, token) {
 
         const body = `password=${data.password}&password_confirmation=${data.password_confirmation}`;
@@ -137,7 +132,6 @@ class User {
         }
   }
 
-  /* Account info */
   async getAccountInfo(token) {
     try{
       const response = await fetch(API.getAccountInfo, {
@@ -156,8 +150,6 @@ class User {
     }
   }
 
-
-  /* Social login URLs */
   async getSocialLoginUrls(state) {
     try{
       const response = await fetch(API.social(state), {

@@ -9,13 +9,13 @@
 </body>
 <script src="js/inplayer.js"></script>
 <script>
-  console.log(InPlayer);
-  InPlayer.User.signIn({
-      merchant_uuid: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
-      referrer: 'http://localhost:3000/',
-      email: 'vld_test@consumer.com',
-      password: '11111111',
-  }).then(data => console.log(data));
+  // console.log(InPlayer);
+  // InPlayer.User.signIn({
+  //     merchant_uuid: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
+  //     referrer: 'http://localhost:3000/',
+  //     email: 'vld_test@consumer.com',
+  //     password: '11111111',
+  // }).then(data => console.log(data));
   //
   // /* signin call */
   // if(inPlayer.User.signIn(
@@ -77,5 +77,16 @@
   // tmp.then(data => console.log(data));
   // const tmp = inPlayer.User.getSocialLoginUrls('eyJ1dWlkIjoiNTI4YjFiODAtNTg2OC00YWJjLWE5YjYtNGQzNDU1ZDcxOWM4IiwicmVkaXJlY3QiOiJodHRwOi8vc3luZGljYXRlLnZpZGVvL3ZpZGVvL2Fzc2V0LzM2MzIwP2Fzc2V0X2lkPTM2MzIwIn0');
   // tmp.then(data=> console.log(data))
+  // InPlayer.Asset.checkAccessForAsset('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIwMzU3MzksInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIwMzkzMzl9.MMEATCu25SWpod8nfuuYcDjEQ67n4qOUFY0PECENR5Y',36320)
+  // .then(data => console.log(data));
+  // InPlayer.Asset.getDlcLinks('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIwMzU3MzksInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIwMzkzMzl9.MMEATCu25SWpod8nfuuYcDjEQ67n4qOUFY0PECENR5Y',36320)
+  // .then(data => console.log(data));
+  // InPlayer.Asset.findAsset(36320,'528b1b80-5868-4abc-a9b6-4d3455d719c8')
+  // .then(data => console.log(data));
+  // InPlayer.Asset.findPackage(36332).then(data => console.log(data));
+  // InPlayer.Asset.getAssetAccessFees(36320).then(data => console.log(data));
+  // InPlayer.Asset.freemiumAsset('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIwNDczMjgsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIwNTA5Mjh9.dZ_xAEiwcJvisovAI-2y72IP8R0IW8z04tPe8aeKv_0', {
+  //   access_fee: 2065,
+  // }).then(data => console.log(data));
 </script>
 </html>
