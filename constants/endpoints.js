@@ -14,8 +14,9 @@ export const API = {
   getRegisterFields: (merchant_uuid) => `${config.BASE_URL}/accounts/register-fields/${merchant_uuid}`,
   //Asset
   checkAccess: (id, multiple = false) => {
-    return multiple ? `${config.BASE_URL}/item/access?${id}`
-    : `${config.BASE_URL}/items/${id}/access`;
+    return multiple ?
+    `${config.BASE_URL}/item/access?${id}` :
+    `${config.BASE_URL}/items/${id}/access`;
   },
   findAsset: (assetId, merchant_uuid) => `${config.BASE_URL}/items/${merchant_uuid}/${assetId}`,
   findExternalAsset: (assetType, externalId) => `${config.BASE_URL}/items/assets/external/${assetType}/${externalId}`,
@@ -23,7 +24,6 @@ export const API = {
   findAccessFees: (id) => `${config.BASE_URL}/items/${id}/access-fees`,
   freemium: `${config.BASE_URL}/items/access/unlimited`,
   //Payment
-  getPaymentMethod: (merchant_uuid) => `${config.BASE_URL}/payments/method/${merchant_uuid}`,
   getPaymentMethods: `${config.BASE_URL}/payments/methods`,
   getPaymentTools: (paymentMethodId) => `${config.BASE_URL}/payments/method/${paymentMethodId}/tools`,
   payForAsset: `${config.BASE_URL}/payments`,

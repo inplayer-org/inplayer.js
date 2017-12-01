@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Payment</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Asset.html">Asset</a></li>
+                                <li><a href="../classes/Payment.html">Payment</a></li>
+                            </ul>
+                
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1>Payment Class</h1>
+<div class="box meta">
+
+
+        <div class="foundat">
+            Defined in: <a href="../files/Models_Payment.js.html#l5"><code>Models\Payment.js:5</code></a>
+        </div>
+
+
+</div>
+
+
+<div class="box intro">
+    <p>Contains all Requests connected with payments</p>
+
+</div>
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                            <li class="index-item method">
+                                <a href="#method_getPaymentMethods">getPaymentMethods</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_getPaymentTools">getPaymentTools</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_getPayPalParams">getPayPalParams</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_payForAsset">payForAsset</a>
+
+                            </li>
+                    </ul>
+                </div>
+
+
+
+        </div>
+
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+<div id="method_getPaymentMethods" class="method item">
+    <h3 class="name"><code>getPaymentMethods</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>token</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Object</span>
+        </span>
+
+
+
+
+
+
+        <span class="flag async">async</span>
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Models_Payment.js.html#l12"><code>Models\Payment.js:12</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Get all payment methods for a User</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">token</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>The Autorization token</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Object</span>:
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <p>InPlayer.Payment.getPaymentMethods('aehfawfeikuehdjkc482rijfg47idqwk3n4')
+.then(data =&gt; console.log(data));</p>
+
+            </div>
+        </div>
+</div>
+<div id="method_getPaymentTools" class="method item">
+    <h3 class="name"><code>getPaymentTools</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>token</code>
+                </li>
+                <li class="arg">
+                        <code>paymentMethodId</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Object</span>
+        </span>
+
+
+
+
+
+
+        <span class="flag async">async</span>
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Models_Payment.js.html#l38"><code>Models\Payment.js:38</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Get the payment tools for an aothorization token and payment method ID</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">token</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>The Authorization token</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">paymentMethodId</code>
+                        <span class="type">Number</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>The Payment Method ID</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Object</span>:
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <p>InPlayer.Payment.getPaymentTools('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', 2)
+.then(data =&gt; console.log(data));</p>
+
+            </div>
+        </div>
+</div>
+<div id="method_getPayPalParams" class="method item">
+    <h3 class="name"><code>getPayPalParams</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>token</code>
+                </li>
+                <li class="arg">
+                        <code>data</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Object</span>
+        </span>
+
+
+
+
+
+
+        <span class="flag async">async</span>
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Models_Payment.js.html#l105"><code>Models\Payment.js:105</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Gets parameters for PayPal</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">token</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>The Authorization token</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">data</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>Contains details</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Object</span>:
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <p>InPlayer.Payment.getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {})
+.then(data =&gt; console.log(data));</p>
+
+            </div>
+        </div>
+</div>
+<div id="method_payForAsset" class="method item">
+    <h3 class="name"><code>payForAsset</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>token</code>
+                </li>
+                <li class="arg">
+                        <code>data</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Object</span>
+        </span>
+
+
+
+
+
+
+        <span class="flag async">async</span>
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/Models_Payment.js.html#l65"><code>Models\Payment.js:65</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Makes a Payment for a given Authorization token + asset/payment details</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">token</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>The Authorization token</li>
+</ul>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">data</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                        <ul>
+<li>Payment data</li>
+</ul>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Object</span>:
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <p>// data.payment_method = { id.... }
+InPlayer.Payment.getPaymentTools('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {
+number: 4111111111111111,
+card_name: 'PayPal',
+exp_month: 10,
+exp_year: 2030,
+cvv: 656,
+access_fee: 2341,
+payment_method: 1,
+referrer: '<a href="http://google.com">http://google.com</a>'
+})
+.then(data =&gt; console.log(data));</p>
+
+            </div>
+        </div>
+</div>
+            </div>
+
+
+
+    </div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
