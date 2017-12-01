@@ -87,6 +87,17 @@ class User {
     }
   }
 
+  isSignedIn(){
+    return Cookies.get(config.INPLAYER_TOKEN_NAME) !== undefined;
+  }
+
+  token(){
+    return Cookies.get(config.INPLAYER_TOKEN_NAME);
+  }
+  setTokenInCookie(token){
+    Cookies.set(config.INPLAYER_TOKEN_NAME, token);
+  }
+
   async requestNewPassword(data) {
 
     // Add into from FormData
@@ -161,6 +172,55 @@ class User {
       if(data)
         return data;
 
+    }catch(error){
+      return false;
+    }
+  }
+
+  async updateAccount(data, token) {
+    try{
+      const response = await fetch(API.updateAccount, {
+        method: 'PUT',
+        body: data,
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Content-Type': 'x-www-form-urlencoded'
+        }
+      });
+
+      const data = await response.json();
+
+      return data;
+    }catch(error){
+      return false;
+    }
+  }
+
+  async changePassword(data, token) {
+    try{
+      const response = await fetch(API.changePassword, {
+        method: 'POST',
+        body: data,
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      });
+
+      const data = await response.json();
+
+      return data;
+    }catch(error){
+      return false;
+    }
+  }
+
+  async getRegisterFields(merchant_uuid){
+    try{
+      const response = await fetch(API.getRegisterFields(merchant_uuid));
+
+      const data = await response.json();
+
+      return data;
     }catch(error){
       return false;
     }

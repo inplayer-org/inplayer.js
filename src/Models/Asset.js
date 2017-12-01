@@ -47,22 +47,6 @@ class Asset {
     }
   }
 
-  async getDlcLinks(token,assetId){
-    try{
-      const response = await fetch(API.getDlcLinks(assetId), {
-        headers: {
-            'Authorization': 'Bearer ' + token
-        }
-      });
-
-      const data = await response.json();
-
-      return data;
-    }catch(error){
-      return false;
-    }
-  }
-
   async findAsset(assetId, merchant_uuid){
     try{
       const response = await fetch(API.findAsset(assetId,merchant_uuid),{
@@ -127,11 +111,16 @@ class Asset {
             'Authorization': 'Bearer ' + token
         },
         body: data
-      })
+      });
+
+      const data = await response.json();
+
+      return data;
     }catch(error){
       return false;
     }
   }
+
 }
 
 export default Asset;
