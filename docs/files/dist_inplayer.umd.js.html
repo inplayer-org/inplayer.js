@@ -1,17 +1,100 @@
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('net'), require('websocket')) :
-	typeof define === 'function' && define.amd ? define(['net', 'websocket'], factory) :
-	(global.InPlayer = factory(global.net,global.websocket));
-}(this, (function (net,websocket) { 'use strict';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>dist\inplayer.umd.js - InPlayer SDK</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/lucid.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+            InPlayer SDK
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.1.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscriptions", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+<div>
+    <div id="sidebar">
+    <div id="classes">
+        <ul id="api-classes" class="nav nav-list">
+                <li><a href="../classes/Asset.html">Asset</a></li>
+                <li><a href="../classes/InPlayer.html">InPlayer</a></li>
+                <li><a href="../classes/Misc.html">Misc</a></li>
+                <li><a href="../classes/Payment.html">Payment</a></li>
+                <li><a href="../classes/Subscriptions.html">Subscriptions</a></li>
+                <li><a href="../classes/User.html">User</a></li>
+        </ul>
+    </div>
+    </div>
+</div>
+        </div>
+        <div class="span9">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
 
-net = net && net.hasOwnProperty('default') ? net['default'] : net;
-websocket = websocket && websocket.hasOwnProperty('default') ? websocket['default'] : websocket;
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>dist\inplayer.umd.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+(function (global, factory) {
+	typeof exports === &#x27;object&#x27; &amp;&amp; typeof module !== &#x27;undefined&#x27; ? module.exports = factory(require(&#x27;net&#x27;), require(&#x27;websocket&#x27;)) :
+	typeof define === &#x27;function&#x27; &amp;&amp; define.amd ? define([&#x27;net&#x27;, &#x27;websocket&#x27;], factory) :
+	(global.InPlayer = factory(global.net,global.websocket));
+}(this, (function (net,websocket) { &#x27;use strict&#x27;;
+
+net = net &amp;&amp; net.hasOwnProperty(&#x27;default&#x27;) ? net[&#x27;default&#x27;] : net;
+websocket = websocket &amp;&amp; websocket.hasOwnProperty(&#x27;default&#x27;) ? websocket[&#x27;default&#x27;] : websocket;
 
 function __async(g) {
   return new Promise(function (s, j) {
     function c(a, x) {
       try {
-        var r = g[x ? "throw" : "next"](a);
+        var r = g[x ? &quot;throw&quot; : &quot;next&quot;](a);
       } catch (e) {
         j(e);return;
       }r.done ? s(r.value) : Promise.resolve(r.value).then(c, d);
@@ -21,7 +104,7 @@ function __async(g) {
   });
 }
 
-var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+var commonjsGlobal = typeof window !== &#x27;undefined&#x27; ? window : typeof global !== &#x27;undefined&#x27; ? global : typeof self !== &#x27;undefined&#x27; ? self : {};
 
 
 
@@ -36,12 +119,12 @@ var js_cookie = createCommonjsModule(function (module, exports) {
  * JavaScript Cookie v2.2.0
  * https://github.com/js-cookie/js-cookie
  *
- * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
+ * Copyright 2006, 2015 Klaus Hartl &amp; Fagner Brack
  * Released under the MIT license
  */
 (function (factory) {
 	var registeredInModuleLoader = false;
-	if (typeof undefined === 'function' && undefined.amd) {
+	if (typeof undefined === &#x27;function&#x27; &amp;&amp; undefined.amd) {
 		undefined(factory);
 		registeredInModuleLoader = true;
 	}
@@ -63,7 +146,7 @@ var js_cookie = createCommonjsModule(function (module, exports) {
 
 		var i = 0;
 		var result = {};
-		for (; i < arguments.length; i++) {
+		for (; i &lt; arguments.length; i++) {
 			var attributes = arguments$1[ i ];
 			for (var key in attributes) {
 				result[key] = attributes[key];
@@ -77,25 +160,25 @@ var js_cookie = createCommonjsModule(function (module, exports) {
 			var this$1 = this;
 
 			var result;
-			if (typeof document === 'undefined') {
+			if (typeof document === &#x27;undefined&#x27;) {
 				return;
 			}
 
 			// Write
 
-			if (arguments.length > 1) {
+			if (arguments.length &gt; 1) {
 				attributes = extend({
-					path: '/'
+					path: &#x27;/&#x27;
 				}, api.defaults, attributes);
 
-				if (typeof attributes.expires === 'number') {
+				if (typeof attributes.expires === &#x27;number&#x27;) {
 					var expires = new Date();
 					expires.setMilliseconds(expires.getMilliseconds() + attributes.expires * 864e+5);
 					attributes.expires = expires;
 				}
 
-				// We're using "expires" because "max-age" is not supported by IE
-				attributes.expires = attributes.expires ? attributes.expires.toUTCString() : '';
+				// We&#x27;re using &quot;expires&quot; because &quot;max-age&quot; is not supported by IE
+				attributes.expires = attributes.expires ? attributes.expires.toUTCString() : &#x27;&#x27;;
 
 				try {
 					result = JSON.stringify(value);
@@ -115,19 +198,19 @@ var js_cookie = createCommonjsModule(function (module, exports) {
 				key = key.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent);
 				key = key.replace(/[\(\)]/g, escape);
 
-				var stringifiedAttributes = '';
+				var stringifiedAttributes = &#x27;&#x27;;
 
 				for (var attributeName in attributes) {
 					if (!attributes[attributeName]) {
 						continue;
 					}
-					stringifiedAttributes += '; ' + attributeName;
+					stringifiedAttributes += &#x27;; &#x27; + attributeName;
 					if (attributes[attributeName] === true) {
 						continue;
 					}
-					stringifiedAttributes += '=' + attributes[attributeName];
+					stringifiedAttributes += &#x27;=&#x27; + attributes[attributeName];
 				}
-				return (document.cookie = key + '=' + value + stringifiedAttributes);
+				return (document.cookie = key + &#x27;=&#x27; + value + stringifiedAttributes);
 			}
 
 			// Read
@@ -138,16 +221,16 @@ var js_cookie = createCommonjsModule(function (module, exports) {
 
 			// To prevent the for loop in the first place assign an empty array
 			// in case there are no cookies at all. Also prevents odd result when
-			// calling "get()"
-			var cookies = document.cookie ? document.cookie.split('; ') : [];
+			// calling &quot;get()&quot;
+			var cookies = document.cookie ? document.cookie.split(&#x27;; &#x27;) : [];
 			var rdecode = /(%[0-9A-Z]{2})+/g;
 			var i = 0;
 
-			for (; i < cookies.length; i++) {
-				var parts = cookies[i].split('=');
-				var cookie = parts.slice(1).join('=');
+			for (; i &lt; cookies.length; i++) {
+				var parts = cookies[i].split(&#x27;=&#x27;);
+				var cookie = parts.slice(1).join(&#x27;=&#x27;);
 
-				if (!this$1.json && cookie.charAt(0) === '"') {
+				if (!this$1.json &amp;&amp; cookie.charAt(0) === &#x27;&quot;&#x27;) {
 					cookie = cookie.slice(1, -1);
 				}
 
@@ -189,7 +272,7 @@ var js_cookie = createCommonjsModule(function (module, exports) {
 		api.defaults = {};
 
 		api.remove = function (key, attributes) {
-			api(key, '', extend(attributes, {
+			api(key, &#x27;&#x27;, extend(attributes, {
 				expires: -1
 			}));
 		};
@@ -208,51 +291,51 @@ var js_cookie_2 = js_cookie.set;
 var js_cookie_3 = js_cookie.remove;
 
 var config = {
-  BASE_URL: 'https://staging-v2.inplayer.com',
-  INPLAYER_TOKEN_NAME: 'inplayer_token',
-  "stomp": {
-    "url": "wss://staging-v2.inplayer.com:15671/ws",
-    "login": "notifications",
-    "password": "notifications"
+  BASE_URL: &#x27;https://staging-v2.inplayer.com&#x27;,
+  INPLAYER_TOKEN_NAME: &#x27;inplayer_token&#x27;,
+  &quot;stomp&quot;: {
+    &quot;url&quot;: &quot;wss://staging-v2.inplayer.com:15671/ws&quot;,
+    &quot;login&quot;: &quot;notifications&quot;,
+    &quot;password&quot;: &quot;notifications&quot;
   }
 };
 
 var API = {
   //User
-  signIn: ((config.BASE_URL) + "/accounts/login"),
-  signOut: ((config.BASE_URL) + "/accounts/logout"),
-  signUp: ((config.BASE_URL) + "/accounts"),
-  requestNewPassword: ((config.BASE_URL) + "/accounts/forgot-password"),
-  setNewPassword: function (token) { return ((config.BASE_URL) + "/accounts/forgot-password/" + token); },
-  getAccountInfo: ((config.BASE_URL) + "/accounts"),
-  social: function (state) { return ((config.BASE_URL) + "/accounts/social?state=" + state); },
-  updateAccount: ((config.BASE_URL) + "/accounts"),
-  changePassword: ((config.BASE_URL) + "/accounts/change-password"),
-  getRegisterFields: function (merchant_uuid) { return ((config.BASE_URL) + "/accounts/register-fields/" + merchant_uuid); },
+  signIn: ((config.BASE_URL) + &quot;/accounts/login&quot;),
+  signOut: ((config.BASE_URL) + &quot;/accounts/logout&quot;),
+  signUp: ((config.BASE_URL) + &quot;/accounts&quot;),
+  requestNewPassword: ((config.BASE_URL) + &quot;/accounts/forgot-password&quot;),
+  setNewPassword: function (token) { return ((config.BASE_URL) + &quot;/accounts/forgot-password/&quot; + token); },
+  getAccountInfo: ((config.BASE_URL) + &quot;/accounts&quot;),
+  social: function (state) { return ((config.BASE_URL) + &quot;/accounts/social?state=&quot; + state); },
+  updateAccount: ((config.BASE_URL) + &quot;/accounts&quot;),
+  changePassword: ((config.BASE_URL) + &quot;/accounts/change-password&quot;),
+  getRegisterFields: function (merchant_uuid) { return ((config.BASE_URL) + &quot;/accounts/register-fields/&quot; + merchant_uuid); },
   //Asset
   checkAccess: function (id, multiple) {
     if ( multiple === void 0 ) multiple = false;
 
-    return multiple ? ((config.BASE_URL) + "/item/access?" + id) : ((config.BASE_URL) + "/items/" + id + "/access");
+    return multiple ? ((config.BASE_URL) + &quot;/item/access?&quot; + id) : ((config.BASE_URL) + &quot;/items/&quot; + id + &quot;/access&quot;);
   },
-  findAsset: function (assetId, merchant_uuid) { return ((config.BASE_URL) + "/items/" + merchant_uuid + "/" + assetId); },
-  findExternalAsset: function (assetType, externalId) { return ((config.BASE_URL) + "/items/assets/external/" + assetType + "/" + externalId); },
-  findPackage: function (id) { return ((config.BASE_URL) + "/items/packages/" + id); },
-  findAccessFees: function (id) { return ((config.BASE_URL) + "/items/" + id + "/access-fees"); },
-  freemium: ((config.BASE_URL) + "/items/access/unlimited"),
+  findAsset: function (assetId, merchant_uuid) { return ((config.BASE_URL) + &quot;/items/&quot; + merchant_uuid + &quot;/&quot; + assetId); },
+  findExternalAsset: function (assetType, externalId) { return ((config.BASE_URL) + &quot;/items/assets/external/&quot; + assetType + &quot;/&quot; + externalId); },
+  findPackage: function (id) { return ((config.BASE_URL) + &quot;/items/packages/&quot; + id); },
+  findAccessFees: function (id) { return ((config.BASE_URL) + &quot;/items/&quot; + id + &quot;/access-fees&quot;); },
+  freemium: ((config.BASE_URL) + &quot;/items/access/unlimited&quot;),
   //Payment
-  getPaymentMethods: ((config.BASE_URL) + "/payments/methods"),
-  getPaymentTools: function (paymentMethodId) { return ((config.BASE_URL) + "/payments/method/" + paymentMethodId + "/tools"); },
-  payForAsset: ((config.BASE_URL) + "/payments"),
-  externalPayments: ((config.BASE_URL) + "/external-payments"),
+  getPaymentMethods: ((config.BASE_URL) + &quot;/payments/methods&quot;),
+  getPaymentTools: function (paymentMethodId) { return ((config.BASE_URL) + &quot;/payments/method/&quot; + paymentMethodId + &quot;/tools&quot;); },
+  payForAsset: ((config.BASE_URL) + &quot;/payments&quot;),
+  externalPayments: ((config.BASE_URL) + &quot;/external-payments&quot;),
   //Subscriptions
-  getSubscriptions: ((config.BASE_URL) + "/subscriptions"),
-  subscribe: ((config.BASE_URL) + "/subscriptions"),
+  getSubscriptions: ((config.BASE_URL) + &quot;/subscriptions&quot;),
+  subscribe: ((config.BASE_URL) + &quot;/subscriptions&quot;),
   //Misc
-  getDlcLinks: function (id) { return ((config.BASE_URL) + "/dlc/" + id + "/links"); },
-  getDiscount: ((config.BASE_URL) + "/vouchers/discount"),
-  getBranding: function (merchant_uuid) { return ((config.BASE_URL) + "/branding/paywall/" + merchant_uuid); },
-  downloadFile: function (assetId, filename) { return ((config.BASE_URL) + "/dlc/" + assetId + "/" + filename); }
+  getDlcLinks: function (id) { return ((config.BASE_URL) + &quot;/dlc/&quot; + id + &quot;/links&quot;); },
+  getDiscount: ((config.BASE_URL) + &quot;/vouchers/discount&quot;),
+  getBranding: function (merchant_uuid) { return ((config.BASE_URL) + &quot;/branding/paywall/&quot; + merchant_uuid); },
+  downloadFile: function (assetId, filename) { return ((config.BASE_URL) + &quot;/dlc/&quot; + assetId + &quot;/&quot; + filename); }
 
 };
 
@@ -262,14 +345,14 @@ User.prototype.signIn = function signIn (data) {
   return __async(function* () {
     // Add into form data
     var fd = new FormData();
-    fd.append('email', data.email);
-    fd.append('password', data.password);
-    fd.append('merchant_uuid', data.merchant_uuid);
-    fd.append('referrer', data.referrer);
+    fd.append(&#x27;email&#x27;, data.email);
+    fd.append(&#x27;password&#x27;, data.password);
+    fd.append(&#x27;merchant_uuid&#x27;, data.merchant_uuid);
+    fd.append(&#x27;referrer&#x27;, data.referrer);
     // request
     try {
       var response = yield fetch(API.signIn, {
-        method: 'POST',
+        method: &#x27;POST&#x27;,
         body: fd
       });
 
@@ -293,7 +376,7 @@ User.prototype.signIn = function signIn (data) {
  * @async
  * @example
  * InPlayer.User.signOut()
- * .then(data => console.log(data));
+ * .then(data =&gt; console.log(data));
  * @return {Boolean}
 */
 User.prototype.signOut = function signOut () {
@@ -303,7 +386,7 @@ User.prototype.signOut = function signOut () {
     try {
       var response = yield fetch(API.signOut, {
         headers: {
-          'Authorization': 'Bearer ' + token
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
         }
       });
 
@@ -334,15 +417,15 @@ User.prototype.signOut = function signOut () {
  * }
  * @example
  * InPlayer.User.signUp({
- *full_name: "test",
- *email: "test32@test.com",
- *password: "12345678",
- *password_confirmation: "12345678",
- *merchant_uuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
- *type: "consumer",
- *referrer: "http://localhost:3000/",
+ *full_name: &quot;test&quot;,
+ *email: &quot;test32@test.com&quot;,
+ *password: &quot;12345678&quot;,
+ *password_confirmation: &quot;12345678&quot;,
+ *merchant_uuid: &quot;528b1b80-5868-4abc-a9b6-4d3455d719c8&quot;,
+ *type: &quot;consumer&quot;,
+ *referrer: &quot;http://localhost:3000/&quot;,
  * })
- * .then(data => console.log(data));
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 User.prototype.signUp = function signUp (data) {
@@ -350,17 +433,17 @@ User.prototype.signUp = function signUp (data) {
 
     // Add into form data
     var fd = new FormData();
-    fd.append('full_name', data.full_name);
-    fd.append('email', data.email);
-    fd.append('password', data.password);
-    fd.append('password_confirmation', data.password_confirmation);
-    fd.append('merchant_uuid', data.merchant_uuid);
-    fd.append('type', data.type);
-    fd.append('referrer', data.referrer);
+    fd.append(&#x27;full_name&#x27;, data.full_name);
+    fd.append(&#x27;email&#x27;, data.email);
+    fd.append(&#x27;password&#x27;, data.password);
+    fd.append(&#x27;password_confirmation&#x27;, data.password_confirmation);
+    fd.append(&#x27;merchant_uuid&#x27;, data.merchant_uuid);
+    fd.append(&#x27;type&#x27;, data.type);
+    fd.append(&#x27;referrer&#x27;, data.referrer);
 
     try {
       var response = yield fetch(API.signUp, {
-        method: 'POST',
+        method: &#x27;POST&#x27;,
         body: fd
       });
 
@@ -400,7 +483,7 @@ User.prototype.token = function token () {
  * @method token
  * @param {String} token - The Authorization token which needs to be set
  * @example
- * InPlayer.User.setTokenInCookie('aed1g284i3dnfrfnd1o23rtegk')
+ * InPlayer.User.setTokenInCookie(&#x27;aed1g284i3dnfrfnd1o23rtegk&#x27;)
  * @return {void}
 */
 User.prototype.setTokenInCookie = function setTokenInCookie (token) {
@@ -417,10 +500,10 @@ User.prototype.setTokenInCookie = function setTokenInCookie (token) {
  * }
  * @example
  * InPlayer.User.requestNewPassword({
- *email: "test32@test.com",
- *merchant_uuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
+ *email: &quot;test32@test.com&quot;,
+ *merchant_uuid: &quot;528b1b80-5868-4abc-a9b6-4d3455d719c8&quot;,
  * })
- * .then(data => console.log(data));
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 User.prototype.requestNewPassword = function requestNewPassword (data) {
@@ -428,12 +511,12 @@ User.prototype.requestNewPassword = function requestNewPassword (data) {
 
     // Add into from FormData
     var fd = new FormData();
-    fd.append('email', data.email);
-    fd.append('merchant_uuid', data.merchant_uuid);
+    fd.append(&#x27;email&#x27;, data.email);
+    fd.append(&#x27;merchant_uuid&#x27;, data.merchant_uuid);
 
     try {
       var response = yield fetch(API.requestNewPassword, {
-        method: 'POST',
+        method: &#x27;POST&#x27;,
         body: fd
       });
 
@@ -457,23 +540,23 @@ User.prototype.requestNewPassword = function requestNewPassword (data) {
  * @param {String} token - The authorization token
  * @example
  * InPlayer.User.setNewPassword({
- *password: "12345",
- *password_confirmation: "12345",
- * }, 'afhqi83rji74hjf7e43df')
- * .then(data => console.log(data));
+ *password: &quot;12345&quot;,
+ *password_confirmation: &quot;12345&quot;,
+ * }, &#x27;afhqi83rji74hjf7e43df&#x27;)
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 User.prototype.setNewPassword = function setNewPassword (data, token) {
   return __async(function* () {
 
-    var body = "password=" + (data.password) + "&password_confirmation=" + (data.password_confirmation);
+    var body = &quot;password=&quot; + (data.password) + &quot;&amp;password_confirmation=&quot; + (data.password_confirmation);
 
     try {
       var response = yield fetch(API.setNewPassword(token), {
-        method: 'PUT',
+        method: &#x27;PUT&#x27;,
         body: body,
         headers: {
-          'Content-Type': 'x-www-form-urlencoded'
+          &#x27;Content-Type&#x27;: &#x27;x-www-form-urlencoded&#x27;
         }
       });
 
@@ -492,17 +575,17 @@ User.prototype.setNewPassword = function setNewPassword (data, token) {
  * @async
  * @param {String} token - The authorization token
  * @example
- * InPlayer.User.getAccountInfo('afhqi83rji74hjf7e43df')
- * .then(data => console.log(data));
+ * InPlayer.User.getAccountInfo(&#x27;afhqi83rji74hjf7e43df&#x27;)
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 User.prototype.getAccountInfo = function getAccountInfo (token) {
   return __async(function* () {
     try {
       var response = yield fetch(API.getAccountInfo, {
-        method: 'GET',
+        method: &#x27;GET&#x27;,
         headers: {
-          'Authorization': 'Bearer ' + token
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
         }
       });
 
@@ -520,15 +603,15 @@ User.prototype.getAccountInfo = function getAccountInfo (token) {
  * @async
  * @param {String} state - The state for the social
  * @example
- * InPlayer.User.getSocialLoginUrls('123124-1r-1r13ur1h1')
- * .then(data => console.log(data));
+ * InPlayer.User.getSocialLoginUrls(&#x27;123124-1r-1r13ur1h1&#x27;)
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 User.prototype.getSocialLoginUrls = function getSocialLoginUrls (state) {
   return __async(function* () {
     try {
       var response = yield fetch(API.social(state), {
-        method: 'GET'
+        method: &#x27;GET&#x27;
       });
 
       var data = yield response.json();
@@ -547,19 +630,19 @@ User.prototype.getSocialLoginUrls = function getSocialLoginUrls (state) {
  * @param {Object} data - The new data for the account
  * @param {String} token - The authorization token
  * @example
- * InPlayer.User.updateAccount({},'123124-1r-1r13ur1h1')
- * .then(data => console.log(data));
+ * InPlayer.User.updateAccount({},&#x27;123124-1r-1r13ur1h1&#x27;)
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 User.prototype.updateAccount = function updateAccount (data, token) {
   return __async(function* () {
     try {
       var response = yield fetch(API.updateAccount, {
-        method: 'PUT',
+        method: &#x27;PUT&#x27;,
         body: data,
         headers: {
-          'Authorization': 'Bearer ' + token,
-          'Content-Type': 'x-www-form-urlencoded'
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token,
+          &#x27;Content-Type&#x27;: &#x27;x-www-form-urlencoded&#x27;
         }
       });
 
@@ -579,18 +662,18 @@ User.prototype.updateAccount = function updateAccount (data, token) {
  * @param {Object} data - Contains new password
  * @param {String} token - The authorization token
  * @example
- * InPlayer.User.updateAccount({},'123124-1r-1r13ur1h1')
- * .then(data => console.log(data));
+ * InPlayer.User.updateAccount({},&#x27;123124-1r-1r13ur1h1&#x27;)
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 User.prototype.changePassword = function changePassword (data, token) {
   return __async(function* () {
     try {
       var response = yield fetch(API.changePassword, {
-        method: 'POST',
+        method: &#x27;POST&#x27;,
         body: data,
         headers: {
-          'Authorization': 'Bearer ' + token
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
         }
       });
 
@@ -609,8 +692,8 @@ User.prototype.changePassword = function changePassword (data, token) {
  * @async
  * @param {String} merchant_uuid - The merchant UUID
  * @example
- * InPlayer.User.getRegisterFields('123124-1r-1r13ur1h1')
- * .then(data => console.log(data));
+ * InPlayer.User.getRegisterFields(&#x27;123124-1r-1r13ur1h1&#x27;)
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 User.prototype.getRegisterFields = function getRegisterFields (merchant_uuid) {
@@ -634,7 +717,7 @@ Asset.prototype.checkAccessForAsset = function checkAccessForAsset (token, id) {
     try {
       var response = yield fetch(API.checkAccess(id), {
         headers: {
-          'Authorization': 'Bearer ' + token
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
         }
       });
 
@@ -654,8 +737,8 @@ Asset.prototype.checkAccessForAsset = function checkAccessForAsset (token, id) {
  * @param {String} token - The Authorization token
  * @param {Array} ids - Array with asset ids
  * @example
- * InPlayer.Asset.checkAccessForMultipleAssets('eyJ0eXAiOiJKPECENR5Y',[36320,27215])
- * .then(data => console.log(data));
+ * InPlayer.Asset.checkAccessForMultipleAssets(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,[36320,27215])
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 Asset.prototype.checkAccessForMultipleAssets = function checkAccessForMultipleAssets (token, ids) {
@@ -663,7 +746,7 @@ Asset.prototype.checkAccessForMultipleAssets = function checkAccessForMultipleAs
     try {
       var response = yield fetch(API.checkAccess(ids, true), {
         headers: {
-          'Authorization': 'Bearer ' + token
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
         }
       });
 
@@ -683,15 +766,15 @@ Asset.prototype.checkAccessForMultipleAssets = function checkAccessForMultipleAs
  * @param {Numer} assetId - The ID of the asset
  * @param {String} merchant_uuid - The merchant UUID string
  * @example
- * InPlayer.Asset.findAsset(2,'a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl')
- * .then(data => console.log(data));
+ * InPlayer.Asset.findAsset(2,&#x27;a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl&#x27;)
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 Asset.prototype.findAsset = function findAsset (assetId, merchant_uuid) {
   return __async(function* () {
     try {
       var response = yield fetch(API.findAsset(assetId, merchant_uuid), {
-        method: 'GET'
+        method: &#x27;GET&#x27;
       });
 
       var data = yield response.json();
@@ -704,21 +787,21 @@ Asset.prototype.findAsset = function findAsset (assetId, merchant_uuid) {
 };
 
 /**
- * Get an external assets' info
+ * Get an external assets&#x27; info
  * @method findExternalAsset
  * @async
  * @param {Numer} assetType - The type ID of the asset
  * @param {Number} externalId - The ID of the external asset
  * @example
  * InPlayer.Asset.findExternalAsset(2,44237)
- * .then(data => console.log(data));
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 Asset.prototype.findExternalAsset = function findExternalAsset (assetType, externalId) {
   return __async(function* () {
     try {
       var response = yield fetch(API.findExternalAsset(assetType, externalId), {
-        method: 'GET'
+        method: &#x27;GET&#x27;
       });
 
       var data = yield response.json();
@@ -737,14 +820,14 @@ Asset.prototype.findExternalAsset = function findExternalAsset (assetType, exter
  * @param {Numer} id - The type ID of the package
  * @example
  * InPlayer.Asset.findPackage(4444)
- * .then(data => console.log(data));
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 Asset.prototype.findPackage = function findPackage (id) {
   return __async(function* () {
     try {
       var response = yield fetch(API.findPackage(id), {
-        method: 'GET'
+        method: &#x27;GET&#x27;
       });
 
       var data = yield response.json();
@@ -763,14 +846,14 @@ Asset.prototype.findPackage = function findPackage (id) {
  * @param {Numer} id - The ID of the asset
  * @example
  * InPlayer.Asset.getAssetAccessFees(555)
- * .then(data => console.log(data))
+ * .then(data =&gt; console.log(data))
  * @return {Object}
 */
 Asset.prototype.getAssetAccessFees = function getAssetAccessFees (id) {
   return __async(function* () {
     try {
       var response = yield fetch(API.findAccessFees(id), {
-        method: 'GET'
+        method: &#x27;GET&#x27;
       });
 
       var data = yield response.json();
@@ -789,17 +872,17 @@ Asset.prototype.getAssetAccessFees = function getAssetAccessFees (id) {
  * @param {String} token - The authorization token
  * @param {Object} data - {}
  * @example
- * InPlayer.Asset.freemiumAsset('uoifhadafefbad1312nfuqd123', {})
- * .then(data => console.log(data));
+ * InPlayer.Asset.freemiumAsset(&#x27;uoifhadafefbad1312nfuqd123&#x27;, {})
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 Asset.prototype.freemiumAsset = function freemiumAsset (token, data) {
   return __async(function* () {
     try {
       var response = yield fetch(API.freemium, {
-        method: 'POST',
+        method: &#x27;POST&#x27;,
         headers: {
-          'Authorization': 'Bearer ' + token
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
         },
         body: data
       });
@@ -820,7 +903,7 @@ Payment.prototype.getPaymentMethods = function getPaymentMethods (token) {
     try {
       var response = yield fetch(API.getPaymentMethods, {
         headers: {
-          'Authorization': 'Bearer ' + token
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
         }
       });
 
@@ -840,8 +923,8 @@ Payment.prototype.getPaymentMethods = function getPaymentMethods (token) {
  * @param {String} token - The Authorization token
  * @param {Number} paymentMethodId - The Payment Method ID
  * @example
- * InPlayer.Payment.getPaymentTools('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', 2)
- * .then(data => console.log(data));
+ * InPlayer.Payment.getPaymentTools(&#x27;dajh8ao8djadd2o8jh2ofkhdhqkgog3oj&#x27;, 2)
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 Payment.prototype.getPaymentTools = function getPaymentTools (token, paymentMethodId) {
@@ -849,7 +932,7 @@ Payment.prototype.getPaymentTools = function getPaymentTools (token, paymentMeth
     try {
       var response = yield fetch(API.getPaymentTools(paymentMethodId), {
         headers: {
-          'Authorization': 'Bearer ' + token
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
         }
       });
 
@@ -870,26 +953,26 @@ Payment.prototype.getPaymentTools = function getPaymentTools (token, paymentMeth
  * @param {Object} data - Payment data
  * @example
  * // data.payment_method = { id.... }
- * InPlayer.Payment.getPaymentTools('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {
+ * InPlayer.Payment.getPaymentTools(&#x27;dajh8ao8djadd2o8jh2ofkhdhqkgog3oj&#x27;, {
  *number: 4111111111111111,
- *card_name: 'PayPal',
+ *card_name: &#x27;PayPal&#x27;,
  *exp_month: 10,
  *exp_year: 2030,
  *cvv: 656,
  *access_fee: 2341,
  *payment_method: 1,
- *referrer: 'http://google.com'
+ *referrer: &#x27;http://google.com&#x27;
  * })
- * .then(data => console.log(data));
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 Payment.prototype.payForAsset = function payForAsset (token, data) {
   return __async(function* () {
     try {
       var response = yield fetch(API.payForAsset, {
-        method: 'POST',
+        method: &#x27;POST&#x27;,
         headers: {
-          'Authorization': 'Bearer ' + token
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
         },
         body: data
       });
@@ -910,17 +993,17 @@ Payment.prototype.payForAsset = function payForAsset (token, data) {
  * @param {String} token - The Authorization token
  * @param {Object} data - Contains details
  * @example
- * InPlayer.Payment.getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {})
- * .then(data => console.log(data));
+ * InPlayer.Payment.getPayPalParams(&#x27;dajh8ao8djadd2o8jh2ofkhdhqkgog3oj&#x27;, {})
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 Payment.prototype.getPayPalParams = function getPayPalParams (token, data) {
   return __async(function* () {
     try {
       var response = yield fetch(API.externalPayments, {
-        method: 'POST',
+        method: &#x27;POST&#x27;,
         headers: {
-          'Authorization': 'Bearer ' + token
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
         },
         body: data
       });
@@ -945,9 +1028,9 @@ Subscriptions.prototype.getSubscriptions = function getSubscriptions (token) {
   return __async(function* () {
     try {
       var response = yield fetch(API.getSubscriptions, {
-        method: 'GET',
+        method: &#x27;GET&#x27;,
         headers: {
-          'Authorization': 'Bearer ' + token
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
         }
       });
 
@@ -967,17 +1050,17 @@ Subscriptions.prototype.getSubscriptions = function getSubscriptions (token) {
  * @param {String} unsubscribe_url - The url for the subscription which is getting unsubscribed
  * @param {String} token - The Authorization token
  * @example
- * InPlayer.Subscriptions.cancelSubscription('http://localhost/subscription/1','eyJ0eXAiOiJKPECENR5Y')
- * .then(data => console.log(data));
+ * InPlayer.Subscriptions.cancelSubscription(&#x27;http://localhost/subscription/1&#x27;,&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;)
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 Subscriptions.prototype.cancelSubscription = function cancelSubscription (unsubscribe_url, token) {
   return __async(function* () {
     try {
       var response = yield fetch(unsubscribe_url, {
-        method: 'GET',
+        method: &#x27;GET&#x27;,
         headers: {
-          'Authorization': 'Bearer ' + token
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
         }
       });
 
@@ -997,17 +1080,17 @@ Subscriptions.prototype.cancelSubscription = function cancelSubscription (unsubs
  * @param {String} token - The Authorization token
  * @param {Object} data - {}
  * @example
- * InPlayer.Subscriptions.assetSubscribe('eyJ0eXAiOiJKPECENR5Y', {})
- * .then(data => console.log(data));
+ * InPlayer.Subscriptions.assetSubscribe(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;, {})
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 Subscriptions.prototype.assetSubscribe = function assetSubscribe (token, data) {
   return __async(function* () {
     try {
       var response = yield fetch(API.subscribe, {
-        method: 'POST',
+        method: &#x27;POST&#x27;,
         headers: {
-          'Authorization': 'Bearer ' + token
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
         },
         body: data
       });
@@ -1028,7 +1111,7 @@ Misc.prototype.getDlcLinks = function getDlcLinks (token, assetId) {
     try {
       var response = yield fetch(API.getDlcLinks(assetId), {
         headers: {
-          'Authorization': 'Bearer ' + token
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
         }
       });
 
@@ -1048,17 +1131,17 @@ Misc.prototype.getDlcLinks = function getDlcLinks (token, assetId) {
  * @param {String} token - The Authorization token
  * @param {Object} data - {}
  * @example
- * InPlayer.Misc.getDiscount('eyJ0eXAiOiJKPECENR5Y',{})
- * .then(data => console.log(data));
+ * InPlayer.Misc.getDiscount(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,{})
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 Misc.prototype.getDiscount = function getDiscount (token, data) {
   return __async(function* () {
     try {
       var response = yield fetch(API.getDiscount, {
-        method: 'POST',
+        method: &#x27;POST&#x27;,
         headers: {
-          'Authorization': 'Bearer ' + token
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
         },
         body: data
       });
@@ -1078,15 +1161,15 @@ Misc.prototype.getDiscount = function getDiscount (token, data) {
  * @async
  * @param {String} merchant_uuid - The UUID of the merchant
  * @example
- * InPlayer.Misc.getBranding('eyJ0e-XAiOi-JKPEC-ENR5Y')
- * .then(data => console.log(data));
+ * InPlayer.Misc.getBranding(&#x27;eyJ0e-XAiOi-JKPEC-ENR5Y&#x27;)
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 Misc.prototype.getBranding = function getBranding (merchant_uuid) {
   return __async(function* () {
     try {
       var response = yield fetch(API.getBranding(merchant_uuid), {
-        method: 'GET'
+        method: &#x27;GET&#x27;
       });
 
       var data = yield response.json();
@@ -1106,8 +1189,8 @@ Misc.prototype.getBranding = function getBranding (merchant_uuid) {
  * @param {number} assetId - The Id of the asset
  * @param {String} filename - The name of the file
  * @example
- * InPlayer.Misc.downloadProtectedFile('eyJ0eXAiOiJKPECENR5Y',2234, 'test.js')
- * .then(data => console.log(data));
+ * InPlayer.Misc.downloadProtectedFile(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,2234, &#x27;test.js&#x27;)
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 Misc.prototype.downloadProtectedFile = function downloadProtectedFile (token, assetId, filename) {
@@ -1115,7 +1198,7 @@ Misc.prototype.downloadProtectedFile = function downloadProtectedFile (token, as
     try {
       var response = yield fetch(API.downloadFile(assetId, filename), {
         headers: {
-          'Authorization': 'Bearer ' + token
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
         }
       });
 
@@ -1134,15 +1217,15 @@ Misc.prototype.downloadProtectedFile = function downloadProtectedFile (token, as
  * @async
  * @param {String} url - The url from where to fetch
  * @example
- * InPlayer.Misc.fetchWPContent('http://localhost:3000')
- * .then(data => console.log(data));
+ * InPlayer.Misc.fetchWPContent(&#x27;http://localhost:3000&#x27;)
+ * .then(data =&gt; console.log(data));
  * @return {Object}
 */
 Misc.prototype.fetchWPContent = function fetchWPContent (url) {
   return __async(function* () {
     try {
       var response = yield fetch(url, {
-        credentials: 'same-origin'
+        credentials: &#x27;same-origin&#x27;
       });
 
       var data = yield response.json();
@@ -1170,8 +1253,8 @@ var stomp = createCommonjsModule(function (module, exports) {
     __slice = [].slice;
 
   Byte = {
-    LF: '\x0A',
-    NULL: '\x00'
+    LF: &#x27;\x0A&#x27;,
+    NULL: &#x27;\x00&#x27;
   };
 
   Frame = (function() {
@@ -1180,24 +1263,24 @@ var stomp = createCommonjsModule(function (module, exports) {
     function Frame(command, headers, body) {
       this.command = command;
       this.headers = headers != null ? headers : {};
-      this.body = body != null ? body : '';
+      this.body = body != null ? body : &#x27;&#x27;;
     }
 
     Frame.prototype.toString = function() {
       var lines, name, skipContentLength, value, _ref;
       lines = [this.command];
-      skipContentLength = this.headers['content-length'] === false ? true : false;
+      skipContentLength = this.headers[&#x27;content-length&#x27;] === false ? true : false;
       if (skipContentLength) {
-        delete this.headers['content-length'];
+        delete this.headers[&#x27;content-length&#x27;];
       }
       _ref = this.headers;
       for (name in _ref) {
         if (!__hasProp.call(_ref, name)) { continue; }
         value = _ref[name];
-        lines.push("" + name + ":" + value);
+        lines.push(&quot;&quot; + name + &quot;:&quot; + value);
       }
-      if (this.body && !skipContentLength) {
-        lines.push("content-length:" + (Frame.sizeOfUTF8(this.body)));
+      if (this.body &amp;&amp; !skipContentLength) {
+        lines.push(&quot;content-length:&quot; + (Frame.sizeOfUTF8(this.body)));
       }
       lines.push(Byte.LF + this.body);
       return lines.join(Byte.LF);
@@ -1213,27 +1296,27 @@ var stomp = createCommonjsModule(function (module, exports) {
 
     unmarshallSingle = function(data) {
       var body, chr, command, divider, headerLines, headers, i, idx, len, line, start, trim, _i, _j, _len, _ref, _ref1;
-      divider = data.search(RegExp("" + Byte.LF + Byte.LF));
+      divider = data.search(RegExp(&quot;&quot; + Byte.LF + Byte.LF));
       headerLines = data.substring(0, divider).split(Byte.LF);
       command = headerLines.shift();
       headers = {};
       trim = function(str) {
-        return str.replace(/^\s+|\s+$/g, '');
+        return str.replace(/^\s+|\s+$/g, &#x27;&#x27;);
       };
       _ref = headerLines.reverse();
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      for (_i = 0, _len = _ref.length; _i &lt; _len; _i++) {
         line = _ref[_i];
-        idx = line.indexOf(':');
+        idx = line.indexOf(&#x27;:&#x27;);
         headers[trim(line.substring(0, idx))] = trim(line.substring(idx + 1));
       }
-      body = '';
+      body = &#x27;&#x27;;
       start = divider + 2;
-      if (headers['content-length']) {
-        len = parseInt(headers['content-length']);
-        body = ('' + data).substring(start, start + len);
+      if (headers[&#x27;content-length&#x27;]) {
+        len = parseInt(headers[&#x27;content-length&#x27;]);
+        body = (&#x27;&#x27; + data).substring(start, start + len);
       } else {
         chr = null;
-        for (i = _j = start, _ref1 = data.length; start <= _ref1 ? _j < _ref1 : _j > _ref1; i = start <= _ref1 ? ++_j : --_j) {
+        for (i = _j = start, _ref1 = data.length; start &lt;= _ref1 ? _j &lt; _ref1 : _j &gt; _ref1; i = start &lt;= _ref1 ? ++_j : --_j) {
           chr = data.charAt(i);
           if (chr === Byte.NULL) {
             break;
@@ -1248,11 +1331,11 @@ var stomp = createCommonjsModule(function (module, exports) {
       var data;
       return (function() {
         var _i, _len, _ref, _results;
-        _ref = datas.split(RegExp("" + Byte.NULL + Byte.LF + "*"));
+        _ref = datas.split(RegExp(&quot;&quot; + Byte.NULL + Byte.LF + &quot;*&quot;));
         _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        for (_i = 0, _len = _ref.length; _i &lt; _len; _i++) {
           data = _ref[_i];
-          if ((data != null ? data.length : void 0) > 0) {
+          if ((data != null ? data.length : void 0) &gt; 0) {
             _results.push(unmarshallSingle(data));
           }
         }
@@ -1275,7 +1358,7 @@ var stomp = createCommonjsModule(function (module, exports) {
 
     function Client(ws) {
       this.ws = ws;
-      this.ws.binaryType = "arraybuffer";
+      this.ws.binaryType = &quot;arraybuffer&quot;;
       this.counter = 0;
       this.connected = false;
       this.heartbeat = {
@@ -1288,7 +1371,7 @@ var stomp = createCommonjsModule(function (module, exports) {
 
     Client.prototype.debug = function(message) {
       var _ref;
-      return typeof window !== "undefined" && window !== null ? (_ref = window.console) != null ? _ref.log(message) : void 0 : void 0;
+      return typeof window !== &quot;undefined&quot; &amp;&amp; window !== null ? (_ref = window.console) != null ? _ref.log(message) : void 0 : void 0;
     };
 
     now = function() {
@@ -1304,15 +1387,15 @@ var stomp = createCommonjsModule(function (module, exports) {
 
       var out;
       out = Frame.marshall(command, headers, body);
-      if (typeof this.debug === "function") {
-        this.debug(">>> " + out);
+      if (typeof this.debug === &quot;function&quot;) {
+        this.debug(&quot;&gt;&gt;&gt; &quot; + out);
       }
       while (true) {
-        if (out.length > this$1.maxWebSocketFrameSize) {
+        if (out.length &gt; this$1.maxWebSocketFrameSize) {
           this$1.ws.send(out.substring(0, this$1.maxWebSocketFrameSize));
           out = out.substring(this$1.maxWebSocketFrameSize);
-          if (typeof this$1.debug === "function") {
-            this$1.debug("remaining = " + out.length);
+          if (typeof this$1.debug === &quot;function&quot;) {
+            this$1.debug(&quot;remaining = &quot; + out.length);
           }
         } else {
           return this$1.ws.send(out);
@@ -1322,14 +1405,14 @@ var stomp = createCommonjsModule(function (module, exports) {
 
     Client.prototype._setupHeartbeat = function(headers) {
       var serverIncoming, serverOutgoing, ttl, v, _ref, _ref1;
-      if ((_ref = headers.version) !== Stomp.VERSIONS.V1_1 && _ref !== Stomp.VERSIONS.V1_2) {
+      if ((_ref = headers.version) !== Stomp.VERSIONS.V1_1 &amp;&amp; _ref !== Stomp.VERSIONS.V1_2) {
         return;
       }
       _ref1 = (function() {
         var _i, _len, _ref1, _results;
-        _ref1 = headers['heart-beat'].split(",");
+        _ref1 = headers[&#x27;heart-beat&#x27;].split(&quot;,&quot;);
         _results = [];
-        for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+        for (_i = 0, _len = _ref1.length; _i &lt; _len; _i++) {
           v = _ref1[_i];
           _results.push(parseInt(v));
         }
@@ -1337,28 +1420,28 @@ var stomp = createCommonjsModule(function (module, exports) {
       })(), serverOutgoing = _ref1[0], serverIncoming = _ref1[1];
       if (!(this.heartbeat.outgoing === 0 || serverIncoming === 0)) {
         ttl = Math.max(this.heartbeat.outgoing, serverIncoming);
-        if (typeof this.debug === "function") {
-          this.debug("send PING every " + ttl + "ms");
+        if (typeof this.debug === &quot;function&quot;) {
+          this.debug(&quot;send PING every &quot; + ttl + &quot;ms&quot;);
         }
         this.pinger = Stomp.setInterval(ttl, (function(_this) {
           return function() {
             _this.ws.send(Byte.LF);
-            return typeof _this.debug === "function" ? _this.debug(">>> PING") : void 0;
+            return typeof _this.debug === &quot;function&quot; ? _this.debug(&quot;&gt;&gt;&gt; PING&quot;) : void 0;
           };
         })(this));
       }
       if (!(this.heartbeat.incoming === 0 || serverOutgoing === 0)) {
         ttl = Math.max(this.heartbeat.incoming, serverOutgoing);
-        if (typeof this.debug === "function") {
-          this.debug("check PONG every " + ttl + "ms");
+        if (typeof this.debug === &quot;function&quot;) {
+          this.debug(&quot;check PONG every &quot; + ttl + &quot;ms&quot;);
         }
         return this.ponger = Stomp.setInterval(ttl, (function(_this) {
           return function() {
             var delta;
             delta = now() - _this.serverActivity;
-            if (delta > ttl * 2) {
-              if (typeof _this.debug === "function") {
-                _this.debug("did not receive server activity for the last " + delta + "ms");
+            if (delta &gt; ttl * 2) {
+              if (typeof _this.debug === &quot;function&quot;) {
+                _this.debug(&quot;did not receive server activity for the last &quot; + delta + &quot;ms&quot;);
               }
               return _this.ws.close();
             }
@@ -1369,7 +1452,7 @@ var stomp = createCommonjsModule(function (module, exports) {
 
     Client.prototype._parseConnect = function() {
       var args, connectCallback, errorCallback, headers;
-      args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      args = 1 &lt;= arguments.length ? __slice.call(arguments, 0) : [];
       headers = {};
       switch (args.length) {
         case 2:
@@ -1393,53 +1476,53 @@ var stomp = createCommonjsModule(function (module, exports) {
 
     Client.prototype.connect = function() {
       var args, errorCallback, headers, out;
-      args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      args = 1 &lt;= arguments.length ? __slice.call(arguments, 0) : [];
       out = this._parseConnect.apply(this, args);
       headers = out[0], this.connectCallback = out[1], errorCallback = out[2];
-      if (typeof this.debug === "function") {
-        this.debug("Opening Web Socket...");
+      if (typeof this.debug === &quot;function&quot;) {
+        this.debug(&quot;Opening Web Socket...&quot;);
       }
       this.ws.onmessage = (function(_this) {
         return function(evt) {
           var arr, c, client, data, frame, messageID, onreceive, subscription, _i, _len, _ref, _results;
-          data = typeof ArrayBuffer !== 'undefined' && evt.data instanceof ArrayBuffer ? (arr = new Uint8Array(evt.data), typeof _this.debug === "function" ? _this.debug("--- got data length: " + arr.length) : void 0, ((function() {
+          data = typeof ArrayBuffer !== &#x27;undefined&#x27; &amp;&amp; evt.data instanceof ArrayBuffer ? (arr = new Uint8Array(evt.data), typeof _this.debug === &quot;function&quot; ? _this.debug(&quot;--- got data length: &quot; + arr.length) : void 0, ((function() {
             var _i, _len, _results;
             _results = [];
-            for (_i = 0, _len = arr.length; _i < _len; _i++) {
+            for (_i = 0, _len = arr.length; _i &lt; _len; _i++) {
               c = arr[_i];
               _results.push(String.fromCharCode(c));
             }
             return _results;
-          })()).join('')) : evt.data;
+          })()).join(&#x27;&#x27;)) : evt.data;
           _this.serverActivity = now();
           if (data === Byte.LF) {
-            if (typeof _this.debug === "function") {
-              _this.debug("<<< PONG");
+            if (typeof _this.debug === &quot;function&quot;) {
+              _this.debug(&quot;&lt;&lt;&lt; PONG&quot;);
             }
             return;
           }
-          if (typeof _this.debug === "function") {
-            _this.debug("<<< " + data);
+          if (typeof _this.debug === &quot;function&quot;) {
+            _this.debug(&quot;&lt;&lt;&lt; &quot; + data);
           }
           _ref = Frame.unmarshall(data);
           _results = [];
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          for (_i = 0, _len = _ref.length; _i &lt; _len; _i++) {
             frame = _ref[_i];
             switch (frame.command) {
-              case "CONNECTED":
-                if (typeof _this.debug === "function") {
-                  _this.debug("connected to server " + frame.headers.server);
+              case &quot;CONNECTED&quot;:
+                if (typeof _this.debug === &quot;function&quot;) {
+                  _this.debug(&quot;connected to server &quot; + frame.headers.server);
                 }
                 _this.connected = true;
                 _this._setupHeartbeat(frame.headers);
-                _results.push(typeof _this.connectCallback === "function" ? _this.connectCallback(frame) : void 0);
+                _results.push(typeof _this.connectCallback === &quot;function&quot; ? _this.connectCallback(frame) : void 0);
                 break;
-              case "MESSAGE":
+              case &quot;MESSAGE&quot;:
                 subscription = frame.headers.subscription;
                 onreceive = _this.subscriptions[subscription] || _this.onreceive;
                 if (onreceive) {
                   client = _this;
-                  messageID = frame.headers["message-id"];
+                  messageID = frame.headers[&quot;message-id&quot;];
                   frame.ack = function(headers) {
                     if (headers == null) {
                       headers = {};
@@ -1454,17 +1537,17 @@ var stomp = createCommonjsModule(function (module, exports) {
                   };
                   _results.push(onreceive(frame));
                 } else {
-                  _results.push(typeof _this.debug === "function" ? _this.debug("Unhandled received MESSAGE: " + frame) : void 0);
+                  _results.push(typeof _this.debug === &quot;function&quot; ? _this.debug(&quot;Unhandled received MESSAGE: &quot; + frame) : void 0);
                 }
                 break;
-              case "RECEIPT":
-                _results.push(typeof _this.onreceipt === "function" ? _this.onreceipt(frame) : void 0);
+              case &quot;RECEIPT&quot;:
+                _results.push(typeof _this.onreceipt === &quot;function&quot; ? _this.onreceipt(frame) : void 0);
                 break;
-              case "ERROR":
-                _results.push(typeof errorCallback === "function" ? errorCallback(frame) : void 0);
+              case &quot;ERROR&quot;:
+                _results.push(typeof errorCallback === &quot;function&quot; ? errorCallback(frame) : void 0);
                 break;
               default:
-                _results.push(typeof _this.debug === "function" ? _this.debug("Unhandled frame: " + frame) : void 0);
+                _results.push(typeof _this.debug === &quot;function&quot; ? _this.debug(&quot;Unhandled frame: &quot; + frame) : void 0);
             }
           }
           return _results;
@@ -1473,22 +1556,22 @@ var stomp = createCommonjsModule(function (module, exports) {
       this.ws.onclose = (function(_this) {
         return function() {
           var msg;
-          msg = "Whoops! Lost connection to " + _this.ws.url;
-          if (typeof _this.debug === "function") {
+          msg = &quot;Whoops! Lost connection to &quot; + _this.ws.url;
+          if (typeof _this.debug === &quot;function&quot;) {
             _this.debug(msg);
           }
           _this._cleanUp();
-          return typeof errorCallback === "function" ? errorCallback(msg) : void 0;
+          return typeof errorCallback === &quot;function&quot; ? errorCallback(msg) : void 0;
         };
       })(this);
       return this.ws.onopen = (function(_this) {
         return function() {
-          if (typeof _this.debug === "function") {
-            _this.debug('Web Socket Opened...');
+          if (typeof _this.debug === &quot;function&quot;) {
+            _this.debug(&#x27;Web Socket Opened...&#x27;);
           }
-          headers["accept-version"] = Stomp.VERSIONS.supportedVersions();
-          headers["heart-beat"] = [_this.heartbeat.outgoing, _this.heartbeat.incoming].join(',');
-          return _this._transmit("CONNECT", headers);
+          headers[&quot;accept-version&quot;] = Stomp.VERSIONS.supportedVersions();
+          headers[&quot;heart-beat&quot;] = [_this.heartbeat.outgoing, _this.heartbeat.incoming].join(&#x27;,&#x27;);
+          return _this._transmit(&quot;CONNECT&quot;, headers);
         };
       })(this);
     };
@@ -1497,11 +1580,11 @@ var stomp = createCommonjsModule(function (module, exports) {
       if (headers == null) {
         headers = {};
       }
-      this._transmit("DISCONNECT", headers);
+      this._transmit(&quot;DISCONNECT&quot;, headers);
       this.ws.onclose = null;
       this.ws.close();
       this._cleanUp();
-      return typeof disconnectCallback === "function" ? disconnectCallback() : void 0;
+      return typeof disconnectCallback === &quot;function&quot; ? disconnectCallback() : void 0;
     };
 
     Client.prototype._cleanUp = function() {
@@ -1519,10 +1602,10 @@ var stomp = createCommonjsModule(function (module, exports) {
         headers = {};
       }
       if (body == null) {
-        body = '';
+        body = &#x27;&#x27;;
       }
       headers.destination = destination;
-      return this._transmit("SEND", headers, body);
+      return this._transmit(&quot;SEND&quot;, headers, body);
     };
 
     Client.prototype.subscribe = function(destination, callback, headers) {
@@ -1531,11 +1614,11 @@ var stomp = createCommonjsModule(function (module, exports) {
         headers = {};
       }
       if (!headers.id) {
-        headers.id = "sub-" + this.counter++;
+        headers.id = &quot;sub-&quot; + this.counter++;
       }
       headers.destination = destination;
       this.subscriptions[headers.id] = callback;
-      this._transmit("SUBSCRIBE", headers);
+      this._transmit(&quot;SUBSCRIBE&quot;, headers);
       client = this;
       return {
         id: headers.id,
@@ -1547,15 +1630,15 @@ var stomp = createCommonjsModule(function (module, exports) {
 
     Client.prototype.unsubscribe = function(id) {
       delete this.subscriptions[id];
-      return this._transmit("UNSUBSCRIBE", {
+      return this._transmit(&quot;UNSUBSCRIBE&quot;, {
         id: id
       });
     };
 
     Client.prototype.begin = function(transaction) {
       var client, txid;
-      txid = transaction || "tx-" + this.counter++;
-      this._transmit("BEGIN", {
+      txid = transaction || &quot;tx-&quot; + this.counter++;
+      this._transmit(&quot;BEGIN&quot;, {
         transaction: txid
       });
       client = this;
@@ -1571,13 +1654,13 @@ var stomp = createCommonjsModule(function (module, exports) {
     };
 
     Client.prototype.commit = function(transaction) {
-      return this._transmit("COMMIT", {
+      return this._transmit(&quot;COMMIT&quot;, {
         transaction: transaction
       });
     };
 
     Client.prototype.abort = function(transaction) {
-      return this._transmit("ABORT", {
+      return this._transmit(&quot;ABORT&quot;, {
         transaction: transaction
       });
     };
@@ -1586,18 +1669,18 @@ var stomp = createCommonjsModule(function (module, exports) {
       if (headers == null) {
         headers = {};
       }
-      headers["message-id"] = messageID;
+      headers[&quot;message-id&quot;] = messageID;
       headers.subscription = subscription;
-      return this._transmit("ACK", headers);
+      return this._transmit(&quot;ACK&quot;, headers);
     };
 
     Client.prototype.nack = function(messageID, subscription, headers) {
       if (headers == null) {
         headers = {};
       }
-      headers["message-id"] = messageID;
+      headers[&quot;message-id&quot;] = messageID;
       headers.subscription = subscription;
-      return this._transmit("NACK", headers);
+      return this._transmit(&quot;NACK&quot;, headers);
     };
 
     return Client;
@@ -1606,17 +1689,17 @@ var stomp = createCommonjsModule(function (module, exports) {
 
   Stomp = {
     VERSIONS: {
-      V1_0: '1.0',
-      V1_1: '1.1',
-      V1_2: '1.2',
+      V1_0: &#x27;1.0&#x27;,
+      V1_1: &#x27;1.1&#x27;,
+      V1_2: &#x27;1.2&#x27;,
       supportedVersions: function() {
-        return '1.1,1.0';
+        return &#x27;1.1,1.0&#x27;;
       }
     },
     client: function(url, protocols) {
       var klass, ws;
       if (protocols == null) {
-        protocols = ['v10.stomp', 'v11.stomp'];
+        protocols = [&#x27;v10.stomp&#x27;, &#x27;v11.stomp&#x27;];
       }
       klass = Stomp.WebSocketClass || WebSocket;
       ws = new klass(url, protocols);
@@ -1628,11 +1711,11 @@ var stomp = createCommonjsModule(function (module, exports) {
     Frame: Frame
   };
 
-  if ('object' !== "undefined" && exports !== null) {
+  if (&#x27;object&#x27; !== &quot;undefined&quot; &amp;&amp; exports !== null) {
     exports.Stomp = Stomp;
   }
 
-  if (typeof window !== "undefined" && window !== null) {
+  if (typeof window !== &quot;undefined&quot; &amp;&amp; window !== null) {
     Stomp.setInterval = function(interval, f) {
       return window.setInterval(f, interval);
     };
@@ -1677,7 +1760,7 @@ var stompNode = createCommonjsModule(function (module, exports) {
     var socket, ws;
     socket = null;
     ws = {
-      url: 'tcp:// ' + host + ':' + port,
+      url: &#x27;tcp:// &#x27; + host + &#x27;:&#x27; + port,
       send: function(d) {
         return socket.write(d);
       },
@@ -1688,16 +1771,16 @@ var stompNode = createCommonjsModule(function (module, exports) {
     socket = net$$1.connect(port, host, function(e) {
       return ws.onopen();
     });
-    socket.on('error', function(e) {
-      return typeof ws.onclose === "function" ? ws.onclose(e) : void 0;
+    socket.on(&#x27;error&#x27;, function(e) {
+      return typeof ws.onclose === &quot;function&quot; ? ws.onclose(e) : void 0;
     });
-    socket.on('close', function(e) {
-      return typeof ws.onclose === "function" ? ws.onclose(e) : void 0;
+    socket.on(&#x27;close&#x27;, function(e) {
+      return typeof ws.onclose === &quot;function&quot; ? ws.onclose(e) : void 0;
     });
-    socket.on('data', function(data) {
+    socket.on(&#x27;data&#x27;, function(data) {
       var event;
       event = {
-        'data': data.toString()
+        &#x27;data&#x27;: data.toString()
       };
       return ws.onmessage(event);
     });
@@ -1718,20 +1801,20 @@ var stompNode = createCommonjsModule(function (module, exports) {
       }
     };
     socket = new WebSocketClient();
-    socket.on('connect', function(conn) {
+    socket.on(&#x27;connect&#x27;, function(conn) {
       connection = conn;
       ws.onopen();
-      connection.on('error', function(error) {
-        return typeof ws.onclose === "function" ? ws.onclose(error) : void 0;
+      connection.on(&#x27;error&#x27;, function(error) {
+        return typeof ws.onclose === &quot;function&quot; ? ws.onclose(error) : void 0;
       });
-      connection.on('close', function() {
-        return typeof ws.onclose === "function" ? ws.onclose() : void 0;
+      connection.on(&#x27;close&#x27;, function() {
+        return typeof ws.onclose === &quot;function&quot; ? ws.onclose() : void 0;
       });
-      return connection.on('message', function(message) {
+      return connection.on(&#x27;message&#x27;, function(message) {
         var event;
-        if (message.type === 'utf8') {
+        if (message.type === &#x27;utf8&#x27;) {
           event = {
-            'data': message.utf8Data
+            &#x27;data&#x27;: message.utf8Data
           };
           return ws.onmessage(event);
         }
@@ -1776,25 +1859,25 @@ var Socket = function Socket() {
 
 Socket.prototype.subscribe = function subscribe (account_uuid, callbackParams) {
 
-  if (!account_uuid && account_uuid !== '') {
+  if (!account_uuid &amp;&amp; account_uuid !== &#x27;&#x27;) {
     return false;
   }
 
-  if (callbackParams && callbackParams.onmessage) {
-    if (typeof callbackParams.onmessage !== 'function') {
+  if (callbackParams &amp;&amp; callbackParams.onmessage) {
+    if (typeof callbackParams.onmessage !== &#x27;function&#x27;) {
       return false;
     }
   } else {
-    callbackParams.onMessage = function (e) { return console.log('Received message:', e); };
+    callbackParams.onMessage = function (e) { return console.log(&#x27;Received message:&#x27;, e); };
   }
 
-  if (callbackParams && callbackParams.onopen) {
-    if (typeof callbackParams.onopen !== 'function') {
+  if (callbackParams &amp;&amp; callbackParams.onopen) {
+    if (typeof callbackParams.onopen !== &#x27;function&#x27;) {
       return false;
     }
   }
 
-  var Socket = "MozWebSocket" in window ? MozWebSocket : WebSocket;
+  var Socket = &quot;MozWebSocket&quot; in window ? MozWebSocket : WebSocket;
 
   var ws = new Socket(config.stomp.url);
   this.client = stompjs.over(ws);
@@ -1808,20 +1891,20 @@ Socket.prototype.subscribe = function subscribe (account_uuid, callbackParams) {
   this.client.connect({
     login: config.stomp.login,
     passcode: config.stomp.password,
-    'client-id': account_uuid }, function () {
+    &#x27;client-id&#x27;: account_uuid }, function () {
     // call onopen callback
-    if (callbackParams && callbackParams.onopen) { callbackParams.onopen(); }
+    if (callbackParams &amp;&amp; callbackParams.onopen) { callbackParams.onopen(); }
 
     // subscribe to events
-    parent.client.subscribe('/exchange/notifications/' + uuid, callbackParams.onmessage, {
+    parent.client.subscribe(&#x27;/exchange/notifications/&#x27; + uuid, callbackParams.onmessage, {
       id: account_uuid,
-      ack: 'client'
+      ack: &#x27;client&#x27;
     });
 
     // parent.setClient(client);
   }, function (frame) {
-    if (typeof frame !== 'string') {
-      console.warn('Stomp error: ', frame);
+    if (typeof frame !== &#x27;string&#x27;) {
+      console.warn(&#x27;Stomp error: &#x27;, frame);
     }
   });
 
@@ -1832,7 +1915,7 @@ Socket.prototype.setClient = function setClient (client) {
   this.subscription = client;
 };
 Socket.prototype.unsubscribe = function unsubscribe () {
-  if (this.subscription && this.subscription.connected) {
+  if (this.subscription &amp;&amp; this.subscription.connected) {
     this.subscription.unsubscribe();
   }
 };
@@ -1858,10 +1941,10 @@ var InPlayer = function InPlayer() {
  * }
  * @example
  * InPlayer.subscribe(
- *'adsasd-d1-cjc1c-1ajaveo', {
- *  onmessage: (message) => { let body = JSON.parse(message.body); console.log(body, 'message') },
- *  onopen: (e) => console.log('open'),
- *  onclose: (e) => console.log('close', e)
+ *&#x27;adsasd-d1-cjc1c-1ajaveo&#x27;, {
+ *  onmessage: (message) =&gt; { let body = JSON.parse(message.body); console.log(body, &#x27;message&#x27;) },
+ *  onopen: (e) =&gt; console.log(&#x27;open&#x27;),
+ *  onclose: (e) =&gt; console.log(&#x27;close&#x27;, e)
  *}
  * )
  * @return {Boolean}
@@ -1891,3 +1974,19 @@ var index = new InPlayer();
 return index;
 
 })));
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

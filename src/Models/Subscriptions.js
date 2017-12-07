@@ -2,8 +2,24 @@ import {
   API
 } from '../../constants/endpoints';
 
+/**
+ * Contains all Requests connected with subscriptions
+ *
+ * @class Subscriptions
+ */
 class Subscriptions {
 
+  /**
+   * Gets all subscriptions for a given user
+   * @method getSubscriptions
+   * @async
+   * @param {String} token - The Authorization token
+   * @example
+   *     InPlayer.Subscriptions
+   *     .getSubscriptions('eyJ0eXAiOiJKPECENR5Y')
+   *     .then(data => console.log(data));
+   * @return {Object}
+  */
   async getSubscriptions(token){
     try{
       const response = await fetch(API.getSubscriptions,{
@@ -21,6 +37,18 @@ class Subscriptions {
     }
   }
 
+  /**
+   * Cancels a subscription
+   * @method cancelSubscription
+   * @async
+   * @param {String} unsubscribe_url - The url for the subscription which is getting unsubscribed
+   * @param {String} token - The Authorization token
+   * @example
+   *     InPlayer.Subscriptions
+   *     .cancelSubscription('http://localhost/subscription/1','eyJ0eXAiOiJKPECENR5Y')
+   *     .then(data => console.log(data));
+   * @return {Object}
+  */
   async cancelSubscription(unsubscribe_url, token){
     try{
       const response = await fetch(unsubscribe_url, {
@@ -38,6 +66,18 @@ class Subscriptions {
     }
   }
 
+  /**
+   * Subscribes to a given asset
+   * @method assetSubscribe
+   * @async
+   * @param {String} token - The Authorization token
+   * @param {Object} data - {}
+   * @example
+   *     InPlayer.Subscriptions
+   *     .assetSubscribe('eyJ0eXAiOiJKPECENR5Y', {})
+   *     .then(data => console.log(data));
+   * @return {Object}
+  */
   async assetSubscribe(token, data) {
     try{
       const response = await fetch(API.subscribe, {

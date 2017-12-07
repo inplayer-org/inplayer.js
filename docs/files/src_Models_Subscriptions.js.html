@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src\Models\Subscriptions.js - InPlayer SDK</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/lucid.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+            InPlayer SDK
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.1.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscriptions", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+<div>
+    <div id="sidebar">
+    <div id="classes">
+        <ul id="api-classes" class="nav nav-list">
+                <li><a href="../classes/Asset.html">Asset</a></li>
+                <li><a href="../classes/InPlayer.html">InPlayer</a></li>
+                <li><a href="../classes/Misc.html">Misc</a></li>
+                <li><a href="../classes/Payment.html">Payment</a></li>
+                <li><a href="../classes/Subscriptions.html">Subscriptions</a></li>
+                <li><a href="../classes/User.html">User</a></li>
+        </ul>
+    </div>
+    </div>
+</div>
+        </div>
+        <div class="span9">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>src\Models\Subscriptions.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+import {
+  API
+} from &#x27;../../constants/endpoints&#x27;;
+
+/**
+ * Contains all Requests connected with subscriptions
+ *
+ * @class Subscriptions
+ */
+class Subscriptions {
+
+  /**
+   * Gets all subscriptions for a given user
+   * @method getSubscriptions
+   * @async
+   * @param {String} token - The Authorization token
+   * @example
+   *     InPlayer.Subscriptions
+   *     .getSubscriptions(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;)
+   *     .then(data =&gt; console.log(data));
+   * @return {Object}
+  */
+  async getSubscriptions(token){
+    try{
+      const response = await fetch(API.getSubscriptions,{
+        method: &#x27;GET&#x27;,
+        headers: {
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
+        }
+      });
+
+      const data = response.json();
+
+      return data;
+    }catch(error){
+      return false;
+    }
+  }
+
+  /**
+   * Cancels a subscription
+   * @method cancelSubscription
+   * @async
+   * @param {String} unsubscribe_url - The url for the subscription which is getting unsubscribed
+   * @param {String} token - The Authorization token
+   * @example
+   *     InPlayer.Subscriptions
+   *     .cancelSubscription(&#x27;http://localhost/subscription/1&#x27;,&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;)
+   *     .then(data =&gt; console.log(data));
+   * @return {Object}
+  */
+  async cancelSubscription(unsubscribe_url, token){
+    try{
+      const response = await fetch(unsubscribe_url, {
+        method: &#x27;GET&#x27;,
+        headers: {
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
+        }
+      });
+
+      const data = response.json();
+
+      return data;
+    }catch(error){
+      return false;
+    }
+  }
+
+  /**
+   * Subscribes to a given asset
+   * @method assetSubscribe
+   * @async
+   * @param {String} token - The Authorization token
+   * @param {Object} data - {}
+   * @example
+   *     InPlayer.Subscriptions
+   *     .assetSubscribe(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;, {})
+   *     .then(data =&gt; console.log(data));
+   * @return {Object}
+  */
+  async assetSubscribe(token, data) {
+    try{
+      const response = await fetch(API.subscribe, {
+        method: &#x27;POST&#x27;,
+        headers: {
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
+        },
+        body: data
+      });
+
+      const data = await response.json();
+
+      return data;
+    }catch(error){
+      return false;
+    }
+  }
+}
+
+export default Subscriptions;
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

@@ -99,5 +99,13 @@
   // InPlayer.Subscriptions.getSubscriptions('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIxMTgxMDEsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIxMjE3MDF9.ZBrNhCG0KeYfnh0HQKUJ8RD2ETghcccu5Z4MIfEusP0')
   // .then(data=> console.log(data));
   // InPlayer.User.getRegisterFields('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data=>console.log(data));
+  InPlayer.subscribe('8425fe2d-b082-4b1d-9080-f3c155990744',
+      {
+        onmessage: (message) => { console.log('called'); let body = JSON.parse(message.body); console.log(body, 'message') },
+        onopen: (e) => console.log('open'),
+        onclose: (e) => console.log('close', e)
+      });
+
+  InPlayer.unsubscribe();
 </script>
 </html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src\Models\Misc.js - InPlayer SDK</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/lucid.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+            InPlayer SDK
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.1.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscriptions", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+<div>
+    <div id="sidebar">
+    <div id="classes">
+        <ul id="api-classes" class="nav nav-list">
+                <li><a href="../classes/Asset.html">Asset</a></li>
+                <li><a href="../classes/InPlayer.html">InPlayer</a></li>
+                <li><a href="../classes/Misc.html">Misc</a></li>
+                <li><a href="../classes/Payment.html">Payment</a></li>
+                <li><a href="../classes/Subscriptions.html">Subscriptions</a></li>
+                <li><a href="../classes/User.html">User</a></li>
+        </ul>
+    </div>
+    </div>
+</div>
+        </div>
+        <div class="span9">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>src\Models\Misc.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+import {
+  API
+} from &#x27;../../constants/endpoints&#x27;;
+
+/**
+ * Contains mixed various types of functiosn for dlcs, discounts, branding, etc.
+ *
+ * @class Misc
+ */
+class Misc{
+
+  /**
+   * Gets all DLC links
+   * @method getDlcLinks
+   * @async
+   * @param {String} token - The Authorization token
+   * @param {Number} assetId - The id of the asset
+   * @example
+   * InPlayer.Misc.getDlcLinks(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,36320)
+   * .then(data =&gt; console.log(data));
+   * @return {Object}
+  */
+  async getDlcLinks(token,assetId){
+    try{
+      const response = await fetch(API.getDlcLinks(assetId), {
+        headers: {
+            &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
+        }
+      });
+
+      const data = await response.json();
+
+      return data;
+    }catch(error){
+      return false;
+    }
+  }
+
+  /**
+   * Gets the discount for a given ..
+   * @method getDiscount
+   * @async
+   * @param {String} token - The Authorization token
+   * @param {Object} data - {}
+   * @example
+   * InPlayer.Misc.getDiscount(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,{})
+   * .then(data =&gt; console.log(data));
+   * @return {Object}
+  */
+  async getDiscount(token, data) {
+    try{
+      const response = await fetch(API.getDiscount, {
+        method: &#x27;POST&#x27;,
+        headers: {
+            &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
+        },
+        body: data
+      });
+
+      const data = await response.json();
+
+      return data;
+    }catch(error){
+      return false;
+    }
+  }
+
+  /**
+   * Gets branding for given merchant
+   * @method getBranding
+   * @async
+   * @param {String} merchant_uuid - The UUID of the merchant
+   * @example
+   * InPlayer.Misc.getBranding(&#x27;eyJ0e-XAiOi-JKPEC-ENR5Y&#x27;)
+   * .then(data =&gt; console.log(data));
+   * @return {Object}
+  */
+  async getBranding(merchant_uuid) {
+    try{
+      const response = await fetch(API.getBranding(merchant_uuid), {
+        method: &#x27;GET&#x27;
+      });
+
+      const data = await response.json();
+
+      return data;
+    }catch(error){
+      return false;
+    }
+  }
+
+  /**
+   * Downloads a file
+   * @method downloadProtectedFile
+   * @async
+   * @param {String} token - The Authorization token
+   * @param {number} assetId - The Id of the asset
+   * @param {String} filename - The name of the file
+   * @example
+   * InPlayer.Misc.downloadProtectedFile(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,2234, &#x27;test.js&#x27;)
+   * .then(data =&gt; console.log(data));
+   * @return {Object}
+  */
+  async downloadProtectedFile(token, assetId, filename) {
+    try{
+      const response = await fetch(API.downloadFile(assetId, filename), {
+        headers: {
+            &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
+        }
+      });
+
+      const data = await response.json();
+
+      return data;
+    }catch(error){
+      return false;
+    }
+  }
+
+  /**
+   * Fetches WP content
+   * @method fetchWPContent
+   * @async
+   * @param {String} url - The url from where to fetch
+   * @example
+   * InPlayer.Misc.fetchWPContent(&#x27;http://localhost:3000&#x27;)
+   * .then(data =&gt; console.log(data));
+   * @return {Object}
+  */
+  async fetchWPContent(url) {
+    try{
+      const response = await fetch(url, {
+        credentials: &#x27;same-origin&#x27;
+      });
+
+      const data = await response.json();
+
+      return data;
+    }catch(error){
+      return false;
+    }
+  }
+}
+
+export default Misc;
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

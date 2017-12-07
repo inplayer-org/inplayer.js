@@ -16,8 +16,9 @@ class Asset {
    * @param {String} token - The Authorization token
    * @param {Number} id - The id of the asset
    * @example
-   * InPlayer.Asset.checkAccessForAsset('eyJ0eXAiOiJKPECENR5Y',36320)
-   * .then(data => console.log(data));
+   *     InPlayer.Asset
+   *     .checkAccessForAsset('eyJ0eXAiOiJKPECENR5Y',36320)
+   *     .then(data => console.log(data));
    * @return {Object}
   */
   async checkAccessForAsset(token, id){
@@ -44,8 +45,9 @@ class Asset {
    * @param {String} token - The Authorization token
    * @param {Array} ids - Array with asset ids
    * @example
-   * InPlayer.Asset.checkAccessForMultipleAssets('eyJ0eXAiOiJKPECENR5Y',[36320,27215])
-   * .then(data => console.log(data));
+   *     InPlayer.Asset
+   *     .checkAccessForMultipleAssets('eyJ0eXAiOiJKPECENR5Y',[36320,27215])
+   *     .then(data => console.log(data));
    * @return {Object}
   */
   async checkAccessForMultipleAssets(token, ids){
@@ -71,8 +73,9 @@ class Asset {
    * @param {Numer} assetId - The ID of the asset
    * @param {String} merchant_uuid - The merchant UUID string
    * @example
-   * InPlayer.Asset.findAsset(2,'a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl')
-   * .then(data => console.log(data));
+   *     InPlayer.Asset
+   *     .findAsset(2,'a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl')
+   *     .then(data => console.log(data));
    * @return {Object}
   */
   async findAsset(assetId, merchant_uuid){
@@ -96,8 +99,9 @@ class Asset {
    * @param {Numer} assetType - The type ID of the asset
    * @param {Number} externalId - The ID of the external asset
    * @example
-   * InPlayer.Asset.findExternalAsset(2,44237)
-   * .then(data => console.log(data));
+   *     InPlayer.Asset
+   *     .findExternalAsset(2,44237)
+   *     .then(data => console.log(data));
    * @return {Object}
   */
   async findExternalAsset(assetType, externalId){
@@ -120,8 +124,9 @@ class Asset {
    * @async
    * @param {Numer} id - The type ID of the package
    * @example
-   * InPlayer.Asset.findPackage(4444)
-   * .then(data => console.log(data));
+   *     InPlayer.Asset
+   *     .findPackage(4444)
+   *     .then(data => console.log(data));
    * @return {Object}
   */
   async findPackage(id){
@@ -144,8 +149,9 @@ class Asset {
    * @async
    * @param {Numer} id - The ID of the asset
    * @example
-   * InPlayer.Asset.getAssetAccessFees(555)
-   * .then(data => console.log(data));
+   *     InPlayer.Asset
+   *     .getAssetAccessFees(555)
+   *     .then(data => console.log(data))
    * @return {Object}
   */
   async getAssetAccessFees(id) {
@@ -169,8 +175,9 @@ class Asset {
    * @param {String} token - The authorization token
    * @param {Object} data - {}
    * @example
-   * InPlayer.Asset.freemiumAsset('uoifhadafefbad1312nfuqd123', {})
-   * .then(data => console.log(data));
+   *     InPlayer.Asset
+   *     .freemiumAsset('uoifhadafefbad1312nfuqd123', {})
+   *     .then(data => console.log(data));
    * @return {Object}
   */
   async freemiumAsset(token, data) {

@@ -1,0 +1,2424 @@
+{
+    "project": {
+        "name": "InPlayer SDK",
+        "url": "www.inplayer.com/sdk",
+        "version": "0.1.0",
+        "description": "A Javascript SDK for Inplayer's RESTful API"
+    },
+    "files": {
+        "dist\\inplayer.umd.js": {
+            "name": "dist\\inplayer.umd.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "examples\\js\\inplayer.js": {
+            "name": "examples\\js\\inplayer.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src\\Models\\Asset.js": {
+            "name": "src\\Models\\Asset.js",
+            "modules": {},
+            "classes": {
+                "Asset": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src\\Models\\Misc.js": {
+            "name": "src\\Models\\Misc.js",
+            "modules": {},
+            "classes": {
+                "Misc": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src\\Models\\Payment.js": {
+            "name": "src\\Models\\Payment.js",
+            "modules": {},
+            "classes": {
+                "Payment": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src\\Models\\Subscriptions.js": {
+            "name": "src\\Models\\Subscriptions.js",
+            "modules": {},
+            "classes": {
+                "Subscriptions": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src\\Models\\User.js": {
+            "name": "src\\Models\\User.js",
+            "modules": {},
+            "classes": {
+                "User": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src\\index.js": {
+            "name": "src\\index.js",
+            "modules": {},
+            "classes": {
+                "InPlayer": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "Payment": {
+            "name": "Payment",
+            "shortname": "Payment",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src\\Models\\Payment.js",
+            "line": 5,
+            "description": "Contains all Requests connected with payments"
+        },
+        "Asset": {
+            "name": "Asset",
+            "shortname": "Asset",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src\\Models\\Asset.js",
+            "line": 5,
+            "description": "Contains all Requests connected with assets/items"
+        },
+        "Misc": {
+            "name": "Misc",
+            "shortname": "Misc",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src\\Models\\Misc.js",
+            "line": 5,
+            "description": "Contains mixed various types of functiosn for dlcs, discounts, branding, etc."
+        },
+        "Subscriptions": {
+            "name": "Subscriptions",
+            "shortname": "Subscriptions",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src\\Models\\Subscriptions.js",
+            "line": 5,
+            "description": "Contains all Requests connected with subscriptions"
+        },
+        "User": {
+            "name": "User",
+            "shortname": "User",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src\\Models\\User.js",
+            "line": 9,
+            "description": "Contains all Requests regarding user/account and authentication"
+        },
+        "InPlayer": {
+            "name": "InPlayer",
+            "shortname": "InPlayer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src\\index.js",
+            "line": 8,
+            "description": "Main class. Contains all others methods and websocket subscription"
+        }
+    },
+    "elements": {},
+    "classitems": [
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 290,
+            "description": "Signs out the user and destroys cookies",
+            "itemtype": "method",
+            "name": "signOut",
+            "async": 1,
+            "example": [
+                "\nInPlayer.User.signOut()\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 322,
+            "description": "Signs up/Registers user",
+            "itemtype": "method",
+            "name": "signUp",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains {\nfull_name: string,\nemail: string\npassword: string,\npassword_confirmation: string,\nmerchant_uuid: string,\ntype: number\nreferrer: string,\n}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\nInPlayer.User.signUp({\nfull_name: \"test\",\nemail: \"test32@test.com\",\npassword: \"12345678\",\npassword_confirmation: \"12345678\",\nmerchant_uuid: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\ntype: \"consumer\",\nreferrer: \"http://localhost:3000/\",\n})\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 376,
+            "description": "Checks if user is signed in",
+            "itemtype": "method",
+            "name": "isSignedIn",
+            "example": [
+                "\nInPlayer.User.isSignedIn()"
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 387,
+            "description": "Returns users Auth token",
+            "itemtype": "method",
+            "name": "token",
+            "example": [
+                "\nInPlayer.User.token()"
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 398,
+            "description": "Sets Auth token into cookies",
+            "itemtype": "method",
+            "name": "token",
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token which needs to be set",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.User.setTokenInCookie('aed1g284i3dnfrfnd1o23rtegk')"
+            ],
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 410,
+            "description": "Requests new password for a given user",
+            "itemtype": "method",
+            "name": "signUp",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains {\nemail: String,\nmerchant_uuid: string\n}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\nInPlayer.User.requestNewPassword({\nemail: \"test32@test.com\",\nmerchant_uuid: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n})\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 449,
+            "description": "Sets new password for the user",
+            "itemtype": "method",
+            "name": "setNewPassword",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains {\npassword: string\npassword_confirmation: string\n}",
+                    "type": "Object"
+                },
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.User.setNewPassword({\npassword: \"12345\",\npassword_confirmation: \"12345\",\n}, 'afhqi83rji74hjf7e43df')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 489,
+            "description": "Gets the user/account information for a given auth token",
+            "itemtype": "method",
+            "name": "getAccountInfo",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.User.getAccountInfo('afhqi83rji74hjf7e43df')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 517,
+            "description": "Gets the social login urls for fb/twitter/google",
+            "itemtype": "method",
+            "name": "getSocialLoginUrls",
+            "async": 1,
+            "params": [
+                {
+                    "name": "state",
+                    "description": "- The state for the social",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.User.getSocialLoginUrls('123124-1r-1r13ur1h1')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 543,
+            "description": "Updates the account info",
+            "itemtype": "method",
+            "name": "updateAccount",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- The new data for the account",
+                    "type": "Object"
+                },
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.User.updateAccount({},'123124-1r-1r13ur1h1')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 575,
+            "description": "Changes password for a given user",
+            "itemtype": "method",
+            "name": "changePassword",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains new password",
+                    "type": "Object"
+                },
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.User.updateAccount({},'123124-1r-1r13ur1h1')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 606,
+            "description": "Gets register fields",
+            "itemtype": "method",
+            "name": "getRegisterFields",
+            "async": 1,
+            "params": [
+                {
+                    "name": "merchant_uuid",
+                    "description": "- The merchant UUID",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.User.getRegisterFields('123124-1r-1r13ur1h1')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 650,
+            "description": "Checks whether a given authenticated user has access for an array of assets",
+            "itemtype": "method",
+            "name": "checkAccessForMultipleAssets",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "ids",
+                    "description": "- Array with asset ids",
+                    "type": "Array"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Asset.checkAccessForMultipleAssets('eyJ0eXAiOiJKPECENR5Y',[36320,27215])\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 679,
+            "description": "Get the asset info for a given asset ID and merchant UUID",
+            "itemtype": "method",
+            "name": "findAsset",
+            "async": 1,
+            "params": [
+                {
+                    "name": "assetId",
+                    "description": "- The ID of the asset",
+                    "type": "Numer"
+                },
+                {
+                    "name": "merchant_uuid",
+                    "description": "- The merchant UUID string",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Asset.findAsset(2,'a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 706,
+            "description": "Get an external assets' info",
+            "itemtype": "method",
+            "name": "findExternalAsset",
+            "async": 1,
+            "params": [
+                {
+                    "name": "assetType",
+                    "description": "- The type ID of the asset",
+                    "type": "Numer"
+                },
+                {
+                    "name": "externalId",
+                    "description": "- The ID of the external asset",
+                    "type": "Number"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Asset.findExternalAsset(2,44237)\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 733,
+            "description": "Get package info for a given Package ID",
+            "itemtype": "method",
+            "name": "findPackage",
+            "async": 1,
+            "params": [
+                {
+                    "name": "id",
+                    "description": "- The type ID of the package",
+                    "type": "Numer"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Asset.findPackage(4444)\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 759,
+            "description": "Get the access fees for a given asset ID",
+            "itemtype": "method",
+            "name": "getAssetAccessFees",
+            "async": 1,
+            "params": [
+                {
+                    "name": "id",
+                    "description": "- The ID of the asset",
+                    "type": "Numer"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Asset.getAssetAccessFees(555)\n.then(data => console.log(data))"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 785,
+            "description": "Get the freemium asset data",
+            "itemtype": "method",
+            "name": "getAssetAccessFees",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "- {}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Asset.freemiumAsset('uoifhadafefbad1312nfuqd123', {})\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 836,
+            "description": "Get the payment tools for an aothorization token and payment method ID",
+            "itemtype": "method",
+            "name": "getPaymentTools",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "paymentMethodId",
+                    "description": "- The Payment Method ID",
+                    "type": "Number"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Payment.getPaymentTools('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', 2)\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 865,
+            "description": "Makes a Payment for a given Authorization token + asset/payment details",
+            "itemtype": "method",
+            "name": "payForAsset",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "- Payment data",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n// data.payment_method = { id.... }\nInPlayer.Payment.getPaymentTools('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {\nnumber: 4111111111111111,\ncard_name: 'PayPal',\nexp_month: 10,\nexp_year: 2030,\ncvv: 656,\naccess_fee: 2341,\npayment_method: 1,\nreferrer: 'http://google.com'\n})\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 906,
+            "description": "Gets parameters for PayPal",
+            "itemtype": "method",
+            "name": "getPayPalParams",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "- Contains details",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Payment.getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {})\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 963,
+            "description": "Cancels a subscription",
+            "itemtype": "method",
+            "name": "cancelSubscription",
+            "async": 1,
+            "params": [
+                {
+                    "name": "unsubscribe_url",
+                    "description": "- The url for the subscription which is getting unsubscribed",
+                    "type": "String"
+                },
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Subscriptions.cancelSubscription('http://localhost/subscription/1','eyJ0eXAiOiJKPECENR5Y')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 993,
+            "description": "Subscribes to a given asset",
+            "itemtype": "method",
+            "name": "assetSubscribe",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "- {}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Subscriptions.assetSubscribe('eyJ0eXAiOiJKPECENR5Y', {})\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 1044,
+            "description": "Gets the discount for a given ..",
+            "itemtype": "method",
+            "name": "getDiscount",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "- {}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Misc.getDiscount('eyJ0eXAiOiJKPECENR5Y',{})\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 1075,
+            "description": "Gets branding for given merchant",
+            "itemtype": "method",
+            "name": "getBranding",
+            "async": 1,
+            "params": [
+                {
+                    "name": "merchant_uuid",
+                    "description": "- The UUID of the merchant",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Misc.getBranding('eyJ0e-XAiOi-JKPEC-ENR5Y')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 1101,
+            "description": "Downloads a file",
+            "itemtype": "method",
+            "name": "downloadProtectedFile",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "assetId",
+                    "description": "- The Id of the asset",
+                    "type": "Number"
+                },
+                {
+                    "name": "filename",
+                    "description": "- The name of the file",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Misc.downloadProtectedFile('eyJ0eXAiOiJKPECENR5Y',2234, 'test.js')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 1131,
+            "description": "Fetches WP content",
+            "itemtype": "method",
+            "name": "fetchWPContent",
+            "async": 1,
+            "params": [
+                {
+                    "name": "url",
+                    "description": "- The url from where to fetch",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Misc.fetchWPContent('http://localhost:3000')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 1849,
+            "description": "Subscribes to websocket events",
+            "itemtype": "method",
+            "name": "subscribe",
+            "params": [
+                {
+                    "name": "account_uuid",
+                    "description": "- The users account UUID",
+                    "type": "String"
+                },
+                {
+                    "name": "callbackParams",
+                    "description": "- Methods regarding websocket\n{\nonmessage: function,\nonopen: function,\nonclose: function\n}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\nInPlayer.subscribe(\n'adsasd-d1-cjc1c-1ajaveo', {\n onmessage: (message) => { let body = JSON.parse(message.body); console.log(body, 'message') },\n onopen: (e) => console.log('open'),\n onclose: (e) => console.log('close', e)\n}\n)"
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "dist\\inplayer.umd.js",
+            "line": 1878,
+            "description": "Unsubscribes from the websocket and event listeners",
+            "itemtype": "method",
+            "name": "unsubscribe",
+            "example": [
+                "\nInPlayer.unsubscribe()"
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 290,
+            "description": "Signs out the user and destroys cookies",
+            "itemtype": "method",
+            "name": "signOut",
+            "async": 1,
+            "example": [
+                "\nInPlayer.User.signOut()\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 322,
+            "description": "Signs up/Registers user",
+            "itemtype": "method",
+            "name": "signUp",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains {\nfull_name: string,\nemail: string\npassword: string,\npassword_confirmation: string,\nmerchant_uuid: string,\ntype: number\nreferrer: string,\n}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\nInPlayer.User.signUp({\nfull_name: \"test\",\nemail: \"test32@test.com\",\npassword: \"12345678\",\npassword_confirmation: \"12345678\",\nmerchant_uuid: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\ntype: \"consumer\",\nreferrer: \"http://localhost:3000/\",\n})\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 376,
+            "description": "Checks if user is signed in",
+            "itemtype": "method",
+            "name": "isSignedIn",
+            "example": [
+                "\nInPlayer.User.isSignedIn()"
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 387,
+            "description": "Returns users Auth token",
+            "itemtype": "method",
+            "name": "token",
+            "example": [
+                "\nInPlayer.User.token()"
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 398,
+            "description": "Sets Auth token into cookies",
+            "itemtype": "method",
+            "name": "token",
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token which needs to be set",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.User.setTokenInCookie('aed1g284i3dnfrfnd1o23rtegk')"
+            ],
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 410,
+            "description": "Requests new password for a given user",
+            "itemtype": "method",
+            "name": "signUp",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains {\nemail: String,\nmerchant_uuid: string\n}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\nInPlayer.User.requestNewPassword({\nemail: \"test32@test.com\",\nmerchant_uuid: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n})\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 449,
+            "description": "Sets new password for the user",
+            "itemtype": "method",
+            "name": "setNewPassword",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains {\npassword: string\npassword_confirmation: string\n}",
+                    "type": "Object"
+                },
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.User.setNewPassword({\npassword: \"12345\",\npassword_confirmation: \"12345\",\n}, 'afhqi83rji74hjf7e43df')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 489,
+            "description": "Gets the user/account information for a given auth token",
+            "itemtype": "method",
+            "name": "getAccountInfo",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.User.getAccountInfo('afhqi83rji74hjf7e43df')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 517,
+            "description": "Gets the social login urls for fb/twitter/google",
+            "itemtype": "method",
+            "name": "getSocialLoginUrls",
+            "async": 1,
+            "params": [
+                {
+                    "name": "state",
+                    "description": "- The state for the social",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.User.getSocialLoginUrls('123124-1r-1r13ur1h1')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 543,
+            "description": "Updates the account info",
+            "itemtype": "method",
+            "name": "updateAccount",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- The new data for the account",
+                    "type": "Object"
+                },
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.User.updateAccount({},'123124-1r-1r13ur1h1')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 575,
+            "description": "Changes password for a given user",
+            "itemtype": "method",
+            "name": "changePassword",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains new password",
+                    "type": "Object"
+                },
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.User.updateAccount({},'123124-1r-1r13ur1h1')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 606,
+            "description": "Gets register fields",
+            "itemtype": "method",
+            "name": "getRegisterFields",
+            "async": 1,
+            "params": [
+                {
+                    "name": "merchant_uuid",
+                    "description": "- The merchant UUID",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.User.getRegisterFields('123124-1r-1r13ur1h1')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 650,
+            "description": "Checks whether a given authenticated user has access for an array of assets",
+            "itemtype": "method",
+            "name": "checkAccessForMultipleAssets",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "ids",
+                    "description": "- Array with asset ids",
+                    "type": "Array"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Asset.checkAccessForMultipleAssets('eyJ0eXAiOiJKPECENR5Y',[36320,27215])\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 679,
+            "description": "Get the asset info for a given asset ID and merchant UUID",
+            "itemtype": "method",
+            "name": "findAsset",
+            "async": 1,
+            "params": [
+                {
+                    "name": "assetId",
+                    "description": "- The ID of the asset",
+                    "type": "Numer"
+                },
+                {
+                    "name": "merchant_uuid",
+                    "description": "- The merchant UUID string",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Asset.findAsset(2,'a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 706,
+            "description": "Get an external assets' info",
+            "itemtype": "method",
+            "name": "findExternalAsset",
+            "async": 1,
+            "params": [
+                {
+                    "name": "assetType",
+                    "description": "- The type ID of the asset",
+                    "type": "Numer"
+                },
+                {
+                    "name": "externalId",
+                    "description": "- The ID of the external asset",
+                    "type": "Number"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Asset.findExternalAsset(2,44237)\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 733,
+            "description": "Get package info for a given Package ID",
+            "itemtype": "method",
+            "name": "findPackage",
+            "async": 1,
+            "params": [
+                {
+                    "name": "id",
+                    "description": "- The type ID of the package",
+                    "type": "Numer"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Asset.findPackage(4444)\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 759,
+            "description": "Get the access fees for a given asset ID",
+            "itemtype": "method",
+            "name": "getAssetAccessFees",
+            "async": 1,
+            "params": [
+                {
+                    "name": "id",
+                    "description": "- The ID of the asset",
+                    "type": "Numer"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Asset.getAssetAccessFees(555)\n.then(data => console.log(data))"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 785,
+            "description": "Get the freemium asset data",
+            "itemtype": "method",
+            "name": "getAssetAccessFees",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "- {}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Asset.freemiumAsset('uoifhadafefbad1312nfuqd123', {})\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 836,
+            "description": "Get the payment tools for an aothorization token and payment method ID",
+            "itemtype": "method",
+            "name": "getPaymentTools",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "paymentMethodId",
+                    "description": "- The Payment Method ID",
+                    "type": "Number"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Payment.getPaymentTools('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', 2)\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 865,
+            "description": "Makes a Payment for a given Authorization token + asset/payment details",
+            "itemtype": "method",
+            "name": "payForAsset",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "- Payment data",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n// data.payment_method = { id.... }\nInPlayer.Payment.getPaymentTools('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {\nnumber: 4111111111111111,\ncard_name: 'PayPal',\nexp_month: 10,\nexp_year: 2030,\ncvv: 656,\naccess_fee: 2341,\npayment_method: 1,\nreferrer: 'http://google.com'\n})\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 906,
+            "description": "Gets parameters for PayPal",
+            "itemtype": "method",
+            "name": "getPayPalParams",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "- Contains details",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Payment.getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {})\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 963,
+            "description": "Cancels a subscription",
+            "itemtype": "method",
+            "name": "cancelSubscription",
+            "async": 1,
+            "params": [
+                {
+                    "name": "unsubscribe_url",
+                    "description": "- The url for the subscription which is getting unsubscribed",
+                    "type": "String"
+                },
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Subscriptions.cancelSubscription('http://localhost/subscription/1','eyJ0eXAiOiJKPECENR5Y')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 993,
+            "description": "Subscribes to a given asset",
+            "itemtype": "method",
+            "name": "assetSubscribe",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "- {}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Subscriptions.assetSubscribe('eyJ0eXAiOiJKPECENR5Y', {})\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 1044,
+            "description": "Gets the discount for a given ..",
+            "itemtype": "method",
+            "name": "getDiscount",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "- {}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Misc.getDiscount('eyJ0eXAiOiJKPECENR5Y',{})\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 1075,
+            "description": "Gets branding for given merchant",
+            "itemtype": "method",
+            "name": "getBranding",
+            "async": 1,
+            "params": [
+                {
+                    "name": "merchant_uuid",
+                    "description": "- The UUID of the merchant",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Misc.getBranding('eyJ0e-XAiOi-JKPEC-ENR5Y')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 1101,
+            "description": "Downloads a file",
+            "itemtype": "method",
+            "name": "downloadProtectedFile",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "assetId",
+                    "description": "- The Id of the asset",
+                    "type": "Number"
+                },
+                {
+                    "name": "filename",
+                    "description": "- The name of the file",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Misc.downloadProtectedFile('eyJ0eXAiOiJKPECENR5Y',2234, 'test.js')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 1131,
+            "description": "Fetches WP content",
+            "itemtype": "method",
+            "name": "fetchWPContent",
+            "async": 1,
+            "params": [
+                {
+                    "name": "url",
+                    "description": "- The url from where to fetch",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Misc.fetchWPContent('http://localhost:3000')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 1849,
+            "description": "Subscribes to websocket events",
+            "itemtype": "method",
+            "name": "subscribe",
+            "params": [
+                {
+                    "name": "account_uuid",
+                    "description": "- The users account UUID",
+                    "type": "String"
+                },
+                {
+                    "name": "callbackParams",
+                    "description": "- Methods regarding websocket\n{\nonmessage: function,\nonopen: function,\nonclose: function\n}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\nInPlayer.subscribe(\n'adsasd-d1-cjc1c-1ajaveo', {\n onmessage: (message) => { let body = JSON.parse(message.body); console.log(body, 'message') },\n onopen: (e) => console.log('open'),\n onclose: (e) => console.log('close', e)\n}\n)"
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "examples\\js\\inplayer.js",
+            "line": 1878,
+            "description": "Unsubscribes from the websocket and event listeners",
+            "itemtype": "method",
+            "name": "unsubscribe",
+            "example": [
+                "\nInPlayer.unsubscribe()"
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "src\\Models\\Asset.js",
+            "line": 12,
+            "description": "Checks whether a given authenticated user has access for an asset",
+            "itemtype": "method",
+            "name": "checkAccessForAsset",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "id",
+                    "description": "- The id of the asset",
+                    "type": "Number"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Asset.checkAccessForAsset('eyJ0eXAiOiJKPECENR5Y',36320)\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Asset"
+        },
+        {
+            "file": "src\\Models\\Asset.js",
+            "line": 40,
+            "description": "Checks whether a given authenticated user has access for an array of assets",
+            "itemtype": "method",
+            "name": "checkAccessForMultipleAssets",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "ids",
+                    "description": "- Array with asset ids",
+                    "type": "Array"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Asset.checkAccessForMultipleAssets('eyJ0eXAiOiJKPECENR5Y',[36320,27215])\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Asset"
+        },
+        {
+            "file": "src\\Models\\Asset.js",
+            "line": 67,
+            "description": "Get the asset info for a given asset ID and merchant UUID",
+            "itemtype": "method",
+            "name": "findAsset",
+            "async": 1,
+            "params": [
+                {
+                    "name": "assetId",
+                    "description": "- The ID of the asset",
+                    "type": "Numer"
+                },
+                {
+                    "name": "merchant_uuid",
+                    "description": "- The merchant UUID string",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Asset.findAsset(2,'a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Asset"
+        },
+        {
+            "file": "src\\Models\\Asset.js",
+            "line": 92,
+            "description": "Get an external assets' info",
+            "itemtype": "method",
+            "name": "findExternalAsset",
+            "async": 1,
+            "params": [
+                {
+                    "name": "assetType",
+                    "description": "- The type ID of the asset",
+                    "type": "Numer"
+                },
+                {
+                    "name": "externalId",
+                    "description": "- The ID of the external asset",
+                    "type": "Number"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Asset.findExternalAsset(2,44237)\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Asset"
+        },
+        {
+            "file": "src\\Models\\Asset.js",
+            "line": 117,
+            "description": "Get package info for a given Package ID",
+            "itemtype": "method",
+            "name": "findPackage",
+            "async": 1,
+            "params": [
+                {
+                    "name": "id",
+                    "description": "- The type ID of the package",
+                    "type": "Numer"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Asset.findPackage(4444)\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Asset"
+        },
+        {
+            "file": "src\\Models\\Asset.js",
+            "line": 141,
+            "description": "Get the access fees for a given asset ID",
+            "itemtype": "method",
+            "name": "getAssetAccessFees",
+            "async": 1,
+            "params": [
+                {
+                    "name": "id",
+                    "description": "- The ID of the asset",
+                    "type": "Numer"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Asset.getAssetAccessFees(555)\n.then(data => console.log(data))"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Asset"
+        },
+        {
+            "file": "src\\Models\\Asset.js",
+            "line": 165,
+            "description": "Get the freemium asset data",
+            "itemtype": "method",
+            "name": "getAssetAccessFees",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "- {}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Asset.freemiumAsset('uoifhadafefbad1312nfuqd123', {})\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Asset"
+        },
+        {
+            "file": "src\\Models\\Misc.js",
+            "line": 12,
+            "description": "Gets all DLC links",
+            "itemtype": "method",
+            "name": "getDlcLinks",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "assetId",
+                    "description": "- The id of the asset",
+                    "type": "Number"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Misc.getDlcLinks('eyJ0eXAiOiJKPECENR5Y',36320)\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Misc"
+        },
+        {
+            "file": "src\\Models\\Misc.js",
+            "line": 39,
+            "description": "Gets the discount for a given ..",
+            "itemtype": "method",
+            "name": "getDiscount",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "- {}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Misc.getDiscount('eyJ0eXAiOiJKPECENR5Y',{})\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Misc"
+        },
+        {
+            "file": "src\\Models\\Misc.js",
+            "line": 68,
+            "description": "Gets branding for given merchant",
+            "itemtype": "method",
+            "name": "getBranding",
+            "async": 1,
+            "params": [
+                {
+                    "name": "merchant_uuid",
+                    "description": "- The UUID of the merchant",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Misc.getBranding('eyJ0e-XAiOi-JKPEC-ENR5Y')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Misc"
+        },
+        {
+            "file": "src\\Models\\Misc.js",
+            "line": 92,
+            "description": "Downloads a file",
+            "itemtype": "method",
+            "name": "downloadProtectedFile",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "assetId",
+                    "description": "- The Id of the asset",
+                    "type": "Number"
+                },
+                {
+                    "name": "filename",
+                    "description": "- The name of the file",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Misc.downloadProtectedFile('eyJ0eXAiOiJKPECENR5Y',2234, 'test.js')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Misc"
+        },
+        {
+            "file": "src\\Models\\Misc.js",
+            "line": 120,
+            "description": "Fetches WP content",
+            "itemtype": "method",
+            "name": "fetchWPContent",
+            "async": 1,
+            "params": [
+                {
+                    "name": "url",
+                    "description": "- The url from where to fetch",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Misc.fetchWPContent('http://localhost:3000')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Misc"
+        },
+        {
+            "file": "src\\Models\\Payment.js",
+            "line": 12,
+            "description": "Get all payment methods for a User",
+            "itemtype": "method",
+            "name": "getPaymentMethods",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Autorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Payment.getPaymentMethods('aehfawfeikuehdjkc482rijfg47idqwk3n4')\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "src\\Models\\Payment.js",
+            "line": 38,
+            "description": "Get the payment tools for an aothorization token and payment method ID",
+            "itemtype": "method",
+            "name": "getPaymentTools",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "paymentMethodId",
+                    "description": "- The Payment Method ID",
+                    "type": "Number"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Payment.getPaymentTools('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', 2)\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "src\\Models\\Payment.js",
+            "line": 65,
+            "description": "Makes a Payment for a given Authorization token + asset/payment details",
+            "itemtype": "method",
+            "name": "payForAsset",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "- Payment data",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n// data.payment_method = { id.... }\nInPlayer.Payment.getPaymentTools('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {\n number: 4111111111111111,\n card_name: 'PayPal',\n exp_month: 10,\n exp_year: 2030,\n cvv: 656,\n access_fee: 2341,\n payment_method: 1,\n referrer: 'http://google.com'\n})\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "src\\Models\\Payment.js",
+            "line": 105,
+            "description": "Gets parameters for PayPal",
+            "itemtype": "method",
+            "name": "getPayPalParams",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "- Contains details",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\nInPlayer.Payment.getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {})\n.then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "src\\Models\\Subscriptions.js",
+            "line": 12,
+            "description": "Gets all subscriptions for a given user",
+            "itemtype": "method",
+            "name": "getSubscriptions",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Subscriptions\n    .getSubscriptions('eyJ0eXAiOiJKPECENR5Y')\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Subscriptions"
+        },
+        {
+            "file": "src\\Models\\Subscriptions.js",
+            "line": 40,
+            "description": "Cancels a subscription",
+            "itemtype": "method",
+            "name": "cancelSubscription",
+            "async": 1,
+            "params": [
+                {
+                    "name": "unsubscribe_url",
+                    "description": "- The url for the subscription which is getting unsubscribed",
+                    "type": "String"
+                },
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Subscriptions\n    .cancelSubscription('http://localhost/subscription/1','eyJ0eXAiOiJKPECENR5Y')\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Subscriptions"
+        },
+        {
+            "file": "src\\Models\\Subscriptions.js",
+            "line": 69,
+            "description": "Subscribes to a given asset",
+            "itemtype": "method",
+            "name": "assetSubscribe",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "- {}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Subscriptions\n    .assetSubscribe('eyJ0eXAiOiJKPECENR5Y', {})\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Subscriptions"
+        },
+        {
+            "file": "src\\Models\\User.js",
+            "line": 16,
+            "description": "Signs in the user",
+            "itemtype": "method",
+            "name": "signIn",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains {\n email: string,\n password: string,\n merchant_uuid: string,\n referrer: string,\n}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.User.signIn({\n     email: 'test@test.com',\n     password: 'test123',\n     merchant_uuid: '123-123-hf1hd1-12dhd1',\n     referrer: 'http://localhost.com'\n    })\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "User"
+        },
+        {
+            "file": "src\\Models\\User.js",
+            "line": 64,
+            "description": "Signs out the user and destroys cookies",
+            "itemtype": "method",
+            "name": "signOut",
+            "async": 1,
+            "example": [
+                "\n    InPlayer.User.signOut()\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "User"
+        },
+        {
+            "file": "src\\Models\\User.js",
+            "line": 96,
+            "description": "Signs up/Registers user",
+            "itemtype": "method",
+            "name": "signUp",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains {\n full_name: string,\n email: string\n password: string,\n password_confirmation: string,\n merchant_uuid: string,\n type: number\n referrer: string,\n}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.User.signUp({\n     full_name: \"test\",\n     email: \"test32@test.com\",\n     password: \"12345678\",\n     password_confirmation: \"12345678\",\n     merchant_uuid: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n    type: \"consumer\",\n     referrer: \"http://localhost:3000/\",\n    })\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "User"
+        },
+        {
+            "file": "src\\Models\\User.js",
+            "line": 149,
+            "description": "Checks if user is signed in",
+            "itemtype": "method",
+            "name": "isSignedIn",
+            "example": [
+                "\n   InPlayer.User\n   .isSignedIn()"
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "User"
+        },
+        {
+            "file": "src\\Models\\User.js",
+            "line": 161,
+            "description": "Returns users Auth token",
+            "itemtype": "method",
+            "name": "token",
+            "example": [
+                "\n    InPlayer.User\n    .token()"
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "User"
+        },
+        {
+            "file": "src\\Models\\User.js",
+            "line": 173,
+            "description": "Sets Auth token into cookies",
+            "itemtype": "method",
+            "name": "token",
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token which needs to be set",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.User\n    .setTokenInCookie('aed1g284i3dnfrfnd1o23rtegk')"
+            ],
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "class": "User"
+        },
+        {
+            "file": "src\\Models\\User.js",
+            "line": 186,
+            "description": "Requests new password for a given user",
+            "itemtype": "method",
+            "name": "signUp",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains {\n email: String,\n merchant_uuid: string\n}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.User\n    .requestNewPassword({\n     email: \"test32@test.com\",\n     merchant_uuid: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n    })\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "User"
+        },
+        {
+            "file": "src\\Models\\User.js",
+            "line": 226,
+            "description": "Sets new password for the user",
+            "itemtype": "method",
+            "name": "setNewPassword",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains {\n password: string\n password_confirmation: string\n}",
+                    "type": "Object"
+                },
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.User\n    .setNewPassword({\n     password: \"12345\",\n     password_confirmation: \"12345\",\n    }, 'afhqi83rji74hjf7e43df')\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "User"
+        },
+        {
+            "file": "src\\Models\\User.js",
+            "line": 266,
+            "description": "Gets the user/account information for a given auth token",
+            "itemtype": "method",
+            "name": "getAccountInfo",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.User\n    .getAccountInfo('afhqi83rji74hjf7e43df')\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "User"
+        },
+        {
+            "file": "src\\Models\\User.js",
+            "line": 295,
+            "description": "Gets the social login urls for fb/twitter/google",
+            "itemtype": "method",
+            "name": "getSocialLoginUrls",
+            "async": 1,
+            "params": [
+                {
+                    "name": "state",
+                    "description": "- The state for the social",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.User\n    .getSocialLoginUrls('123124-1r-1r13ur1h1')\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "User"
+        },
+        {
+            "file": "src\\Models\\User.js",
+            "line": 322,
+            "description": "Updates the account info",
+            "itemtype": "method",
+            "name": "updateAccount",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- The new data for the account",
+                    "type": "Object"
+                },
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.User\n    .updateAccount({},'123124-1r-1r13ur1h1')\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "User"
+        },
+        {
+            "file": "src\\Models\\User.js",
+            "line": 353,
+            "description": "Changes password for a given user",
+            "itemtype": "method",
+            "name": "changePassword",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains new password",
+                    "type": "Object"
+                },
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.User\n    .updateAccount({},'123124-1r-1r13ur1h1')\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "User"
+        },
+        {
+            "file": "src\\Models\\User.js",
+            "line": 383,
+            "description": "Gets register fields",
+            "itemtype": "method",
+            "name": "getRegisterFields",
+            "async": 1,
+            "params": [
+                {
+                    "name": "merchant_uuid",
+                    "description": "- The merchant UUID",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.User\n    .getRegisterFields('123124-1r-1r13ur1h1')\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "User"
+        },
+        {
+            "file": "src\\index.js",
+            "line": 23,
+            "description": "Subscribes to websocket events",
+            "itemtype": "method",
+            "name": "subscribe",
+            "params": [
+                {
+                    "name": "account_uuid",
+                    "description": "- The users account UUID",
+                    "type": "String"
+                },
+                {
+                    "name": "callbackParams",
+                    "description": "- Methods regarding websocket\n{\n onmessage: function,\n onopen: function,\n onclose: function\n}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\nInPlayer.subscribe(\n 'adsasd-d1-cjc1c-1ajaveo', {\n   onmessage: (message) => { let body = JSON.parse(message.body); console.log(body, 'message') },\n   onopen: (e) => console.log('open'),\n   onclose: (e) => console.log('close', e)\n }\n)"
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "InPlayer"
+        },
+        {
+            "file": "src\\index.js",
+            "line": 53,
+            "description": "Unsubscribes from the websocket and event listeners",
+            "itemtype": "method",
+            "name": "unsubscribe",
+            "example": [
+                "\nInPlayer.unsubscribe()"
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "InPlayer"
+        }
+    ],
+    "warnings": []
+}

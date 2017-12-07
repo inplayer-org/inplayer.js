@@ -1,0 +1,12 @@
+{
+    "name": "InPlayer SDK",
+    "url": "www.inplayer.com/sdk",
+    "version": "0.1.0",
+    "options": {
+        "paths": "src",
+        "outdir": "docs/",
+        "exclude": "lib,docs,build",
+        "themedir": "node_modules/yuidoc-lucid-theme",
+        "helpers": ["node_modules/yuidoc-lucid-theme/helpers/helpers.js"]
+    }
+}

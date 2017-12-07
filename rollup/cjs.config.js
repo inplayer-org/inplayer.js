@@ -4,6 +4,9 @@ import uglify from 'rollup-plugin-uglify';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import async from 'rollup-plugin-async';
+import json from 'rollup-plugin-json';
+import replace from 'rollup-plugin-replace';
+import globals from 'rollup-plugin-node-globals';
 import { minify } from 'uglify-es';
 
 const pkg = require('./package.json');
@@ -16,8 +19,14 @@ export default {
   },
   plugins: [
     async(),
+    replace({
+     ENVIRONMENT: JSON.stringify('production')
+    }),
     babel({
-      exclude: 'node_modules/**',
+      exclude: [
+        'node_modules/**',
+        '*.json'
+      ]
     }),
     resolve({
       browser: true,
@@ -30,15 +39,18 @@ export default {
       }
     }),
     buble({
-      exclude: 'package.json',
+      exclude: '*.json',
       transforms: {
         generator: false
       }
     }),
     uglify({}, minify),
+    globals(),
+    json()
   ],
   external: [
-    'js-cookie'
+    'js-cookie',
+    'ws'
   ],
   exports: 'named',
   sourcemap: true,

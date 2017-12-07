@@ -15,8 +15,9 @@ class Payment {
    * @async
    * @param {String} token - The Autorization token
    * @example
-   * InPlayer.Payment.getPaymentMethods('aehfawfeikuehdjkc482rijfg47idqwk3n4')
-   * .then(data => console.log(data));
+   *     InPlayer.Payment
+   *     .getPaymentMethods('aehfawfeikuehdjkc482rijfg47idqwk3n4')
+   *     .then(data => console.log(data));
    * @return {Object}
   */
   async getPaymentMethods(token){
@@ -42,8 +43,9 @@ class Payment {
    * @param {String} token - The Authorization token
    * @param {Number} paymentMethodId - The Payment Method ID
    * @example
-   * InPlayer.Payment.getPaymentTools('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', 2)
-   * .then(data => console.log(data));
+   *     InPlayer.Payment
+   *     .getPaymentTools('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', 2)
+   *     .then(data => console.log(data));
    * @return {Object}
   */
   async getPaymentTools(token, paymentMethodId){
@@ -69,18 +71,20 @@ class Payment {
    * @param {String} token - The Authorization token
    * @param {Object} data - Payment data
    * @example
-   * // data.payment_method = { id.... }
-   * InPlayer.Payment.getPaymentTools('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {
-   *  number: 4111111111111111,
-   *  card_name: 'PayPal',
-   *  exp_month: 10,
-   *  exp_year: 2030,
-   *  cvv: 656,
-   *  access_fee: 2341,
-   *  payment_method: 1,
-   *  referrer: 'http://google.com'
-   * })
-   * .then(data => console.log(data));
+   *     // data.payment_method = { id.... }
+   *     InPlayer.Payment
+   *     .getPaymentTools('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj',
+   *      {
+   *       number: 4111111111111111,
+   *       card_name: 'PayPal',
+   *       exp_month: 10,
+   *       exp_year: 2030,
+   *       cvv: 656,
+   *       access_fee: 2341,
+   *       payment_method: 1,
+   *       referrer: 'http://google.com'
+   *      })
+   *     .then(data => console.log(data));
    * @return {Object}
   */
   async payForAsset(token, data) {
@@ -109,8 +113,9 @@ class Payment {
    * @param {String} token - The Authorization token
    * @param {Object} data - Contains details
    * @example
-   * InPlayer.Payment.getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {})
-   * .then(data => console.log(data));
+   *     InPlayer.Payment
+   *     .getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {})
+   *     .then(data => console.log(data));
    * @return {Object}
   */
   async getPayPalParams(token, data) {

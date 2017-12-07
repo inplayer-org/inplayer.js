@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src\Models\User.js - InPlayer SDK</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/lucid.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+            InPlayer SDK
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.1.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscriptions", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+<div>
+    <div id="sidebar">
+    <div id="classes">
+        <ul id="api-classes" class="nav nav-list">
+                <li><a href="../classes/Asset.html">Asset</a></li>
+                <li><a href="../classes/InPlayer.html">InPlayer</a></li>
+                <li><a href="../classes/Misc.html">Misc</a></li>
+                <li><a href="../classes/Payment.html">Payment</a></li>
+                <li><a href="../classes/Subscriptions.html">Subscriptions</a></li>
+                <li><a href="../classes/User.html">User</a></li>
+        </ul>
+    </div>
+    </div>
+</div>
+        </div>
+        <div class="span9">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>src\Models\User.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+import * as Cookies from &#x27;js-cookie&#x27;;
+
+import {
+  API
+} from &#x27;../../constants/endpoints&#x27;;
+
+import { config } from &#x27;../../config&#x27;;
+
+/**
+ * Contains all Requests regarding user/account and authentication
+ *
+ * @class User
+ */
+class User {
+
+  /**
+   * Signs in the user
+   * @method signIn
+   * @async
+   * @param {Object} data - Contains {
+   *  email: string,
+   *  password: string,
+   *  merchant_uuid: string,
+   *  referrer: string,
+   * }
+   * @example
+   *     InPlayer.User.signIn({
+   *      email: &#x27;test@test.com&#x27;,
+   *      password: &#x27;test123&#x27;,
+   *      merchant_uuid: &#x27;123-123-hf1hd1-12dhd1&#x27;,
+   *      referrer: &#x27;http://localhost.com&#x27;
+   *     })
+   *     .then(data =&gt; console.log(data));
+   * @return {Object}
+  */
+  async signIn(data){
+    // Add into form data
+    const fd = new FormData();
+    fd.append(&#x27;email&#x27;, data.email);
+    fd.append(&#x27;password&#x27;, data.password);
+    fd.append(&#x27;merchant_uuid&#x27;, data.merchant_uuid);
+    fd.append(&#x27;referrer&#x27;, data.referrer);
+    // request
+    try{
+      const response = await fetch(API.signIn, {
+        method: &#x27;POST&#x27;,
+        body: fd,
+      });
+
+      const data = await response.json();
+
+      /* set cookies */
+      if(data.access_token){
+        Cookies.set(config.INPLAYER_TOKEN_NAME, data.access_token);
+      }
+
+      return data;
+
+    } catch(error) {
+      return false;
+    }
+  }
+
+  /**
+   * Signs out the user and destroys cookies
+   * @method signOut
+   * @async
+   * @example
+   *     InPlayer.User.signOut()
+   *     .then(data =&gt; console.log(data));
+   * @return {Boolean}
+  */
+  async signOut(){
+    const token = Cookies.get(config.INPLAYER_TOKEN_NAME);
+
+    try{
+      const response = await fetch(API.signOut, {
+          headers: {
+              &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
+          }
+      });
+
+      const data = await response.json();
+      // if response is okay
+      if(data.explain){
+        Cookies.remove(config.INPLAYER_TOKEN_NAME);
+      }
+      return true;
+
+    } catch(error){
+      return false;
+    }
+
+  }
+
+  /**
+   * Signs up/Registers user
+   * @method signUp
+   * @async
+   * @param {Object} data - Contains {
+   *  full_name: string,
+   *  email: string
+   *  password: string,
+   *  password_confirmation: string,
+   *  merchant_uuid: string,
+   *  type: number
+   *  referrer: string,
+   * }
+   * @example
+   *     InPlayer.User.signUp({
+   *      full_name: &quot;test&quot;,
+   *      email: &quot;test32@test.com&quot;,
+   *      password: &quot;12345678&quot;,
+   *      password_confirmation: &quot;12345678&quot;,
+   *      merchant_uuid: &quot;528b1b80-5868-4abc-a9b6-4d3455d719c8&quot;,
+   *     type: &quot;consumer&quot;,
+   *      referrer: &quot;http://localhost:3000/&quot;,
+   *     })
+   *     .then(data =&gt; console.log(data));
+   * @return {Object}
+  */
+  async signUp(data) {
+
+    // Add into form data
+    const fd = new FormData();
+    fd.append(&#x27;full_name&#x27;, data.full_name);
+    fd.append(&#x27;email&#x27;, data.email);
+    fd.append(&#x27;password&#x27;, data.password);
+    fd.append(&#x27;password_confirmation&#x27;, data.password_confirmation);
+    fd.append(&#x27;merchant_uuid&#x27;, data.merchant_uuid);
+    fd.append(&#x27;type&#x27;, data.type);
+    fd.append(&#x27;referrer&#x27;, data.referrer);
+
+    try{
+      const response = await fetch(API.signUp, {
+        method: &#x27;POST&#x27;,
+        body: fd,
+      });
+
+      const data = await response.json();
+
+      return data;
+
+    }catch(error) {
+      return false;
+    }
+  }
+
+  /**
+   * Checks if user is signed in
+   * @method isSignedIn
+   * @example
+   *    InPlayer.User
+   *    .isSignedIn()
+   * @return {Boolean}
+  */
+  isSignedIn(){
+    return Cookies.get(config.INPLAYER_TOKEN_NAME) !== undefined;
+  }
+
+  /**
+   * Returns users Auth token
+   * @method token
+   * @example
+   *     InPlayer.User
+   *     .token()
+   * @return {String}
+  */
+  token(){
+    return Cookies.get(config.INPLAYER_TOKEN_NAME);
+  }
+
+  /**
+   * Sets Auth token into cookies
+   * @method token
+   * @param {String} token - The Authorization token which needs to be set
+   * @example
+   *     InPlayer.User
+   *     .setTokenInCookie(&#x27;aed1g284i3dnfrfnd1o23rtegk&#x27;)
+   * @return {void}
+  */
+  setTokenInCookie(token){
+    Cookies.set(config.INPLAYER_TOKEN_NAME, token);
+  }
+
+  /**
+   * Requests new password for a given user
+   * @method signUp
+   * @async
+   * @param {Object} data - Contains {
+   *  email: String,
+   *  merchant_uuid: string
+   * }
+   * @example
+   *     InPlayer.User
+   *     .requestNewPassword({
+   *      email: &quot;test32@test.com&quot;,
+   *      merchant_uuid: &quot;528b1b80-5868-4abc-a9b6-4d3455d719c8&quot;,
+   *     })
+   *     .then(data =&gt; console.log(data));
+   * @return {Object}
+  */
+  async requestNewPassword(data) {
+
+    // Add into from FormData
+    const fd = new FormData();
+    fd.append(&#x27;email&#x27;, data.email);
+    fd.append(&#x27;merchant_uuid&#x27;, data.merchant_uuid);
+
+    try {
+      const response = await fetch(API.requestNewPassword, {
+          method: &#x27;POST&#x27;,
+          body: fd
+      });
+
+      const data = await response.json();
+
+      return data;
+
+    }catch(error){
+      return false;
+    }
+
+  }
+
+  /**
+   * Sets new password for the user
+   * @method setNewPassword
+   * @async
+   * @param {Object} data - Contains {
+   *  password: string
+   *  password_confirmation: string
+   * }
+   * @param {String} token - The authorization token
+   * @example
+   *     InPlayer.User
+   *     .setNewPassword({
+   *      password: &quot;12345&quot;,
+   *      password_confirmation: &quot;12345&quot;,
+   *     }, &#x27;afhqi83rji74hjf7e43df&#x27;)
+   *     .then(data =&gt; console.log(data));
+   * @return {Object}
+  */
+  async setNewPassword(data, token) {
+
+        const body = &#x60;password=${data.password}&amp;password_confirmation=${data.password_confirmation}&#x60;;
+
+        try{
+          const response = await fetch(API.setNewPassword(token),{
+            method: &#x27;PUT&#x27;,
+            body: body,
+            headers: {
+              &#x27;Content-Type&#x27;: &#x27;x-www-form-urlencoded&#x27;
+            }
+          });
+
+          const data = await response.json();
+
+          return data;
+
+        }catch(error){
+          return false;
+        }
+  }
+
+  /**
+   * Gets the user/account information for a given auth token
+   * @method getAccountInfo
+   * @async
+   * @param {String} token - The authorization token
+   * @example
+   *     InPlayer.User
+   *     .getAccountInfo(&#x27;afhqi83rji74hjf7e43df&#x27;)
+   *     .then(data =&gt; console.log(data));
+   * @return {Object}
+  */
+  async getAccountInfo(token) {
+    try{
+      const response = await fetch(API.getAccountInfo, {
+        method: &#x27;GET&#x27;,
+        headers: {
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
+        }
+      });
+
+      const data = await response.json();
+      if(data)
+        return data;
+
+    }catch(error){
+      return false;
+    }
+  }
+
+  /**
+   * Gets the social login urls for fb/twitter/google
+   * @method getSocialLoginUrls
+   * @async
+   * @param {String} state - The state for the social
+   * @example
+   *     InPlayer.User
+   *     .getSocialLoginUrls(&#x27;123124-1r-1r13ur1h1&#x27;)
+   *     .then(data =&gt; console.log(data));
+   * @return {Object}
+  */
+  async getSocialLoginUrls(state) {
+    try{
+      const response = await fetch(API.social(state), {
+        method: &#x27;GET&#x27;,
+      });
+
+      const data = await response.json();
+
+      if(data)
+        return data;
+
+    }catch(error){
+      return false;
+    }
+  }
+
+  /**
+   * Updates the account info
+   * @method updateAccount
+   * @async
+   * @param {Object} data - The new data for the account
+   * @param {String} token - The authorization token
+   * @example
+   *     InPlayer.User
+   *     .updateAccount({},&#x27;123124-1r-1r13ur1h1&#x27;)
+   *     .then(data =&gt; console.log(data));
+   * @return {Object}
+  */
+  async updateAccount(data, token) {
+    try{
+      const response = await fetch(API.updateAccount, {
+        method: &#x27;PUT&#x27;,
+        body: data,
+        headers: {
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token,
+          &#x27;Content-Type&#x27;: &#x27;x-www-form-urlencoded&#x27;
+        }
+      });
+
+      const data = await response.json();
+
+      return data;
+    }catch(error){
+      return false;
+    }
+  }
+
+  /**
+   * Changes password for a given user
+   * @method changePassword
+   * @async
+   * @param {Object} data - Contains new password
+   * @param {String} token - The authorization token
+   * @example
+   *     InPlayer.User
+   *     .updateAccount({},&#x27;123124-1r-1r13ur1h1&#x27;)
+   *     .then(data =&gt; console.log(data));
+   * @return {Object}
+  */
+  async changePassword(data, token) {
+    try{
+      const response = await fetch(API.changePassword, {
+        method: &#x27;POST&#x27;,
+        body: data,
+        headers: {
+          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
+        }
+      });
+
+      const data = await response.json();
+
+      return data;
+    }catch(error){
+      return false;
+    }
+  }
+
+  /**
+   * Gets register fields
+   * @method getRegisterFields
+   * @async
+   * @param {String} merchant_uuid - The merchant UUID
+   * @example
+   *     InPlayer.User
+   *     .getRegisterFields(&#x27;123124-1r-1r13ur1h1&#x27;)
+   *     .then(data =&gt; console.log(data));
+   * @return {Object}
+  */
+  async getRegisterFields(merchant_uuid){
+    try{
+      const response = await fetch(API.getRegisterFields(merchant_uuid));
+
+      const data = await response.json();
+
+      return data;
+    }catch(error){
+      return false;
+    }
+  }
+}
+
+export default User;
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>
