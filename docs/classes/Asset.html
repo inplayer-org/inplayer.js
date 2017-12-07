@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscriptions", "classes/User"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription", "classes/User"]'>
         </form>
     </div>
 </div>
@@ -41,7 +41,7 @@
                 <li><a href="../classes/InPlayer.html">InPlayer</a></li>
                 <li><a href="../classes/Misc.html">Misc</a></li>
                 <li><a href="../classes/Payment.html">Payment</a></li>
-                <li><a href="../classes/Subscriptions.html">Subscriptions</a></li>
+                <li><a href="../classes/Subscription.html">Subscription</a></li>
                 <li><a href="../classes/User.html">User</a></li>
         </ul>
     </div>
@@ -197,8 +197,9 @@
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<p>InPlayer.Asset.checkAccessForAsset('eyJ0eXAiOiJKPECENR5Y',36320)
-.then(data =&gt; console.log(data));</p>
+				<pre class="code prettyprint"><code>InPlayer.Asset
+.checkAccessForAsset('eyJ0eXAiOiJKPECENR5Y',36320)
+.then(data =&gt; console.log(data));</code></pre>
 
 			</div>
 		</div>
@@ -231,7 +232,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l40"><code>src\Models\Asset.js:40</code></a>
+		<a href="../files/src_Models_Asset.js.html#l41"><code>src\Models\Asset.js:41</code></a>
 		</p>
 
 
@@ -282,8 +283,9 @@
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<p>InPlayer.Asset.checkAccessForMultipleAssets('eyJ0eXAiOiJKPECENR5Y',[36320,27215])
-.then(data =&gt; console.log(data));</p>
+				<pre class="code prettyprint"><code>InPlayer.Asset
+.checkAccessForMultipleAssets('eyJ0eXAiOiJKPECENR5Y',[36320,27215])
+.then(data =&gt; console.log(data));</code></pre>
 
 			</div>
 		</div>
@@ -316,7 +318,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l67"><code>src\Models\Asset.js:67</code></a>
+		<a href="../files/src_Models_Asset.js.html#l69"><code>src\Models\Asset.js:69</code></a>
 		</p>
 
 
@@ -367,8 +369,9 @@
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<p>InPlayer.Asset.findAsset(2,'a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl')
-.then(data =&gt; console.log(data));</p>
+				<pre class="code prettyprint"><code>InPlayer.Asset
+.findAsset(2,'a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl')
+.then(data =&gt; console.log(data));</code></pre>
 
 			</div>
 		</div>
@@ -401,7 +404,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l92"><code>src\Models\Asset.js:92</code></a>
+		<a href="../files/src_Models_Asset.js.html#l95"><code>src\Models\Asset.js:95</code></a>
 		</p>
 
 
@@ -452,8 +455,9 @@
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<p>InPlayer.Asset.findExternalAsset(2,44237)
-.then(data =&gt; console.log(data));</p>
+				<pre class="code prettyprint"><code>InPlayer.Asset
+.findExternalAsset(2,44237)
+.then(data =&gt; console.log(data));</code></pre>
 
 			</div>
 		</div>
@@ -483,7 +487,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l117"><code>src\Models\Asset.js:117</code></a>
+		<a href="../files/src_Models_Asset.js.html#l121"><code>src\Models\Asset.js:121</code></a>
 		</p>
 
 
@@ -523,8 +527,9 @@
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<p>InPlayer.Asset.findPackage(4444)
-.then(data =&gt; console.log(data));</p>
+				<pre class="code prettyprint"><code>InPlayer.Asset
+.findPackage(4444)
+.then(data =&gt; console.log(data));</code></pre>
 
 			</div>
 		</div>
@@ -554,7 +559,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l141"><code>src\Models\Asset.js:141</code></a>
+		<a href="../files/src_Models_Asset.js.html#l146"><code>src\Models\Asset.js:146</code></a>
 		</p>
 
 
@@ -594,8 +599,9 @@
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<p>InPlayer.Asset.getAssetAccessFees(555)
-.then(data =&gt; console.log(data))</p>
+				<pre class="code prettyprint"><code>InPlayer.Asset
+.getAssetAccessFees(555)
+.then(data =&gt; console.log(data))</code></pre>
 
 			</div>
 		</div>
@@ -628,7 +634,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l165"><code>src\Models\Asset.js:165</code></a>
+		<a href="../files/src_Models_Asset.js.html#l171"><code>src\Models\Asset.js:171</code></a>
 		</p>
 
 
@@ -679,8 +685,9 @@
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<p>InPlayer.Asset.freemiumAsset('uoifhadafefbad1312nfuqd123', {})
-.then(data =&gt; console.log(data));</p>
+				<pre class="code prettyprint"><code>InPlayer.Asset
+.freemiumAsset('uoifhadafefbad1312nfuqd123', {})
+.then(data =&gt; console.log(data));</code></pre>
 
 			</div>
 		</div>

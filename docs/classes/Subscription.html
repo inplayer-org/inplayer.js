@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>InPlayer - InPlayer SDK</title>
+    <title>Subscription - InPlayer SDK</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -76,7 +76,7 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>InPlayer</h1>
+    <h1>Subscription</h1>
 </div>
 
 
@@ -85,7 +85,7 @@
 
 
 <div class="yuidoc-class-description">
-<p>Main class. Contains all others methods and websocket subscription</p>
+<p>Contains all Requests connected with subscriptions</p>
 
 </div>
 
@@ -97,21 +97,12 @@
 		<li>
 			<strong>Methods</strong>
 			<ul>
-				<li><a href="#method-subscribe"><span class="im">subscribe</span>(<span class="ia">account_uuid</span><span class="ia">callbackParams</span>)</a></li>
-				<li><a href="#method-unsubscribe"><span class="im">unsubscribe</span>()</a></li>
+				<li><a href="#method-assetSubscribe"><span class="im">assetSubscribe</span>(<span class="ia">token</span><span class="ia">data</span>)</a></li>
+				<li><a href="#method-cancelSubscription"><span class="im">cancelSubscription</span>(<span class="ia">unsubscribe_url</span><span class="ia">token</span>)</a></li>
+				<li><a href="#method-getSubscriptions"><span class="im">getSubscriptions</span>(<span class="ia">token</span>)</a></li>
 			</ul>
 		</li>
 
-		<li>
-			<strong>Properties</strong>
-			<ul>
-				<li><a href="#prop-Asset"><span class="ip">Asset</span></a></li>
-				<li><a href="#prop-Misc"><span class="ip">Misc</span></a></li>
-				<li><a href="#prop-Payment"><span class="ip">Payment</span></a></li>
-				<li><a href="#prop-Subscription"><span class="ip">Subscription</span></a></li>
-				<li><a href="#prop-User"><span class="ip">User</span></a></li>
-			</ul>
-		</li>
 
 
 	</ul>
@@ -123,22 +114,22 @@
     <div id="methods" class="page-section">
         <h2 class="off-left">Methods</h2>
         <div class="item-list">
-<div id="method-subscribe" class="method item">
+<div id="method-assetSubscribe" class="method item">
 	<div class="method-signature">
-	<span class="name"><code>subscribe</code></span>
+	<span class="name"><code>assetSubscribe</code></span>
 
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
 				<li class="arg">
-						<code>account_uuid</code>
+						<code>token</code>
 				</li>
 				<li class="arg">
-						<code>callbackParams</code>
+						<code>data</code>
 				</li>
 			</ul><span class="paren">)</span>
 		</div>
 		<span class="returns-inline">
-			<span class="type">Boolean</span>
+			<span class="type">Object</span>
 		</span>
 	</div>
 
@@ -146,18 +137,19 @@
 
 
 
+		<span class="flag async">async</span>
 
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_index.js.html#l44"><code>src\index.js:44</code></a>
+		<a href="../files/src_Models_Subscription.js.html#l69"><code>src\Models\Subscription.js:69</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Subscribes to websocket events</p>
+	<div class="description"><p>Subscribes to a given asset</p>
 </div>
 
 		<div class="params">
@@ -165,28 +157,23 @@
 
 			<ul class="params-list">
 				<li class="param">
-						<code class="param-name">account_uuid</code>
+						<code class="param-name">token</code>
 						<span class="type">String</span>
 
 
 					<div class="param-description"><ul>
-<li>The users account UUID</li>
+<li>The Authorization token</li>
 </ul>
 </div>
 
 				</li>
 				<li class="param">
-						<code class="param-name">callbackParams</code>
+						<code class="param-name">data</code>
 						<span class="type">Object</span>
 
 
 					<div class="param-description"><ul>
-<li>Methods regarding websocket
-{
-onmessage: function,
-onopen: function,
-onclose: function
-}</li>
+<li>{}</li>
 </ul>
 </div>
 
@@ -198,7 +185,7 @@ onclose: function
 			<h4>Returns:</h4>
 
 			<div class="returns-description">
-						<span class="type">Boolean</span>
+						<span class="type">Object</span>
 			</div>
 		</div>
 
@@ -206,26 +193,29 @@ onclose: function
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.subscribe(
- 'adsasd-d1-cjc1c-1ajaveo',
- {
-  onmessage: (message) =&gt; { let body = JSON.parse(message.body); console.log(body, 'message') },
-  onopen: (e) =&gt; console.log('open'),
-  onclose: (e) =&gt; console.log('close', e)
- }
-</code></pre>
-<p>)</p>
+				<pre class="code prettyprint"><code>InPlayer.Subscription
+.assetSubscribe('eyJ0eXAiOiJKPECENR5Y', {})
+.then(data =&gt; console.log(data));</code></pre>
 
 			</div>
 		</div>
 </div>
-<div id="method-unsubscribe" class="method item">
+<div id="method-cancelSubscription" class="method item">
 	<div class="method-signature">
-	<span class="name"><code>unsubscribe</code></span>
+	<span class="name"><code>cancelSubscription</code></span>
 
-		<span class="paren">()</span>
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>unsubscribe_url</code>
+				</li>
+				<li class="arg">
+						<code>token</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
 		<span class="returns-inline">
-			<span class="type">Boolean</span>
+			<span class="type">Object</span>
 		</span>
 	</div>
 
@@ -233,26 +223,55 @@ onclose: function
 
 
 
+		<span class="flag async">async</span>
 
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_index.js.html#l75"><code>src\index.js:75</code></a>
+		<a href="../files/src_Models_Subscription.js.html#l40"><code>src\Models\Subscription.js:40</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Unsubscribes from the websocket and event listeners</p>
+	<div class="description"><p>Cancels a subscription</p>
 </div>
 
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">unsubscribe_url</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><ul>
+<li>The url for the subscription which is getting unsubscribed</li>
+</ul>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">token</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><ul>
+<li>The Authorization token</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
 
 		<div class="returns">
 			<h4>Returns:</h4>
 
 			<div class="returns-description">
-						<span class="type">Boolean</span>
+						<span class="type">Object</span>
 			</div>
 		</div>
 
@@ -260,7 +279,81 @@ onclose: function
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.unsubscribe()</code></pre>
+				<pre class="code prettyprint"><code>InPlayer.Subscription
+.cancelSubscription('http://localhost/subscription/1','eyJ0eXAiOiJKPECENR5Y')
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-getSubscriptions" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>getSubscriptions</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>token</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_Subscription.js.html#l12"><code>src\Models\Subscription.js:12</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Gets all subscriptions for a given user</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">token</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><ul>
+<li>The Authorization token</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.Subscription
+.getSubscriptions('eyJ0eXAiOiJKPECENR5Y')
+.then(data =&gt; console.log(data));</code></pre>
 
 			</div>
 		</div>
@@ -268,132 +361,6 @@ onclose: function
         </div>
     </div>
 
-    <div id="properties" class="page-section">
-        <h2 class="off-left">Properties</h2>
-
-        <div class="item-list">
-<div id="prop-Asset" class="property item">
-    <h3 class="name"><code>Asset</code></h3>
-    <span class="type"><a href="../classes/Asset.html" class="crosslink">Asset</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/src_index.js.html#l21"><code>src\index.js:21</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-
-
-</div>
-<div id="prop-Misc" class="property item">
-    <h3 class="name"><code>Misc</code></h3>
-    <span class="type"><a href="../classes/Misc.html" class="crosslink">Misc</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/src_index.js.html#l36"><code>src\index.js:36</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-
-
-</div>
-<div id="prop-Payment" class="property item">
-    <h3 class="name"><code>Payment</code></h3>
-    <span class="type"><a href="../classes/Payment.html" class="crosslink">Payment</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/src_index.js.html#l26"><code>src\index.js:26</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-
-
-</div>
-<div id="prop-Subscription" class="property item">
-    <h3 class="name"><code>Subscription</code></h3>
-    <span class="type"><a href="../classes/Subscription.html" class="crosslink">Subscription</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/src_index.js.html#l31"><code>src\index.js:31</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-
-
-</div>
-<div id="prop-User" class="property item">
-    <h3 class="name"><code>User</code></h3>
-    <span class="type"><a href="../classes/User.html" class="crosslink">User</a></span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/src_index.js.html#l16"><code>src\index.js:16</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-
-
-</div>
-        </div>
-    </div>
 
 
 

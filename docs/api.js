@@ -5,7 +5,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "InPlayer",
         "Misc",
         "Payment",
-        "Subscriptions",
+        "Subscription",
         "User"
     ],
     "modules": [],

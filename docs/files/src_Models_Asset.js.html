@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscriptions", "classes/User"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription", "classes/User"]'>
         </form>
     </div>
 </div>
@@ -41,7 +41,7 @@
                 <li><a href="../classes/InPlayer.html">InPlayer</a></li>
                 <li><a href="../classes/Misc.html">Misc</a></li>
                 <li><a href="../classes/Payment.html">Payment</a></li>
-                <li><a href="../classes/Subscriptions.html">Subscriptions</a></li>
+                <li><a href="../classes/Subscription.html">Subscription</a></li>
                 <li><a href="../classes/User.html">User</a></li>
         </ul>
     </div>
@@ -99,8 +99,9 @@ class Asset {
    * @param {String} token - The Authorization token
    * @param {Number} id - The id of the asset
    * @example
-   * InPlayer.Asset.checkAccessForAsset(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,36320)
-   * .then(data =&gt; console.log(data));
+   *     InPlayer.Asset
+   *     .checkAccessForAsset(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,36320)
+   *     .then(data =&gt; console.log(data));
    * @return {Object}
   */
   async checkAccessForAsset(token, id){
@@ -127,8 +128,9 @@ class Asset {
    * @param {String} token - The Authorization token
    * @param {Array} ids - Array with asset ids
    * @example
-   * InPlayer.Asset.checkAccessForMultipleAssets(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,[36320,27215])
-   * .then(data =&gt; console.log(data));
+   *     InPlayer.Asset
+   *     .checkAccessForMultipleAssets(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,[36320,27215])
+   *     .then(data =&gt; console.log(data));
    * @return {Object}
   */
   async checkAccessForMultipleAssets(token, ids){
@@ -154,8 +156,9 @@ class Asset {
    * @param {Numer} assetId - The ID of the asset
    * @param {String} merchant_uuid - The merchant UUID string
    * @example
-   * InPlayer.Asset.findAsset(2,&#x27;a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl&#x27;)
-   * .then(data =&gt; console.log(data));
+   *     InPlayer.Asset
+   *     .findAsset(2,&#x27;a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl&#x27;)
+   *     .then(data =&gt; console.log(data));
    * @return {Object}
   */
   async findAsset(assetId, merchant_uuid){
@@ -179,8 +182,9 @@ class Asset {
    * @param {Numer} assetType - The type ID of the asset
    * @param {Number} externalId - The ID of the external asset
    * @example
-   * InPlayer.Asset.findExternalAsset(2,44237)
-   * .then(data =&gt; console.log(data));
+   *     InPlayer.Asset
+   *     .findExternalAsset(2,44237)
+   *     .then(data =&gt; console.log(data));
    * @return {Object}
   */
   async findExternalAsset(assetType, externalId){
@@ -203,8 +207,9 @@ class Asset {
    * @async
    * @param {Numer} id - The type ID of the package
    * @example
-   * InPlayer.Asset.findPackage(4444)
-   * .then(data =&gt; console.log(data));
+   *     InPlayer.Asset
+   *     .findPackage(4444)
+   *     .then(data =&gt; console.log(data));
    * @return {Object}
   */
   async findPackage(id){
@@ -227,8 +232,9 @@ class Asset {
    * @async
    * @param {Numer} id - The ID of the asset
    * @example
-   * InPlayer.Asset.getAssetAccessFees(555)
-   * .then(data =&gt; console.log(data))
+   *     InPlayer.Asset
+   *     .getAssetAccessFees(555)
+   *     .then(data =&gt; console.log(data))
    * @return {Object}
   */
   async getAssetAccessFees(id) {
@@ -252,8 +258,9 @@ class Asset {
    * @param {String} token - The authorization token
    * @param {Object} data - {}
    * @example
-   * InPlayer.Asset.freemiumAsset(&#x27;uoifhadafefbad1312nfuqd123&#x27;, {})
-   * .then(data =&gt; console.log(data));
+   *     InPlayer.Asset
+   *     .freemiumAsset(&#x27;uoifhadafefbad1312nfuqd123&#x27;, {})
+   *     .then(data =&gt; console.log(data));
    * @return {Object}
   */
   async freemiumAsset(token, data) {

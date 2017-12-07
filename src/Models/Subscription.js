@@ -5,9 +5,9 @@ import {
 /**
  * Contains all Requests connected with subscriptions
  *
- * @class Subscriptions
+ * @class Subscription
  */
-class Subscriptions {
+class Subscription {
 
   /**
    * Gets all subscriptions for a given user
@@ -15,7 +15,7 @@ class Subscriptions {
    * @async
    * @param {String} token - The Authorization token
    * @example
-   *     InPlayer.Subscriptions
+   *     InPlayer.Subscription
    *     .getSubscriptions('eyJ0eXAiOiJKPECENR5Y')
    *     .then(data => console.log(data));
    * @return {Object}
@@ -44,7 +44,7 @@ class Subscriptions {
    * @param {String} unsubscribe_url - The url for the subscription which is getting unsubscribed
    * @param {String} token - The Authorization token
    * @example
-   *     InPlayer.Subscriptions
+   *     InPlayer.Subscription
    *     .cancelSubscription('http://localhost/subscription/1','eyJ0eXAiOiJKPECENR5Y')
    *     .then(data => console.log(data));
    * @return {Object}
@@ -73,7 +73,7 @@ class Subscriptions {
    * @param {String} token - The Authorization token
    * @param {Object} data - {}
    * @example
-   *     InPlayer.Subscriptions
+   *     InPlayer.Subscription
    *     .assetSubscribe('eyJ0eXAiOiJKPECENR5Y', {})
    *     .then(data => console.log(data));
    * @return {Object}

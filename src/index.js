@@ -1,7 +1,7 @@
 import User from './Models/User';
 import Asset from './Models/Asset';
 import Payment from './Models/Payment';
-import Subscriptions from './Models/Subscriptions';
+import Subscription from './Models/Subscription';
 import Misc from './Models/Misc';
 import Socket from './Socket';
 
@@ -11,11 +11,32 @@ import Socket from './Socket';
  * @class InPlayer
  */
 class InPlayer {
+
   constructor(){
+    /**
+     * @property User
+     * @type User
+     */
     this.User = new User();
+    /**
+     * @property Asset
+     * @type Asset
+     */
     this.Asset = new Asset();
+    /**
+     * @property Payment
+     * @type Payment
+     */
     this.Payment = new Payment();
-    this.Subscriptions = new Subscriptions();
+    /**
+     * @property Subscription
+     * @type Subscription
+     */
+    this.Subscription = new Subscription();
+    /**
+     * @property Misc
+     * @type Misc
+     */
     this.Misc = new Misc();
     this.Socket = new Socket();
   }

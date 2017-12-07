@@ -40,6 +40,8 @@ export default {
       include: 'node_modules/**',
       namedExports: {
         'node_modules/js-cookie/src/js.cookie.js': ['get','set','remove'],
+        'node_modules/stompjs/lib/stomp-node.js': ['net', 'websocket'],
+
       }
     }),
     buble({
