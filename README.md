@@ -47,7 +47,7 @@ Method 2 using NPM:
 /
 ## Versioning
 
-0.1.0
+0.1.6
 
 ## License
 

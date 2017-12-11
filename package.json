@@ -1,6 +1,6 @@
 {
   "name": "@inplayer/inplayer-sdk",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A Javascript SDK for Inplayer's RESTful API",
   "main": "dist/inplayer.umd.js",
   "cjs:main": "dist/inplayer.cjs.js",
