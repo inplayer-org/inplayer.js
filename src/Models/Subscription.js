@@ -97,4 +97,4 @@ class Subscription {
   }
 }
 
-export default Subscriptions;
+export default Subscription;

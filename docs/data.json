@@ -530,7 +530,7 @@
                 }
             ],
             "example": [
-                "\n    // data.payment_method = { id.... }\n    InPlayer.Payment\n    .getPaymentTools('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj',\n     {\n      number: 4111111111111111,\n      card_name: 'PayPal',\n      exp_month: 10,\n      exp_year: 2030,\n      cvv: 656,\n      access_fee: 2341,\n      payment_method: 1,\n      referrer: 'http://google.com'\n     })\n    .then(data => console.log(data));"
+                "\n    // data.payment_method = { id.... }\n    InPlayer.Payment\n    .payForAsset('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj',\n     {\n      number: 4111111111111111,\n      card_name: 'PayPal',\n      exp_month: 10,\n      exp_year: 2030,\n      cvv: 656,\n      access_fee: 2341,\n      payment_method: 1,\n      referrer: 'http://google.com'\n     })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -764,7 +764,7 @@
             "line": 186,
             "description": "Requests new password for a given user",
             "itemtype": "method",
-            "name": "signUp",
+            "name": "requestNewPassword",
             "async": 1,
             "params": [
                 {

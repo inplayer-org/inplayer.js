@@ -73,7 +73,7 @@ class Payment {
    * @example
    *     // data.payment_method = { id.... }
    *     InPlayer.Payment
-   *     .getPaymentTools('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj',
+   *     .payForAsset('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj',
    *      {
    *       number: 4111111111111111,
    *       card_name: 'PayPal',

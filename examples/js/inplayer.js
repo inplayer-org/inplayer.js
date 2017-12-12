@@ -417,7 +417,7 @@ User.prototype.setTokenInCookie = function setTokenInCookie (token) {
 
 /**
  * Requests new password for a given user
- * @method signUp
+ * @method requestNewPassword
  * @async
  * @param {Object} data - Contains {
  *email: String,
@@ -642,11 +642,6 @@ User.prototype.getRegisterFields = function getRegisterFields (merchant_uuid) {
   }());
 };
 
-/**
- * Contains all Requests connected with assets/items
- *
- * @class Asset
- */
 var Asset = function Asset () {};
 
 Asset.prototype.checkAccessForAsset = function checkAccessForAsset (token, id) {
@@ -839,11 +834,6 @@ Asset.prototype.freemiumAsset = function freemiumAsset (token, data) {
   }());
 };
 
-/**
- * Contains all Requests connected with payments
- *
- * @class Payment
- */
 var Payment = function Payment () {};
 
 Payment.prototype.getPaymentMethods = function getPaymentMethods (token) {
@@ -969,11 +959,90 @@ Payment.prototype.getPayPalParams = function getPayPalParams (token, data) {
   }());
 };
 
+var Subscription = function Subscription () {};
+
+Subscription.prototype.getSubscriptions = function getSubscriptions (token) {
+  return __async(function* () {
+    try {
+      var response = yield fetch(API.getSubscriptions, {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      });
+
+      var data = response.json();
+
+      return data;
+    } catch (error) {
+      return false;
+    }
+  }());
+};
+
 /**
- * Contains mixed various types of functiosn for dlcs, discounts, branding, etc.
- *
- * @class Misc
- */
+ * Cancels a subscription
+ * @method cancelSubscription
+ * @async
+ * @param {String} unsubscribe_url - The url for the subscription which is getting unsubscribed
+ * @param {String} token - The Authorization token
+ * @example
+ *   InPlayer.Subscription
+ *   .cancelSubscription('http://localhost/subscription/1','eyJ0eXAiOiJKPECENR5Y')
+ *   .then(data => console.log(data));
+ * @return {Object}
+*/
+Subscription.prototype.cancelSubscription = function cancelSubscription (unsubscribe_url, token) {
+  return __async(function* () {
+    try {
+      var response = yield fetch(unsubscribe_url, {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      });
+
+      var data = response.json();
+
+      return data;
+    } catch (error) {
+      return false;
+    }
+  }());
+};
+
+/**
+ * Subscribes to a given asset
+ * @method assetSubscribe
+ * @async
+ * @param {String} token - The Authorization token
+ * @param {Object} data - {}
+ * @example
+ *   InPlayer.Subscription
+ *   .assetSubscribe('eyJ0eXAiOiJKPECENR5Y', {})
+ *   .then(data => console.log(data));
+ * @return {Object}
+*/
+Subscription.prototype.assetSubscribe = function assetSubscribe (token, data) {
+  return __async(function* () {
+    try {
+      var response = yield fetch(API.subscribe, {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + token
+        },
+        body: data
+      });
+
+      var data = yield response.json();
+
+      return data;
+    } catch (error) {
+      return false;
+    }
+  }());
+};
+
 var Misc = function Misc () {};
 
 Misc.prototype.getDlcLinks = function getDlcLinks (token, assetId) {
@@ -1722,18 +1791,6 @@ var stompNode_2 = stompNode.websocket;
 var stompNode_3 = stompNode.overTCP;
 var stompNode_4 = stompNode.overWS;
 
-// Copyright (C) 2013 [Jeff Mesnil](http://jmesnil.net/)
-//
-//   Stomp Over WebSocket http://www.jmesnil.net/stomp-websocket/doc/ | Apache License V2.0
-//
-// The library can be used in node.js app to connect to STOMP brokers over TCP 
-// or Web sockets.
-
-// Root of the `stompjs module`
-
-
-
-
 var stompjs = stomp.Stomp;
 var overTCP = stompNode.overTCP;
 var overWS = stompNode.overWS;
@@ -1808,11 +1865,6 @@ Socket.prototype.unsubscribe = function unsubscribe () {
   }
 };
 
-/**
- * Main class. Contains all others methods and websocket subscription
- *
- * @class InPlayer
- */
 var InPlayer = function InPlayer() {
   /**
    * @property User
@@ -1833,7 +1885,7 @@ var InPlayer = function InPlayer() {
    * @property Subscription
    * @type Subscription
    */
-  this.Subscription = new Subscriptions();
+  this.Subscription = new Subscription();
   /**
    * @property Misc
    * @type Misc
