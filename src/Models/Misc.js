@@ -21,7 +21,7 @@ class Misc{
    *     .then(data => console.log(data));
    * @return {Object}
   */
-  async getDlcLinks(token,assetId){
+  async getDlcLinks(token, assetId){
     try{
       const response = await fetch(API.getDlcLinks(assetId), {
         headers: {
@@ -42,21 +42,35 @@ class Misc{
    * @method getDiscount
    * @async
    * @param {String} token - The Authorization token
-   * @param {Object} data - {}
+   * @param {Object} data - {
+   *   voucher_code: String,
+   *   merchant_id: String,
+   *   access_fee_id: Number
+   * }
    * @example
    *     InPlayer.Misc
-   *     .getDiscount('eyJ0eXAiOiJKPECENR5Y',{})
+   *     .getDiscount('eyJ0eXAiOiJKPECENR5Y',{
+   *        voucher_code: '120fwjhniudh42i7',
+   *        merchant_id: 'hghfqw92dm29-1g',
+   *        access_fee_id: 2
+   *     })
    *     .then(data => console.log(data));
    * @return {Object}
   */
   async getDiscount(token, data) {
+
+    const fd = new FormData();
+    fd.append('access_fee', data.access_fee);
+    fd.append('origin', data.origin);
+    fd.append('payment_method', data.payment_method);
+
     try{
       const response = await fetch(API.getDiscount, {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + token
         },
-        body: data
+        body: fd
       });
 
       const data = await response.json();
@@ -111,31 +125,6 @@ class Misc{
         headers: {
             'Authorization': 'Bearer ' + token
         }
-      });
-
-      const data = await response.json();
-
-      return data;
-    }catch(error){
-      return false;
-    }
-  }
-
-  /**
-   * Fetches WP content
-   * @method fetchWPContent
-   * @async
-   * @param {String} url - The url from where to fetch
-   * @example
-   *     InPlayer.Misc
-   *     .fetchWPContent('http://localhost:3000')
-   *     .then(data => console.log(data));
-   * @return {Object}
-  */
-  async fetchWPContent(url) {
-    try{
-      const response = await fetch(url, {
-        credentials: 'same-origin'
       });
 
       const data = await response.json();

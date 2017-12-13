@@ -103,7 +103,7 @@
 				<li><a href="#method-findExternalAsset"><span class="im">findExternalAsset</span>(<span class="ia">assetType</span><span class="ia">externalId</span>)</a></li>
 				<li><a href="#method-findPackage"><span class="im">findPackage</span>(<span class="ia">id</span>)</a></li>
 				<li><a href="#method-getAssetAccessFees"><span class="im">getAssetAccessFees</span>(<span class="ia">id</span>)</a></li>
-				<li><a href="#method-getAssetAccessFees"><span class="im">getAssetAccessFees</span>(<span class="ia">token</span><span class="ia">data</span>)</a></li>
+				<li><a href="#method-getFreemiumAsset"><span class="im">getFreemiumAsset</span>(<span class="ia">token</span><span class="ia">data</span>)</a></li>
 			</ul>
 		</li>
 
@@ -420,7 +420,7 @@
 			<ul class="params-list">
 				<li class="param">
 						<code class="param-name">assetType</code>
-						<span class="type">Numer</span>
+						<span class="type">String</span>
 
 
 					<div class="param-description"><ul>
@@ -431,7 +431,7 @@
 				</li>
 				<li class="param">
 						<code class="param-name">externalId</code>
-						<span class="type">Number</span>
+						<span class="type">String</span>
 
 
 					<div class="param-description"><ul>
@@ -456,7 +456,7 @@
 
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.Asset
-.findExternalAsset(2,44237)
+.findExternalAsset('331ff2','44237')
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>
@@ -606,9 +606,9 @@
 			</div>
 		</div>
 </div>
-<div id="method-getAssetAccessFees" class="method item">
+<div id="method-getFreemiumAsset" class="method item">
 	<div class="method-signature">
-	<span class="name"><code>getAssetAccessFees</code></span>
+	<span class="name"><code>getFreemiumAsset</code></span>
 
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
@@ -641,7 +641,7 @@
 
 	</div>
 
-	<div class="description"><p>Get the freemium asset data</p>
+	<div class="description"><p>Authorize for the freemium asset (login)</p>
 </div>
 
 		<div class="params">
@@ -665,7 +665,7 @@
 
 
 					<div class="param-description"><ul>
-<li>{}</li>
+<li>{ access_fee: Number }</li>
 </ul>
 </div>
 
@@ -686,7 +686,7 @@
 
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.Asset
-.freemiumAsset('uoifhadafefbad1312nfuqd123', {})
+.freemiumAsset('uoifhadafefbad1312nfuqd123', { access_fee: 22 })
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>

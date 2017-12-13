@@ -332,7 +332,11 @@
 
 
 					<div class="param-description"><ul>
-<li>Contains details</li>
+<li>Contains details - {
+origin: {String},
+access_fee: {Number},
+payment_method: {Number}
+}</li>
 </ul>
 </div>
 
@@ -353,7 +357,11 @@
 
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.Payment
-.getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {})
+.getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {
+origin: location.href,
+access_fee: 34,
+payment_method: 2
+})
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>

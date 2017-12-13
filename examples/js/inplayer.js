@@ -287,7 +287,7 @@ User.prototype.signIn = function signIn (data) {
 
       return data$1;
     } catch (error) {
-      return false;
+      return error;
     }
   }());
 };
@@ -642,6 +642,11 @@ User.prototype.getRegisterFields = function getRegisterFields (merchant_uuid) {
   }());
 };
 
+/**
+ * Contains all Requests connected with assets/items
+ *
+ * @class Asset
+ */
 var Asset = function Asset () {};
 
 Asset.prototype.checkAccessForAsset = function checkAccessForAsset (token, id) {
@@ -724,11 +729,11 @@ Asset.prototype.findAsset = function findAsset (assetId, merchant_uuid) {
  * Get an external assets' info
  * @method findExternalAsset
  * @async
- * @param {Numer} assetType - The type ID of the asset
- * @param {Number} externalId - The ID of the external asset
+ * @param {String} assetType - The type ID of the asset
+ * @param {String} externalId - The ID of the external asset
  * @example
  *   InPlayer.Asset
- *   .findExternalAsset(2,44237)
+ *   .findExternalAsset('331ff2','44237')
  *   .then(data => console.log(data));
  * @return {Object}
 */
@@ -803,18 +808,18 @@ Asset.prototype.getAssetAccessFees = function getAssetAccessFees (id) {
 };
 
 /**
- * Get the freemium asset data
- * @method getAssetAccessFees
+ * Authorize for the freemium asset (login)
+ * @method getFreemiumAsset
  * @async
  * @param {String} token - The authorization token
- * @param {Object} data - {}
+ * @param {Object} data - { access_fee: Number }
  * @example
  *   InPlayer.Asset
- *   .freemiumAsset('uoifhadafefbad1312nfuqd123', {})
+ *   .freemiumAsset('uoifhadafefbad1312nfuqd123', { access_fee: 22 })
  *   .then(data => console.log(data));
  * @return {Object}
 */
-Asset.prototype.freemiumAsset = function freemiumAsset (token, data) {
+Asset.prototype.getFreemiumAsset = function getFreemiumAsset (token, accessFee) {
   return __async(function* () {
     try {
       var response = yield fetch(API.freemium, {
@@ -822,7 +827,9 @@ Asset.prototype.freemiumAsset = function freemiumAsset (token, data) {
         headers: {
           'Authorization': 'Bearer ' + token
         },
-        body: data
+        body: {
+          access_fee: accessFee
+        }
       });
 
       var data = yield response.json();
@@ -834,6 +841,11 @@ Asset.prototype.freemiumAsset = function freemiumAsset (token, data) {
   }());
 };
 
+/**
+ * Contains all Requests connected with payments
+ *
+ * @class Payment
+ */
 var Payment = function Payment () {};
 
 Payment.prototype.getPaymentMethods = function getPaymentMethods (token) {
@@ -893,7 +905,7 @@ Payment.prototype.getPaymentTools = function getPaymentTools (token, paymentMeth
  * @example
  *   // data.payment_method = { id.... }
  *   InPlayer.Payment
- *   .getPaymentTools('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj',
+ *   .payForAsset('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj',
  *    {
  *     number: 4111111111111111,
  *     card_name: 'PayPal',
@@ -932,10 +944,18 @@ Payment.prototype.payForAsset = function payForAsset (token, data) {
  * @method getPayPalParams
  * @async
  * @param {String} token - The Authorization token
- * @param {Object} data - Contains details
+ * @param {Object} data - Contains details - {
+ *origin: {String},
+ *access_fee: {Number},
+ *payment_method: {Number}
+ * }
  * @example
  *   InPlayer.Payment
- *   .getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {})
+ *   .getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {
+ *   origin: location.href,
+ *   access_fee: 34,
+ *   payment_method: 2
+ *   })
  *   .then(data => console.log(data));
  * @return {Object}
 */
@@ -959,6 +979,11 @@ Payment.prototype.getPayPalParams = function getPayPalParams (token, data) {
   }());
 };
 
+/**
+ * Contains all Requests connected with subscriptions
+ *
+ * @class Subscription
+ */
 var Subscription = function Subscription () {};
 
 Subscription.prototype.getSubscriptions = function getSubscriptions (token) {
@@ -1043,6 +1068,11 @@ Subscription.prototype.assetSubscribe = function assetSubscribe (token, data) {
   }());
 };
 
+/**
+ * Contains mixed various types of functiosn for dlcs, discounts, branding, etc.
+ *
+ * @class Misc
+ */
 var Misc = function Misc () {};
 
 Misc.prototype.getDlcLinks = function getDlcLinks (token, assetId) {
@@ -1068,27 +1098,41 @@ Misc.prototype.getDlcLinks = function getDlcLinks (token, assetId) {
  * @method getDiscount
  * @async
  * @param {String} token - The Authorization token
- * @param {Object} data - {}
+ * @param {Object} data - {
+ * voucher_code: String,
+ * merchant_id: String,
+ * access_fee_id: Number
+ * }
  * @example
  *   InPlayer.Misc
- *   .getDiscount('eyJ0eXAiOiJKPECENR5Y',{})
+ *   .getDiscount('eyJ0eXAiOiJKPECENR5Y',{
+ *      voucher_code: '120fwjhniudh42i7',
+ *      merchant_id: 'hghfqw92dm29-1g',
+ *      access_fee_id: 2
+ *   })
  *   .then(data => console.log(data));
  * @return {Object}
 */
 Misc.prototype.getDiscount = function getDiscount (token, data) {
   return __async(function* () {
+
+    var fd = new FormData();
+    fd.append('access_fee', data.access_fee);
+    fd.append('origin', data.origin);
+    fd.append('payment_method', data.payment_method);
+
     try {
       var response = yield fetch(API.getDiscount, {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer ' + token
         },
-        body: data
+        body: fd
       });
 
-      var data = yield response.json();
+      var data$1 = yield response.json();
 
-      return data;
+      return data$1;
     } catch (error) {
       return false;
     }
@@ -1142,33 +1186,6 @@ Misc.prototype.downloadProtectedFile = function downloadProtectedFile (token, as
         headers: {
           'Authorization': 'Bearer ' + token
         }
-      });
-
-      var data = yield response.json();
-
-      return data;
-    } catch (error) {
-      return false;
-    }
-  }());
-};
-
-/**
- * Fetches WP content
- * @method fetchWPContent
- * @async
- * @param {String} url - The url from where to fetch
- * @example
- *   InPlayer.Misc
- *   .fetchWPContent('http://localhost:3000')
- *   .then(data => console.log(data));
- * @return {Object}
-*/
-Misc.prototype.fetchWPContent = function fetchWPContent (url) {
-  return __async(function* () {
-    try {
-      var response = yield fetch(url, {
-        credentials: 'same-origin'
       });
 
       var data = yield response.json();
@@ -1791,6 +1808,18 @@ var stompNode_2 = stompNode.websocket;
 var stompNode_3 = stompNode.overTCP;
 var stompNode_4 = stompNode.overWS;
 
+// Copyright (C) 2013 [Jeff Mesnil](http://jmesnil.net/)
+//
+//   Stomp Over WebSocket http://www.jmesnil.net/stomp-websocket/doc/ | Apache License V2.0
+//
+// The library can be used in node.js app to connect to STOMP brokers over TCP 
+// or Web sockets.
+
+// Root of the `stompjs module`
+
+
+
+
 var stompjs = stomp.Stomp;
 var overTCP = stompNode.overTCP;
 var overWS = stompNode.overWS;
@@ -1865,6 +1894,11 @@ Socket.prototype.unsubscribe = function unsubscribe () {
   }
 };
 
+/**
+ * Main class. Contains all others methods and websocket subscription
+ *
+ * @class InPlayer
+ */
 var InPlayer = function InPlayer() {
   /**
    * @property User

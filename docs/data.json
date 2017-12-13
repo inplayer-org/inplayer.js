@@ -233,16 +233,16 @@
                 {
                     "name": "assetType",
                     "description": "- The type ID of the asset",
-                    "type": "Numer"
+                    "type": "String"
                 },
                 {
                     "name": "externalId",
                     "description": "- The ID of the external asset",
-                    "type": "Number"
+                    "type": "String"
                 }
             ],
             "example": [
-                "\n    InPlayer.Asset\n    .findExternalAsset(2,44237)\n    .then(data => console.log(data));"
+                "\n    InPlayer.Asset\n    .findExternalAsset('331ff2','44237')\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -299,9 +299,9 @@
         {
             "file": "src\\Models\\Asset.js",
             "line": 171,
-            "description": "Get the freemium asset data",
+            "description": "Authorize for the freemium asset (login)",
             "itemtype": "method",
-            "name": "getAssetAccessFees",
+            "name": "getFreemiumAsset",
             "async": 1,
             "params": [
                 {
@@ -311,12 +311,12 @@
                 },
                 {
                     "name": "data",
-                    "description": "- {}",
+                    "description": "- { access_fee: Number }",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.Asset\n    .freemiumAsset('uoifhadafefbad1312nfuqd123', {})\n    .then(data => console.log(data));"
+                "\n    InPlayer.Asset\n    .freemiumAsset('uoifhadafefbad1312nfuqd123', { access_fee: 22 })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -367,12 +367,12 @@
                 },
                 {
                     "name": "data",
-                    "description": "- {}",
+                    "description": "- {\n  voucher_code: String,\n  merchant_id: String,\n  access_fee_id: Number\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.Misc\n    .getDiscount('eyJ0eXAiOiJKPECENR5Y',{})\n    .then(data => console.log(data));"
+                "\n    InPlayer.Misc\n    .getDiscount('eyJ0eXAiOiJKPECENR5Y',{\n       voucher_code: '120fwjhniudh42i7',\n       merchant_id: 'hghfqw92dm29-1g',\n       access_fee_id: 2\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -382,7 +382,7 @@
         },
         {
             "file": "src\\Models\\Misc.js",
-            "line": 70,
+            "line": 84,
             "description": "Gets branding for given merchant",
             "itemtype": "method",
             "name": "getBranding",
@@ -405,7 +405,7 @@
         },
         {
             "file": "src\\Models\\Misc.js",
-            "line": 95,
+            "line": 109,
             "description": "Downloads a file",
             "itemtype": "method",
             "name": "downloadProtectedFile",
@@ -429,29 +429,6 @@
             ],
             "example": [
                 "\n    InPlayer.Misc\n    .downloadProtectedFile('eyJ0eXAiOiJKPECENR5Y',2234, 'test.js')\n    .then(data => console.log(data));"
-            ],
-            "return": {
-                "description": "",
-                "type": "Object"
-            },
-            "class": "Misc"
-        },
-        {
-            "file": "src\\Models\\Misc.js",
-            "line": 124,
-            "description": "Fetches WP content",
-            "itemtype": "method",
-            "name": "fetchWPContent",
-            "async": 1,
-            "params": [
-                {
-                    "name": "url",
-                    "description": "- The url from where to fetch",
-                    "type": "String"
-                }
-            ],
-            "example": [
-                "\n    InPlayer.Misc\n    .fetchWPContent('http://localhost:3000')\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -553,12 +530,12 @@
                 },
                 {
                     "name": "data",
-                    "description": "- Contains details",
+                    "description": "- Contains details - {\n origin: {String},\n access_fee: {Number},\n payment_method: {Number}\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.Payment\n    .getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {})\n    .then(data => console.log(data));"
+                "\n    InPlayer.Payment\n    .getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {\n    origin: location.href,\n    access_fee: 34,\n    payment_method: 2\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",

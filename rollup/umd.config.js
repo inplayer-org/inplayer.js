@@ -30,7 +30,8 @@ export default {
     babel({
       exclude: [
         'node_modules/**',
-      ]
+      ],
+      babelrc: false
     }),
     resolve({
       browser: true,
@@ -40,21 +41,24 @@ export default {
       include: 'node_modules/**',
       namedExports: {
         'node_modules/js-cookie/src/js.cookie.js': ['get','set','remove'],
-        'node_modules/stompjs/lib/stomp-node.js': ['net', 'websocket'],
-
+        'node_modules/stompjs/lib/stomp-node.js': ['net','websocket'],
       }
     }),
     buble({
-      exclude: '*.json',
+      exclude: '**.json',
       transforms: {
         generator: false
       }
     }),
-    //uglify({}, minify),
+    // uglify({}, minify),
     globals(),
     json()
   ],
-  external: ['ws'],
+  globals: {
+    net: 'net',
+    websocket: 'websocket',
+  },
+  external: ['net', 'websocket'],
   exports: 'named',
   context: 'self',
   acorn: {

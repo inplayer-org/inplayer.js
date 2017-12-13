@@ -194,10 +194,18 @@ class Payment {
    * @method getPayPalParams
    * @async
    * @param {String} token - The Authorization token
-   * @param {Object} data - Contains details
+   * @param {Object} data - Contains details - {
+   *  origin: {String},
+   *  access_fee: {Number},
+   *  payment_method: {Number}
+   * }
    * @example
    *     InPlayer.Payment
-   *     .getPayPalParams(&#x27;dajh8ao8djadd2o8jh2ofkhdhqkgog3oj&#x27;, {})
+   *     .getPayPalParams(&#x27;dajh8ao8djadd2o8jh2ofkhdhqkgog3oj&#x27;, {
+   *     origin: location.href,
+   *     access_fee: 34,
+   *     payment_method: 2
+   *     })
    *     .then(data =&gt; console.log(data));
    * @return {Object}
   */

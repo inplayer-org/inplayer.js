@@ -26,7 +26,8 @@ export default {
       exclude: [
         'node_modules/**',
         '*.json'
-      ]
+      ],
+      babelrc: false
     }),
     resolve({
       browser: true,
@@ -39,7 +40,7 @@ export default {
       }
     }),
     buble({
-      exclude: '*.json',
+      exclude: '**.json',
       transforms: {
         generator: false
       }
@@ -50,7 +51,8 @@ export default {
   ],
   external: [
     'js-cookie',
-    'ws'
+    'ws',
+    'stompjs'
   ],
   exports: 'named',
   sourcemap: true,

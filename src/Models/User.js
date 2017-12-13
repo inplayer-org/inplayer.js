@@ -57,7 +57,7 @@ class User {
       return data;
 
     } catch(error) {
-      return false;
+      return error;
     }
   }
 

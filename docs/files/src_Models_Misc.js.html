@@ -104,7 +104,7 @@ class Misc{
    *     .then(data =&gt; console.log(data));
    * @return {Object}
   */
-  async getDlcLinks(token,assetId){
+  async getDlcLinks(token, assetId){
     try{
       const response = await fetch(API.getDlcLinks(assetId), {
         headers: {
@@ -125,21 +125,35 @@ class Misc{
    * @method getDiscount
    * @async
    * @param {String} token - The Authorization token
-   * @param {Object} data - {}
+   * @param {Object} data - {
+   *   voucher_code: String,
+   *   merchant_id: String,
+   *   access_fee_id: Number
+   * }
    * @example
    *     InPlayer.Misc
-   *     .getDiscount(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,{})
+   *     .getDiscount(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,{
+   *        voucher_code: &#x27;120fwjhniudh42i7&#x27;,
+   *        merchant_id: &#x27;hghfqw92dm29-1g&#x27;,
+   *        access_fee_id: 2
+   *     })
    *     .then(data =&gt; console.log(data));
    * @return {Object}
   */
   async getDiscount(token, data) {
+
+    const fd = new FormData();
+    fd.append(&#x27;access_fee&#x27;, data.access_fee);
+    fd.append(&#x27;origin&#x27;, data.origin);
+    fd.append(&#x27;payment_method&#x27;, data.payment_method);
+
     try{
       const response = await fetch(API.getDiscount, {
         method: &#x27;POST&#x27;,
         headers: {
             &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
         },
-        body: data
+        body: fd
       });
 
       const data = await response.json();
@@ -194,31 +208,6 @@ class Misc{
         headers: {
             &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
         }
-      });
-
-      const data = await response.json();
-
-      return data;
-    }catch(error){
-      return false;
-    }
-  }
-
-  /**
-   * Fetches WP content
-   * @method fetchWPContent
-   * @async
-   * @param {String} url - The url from where to fetch
-   * @example
-   *     InPlayer.Misc
-   *     .fetchWPContent(&#x27;http://localhost:3000&#x27;)
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-  */
-  async fetchWPContent(url) {
-    try{
-      const response = await fetch(url, {
-        credentials: &#x27;same-origin&#x27;
       });
 
       const data = await response.json();

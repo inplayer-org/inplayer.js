@@ -96,11 +96,11 @@ class Asset {
    * Get an external assets' info
    * @method findExternalAsset
    * @async
-   * @param {Numer} assetType - The type ID of the asset
-   * @param {Number} externalId - The ID of the external asset
+   * @param {String} assetType - The type ID of the asset
+   * @param {String} externalId - The ID of the external asset
    * @example
    *     InPlayer.Asset
-   *     .findExternalAsset(2,44237)
+   *     .findExternalAsset('331ff2','44237')
    *     .then(data => console.log(data));
    * @return {Object}
   */
@@ -169,25 +169,27 @@ class Asset {
   }
 
   /**
-   * Get the freemium asset data
-   * @method getAssetAccessFees
+   * Authorize for the freemium asset (login)
+   * @method getFreemiumAsset
    * @async
    * @param {String} token - The authorization token
-   * @param {Object} data - {}
+   * @param {Object} data - { access_fee: Number }
    * @example
    *     InPlayer.Asset
-   *     .freemiumAsset('uoifhadafefbad1312nfuqd123', {})
+   *     .freemiumAsset('uoifhadafefbad1312nfuqd123', { access_fee: 22 })
    *     .then(data => console.log(data));
    * @return {Object}
   */
-  async freemiumAsset(token, data) {
+  async getFreemiumAsset(token, accessFee) {
     try{
       const response = await fetch(API.freemium, {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + token
         },
-        body: data
+        body: {
+          access_fee: accessFee,
+        }
       });
 
       const data = await response.json();
