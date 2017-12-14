@@ -256,11 +256,6 @@ var API = {
 
 };
 
-/**
- * Contains all Requests regarding user/account and authentication
- *
- * @class User
- */
 var User = function User () {};
 
 User.prototype.signIn = function signIn (data) {
@@ -642,11 +637,6 @@ User.prototype.getRegisterFields = function getRegisterFields (merchant_uuid) {
   }());
 };
 
-/**
- * Contains all Requests connected with assets/items
- *
- * @class Asset
- */
 var Asset = function Asset () {};
 
 Asset.prototype.checkAccessForAsset = function checkAccessForAsset (token, id) {
@@ -841,11 +831,6 @@ Asset.prototype.getFreemiumAsset = function getFreemiumAsset (token, accessFee) 
   }());
 };
 
-/**
- * Contains all Requests connected with payments
- *
- * @class Payment
- */
 var Payment = function Payment () {};
 
 Payment.prototype.getPaymentMethods = function getPaymentMethods (token) {
@@ -979,11 +964,6 @@ Payment.prototype.getPayPalParams = function getPayPalParams (token, data) {
   }());
 };
 
-/**
- * Contains all Requests connected with subscriptions
- *
- * @class Subscription
- */
 var Subscription = function Subscription () {};
 
 Subscription.prototype.getSubscriptions = function getSubscriptions (token) {
@@ -1068,11 +1048,6 @@ Subscription.prototype.assetSubscribe = function assetSubscribe (token, data) {
   }());
 };
 
-/**
- * Contains mixed various types of functiosn for dlcs, discounts, branding, etc.
- *
- * @class Misc
- */
 var Misc = function Misc () {};
 
 Misc.prototype.getDlcLinks = function getDlcLinks (token, assetId) {
@@ -1117,9 +1092,9 @@ Misc.prototype.getDiscount = function getDiscount (token, data) {
   return __async(function* () {
 
     var fd = new FormData();
-    fd.append('access_fee', data.access_fee);
-    fd.append('origin', data.origin);
-    fd.append('payment_method', data.payment_method);
+    fd.append('access_fee_id', data.access_fee_id);
+    fd.append('voucher_code', data.voucher_code);
+    fd.append('merchant_id', data.merchant_id);
 
     try {
       var response = yield fetch(API.getDiscount, {
@@ -1808,18 +1783,6 @@ var stompNode_2 = stompNode.websocket;
 var stompNode_3 = stompNode.overTCP;
 var stompNode_4 = stompNode.overWS;
 
-// Copyright (C) 2013 [Jeff Mesnil](http://jmesnil.net/)
-//
-//   Stomp Over WebSocket http://www.jmesnil.net/stomp-websocket/doc/ | Apache License V2.0
-//
-// The library can be used in node.js app to connect to STOMP brokers over TCP 
-// or Web sockets.
-
-// Root of the `stompjs module`
-
-
-
-
 var stompjs = stomp.Stomp;
 var overTCP = stompNode.overTCP;
 var overWS = stompNode.overWS;
@@ -1894,11 +1857,6 @@ Socket.prototype.unsubscribe = function unsubscribe () {
   }
 };
 
-/**
- * Main class. Contains all others methods and websocket subscription
- *
- * @class InPlayer
- */
 var InPlayer = function InPlayer() {
   /**
    * @property User

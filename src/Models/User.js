@@ -40,6 +40,8 @@ class User {
     fd.append('password', data.password);
     fd.append('merchant_uuid', data.merchant_uuid);
     fd.append('referrer', data.referrer);
+
+    console.log(fd);
     // request
     try{
       const response = await fetch(API.signIn, {

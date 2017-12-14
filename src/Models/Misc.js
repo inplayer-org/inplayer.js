@@ -60,9 +60,9 @@ class Misc{
   async getDiscount(token, data) {
 
     const fd = new FormData();
-    fd.append('access_fee', data.access_fee);
-    fd.append('origin', data.origin);
-    fd.append('payment_method', data.payment_method);
+    fd.append('access_fee_id', data.access_fee_id);
+    fd.append('voucher_code', data.voucher_code);
+    fd.append('merchant_id', data.merchant_id);
 
     try{
       const response = await fetch(API.getDiscount, {

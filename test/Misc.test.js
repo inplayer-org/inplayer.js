@@ -1,7 +1,9 @@
+var jsdom = require('mocha-jsdom')
 import {expect} from 'Chai';
 import Misc from '../src/Models/Misc';
 
 describe('Misc', function () {
+  jsdom();
   let misc;
 
   beforeEach(() => {
@@ -24,26 +26,26 @@ describe('Misc', function () {
     });
   });
 
-  // describe('#getDiscount()', function() {
-  //   it('should return unaothorized request with wrong auth', async () => {
-  //
-  //     const result = await misc.getDiscount(
-  //       'eyJ0eXAiOWVyLmNvbSIWyJjb25zdW1lciJdLCJleHAiOjE1MTMxNzk2OTJ9.urZGnMCOk1NnTWeryoFWPpT7Pm0qmQjig_QmfnqyapU',
-  //       {
-  //           access_fee: 2042,
-  //           origin: "http://localhost/sdk/",
-  //           payment_method: 2
-  //       }
-  //     );
-  //
-  //     expect(result).to.deep.equal({
-  //       'errors': {
-  //         '401': 'Invalid auth token'
-  //       }
-  //     });
-  //
-  //   });
-  // });
+  describe('#getDiscount()', function() {
+    it('should return unaothorized request with wrong auth', async () => {
+
+      const result = await misc.getDiscount(
+        'eyJ0eXAiYXQiOjE1MTMyNDMwODgsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTMyNDY2ODh9.1-8i9lsUaIL6BF1MRelGlU7J2FGi0xNlr9MB18oqYG4',
+        {
+          voucher_code: 'm-true',
+          merchant_id: 21,
+          access_fee_id: 2042
+        }
+      );
+
+      expect(result).to.deep.equal({
+        'errors': {
+          "401": "Invalid auth token"
+        }
+      });
+
+    });
+  });
 
 
   describe('#getBranding()', function() {
