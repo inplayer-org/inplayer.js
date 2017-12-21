@@ -301,7 +301,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Payment.js.html#l109"><code>src\Models\Payment.js:109</code></a>
+		<a href="../files/src_Models_Payment.js.html#l132"><code>src\Models\Payment.js:132</code></a>
 		</p>
 
 
@@ -334,8 +334,8 @@
 					<div class="param-description"><ul>
 <li>Contains details - {
 origin: {String},
-access_fee: {Number},
-payment_method: {Number}
+accessFee: {Number},
+paymentMethod: {Number}
 }</li>
 </ul>
 </div>
@@ -359,8 +359,8 @@ payment_method: {Number}
 				<pre class="code prettyprint"><code>InPlayer.Payment
 .getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {
 origin: location.href,
-access_fee: 34,
-payment_method: 2
+accessFee: 34,
+paymentMethod: 2
 })
 .then(data =&gt; console.log(data));</code></pre>
 
@@ -426,7 +426,17 @@ payment_method: 2
 
 
 					<div class="param-description"><ul>
-<li>Payment data</li>
+<li>Payment data - {
+number: Number,
+cardName: String,
+expMonth: Number,
+expYear: Number,
+cvv: Number,
+accessFee: Number,
+paymentMethod: String,
+referrer: String
+voucherCode?: String
+}</li>
 </ul>
 </div>
 
@@ -451,13 +461,14 @@ InPlayer.Payment
 .payForAsset('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj',
  {
   number: 4111111111111111,
-  card_name: 'PayPal',
-  exp_month: 10,
-  exp_year: 2030,
+  cardName: 'PayPal',
+  expMonth: 10,
+  expYear: 2030,
   cvv: 656,
-  access_fee: 2341,
-  payment_method: 1,
-  referrer: 'http://google.com'
+  accessFee: 2341,
+  paymentMethod: 1,
+  referrer: 'http://google.com',
+  voucherCode: 'fgh1982gff-0f2grfds'
  })
 .then(data =&gt; console.log(data));</code></pre>
 

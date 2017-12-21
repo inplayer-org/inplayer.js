@@ -154,16 +154,16 @@ class Asset {
    * @method findAsset
    * @async
    * @param {Numer} assetId - The ID of the asset
-   * @param {String} merchant_uuid - The merchant UUID string
+   * @param {String} merchantUid - The merchant UUID string
    * @example
    *     InPlayer.Asset
    *     .findAsset(2,&#x27;a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl&#x27;)
    *     .then(data =&gt; console.log(data));
    * @return {Object}
   */
-  async findAsset(assetId, merchant_uuid){
+  async findAsset(assetId, merchantUid){
     try{
-      const response = await fetch(API.findAsset(assetId,merchant_uuid),{
+      const response = await fetch(API.findAsset(assetId,merchantUid),{
         method: &#x27;GET&#x27;,
       });
 
@@ -256,10 +256,10 @@ class Asset {
    * @method getFreemiumAsset
    * @async
    * @param {String} token - The authorization token
-   * @param {Object} data - { access_fee: Number }
+   * @param {Object} data - { accessFee: Number }
    * @example
    *     InPlayer.Asset
-   *     .freemiumAsset(&#x27;uoifhadafefbad1312nfuqd123&#x27;, { access_fee: 22 })
+   *     .freemiumAsset(&#x27;uoifhadafefbad1312nfuqd123&#x27;, { accessFee: 22 })
    *     .then(data =&gt; console.log(data));
    * @return {Object}
   */

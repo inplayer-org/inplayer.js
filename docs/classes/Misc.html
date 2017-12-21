@@ -98,7 +98,7 @@
 			<strong>Methods</strong>
 			<ul>
 				<li><a href="#method-downloadProtectedFile"><span class="im">downloadProtectedFile</span>(<span class="ia">token</span><span class="ia">assetId</span><span class="ia">filename</span>)</a></li>
-				<li><a href="#method-getBranding"><span class="im">getBranding</span>(<span class="ia">merchant_uuid</span>)</a></li>
+				<li><a href="#method-getBranding"><span class="im">getBranding</span>(<span class="ia">merchantUid</span>)</a></li>
 				<li><a href="#method-getDiscount"><span class="im">getDiscount</span>(<span class="ia">token</span><span class="ia">data</span>)</a></li>
 				<li><a href="#method-getDlcLinks"><span class="im">getDlcLinks</span>(<span class="ia">token</span><span class="ia">assetId</span>)</a></li>
 			</ul>
@@ -222,7 +222,7 @@
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
 				<li class="arg">
-						<code>merchant_uuid</code>
+						<code>merchantUid</code>
 				</li>
 			</ul><span class="paren">)</span>
 		</div>
@@ -255,7 +255,7 @@
 
 			<ul class="params-list">
 				<li class="param">
-						<code class="param-name">merchant_uuid</code>
+						<code class="param-name">merchantUid</code>
 						<span class="type">String</span>
 
 
@@ -372,9 +372,9 @@ access_fee_id: Number
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.Misc
 .getDiscount('eyJ0eXAiOiJKPECENR5Y',{
-   voucher_code: '120fwjhniudh42i7',
-   merchant_id: 'hghfqw92dm29-1g',
-   access_fee_id: 2
+   voucherCode: '120fwjhniudh42i7',
+   merchantId: 'hghfqw92dm29-1g',
+   accessFeeId: 2
 })
 .then(data =&gt; console.log(data));</code></pre>
 

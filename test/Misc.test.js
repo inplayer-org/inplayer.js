@@ -32,9 +32,9 @@ describe('Misc', function () {
       const result = await misc.getDiscount(
         'eyJ0eXAiYXQiOjE1MTMyNDMwODgsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTMyNDY2ODh9.1-8i9lsUaIL6BF1MRelGlU7J2FGi0xNlr9MB18oqYG4',
         {
-          voucher_code: 'm-true',
-          merchant_id: 21,
-          access_fee_id: 2042
+          voucherCode: 'm-true',
+          merchantId: 21,
+          accessFeeId: 2042
         }
       );
 

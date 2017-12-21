@@ -98,7 +98,7 @@
 			<strong>Methods</strong>
 			<ul>
 				<li><a href="#method-assetSubscribe"><span class="im">assetSubscribe</span>(<span class="ia">token</span><span class="ia">data</span>)</a></li>
-				<li><a href="#method-cancelSubscription"><span class="im">cancelSubscription</span>(<span class="ia">unsubscribe_url</span><span class="ia">token</span>)</a></li>
+				<li><a href="#method-cancelSubscription"><span class="im">cancelSubscription</span>(<span class="ia">unsubscribeUrl</span><span class="ia">token</span>)</a></li>
 				<li><a href="#method-getSubscriptions"><span class="im">getSubscriptions</span>(<span class="ia">token</span>)</a></li>
 			</ul>
 		</li>
@@ -173,7 +173,17 @@
 
 
 					<div class="param-description"><ul>
-<li>{}</li>
+<li>{
+number: Number,
+cardName: String,
+expMonth: Number,
+expYear: Number,
+cvv: Number,
+accessFee: Number,
+paymentMethod: String,
+referrer: String
+voucherCode?: String
+}</li>
 </ul>
 </div>
 
@@ -194,7 +204,18 @@
 
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.Subscription
-.assetSubscribe('eyJ0eXAiOiJKPECENR5Y', {})
+.assetSubscribe('eyJ0eXAiOiJKPECENR5Y', {
+   number: 1,
+   cardName: 'Payoneer',
+   expMonth: 11,
+   expYear: 12,
+   cvv: 546,
+   accessFee: 13.4,
+   paymentMethod: 'card',
+   referrer: 'http://localhost:3000',
+   voucherCode: '123123125914i2erjfg'
+   }
+)
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>
@@ -207,7 +228,7 @@
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
 				<li class="arg">
-						<code>unsubscribe_url</code>
+						<code>unsubscribeUrl</code>
 				</li>
 				<li class="arg">
 						<code>token</code>
@@ -243,7 +264,7 @@
 
 			<ul class="params-list">
 				<li class="param">
-						<code class="param-name">unsubscribe_url</code>
+						<code class="param-name">unsubscribeUrl</code>
 						<span class="type">String</span>
 
 

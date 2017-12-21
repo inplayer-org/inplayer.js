@@ -44,7 +44,7 @@ class InPlayer {
   /**
    * Subscribes to websocket events
    * @method subscribe
-   * @param {String} account_uuid - The users account UUID
+   * @param {String} accountUid - The users account UUID
    * @param {Object} callbackParams - Methods regarding websocket
    * {
    *  onmessage: function,
@@ -62,9 +62,9 @@ class InPlayer {
    *    )
    * @return {Boolean}
   */
-  subscribe(account_uuid, callbackParams) {
+  subscribe(accountUid, callbackParams) {
     if(this.User.isSignedIn()){
-      this.Socket.subscribe(account_uuid, callbackParams);
+      this.Socket.subscribe(accountUid, callbackParams);
       return true;
     }else {
       return false;

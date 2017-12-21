@@ -1,33 +1,68 @@
 var jsdom = require('mocha-jsdom')
 import {expect} from 'Chai';
 import Payment from '../src/Models/Payment';
-import User from '../src/Models/User';
 
 describe('Payment', function () {
   jsdom();
-  let misc;
+  let payment;
 
 
   beforeEach(() => {
-    misc = new Payment();
+    payment = new Payment();
   });
 
 
   describe('#getPaymentMethods()', function() {
     it('should return unaothorized request with wrong auth', async () => {
-      let authToken = '';
-      const user = new User();
-      user.signIn({
-           merchant_uuid: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
-           referrer: 'http://localhost:3000/',
-           email: 'vld_test@consumer.com',
-           password: '11111111',
-      }).then(data => {console.log(data);authToken = data});
 
-      const result = await misc.getPaymentMethods(authToken);
+      const result = await payment.getPaymentMethods('12312dashgsfa');
 
       expect(result).to.deep.equal({
-        'reason': 'Unauthorized request.'
+        "errors": {
+          "401": "Invalid auth token"
+        }
+      });
+
+    });
+  });
+
+  describe('#getPaymentTools()', function() {
+    it('should return unaothorized request with wrong auth', async () => {
+
+      const result = await payment.getPaymentTools('12312dashgsfa', 123);
+
+      expect(result).to.deep.equal({
+        "errors": {
+          "401": "Invalid auth token"
+        }
+      });
+
+    });
+  });
+
+  describe('#payForAsset()', function() {
+    it('should return unaothorized request with wrong auth', async () => {
+
+      const result = await payment.payForAsset('12312dashgsfa', {});
+
+      expect(result).to.deep.equal({
+        "errors": {
+          "401": "Invalid auth token"
+        }
+      });
+
+    });
+  });
+
+  describe('#getPayPalParams()', function() {
+    it('should return unaothorized request with wrong auth', async () => {
+
+      const result = await payment.getPayPalParams('12312dashgsfa', {});
+
+      expect(result).to.deep.equal({
+        "errors": {
+          "401": "Invalid auth token"
+        }
       });
 
     });

@@ -27,7 +27,7 @@ class User {
    *     InPlayer.User.signIn({
    *      email: 'test@test.com',
    *      password: 'test123',
-   *      merchant_uuid: '123-123-hf1hd1-12dhd1',
+   *      merchantUid: '123-123-hf1hd1-12dhd1',
    *      referrer: 'http://localhost.com'
    *     })
    *     .then(data => console.log(data));
@@ -38,10 +38,9 @@ class User {
     const fd = new FormData();
     fd.append('email', data.email);
     fd.append('password', data.password);
-    fd.append('merchant_uuid', data.merchant_uuid);
+    fd.append('merchant_uuid', data.merchantUid);
     fd.append('referrer', data.referrer);
 
-    console.log(fd);
     // request
     try{
       const response = await fetch(API.signIn, {
@@ -100,21 +99,21 @@ class User {
    * @method signUp
    * @async
    * @param {Object} data - Contains {
-   *  full_name: string,
+   *  fullName: string,
    *  email: string
    *  password: string,
-   *  password_confirmation: string,
-   *  merchant_uuid: string,
+   *  passwordConfirmation: string,
+   *  merchantUid: string,
    *  type: number
    *  referrer: string,
    * }
    * @example
    *     InPlayer.User.signUp({
-   *      full_name: "test",
+   *      fullName: "test",
    *      email: "test32@test.com",
    *      password: "12345678",
-   *      password_confirmation: "12345678",
-   *      merchant_uuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
+   *      passwordConfirmation: "12345678",
+   *      merchantUid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
    *      type: "consumer",
    *      referrer: "http://localhost:3000/",
    *     })
@@ -125,11 +124,11 @@ class User {
 
     // Add into form data
     const fd = new FormData();
-    fd.append('full_name', data.full_name);
+    fd.append('full_name', data.fullName);
     fd.append('email', data.email);
     fd.append('password', data.password);
-    fd.append('password_confirmation', data.password_confirmation);
-    fd.append('merchant_uuid', data.merchant_uuid);
+    fd.append('password_confirmation', data.passwordConfirmation);
+    fd.append('merchant_uuid', data.merchantUid);
     fd.append('type', data.type);
     fd.append('referrer', data.referrer);
 
@@ -191,13 +190,13 @@ class User {
    * @async
    * @param {Object} data - Contains {
    *  email: String,
-   *  merchant_uuid: string
+   *  merchantUid: string
    * }
    * @example
    *     InPlayer.User
    *     .requestNewPassword({
    *      email: "test32@test.com",
-   *      merchant_uuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
+   *      merchantUid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
    *     })
    *     .then(data => console.log(data));
    * @return {Object}
@@ -207,7 +206,7 @@ class User {
     // Add into from FormData
     const fd = new FormData();
     fd.append('email', data.email);
-    fd.append('merchant_uuid', data.merchant_uuid);
+    fd.append('merchant_uuid', data.merchantUid);
 
     try {
       const response = await fetch(API.requestNewPassword, {
@@ -231,21 +230,21 @@ class User {
    * @async
    * @param {Object} data - Contains {
    *  password: string
-   *  password_confirmation: string
+   *  passwordConfirmation: string
    * }
    * @param {String} token - The authorization token
    * @example
    *     InPlayer.User
    *     .setNewPassword({
    *      password: "12345",
-   *      password_confirmation: "12345",
+   *      passwordConfirmation: "12345",
    *     }, 'afhqi83rji74hjf7e43df')
    *     .then(data => console.log(data));
    * @return {Object}
   */
   async setNewPassword(data, token) {
 
-        const body = `password=${data.password}&password_confirmation=${data.password_confirmation}`;
+        const body = `password=${data.password}&password_confirmation=${data.passwordConfirmation}`;
 
         try{
           const response = await fetch(API.setNewPassword(token),{
@@ -329,7 +328,7 @@ class User {
    * @param {String} token - The authorization token
    * @example
    *     InPlayer.User
-   *     .updateAccount({},'123124-1r-1r13ur1h1')
+   *     .updateAccount({first_name: 'test'},'123124-1r-1r13ur1h1')
    *     .then(data => console.log(data));
    * @return {Object}
   */
@@ -365,10 +364,16 @@ class User {
    * @return {Object}
   */
   async changePassword(data, token) {
+
+    const fd = new FormData();
+    fd.append('token', data.email);
+    fd.append('password', data.password);
+    fd.append('password_confirmation', data.passwordConfirmation);
+
     try{
       const response = await fetch(API.changePassword, {
         method: 'POST',
-        body: data,
+        body: fd,
         headers: {
           'Authorization': 'Bearer ' + token
         }
@@ -386,16 +391,16 @@ class User {
    * Gets register fields
    * @method getRegisterFields
    * @async
-   * @param {String} merchant_uuid - The merchant UUID
+   * @param {String} merchantUid - The merchant UUID
    * @example
    *     InPlayer.User
    *     .getRegisterFields('123124-1r-1r13ur1h1')
    *     .then(data => console.log(data));
    * @return {Object}
   */
-  async getRegisterFields(merchant_uuid){
+  async getRegisterFields(merchantUid){
     try{
-      const response = await fetch(API.getRegisterFields(merchant_uuid));
+      const response = await fetch(API.getRegisterFields(merchantUid));
 
       const data = await response.json();
 

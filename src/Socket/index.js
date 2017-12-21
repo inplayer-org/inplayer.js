@@ -7,9 +7,9 @@ class Socket {
     this.subscription = null;
   }
 
-  subscribe(account_uuid, callbackParams){
+  subscribe(accountUid, callbackParams){
 
-    if(!account_uuid && account_uuid!==''){
+    if(!accountUid && accountUid!==''){
       return false;
     }
 
@@ -36,13 +36,13 @@ class Socket {
     this.client.debug = null;
 
     var parent = this;
-    var uuid = account_uuid;
+    var uuid = accountUid;
 
 
     this.client.connect({
       login: config.stomp.login,
       passcode: config.stomp.password,
-      'client-id': account_uuid},
+      'client-id': accountUid},
       () => {
         // call onopen callback
         if(callbackParams && callbackParams.onopen)
@@ -50,7 +50,7 @@ class Socket {
 
         // subscribe to events
         parent.client.subscribe('/exchange/notifications/' + uuid, callbackParams.onmessage, {
-          id: account_uuid,
+          id: accountUid,
           ack: 'client'
         });
 

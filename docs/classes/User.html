@@ -99,7 +99,7 @@
 			<ul>
 				<li><a href="#method-changePassword"><span class="im">changePassword</span>(<span class="ia">data</span><span class="ia">token</span>)</a></li>
 				<li><a href="#method-getAccountInfo"><span class="im">getAccountInfo</span>(<span class="ia">token</span>)</a></li>
-				<li><a href="#method-getRegisterFields"><span class="im">getRegisterFields</span>(<span class="ia">merchant_uuid</span>)</a></li>
+				<li><a href="#method-getRegisterFields"><span class="im">getRegisterFields</span>(<span class="ia">merchantUid</span>)</a></li>
 				<li><a href="#method-getSocialLoginUrls"><span class="im">getSocialLoginUrls</span>(<span class="ia">state</span>)</a></li>
 				<li><a href="#method-isSignedIn"><span class="im">isSignedIn</span>()</a></li>
 				<li><a href="#method-requestNewPassword"><span class="im">requestNewPassword</span>(<span class="ia">data</span>)</a></li>
@@ -152,7 +152,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l353"><code>src\Models\User.js:353</code></a>
+		<a href="../files/src_Models_User.js.html#l354"><code>src\Models\User.js:354</code></a>
 		</p>
 
 
@@ -235,7 +235,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l266"><code>src\Models\User.js:266</code></a>
+		<a href="../files/src_Models_User.js.html#l267"><code>src\Models\User.js:267</code></a>
 		</p>
 
 
@@ -289,7 +289,7 @@
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
 				<li class="arg">
-						<code>merchant_uuid</code>
+						<code>merchantUid</code>
 				</li>
 			</ul><span class="paren">)</span>
 		</div>
@@ -307,7 +307,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l383"><code>src\Models\User.js:383</code></a>
+		<a href="../files/src_Models_User.js.html#l390"><code>src\Models\User.js:390</code></a>
 		</p>
 
 
@@ -322,7 +322,7 @@
 
 			<ul class="params-list">
 				<li class="param">
-						<code class="param-name">merchant_uuid</code>
+						<code class="param-name">merchantUid</code>
 						<span class="type">String</span>
 
 
@@ -379,7 +379,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l295"><code>src\Models\User.js:295</code></a>
+		<a href="../files/src_Models_User.js.html#l296"><code>src\Models\User.js:296</code></a>
 		</p>
 
 
@@ -444,7 +444,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l149"><code>src\Models\User.js:149</code></a>
+		<a href="../files/src_Models_User.js.html#l150"><code>src\Models\User.js:150</code></a>
 		</p>
 
 
@@ -498,7 +498,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l186"><code>src\Models\User.js:186</code></a>
+		<a href="../files/src_Models_User.js.html#l187"><code>src\Models\User.js:187</code></a>
 		</p>
 
 
@@ -520,7 +520,7 @@
 					<div class="param-description"><ul>
 <li>Contains {
 email: String,
-merchant_uuid: string
+merchantUid: string
 }</li>
 </ul>
 </div>
@@ -544,7 +544,7 @@ merchant_uuid: string
 				<pre class="code prettyprint"><code>InPlayer.User
 .requestNewPassword({
  email: "test32@test.com",
- merchant_uuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
+ merchantUid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
 })
 .then(data =&gt; console.log(data));</code></pre>
 
@@ -579,7 +579,7 @@ merchant_uuid: string
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l226"><code>src\Models\User.js:226</code></a>
+		<a href="../files/src_Models_User.js.html#l227"><code>src\Models\User.js:227</code></a>
 		</p>
 
 
@@ -601,7 +601,7 @@ merchant_uuid: string
 					<div class="param-description"><ul>
 <li>Contains {
 password: string
-password_confirmation: string
+passwordConfirmation: string
 }</li>
 </ul>
 </div>
@@ -636,7 +636,7 @@ password_confirmation: string
 				<pre class="code prettyprint"><code>InPlayer.User
 .setNewPassword({
  password: "12345",
- password_confirmation: "12345",
+ passwordConfirmation: "12345",
 }, 'afhqi83rji74hjf7e43df')
 .then(data =&gt; console.log(data));</code></pre>
 
@@ -716,7 +716,7 @@ referrer: string,
 				<pre class="code prettyprint"><code>InPlayer.User.signIn({
  email: 'test@test.com',
  password: 'test123',
- merchant_uuid: '123-123-hf1hd1-12dhd1',
+ merchantUid: '123-123-hf1hd1-12dhd1',
  referrer: 'http://localhost.com'
 })
 .then(data =&gt; console.log(data));</code></pre>
@@ -743,7 +743,7 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l64"><code>src\Models\User.js:64</code></a>
+		<a href="../files/src_Models_User.js.html#l65"><code>src\Models\User.js:65</code></a>
 		</p>
 
 
@@ -797,7 +797,7 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l96"><code>src\Models\User.js:96</code></a>
+		<a href="../files/src_Models_User.js.html#l97"><code>src\Models\User.js:97</code></a>
 		</p>
 
 
@@ -818,11 +818,11 @@ referrer: string,
 
 					<div class="param-description"><ul>
 <li>Contains {
-full_name: string,
+fullName: string,
 email: string
 password: string,
-password_confirmation: string,
-merchant_uuid: string,
+passwordConfirmation: string,
+merchantUid: string,
 type: number
 referrer: string,
 }</li>
@@ -846,11 +846,11 @@ referrer: string,
 
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.User.signUp({
- full_name: "test",
+ fullName: "test",
  email: "test32@test.com",
  password: "12345678",
- password_confirmation: "12345678",
- merchant_uuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
+ passwordConfirmation: "12345678",
+ merchantUid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
  type: "consumer",
  referrer: "http://localhost:3000/",
 })
@@ -883,7 +883,7 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l173"><code>src\Models\User.js:173</code></a>
+		<a href="../files/src_Models_User.js.html#l174"><code>src\Models\User.js:174</code></a>
 		</p>
 
 
@@ -947,7 +947,7 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l161"><code>src\Models\User.js:161</code></a>
+		<a href="../files/src_Models_User.js.html#l162"><code>src\Models\User.js:162</code></a>
 		</p>
 
 
@@ -1004,7 +1004,7 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l322"><code>src\Models\User.js:322</code></a>
+		<a href="../files/src_Models_User.js.html#l323"><code>src\Models\User.js:323</code></a>
 		</p>
 
 
@@ -1056,7 +1056,7 @@ referrer: string,
 
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.User
-.updateAccount({},'123124-1r-1r13ur1h1')
+.updateAccount({first_name: 'test'},'123124-1r-1r13ur1h1')
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>

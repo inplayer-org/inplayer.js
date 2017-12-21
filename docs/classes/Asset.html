@@ -99,7 +99,7 @@
 			<ul>
 				<li><a href="#method-checkAccessForAsset"><span class="im">checkAccessForAsset</span>(<span class="ia">token</span><span class="ia">id</span>)</a></li>
 				<li><a href="#method-checkAccessForMultipleAssets"><span class="im">checkAccessForMultipleAssets</span>(<span class="ia">token</span><span class="ia">ids</span>)</a></li>
-				<li><a href="#method-findAsset"><span class="im">findAsset</span>(<span class="ia">assetId</span><span class="ia">merchant_uuid</span>)</a></li>
+				<li><a href="#method-findAsset"><span class="im">findAsset</span>(<span class="ia">assetId</span><span class="ia">merchantUid</span>)</a></li>
 				<li><a href="#method-findExternalAsset"><span class="im">findExternalAsset</span>(<span class="ia">assetType</span><span class="ia">externalId</span>)</a></li>
 				<li><a href="#method-findPackage"><span class="im">findPackage</span>(<span class="ia">id</span>)</a></li>
 				<li><a href="#method-getAssetAccessFees"><span class="im">getAssetAccessFees</span>(<span class="ia">id</span>)</a></li>
@@ -300,7 +300,7 @@
 						<code>assetId</code>
 				</li>
 				<li class="arg">
-						<code>merchant_uuid</code>
+						<code>merchantUid</code>
 				</li>
 			</ul><span class="paren">)</span>
 		</div>
@@ -344,7 +344,7 @@
 
 				</li>
 				<li class="param">
-						<code class="param-name">merchant_uuid</code>
+						<code class="param-name">merchantUid</code>
 						<span class="type">String</span>
 
 
@@ -665,7 +665,7 @@
 
 
 					<div class="param-description"><ul>
-<li>{ access_fee: Number }</li>
+<li>{ accessFee: Number }</li>
 </ul>
 </div>
 
@@ -686,7 +686,7 @@
 
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.Asset
-.freemiumAsset('uoifhadafefbad1312nfuqd123', { access_fee: 22 })
+.freemiumAsset('uoifhadafefbad1312nfuqd123', { accessFee: 22 })
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>

@@ -208,7 +208,7 @@
                     "type": "Numer"
                 },
                 {
-                    "name": "merchant_uuid",
+                    "name": "merchantUid",
                     "description": "- The merchant UUID string",
                     "type": "String"
                 }
@@ -311,12 +311,12 @@
                 },
                 {
                     "name": "data",
-                    "description": "- { access_fee: Number }",
+                    "description": "- { accessFee: Number }",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.Asset\n    .freemiumAsset('uoifhadafefbad1312nfuqd123', { access_fee: 22 })\n    .then(data => console.log(data));"
+                "\n    InPlayer.Asset\n    .freemiumAsset('uoifhadafefbad1312nfuqd123', { accessFee: 22 })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -372,7 +372,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.Misc\n    .getDiscount('eyJ0eXAiOiJKPECENR5Y',{\n       voucher_code: '120fwjhniudh42i7',\n       merchant_id: 'hghfqw92dm29-1g',\n       access_fee_id: 2\n    })\n    .then(data => console.log(data));"
+                "\n    InPlayer.Misc\n    .getDiscount('eyJ0eXAiOiJKPECENR5Y',{\n       voucherCode: '120fwjhniudh42i7',\n       merchantId: 'hghfqw92dm29-1g',\n       accessFeeId: 2\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -389,7 +389,7 @@
             "async": 1,
             "params": [
                 {
-                    "name": "merchant_uuid",
+                    "name": "merchantUid",
                     "description": "- The UUID of the merchant",
                     "type": "String"
                 }
@@ -502,12 +502,12 @@
                 },
                 {
                     "name": "data",
-                    "description": "- Payment data",
+                    "description": "- Payment data - {\n number: Number,\n cardName: String,\n expMonth: Number,\n expYear: Number,\n cvv: Number,\n accessFee: Number,\n paymentMethod: String,\n referrer: String\n voucherCode?: String\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    // data.payment_method = { id.... }\n    InPlayer.Payment\n    .payForAsset('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj',\n     {\n      number: 4111111111111111,\n      card_name: 'PayPal',\n      exp_month: 10,\n      exp_year: 2030,\n      cvv: 656,\n      access_fee: 2341,\n      payment_method: 1,\n      referrer: 'http://google.com'\n     })\n    .then(data => console.log(data));"
+                "\n    // data.payment_method = { id.... }\n    InPlayer.Payment\n    .payForAsset('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj',\n     {\n      number: 4111111111111111,\n      cardName: 'PayPal',\n      expMonth: 10,\n      expYear: 2030,\n      cvv: 656,\n      accessFee: 2341,\n      paymentMethod: 1,\n      referrer: 'http://google.com',\n      voucherCode: 'fgh1982gff-0f2grfds'\n     })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -517,7 +517,7 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 109,
+            "line": 132,
             "description": "Gets parameters for PayPal",
             "itemtype": "method",
             "name": "getPayPalParams",
@@ -530,12 +530,12 @@
                 },
                 {
                     "name": "data",
-                    "description": "- Contains details - {\n origin: {String},\n access_fee: {Number},\n payment_method: {Number}\n}",
+                    "description": "- Contains details - {\n origin: {String},\n accessFee: {Number},\n paymentMethod: {Number}\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.Payment\n    .getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {\n    origin: location.href,\n    access_fee: 34,\n    payment_method: 2\n    })\n    .then(data => console.log(data));"
+                "\n    InPlayer.Payment\n    .getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {\n    origin: location.href,\n    accessFee: 34,\n    paymentMethod: 2\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -575,7 +575,7 @@
             "async": 1,
             "params": [
                 {
-                    "name": "unsubscribe_url",
+                    "name": "unsubscribeUrl",
                     "description": "- The url for the subscription which is getting unsubscribed",
                     "type": "String"
                 },
@@ -609,12 +609,12 @@
                 },
                 {
                     "name": "data",
-                    "description": "- {}",
+                    "description": "- {\n number: Number,\n cardName: String,\n expMonth: Number,\n expYear: Number,\n cvv: Number,\n accessFee: Number,\n paymentMethod: String,\n referrer: String\n voucherCode?: String\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.Subscription\n    .assetSubscribe('eyJ0eXAiOiJKPECENR5Y', {})\n    .then(data => console.log(data));"
+                "\n    InPlayer.Subscription\n    .assetSubscribe('eyJ0eXAiOiJKPECENR5Y', {\n       number: 1,\n       cardName: 'Payoneer',\n       expMonth: 11,\n       expYear: 12,\n       cvv: 546,\n       accessFee: 13.4,\n       paymentMethod: 'card',\n       referrer: 'http://localhost:3000',\n       voucherCode: '123123125914i2erjfg'\n       }\n    )\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -637,7 +637,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.User.signIn({\n     email: 'test@test.com',\n     password: 'test123',\n     merchant_uuid: '123-123-hf1hd1-12dhd1',\n     referrer: 'http://localhost.com'\n    })\n    .then(data => console.log(data));"
+                "\n    InPlayer.User.signIn({\n     email: 'test@test.com',\n     password: 'test123',\n     merchantUid: '123-123-hf1hd1-12dhd1',\n     referrer: 'http://localhost.com'\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -647,7 +647,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 64,
+            "line": 65,
             "description": "Signs out the user and destroys cookies",
             "itemtype": "method",
             "name": "signOut",
@@ -663,7 +663,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 96,
+            "line": 97,
             "description": "Signs up/Registers user",
             "itemtype": "method",
             "name": "signUp",
@@ -671,12 +671,12 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- Contains {\n full_name: string,\n email: string\n password: string,\n password_confirmation: string,\n merchant_uuid: string,\n type: number\n referrer: string,\n}",
+                    "description": "- Contains {\n fullName: string,\n email: string\n password: string,\n passwordConfirmation: string,\n merchantUid: string,\n type: number\n referrer: string,\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.User.signUp({\n     full_name: \"test\",\n     email: \"test32@test.com\",\n     password: \"12345678\",\n     password_confirmation: \"12345678\",\n     merchant_uuid: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n     type: \"consumer\",\n     referrer: \"http://localhost:3000/\",\n    })\n    .then(data => console.log(data));"
+                "\n    InPlayer.User.signUp({\n     fullName: \"test\",\n     email: \"test32@test.com\",\n     password: \"12345678\",\n     passwordConfirmation: \"12345678\",\n     merchantUid: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n     type: \"consumer\",\n     referrer: \"http://localhost:3000/\",\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -686,7 +686,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 149,
+            "line": 150,
             "description": "Checks if user is signed in",
             "itemtype": "method",
             "name": "isSignedIn",
@@ -701,7 +701,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 161,
+            "line": 162,
             "description": "Returns users Auth token",
             "itemtype": "method",
             "name": "token",
@@ -716,7 +716,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 173,
+            "line": 174,
             "description": "Sets Auth token into cookies",
             "itemtype": "method",
             "name": "token",
@@ -738,7 +738,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 186,
+            "line": 187,
             "description": "Requests new password for a given user",
             "itemtype": "method",
             "name": "requestNewPassword",
@@ -746,12 +746,12 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- Contains {\n email: String,\n merchant_uuid: string\n}",
+                    "description": "- Contains {\n email: String,\n merchantUid: string\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.User\n    .requestNewPassword({\n     email: \"test32@test.com\",\n     merchant_uuid: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n    })\n    .then(data => console.log(data));"
+                "\n    InPlayer.User\n    .requestNewPassword({\n     email: \"test32@test.com\",\n     merchantUid: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -761,7 +761,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 226,
+            "line": 227,
             "description": "Sets new password for the user",
             "itemtype": "method",
             "name": "setNewPassword",
@@ -769,7 +769,7 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- Contains {\n password: string\n password_confirmation: string\n}",
+                    "description": "- Contains {\n password: string\n passwordConfirmation: string\n}",
                     "type": "Object"
                 },
                 {
@@ -779,7 +779,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.User\n    .setNewPassword({\n     password: \"12345\",\n     password_confirmation: \"12345\",\n    }, 'afhqi83rji74hjf7e43df')\n    .then(data => console.log(data));"
+                "\n    InPlayer.User\n    .setNewPassword({\n     password: \"12345\",\n     passwordConfirmation: \"12345\",\n    }, 'afhqi83rji74hjf7e43df')\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -789,7 +789,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 266,
+            "line": 267,
             "description": "Gets the user/account information for a given auth token",
             "itemtype": "method",
             "name": "getAccountInfo",
@@ -812,7 +812,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 295,
+            "line": 296,
             "description": "Gets the social login urls for fb/twitter/google",
             "itemtype": "method",
             "name": "getSocialLoginUrls",
@@ -835,7 +835,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 322,
+            "line": 323,
             "description": "Updates the account info",
             "itemtype": "method",
             "name": "updateAccount",
@@ -853,7 +853,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.User\n    .updateAccount({},'123124-1r-1r13ur1h1')\n    .then(data => console.log(data));"
+                "\n    InPlayer.User\n    .updateAccount({first_name: 'test'},'123124-1r-1r13ur1h1')\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -863,7 +863,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 353,
+            "line": 354,
             "description": "Changes password for a given user",
             "itemtype": "method",
             "name": "changePassword",
@@ -891,14 +891,14 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 383,
+            "line": 390,
             "description": "Gets register fields",
             "itemtype": "method",
             "name": "getRegisterFields",
             "async": 1,
             "params": [
                 {
-                    "name": "merchant_uuid",
+                    "name": "merchantUid",
                     "description": "- The merchant UUID",
                     "type": "String"
                 }
@@ -960,7 +960,7 @@
             "name": "subscribe",
             "params": [
                 {
-                    "name": "account_uuid",
+                    "name": "accountUid",
                     "description": "- The users account UUID",
                     "type": "String"
                 },

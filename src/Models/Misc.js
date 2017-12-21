@@ -50,9 +50,9 @@ class Misc{
    * @example
    *     InPlayer.Misc
    *     .getDiscount('eyJ0eXAiOiJKPECENR5Y',{
-   *        voucher_code: '120fwjhniudh42i7',
-   *        merchant_id: 'hghfqw92dm29-1g',
-   *        access_fee_id: 2
+   *        voucherCode: '120fwjhniudh42i7',
+   *        merchantId: 'hghfqw92dm29-1g',
+   *        accessFeeId: 2
    *     })
    *     .then(data => console.log(data));
    * @return {Object}
@@ -60,9 +60,9 @@ class Misc{
   async getDiscount(token, data) {
 
     const fd = new FormData();
-    fd.append('access_fee_id', data.access_fee_id);
-    fd.append('voucher_code', data.voucher_code);
-    fd.append('merchant_id', data.merchant_id);
+    fd.append('access_fee_id', data.accessFeeId);
+    fd.append('voucherCode', data.voucherCode);
+    fd.append('merchantId', data.merchantId);
 
     try{
       const response = await fetch(API.getDiscount, {
@@ -85,16 +85,16 @@ class Misc{
    * Gets branding for given merchant
    * @method getBranding
    * @async
-   * @param {String} merchant_uuid - The UUID of the merchant
+   * @param {String} merchantUid - The UUID of the merchant
    * @example
    *     InPlayer.Misc
    *     .getBranding('eyJ0e-XAiOi-JKPEC-ENR5Y')
    *     .then(data => console.log(data));
    * @return {Object}
   */
-  async getBranding(merchant_uuid) {
+  async getBranding(merchantUid) {
     try{
-      const response = await fetch(API.getBranding(merchant_uuid), {
+      const response = await fetch(API.getBranding(merchantUid), {
         method: 'GET'
       });
 
