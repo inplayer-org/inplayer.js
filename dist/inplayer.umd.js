@@ -256,6 +256,11 @@ var API = {
 
 };
 
+/**
+ * Contains all Requests regarding user/account and authentication
+ *
+ * @class User
+ */
 var User = function User () {};
 
 User.prototype.signIn = function signIn (data) {
@@ -264,8 +269,9 @@ User.prototype.signIn = function signIn (data) {
     var fd = new FormData();
     fd.append('email', data.email);
     fd.append('password', data.password);
-    fd.append('merchant_uuid', data.merchant_uuid);
+    fd.append('merchant_uuid', data.merchantUid);
     fd.append('referrer', data.referrer);
+
     // request
     try {
       var response = yield fetch(API.signIn, {
@@ -324,21 +330,21 @@ User.prototype.signOut = function signOut () {
  * @method signUp
  * @async
  * @param {Object} data - Contains {
- *full_name: string,
+ *fullName: string,
  *email: string
  *password: string,
- *password_confirmation: string,
- *merchant_uuid: string,
+ *passwordConfirmation: string,
+ *merchantUid: string,
  *type: number
  *referrer: string,
  * }
  * @example
  *   InPlayer.User.signUp({
- *    full_name: "test",
+ *    fullName: "test",
  *    email: "test32@test.com",
  *    password: "12345678",
- *    password_confirmation: "12345678",
- *    merchant_uuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
+ *    passwordConfirmation: "12345678",
+ *    merchantUid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
  *    type: "consumer",
  *    referrer: "http://localhost:3000/",
  *   })
@@ -350,11 +356,11 @@ User.prototype.signUp = function signUp (data) {
 
     // Add into form data
     var fd = new FormData();
-    fd.append('full_name', data.full_name);
+    fd.append('full_name', data.fullName);
     fd.append('email', data.email);
     fd.append('password', data.password);
-    fd.append('password_confirmation', data.password_confirmation);
-    fd.append('merchant_uuid', data.merchant_uuid);
+    fd.append('password_confirmation', data.passwordConfirmation);
+    fd.append('merchant_uuid', data.merchantUid);
     fd.append('type', data.type);
     fd.append('referrer', data.referrer);
 
@@ -416,13 +422,13 @@ User.prototype.setTokenInCookie = function setTokenInCookie (token) {
  * @async
  * @param {Object} data - Contains {
  *email: String,
- *merchant_uuid: string
+ *merchantUid: string
  * }
  * @example
  *   InPlayer.User
  *   .requestNewPassword({
  *    email: "test32@test.com",
- *    merchant_uuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
+ *    merchantUid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
  *   })
  *   .then(data => console.log(data));
  * @return {Object}
@@ -433,7 +439,7 @@ User.prototype.requestNewPassword = function requestNewPassword (data) {
     // Add into from FormData
     var fd = new FormData();
     fd.append('email', data.email);
-    fd.append('merchant_uuid', data.merchant_uuid);
+    fd.append('merchant_uuid', data.merchantUid);
 
     try {
       var response = yield fetch(API.requestNewPassword, {
@@ -456,14 +462,14 @@ User.prototype.requestNewPassword = function requestNewPassword (data) {
  * @async
  * @param {Object} data - Contains {
  *password: string
- *password_confirmation: string
+ *passwordConfirmation: string
  * }
  * @param {String} token - The authorization token
  * @example
  *   InPlayer.User
  *   .setNewPassword({
  *    password: "12345",
- *    password_confirmation: "12345",
+ *    passwordConfirmation: "12345",
  *   }, 'afhqi83rji74hjf7e43df')
  *   .then(data => console.log(data));
  * @return {Object}
@@ -471,7 +477,7 @@ User.prototype.requestNewPassword = function requestNewPassword (data) {
 User.prototype.setNewPassword = function setNewPassword (data, token) {
   return __async(function* () {
 
-    var body = "password=" + (data.password) + "&password_confirmation=" + (data.password_confirmation);
+    var body = "password=" + (data.password) + "&password_confirmation=" + (data.passwordConfirmation);
 
     try {
       var response = yield fetch(API.setNewPassword(token), {
@@ -555,7 +561,7 @@ User.prototype.getSocialLoginUrls = function getSocialLoginUrls (state) {
  * @param {String} token - The authorization token
  * @example
  *   InPlayer.User
- *   .updateAccount({},'123124-1r-1r13ur1h1')
+ *   .updateAccount({first_name: 'test'},'123124-1r-1r13ur1h1')
  *   .then(data => console.log(data));
  * @return {Object}
 */
@@ -594,14 +600,45 @@ User.prototype.updateAccount = function updateAccount (data, token) {
 */
 User.prototype.changePassword = function changePassword (data, token) {
   return __async(function* () {
+
+    var fd = new FormData();
+    fd.append('token', data.email);
+    fd.append('password', data.password);
+    fd.append('password_confirmation', data.passwordConfirmation);
+
     try {
       var response = yield fetch(API.changePassword, {
         method: 'POST',
-        body: data,
+        body: fd,
         headers: {
           'Authorization': 'Bearer ' + token
         }
       });
+
+      var data$1 = yield response.json();
+
+      return data$1;
+    } catch (error) {
+      return false;
+    }
+  }());
+};
+
+/**
+ * Gets register fields
+ * @method getRegisterFields
+ * @async
+ * @param {String} merchantUid - The merchant UUID
+ * @example
+ *   InPlayer.User
+ *   .getRegisterFields('123124-1r-1r13ur1h1')
+ *   .then(data => console.log(data));
+ * @return {Object}
+*/
+User.prototype.getRegisterFields = function getRegisterFields (merchantUid) {
+  return __async(function* () {
+    try {
+      var response = yield fetch(API.getRegisterFields(merchantUid));
 
       var data = yield response.json();
 
@@ -613,30 +650,10 @@ User.prototype.changePassword = function changePassword (data, token) {
 };
 
 /**
- * Gets register fields
- * @method getRegisterFields
- * @async
- * @param {String} merchant_uuid - The merchant UUID
- * @example
- *   InPlayer.User
- *   .getRegisterFields('123124-1r-1r13ur1h1')
- *   .then(data => console.log(data));
- * @return {Object}
-*/
-User.prototype.getRegisterFields = function getRegisterFields (merchant_uuid) {
-  return __async(function* () {
-    try {
-      var response = yield fetch(API.getRegisterFields(merchant_uuid));
-
-      var data = yield response.json();
-
-      return data;
-    } catch (error) {
-      return false;
-    }
-  }());
-};
-
+ * Contains all Requests connected with assets/items
+ *
+ * @class Asset
+ */
 var Asset = function Asset () {};
 
 Asset.prototype.checkAccessForAsset = function checkAccessForAsset (token, id) {
@@ -692,17 +709,17 @@ Asset.prototype.checkAccessForMultipleAssets = function checkAccessForMultipleAs
  * @method findAsset
  * @async
  * @param {Numer} assetId - The ID of the asset
- * @param {String} merchant_uuid - The merchant UUID string
+ * @param {String} merchantUid - The merchant UUID string
  * @example
  *   InPlayer.Asset
  *   .findAsset(2,'a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl')
  *   .then(data => console.log(data));
  * @return {Object}
 */
-Asset.prototype.findAsset = function findAsset (assetId, merchant_uuid) {
+Asset.prototype.findAsset = function findAsset (assetId, merchantUid) {
   return __async(function* () {
     try {
-      var response = yield fetch(API.findAsset(assetId, merchant_uuid), {
+      var response = yield fetch(API.findAsset(assetId, merchantUid), {
         method: 'GET'
       });
 
@@ -802,10 +819,10 @@ Asset.prototype.getAssetAccessFees = function getAssetAccessFees (id) {
  * @method getFreemiumAsset
  * @async
  * @param {String} token - The authorization token
- * @param {Object} data - { access_fee: Number }
+ * @param {Object} data - { accessFee: Number }
  * @example
  *   InPlayer.Asset
- *   .freemiumAsset('uoifhadafefbad1312nfuqd123', { access_fee: 22 })
+ *   .freemiumAsset('uoifhadafefbad1312nfuqd123', { accessFee: 22 })
  *   .then(data => console.log(data));
  * @return {Object}
 */
@@ -831,6 +848,11 @@ Asset.prototype.getFreemiumAsset = function getFreemiumAsset (token, accessFee) 
   }());
 };
 
+/**
+ * Contains all Requests connected with payments
+ *
+ * @class Payment
+ */
 var Payment = function Payment () {};
 
 Payment.prototype.getPaymentMethods = function getPaymentMethods (token) {
@@ -886,38 +908,61 @@ Payment.prototype.getPaymentTools = function getPaymentTools (token, paymentMeth
  * @method payForAsset
  * @async
  * @param {String} token - The Authorization token
- * @param {Object} data - Payment data
+ * @param {Object} data - Payment data - {
+ *number: Number,
+ *cardName: String,
+ *expMonth: Number,
+ *expYear: Number,
+ *cvv: Number,
+ *accessFee: Number,
+ *paymentMethod: String,
+ *referrer: String
+ *voucherCode?: String
+ * }
  * @example
  *   // data.payment_method = { id.... }
  *   InPlayer.Payment
  *   .payForAsset('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj',
  *    {
  *     number: 4111111111111111,
- *     card_name: 'PayPal',
- *     exp_month: 10,
- *     exp_year: 2030,
+ *     cardName: 'PayPal',
+ *     expMonth: 10,
+ *     expYear: 2030,
  *     cvv: 656,
- *     access_fee: 2341,
- *     payment_method: 1,
- *     referrer: 'http://google.com'
+ *     accessFee: 2341,
+ *     paymentMethod: 1,
+ *     referrer: 'http://google.com',
+ *     voucherCode: 'fgh1982gff-0f2grfds'
  *    })
  *   .then(data => console.log(data));
  * @return {Object}
 */
 Payment.prototype.payForAsset = function payForAsset (token, data) {
   return __async(function* () {
+
+    var fd = new FormData();
+    fd.append('number', data.number);
+    fd.append('card_name', data.cardName);
+    fd.append('exp_month', data.expMonth);
+    fd.append('exp_year', data.expYear);
+    fd.append('cvv', data.cvv);
+    fd.append('access_fee', data.accessFee);
+    fd.append('payment_method', data.paymentMethod);
+    fd.append('referrer', data.referrer);
+    fd.append('voucherCode', data.voucherCode);
+
     try {
       var response = yield fetch(API.payForAsset, {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer ' + token
         },
-        body: data
+        body: fd
       });
 
-      var data = yield response.json();
+      var data$1 = yield response.json();
 
-      return data;
+      return data$1;
     } catch (error) {
       return false;
     }
@@ -931,15 +976,15 @@ Payment.prototype.payForAsset = function payForAsset (token, data) {
  * @param {String} token - The Authorization token
  * @param {Object} data - Contains details - {
  *origin: {String},
- *access_fee: {Number},
- *payment_method: {Number}
+ *accessFee: {Number},
+ *paymentMethod: {Number}
  * }
  * @example
  *   InPlayer.Payment
  *   .getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {
  *   origin: location.href,
- *   access_fee: 34,
- *   payment_method: 2
+ *   accessFee: 34,
+ *   paymentMethod: 2
  *   })
  *   .then(data => console.log(data));
  * @return {Object}
@@ -964,6 +1009,11 @@ Payment.prototype.getPayPalParams = function getPayPalParams (token, data) {
   }());
 };
 
+/**
+ * Contains all Requests connected with subscriptions
+ *
+ * @class Subscription
+ */
 var Subscription = function Subscription () {};
 
 Subscription.prototype.getSubscriptions = function getSubscriptions (token) {
@@ -989,7 +1039,7 @@ Subscription.prototype.getSubscriptions = function getSubscriptions (token) {
  * Cancels a subscription
  * @method cancelSubscription
  * @async
- * @param {String} unsubscribe_url - The url for the subscription which is getting unsubscribed
+ * @param {String} unsubscribeUrl - The url for the subscription which is getting unsubscribed
  * @param {String} token - The Authorization token
  * @example
  *   InPlayer.Subscription
@@ -997,10 +1047,10 @@ Subscription.prototype.getSubscriptions = function getSubscriptions (token) {
  *   .then(data => console.log(data));
  * @return {Object}
 */
-Subscription.prototype.cancelSubscription = function cancelSubscription (unsubscribe_url, token) {
+Subscription.prototype.cancelSubscription = function cancelSubscription (unsubscribeUrl, token) {
   return __async(function* () {
     try {
-      var response = yield fetch(unsubscribe_url, {
+      var response = yield fetch(unsubscribeUrl, {
         method: 'GET',
         headers: {
           'Authorization': 'Bearer ' + token
@@ -1021,33 +1071,71 @@ Subscription.prototype.cancelSubscription = function cancelSubscription (unsubsc
  * @method assetSubscribe
  * @async
  * @param {String} token - The Authorization token
- * @param {Object} data - {}
+ * @param {Object} data - {
+ *number: Number,
+ *cardName: String,
+ *expMonth: Number,
+ *expYear: Number,
+ *cvv: Number,
+ *accessFee: Number,
+ *paymentMethod: String,
+ *referrer: String
+ *voucherCode?: String
+ * }
  * @example
  *   InPlayer.Subscription
- *   .assetSubscribe('eyJ0eXAiOiJKPECENR5Y', {})
+ *   .assetSubscribe('eyJ0eXAiOiJKPECENR5Y', {
+ *      number: 1,
+ *      cardName: 'Payoneer',
+ *      expMonth: 11,
+ *      expYear: 12,
+ *      cvv: 546,
+ *      accessFee: 13.4,
+ *      paymentMethod: 'card',
+ *      referrer: 'http://localhost:3000',
+ *      voucherCode: '123123125914i2erjfg'
+ *      }
+ *   )
  *   .then(data => console.log(data));
  * @return {Object}
 */
 Subscription.prototype.assetSubscribe = function assetSubscribe (token, data) {
   return __async(function* () {
+
+    var fd = new FormData();
+    fd.append('number', data.number);
+    fd.append('card_name', data.cardName);
+    fd.append('exp_month', data.expMonth);
+    fd.append('exp_year', data.expYear);
+    fd.append('cvv', data.cvv);
+    fd.append('access_fee', data.accessFee);
+    fd.append('payment_method', data.paymentMethod);
+    fd.append('referrer', data.referrer);
+    fd.append('voucherCode', data.voucher_code);
+
     try {
       var response = yield fetch(API.subscribe, {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer ' + token
         },
-        body: data
+        body: fd
       });
 
-      var data = yield response.json();
+      var data$1 = yield response.json();
 
-      return data;
+      return data$1;
     } catch (error) {
       return false;
     }
   }());
 };
 
+/**
+ * Contains mixed various types of functiosn for dlcs, discounts, branding, etc.
+ *
+ * @class Misc
+ */
 var Misc = function Misc () {};
 
 Misc.prototype.getDlcLinks = function getDlcLinks (token, assetId) {
@@ -1081,9 +1169,9 @@ Misc.prototype.getDlcLinks = function getDlcLinks (token, assetId) {
  * @example
  *   InPlayer.Misc
  *   .getDiscount('eyJ0eXAiOiJKPECENR5Y',{
- *      voucher_code: '120fwjhniudh42i7',
- *      merchant_id: 'hghfqw92dm29-1g',
- *      access_fee_id: 2
+ *      voucherCode: '120fwjhniudh42i7',
+ *      merchantId: 'hghfqw92dm29-1g',
+ *      accessFeeId: 2
  *   })
  *   .then(data => console.log(data));
  * @return {Object}
@@ -1092,9 +1180,9 @@ Misc.prototype.getDiscount = function getDiscount (token, data) {
   return __async(function* () {
 
     var fd = new FormData();
-    fd.append('access_fee_id', data.access_fee_id);
-    fd.append('voucher_code', data.voucher_code);
-    fd.append('merchant_id', data.merchant_id);
+    fd.append('access_fee_id', data.accessFeeId);
+    fd.append('voucherCode', data.voucherCode);
+    fd.append('merchantId', data.merchantId);
 
     try {
       var response = yield fetch(API.getDiscount, {
@@ -1118,17 +1206,17 @@ Misc.prototype.getDiscount = function getDiscount (token, data) {
  * Gets branding for given merchant
  * @method getBranding
  * @async
- * @param {String} merchant_uuid - The UUID of the merchant
+ * @param {String} merchantUid - The UUID of the merchant
  * @example
  *   InPlayer.Misc
  *   .getBranding('eyJ0e-XAiOi-JKPEC-ENR5Y')
  *   .then(data => console.log(data));
  * @return {Object}
 */
-Misc.prototype.getBranding = function getBranding (merchant_uuid) {
+Misc.prototype.getBranding = function getBranding (merchantUid) {
   return __async(function* () {
     try {
-      var response = yield fetch(API.getBranding(merchant_uuid), {
+      var response = yield fetch(API.getBranding(merchantUid), {
         method: 'GET'
       });
 
@@ -1783,6 +1871,18 @@ var stompNode_2 = stompNode.websocket;
 var stompNode_3 = stompNode.overTCP;
 var stompNode_4 = stompNode.overWS;
 
+// Copyright (C) 2013 [Jeff Mesnil](http://jmesnil.net/)
+//
+//   Stomp Over WebSocket http://www.jmesnil.net/stomp-websocket/doc/ | Apache License V2.0
+//
+// The library can be used in node.js app to connect to STOMP brokers over TCP 
+// or Web sockets.
+
+// Root of the `stompjs module`
+
+
+
+
 var stompjs = stomp.Stomp;
 var overTCP = stompNode.overTCP;
 var overWS = stompNode.overWS;
@@ -1794,9 +1894,9 @@ var Socket = function Socket() {
   this.subscription = null;
 };
 
-Socket.prototype.subscribe = function subscribe (account_uuid, callbackParams) {
+Socket.prototype.subscribe = function subscribe (accountUid, callbackParams) {
 
-  if (!account_uuid && account_uuid !== '') {
+  if (!accountUid && accountUid !== '') {
     return false;
   }
 
@@ -1823,18 +1923,18 @@ Socket.prototype.subscribe = function subscribe (account_uuid, callbackParams) {
   this.client.debug = null;
 
   var parent = this;
-  var uuid = account_uuid;
+  var uuid = accountUid;
 
   this.client.connect({
     login: config.stomp.login,
     passcode: config.stomp.password,
-    'client-id': account_uuid }, function () {
+    'client-id': accountUid }, function () {
     // call onopen callback
     if (callbackParams && callbackParams.onopen) { callbackParams.onopen(); }
 
     // subscribe to events
     parent.client.subscribe('/exchange/notifications/' + uuid, callbackParams.onmessage, {
-      id: account_uuid,
+      id: accountUid,
       ack: 'client'
     });
 
@@ -1857,6 +1957,11 @@ Socket.prototype.unsubscribe = function unsubscribe () {
   }
 };
 
+/**
+ * Main class. Contains all others methods and websocket subscription
+ *
+ * @class InPlayer
+ */
 var InPlayer = function InPlayer() {
   /**
    * @property User
@@ -1889,7 +1994,7 @@ var InPlayer = function InPlayer() {
 /**
  * Subscribes to websocket events
  * @method subscribe
- * @param {String} account_uuid - The users account UUID
+ * @param {String} accountUid - The users account UUID
  * @param {Object} callbackParams - Methods regarding websocket
  * {
  *onmessage: function,
@@ -1907,9 +2012,9 @@ var InPlayer = function InPlayer() {
  *  )
  * @return {Boolean}
 */
-InPlayer.prototype.subscribe = function subscribe (account_uuid, callbackParams) {
+InPlayer.prototype.subscribe = function subscribe (accountUid, callbackParams) {
   if (this.User.isSignedIn()) {
-    this.Socket.subscribe(account_uuid, callbackParams);
+    this.Socket.subscribe(accountUid, callbackParams);
     return true;
   } else {
     return false;
