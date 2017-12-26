@@ -1,2 +1,509 @@
-"use strict";function _interopDefault(e){return e&&"object"==typeof e&&"default"in e?e.default:e}function __async(e){return new Promise(function(t,n){function r(c,i){try{var s=e[i?"throw":"next"](c)}catch(e){return void n(e)}s.done?t(s.value):Promise.resolve(s.value).then(r,o)}function o(e){r(e,1)}r()})}var Cookies=require("js-cookie"),Stomp=_interopDefault(require("stompjs")),config={BASE_URL:"https://staging-v2.inplayer.com",INPLAYER_TOKEN_NAME:"inplayer_token",stomp:{url:"wss://staging-v2.inplayer.com:15671/ws",login:"notifications",password:"notifications"}},API={signIn:config.BASE_URL+"/accounts/login",signOut:config.BASE_URL+"/accounts/logout",signUp:config.BASE_URL+"/accounts",requestNewPassword:config.BASE_URL+"/accounts/forgot-password",setNewPassword:function(e){return config.BASE_URL+"/accounts/forgot-password/"+e},getAccountInfo:config.BASE_URL+"/accounts",social:function(e){return config.BASE_URL+"/accounts/social?state="+e},updateAccount:config.BASE_URL+"/accounts",changePassword:config.BASE_URL+"/accounts/change-password",getRegisterFields:function(e){return config.BASE_URL+"/accounts/register-fields/"+e},checkAccess:function(e,t){return void 0===t&&(t=!1),t?config.BASE_URL+"/item/access?"+e:config.BASE_URL+"/items/"+e+"/access"},findAsset:function(e,t){return config.BASE_URL+"/items/"+t+"/"+e},findExternalAsset:function(e,t){return config.BASE_URL+"/items/assets/external/"+e+"/"+t},findPackage:function(e){return config.BASE_URL+"/items/packages/"+e},findAccessFees:function(e){return config.BASE_URL+"/items/"+e+"/access-fees"},freemium:config.BASE_URL+"/items/access/unlimited",getPaymentMethods:config.BASE_URL+"/payments/methods",getPaymentTools:function(e){return config.BASE_URL+"/payments/method/"+e+"/tools"},payForAsset:config.BASE_URL+"/payments",externalPayments:config.BASE_URL+"/external-payments",getSubscriptions:config.BASE_URL+"/subscriptions",subscribe:config.BASE_URL+"/subscriptions",getDlcLinks:function(e){return config.BASE_URL+"/dlc/"+e+"/links"},getDiscount:config.BASE_URL+"/vouchers/discount",getBranding:function(e){return config.BASE_URL+"/branding/paywall/"+e},downloadFile:function(e,t){return config.BASE_URL+"/dlc/"+e+"/"+t}},User=function(){};User.prototype.signIn=function(e){return __async(function*(){var t=new FormData;t.append("email",e.email),t.append("password",e.password),t.append("merchant_uuid",e.merchantUid),t.append("referrer",e.referrer);try{var n=yield(yield fetch(API.signIn,{method:"POST",body:t})).json();return n.access_token&&Cookies.set(config.INPLAYER_TOKEN_NAME,n.access_token),n}catch(e){return e}}())},User.prototype.signOut=function(){return __async(function*(){var e=Cookies.get(config.INPLAYER_TOKEN_NAME);try{return(yield(yield fetch(API.signOut,{headers:{Authorization:"Bearer "+e}})).json()).explain&&Cookies.remove(config.INPLAYER_TOKEN_NAME),!0}catch(e){return!1}}())},User.prototype.signUp=function(e){return __async(function*(){var t=new FormData;t.append("full_name",e.fullName),t.append("email",e.email),t.append("password",e.password),t.append("password_confirmation",e.passwordConfirmation),t.append("merchant_uuid",e.merchantUid),t.append("type",e.type),t.append("referrer",e.referrer);try{return yield(yield fetch(API.signUp,{method:"POST",body:t})).json()}catch(e){return!1}}())},User.prototype.isSignedIn=function(){return void 0!==Cookies.get(config.INPLAYER_TOKEN_NAME)},User.prototype.token=function(){return Cookies.get(config.INPLAYER_TOKEN_NAME)},User.prototype.setTokenInCookie=function(e){Cookies.set(config.INPLAYER_TOKEN_NAME,e)},User.prototype.requestNewPassword=function(e){return __async(function*(){var t=new FormData;t.append("email",e.email),t.append("merchant_uuid",e.merchantUid);try{return yield(yield fetch(API.requestNewPassword,{method:"POST",body:t})).json()}catch(e){return!1}}())},User.prototype.setNewPassword=function(e,t){return __async(function*(){var n="password="+e.password+"&password_confirmation="+e.passwordConfirmation;try{return yield(yield fetch(API.setNewPassword(t),{method:"PUT",body:n,headers:{"Content-Type":"x-www-form-urlencoded"}})).json()}catch(e){return!1}}())},User.prototype.getAccountInfo=function(e){return __async(function*(){try{var t=yield(yield fetch(API.getAccountInfo,{method:"GET",headers:{Authorization:"Bearer "+e}})).json();if(t)return t}catch(e){return!1}}())},User.prototype.getSocialLoginUrls=function(e){return __async(function*(){try{var t=yield(yield fetch(API.social(e),{method:"GET"})).json();if(t)return t}catch(e){return!1}}())},User.prototype.updateAccount=function(e,t){return __async(function*(){try{var e=yield(yield fetch(API.updateAccount,{method:"PUT",body:e,headers:{Authorization:"Bearer "+t,"Content-Type":"x-www-form-urlencoded"}})).json();return e}catch(e){return!1}}())},User.prototype.changePassword=function(e,t){return __async(function*(){var n=new FormData;n.append("token",e.email),n.append("password",e.password),n.append("password_confirmation",e.passwordConfirmation);try{return yield(yield fetch(API.changePassword,{method:"POST",body:n,headers:{Authorization:"Bearer "+t}})).json()}catch(e){return!1}}())},User.prototype.getRegisterFields=function(e){return __async(function*(){try{return yield(yield fetch(API.getRegisterFields(e))).json()}catch(e){return!1}}())};var Asset=function(){};Asset.prototype.checkAccessForAsset=function(e,t){return __async(function*(){try{return yield(yield fetch(API.checkAccess(t),{headers:{Authorization:"Bearer "+e}})).json()}catch(e){return!1}}())},Asset.prototype.checkAccessForMultipleAssets=function(e,t){return __async(function*(){try{return yield(yield fetch(API.checkAccess(t,!0),{headers:{Authorization:"Bearer "+e}})).json()}catch(e){return!1}}())},Asset.prototype.findAsset=function(e,t){return __async(function*(){try{return yield(yield fetch(API.findAsset(e,t),{method:"GET"})).json()}catch(e){return!1}}())},Asset.prototype.findExternalAsset=function(e,t){return __async(function*(){try{return yield(yield fetch(API.findExternalAsset(e,t),{method:"GET"})).json()}catch(e){return!1}}())},Asset.prototype.findPackage=function(e){return __async(function*(){try{return yield(yield fetch(API.findPackage(e),{method:"GET"})).json()}catch(e){return!1}}())},Asset.prototype.getAssetAccessFees=function(e){return __async(function*(){try{return yield(yield fetch(API.findAccessFees(e),{method:"GET"})).json()}catch(e){return!1}}())},Asset.prototype.getFreemiumAsset=function(e,t){return __async(function*(){try{return yield(yield fetch(API.freemium,{method:"POST",headers:{Authorization:"Bearer "+e},body:{access_fee:t}})).json()}catch(e){return!1}}())};var Payment=function(){};Payment.prototype.getPaymentMethods=function(e){return __async(function*(){try{return yield(yield fetch(API.getPaymentMethods,{headers:{Authorization:"Bearer "+e}})).json()}catch(e){return!1}}())},Payment.prototype.getPaymentTools=function(e,t){return __async(function*(){try{return yield(yield fetch(API.getPaymentTools(t),{headers:{Authorization:"Bearer "+e}})).json()}catch(e){return!1}}())},Payment.prototype.payForAsset=function(e,t){return __async(function*(){var n=new FormData;n.append("number",t.number),n.append("card_name",t.cardName),n.append("exp_month",t.expMonth),n.append("exp_year",t.expYear),n.append("cvv",t.cvv),n.append("access_fee",t.accessFee),n.append("payment_method",t.paymentMethod),n.append("referrer",t.referrer),n.append("voucherCode",t.voucherCode);try{return yield(yield fetch(API.payForAsset,{method:"POST",headers:{Authorization:"Bearer "+e},body:n})).json()}catch(e){return!1}}())},Payment.prototype.getPayPalParams=function(e,t){return __async(function*(){try{var t=yield(yield fetch(API.externalPayments,{method:"POST",headers:{Authorization:"Bearer "+e},body:t})).json();return t}catch(e){return!1}}())};var Subscription=function(){};Subscription.prototype.getSubscriptions=function(e){return __async(function*(){try{return(yield fetch(API.getSubscriptions,{method:"GET",headers:{Authorization:"Bearer "+e}})).json()}catch(e){return!1}}())},Subscription.prototype.cancelSubscription=function(e,t){return __async(function*(){try{return(yield fetch(e,{method:"GET",headers:{Authorization:"Bearer "+t}})).json()}catch(e){return!1}}())},Subscription.prototype.assetSubscribe=function(e,t){return __async(function*(){var n=new FormData;n.append("number",t.number),n.append("card_name",t.cardName),n.append("exp_month",t.expMonth),n.append("exp_year",t.expYear),n.append("cvv",t.cvv),n.append("access_fee",t.accessFee),n.append("payment_method",t.paymentMethod),n.append("referrer",t.referrer),n.append("voucherCode",t.voucher_code);try{return yield(yield fetch(API.subscribe,{method:"POST",headers:{Authorization:"Bearer "+e},body:n})).json()}catch(e){return!1}}())};var Misc=function(){};Misc.prototype.getDlcLinks=function(e,t){return __async(function*(){try{return yield(yield fetch(API.getDlcLinks(t),{headers:{Authorization:"Bearer "+e}})).json()}catch(e){return!1}}())},Misc.prototype.getDiscount=function(e,t){return __async(function*(){var n=new FormData;n.append("access_fee_id",t.accessFeeId),n.append("voucherCode",t.voucherCode),n.append("merchantId",t.merchantId);try{return yield(yield fetch(API.getDiscount,{method:"POST",headers:{Authorization:"Bearer "+e},body:n})).json()}catch(e){return!1}}())},Misc.prototype.getBranding=function(e){return __async(function*(){try{return yield(yield fetch(API.getBranding(e),{method:"GET"})).json()}catch(e){return!1}}())},Misc.prototype.downloadProtectedFile=function(e,t,n){return __async(function*(){try{return yield(yield fetch(API.downloadFile(t,n),{headers:{Authorization:"Bearer "+e}})).json()}catch(e){return!1}}())};var Socket=function(){this.subscription=null};Socket.prototype.subscribe=function(e,t){if(!e&&""!==e)return!1;if(t&&t.onmessage){if("function"!=typeof t.onmessage)return!1}else t.onMessage=function(e){return console.log("Received message:",e)};if(t&&t.onopen&&"function"!=typeof t.onopen)return!1;var n=new("MozWebSocket"in window?MozWebSocket:WebSocket)(config.stomp.url);this.client=Stomp.over(n),this.client.heartbeat.outgoing=2e4,this.client.heartbeat.incoming=2e4,this.client.debug=null;var r=this,o=e;this.client.connect({login:config.stomp.login,passcode:config.stomp.password,"client-id":e},function(){t&&t.onopen&&t.onopen(),r.client.subscribe("/exchange/notifications/"+o,t.onmessage,{id:e,ack:"client"})},function(e){"string"!=typeof e&&console.warn("Stomp error: ",e)}),this.setClient(this.client)},Socket.prototype.setClient=function(e){this.subscription=e},Socket.prototype.unsubscribe=function(){this.subscription&&this.subscription.connected&&this.subscription.unsubscribe()};var InPlayer=function(){this.User=new User,this.Asset=new Asset,this.Payment=new Payment,this.Subscription=new Subscription,this.Misc=new Misc,this.Socket=new Socket};InPlayer.prototype.subscribe=function(e,t){return!!this.User.isSignedIn()&&(this.Socket.subscribe(e,t),!0)},InPlayer.prototype.unsubscribe=function(){this.Socket.unsubscribe()};var index=new InPlayer;module.exports=index;
+'use strict';
+function _interopDefault(e) {
+    return e && 'object' == typeof e && 'default' in e ? e.default : e;
+}
+function __async(e) {
+    return new Promise(function(n, t) {
+        function o(i, s) {
+            try {
+                var c = e[s ? 'throw' : 'next'](i);
+            } catch (e) {
+                return void t(e);
+            }
+            c.done ? n(c.value) : Promise.resolve(c.value).then(o, r);
+        }
+        function r(e) {
+            o(e, 1);
+        }
+        o();
+    });
+}
+var LocalStorage = _interopDefault(require('node-localstorage')),
+    Stomp = _interopDefault(require('stompjs')),
+    config = {
+        BASE_URL: 'https://staging-v2.inplayer.com',
+        INPLAYER_TOKEN_NAME: 'inplayer_token',
+        stomp: {
+            url: 'wss://staging-v2.inplayer.com:15671/ws',
+            login: 'notifications',
+            password: 'notifications',
+        },
+    },
+    API = {
+        signIn: config.BASE_URL + '/accounts/login',
+        signOut: config.BASE_URL + '/accounts/logout',
+        signUp: config.BASE_URL + '/accounts',
+        requestNewPassword: config.BASE_URL + '/accounts/forgot-password',
+        setNewPassword: function(e) {
+            return config.BASE_URL + '/accounts/forgot-password/' + e;
+        },
+        getAccountInfo: config.BASE_URL + '/accounts',
+        social: function(e) {
+            return config.BASE_URL + '/accounts/social?state=' + e;
+        },
+        updateAccount: config.BASE_URL + '/accounts',
+        changePassword: config.BASE_URL + '/accounts/change-password',
+        getRegisterFields: function(e) {
+            return config.BASE_URL + '/accounts/register-fields/' + e;
+        },
+        checkAccess: function(e, n) {
+            return (
+                void 0 === n && (n = !1),
+                n
+                    ? config.BASE_URL + '/item/access?' + e
+                    : config.BASE_URL + '/items/' + e + '/access'
+            );
+        },
+        findAsset: function(e, n) {
+            return config.BASE_URL + '/items/' + n + '/' + e;
+        },
+        findExternalAsset: function(e, n) {
+            return config.BASE_URL + '/items/assets/external/' + e + '/' + n;
+        },
+        findPackage: function(e) {
+            return config.BASE_URL + '/items/packages/' + e;
+        },
+        findAccessFees: function(e) {
+            return config.BASE_URL + '/items/' + e + '/access-fees';
+        },
+        freemium: config.BASE_URL + '/items/access/unlimited',
+        getPaymentMethods: config.BASE_URL + '/payments/methods',
+        getPaymentTools: function(e) {
+            return config.BASE_URL + '/payments/method/' + e + '/tools';
+        },
+        payForAsset: config.BASE_URL + '/payments',
+        externalPayments: config.BASE_URL + '/external-payments',
+        getSubscriptions: config.BASE_URL + '/subscriptions',
+        subscribe: config.BASE_URL + '/subscriptions',
+        getDlcLinks: function(e) {
+            return config.BASE_URL + '/dlc/' + e + '/links';
+        },
+        getDiscount: config.BASE_URL + '/vouchers/discount',
+        getBranding: function(e) {
+            return config.BASE_URL + '/branding/paywall/' + e;
+        },
+        downloadFile: function(e, n) {
+            return config.BASE_URL + '/dlc/' + e + '/' + n;
+        },
+    },
+    User = function() {
+        ('undefined' != typeof localStorage && null !== localStorage) ||
+            (localStorage = new LocalStorage('./scratch'));
+    };
+(User.prototype.signIn = function(e) {
+    return __async(
+        (function*() {
+            var n = new FormData();
+            n.append('email', e.email),
+                n.append('password', e.password),
+                n.append('merchant_uuid', e.merchantUid),
+                n.append('referrer', e.referrer);
+            var t = yield (yield fetch(API.signIn, {
+                method: 'POST',
+                body: n,
+            })).json();
+            return (
+                t.access_token &&
+                    localStorage.setItem(
+                        config.INPLAYER_TOKEN_NAME,
+                        e.access_token
+                    ),
+                t
+            );
+        })()
+    );
+}),
+    (User.prototype.signOut = function() {
+        return __async(
+            (function*() {
+                var e = localStorage.getItem(config.INPLAYER_TOKEN_NAME);
+                return (
+                    (yield (yield fetch(API.signOut, {
+                        headers: { Authorization: 'Bearer ' + e },
+                    })).json()).explain &&
+                        localStorage.removeItem(config.INPLAYER_TOKEN_NAME),
+                    !0
+                );
+            })()
+        );
+    }),
+    (User.prototype.signUp = function(e) {
+        return __async(
+            (function*() {
+                var n = new FormData();
+                n.append('full_name', e.fullName),
+                    n.append('email', e.email),
+                    n.append('password', e.password),
+                    n.append('password_confirmation', e.passwordConfirmation),
+                    n.append('merchant_uuid', e.merchantUid),
+                    n.append('type', e.type),
+                    n.append('referrer', e.referrer);
+                return yield (yield fetch(API.signUp, {
+                    method: 'POST',
+                    body: n,
+                })).json();
+            })()
+        );
+    }),
+    (User.prototype.isSignedIn = function() {
+        return void 0 !== localStorage.getItem(config.INPLAYER_TOKEN_NAME);
+    }),
+    (User.prototype.token = function() {
+        return localStorage.getItem(config.INPLAYER_TOKEN_NAME);
+    }),
+    (User.prototype.setTokenInCookie = function(e) {
+        localStorage.setItem(config.INPLAYER_TOKEN_NAME, e);
+    }),
+    (User.prototype.requestNewPassword = function(e) {
+        return __async(
+            (function*() {
+                var n = new FormData();
+                n.append('email', e.email),
+                    n.append('merchant_uuid', e.merchantUid);
+                return yield (yield fetch(API.requestNewPassword, {
+                    method: 'POST',
+                    body: n,
+                })).json();
+            })()
+        );
+    }),
+    (User.prototype.setNewPassword = function(e, n) {
+        return __async(
+            (function*() {
+                var t =
+                    'password=' +
+                    e.password +
+                    '&password_confirmation=' +
+                    e.passwordConfirmation;
+                return yield (yield fetch(API.setNewPassword(n), {
+                    method: 'PUT',
+                    body: t,
+                    headers: { 'Content-Type': 'x-www-form-urlencoded' },
+                })).json();
+            })()
+        );
+    }),
+    (User.prototype.getAccountInfo = function(e) {
+        return __async(
+            (function*() {
+                var n = yield (yield fetch(API.getAccountInfo, {
+                    method: 'GET',
+                    headers: { Authorization: 'Bearer ' + e },
+                })).json();
+                if (n) return n;
+            })()
+        );
+    }),
+    (User.prototype.getSocialLoginUrls = function(e) {
+        return __async(
+            (function*() {
+                return yield (yield fetch(API.social(e), {
+                    method: 'GET',
+                })).json();
+            })()
+        );
+    }),
+    (User.prototype.updateAccount = function(e, n) {
+        return __async(
+            (function*() {
+                return yield (yield fetch(API.updateAccount, {
+                    method: 'PUT',
+                    body: e,
+                    headers: {
+                        Authorization: 'Bearer ' + n,
+                        'Content-Type': 'x-www-form-urlencoded',
+                    },
+                })).json();
+            })()
+        );
+    }),
+    (User.prototype.changePassword = function(e, n) {
+        return __async(
+            (function*() {
+                var t = new FormData();
+                t.append('token', e.email),
+                    t.append('password', e.password),
+                    t.append('password_confirmation', e.passwordConfirmation);
+                return yield (yield fetch(API.changePassword, {
+                    method: 'POST',
+                    body: t,
+                    headers: { Authorization: 'Bearer ' + n },
+                })).json();
+            })()
+        );
+    }),
+    (User.prototype.getRegisterFields = function(e) {
+        return __async(
+            (function*() {
+                return yield (yield fetch(API.getRegisterFields(e))).json();
+            })()
+        );
+    });
+var Asset = function() {};
+(Asset.prototype.checkAccessForAsset = function(e, n) {
+    return __async(
+        (function*() {
+            return yield (yield fetch(API.checkAccess(n), {
+                headers: { Authorization: 'Bearer ' + e },
+            })).json();
+        })()
+    );
+}),
+    (Asset.prototype.checkAccessForMultipleAssets = function(e, n) {
+        return __async(
+            (function*() {
+                return yield (yield fetch(API.checkAccess(n, !0), {
+                    headers: { Authorization: 'Bearer ' + e },
+                })).json();
+            })()
+        );
+    }),
+    (Asset.prototype.findAsset = function(e, n) {
+        return __async(
+            (function*() {
+                return yield (yield fetch(API.findAsset(e, n), {
+                    method: 'GET',
+                })).json();
+            })()
+        );
+    }),
+    (Asset.prototype.findExternalAsset = function(e, n) {
+        return __async(
+            (function*() {
+                return yield (yield fetch(API.findExternalAsset(e, n), {
+                    method: 'GET',
+                })).json();
+            })()
+        );
+    }),
+    (Asset.prototype.findPackage = function(e) {
+        return __async(
+            (function*() {
+                return yield (yield fetch(API.findPackage(e), {
+                    method: 'GET',
+                })).json();
+            })()
+        );
+    }),
+    (Asset.prototype.getAssetAccessFees = function(e) {
+        return __async(
+            (function*() {
+                return yield (yield fetch(API.findAccessFees(e), {
+                    method: 'GET',
+                })).json();
+            })()
+        );
+    }),
+    (Asset.prototype.getFreemiumAsset = function(e, n) {
+        return __async(
+            (function*() {
+                return yield (yield fetch(API.freemium, {
+                    method: 'POST',
+                    headers: { Authorization: 'Bearer ' + e },
+                    body: { access_fee: n },
+                })).json();
+            })()
+        );
+    });
+var Payment = function() {};
+(Payment.prototype.getPaymentMethods = function(e) {
+    return __async(
+        (function*() {
+            return yield (yield fetch(API.getPaymentMethods, {
+                headers: { Authorization: 'Bearer ' + e },
+            })).json();
+        })()
+    );
+}),
+    (Payment.prototype.getPaymentTools = function(e, n) {
+        return __async(
+            (function*() {
+                return yield (yield fetch(API.getPaymentTools(n), {
+                    headers: { Authorization: 'Bearer ' + e },
+                })).json();
+            })()
+        );
+    }),
+    (Payment.prototype.payForAsset = function(e, n) {
+        return __async(
+            (function*() {
+                var t = new FormData();
+                t.append('number', n.number),
+                    t.append('card_name', n.cardName),
+                    t.append('exp_month', n.expMonth),
+                    t.append('exp_year', n.expYear),
+                    t.append('cvv', n.cvv),
+                    t.append('access_fee', n.accessFee),
+                    t.append('payment_method', n.paymentMethod),
+                    t.append('referrer', n.referrer),
+                    t.append('voucherCode', n.voucherCode);
+                return yield (yield fetch(API.payForAsset, {
+                    method: 'POST',
+                    headers: { Authorization: 'Bearer ' + e },
+                    body: t,
+                })).json();
+            })()
+        );
+    }),
+    (Payment.prototype.getPayPalParams = function(e, n) {
+        return __async(
+            (function*() {
+                return yield (yield fetch(API.externalPayments, {
+                    method: 'POST',
+                    headers: { Authorization: 'Bearer ' + e },
+                    body: n,
+                })).json();
+            })()
+        );
+    });
+var Subscription = function() {};
+(Subscription.prototype.getSubscriptions = function(e) {
+    return __async(
+        (function*() {
+            return (yield fetch(API.getSubscriptions, {
+                method: 'GET',
+                headers: { Authorization: 'Bearer ' + e },
+            })).json();
+        })()
+    );
+}),
+    (Subscription.prototype.cancelSubscription = function(e, n) {
+        return __async(
+            (function*() {
+                return (yield fetch(e, {
+                    method: 'GET',
+                    headers: { Authorization: 'Bearer ' + n },
+                })).json();
+            })()
+        );
+    }),
+    (Subscription.prototype.assetSubscribe = function(e, n) {
+        return __async(
+            (function*() {
+                var t = new FormData();
+                t.append('number', n.number),
+                    t.append('card_name', n.cardName),
+                    t.append('exp_month', n.expMonth),
+                    t.append('exp_year', n.expYear),
+                    t.append('cvv', n.cvv),
+                    t.append('access_fee', n.accessFee),
+                    t.append('payment_method', n.paymentMethod),
+                    t.append('referrer', n.referrer),
+                    t.append('voucherCode', n.voucher_code);
+                return yield (yield fetch(API.subscribe, {
+                    method: 'POST',
+                    headers: { Authorization: 'Bearer ' + e },
+                    body: t,
+                })).json();
+            })()
+        );
+    });
+var Misc = function() {};
+(Misc.prototype.getDlcLinks = function(e, n) {
+    return __async(
+        (function*() {
+            return yield (yield fetch(API.getDlcLinks(n), {
+                headers: { Authorization: 'Bearer ' + e },
+            })).json();
+        })()
+    );
+}),
+    (Misc.prototype.getDiscount = function(e, n) {
+        return __async(
+            (function*() {
+                var t = new FormData();
+                t.append('access_fee_id', n.accessFeeId),
+                    t.append('voucherCode', n.voucherCode),
+                    t.append('merchantId', n.merchantId);
+                return yield (yield fetch(API.getDiscount, {
+                    method: 'POST',
+                    headers: { Authorization: 'Bearer ' + e },
+                    body: t,
+                })).json();
+            })()
+        );
+    }),
+    (Misc.prototype.getBranding = function(e) {
+        return __async(
+            (function*() {
+                return yield (yield fetch(API.getBranding(e), {
+                    method: 'GET',
+                })).json();
+            })()
+        );
+    }),
+    (Misc.prototype.downloadProtectedFile = function(e, n, t) {
+        return __async(
+            (function*() {
+                return yield (yield fetch(API.downloadFile(n, t), {
+                    headers: { Authorization: 'Bearer ' + e },
+                })).json();
+            })()
+        );
+    });
+var Socket = function() {
+    this.subscription = null;
+};
+(Socket.prototype.subscribe = function(e, n) {
+    if (!e && '' !== e) return !1;
+    if (n && n.onmessage) {
+        if ('function' != typeof n.onmessage) return !1;
+    } else
+        n.onMessage = function(e) {
+            return console.log('Received message:', e);
+        };
+    if (n && n.onopen && 'function' != typeof n.onopen) return !1;
+    var t = new ('MozWebSocket' in window ? MozWebSocket : WebSocket)(
+        config.stomp.url
+    );
+    (this.client = Stomp.over(t)),
+        (this.client.heartbeat.outgoing = 2e4),
+        (this.client.heartbeat.incoming = 2e4),
+        (this.client.debug = null);
+    var o = this,
+        r = e;
+    this.client.connect(
+        {
+            login: config.stomp.login,
+            passcode: config.stomp.password,
+            'client-id': e,
+        },
+        function() {
+            n && n.onopen && n.onopen(),
+                o.client.subscribe(
+                    '/exchange/notifications/' + r,
+                    n.onmessage,
+                    { id: e, ack: 'client' }
+                );
+        },
+        function(e) {
+            'string' != typeof e && console.warn('Stomp error: ', e);
+        }
+    ),
+        this.setClient(this.client);
+}),
+    (Socket.prototype.setClient = function(e) {
+        this.subscription = e;
+    }),
+    (Socket.prototype.unsubscribe = function() {
+        this.subscription &&
+            this.subscription.connected &&
+            this.subscription.unsubscribe();
+    });
+var InPlayer = function() {
+    (this.User = new User()),
+        (this.Asset = new Asset()),
+        (this.Payment = new Payment()),
+        (this.Subscription = new Subscription()),
+        (this.Misc = new Misc()),
+        (this.Socket = new Socket());
+};
+(InPlayer.prototype.subscribe = function(e, n) {
+    return !!this.User.isSignedIn() && (this.Socket.subscribe(e, n), !0);
+}),
+    (InPlayer.prototype.unsubscribe = function() {
+        this.Socket.unsubscribe();
+    });
+var index = new InPlayer();
+module.exports = index;
 //# sourceMappingURL=inplayer.cjs.js.map
