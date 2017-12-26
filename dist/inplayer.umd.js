@@ -211,9 +211,10 @@
         (a.prototype.updateAccount = function(e, t) {
             return o(
                 (function*() {
+                    var n = { full_name: e.fullName, metadata: e.metadata };
                     return yield (yield fetch(u.updateAccount, {
                         method: 'PUT',
-                        body: e,
+                        body: n,
                         headers: {
                             Authorization: 'Bearer ' + t,
                             'Content-Type': 'x-www-form-urlencoded',
@@ -344,7 +345,7 @@
                         n.append('access_fee', t.accessFee),
                         n.append('payment_method', t.paymentMethod),
                         n.append('referrer', t.referrer),
-                        n.append('voucherCode', t.voucherCode);
+                        n.append('voucher_code', t.voucherCode);
                     return yield (yield fetch(u.payForAsset, {
                         method: 'POST',
                         headers: { Authorization: 'Bearer ' + e },
@@ -356,10 +357,15 @@
         (p.prototype.getPayPalParams = function(e, t) {
             return o(
                 (function*() {
+                    var n = new FormData();
+                    n.append('origin', t.origin),
+                        n.append('access_fee', t.accessFee),
+                        n.append('payment_method', t.paymentMethod),
+                        n.append('voucher_code', t.voucherCode);
                     return yield (yield fetch(u.externalPayments, {
                         method: 'POST',
                         headers: { Authorization: 'Bearer ' + e },
-                        body: t,
+                        body: n,
                     })).json();
                 })()
             );
@@ -397,7 +403,7 @@
                         n.append('access_fee', t.accessFee),
                         n.append('payment_method', t.paymentMethod),
                         n.append('referrer', t.referrer),
-                        n.append('voucherCode', t.voucher_code);
+                        n.append('voucher_code', t.voucherCode);
                     return yield (yield fetch(u.subscribe, {
                         method: 'POST',
                         headers: { Authorization: 'Bearer ' + e },
@@ -421,8 +427,8 @@
                 (function*() {
                     var n = new FormData();
                     n.append('access_fee_id', t.accessFeeId),
-                        n.append('voucherCode', t.voucherCode),
-                        n.append('merchantId', t.merchantId);
+                        n.append('voucher_code', t.voucherCode),
+                        n.append('merchant_id', t.merchantUid);
                     return yield (yield fetch(u.getDiscount, {
                         method: 'POST',
                         headers: { Authorization: 'Bearer ' + e },

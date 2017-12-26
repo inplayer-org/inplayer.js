@@ -206,9 +206,10 @@ var LocalStorage = _interopDefault(require('node-localstorage')),
     (User.prototype.updateAccount = function(e, n) {
         return __async(
             (function*() {
+                var t = { full_name: e.fullName, metadata: e.metadata };
                 return yield (yield fetch(API.updateAccount, {
                     method: 'PUT',
-                    body: e,
+                    body: t,
                     headers: {
                         Authorization: 'Bearer ' + n,
                         'Content-Type': 'x-www-form-urlencoded',
@@ -336,7 +337,7 @@ var Payment = function() {};
                     t.append('access_fee', n.accessFee),
                     t.append('payment_method', n.paymentMethod),
                     t.append('referrer', n.referrer),
-                    t.append('voucherCode', n.voucherCode);
+                    t.append('voucher_code', n.voucherCode);
                 return yield (yield fetch(API.payForAsset, {
                     method: 'POST',
                     headers: { Authorization: 'Bearer ' + e },
@@ -348,10 +349,15 @@ var Payment = function() {};
     (Payment.prototype.getPayPalParams = function(e, n) {
         return __async(
             (function*() {
+                var t = new FormData();
+                t.append('origin', n.origin),
+                    t.append('access_fee', n.accessFee),
+                    t.append('payment_method', n.paymentMethod),
+                    t.append('voucher_code', n.voucherCode);
                 return yield (yield fetch(API.externalPayments, {
                     method: 'POST',
                     headers: { Authorization: 'Bearer ' + e },
-                    body: n,
+                    body: t,
                 })).json();
             })()
         );
@@ -389,7 +395,7 @@ var Subscription = function() {};
                     t.append('access_fee', n.accessFee),
                     t.append('payment_method', n.paymentMethod),
                     t.append('referrer', n.referrer),
-                    t.append('voucherCode', n.voucher_code);
+                    t.append('voucher_code', n.voucherCode);
                 return yield (yield fetch(API.subscribe, {
                     method: 'POST',
                     headers: { Authorization: 'Bearer ' + e },
@@ -413,8 +419,8 @@ var Misc = function() {};
             (function*() {
                 var t = new FormData();
                 t.append('access_fee_id', n.accessFeeId),
-                    t.append('voucherCode', n.voucherCode),
-                    t.append('merchantId', n.merchantId);
+                    t.append('voucher_code', n.voucherCode),
+                    t.append('merchant_id', n.merchantUid);
                 return yield (yield fetch(API.getDiscount, {
                     method: 'POST',
                     headers: { Authorization: 'Bearer ' + e },
