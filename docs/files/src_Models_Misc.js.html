@@ -81,142 +81,122 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-import {
-  API
-} from &#x27;../../constants/endpoints&#x27;;
+import { API } from &#x27;../../constants/endpoints&#x27;;
 
 /**
  * Contains mixed various types of functiosn for dlcs, discounts, branding, etc.
  *
  * @class Misc
  */
-class Misc{
+class Misc {
+    /**
+     * Gets all DLC links
+     * @method getDlcLinks
+     * @async
+     * @param {String} token - The Authorization token
+     * @param {Number} assetId - The id of the asset
+     * @example
+     *     InPlayer.Misc
+     *     .getDlcLinks(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,36320)
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async getDlcLinks(token, assetId) {
+        const response = await fetch(API.getDlcLinks(assetId), {
+            headers: {
+                Authorization: &#x27;Bearer &#x27; + token,
+            },
+        });
 
-  /**
-   * Gets all DLC links
-   * @method getDlcLinks
-   * @async
-   * @param {String} token - The Authorization token
-   * @param {Number} assetId - The id of the asset
-   * @example
-   *     InPlayer.Misc
-   *     .getDlcLinks(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,36320)
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-  */
-  async getDlcLinks(token, assetId){
-    try{
-      const response = await fetch(API.getDlcLinks(assetId), {
-        headers: {
-            &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
-        }
-      });
+        const data = await response.json();
 
-      const data = await response.json();
-
-      return data;
-    }catch(error){
-      return false;
+        return data;
     }
-  }
 
-  /**
-   * Gets the discount for a given ..
-   * @method getDiscount
-   * @async
-   * @param {String} token - The Authorization token
-   * @param {Object} data - {
-   *   voucher_code: String,
-   *   merchant_id: String,
-   *   access_fee_id: Number
-   * }
-   * @example
-   *     InPlayer.Misc
-   *     .getDiscount(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,{
-   *        voucherCode: &#x27;120fwjhniudh42i7&#x27;,
-   *        merchantId: &#x27;hghfqw92dm29-1g&#x27;,
-   *        accessFeeId: 2
-   *     })
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-  */
-  async getDiscount(token, data) {
+    /**
+     * Gets the discount for a given ..
+     * @method getDiscount
+     * @async
+     * @param {String} token - The Authorization token
+     * @param {Object} data - {
+     *   voucherCode: String,
+     *   merchantUid: String,
+     *   accessFeeId: Number
+     * }
+     * @example
+     *     InPlayer.Misc
+     *     .getDiscount(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,{
+     *        voucherCode: &#x27;120fwjhniudh42i7&#x27;,
+     *        merchantId: &#x27;hghfqw92dm29-1g&#x27;,
+     *        accessFeeId: 2
+     *     })
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async getDiscount(token, data) {
+        const fd = new FormData();
+        fd.append(&#x27;access_fee_id&#x27;, data.accessFeeId);
+        fd.append(&#x27;voucher_code&#x27;, data.voucherCode);
+        fd.append(&#x27;merchant_id&#x27;, data.merchantUid);
 
-    const fd = new FormData();
-    fd.append(&#x27;access_fee_id&#x27;, data.accessFeeId);
-    fd.append(&#x27;voucherCode&#x27;, data.voucherCode);
-    fd.append(&#x27;merchantId&#x27;, data.merchantId);
+        const response = await fetch(API.getDiscount, {
+            method: &#x27;POST&#x27;,
+            headers: {
+                Authorization: &#x27;Bearer &#x27; + token,
+            },
+            body: fd,
+        });
 
-    try{
-      const response = await fetch(API.getDiscount, {
-        method: &#x27;POST&#x27;,
-        headers: {
-            &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
-        },
-        body: fd
-      });
+        const responseData = await response.json();
 
-      const data = await response.json();
-
-      return data;
-    }catch(error){
-      return false;
+        return responseData;
     }
-  }
 
-  /**
-   * Gets branding for given merchant
-   * @method getBranding
-   * @async
-   * @param {String} merchantUid - The UUID of the merchant
-   * @example
-   *     InPlayer.Misc
-   *     .getBranding(&#x27;eyJ0e-XAiOi-JKPEC-ENR5Y&#x27;)
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-  */
-  async getBranding(merchantUid) {
-    try{
-      const response = await fetch(API.getBranding(merchantUid), {
-        method: &#x27;GET&#x27;
-      });
+    /**
+     * Gets branding for given merchant
+     * @method getBranding
+     * @async
+     * @param {String} merchantUid - The UUID of the merchant
+     * @example
+     *     InPlayer.Misc
+     *     .getBranding(&#x27;eyJ0e-XAiOi-JKPEC-ENR5Y&#x27;)
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async getBranding(merchantUid) {
+        const response = await fetch(API.getBranding(merchantUid), {
+            method: &#x27;GET&#x27;,
+        });
 
-      const data = await response.json();
+        const data = await response.json();
 
-      return data;
-    }catch(error){
-      return false;
+        return data;
     }
-  }
 
-  /**
-   * Downloads a file
-   * @method downloadProtectedFile
-   * @async
-   * @param {String} token - The Authorization token
-   * @param {number} assetId - The Id of the asset
-   * @param {String} filename - The name of the file
-   * @example
-   *     InPlayer.Misc
-   *     .downloadProtectedFile(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,2234, &#x27;test.js&#x27;)
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-  */
-  async downloadProtectedFile(token, assetId, filename) {
-    try{
-      const response = await fetch(API.downloadFile(assetId, filename), {
-        headers: {
-            &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
-        }
-      });
+    /**
+     * Downloads a file
+     * @method downloadProtectedFile
+     * @async
+     * @param {String} token - The Authorization token
+     * @param {number} assetId - The Id of the asset
+     * @param {String} filename - The name of the file
+     * @example
+     *     InPlayer.Misc
+     *     .downloadProtectedFile(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,2234, &#x27;test.js&#x27;)
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async downloadProtectedFile(token, assetId, filename) {
+        const response = await fetch(API.downloadFile(assetId, filename), {
+            headers: {
+                Authorization: &#x27;Bearer &#x27; + token,
+            },
+        });
 
-      const data = await response.json();
+        const data = await response.json();
 
-      return data;
-    }catch(error){
-      return false;
+        return data;
     }
-  }
 }
 
 export default Misc;

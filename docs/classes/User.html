@@ -152,7 +152,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l354"><code>src\Models\User.js:354</code></a>
+		<a href="../files/src_Models_User.js.html#l318"><code>src\Models\User.js:318</code></a>
 		</p>
 
 
@@ -204,7 +204,11 @@
 
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.User
-.updateAccount({},'123124-1r-1r13ur1h1')
+.updateAccount({
+  email: 'test@test.com',
+  password: 'test123',
+  passwordConfirmation: 'test123'
+},'123124-1r-1r13ur1h1')
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>
@@ -235,7 +239,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l267"><code>src\Models\User.js:267</code></a>
+		<a href="../files/src_Models_User.js.html#l243"><code>src\Models\User.js:243</code></a>
 		</p>
 
 
@@ -307,7 +311,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l390"><code>src\Models\User.js:390</code></a>
+		<a href="../files/src_Models_User.js.html#l353"><code>src\Models\User.js:353</code></a>
 		</p>
 
 
@@ -379,7 +383,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l296"><code>src\Models\User.js:296</code></a>
+		<a href="../files/src_Models_User.js.html#l266"><code>src\Models\User.js:266</code></a>
 		</p>
 
 
@@ -444,7 +448,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l150"><code>src\Models\User.js:150</code></a>
+		<a href="../files/src_Models_User.js.html#l137"><code>src\Models\User.js:137</code></a>
 		</p>
 
 
@@ -498,7 +502,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l187"><code>src\Models\User.js:187</code></a>
+		<a href="../files/src_Models_User.js.html#l174"><code>src\Models\User.js:174</code></a>
 		</p>
 
 
@@ -579,7 +583,7 @@ merchantUid: string
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l227"><code>src\Models\User.js:227</code></a>
+		<a href="../files/src_Models_User.js.html#l207"><code>src\Models\User.js:207</code></a>
 		</p>
 
 
@@ -668,7 +672,7 @@ passwordConfirmation: string
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l16"><code>src\Models\User.js:16</code></a>
+		<a href="../files/src_Models_User.js.html#l19"><code>src\Models\User.js:19</code></a>
 		</p>
 
 
@@ -691,7 +695,7 @@ passwordConfirmation: string
 <li>Contains {
 email: string,
 password: string,
-merchant_uuid: string,
+merchantUid: string,
 referrer: string,
 }</li>
 </ul>
@@ -743,7 +747,7 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l65"><code>src\Models\User.js:65</code></a>
+		<a href="../files/src_Models_User.js.html#l63"><code>src\Models\User.js:63</code></a>
 		</p>
 
 
@@ -797,7 +801,7 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l97"><code>src\Models\User.js:97</code></a>
+		<a href="../files/src_Models_User.js.html#l90"><code>src\Models\User.js:90</code></a>
 		</p>
 
 
@@ -883,7 +887,7 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l174"><code>src\Models\User.js:174</code></a>
+		<a href="../files/src_Models_User.js.html#l161"><code>src\Models\User.js:161</code></a>
 		</p>
 
 
@@ -947,7 +951,7 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l162"><code>src\Models\User.js:162</code></a>
+		<a href="../files/src_Models_User.js.html#l149"><code>src\Models\User.js:149</code></a>
 		</p>
 
 
@@ -1004,14 +1008,14 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l323"><code>src\Models\User.js:323</code></a>
+		<a href="../files/src_Models_User.js.html#l287"><code>src\Models\User.js:287</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Updates the account info</p>
+	<div class="description"><p>Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()</p>
 </div>
 
 		<div class="params">
@@ -1056,7 +1060,7 @@ referrer: string,
 
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.User
-.updateAccount({first_name: 'test'},'123124-1r-1r13ur1h1')
+.updateAccount({fullName: 'test test', metadata: {country: 'Germany'}},'123124-1r-1r13ur1h1')
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>

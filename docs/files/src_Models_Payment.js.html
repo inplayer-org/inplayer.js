@@ -81,9 +81,7 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-import {
-  API
-} from &#x27;../../constants/endpoints&#x27;;
+import { API } from &#x27;../../constants/endpoints&#x27;;
 
 /**
  * Contains all Requests connected with payments
@@ -91,164 +89,152 @@ import {
  * @class Payment
  */
 class Payment {
+    /**
+     * Get all payment methods for a User
+     * @method getPaymentMethods
+     * @async
+     * @param {String} token - The Autorization token
+     * @example
+     *     InPlayer.Payment
+     *     .getPaymentMethods(&#x27;aehfawfeikuehdjkc482rijfg47idqwk3n4&#x27;)
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async getPaymentMethods(token) {
+        const response = await fetch(API.getPaymentMethods, {
+            headers: {
+                Authorization: &#x27;Bearer &#x27; + token,
+            },
+        });
 
-  /**
-   * Get all payment methods for a User
-   * @method getPaymentMethods
-   * @async
-   * @param {String} token - The Autorization token
-   * @example
-   *     InPlayer.Payment
-   *     .getPaymentMethods(&#x27;aehfawfeikuehdjkc482rijfg47idqwk3n4&#x27;)
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-  */
-  async getPaymentMethods(token){
-    try{
-      const response = await fetch(API.getPaymentMethods,{
-        headers: {
-            &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
-        }
-      });
+        const data = await response.json();
 
-      const data = await response.json();
-
-      return data;
-    }catch(error){
-      return false;
+        return data;
     }
-  }
 
-  /**
-   * Get the payment tools for an aothorization token and payment method ID
-   * @method getPaymentTools
-   * @async
-   * @param {String} token - The Authorization token
-   * @param {Number} paymentMethodId - The Payment Method ID
-   * @example
-   *     InPlayer.Payment
-   *     .getPaymentTools(&#x27;dajh8ao8djadd2o8jh2ofkhdhqkgog3oj&#x27;, 2)
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-  */
-  async getPaymentTools(token, paymentMethodId){
-    try{
-      const response = await fetch(API.getPaymentTools(paymentMethodId), {
-        headers: {
-            &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
-        }
-      });
+    /**
+     * Get the payment tools for an aothorization token and payment method ID
+     * @method getPaymentTools
+     * @async
+     * @param {String} token - The Authorization token
+     * @param {Number} paymentMethodId - The Payment Method ID
+     * @example
+     *     InPlayer.Payment
+     *     .getPaymentTools(&#x27;dajh8ao8djadd2o8jh2ofkhdhqkgog3oj&#x27;, 2)
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async getPaymentTools(token, paymentMethodId) {
+        const response = await fetch(API.getPaymentTools(paymentMethodId), {
+            headers: {
+                Authorization: &#x27;Bearer &#x27; + token,
+            },
+        });
 
-      const data = await response.json();
+        const data = await response.json();
 
-      return data;
-    }catch(error){
-      return false;
+        return data;
     }
-  }
 
-  /**
-   * Makes a Payment for a given Authorization token + asset/payment details
-   * @method payForAsset
-   * @async
-   * @param {String} token - The Authorization token
-   * @param {Object} data - Payment data - {
-   *  number: Number,
-   *  cardName: String,
-   *  expMonth: Number,
-   *  expYear: Number,
-   *  cvv: Number,
-   *  accessFee: Number,
-   *  paymentMethod: String,
-   *  referrer: String
-   *  voucherCode?: String
-   * }
-   * @example
-   *     // data.payment_method = { id.... }
-   *     InPlayer.Payment
-   *     .payForAsset(&#x27;dajh8ao8djadd2o8jh2ofkhdhqkgog3oj&#x27;,
-   *      {
-   *       number: 4111111111111111,
-   *       cardName: &#x27;PayPal&#x27;,
-   *       expMonth: 10,
-   *       expYear: 2030,
-   *       cvv: 656,
-   *       accessFee: 2341,
-   *       paymentMethod: 1,
-   *       referrer: &#x27;http://google.com&#x27;,
-   *       voucherCode: &#x27;fgh1982gff-0f2grfds&#x27;
-   *      })
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-  */
-  async payForAsset(token, data) {
+    /**
+     * Makes a Payment for a given Authorization token + asset/payment details
+     * @method payForAsset
+     * @async
+     * @param {String} token - The Authorization token
+     * @param {Object} data - Payment data - {
+     *  number: Number,
+     *  cardName: String,
+     *  expMonth: Number,
+     *  expYear: Number,
+     *  cvv: Number,
+     *  accessFee: Number,
+     *  paymentMethod: String,
+     *  referrer: String
+     *  voucherCode?: String
+     * }
+     * @example
+     *     // data.payment_method = { id.... }
+     *     InPlayer.Payment
+     *     .payForAsset(&#x27;dajh8ao8djadd2o8jh2ofkhdhqkgog3oj&#x27;,
+     *      {
+     *       number: 4111111111111111,
+     *       cardName: &#x27;PayPal&#x27;,
+     *       expMonth: 10,
+     *       expYear: 2030,
+     *       cvv: 656,
+     *       accessFee: 2341,
+     *       paymentMethod: 1,
+     *       referrer: &#x27;http://google.com&#x27;,
+     *       voucherCode: &#x27;fgh1982gff-0f2grfds&#x27;
+     *      })
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async payForAsset(token, data) {
+        const fd = new FormData();
+        fd.append(&#x27;number&#x27;, data.number);
+        fd.append(&#x27;card_name&#x27;, data.cardName);
+        fd.append(&#x27;exp_month&#x27;, data.expMonth);
+        fd.append(&#x27;exp_year&#x27;, data.expYear);
+        fd.append(&#x27;cvv&#x27;, data.cvv);
+        fd.append(&#x27;access_fee&#x27;, data.accessFee);
+        fd.append(&#x27;payment_method&#x27;, data.paymentMethod);
+        fd.append(&#x27;referrer&#x27;, data.referrer);
+        fd.append(&#x27;voucher_code&#x27;, data.voucherCode);
 
-    const fd = new FormData();
-    fd.append(&#x27;number&#x27;, data.number);
-    fd.append(&#x27;card_name&#x27;, data.cardName);
-    fd.append(&#x27;exp_month&#x27;, data.expMonth);
-    fd.append(&#x27;exp_year&#x27;, data.expYear);
-    fd.append(&#x27;cvv&#x27;, data.cvv);
-    fd.append(&#x27;access_fee&#x27;, data.accessFee);
-    fd.append(&#x27;payment_method&#x27;, data.paymentMethod);
-    fd.append(&#x27;referrer&#x27;, data.referrer);
-    fd.append(&#x27;voucherCode&#x27;, data.voucherCode);
+        const response = await fetch(API.payForAsset, {
+            method: &#x27;POST&#x27;,
+            headers: {
+                Authorization: &#x27;Bearer &#x27; + token,
+            },
+            body: fd,
+        });
 
-    try{
-      const response = await fetch(API.payForAsset,{
-        method: &#x27;POST&#x27;,
-        headers: {
-          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
-        },
-        body: fd
-      });
+        const responseData = await response.json();
 
-      const data = await response.json();
-
-      return data;
-    }catch(error){
-      return false;
+        return responseData;
     }
-  }
 
+    /**
+     * Gets parameters for PayPal
+     * @method getPayPalParams
+     * @async
+     * @param {String} token - The Authorization token
+     * @param {Object} data - Contains details - {
+     *  origin: {String},
+     *  accessFee: {Number},
+     *  paymentMethod: {Number}
+     * }
+     * @example
+     *     InPlayer.Payment
+     *     .getPayPalParams(&#x27;dajh8ao8djadd2o8jh2ofkhdhqkgog3oj&#x27;, {
+     *     origin: location.href,
+     *     accessFee: 34,
+     *     paymentMethod: 2
+     *     voucherCode: &#x27;1231231&#x27;
+     *     })
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async getPayPalParams(token, data) {
+        const fd = new FormData();
+        fd.append(&#x27;origin&#x27;, data.origin);
+        fd.append(&#x27;access_fee&#x27;, data.accessFee);
+        fd.append(&#x27;payment_method&#x27;, data.paymentMethod);
+        fd.append(&#x27;voucher_code&#x27;, data.voucherCode);
 
-  /**
-   * Gets parameters for PayPal
-   * @method getPayPalParams
-   * @async
-   * @param {String} token - The Authorization token
-   * @param {Object} data - Contains details - {
-   *  origin: {String},
-   *  accessFee: {Number},
-   *  paymentMethod: {Number}
-   * }
-   * @example
-   *     InPlayer.Payment
-   *     .getPayPalParams(&#x27;dajh8ao8djadd2o8jh2ofkhdhqkgog3oj&#x27;, {
-   *     origin: location.href,
-   *     accessFee: 34,
-   *     paymentMethod: 2
-   *     })
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-  */
-  async getPayPalParams(token, data) {
-    try{
-      const response = await fetch(API.externalPayments,{
-        method: &#x27;POST&#x27;,
-        headers: {
-          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
-        },
-        body: data
-      });
+        const response = await fetch(API.externalPayments, {
+            method: &#x27;POST&#x27;,
+            headers: {
+                Authorization: &#x27;Bearer &#x27; + token,
+            },
+            body: fd,
+        });
 
-      const data = await response.json();
+        const responseData = await response.json();
 
-      return data;
-    }catch(error){
-      return false;
+        return responseData;
     }
-  }
 }
 
 export default Payment;

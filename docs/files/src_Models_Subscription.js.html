@@ -81,9 +81,7 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-import {
-  API
-} from &#x27;../../constants/endpoints&#x27;;
+import { API } from &#x27;../../constants/endpoints&#x27;;
 
 /**
  * Contains all Requests connected with subscriptions
@@ -91,126 +89,112 @@ import {
  * @class Subscription
  */
 class Subscription {
+    /**
+     * Gets all subscriptions for a given user
+     * @method getSubscriptions
+     * @async
+     * @param {String} token - The Authorization token
+     * @example
+     *     InPlayer.Subscription
+     *     .getSubscriptions(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;)
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async getSubscriptions(token) {
+        const response = await fetch(API.getSubscriptions, {
+            method: &#x27;GET&#x27;,
+            headers: {
+                Authorization: &#x27;Bearer &#x27; + token,
+            },
+        });
 
-  /**
-   * Gets all subscriptions for a given user
-   * @method getSubscriptions
-   * @async
-   * @param {String} token - The Authorization token
-   * @example
-   *     InPlayer.Subscription
-   *     .getSubscriptions(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;)
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-  */
-  async getSubscriptions(token){
-    try{
-      const response = await fetch(API.getSubscriptions,{
-        method: &#x27;GET&#x27;,
-        headers: {
-          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
-        }
-      });
+        const data = response.json();
 
-      const data = response.json();
-
-      return data;
-    }catch(error){
-      return false;
+        return data;
     }
-  }
 
-  /**
-   * Cancels a subscription
-   * @method cancelSubscription
-   * @async
-   * @param {String} unsubscribeUrl - The url for the subscription which is getting unsubscribed
-   * @param {String} token - The Authorization token
-   * @example
-   *     InPlayer.Subscription
-   *     .cancelSubscription(&#x27;http://localhost/subscription/1&#x27;,&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;)
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-  */
-  async cancelSubscription(unsubscribeUrl, token){
-    try{
-      const response = await fetch(unsubscribeUrl, {
-        method: &#x27;GET&#x27;,
-        headers: {
-          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
-        }
-      });
+    /**
+     * Cancels a subscription
+     * @method cancelSubscription
+     * @async
+     * @param {String} unsubscribeUrl - The url for the subscription which is getting unsubscribed
+     * @param {String} token - The Authorization token
+     * @example
+     *     InPlayer.Subscription
+     *     .cancelSubscription(&#x27;http://localhost/subscription/1&#x27;,&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;)
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async cancelSubscription(unsubscribeUrl, token) {
+        const response = await fetch(unsubscribeUrl, {
+            method: &#x27;GET&#x27;,
+            headers: {
+                Authorization: &#x27;Bearer &#x27; + token,
+            },
+        });
 
-      const data = response.json();
+        const data = response.json();
 
-      return data;
-    }catch(error){
-      return false;
+        return data;
     }
-  }
 
-  /**
-   * Subscribes to a given asset
-   * @method assetSubscribe
-   * @async
-   * @param {String} token - The Authorization token
-   * @param {Object} data - {
-   *  number: Number,
-   *  cardName: String,
-   *  expMonth: Number,
-   *  expYear: Number,
-   *  cvv: Number,
-   *  accessFee: Number,
-   *  paymentMethod: String,
-   *  referrer: String
-   *  voucherCode?: String
-   * }
-   * @example
-   *     InPlayer.Subscription
-   *     .assetSubscribe(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;, {
-   *        number: 1,
-   *        cardName: &#x27;Payoneer&#x27;,
-   *        expMonth: 11,
-   *        expYear: 12,
-   *        cvv: 546,
-   *        accessFee: 13.4,
-   *        paymentMethod: &#x27;card&#x27;,
-   *        referrer: &#x27;http://localhost:3000&#x27;,
-   *        voucherCode: &#x27;123123125914i2erjfg&#x27;
-   *        }
-   *     )
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-  */
-  async assetSubscribe(token, data) {
+    /**
+     * Subscribes to a given asset
+     * @method assetSubscribe
+     * @async
+     * @param {String} token - The Authorization token
+     * @param {Object} data - {
+     *  number: Number,
+     *  cardName: String,
+     *  expMonth: Number,
+     *  expYear: Number,
+     *  cvv: Number,
+     *  accessFee: Number,
+     *  paymentMethod: String,
+     *  referrer: String
+     *  voucherCode?: String
+     * }
+     * @example
+     *     InPlayer.Subscription
+     *     .assetSubscribe(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;, {
+     *        number: 1,
+     *        cardName: &#x27;Payoneer&#x27;,
+     *        expMonth: 11,
+     *        expYear: 12,
+     *        cvv: 546,
+     *        accessFee: 13.4,
+     *        paymentMethod: &#x27;card&#x27;,
+     *        referrer: &#x27;http://localhost:3000&#x27;,
+     *        voucherCode: &#x27;123123125914i2erjfg&#x27;
+     *        }
+     *     )
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async assetSubscribe(token, data) {
+        const fd = new FormData();
+        fd.append(&#x27;number&#x27;, data.number);
+        fd.append(&#x27;card_name&#x27;, data.cardName);
+        fd.append(&#x27;exp_month&#x27;, data.expMonth);
+        fd.append(&#x27;exp_year&#x27;, data.expYear);
+        fd.append(&#x27;cvv&#x27;, data.cvv);
+        fd.append(&#x27;access_fee&#x27;, data.accessFee);
+        fd.append(&#x27;payment_method&#x27;, data.paymentMethod);
+        fd.append(&#x27;referrer&#x27;, data.referrer);
+        fd.append(&#x27;voucher_code&#x27;, data.voucherCode);
 
-    const fd = new FormData();
-    fd.append(&#x27;number&#x27;, data.number);
-    fd.append(&#x27;card_name&#x27;, data.cardName);
-    fd.append(&#x27;exp_month&#x27;, data.expMonth);
-    fd.append(&#x27;exp_year&#x27;, data.expYear);
-    fd.append(&#x27;cvv&#x27;, data.cvv);
-    fd.append(&#x27;access_fee&#x27;, data.accessFee);
-    fd.append(&#x27;payment_method&#x27;, data.paymentMethod);
-    fd.append(&#x27;referrer&#x27;, data.referrer);
-    fd.append(&#x27;voucherCode&#x27;, data.voucher_code);
+        const response = await fetch(API.subscribe, {
+            method: &#x27;POST&#x27;,
+            headers: {
+                Authorization: &#x27;Bearer &#x27; + token,
+            },
+            body: fd,
+        });
 
-    try{
-      const response = await fetch(API.subscribe, {
-        method: &#x27;POST&#x27;,
-        headers: {
-          &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token
-        },
-        body: fd
-      });
+        const responseData = await response.json();
 
-      const data = await response.json();
-
-      return data;
-    }catch(error){
-      return false;
+        return responseData;
     }
-  }
 }
 
 export default Subscription;

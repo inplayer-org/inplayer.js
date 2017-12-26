@@ -285,7 +285,7 @@ class User {
     }
 
     /**
-     * Updates the account info. Metadata fields must be from the Inplayer's database
+     * Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()
      * @method updateAccount
      * @async
      * @param {Object} data - The new data for the account
