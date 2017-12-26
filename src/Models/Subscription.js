@@ -98,7 +98,7 @@ class Subscription {
         fd.append('access_fee', data.accessFee);
         fd.append('payment_method', data.paymentMethod);
         fd.append('referrer', data.referrer);
-        fd.append('voucherCode', data.voucher_code);
+        fd.append('voucher_code', data.voucherCode);
 
         const response = await fetch(API.subscribe, {
             method: 'POST',

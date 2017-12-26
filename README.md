@@ -13,12 +13,14 @@ CMD/Powershell on Windows is crashing on WATCH mode, go to
 node_modules/rollup/bin/rollup and change
 
  `const SHOW_ALTERNATE_SCREEN = '\u001B[?1049h';`
+
  `const HIDE_ALTERNATE_SCREEN = '\u001B[?1049l';`
 
 
 to
 
 `const SHOW_ALTERNATE_SCREEN = '';`
+
 `const HIDE_ALTERNATE_SCREEN = '';`
 
 
@@ -42,12 +44,16 @@ Method 2 using NPM:
     `import InPlayer from '@inplayer/inplayer-sdk';`
 
 ## Running the tests
-/
+
+`$ npm test`
+
 ## Deployment
-/
+
+`$npm run dev`
+
 ## Versioning
 
-0.1.7
+0.1.8
 
 ## License
 

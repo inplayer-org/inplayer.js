@@ -36,9 +36,9 @@ class Misc {
      * @async
      * @param {String} token - The Authorization token
      * @param {Object} data - {
-     *   voucher_code: String,
-     *   merchant_id: String,
-     *   access_fee_id: Number
+     *   voucherCode: String,
+     *   merchantUid: String,
+     *   accessFeeId: Number
      * }
      * @example
      *     InPlayer.Misc
@@ -53,8 +53,8 @@ class Misc {
     async getDiscount(token, data) {
         const fd = new FormData();
         fd.append('access_fee_id', data.accessFeeId);
-        fd.append('voucherCode', data.voucherCode);
-        fd.append('merchantId', data.merchantId);
+        fd.append('voucher_code', data.voucherCode);
+        fd.append('merchant_id', data.merchantUid);
 
         const response = await fetch(API.getDiscount, {
             method: 'POST',

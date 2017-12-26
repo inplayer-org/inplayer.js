@@ -23,7 +23,7 @@ class User {
      * @param {Object} data - Contains {
      *  email: string,
      *  password: string,
-     *  merchant_uuid: string,
+     *  merchantUid: string,
      *  referrer: string,
      * }
      * @example
@@ -285,21 +285,25 @@ class User {
     }
 
     /**
-     * Updates the account info
+     * Updates the account info. Metadata fields must be from the Inplayer's database
      * @method updateAccount
      * @async
      * @param {Object} data - The new data for the account
      * @param {String} token - The authorization token
      * @example
      *     InPlayer.User
-     *     .updateAccount({first_name: 'test'},'123124-1r-1r13ur1h1')
+     *     .updateAccount({fullName: 'test test', metadata: {country: 'Germany'}},'123124-1r-1r13ur1h1')
      *     .then(data => console.log(data));
      * @return {Object}
      */
     async updateAccount(data, token) {
+        const snakeCaseData = {
+            full_name: data.fullName,
+            metadata: data.metadata,
+        };
         const response = await fetch(API.updateAccount, {
             method: 'PUT',
-            body: data,
+            body: snakeCaseData,
             headers: {
                 Authorization: 'Bearer ' + token,
                 'Content-Type': 'x-www-form-urlencoded',
@@ -319,7 +323,11 @@ class User {
      * @param {String} token - The authorization token
      * @example
      *     InPlayer.User
-     *     .updateAccount({},'123124-1r-1r13ur1h1')
+     *     .updateAccount({
+     *       email: 'test@test.com',
+     *       password: 'test123',
+     *       passwordConfirmation: 'test123'
+     *     },'123124-1r-1r13ur1h1')
      *     .then(data => console.log(data));
      * @return {Object}
      */

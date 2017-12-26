@@ -97,7 +97,7 @@ class Payment {
         fd.append('access_fee', data.accessFee);
         fd.append('payment_method', data.paymentMethod);
         fd.append('referrer', data.referrer);
-        fd.append('voucherCode', data.voucherCode);
+        fd.append('voucher_code', data.voucherCode);
 
         const response = await fetch(API.payForAsset, {
             method: 'POST',
@@ -128,17 +128,24 @@ class Payment {
      *     origin: location.href,
      *     accessFee: 34,
      *     paymentMethod: 2
+     *     voucherCode: '1231231'
      *     })
      *     .then(data => console.log(data));
      * @return {Object}
      */
     async getPayPalParams(token, data) {
+        const fd = new FormData();
+        fd.append('origin', data.origin);
+        fd.append('access_fee', data.accessFee);
+        fd.append('payment_method', data.paymentMethod);
+        fd.append('voucher_code', data.voucherCode);
+
         const response = await fetch(API.externalPayments, {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + token,
             },
-            body: data,
+            body: fd,
         });
 
         const responseData = await response.json();
