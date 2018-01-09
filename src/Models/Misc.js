@@ -37,7 +37,7 @@ class Misc {
      * @param {String} token - The Authorization token
      * @param {Object} data - {
      *   voucherCode: String,
-     *   merchantUid: String,
+     *   merchantUuid: String,
      *   accessFeeId: Number
      * }
      * @example
@@ -54,7 +54,7 @@ class Misc {
         const fd = new FormData();
         fd.append('access_fee_id', data.accessFeeId);
         fd.append('voucher_code', data.voucherCode);
-        fd.append('merchant_id', data.merchantUid);
+        fd.append('merchant_id', data.merchantUuid);
 
         const response = await fetch(API.getDiscount, {
             method: 'POST',
@@ -73,15 +73,15 @@ class Misc {
      * Gets branding for given merchant
      * @method getBranding
      * @async
-     * @param {String} merchantUid - The UUID of the merchant
+     * @param {String} merchantUuid - The UUID of the merchant
      * @example
      *     InPlayer.Misc
      *     .getBranding('eyJ0e-XAiOi-JKPEC-ENR5Y')
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getBranding(merchantUid) {
-        const response = await fetch(API.getBranding(merchantUid), {
+    async getBranding(merchantUuid) {
+        const response = await fetch(API.getBranding(merchantUuid), {
             method: 'GET',
         });
 

@@ -2,6 +2,8 @@
 function _interopDefault(e) {
     return e && 'object' == typeof e && 'default' in e ? e.default : e;
 }
+var LocalStorage = _interopDefault(require('node-localstorage')),
+    Stomp = _interopDefault(require('stompjs'));
 function __async(e) {
     return new Promise(function(n, t) {
         function o(i, s) {
@@ -18,9 +20,7 @@ function __async(e) {
         o();
     });
 }
-var LocalStorage = _interopDefault(require('node-localstorage')),
-    Stomp = _interopDefault(require('stompjs')),
-    config = {
+var config = {
         BASE_URL: 'https://staging-v2.inplayer.com',
         INPLAYER_TOKEN_NAME: 'inplayer_token',
         stomp: {
@@ -46,13 +46,8 @@ var LocalStorage = _interopDefault(require('node-localstorage')),
         getRegisterFields: function(e) {
             return config.BASE_URL + '/accounts/register-fields/' + e;
         },
-        checkAccess: function(e, n) {
-            return (
-                void 0 === n && (n = !1),
-                n
-                    ? config.BASE_URL + '/item/access?' + e
-                    : config.BASE_URL + '/items/' + e + '/access'
-            );
+        checkAccess: function(e) {
+            return config.BASE_URL + '/items/' + e + '/access';
         },
         findAsset: function(e, n) {
             return config.BASE_URL + '/items/' + n + '/' + e;
@@ -96,7 +91,7 @@ var LocalStorage = _interopDefault(require('node-localstorage')),
             var n = new FormData();
             n.append('email', e.email),
                 n.append('password', e.password),
-                n.append('merchant_uuid', e.merchantUid),
+                n.append('merchant_uuid', e.merchantUuid),
                 n.append('referrer', e.referrer);
             var t = yield (yield fetch(API.signIn, {
                 method: 'POST',
@@ -131,17 +126,19 @@ var LocalStorage = _interopDefault(require('node-localstorage')),
         return __async(
             (function*() {
                 var n = new FormData();
-                n.append('full_name', e.fullName),
+                return (
+                    n.append('full_name', e.fullName),
                     n.append('email', e.email),
                     n.append('password', e.password),
                     n.append('password_confirmation', e.passwordConfirmation),
-                    n.append('merchant_uuid', e.merchantUid),
+                    n.append('merchant_uuid', e.merchantUuid),
                     n.append('type', e.type),
-                    n.append('referrer', e.referrer);
-                return yield (yield fetch(API.signUp, {
-                    method: 'POST',
-                    body: n,
-                })).json();
+                    n.append('referrer', e.referrer),
+                    yield (yield fetch(API.signUp, {
+                        method: 'POST',
+                        body: n,
+                    })).json()
+                );
             })()
         );
     }),
@@ -158,12 +155,14 @@ var LocalStorage = _interopDefault(require('node-localstorage')),
         return __async(
             (function*() {
                 var n = new FormData();
-                n.append('email', e.email),
-                    n.append('merchant_uuid', e.merchantUid);
-                return yield (yield fetch(API.requestNewPassword, {
-                    method: 'POST',
-                    body: n,
-                })).json();
+                return (
+                    n.append('email', e.email),
+                    n.append('merchant_uuid', e.merchantUuid),
+                    yield (yield fetch(API.requestNewPassword, {
+                        method: 'POST',
+                        body: n,
+                    })).json()
+                );
             })()
         );
     }),
@@ -222,14 +221,16 @@ var LocalStorage = _interopDefault(require('node-localstorage')),
         return __async(
             (function*() {
                 var t = new FormData();
-                t.append('token', e.email),
+                return (
+                    t.append('token', e.email),
                     t.append('password', e.password),
-                    t.append('password_confirmation', e.passwordConfirmation);
-                return yield (yield fetch(API.changePassword, {
-                    method: 'POST',
-                    body: t,
-                    headers: { Authorization: 'Bearer ' + n },
-                })).json();
+                    t.append('password_confirmation', e.passwordConfirmation),
+                    yield (yield fetch(API.changePassword, {
+                        method: 'POST',
+                        body: t,
+                        headers: { Authorization: 'Bearer ' + n },
+                    })).json()
+                );
             })()
         );
     }),
@@ -250,15 +251,6 @@ var Asset = function() {};
         })()
     );
 }),
-    (Asset.prototype.checkAccessForMultipleAssets = function(e, n) {
-        return __async(
-            (function*() {
-                return yield (yield fetch(API.checkAccess(n, !0), {
-                    headers: { Authorization: 'Bearer ' + e },
-                })).json();
-            })()
-        );
-    }),
     (Asset.prototype.findAsset = function(e, n) {
         return __async(
             (function*() {
@@ -329,7 +321,8 @@ var Payment = function() {};
         return __async(
             (function*() {
                 var t = new FormData();
-                t.append('number', n.number),
+                return (
+                    t.append('number', n.number),
                     t.append('card_name', n.cardName),
                     t.append('exp_month', n.expMonth),
                     t.append('exp_year', n.expYear),
@@ -337,12 +330,13 @@ var Payment = function() {};
                     t.append('access_fee', n.accessFee),
                     t.append('payment_method', n.paymentMethod),
                     t.append('referrer', n.referrer),
-                    t.append('voucher_code', n.voucherCode);
-                return yield (yield fetch(API.payForAsset, {
-                    method: 'POST',
-                    headers: { Authorization: 'Bearer ' + e },
-                    body: t,
-                })).json();
+                    n.voucherCode && t.append('voucher_code', n.voucherCode),
+                    yield (yield fetch(API.payForAsset, {
+                        method: 'POST',
+                        headers: { Authorization: 'Bearer ' + e },
+                        body: t,
+                    })).json()
+                );
             })()
         );
     }),
@@ -350,15 +344,17 @@ var Payment = function() {};
         return __async(
             (function*() {
                 var t = new FormData();
-                t.append('origin', n.origin),
+                return (
+                    t.append('origin', n.origin),
                     t.append('access_fee', n.accessFee),
                     t.append('payment_method', n.paymentMethod),
-                    t.append('voucher_code', n.voucherCode);
-                return yield (yield fetch(API.externalPayments, {
-                    method: 'POST',
-                    headers: { Authorization: 'Bearer ' + e },
-                    body: t,
-                })).json();
+                    t.append('voucher_code', n.voucherCode),
+                    yield (yield fetch(API.externalPayments, {
+                        method: 'POST',
+                        headers: { Authorization: 'Bearer ' + e },
+                        body: t,
+                    })).json()
+                );
             })()
         );
     });
@@ -387,7 +383,8 @@ var Subscription = function() {};
         return __async(
             (function*() {
                 var t = new FormData();
-                t.append('number', n.number),
+                return (
+                    t.append('number', n.number),
                     t.append('card_name', n.cardName),
                     t.append('exp_month', n.expMonth),
                     t.append('exp_year', n.expYear),
@@ -395,12 +392,13 @@ var Subscription = function() {};
                     t.append('access_fee', n.accessFee),
                     t.append('payment_method', n.paymentMethod),
                     t.append('referrer', n.referrer),
-                    t.append('voucher_code', n.voucherCode);
-                return yield (yield fetch(API.subscribe, {
-                    method: 'POST',
-                    headers: { Authorization: 'Bearer ' + e },
-                    body: t,
-                })).json();
+                    n.voucherCode && t.append('voucher_code', n.voucherCode),
+                    yield (yield fetch(API.subscribe, {
+                        method: 'POST',
+                        headers: { Authorization: 'Bearer ' + e },
+                        body: t,
+                    })).json()
+                );
             })()
         );
     });
@@ -418,14 +416,16 @@ var Misc = function() {};
         return __async(
             (function*() {
                 var t = new FormData();
-                t.append('access_fee_id', n.accessFeeId),
+                return (
+                    t.append('access_fee_id', n.accessFeeId),
                     t.append('voucher_code', n.voucherCode),
-                    t.append('merchant_id', n.merchantUid);
-                return yield (yield fetch(API.getDiscount, {
-                    method: 'POST',
-                    headers: { Authorization: 'Bearer ' + e },
-                    body: t,
-                })).json();
+                    t.append('merchant_id', n.merchantUuid),
+                    yield (yield fetch(API.getDiscount, {
+                        method: 'POST',
+                        headers: { Authorization: 'Bearer ' + e },
+                        body: t,
+                    })).json()
+                );
             })()
         );
     }),

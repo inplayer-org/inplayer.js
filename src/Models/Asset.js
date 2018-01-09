@@ -31,30 +31,6 @@ class Asset {
     }
 
     /**
-     * Checks whether a given authenticated user has access for an array of assets
-     * @method checkAccessForMultipleAssets
-     * @async
-     * @param {String} token - The Authorization token
-     * @param {Array} ids - Array with asset ids
-     * @example
-     *     InPlayer.Asset
-     *     .checkAccessForMultipleAssets('eyJ0eXAiOiJKPECENR5Y',[36320,27215])
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
-    async checkAccessForMultipleAssets(token, ids) {
-        const response = await fetch(API.checkAccess(ids, true), {
-            headers: {
-                Authorization: 'Bearer ' + token,
-            },
-        });
-
-        const data = await response.json();
-
-        return data;
-    }
-
-    /**
      * Get the asset info for a given asset ID and merchant UUID
      * @method findAsset
      * @async
@@ -66,8 +42,8 @@ class Asset {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async findAsset(assetId, merchantUid) {
-        const response = await fetch(API.findAsset(assetId, merchantUid), {
+    async findAsset(assetId, merchantUuid) {
+        const response = await fetch(API.findAsset(assetId, merchantUuid), {
             method: 'GET',
         });
 
