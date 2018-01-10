@@ -26,287 +26,322 @@
             o();
         });
     }
-    function r(e, t) {
-        return (t = { exports: {} }), e(t, t.exports), t.exports;
-    }
     (e = e && e.hasOwnProperty('default') ? e.default : e),
         (t = t && t.hasOwnProperty('default') ? t.default : t),
         (n = n && n.hasOwnProperty('default') ? n.default : n);
-    var i = 'https://staging-v2.inplayer.com',
-        s = 'inplayer_token',
-        c = {
+    var r = 'https://staging-v2.inplayer.com',
+        i = 'inplayer_token',
+        s = {
             url: 'wss://staging-v2.inplayer.com:15671/ws',
             login: 'notifications',
             password: 'notifications',
         },
-        u = {
-            signIn: i + '/accounts/login',
-            signOut: i + '/accounts/logout',
-            signUp: i + '/accounts',
-            requestNewPassword: i + '/accounts/forgot-password',
+        c = {
+            signIn: r + '/accounts/login',
+            signOut: r + '/accounts/logout',
+            signUp: r + '/accounts',
+            requestNewPassword: r + '/accounts/forgot-password',
             setNewPassword: function(e) {
-                return i + '/accounts/forgot-password/' + e;
+                return r + '/accounts/forgot-password/' + e;
             },
-            getAccountInfo: i + '/accounts',
+            getAccountInfo: r + '/accounts',
             social: function(e) {
-                return i + '/accounts/social?state=' + e;
+                return r + '/accounts/social?state=' + e;
             },
-            updateAccount: i + '/accounts',
-            changePassword: i + '/accounts/change-password',
+            updateAccount: r + '/accounts',
+            changePassword: r + '/accounts/change-password',
             getRegisterFields: function(e) {
-                return i + '/accounts/register-fields/' + e;
+                return r + '/accounts/register-fields/' + e;
             },
-            checkAccess: function(e, t) {
-                return (
-                    void 0 === t && (t = !1),
-                    t ? i + '/item/access?' + e : i + '/items/' + e + '/access'
-                );
+            checkAccess: function(e) {
+                return r + '/items/' + e + '/access';
             },
             findAsset: function(e, t) {
-                return i + '/items/' + t + '/' + e;
+                return r + '/items/' + t + '/' + e;
             },
             findExternalAsset: function(e, t) {
-                return i + '/items/assets/external/' + e + '/' + t;
+                return r + '/items/assets/external/' + e + '/' + t;
             },
             findPackage: function(e) {
-                return i + '/items/packages/' + e;
+                return r + '/items/packages/' + e;
             },
             findAccessFees: function(e) {
-                return i + '/items/' + e + '/access-fees';
+                return r + '/items/' + e + '/access-fees';
             },
-            freemium: i + '/items/access/unlimited',
-            getPaymentMethods: i + '/payments/methods',
+            freemium: r + '/items/access/unlimited',
+            getPaymentMethods: r + '/payments/methods',
             getPaymentTools: function(e) {
-                return i + '/payments/method/' + e + '/tools';
+                return r + '/payments/method/' + e + '/tools';
             },
-            payForAsset: i + '/payments',
-            externalPayments: i + '/external-payments',
-            getSubscriptions: i + '/subscriptions',
-            subscribe: i + '/subscriptions',
+            payForAsset: r + '/payments',
+            externalPayments: r + '/external-payments',
+            getSubscriptions: r + '/subscriptions',
+            subscribe: r + '/subscriptions',
             getDlcLinks: function(e) {
-                return i + '/dlc/' + e + '/links';
+                return r + '/dlc/' + e + '/links';
             },
-            getDiscount: i + '/vouchers/discount',
+            getDiscount: r + '/vouchers/discount',
             getBranding: function(e) {
-                return i + '/branding/paywall/' + e;
+                return r + '/branding/paywall/' + e;
             },
             downloadFile: function(e, t) {
-                return i + '/dlc/' + e + '/' + t;
+                return r + '/dlc/' + e + '/' + t;
             },
         },
-        a = function() {
+        u = function() {
             ('undefined' != typeof localStorage && null !== localStorage) ||
                 (localStorage = new e('./scratch'));
         };
-    (a.prototype.signIn = function(e) {
-        return o(
-            (function*() {
-                var t = new FormData();
-                t.append('email', e.email),
-                    t.append('password', e.password),
-                    t.append('merchant_uuid', e.merchantUid),
-                    t.append('referrer', e.referrer);
-                var n = yield (yield fetch(u.signIn, {
-                    method: 'POST',
-                    body: t,
-                })).json();
-                return (
-                    n.access_token && localStorage.setItem(s, e.access_token), n
-                );
-            })()
+    (u.prototype.signIn = function(e) {
+        return (
+            void 0 === e && (e = {}),
+            o(
+                (function*() {
+                    var t = new FormData();
+                    t.append('email', e.email),
+                        t.append('password', e.password),
+                        t.append('merchant_uuid', e.merchantUuid),
+                        t.append('referrer', e.referrer);
+                    var n = yield (yield fetch(c.signIn, {
+                        method: 'POST',
+                        body: t,
+                    })).json();
+                    return (
+                        n.access_token &&
+                            localStorage.setItem(i, n.access_token),
+                        n
+                    );
+                })()
+            )
         );
     }),
-        (a.prototype.signOut = function() {
+        (u.prototype.signOut = function() {
             return o(
                 (function*() {
-                    var e = localStorage.getItem(s);
+                    var e = localStorage.getItem(i);
                     return (
-                        (yield (yield fetch(u.signOut, {
+                        (yield (yield fetch(c.signOut, {
                             headers: { Authorization: 'Bearer ' + e },
-                        })).json()).explain && localStorage.removeItem(s),
+                        })).json()).explain && localStorage.removeItem(i),
                         !0
                     );
                 })()
             );
         }),
-        (a.prototype.signUp = function(e) {
-            return o(
-                (function*() {
-                    var t = new FormData();
-                    t.append('full_name', e.fullName),
-                        t.append('email', e.email),
-                        t.append('password', e.password),
-                        t.append(
-                            'password_confirmation',
-                            e.passwordConfirmation
-                        ),
-                        t.append('merchant_uuid', e.merchantUid),
-                        t.append('type', e.type),
-                        t.append('referrer', e.referrer);
-                    return yield (yield fetch(u.signUp, {
-                        method: 'POST',
-                        body: t,
-                    })).json();
-                })()
-            );
-        }),
-        (a.prototype.isSignedIn = function() {
-            return void 0 !== localStorage.getItem(s);
-        }),
-        (a.prototype.token = function() {
-            return localStorage.getItem(s);
-        }),
-        (a.prototype.setTokenInCookie = function(e) {
-            localStorage.setItem(s, e);
-        }),
-        (a.prototype.requestNewPassword = function(e) {
-            return o(
-                (function*() {
-                    var t = new FormData();
-                    t.append('email', e.email),
-                        t.append('merchant_uuid', e.merchantUid);
-                    return yield (yield fetch(u.requestNewPassword, {
-                        method: 'POST',
-                        body: t,
-                    })).json();
-                })()
-            );
-        }),
-        (a.prototype.setNewPassword = function(e, t) {
-            return o(
-                (function*() {
-                    var n =
-                        'password=' +
-                        e.password +
-                        '&password_confirmation=' +
-                        e.passwordConfirmation;
-                    return yield (yield fetch(u.setNewPassword(t), {
-                        method: 'PUT',
-                        body: n,
-                        headers: { 'Content-Type': 'x-www-form-urlencoded' },
-                    })).json();
-                })()
-            );
-        }),
-        (a.prototype.getAccountInfo = function(e) {
-            return o(
-                (function*() {
-                    var t = yield (yield fetch(u.getAccountInfo, {
-                        method: 'GET',
-                        headers: { Authorization: 'Bearer ' + e },
-                    })).json();
-                    if (t) return t;
-                })()
-            );
-        }),
-        (a.prototype.getSocialLoginUrls = function(e) {
-            return o(
-                (function*() {
-                    return yield (yield fetch(u.social(e), {
-                        method: 'GET',
-                    })).json();
-                })()
-            );
-        }),
-        (a.prototype.updateAccount = function(e, t) {
-            return o(
-                (function*() {
-                    var n = { full_name: e.fullName, metadata: e.metadata };
-                    return yield (yield fetch(u.updateAccount, {
-                        method: 'PUT',
-                        body: n,
-                        headers: {
-                            Authorization: 'Bearer ' + t,
-                            'Content-Type': 'x-www-form-urlencoded',
-                        },
-                    })).json();
-                })()
-            );
-        }),
-        (a.prototype.changePassword = function(e, t) {
-            return o(
-                (function*() {
-                    var n = new FormData();
-                    n.append('token', e.email),
-                        n.append('password', e.password),
-                        n.append(
-                            'password_confirmation',
-                            e.passwordConfirmation
+        (u.prototype.signUp = function(e) {
+            return (
+                void 0 === e && (e = {}),
+                o(
+                    (function*() {
+                        var t = new FormData();
+                        return (
+                            t.append('full_name', e.fullName),
+                            t.append('email', e.email),
+                            t.append('password', e.password),
+                            t.append(
+                                'password_confirmation',
+                                e.passwordConfirmation
+                            ),
+                            t.append('merchant_uuid', e.merchantUuid),
+                            t.append('type', e.type),
+                            t.append('referrer', e.referrer),
+                            yield (yield fetch(c.signUp, {
+                                method: 'POST',
+                                body: t,
+                            })).json()
                         );
-                    return yield (yield fetch(u.changePassword, {
-                        method: 'POST',
-                        body: n,
-                        headers: { Authorization: 'Bearer ' + t },
+                    })()
+                )
+            );
+        }),
+        (u.prototype.isSignedIn = function() {
+            return void 0 !== localStorage.getItem(i);
+        }),
+        (u.prototype.token = function() {
+            return localStorage.getItem(i);
+        }),
+        (u.prototype.setTokenInCookie = function(e) {
+            void 0 === e && (e = ''), localStorage.setItem(i, e);
+        }),
+        (u.prototype.requestNewPassword = function(e) {
+            return (
+                void 0 === e && (e = {}),
+                o(
+                    (function*() {
+                        var t = new FormData();
+                        return (
+                            t.append('email', e.email),
+                            t.append('merchant_uuid', e.merchantUuid),
+                            yield (yield fetch(c.requestNewPassword, {
+                                method: 'POST',
+                                body: t,
+                            })).json()
+                        );
+                    })()
+                )
+            );
+        }),
+        (u.prototype.setNewPassword = function(e, t) {
+            return (
+                void 0 === e && (e = {}),
+                void 0 === t && (t = ''),
+                o(
+                    (function*() {
+                        var n =
+                            'password=' +
+                            e.password +
+                            '&password_confirmation=' +
+                            e.passwordConfirmation;
+                        return yield fetch(c.setNewPassword(t), {
+                            method: 'PUT',
+                            body: n,
+                            headers: {
+                                'Content-Type': 'x-www-form-urlencoded',
+                            },
+                        });
+                    })()
+                )
+            );
+        }),
+        (u.prototype.getAccountInfo = function(e) {
+            return (
+                void 0 === e && (e = ''),
+                o(
+                    (function*() {
+                        var t = yield (yield fetch(c.getAccountInfo, {
+                            method: 'GET',
+                            headers: { Authorization: 'Bearer ' + e },
+                        })).json();
+                        if (t) return t;
+                    })()
+                )
+            );
+        }),
+        (u.prototype.getSocialLoginUrls = function(e) {
+            return o(
+                (function*() {
+                    return yield (yield fetch(c.social(e), {
+                        method: 'GET',
                     })).json();
                 })()
             );
         }),
-        (a.prototype.getRegisterFields = function(e) {
-            return o(
-                (function*() {
-                    return yield (yield fetch(u.getRegisterFields(e))).json();
-                })()
+        (u.prototype.updateAccount = function(e, t) {
+            return (
+                void 0 === e && (e = {}),
+                void 0 === t && (t = ''),
+                o(
+                    (function*() {
+                        var n = '';
+                        return (
+                            Object.keys(e).forEach(function(t) {
+                                n +=
+                                    (n ? '&' : '') +
+                                    ('fullName' === t
+                                        ? 'full_name'
+                                        : 'metadata[' + t + ']') +
+                                    '=' +
+                                    e[t];
+                            }),
+                            yield (yield fetch(c.updateAccount, {
+                                method: 'PUT',
+                                body: n,
+                                headers: {
+                                    Authorization: 'Bearer ' + t,
+                                    'Content-Type': 'x-www-form-urlencoded',
+                                },
+                            })).json()
+                        );
+                    })()
+                )
+            );
+        }),
+        (u.prototype.changePassword = function(e, t) {
+            return (
+                void 0 === e && (e = {}),
+                void 0 === t && (t = ''),
+                o(
+                    (function*() {
+                        var n = new FormData();
+                        return (
+                            n.append('old_password', e.oldPassword),
+                            n.append('password', e.password),
+                            n.append(
+                                'password_confirmation',
+                                e.passwordConfirmation
+                            ),
+                            yield (yield fetch(c.changePassword, {
+                                method: 'POST',
+                                body: n,
+                                headers: { Authorization: 'Bearer ' + t },
+                            })).json()
+                        );
+                    })()
+                )
+            );
+        }),
+        (u.prototype.getRegisterFields = function(e) {
+            return (
+                void 0 === e && (e = ''),
+                o(
+                    (function*() {
+                        return yield (yield fetch(
+                            c.getRegisterFields(e)
+                        )).json();
+                    })()
+                )
             );
         });
-    var d = function() {};
-    (d.prototype.checkAccessForAsset = function(e, t) {
+    var a = function() {};
+    (a.prototype.checkAccessForAsset = function(e, t) {
         return o(
             (function*() {
-                return yield (yield fetch(u.checkAccess(t), {
+                return yield (yield fetch(c.checkAccess(t), {
                     headers: { Authorization: 'Bearer ' + e },
                 })).json();
             })()
         );
     }),
-        (d.prototype.checkAccessForMultipleAssets = function(e, t) {
+        (a.prototype.findAsset = function(e, t) {
             return o(
                 (function*() {
-                    return yield (yield fetch(u.checkAccess(t, !0), {
-                        headers: { Authorization: 'Bearer ' + e },
-                    })).json();
-                })()
-            );
-        }),
-        (d.prototype.findAsset = function(e, t) {
-            return o(
-                (function*() {
-                    return yield (yield fetch(u.findAsset(e, t), {
+                    return yield (yield fetch(c.findAsset(e, t), {
                         method: 'GET',
                     })).json();
                 })()
             );
         }),
-        (d.prototype.findExternalAsset = function(e, t) {
+        (a.prototype.findExternalAsset = function(e, t) {
             return o(
                 (function*() {
-                    return yield (yield fetch(u.findExternalAsset(e, t), {
+                    return yield (yield fetch(c.findExternalAsset(e, t), {
                         method: 'GET',
                     })).json();
                 })()
             );
         }),
-        (d.prototype.findPackage = function(e) {
+        (a.prototype.findPackage = function(e) {
             return o(
                 (function*() {
-                    return yield (yield fetch(u.findPackage(e), {
+                    return yield (yield fetch(c.findPackage(e), {
                         method: 'GET',
                     })).json();
                 })()
             );
         }),
-        (d.prototype.getAssetAccessFees = function(e) {
+        (a.prototype.getAssetAccessFees = function(e) {
             return o(
                 (function*() {
-                    return yield (yield fetch(u.findAccessFees(e), {
+                    return yield (yield fetch(c.findAccessFees(e), {
                         method: 'GET',
                     })).json();
                 })()
             );
         }),
-        (d.prototype.getFreemiumAsset = function(e, t) {
+        (a.prototype.getFreemiumAsset = function(e, t) {
             return o(
                 (function*() {
-                    return yield (yield fetch(u.freemium, {
+                    return yield (yield fetch(c.freemium, {
                         method: 'POST',
                         headers: { Authorization: 'Bearer ' + e },
                         body: { access_fee: t },
@@ -314,74 +349,87 @@
                 })()
             );
         });
-    var p = function() {};
-    (p.prototype.getPaymentMethods = function(e) {
+    var d = function() {};
+    (d.prototype.getPaymentMethods = function(e) {
         return o(
             (function*() {
-                return yield (yield fetch(u.getPaymentMethods, {
+                return yield (yield fetch(c.getPaymentMethods, {
                     headers: { Authorization: 'Bearer ' + e },
                 })).json();
             })()
         );
     }),
-        (p.prototype.getPaymentTools = function(e, t) {
+        (d.prototype.getPaymentTools = function(e, t) {
             return o(
                 (function*() {
-                    return yield (yield fetch(u.getPaymentTools(t), {
+                    return yield (yield fetch(c.getPaymentTools(t), {
                         headers: { Authorization: 'Bearer ' + e },
                     })).json();
                 })()
             );
         }),
-        (p.prototype.payForAsset = function(e, t) {
-            return o(
-                (function*() {
-                    var n = new FormData();
-                    n.append('number', t.number),
-                        n.append('card_name', t.cardName),
-                        n.append('exp_month', t.expMonth),
-                        n.append('exp_year', t.expYear),
-                        n.append('cvv', t.cvv),
-                        n.append('access_fee', t.accessFee),
-                        n.append('payment_method', t.paymentMethod),
-                        n.append('referrer', t.referrer),
-                        n.append('voucher_code', t.voucherCode);
-                    return yield (yield fetch(u.payForAsset, {
-                        method: 'POST',
-                        headers: { Authorization: 'Bearer ' + e },
-                        body: n,
-                    })).json();
-                })()
+        (d.prototype.payForAsset = function(e, t) {
+            return (
+                void 0 === e && (e = ''),
+                void 0 === t && (t = {}),
+                o(
+                    (function*() {
+                        var n = new FormData();
+                        return (
+                            n.append('number', t.number),
+                            n.append('card_name', t.cardName),
+                            n.append('exp_month', t.expMonth),
+                            n.append('exp_year', t.expYear),
+                            n.append('cvv', t.cvv),
+                            n.append('access_fee', t.accessFee),
+                            n.append('payment_method', t.paymentMethod),
+                            n.append('referrer', t.referrer),
+                            t.voucherCode &&
+                                n.append('voucher_code', t.voucherCode),
+                            yield (yield fetch(c.payForAsset, {
+                                method: 'POST',
+                                headers: { Authorization: 'Bearer ' + e },
+                                body: n,
+                            })).json()
+                        );
+                    })()
+                )
             );
         }),
-        (p.prototype.getPayPalParams = function(e, t) {
-            return o(
-                (function*() {
-                    var n = new FormData();
-                    n.append('origin', t.origin),
-                        n.append('access_fee', t.accessFee),
-                        n.append('payment_method', t.paymentMethod),
-                        n.append('voucher_code', t.voucherCode);
-                    return yield (yield fetch(u.externalPayments, {
-                        method: 'POST',
-                        headers: { Authorization: 'Bearer ' + e },
-                        body: n,
-                    })).json();
-                })()
+        (d.prototype.getPayPalParams = function(e, t) {
+            return (
+                void 0 === e && (e = ''),
+                void 0 === t && (t = {}),
+                o(
+                    (function*() {
+                        var n = new FormData();
+                        return (
+                            n.append('origin', t.origin),
+                            n.append('access_fee', t.accessFee),
+                            n.append('payment_method', t.paymentMethod),
+                            n.append('voucher_code', t.voucherCode),
+                            yield (yield fetch(c.externalPayments, {
+                                method: 'POST',
+                                headers: { Authorization: 'Bearer ' + e },
+                                body: n,
+                            })).json()
+                        );
+                    })()
+                )
             );
         });
-    var f = function() {};
-    (f.prototype.getSubscriptions = function(e) {
+    var p = function() {};
+    (p.prototype.getSubscriptions = function(e) {
         return o(
             (function*() {
-                return (yield fetch(u.getSubscriptions, {
+                return (yield fetch(c.getSubscriptions, {
                     method: 'GET',
                     headers: { Authorization: 'Bearer ' + e },
                 })).json();
             })()
         );
     }),
-        (f.prototype.cancelSubscription = function(e, t) {
+        (p.prototype.cancelSubscription = function(e, t) {
             return o(
                 (function*() {
                     return (yield fetch(e, {
@@ -391,77 +439,93 @@
                 })()
             );
         }),
-        (f.prototype.assetSubscribe = function(e, t) {
-            return o(
-                (function*() {
-                    var n = new FormData();
-                    n.append('number', t.number),
-                        n.append('card_name', t.cardName),
-                        n.append('exp_month', t.expMonth),
-                        n.append('exp_year', t.expYear),
-                        n.append('cvv', t.cvv),
-                        n.append('access_fee', t.accessFee),
-                        n.append('payment_method', t.paymentMethod),
-                        n.append('referrer', t.referrer),
-                        n.append('voucher_code', t.voucherCode);
-                    return yield (yield fetch(u.subscribe, {
-                        method: 'POST',
-                        headers: { Authorization: 'Bearer ' + e },
-                        body: n,
-                    })).json();
-                })()
+        (p.prototype.assetSubscribe = function(e, t) {
+            return (
+                void 0 === e && (e = ''),
+                void 0 === t && (t = {}),
+                o(
+                    (function*() {
+                        var n = new FormData();
+                        return (
+                            n.append('number', t.number),
+                            n.append('card_name', t.cardName),
+                            n.append('exp_month', t.expMonth),
+                            n.append('exp_year', t.expYear),
+                            n.append('cvv', t.cvv),
+                            n.append('access_fee', t.accessFee),
+                            n.append('payment_method', t.paymentMethod),
+                            n.append('referrer', t.referrer),
+                            t.voucherCode &&
+                                n.append('voucher_code', t.voucherCode),
+                            yield (yield fetch(c.subscribe, {
+                                method: 'POST',
+                                headers: { Authorization: 'Bearer ' + e },
+                                body: n,
+                            })).json()
+                        );
+                    })()
+                )
             );
         });
-    var l = function() {};
-    (l.prototype.getDlcLinks = function(e, t) {
+    var f = function() {};
+    (f.prototype.getDlcLinks = function(e, t) {
         return o(
             (function*() {
-                return yield (yield fetch(u.getDlcLinks(t), {
+                return yield (yield fetch(c.getDlcLinks(t), {
                     headers: { Authorization: 'Bearer ' + e },
                 })).json();
             })()
         );
     }),
-        (l.prototype.getDiscount = function(e, t) {
-            return o(
-                (function*() {
-                    var n = new FormData();
-                    n.append('access_fee_id', t.accessFeeId),
-                        n.append('voucher_code', t.voucherCode),
-                        n.append('merchant_id', t.merchantUid);
-                    return yield (yield fetch(u.getDiscount, {
-                        method: 'POST',
-                        headers: { Authorization: 'Bearer ' + e },
-                        body: n,
-                    })).json();
-                })()
+        (f.prototype.getDiscount = function(e, t) {
+            return (
+                void 0 === e && (e = ''),
+                void 0 === t && (t = {}),
+                o(
+                    (function*() {
+                        var n = new FormData();
+                        return (
+                            n.append('access_fee_id', t.accessFeeId),
+                            n.append('voucher_code', t.voucherCode),
+                            n.append('merchant_id', t.merchantUuid),
+                            yield (yield fetch(c.getDiscount, {
+                                method: 'POST',
+                                headers: { Authorization: 'Bearer ' + e },
+                                body: n,
+                            })).json()
+                        );
+                    })()
+                )
             );
         }),
-        (l.prototype.getBranding = function(e) {
+        (f.prototype.getBranding = function(e) {
             return o(
                 (function*() {
-                    return yield (yield fetch(u.getBranding(e), {
+                    return yield (yield fetch(c.getBranding(e), {
                         method: 'GET',
                     })).json();
                 })()
             );
         }),
-        (l.prototype.downloadProtectedFile = function(e, t, n) {
+        (f.prototype.downloadProtectedFile = function(e, t, n) {
             return o(
                 (function*() {
-                    return yield (yield fetch(u.downloadFile(t, n), {
+                    return yield (yield fetch(c.downloadFile(t, n), {
                         headers: { Authorization: 'Bearer ' + e },
                     })).json();
                 })()
             );
         });
-    var h =
-            'undefined' != typeof window
-                ? window
-                : 'undefined' != typeof global
-                  ? global
-                  : 'undefined' != typeof self ? self : {},
-        y = r(function(e, t) {
+    var l =
+        'undefined' != typeof window
+            ? window
+            : 'undefined' != typeof global
+              ? global
+              : 'undefined' != typeof self ? self : {};
+    function h(e, t) {
+        return e((t = { exports: {} }), t.exports), t.exports;
+    }
+    var y = h(function(e, t) {
             (function() {
                 var e,
                     n,
@@ -471,16 +535,16 @@
                     s = [].slice;
                 (e = { LF: '\n', NULL: '\0' }),
                     (o = (function() {
-                        function t(e, t, n) {
+                        var t;
+                        function n(e, t, n) {
                             (this.command = e),
                                 (this.headers = null != t ? t : {}),
                                 (this.body = null != n ? n : '');
                         }
-                        var n;
                         return (
-                            (t.prototype.toString = function() {
-                                var n, o, r, s, c;
-                                (n = [this.command]),
+                            (n.prototype.toString = function() {
+                                var t, o, r, s, c;
+                                (t = [this.command]),
                                     (r =
                                         !1 ===
                                         this.headers['content-length']) &&
@@ -488,24 +552,24 @@
                                     (c = this.headers);
                                 for (o in c)
                                     i.call(c, o) &&
-                                        ((s = c[o]), n.push(o + ':' + s));
+                                        ((s = c[o]), t.push(o + ':' + s));
                                 return (
                                     this.body &&
                                         !r &&
-                                        n.push(
+                                        t.push(
                                             'content-length:' +
-                                                t.sizeOfUTF8(this.body)
+                                                n.sizeOfUTF8(this.body)
                                         ),
-                                    n.push(e.LF + this.body),
-                                    n.join(e.LF)
+                                    t.push(e.LF + this.body),
+                                    t.join(e.LF)
                                 );
                             }),
-                            (t.sizeOfUTF8 = function(e) {
+                            (n.sizeOfUTF8 = function(e) {
                                 return e
                                     ? encodeURI(e).match(/%..|./g).length
                                     : 0;
                             }),
-                            (n = function(n) {
+                            (t = function(t) {
                                 var o,
                                     r,
                                     i,
@@ -521,11 +585,11 @@
                                     y,
                                     g,
                                     m,
-                                    b,
-                                    v;
+                                    v,
+                                    b;
                                 for (
-                                    s = n.search(RegExp('' + e.LF + e.LF)),
-                                        i = (c = n
+                                    s = t.search(RegExp('' + e.LF + e.LF)),
+                                        i = (c = t
                                             .substring(0, s)
                                             .split(e.LF)).shift(),
                                         u = {},
@@ -533,11 +597,11 @@
                                             return e.replace(/^\s+|\s+$/g, '');
                                         },
                                         y = 0,
-                                        m = (b = c.reverse()).length;
+                                        m = (v = c.reverse()).length;
                                     y < m;
                                     y++
                                 )
-                                    (d = (f = b[y]).indexOf(':')),
+                                    (d = (f = v[y]).indexOf(':')),
                                         (u[h(f.substring(0, d))] = h(
                                             f.substring(d + 1)
                                         ));
@@ -545,25 +609,25 @@
                                     ((o = ''), (l = s + 2), u['content-length'])
                                 )
                                     (p = parseInt(u['content-length'])),
-                                        (o = ('' + n).substring(l, l + p));
+                                        (o = ('' + t).substring(l, l + p));
                                 else
                                     for (
-                                        r = null, a = g = l, v = n.length;
-                                        (l <= v ? g < v : g > v) &&
-                                        (r = n.charAt(a)) !== e.NULL;
-                                        a = l <= v ? ++g : --g
+                                        r = null, a = g = l, b = t.length;
+                                        (l <= b ? g < b : g > b) &&
+                                        (r = t.charAt(a)) !== e.NULL;
+                                        a = l <= b ? ++g : --g
                                     )
                                         o += r;
-                                return new t(i, u, o);
+                                return new n(i, u, o);
                             }),
-                            (t.unmarshall = function(t) {
+                            (n.unmarshall = function(n) {
                                 var o;
                                 return (function() {
                                     var r, i, s, c;
                                     for (
                                         c = [],
                                             r = 0,
-                                            i = (s = t.split(
+                                            i = (s = n.split(
                                                 RegExp('' + e.NULL + e.LF + '*')
                                             )).length;
                                         r < i;
@@ -571,18 +635,19 @@
                                     )
                                         (null != (o = s[r])
                                             ? o.length
-                                            : void 0) > 0 && c.push(n(o));
+                                            : void 0) > 0 && c.push(t(o));
                                     return c;
                                 })();
                             }),
-                            (t.marshall = function(n, o, r) {
-                                return new t(n, o, r).toString() + e.NULL;
+                            (n.marshall = function(t, o, r) {
+                                return new n(t, o, r).toString() + e.NULL;
                             }),
-                            t
+                            n
                         );
                     })()),
                     (n = (function() {
-                        function t(e) {
+                        var t;
+                        function n(e) {
                             (this.ws = e),
                                 (this.ws.binaryType = 'arraybuffer'),
                                 (this.counter = 0),
@@ -594,9 +659,8 @@
                                 (this.maxWebSocketFrameSize = 16384),
                                 (this.subscriptions = {});
                         }
-                        var n;
                         return (
-                            (t.prototype.debug = function(e) {
+                            (n.prototype.debug = function(e) {
                                 var t;
                                 return 'undefined' != typeof window &&
                                     null !== window &&
@@ -604,12 +668,12 @@
                                     ? t.log(e)
                                     : void 0;
                             }),
-                            (n = function() {
+                            (t = function() {
                                 return Date.now
                                     ? Date.now()
                                     : new Date().valueOf;
                             }),
-                            (t.prototype._transmit = function(e, t, n) {
+                            (n.prototype._transmit = function(e, t, n) {
                                 var r;
                                 for (
                                     r = o.marshall(e, t, n),
@@ -637,28 +701,27 @@
                                             );
                                 }
                             }),
-                            (t.prototype._setupHeartbeat = function(t) {
-                                var o, i, s, c, u, a;
+                            (n.prototype._setupHeartbeat = function(n) {
+                                var o, i, s, c, u, a, d, p;
                                 if (
-                                    (u = t.version) === r.VERSIONS.V1_1 ||
+                                    (u = n.version) === r.VERSIONS.V1_1 ||
                                     u === r.VERSIONS.V1_2
                                 )
                                     return (
-                                        (a = (function() {
-                                            var e, n, o, r;
+                                        (i = (a = (function() {
+                                            var e, t, o, r;
                                             for (
                                                 r = [],
                                                     e = 0,
-                                                    n = (o = t[
+                                                    t = (o = n[
                                                         'heart-beat'
                                                     ].split(',')).length;
-                                                e < n;
+                                                e < t;
                                                 e++
                                             )
                                                 (c = o[e]), r.push(parseInt(c));
                                             return r;
-                                        })()),
-                                        (i = a[0]),
+                                        })())[0]),
                                         (o = a[1]),
                                         0 !== this.heartbeat.outgoing &&
                                             0 !== o &&
@@ -674,19 +737,18 @@
                                                 ),
                                             (this.pinger = r.setInterval(
                                                 s,
-                                                (function(t) {
-                                                    return function() {
-                                                        return (
-                                                            t.ws.send(e.LF),
-                                                            'function' ==
-                                                            typeof t.debug
-                                                                ? t.debug(
-                                                                      '>>> PING'
-                                                                  )
-                                                                : void 0
-                                                        );
-                                                    };
-                                                })(this)
+                                                ((d = this),
+                                                function() {
+                                                    return (
+                                                        d.ws.send(e.LF),
+                                                        'function' ==
+                                                        typeof d.debug
+                                                            ? d.debug(
+                                                                  '>>> PING'
+                                                              )
+                                                            : void 0
+                                                    );
+                                                })
                                             ))),
                                         0 !== this.heartbeat.incoming && 0 !== i
                                             ? ((s = Math.max(
@@ -701,39 +763,37 @@
                                                   ),
                                               (this.ponger = r.setInterval(
                                                   s,
-                                                  (function(e) {
-                                                      return function() {
-                                                          var t;
-                                                          if (
-                                                              (t =
-                                                                  n() -
-                                                                  e.serverActivity) >
-                                                              2 * s
-                                                          )
-                                                              return (
-                                                                  'function' ==
-                                                                      typeof e.debug &&
-                                                                      e.debug(
-                                                                          'did not receive server activity for the last ' +
-                                                                              t +
-                                                                              'ms'
-                                                                      ),
-                                                                  e.ws.close()
-                                                              );
-                                                      };
-                                                  })(this)
+                                                  ((p = this),
+                                                  function() {
+                                                      var e;
+                                                      if (
+                                                          (e =
+                                                              t() -
+                                                              p.serverActivity) >
+                                                          2 * s
+                                                      )
+                                                          return (
+                                                              'function' ==
+                                                                  typeof p.debug &&
+                                                                  p.debug(
+                                                                      'did not receive server activity for the last ' +
+                                                                          e +
+                                                                          'ms'
+                                                                  ),
+                                                              p.ws.close()
+                                                          );
+                                                  })
                                               )))
                                             : void 0
                                     );
                             }),
-                            (t.prototype._parseConnect = function() {
+                            (n.prototype._parseConnect = function() {
                                 var e, t, n, o;
-                                switch (((e =
+                                switch (((o = {}),
+                                (e =
                                     1 <= arguments.length
                                         ? s.call(arguments, 0)
-                                        : []),
-                                (o = {}),
-                                e.length)) {
+                                        : []).length)) {
                                     case 2:
                                         (o = e[0]), (t = e[1]);
                                         break;
@@ -761,235 +821,207 @@
                                 }
                                 return [o, t, n];
                             }),
-                            (t.prototype.connect = function() {
-                                var t, i, c, u;
+                            (n.prototype.connect = function() {
+                                var n, i, c, u, a, d, p;
                                 return (
-                                    (t =
+                                    (n =
                                         1 <= arguments.length
                                             ? s.call(arguments, 0)
                                             : []),
-                                    (u = this._parseConnect.apply(this, t)),
+                                    (u = this._parseConnect.apply(this, n)),
                                     (c = u[0]),
                                     (this.connectCallback = u[1]),
                                     (i = u[2]),
                                     'function' == typeof this.debug &&
                                         this.debug('Opening Web Socket...'),
-                                    (this.ws.onmessage = (function(t) {
-                                        return function(r) {
-                                            var s,
-                                                c,
-                                                u,
-                                                a,
-                                                d,
-                                                p,
-                                                f,
-                                                l,
-                                                h,
-                                                y,
-                                                g,
-                                                m;
-                                            if (
-                                                ((a =
-                                                    'undefined' !=
-                                                        typeof ArrayBuffer &&
-                                                    r.data instanceof
-                                                        ArrayBuffer
-                                                        ? ((s = new Uint8Array(
-                                                              r.data
-                                                          )),
-                                                          'function' ==
-                                                              typeof t.debug &&
-                                                              t.debug(
-                                                                  '--- got data length: ' +
-                                                                      s.length
-                                                              ),
-                                                          (function() {
-                                                              var e, t, n;
-                                                              for (
-                                                                  n = [],
-                                                                      e = 0,
-                                                                      t =
-                                                                          s.length;
-                                                                  e < t;
-                                                                  e++
-                                                              )
-                                                                  (c = s[e]),
-                                                                      n.push(
-                                                                          String.fromCharCode(
-                                                                              c
-                                                                          )
-                                                                      );
-                                                              return n;
-                                                          })().join(''))
-                                                        : r.data),
-                                                (t.serverActivity = n()),
-                                                a !== e.LF)
-                                            ) {
-                                                for (
-                                                    'function' ==
-                                                        typeof t.debug &&
-                                                        t.debug('<<< ' + a),
-                                                        m = [],
-                                                        h = 0,
-                                                        y = (g = o.unmarshall(
-                                                            a
-                                                        )).length;
-                                                    h < y;
-                                                    h++
-                                                )
-                                                    switch ((d = g[h])
-                                                        .command) {
-                                                        case 'CONNECTED':
-                                                            'function' ==
-                                                                typeof t.debug &&
-                                                                t.debug(
-                                                                    'connected to server ' +
-                                                                        d
-                                                                            .headers
-                                                                            .server
-                                                                ),
-                                                                (t.connected = !0),
-                                                                t._setupHeartbeat(
+                                    (this.ws.onmessage = ((a = this),
+                                    function(n) {
+                                        var r, s, c, u, d, p, f, l, h, y, g, m;
+                                        if (
+                                            ((u =
+                                                'undefined' !=
+                                                    typeof ArrayBuffer &&
+                                                n.data instanceof ArrayBuffer
+                                                    ? ((r = new Uint8Array(
+                                                          n.data
+                                                      )),
+                                                      'function' ==
+                                                          typeof a.debug &&
+                                                          a.debug(
+                                                              '--- got data length: ' +
+                                                                  r.length
+                                                          ),
+                                                      (function() {
+                                                          var e, t, n;
+                                                          for (
+                                                              n = [],
+                                                                  e = 0,
+                                                                  t = r.length;
+                                                              e < t;
+                                                              e++
+                                                          )
+                                                              (s = r[e]),
+                                                                  n.push(
+                                                                      String.fromCharCode(
+                                                                          s
+                                                                      )
+                                                                  );
+                                                          return n;
+                                                      })().join(''))
+                                                    : n.data),
+                                            (a.serverActivity = t()),
+                                            u !== e.LF)
+                                        ) {
+                                            for (
+                                                'function' == typeof a.debug &&
+                                                    a.debug('<<< ' + u),
+                                                    m = [],
+                                                    h = 0,
+                                                    y = (g = o.unmarshall(u))
+                                                        .length;
+                                                h < y;
+                                                h++
+                                            )
+                                                switch ((d = g[h]).command) {
+                                                    case 'CONNECTED':
+                                                        'function' ==
+                                                            typeof a.debug &&
+                                                            a.debug(
+                                                                'connected to server ' +
                                                                     d.headers
-                                                                ),
-                                                                m.push(
-                                                                    'function' ==
-                                                                    typeof t.connectCallback
-                                                                        ? t.connectCallback(
-                                                                              d
-                                                                          )
-                                                                        : void 0
-                                                                );
-                                                            break;
-                                                        case 'MESSAGE':
-                                                            (l =
+                                                                        .server
+                                                            ),
+                                                            (a.connected = !0),
+                                                            a._setupHeartbeat(
                                                                 d.headers
-                                                                    .subscription),
-                                                                (f =
-                                                                    t
-                                                                        .subscriptions[
-                                                                        l
-                                                                    ] ||
-                                                                    t.onreceive)
-                                                                    ? ((u = t),
-                                                                      (p =
+                                                            ),
+                                                            m.push(
+                                                                'function' ==
+                                                                typeof a.connectCallback
+                                                                    ? a.connectCallback(
                                                                           d
-                                                                              .headers[
-                                                                              'message-id'
-                                                                          ]),
-                                                                      (d.ack = function(
-                                                                          e
-                                                                      ) {
-                                                                          return (
-                                                                              null ==
-                                                                                  e &&
-                                                                                  (e = {}),
-                                                                              u.ack(
-                                                                                  p,
-                                                                                  l,
-                                                                                  e
-                                                                              )
-                                                                          );
-                                                                      }),
-                                                                      (d.nack = function(
-                                                                          e
-                                                                      ) {
-                                                                          return (
-                                                                              null ==
-                                                                                  e &&
-                                                                                  (e = {}),
-                                                                              u.nack(
-                                                                                  p,
-                                                                                  l,
-                                                                                  e
-                                                                              )
-                                                                          );
-                                                                      }),
-                                                                      m.push(
-                                                                          f(d)
-                                                                      ))
-                                                                    : m.push(
-                                                                          'function' ==
-                                                                          typeof t.debug
-                                                                              ? t.debug(
-                                                                                    'Unhandled received MESSAGE: ' +
-                                                                                        d
-                                                                                )
-                                                                              : void 0
+                                                                      )
+                                                                    : void 0
+                                                            );
+                                                        break;
+                                                    case 'MESSAGE':
+                                                        (l =
+                                                            d.headers
+                                                                .subscription),
+                                                            (f =
+                                                                a.subscriptions[
+                                                                    l
+                                                                ] ||
+                                                                a.onreceive)
+                                                                ? ((c = a),
+                                                                  (p =
+                                                                      d.headers[
+                                                                          'message-id'
+                                                                      ]),
+                                                                  (d.ack = function(
+                                                                      e
+                                                                  ) {
+                                                                      return (
+                                                                          null ==
+                                                                              e &&
+                                                                              (e = {}),
+                                                                          c.ack(
+                                                                              p,
+                                                                              l,
+                                                                              e
+                                                                          )
                                                                       );
-                                                            break;
-                                                        case 'RECEIPT':
-                                                            m.push(
-                                                                'function' ==
-                                                                typeof t.onreceipt
-                                                                    ? t.onreceipt(
+                                                                  }),
+                                                                  (d.nack = function(
+                                                                      e
+                                                                  ) {
+                                                                      return (
+                                                                          null ==
+                                                                              e &&
+                                                                              (e = {}),
+                                                                          c.nack(
+                                                                              p,
+                                                                              l,
+                                                                              e
+                                                                          )
+                                                                      );
+                                                                  }),
+                                                                  m.push(f(d)))
+                                                                : m.push(
+                                                                      'function' ==
+                                                                      typeof a.debug
+                                                                          ? a.debug(
+                                                                                'Unhandled received MESSAGE: ' +
+                                                                                    d
+                                                                            )
+                                                                          : void 0
+                                                                  );
+                                                        break;
+                                                    case 'RECEIPT':
+                                                        m.push(
+                                                            'function' ==
+                                                            typeof a.onreceipt
+                                                                ? a.onreceipt(d)
+                                                                : void 0
+                                                        );
+                                                        break;
+                                                    case 'ERROR':
+                                                        m.push(
+                                                            'function' ==
+                                                            typeof i
+                                                                ? i(d)
+                                                                : void 0
+                                                        );
+                                                        break;
+                                                    default:
+                                                        m.push(
+                                                            'function' ==
+                                                            typeof a.debug
+                                                                ? a.debug(
+                                                                      'Unhandled frame: ' +
                                                                           d
-                                                                      )
-                                                                    : void 0
-                                                            );
-                                                            break;
-                                                        case 'ERROR':
-                                                            m.push(
-                                                                'function' ==
-                                                                typeof i
-                                                                    ? i(d)
-                                                                    : void 0
-                                                            );
-                                                            break;
-                                                        default:
-                                                            m.push(
-                                                                'function' ==
-                                                                typeof t.debug
-                                                                    ? t.debug(
-                                                                          'Unhandled frame: ' +
-                                                                              d
-                                                                      )
-                                                                    : void 0
-                                                            );
-                                                    }
-                                                return m;
-                                            }
-                                            'function' == typeof t.debug &&
-                                                t.debug('<<< PONG');
-                                        };
-                                    })(this)),
-                                    (this.ws.onclose = (function(e) {
-                                        return function() {
-                                            var t;
-                                            return (
-                                                (t =
-                                                    'Whoops! Lost connection to ' +
-                                                    e.ws.url),
-                                                'function' == typeof e.debug &&
-                                                    e.debug(t),
-                                                e._cleanUp(),
-                                                'function' == typeof i
-                                                    ? i(t)
-                                                    : void 0
-                                            );
-                                        };
-                                    })(this)),
-                                    (this.ws.onopen = (function(e) {
-                                        return function() {
-                                            return (
-                                                'function' == typeof e.debug &&
-                                                    e.debug(
-                                                        'Web Socket Opened...'
-                                                    ),
-                                                (c[
-                                                    'accept-version'
-                                                ] = r.VERSIONS.supportedVersions()),
-                                                (c['heart-beat'] = [
-                                                    e.heartbeat.outgoing,
-                                                    e.heartbeat.incoming,
-                                                ].join(',')),
-                                                e._transmit('CONNECT', c)
-                                            );
-                                        };
-                                    })(this))
+                                                                  )
+                                                                : void 0
+                                                        );
+                                                }
+                                            return m;
+                                        }
+                                        'function' == typeof a.debug &&
+                                            a.debug('<<< PONG');
+                                    })),
+                                    (this.ws.onclose = ((d = this),
+                                    function() {
+                                        var e;
+                                        return (
+                                            (e =
+                                                'Whoops! Lost connection to ' +
+                                                d.ws.url),
+                                            'function' == typeof d.debug &&
+                                                d.debug(e),
+                                            d._cleanUp(),
+                                            'function' == typeof i
+                                                ? i(e)
+                                                : void 0
+                                        );
+                                    })),
+                                    (this.ws.onopen = ((p = this),
+                                    function() {
+                                        return (
+                                            'function' == typeof p.debug &&
+                                                p.debug('Web Socket Opened...'),
+                                            (c[
+                                                'accept-version'
+                                            ] = r.VERSIONS.supportedVersions()),
+                                            (c['heart-beat'] = [
+                                                p.heartbeat.outgoing,
+                                                p.heartbeat.incoming,
+                                            ].join(',')),
+                                            p._transmit('CONNECT', c)
+                                        );
+                                    }))
                                 );
                             }),
-                            (t.prototype.disconnect = function(e, t) {
+                            (n.prototype.disconnect = function(e, t) {
                                 return (
                                     null == t && (t = {}),
                                     this._transmit('DISCONNECT', t),
@@ -999,7 +1031,7 @@
                                     'function' == typeof e ? e() : void 0
                                 );
                             }),
-                            (t.prototype._cleanUp = function() {
+                            (n.prototype._cleanUp = function() {
                                 if (
                                     ((this.connected = !1),
                                     this.pinger && r.clearInterval(this.pinger),
@@ -1007,7 +1039,7 @@
                                 )
                                     return r.clearInterval(this.ponger);
                             }),
-                            (t.prototype.send = function(e, t, n) {
+                            (n.prototype.send = function(e, t, n) {
                                 return (
                                     null == t && (t = {}),
                                     null == n && (n = ''),
@@ -1015,7 +1047,7 @@
                                     this._transmit('SEND', t, n)
                                 );
                             }),
-                            (t.prototype.subscribe = function(e, t, n) {
+                            (n.prototype.subscribe = function(e, t, n) {
                                 var o;
                                 return (
                                     null == n && (n = {}),
@@ -1032,13 +1064,13 @@
                                     }
                                 );
                             }),
-                            (t.prototype.unsubscribe = function(e) {
+                            (n.prototype.unsubscribe = function(e) {
                                 return (
                                     delete this.subscriptions[e],
                                     this._transmit('UNSUBSCRIBE', { id: e })
                                 );
                             }),
-                            (t.prototype.begin = function(e) {
+                            (n.prototype.begin = function(e) {
                                 var t, n;
                                 return (
                                     (n = e || 'tx-' + this.counter++),
@@ -1055,17 +1087,17 @@
                                     }
                                 );
                             }),
-                            (t.prototype.commit = function(e) {
+                            (n.prototype.commit = function(e) {
                                 return this._transmit('COMMIT', {
                                     transaction: e,
                                 });
                             }),
-                            (t.prototype.abort = function(e) {
+                            (n.prototype.abort = function(e) {
                                 return this._transmit('ABORT', {
                                     transaction: e,
                                 });
                             }),
-                            (t.prototype.ack = function(e, t, n) {
+                            (n.prototype.ack = function(e, t, n) {
                                 return (
                                     null == n && (n = {}),
                                     (n['message-id'] = e),
@@ -1073,7 +1105,7 @@
                                     this._transmit('ACK', n)
                                 );
                             }),
-                            (t.prototype.nack = function(e, t, n) {
+                            (n.prototype.nack = function(e, t, n) {
                                 return (
                                     null == n && (n = {}),
                                     (n['message-id'] = e),
@@ -1081,7 +1113,7 @@
                                     this._transmit('NACK', n)
                                 );
                             }),
-                            t
+                            n
                         );
                     })()),
                     (r = {
@@ -1094,12 +1126,11 @@
                             },
                         },
                         client: function(e, t) {
-                            var o, i;
+                            var o;
                             return (
                                 null == t && (t = ['v10.stomp', 'v11.stomp']),
-                                (o = r.WebSocketClass || WebSocket),
-                                (i = new o(e, t)),
-                                new n(i)
+                                (o = new (r.WebSocketClass || WebSocket)(e, t)),
+                                new n(o)
                             );
                         },
                         over: function(e) {
@@ -1117,10 +1148,10 @@
                           }),
                           (window.Stomp = r))
                         : t || (self.Stomp = r);
-            }.call(h));
+            }.call(l));
         }),
         g = (y.Stomp,
-        r(function(e, o) {
+        h(function(e, o) {
             (function() {
                 var e, r, i, s, c, u;
                 (r = t),
@@ -1216,12 +1247,12 @@
                     }),
                     (o.overTCP = i),
                     (o.overWS = s);
-            }.call(h));
+            }.call(l));
         })),
         m = (g.net, g.websocket, g.overTCP, g.overWS, y.Stomp),
-        b = g.overTCP,
-        v = g.overWS;
-    (m.overTCP = b), (m.overWS = v);
+        v = g.overTCP,
+        b = g.overWS;
+    (m.overTCP = v), (m.overWS = b);
     var w = function() {
         this.subscription = null;
     };
@@ -1235,7 +1266,7 @@
             };
         if (t && t.onopen && 'function' != typeof t.onopen) return !1;
         var n = new ('MozWebSocket' in window ? MozWebSocket : WebSocket)(
-            c.url
+            s.url
         );
         (this.client = m.over(n)),
             (this.client.heartbeat.outgoing = 2e4),
@@ -1244,7 +1275,7 @@
         var o = this,
             r = e;
         this.client.connect(
-            { login: c.login, passcode: c.password, 'client-id': e },
+            { login: s.login, passcode: s.password, 'client-id': e },
             function() {
                 t && t.onopen && t.onopen(),
                     o.client.subscribe(
@@ -1268,18 +1299,22 @@
                 this.subscription.unsubscribe();
         });
     var S = function() {
-        (this.User = new a()),
-            (this.Asset = new d()),
-            (this.Payment = new p()),
-            (this.Subscription = new f()),
-            (this.Misc = new l()),
+        (this.User = new u()),
+            (this.Asset = new a()),
+            (this.Payment = new d()),
+            (this.Subscription = new p()),
+            (this.Misc = new f()),
             (this.Socket = new w());
     };
-    (S.prototype.subscribe = function(e, t) {
-        return !!this.User.isSignedIn() && (this.Socket.subscribe(e, t), !0);
-    }),
+    return (
+        (S.prototype.subscribe = function(e, t) {
+            return (
+                !!this.User.isSignedIn() && (this.Socket.subscribe(e, t), !0)
+            );
+        }),
         (S.prototype.unsubscribe = function() {
             this.Socket.unsubscribe();
-        });
-    return new S();
+        }),
+        new S()
+    );
 });

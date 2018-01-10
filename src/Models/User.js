@@ -23,25 +23,25 @@ class User {
      * @param {Object} data - Contains {
      *  email: string,
      *  password: string,
-     *  merchantUid: string,
+     *  merchantUuid: string,
      *  referrer: string,
      * }
      * @example
      *     InPlayer.User.signIn({
      *      email: 'test@test.com',
      *      password: 'test123',
-     *      merchantUid: '123-123-hf1hd1-12dhd1',
+     *      merchantUuid: '123-123-hf1hd1-12dhd1',
      *      referrer: 'http://localhost.com'
      *     })
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async signIn(data) {
+    async signIn(data = {}) {
         // Add into form data
         const fd = new FormData();
         fd.append('email', data.email);
         fd.append('password', data.password);
-        fd.append('merchant_uuid', data.merchantUid);
+        fd.append('merchant_uuid', data.merchantUuid);
         fd.append('referrer', data.referrer);
 
         // request
@@ -54,7 +54,10 @@ class User {
 
         /* set cookies */
         if (responseData.access_token) {
-            localStorage.setItem(config.INPLAYER_TOKEN_NAME, data.access_token);
+            localStorage.setItem(
+                config.INPLAYER_TOKEN_NAME,
+                responseData.access_token
+            );
         }
 
         return responseData;
@@ -96,7 +99,7 @@ class User {
      *  email: string
      *  password: string,
      *  passwordConfirmation: string,
-     *  merchantUid: string,
+     *  merchantUuid: string,
      *  type: number
      *  referrer: string,
      * }
@@ -106,21 +109,21 @@ class User {
      *      email: "test32@test.com",
      *      password: "12345678",
      *      passwordConfirmation: "12345678",
-     *      merchantUid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
+     *      merchantUuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
      *      type: "consumer",
      *      referrer: "http://localhost:3000/",
      *     })
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async signUp(data) {
+    async signUp(data = {}) {
         // Add into form data
         const fd = new FormData();
         fd.append('full_name', data.fullName);
         fd.append('email', data.email);
         fd.append('password', data.password);
         fd.append('password_confirmation', data.passwordConfirmation);
-        fd.append('merchant_uuid', data.merchantUid);
+        fd.append('merchant_uuid', data.merchantUuid);
         fd.append('type', data.type);
         fd.append('referrer', data.referrer);
 
@@ -167,7 +170,7 @@ class User {
      *     .setTokenInCookie('aed1g284i3dnfrfnd1o23rtegk')
      * @return {void}
      */
-    setTokenInCookie(token) {
+    setTokenInCookie(token = '') {
         localStorage.setItem(config.INPLAYER_TOKEN_NAME, token);
     }
 
@@ -177,22 +180,22 @@ class User {
      * @async
      * @param {Object} data - Contains {
      *  email: String,
-     *  merchantUid: string
+     *  merchantUuid: string
      * }
      * @example
      *     InPlayer.User
      *     .requestNewPassword({
      *      email: "test32@test.com",
-     *      merchantUid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
+     *      merchantUuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
      *     })
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async requestNewPassword(data) {
+    async requestNewPassword(data = {}) {
         // Add into from FormData
         const fd = new FormData();
         fd.append('email', data.email);
-        fd.append('merchant_uuid', data.merchantUid);
+        fd.append('merchant_uuid', data.merchantUuid);
 
         const response = await fetch(API.requestNewPassword, {
             method: 'POST',
@@ -222,7 +225,7 @@ class User {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async setNewPassword(data, token) {
+    async setNewPassword(data = {}, token = '') {
         const body = `password=${data.password}&password_confirmation=${
             data.passwordConfirmation
         }`;
@@ -235,9 +238,7 @@ class User {
             },
         });
 
-        const responseData = await response.json();
-
-        return responseData;
+        return response;
     }
 
     /**
@@ -251,7 +252,7 @@ class User {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getAccountInfo(token) {
+    async getAccountInfo(token = '') {
         const response = await fetch(API.getAccountInfo, {
             method: 'GET',
             headers: {
@@ -296,14 +297,18 @@ class User {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async updateAccount(data, token) {
-        const snakeCaseData = {
-            full_name: data.fullName,
-            metadata: data.metadata,
-        };
+    async updateAccount(data = {}, token = '') {
+        let queryString = '';
+
+        Object.keys(data).forEach(function(key) {
+            const newKey =
+                key === 'fullName' ? 'full_name' : `metadata[${key}]`;
+            queryString += (queryString ? '&' : '') + `${newKey}=${data[key]}`;
+        });
+
         const response = await fetch(API.updateAccount, {
             method: 'PUT',
-            body: snakeCaseData,
+            body: queryString,
             headers: {
                 Authorization: 'Bearer ' + token,
                 'Content-Type': 'x-www-form-urlencoded',
@@ -331,9 +336,9 @@ class User {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async changePassword(data, token) {
+    async changePassword(data = {}, token = '') {
         const fd = new FormData();
-        fd.append('token', data.email);
+        fd.append('old_password', data.oldPassword);
         fd.append('password', data.password);
         fd.append('password_confirmation', data.passwordConfirmation);
 
@@ -354,15 +359,15 @@ class User {
      * Gets register fields
      * @method getRegisterFields
      * @async
-     * @param {String} merchantUid - The merchant UUID
+     * @param {String} merchantUuid - The merchant UUID
      * @example
      *     InPlayer.User
      *     .getRegisterFields('123124-1r-1r13ur1h1')
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getRegisterFields(merchantUid) {
-        const response = await fetch(API.getRegisterFields(merchantUid));
+    async getRegisterFields(merchantUuid = '') {
+        const response = await fetch(API.getRegisterFields(merchantUuid));
 
         const data = await response.json();
 

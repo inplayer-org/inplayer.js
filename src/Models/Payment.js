@@ -87,7 +87,7 @@ class Payment {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async payForAsset(token, data) {
+    async payForAsset(token = '', data = {}) {
         const fd = new FormData();
         fd.append('number', data.number);
         fd.append('card_name', data.cardName);
@@ -97,7 +97,10 @@ class Payment {
         fd.append('access_fee', data.accessFee);
         fd.append('payment_method', data.paymentMethod);
         fd.append('referrer', data.referrer);
-        fd.append('voucher_code', data.voucherCode);
+
+        if (data.voucherCode) {
+            fd.append('voucher_code', data.voucherCode);
+        }
 
         const response = await fetch(API.payForAsset, {
             method: 'POST',
@@ -133,7 +136,7 @@ class Payment {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getPayPalParams(token, data) {
+    async getPayPalParams(token = '', data = {}) {
         const fd = new FormData();
         fd.append('origin', data.origin);
         fd.append('access_fee', data.accessFee);
