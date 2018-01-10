@@ -50,7 +50,7 @@ class Misc {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getDiscount(token, data) {
+    async getDiscount(token = '', data = {}) {
         const fd = new FormData();
         fd.append('access_fee_id', data.accessFeeId);
         fd.append('voucher_code', data.voucherCode);

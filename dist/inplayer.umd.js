@@ -88,29 +88,34 @@
                 return r + '/dlc/' + e + '/' + t;
             },
         },
-        a = function() {
+        u = function() {
             ('undefined' != typeof localStorage && null !== localStorage) ||
                 (localStorage = new e('./scratch'));
         };
-    (a.prototype.signIn = function(e) {
-        return o(
-            (function*() {
-                var t = new FormData();
-                t.append('email', e.email),
-                    t.append('password', e.password),
-                    t.append('merchant_uuid', e.merchantUuid),
-                    t.append('referrer', e.referrer);
-                var n = yield (yield fetch(c.signIn, {
-                    method: 'POST',
-                    body: t,
-                })).json();
-                return (
-                    n.access_token && localStorage.setItem(i, e.access_token), n
-                );
-            })()
+    (u.prototype.signIn = function(e) {
+        return (
+            void 0 === e && (e = {}),
+            o(
+                (function*() {
+                    var t = new FormData();
+                    t.append('email', e.email),
+                        t.append('password', e.password),
+                        t.append('merchant_uuid', e.merchantUuid),
+                        t.append('referrer', e.referrer);
+                    var n = yield (yield fetch(c.signIn, {
+                        method: 'POST',
+                        body: t,
+                    })).json();
+                    return (
+                        n.access_token &&
+                            localStorage.setItem(i, n.access_token),
+                        n
+                    );
+                })()
+            )
         );
     }),
-        (a.prototype.signOut = function() {
+        (u.prototype.signOut = function() {
             return o(
                 (function*() {
                     var e = localStorage.getItem(i);
@@ -123,81 +128,96 @@
                 })()
             );
         }),
-        (a.prototype.signUp = function(e) {
-            return o(
-                (function*() {
-                    var t = new FormData();
-                    return (
-                        t.append('full_name', e.fullName),
-                        t.append('email', e.email),
-                        t.append('password', e.password),
-                        t.append(
-                            'password_confirmation',
-                            e.passwordConfirmation
-                        ),
-                        t.append('merchant_uuid', e.merchantUuid),
-                        t.append('type', e.type),
-                        t.append('referrer', e.referrer),
-                        yield (yield fetch(c.signUp, {
-                            method: 'POST',
-                            body: t,
-                        })).json()
-                    );
-                })()
+        (u.prototype.signUp = function(e) {
+            return (
+                void 0 === e && (e = {}),
+                o(
+                    (function*() {
+                        var t = new FormData();
+                        return (
+                            t.append('full_name', e.fullName),
+                            t.append('email', e.email),
+                            t.append('password', e.password),
+                            t.append(
+                                'password_confirmation',
+                                e.passwordConfirmation
+                            ),
+                            t.append('merchant_uuid', e.merchantUuid),
+                            t.append('type', e.type),
+                            t.append('referrer', e.referrer),
+                            yield (yield fetch(c.signUp, {
+                                method: 'POST',
+                                body: t,
+                            })).json()
+                        );
+                    })()
+                )
             );
         }),
-        (a.prototype.isSignedIn = function() {
+        (u.prototype.isSignedIn = function() {
             return void 0 !== localStorage.getItem(i);
         }),
-        (a.prototype.token = function() {
+        (u.prototype.token = function() {
             return localStorage.getItem(i);
         }),
-        (a.prototype.setTokenInCookie = function(e) {
-            localStorage.setItem(i, e);
+        (u.prototype.setTokenInCookie = function(e) {
+            void 0 === e && (e = ''), localStorage.setItem(i, e);
         }),
-        (a.prototype.requestNewPassword = function(e) {
-            return o(
-                (function*() {
-                    var t = new FormData();
-                    return (
-                        t.append('email', e.email),
-                        t.append('merchant_uuid', e.merchantUuid),
-                        yield (yield fetch(c.requestNewPassword, {
-                            method: 'POST',
-                            body: t,
-                        })).json()
-                    );
-                })()
+        (u.prototype.requestNewPassword = function(e) {
+            return (
+                void 0 === e && (e = {}),
+                o(
+                    (function*() {
+                        var t = new FormData();
+                        return (
+                            t.append('email', e.email),
+                            t.append('merchant_uuid', e.merchantUuid),
+                            yield (yield fetch(c.requestNewPassword, {
+                                method: 'POST',
+                                body: t,
+                            })).json()
+                        );
+                    })()
+                )
             );
         }),
-        (a.prototype.setNewPassword = function(e, t) {
-            return o(
-                (function*() {
-                    var n =
-                        'password=' +
-                        e.password +
-                        '&password_confirmation=' +
-                        e.passwordConfirmation;
-                    return yield (yield fetch(c.setNewPassword(t), {
-                        method: 'PUT',
-                        body: n,
-                        headers: { 'Content-Type': 'x-www-form-urlencoded' },
-                    })).json();
-                })()
+        (u.prototype.setNewPassword = function(e, t) {
+            return (
+                void 0 === e && (e = {}),
+                void 0 === t && (t = ''),
+                o(
+                    (function*() {
+                        var n =
+                            'password=' +
+                            e.password +
+                            '&password_confirmation=' +
+                            e.passwordConfirmation;
+                        return yield fetch(c.setNewPassword(t), {
+                            method: 'PUT',
+                            body: n,
+                            headers: {
+                                'Content-Type': 'x-www-form-urlencoded',
+                            },
+                        });
+                    })()
+                )
             );
         }),
-        (a.prototype.getAccountInfo = function(e) {
-            return o(
-                (function*() {
-                    var t = yield (yield fetch(c.getAccountInfo, {
-                        method: 'GET',
-                        headers: { Authorization: 'Bearer ' + e },
-                    })).json();
-                    if (t) return t;
-                })()
+        (u.prototype.getAccountInfo = function(e) {
+            return (
+                void 0 === e && (e = ''),
+                o(
+                    (function*() {
+                        var t = yield (yield fetch(c.getAccountInfo, {
+                            method: 'GET',
+                            headers: { Authorization: 'Bearer ' + e },
+                        })).json();
+                        if (t) return t;
+                    })()
+                )
             );
         }),
-        (a.prototype.getSocialLoginUrls = function(e) {
+        (u.prototype.getSocialLoginUrls = function(e) {
             return o(
                 (function*() {
                     return yield (yield fetch(c.social(e), {
@@ -206,50 +226,74 @@
                 })()
             );
         }),
-        (a.prototype.updateAccount = function(e, t) {
-            return o(
-                (function*() {
-                    var n = { full_name: e.fullName, metadata: e.metadata };
-                    return yield (yield fetch(c.updateAccount, {
-                        method: 'PUT',
-                        body: n,
-                        headers: {
-                            Authorization: 'Bearer ' + t,
-                            'Content-Type': 'x-www-form-urlencoded',
-                        },
-                    })).json();
-                })()
+        (u.prototype.updateAccount = function(e, t) {
+            return (
+                void 0 === e && (e = {}),
+                void 0 === t && (t = ''),
+                o(
+                    (function*() {
+                        var n = '';
+                        return (
+                            Object.keys(e).forEach(function(t) {
+                                n +=
+                                    (n ? '&' : '') +
+                                    ('fullName' === t
+                                        ? 'full_name'
+                                        : 'metadata[' + t + ']') +
+                                    '=' +
+                                    e[t];
+                            }),
+                            yield (yield fetch(c.updateAccount, {
+                                method: 'PUT',
+                                body: n,
+                                headers: {
+                                    Authorization: 'Bearer ' + t,
+                                    'Content-Type': 'x-www-form-urlencoded',
+                                },
+                            })).json()
+                        );
+                    })()
+                )
             );
         }),
-        (a.prototype.changePassword = function(e, t) {
-            return o(
-                (function*() {
-                    var n = new FormData();
-                    return (
-                        n.append('token', e.email),
-                        n.append('password', e.password),
-                        n.append(
-                            'password_confirmation',
-                            e.passwordConfirmation
-                        ),
-                        yield (yield fetch(c.changePassword, {
-                            method: 'POST',
-                            body: n,
-                            headers: { Authorization: 'Bearer ' + t },
-                        })).json()
-                    );
-                })()
+        (u.prototype.changePassword = function(e, t) {
+            return (
+                void 0 === e && (e = {}),
+                void 0 === t && (t = ''),
+                o(
+                    (function*() {
+                        var n = new FormData();
+                        return (
+                            n.append('old_password', e.oldPassword),
+                            n.append('password', e.password),
+                            n.append(
+                                'password_confirmation',
+                                e.passwordConfirmation
+                            ),
+                            yield (yield fetch(c.changePassword, {
+                                method: 'POST',
+                                body: n,
+                                headers: { Authorization: 'Bearer ' + t },
+                            })).json()
+                        );
+                    })()
+                )
             );
         }),
-        (a.prototype.getRegisterFields = function(e) {
-            return o(
-                (function*() {
-                    return yield (yield fetch(c.getRegisterFields(e))).json();
-                })()
+        (u.prototype.getRegisterFields = function(e) {
+            return (
+                void 0 === e && (e = ''),
+                o(
+                    (function*() {
+                        return yield (yield fetch(
+                            c.getRegisterFields(e)
+                        )).json();
+                    })()
+                )
             );
         });
-    var u = function() {};
-    (u.prototype.checkAccessForAsset = function(e, t) {
+    var a = function() {};
+    (a.prototype.checkAccessForAsset = function(e, t) {
         return o(
             (function*() {
                 return yield (yield fetch(c.checkAccess(t), {
@@ -258,7 +302,7 @@
             })()
         );
     }),
-        (u.prototype.findAsset = function(e, t) {
+        (a.prototype.findAsset = function(e, t) {
             return o(
                 (function*() {
                     return yield (yield fetch(c.findAsset(e, t), {
@@ -267,7 +311,7 @@
                 })()
             );
         }),
-        (u.prototype.findExternalAsset = function(e, t) {
+        (a.prototype.findExternalAsset = function(e, t) {
             return o(
                 (function*() {
                     return yield (yield fetch(c.findExternalAsset(e, t), {
@@ -276,7 +320,7 @@
                 })()
             );
         }),
-        (u.prototype.findPackage = function(e) {
+        (a.prototype.findPackage = function(e) {
             return o(
                 (function*() {
                     return yield (yield fetch(c.findPackage(e), {
@@ -285,7 +329,7 @@
                 })()
             );
         }),
-        (u.prototype.getAssetAccessFees = function(e) {
+        (a.prototype.getAssetAccessFees = function(e) {
             return o(
                 (function*() {
                     return yield (yield fetch(c.findAccessFees(e), {
@@ -294,7 +338,7 @@
                 })()
             );
         }),
-        (u.prototype.getFreemiumAsset = function(e, t) {
+        (a.prototype.getFreemiumAsset = function(e, t) {
             return o(
                 (function*() {
                     return yield (yield fetch(c.freemium, {
@@ -325,45 +369,53 @@
             );
         }),
         (d.prototype.payForAsset = function(e, t) {
-            return o(
-                (function*() {
-                    var n = new FormData();
-                    return (
-                        n.append('number', t.number),
-                        n.append('card_name', t.cardName),
-                        n.append('exp_month', t.expMonth),
-                        n.append('exp_year', t.expYear),
-                        n.append('cvv', t.cvv),
-                        n.append('access_fee', t.accessFee),
-                        n.append('payment_method', t.paymentMethod),
-                        n.append('referrer', t.referrer),
-                        t.voucherCode &&
-                            n.append('voucher_code', t.voucherCode),
-                        yield (yield fetch(c.payForAsset, {
-                            method: 'POST',
-                            headers: { Authorization: 'Bearer ' + e },
-                            body: n,
-                        })).json()
-                    );
-                })()
+            return (
+                void 0 === e && (e = ''),
+                void 0 === t && (t = {}),
+                o(
+                    (function*() {
+                        var n = new FormData();
+                        return (
+                            n.append('number', t.number),
+                            n.append('card_name', t.cardName),
+                            n.append('exp_month', t.expMonth),
+                            n.append('exp_year', t.expYear),
+                            n.append('cvv', t.cvv),
+                            n.append('access_fee', t.accessFee),
+                            n.append('payment_method', t.paymentMethod),
+                            n.append('referrer', t.referrer),
+                            t.voucherCode &&
+                                n.append('voucher_code', t.voucherCode),
+                            yield (yield fetch(c.payForAsset, {
+                                method: 'POST',
+                                headers: { Authorization: 'Bearer ' + e },
+                                body: n,
+                            })).json()
+                        );
+                    })()
+                )
             );
         }),
         (d.prototype.getPayPalParams = function(e, t) {
-            return o(
-                (function*() {
-                    var n = new FormData();
-                    return (
-                        n.append('origin', t.origin),
-                        n.append('access_fee', t.accessFee),
-                        n.append('payment_method', t.paymentMethod),
-                        n.append('voucher_code', t.voucherCode),
-                        yield (yield fetch(c.externalPayments, {
-                            method: 'POST',
-                            headers: { Authorization: 'Bearer ' + e },
-                            body: n,
-                        })).json()
-                    );
-                })()
+            return (
+                void 0 === e && (e = ''),
+                void 0 === t && (t = {}),
+                o(
+                    (function*() {
+                        var n = new FormData();
+                        return (
+                            n.append('origin', t.origin),
+                            n.append('access_fee', t.accessFee),
+                            n.append('payment_method', t.paymentMethod),
+                            n.append('voucher_code', t.voucherCode),
+                            yield (yield fetch(c.externalPayments, {
+                                method: 'POST',
+                                headers: { Authorization: 'Bearer ' + e },
+                                body: n,
+                            })).json()
+                        );
+                    })()
+                )
             );
         });
     var p = function() {};
@@ -388,27 +440,31 @@
             );
         }),
         (p.prototype.assetSubscribe = function(e, t) {
-            return o(
-                (function*() {
-                    var n = new FormData();
-                    return (
-                        n.append('number', t.number),
-                        n.append('card_name', t.cardName),
-                        n.append('exp_month', t.expMonth),
-                        n.append('exp_year', t.expYear),
-                        n.append('cvv', t.cvv),
-                        n.append('access_fee', t.accessFee),
-                        n.append('payment_method', t.paymentMethod),
-                        n.append('referrer', t.referrer),
-                        t.voucherCode &&
-                            n.append('voucher_code', t.voucherCode),
-                        yield (yield fetch(c.subscribe, {
-                            method: 'POST',
-                            headers: { Authorization: 'Bearer ' + e },
-                            body: n,
-                        })).json()
-                    );
-                })()
+            return (
+                void 0 === e && (e = ''),
+                void 0 === t && (t = {}),
+                o(
+                    (function*() {
+                        var n = new FormData();
+                        return (
+                            n.append('number', t.number),
+                            n.append('card_name', t.cardName),
+                            n.append('exp_month', t.expMonth),
+                            n.append('exp_year', t.expYear),
+                            n.append('cvv', t.cvv),
+                            n.append('access_fee', t.accessFee),
+                            n.append('payment_method', t.paymentMethod),
+                            n.append('referrer', t.referrer),
+                            t.voucherCode &&
+                                n.append('voucher_code', t.voucherCode),
+                            yield (yield fetch(c.subscribe, {
+                                method: 'POST',
+                                headers: { Authorization: 'Bearer ' + e },
+                                body: n,
+                            })).json()
+                        );
+                    })()
+                )
             );
         });
     var f = function() {};
@@ -422,20 +478,24 @@
         );
     }),
         (f.prototype.getDiscount = function(e, t) {
-            return o(
-                (function*() {
-                    var n = new FormData();
-                    return (
-                        n.append('access_fee_id', t.accessFeeId),
-                        n.append('voucher_code', t.voucherCode),
-                        n.append('merchant_id', t.merchantUuid),
-                        yield (yield fetch(c.getDiscount, {
-                            method: 'POST',
-                            headers: { Authorization: 'Bearer ' + e },
-                            body: n,
-                        })).json()
-                    );
-                })()
+            return (
+                void 0 === e && (e = ''),
+                void 0 === t && (t = {}),
+                o(
+                    (function*() {
+                        var n = new FormData();
+                        return (
+                            n.append('access_fee_id', t.accessFeeId),
+                            n.append('voucher_code', t.voucherCode),
+                            n.append('merchant_id', t.merchantUuid),
+                            yield (yield fetch(c.getDiscount, {
+                                method: 'POST',
+                                headers: { Authorization: 'Bearer ' + e },
+                                body: n,
+                            })).json()
+                        );
+                    })()
+                )
             );
         }),
         (f.prototype.getBranding = function(e) {
@@ -515,8 +575,8 @@
                                     i,
                                     s,
                                     c,
-                                    a,
                                     u,
+                                    a,
                                     d,
                                     p,
                                     f,
@@ -525,40 +585,40 @@
                                     y,
                                     g,
                                     m,
-                                    b,
-                                    v;
+                                    v,
+                                    b;
                                 for (
                                     s = t.search(RegExp('' + e.LF + e.LF)),
                                         i = (c = t
                                             .substring(0, s)
                                             .split(e.LF)).shift(),
-                                        a = {},
+                                        u = {},
                                         h = function(e) {
                                             return e.replace(/^\s+|\s+$/g, '');
                                         },
                                         y = 0,
-                                        m = (b = c.reverse()).length;
+                                        m = (v = c.reverse()).length;
                                     y < m;
                                     y++
                                 )
-                                    (d = (f = b[y]).indexOf(':')),
-                                        (a[h(f.substring(0, d))] = h(
+                                    (d = (f = v[y]).indexOf(':')),
+                                        (u[h(f.substring(0, d))] = h(
                                             f.substring(d + 1)
                                         ));
                                 if (
-                                    ((o = ''), (l = s + 2), a['content-length'])
+                                    ((o = ''), (l = s + 2), u['content-length'])
                                 )
-                                    (p = parseInt(a['content-length'])),
+                                    (p = parseInt(u['content-length'])),
                                         (o = ('' + t).substring(l, l + p));
                                 else
                                     for (
-                                        r = null, u = g = l, v = t.length;
-                                        (l <= v ? g < v : g > v) &&
-                                        (r = t.charAt(u)) !== e.NULL;
-                                        u = l <= v ? ++g : --g
+                                        r = null, a = g = l, b = t.length;
+                                        (l <= b ? g < b : g > b) &&
+                                        (r = t.charAt(a)) !== e.NULL;
+                                        a = l <= b ? ++g : --g
                                     )
                                         o += r;
-                                return new n(i, a, o);
+                                return new n(i, u, o);
                             }),
                             (n.unmarshall = function(n) {
                                 var o;
@@ -642,13 +702,13 @@
                                 }
                             }),
                             (n.prototype._setupHeartbeat = function(n) {
-                                var o, i, s, c, a, u, d, p;
+                                var o, i, s, c, u, a, d, p;
                                 if (
-                                    (a = n.version) === r.VERSIONS.V1_1 ||
-                                    a === r.VERSIONS.V1_2
+                                    (u = n.version) === r.VERSIONS.V1_1 ||
+                                    u === r.VERSIONS.V1_2
                                 )
                                     return (
-                                        (i = (u = (function() {
+                                        (i = (a = (function() {
                                             var e, t, o, r;
                                             for (
                                                 r = [],
@@ -662,7 +722,7 @@
                                                 (c = o[e]), r.push(parseInt(c));
                                             return r;
                                         })())[0]),
-                                        (o = u[1]),
+                                        (o = a[1]),
                                         0 !== this.heartbeat.outgoing &&
                                             0 !== o &&
                                             ((s = Math.max(
@@ -762,23 +822,23 @@
                                 return [o, t, n];
                             }),
                             (n.prototype.connect = function() {
-                                var n, i, c, a, u, d, p;
+                                var n, i, c, u, a, d, p;
                                 return (
                                     (n =
                                         1 <= arguments.length
                                             ? s.call(arguments, 0)
                                             : []),
-                                    (a = this._parseConnect.apply(this, n)),
-                                    (c = a[0]),
-                                    (this.connectCallback = a[1]),
-                                    (i = a[2]),
+                                    (u = this._parseConnect.apply(this, n)),
+                                    (c = u[0]),
+                                    (this.connectCallback = u[1]),
+                                    (i = u[2]),
                                     'function' == typeof this.debug &&
                                         this.debug('Opening Web Socket...'),
-                                    (this.ws.onmessage = ((u = this),
+                                    (this.ws.onmessage = ((a = this),
                                     function(n) {
-                                        var r, s, c, a, d, p, f, l, h, y, g, m;
+                                        var r, s, c, u, d, p, f, l, h, y, g, m;
                                         if (
-                                            ((a =
+                                            ((u =
                                                 'undefined' !=
                                                     typeof ArrayBuffer &&
                                                 n.data instanceof ArrayBuffer
@@ -786,8 +846,8 @@
                                                           n.data
                                                       )),
                                                       'function' ==
-                                                          typeof u.debug &&
-                                                          u.debug(
+                                                          typeof a.debug &&
+                                                          a.debug(
                                                               '--- got data length: ' +
                                                                   r.length
                                                           ),
@@ -809,15 +869,15 @@
                                                           return n;
                                                       })().join(''))
                                                     : n.data),
-                                            (u.serverActivity = t()),
-                                            a !== e.LF)
+                                            (a.serverActivity = t()),
+                                            u !== e.LF)
                                         ) {
                                             for (
-                                                'function' == typeof u.debug &&
-                                                    u.debug('<<< ' + a),
+                                                'function' == typeof a.debug &&
+                                                    a.debug('<<< ' + u),
                                                     m = [],
                                                     h = 0,
-                                                    y = (g = o.unmarshall(a))
+                                                    y = (g = o.unmarshall(u))
                                                         .length;
                                                 h < y;
                                                 h++
@@ -825,20 +885,20 @@
                                                 switch ((d = g[h]).command) {
                                                     case 'CONNECTED':
                                                         'function' ==
-                                                            typeof u.debug &&
-                                                            u.debug(
+                                                            typeof a.debug &&
+                                                            a.debug(
                                                                 'connected to server ' +
                                                                     d.headers
                                                                         .server
                                                             ),
-                                                            (u.connected = !0),
-                                                            u._setupHeartbeat(
+                                                            (a.connected = !0),
+                                                            a._setupHeartbeat(
                                                                 d.headers
                                                             ),
                                                             m.push(
                                                                 'function' ==
-                                                                typeof u.connectCallback
-                                                                    ? u.connectCallback(
+                                                                typeof a.connectCallback
+                                                                    ? a.connectCallback(
                                                                           d
                                                                       )
                                                                     : void 0
@@ -849,11 +909,11 @@
                                                             d.headers
                                                                 .subscription),
                                                             (f =
-                                                                u.subscriptions[
+                                                                a.subscriptions[
                                                                     l
                                                                 ] ||
-                                                                u.onreceive)
-                                                                ? ((c = u),
+                                                                a.onreceive)
+                                                                ? ((c = a),
                                                                   (p =
                                                                       d.headers[
                                                                           'message-id'
@@ -889,8 +949,8 @@
                                                                   m.push(f(d)))
                                                                 : m.push(
                                                                       'function' ==
-                                                                      typeof u.debug
-                                                                          ? u.debug(
+                                                                      typeof a.debug
+                                                                          ? a.debug(
                                                                                 'Unhandled received MESSAGE: ' +
                                                                                     d
                                                                             )
@@ -900,8 +960,8 @@
                                                     case 'RECEIPT':
                                                         m.push(
                                                             'function' ==
-                                                            typeof u.onreceipt
-                                                                ? u.onreceipt(d)
+                                                            typeof a.onreceipt
+                                                                ? a.onreceipt(d)
                                                                 : void 0
                                                         );
                                                         break;
@@ -916,8 +976,8 @@
                                                     default:
                                                         m.push(
                                                             'function' ==
-                                                            typeof u.debug
-                                                                ? u.debug(
+                                                            typeof a.debug
+                                                                ? a.debug(
                                                                       'Unhandled frame: ' +
                                                                           d
                                                                   )
@@ -926,8 +986,8 @@
                                                 }
                                             return m;
                                         }
-                                        'function' == typeof u.debug &&
-                                            u.debug('<<< PONG');
+                                        'function' == typeof a.debug &&
+                                            a.debug('<<< PONG');
                                     })),
                                     (this.ws.onclose = ((d = this),
                                     function() {
@@ -1093,7 +1153,7 @@
         g = (y.Stomp,
         h(function(e, o) {
             (function() {
-                var e, r, i, s, c, a;
+                var e, r, i, s, c, u;
                 (r = t),
                     ((e = y).Stomp.setInterval = function(e, t) {
                         return setInterval(t, e);
@@ -1135,7 +1195,7 @@
                             o
                         );
                     }),
-                    (a = function(e) {
+                    (u = function(e) {
                         var t, o, r, i;
                         return (
                             (t = n.client),
@@ -1183,16 +1243,16 @@
                     }),
                     (s = function(t) {
                         var n;
-                        return (n = a(t)), e.Stomp.over(n);
+                        return (n = u(t)), e.Stomp.over(n);
                     }),
                     (o.overTCP = i),
                     (o.overWS = s);
             }.call(l));
         })),
         m = (g.net, g.websocket, g.overTCP, g.overWS, y.Stomp),
-        b = g.overTCP,
-        v = g.overWS;
-    (m.overTCP = b), (m.overWS = v);
+        v = g.overTCP,
+        b = g.overWS;
+    (m.overTCP = v), (m.overWS = b);
     var w = function() {
         this.subscription = null;
     };
@@ -1239,8 +1299,8 @@
                 this.subscription.unsubscribe();
         });
     var S = function() {
-        (this.User = new a()),
-            (this.Asset = new u()),
+        (this.User = new u()),
+            (this.Asset = new a()),
             (this.Payment = new d()),
             (this.Subscription = new p()),
             (this.Misc = new f()),

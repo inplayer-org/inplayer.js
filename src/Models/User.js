@@ -36,7 +36,7 @@ class User {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async signIn(data) {
+    async signIn(data = {}) {
         // Add into form data
         const fd = new FormData();
         fd.append('email', data.email);
@@ -54,7 +54,10 @@ class User {
 
         /* set cookies */
         if (responseData.access_token) {
-            localStorage.setItem(config.INPLAYER_TOKEN_NAME, data.access_token);
+            localStorage.setItem(
+                config.INPLAYER_TOKEN_NAME,
+                responseData.access_token
+            );
         }
 
         return responseData;
@@ -113,7 +116,7 @@ class User {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async signUp(data) {
+    async signUp(data = {}) {
         // Add into form data
         const fd = new FormData();
         fd.append('full_name', data.fullName);
@@ -167,7 +170,7 @@ class User {
      *     .setTokenInCookie('aed1g284i3dnfrfnd1o23rtegk')
      * @return {void}
      */
-    setTokenInCookie(token) {
+    setTokenInCookie(token = '') {
         localStorage.setItem(config.INPLAYER_TOKEN_NAME, token);
     }
 
@@ -188,7 +191,7 @@ class User {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async requestNewPassword(data) {
+    async requestNewPassword(data = {}) {
         // Add into from FormData
         const fd = new FormData();
         fd.append('email', data.email);
@@ -222,7 +225,7 @@ class User {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async setNewPassword(data, token) {
+    async setNewPassword(data = {}, token = '') {
         const body = `password=${data.password}&password_confirmation=${
             data.passwordConfirmation
         }`;
@@ -235,9 +238,7 @@ class User {
             },
         });
 
-        const responseData = await response.json();
-
-        return responseData;
+        return response;
     }
 
     /**
@@ -251,7 +252,7 @@ class User {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getAccountInfo(token) {
+    async getAccountInfo(token = '') {
         const response = await fetch(API.getAccountInfo, {
             method: 'GET',
             headers: {
@@ -296,14 +297,18 @@ class User {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async updateAccount(data, token) {
-        const snakeCaseData = {
-            full_name: data.fullName,
-            metadata: data.metadata,
-        };
+    async updateAccount(data = {}, token = '') {
+        let queryString = '';
+
+        Object.keys(data).forEach(function(key) {
+            const newKey =
+                key === 'fullName' ? 'full_name' : `metadata[${key}]`;
+            queryString += (queryString ? '&' : '') + `${newKey}=${data[key]}`;
+        });
+
         const response = await fetch(API.updateAccount, {
             method: 'PUT',
-            body: snakeCaseData,
+            body: queryString,
             headers: {
                 Authorization: 'Bearer ' + token,
                 'Content-Type': 'x-www-form-urlencoded',
@@ -331,9 +336,9 @@ class User {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async changePassword(data, token) {
+    async changePassword(data = {}, token = '') {
         const fd = new FormData();
-        fd.append('token', data.email);
+        fd.append('old_password', data.oldPassword);
         fd.append('password', data.password);
         fd.append('password_confirmation', data.passwordConfirmation);
 
@@ -361,7 +366,7 @@ class User {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getRegisterFields(merchantUuid) {
+    async getRegisterFields(merchantUuid = '') {
         const response = await fetch(API.getRegisterFields(merchantUuid));
 
         const data = await response.json();

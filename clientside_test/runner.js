@@ -38,8 +38,8 @@
             userData = {
                 fullName: 'sdk_test',
                 email: 'sdk_test@sdktest.com',
-                password: '11111111',
-                passwordConfirmation: '11111111',
+                password: 'inplayer1',
+                passwordConfirmation: 'inplayer1',
                 merchantUuid: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
                 type: 'consumer',
                 referrer: location.href,
@@ -83,31 +83,38 @@
                 this.logIn,
                 this.isSignedIn,
                 this.getToken,
+                this.setTokenInCookie,
+                this.requestNewPassword,
+                this.setNewPassword,
+                this.getSocialLoginUrls,
+                this.getRegisterFields,
+                this.updateAccount,
+                this.changePassword,
 
                 /* Asset */
-                // this.checkAccessForAsset.bind(this, asset_id),
-                // this.findAsset,
-                // this.findExternalAsset,
-                // this.findPackage,
-                // this.getAssetAccessFees.bind(this, asset_id),
+                this.checkAccessForAsset.bind(this, asset_id),
+                this.findAsset,
+                this.findExternalAsset,
+                this.findPackage,
+                this.getAssetAccessFees.bind(this, asset_id),
                 // // this.getFreemiumAccess,
 
                 /* Payments */
-                // this.getPaymentMethods,
-                // this.getPayPalParams
-                // this.payForAsset,
-                // this.getPaymentTools,
+                this.getPaymentMethods,
+                this.getPayPalParams,
+                this.payForAsset,
+                this.getPaymentTools,
 
                 /* Misc */
-                // this.getBranding,
-                // this.getDlcLinks,
-                // this.getDiscount,
+                this.getBranding,
+                this.getDlcLinks,
+                this.getDiscount,
                 // // this.downloadProtectedFile,
 
                 /* Subscription */
-                // this.getSubscriptions,
-                // this.subscribeForAsset,
-                // this.cancelSubscription
+                this.getSubscriptions,
+                this.subscribeForAsset,
+                this.cancelSubscription,
             ]);
         }
 
@@ -135,7 +142,7 @@
                 });
             },
             logOut: function() {
-                console.log('### InPlayer.Asset.signOut ###');
+                console.log('### InPlayer.User.signOut ###');
                 return new Promise(function(resolve, reject) {
                     user.signOut().then(function(res) {
                         resolve(res);
@@ -143,15 +150,118 @@
                 });
             },
             isSignedIn: function() {
-                console.log('### InPlayer.Asset.isSignedIn ###');
+                console.log('### InPlayer.User.isSignedIn ###');
                 return new Promise(function(resolve, reject) {
                     resolve(user.isSignedIn());
                 });
             },
             getToken: function() {
-                console.log('### InPlayer.Asset.token ###');
+                console.log('### InPlayer.User.token ###');
                 return new Promise(function(resolve) {
                     resolve(user.token());
+                });
+            },
+            setTokenInCookie: function() {
+                console.log('### InPlayer.User.setTokenInCookie ###');
+                return new Promise(function(resolve, reject) {
+                    if (user.token() === token) {
+                        resolve(token);
+                    } else {
+                        reject({
+                            description: '# InPlayer.User.setTokenInCookie',
+                            errors:
+                                'For some reason token was not set in local storage. This happens in Chrome when using the file:// protocol',
+                        });
+                    }
+                });
+            },
+            requestNewPassword: function() {
+                console.log('### InPlayer.User.requestNewPassword ###');
+                return new Promise(function(resolve, reject) {
+                    var data = {
+                        email: userData.email,
+                        merchantUuid: userData.merchantUuid,
+                    };
+
+                    user.requestNewPassword(data).then(function(res) {
+                        resolve(res);
+                    });
+                });
+            },
+            setNewPassword: function() {
+                console.log('### InPlayer.User.setNewPassword ###');
+                return new Promise(function(resolve, reject) {
+                    user
+                        .setNewPassword(userData, '49160496d22483ec')
+                        .then(function(res) {
+                            if (!res.errors) {
+                                resolve(res);
+                            } else {
+                                res.description =
+                                    '# InPlayer.User.setNewPassword';
+                                reject(res);
+                            }
+                        });
+                });
+            },
+            getSocialLoginUrls: function() {
+                console.log('### InPlayer.User.getSocialLoginUrls ###');
+                return new Promise(function(resolve, reject) {
+                    var state = btoa(
+                        JSON.stringify({
+                            uuid: userData.merchantUuid,
+                            redirect: window.location.href,
+                        })
+                    );
+
+                    user.getSocialLoginUrls(state).then(function(res) {
+                        resolve(res);
+                    });
+                });
+            },
+            getRegisterFields: function() {
+                console.log('### InPlayer.User.getRegisterFields ###');
+                return new Promise(function(resolve, reject) {
+                    user
+                        .getRegisterFields(userData.merchantUuid)
+                        .then(function(res) {
+                            resolve(res);
+                        });
+                });
+            },
+            updateAccount: function() {
+                console.log('### InPlayer.User.updateAccount ###');
+                return new Promise(function(resolve, reject) {
+                    var data = {
+                        fullName:
+                            'New_Random_Name_' +
+                            Math.round(Math.random() * 10000),
+                        gender: 'male',
+                        favorite_sport: 'soccer',
+                    };
+
+                    user.updateAccount(data, token).then(function(res) {
+                        if (!res.errors) {
+                            resolve(res);
+                        } else {
+                            res.description = '# InPlayer.User.updateAccount';
+                            reject(res);
+                        }
+                    });
+                });
+            },
+            changePassword: function() {
+                console.log('### InPlayer.User.changePassword ###');
+                return new Promise(function(resolve, reject) {
+                    var data = {
+                        oldPassword: userData.password,
+                        password: userData.password,
+                        passwordConfirmation: userData.passwordConfirmation,
+                    };
+
+                    user.changePassword(data, token).then(function(res) {
+                        console.log(res);
+                    });
                 });
             },
             checkAccessForAsset: function(assets) {

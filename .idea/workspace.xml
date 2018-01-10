@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cb5cea8a-9459-482d-a6fd-16a5848531e3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/constants/endpoints.js" afterPath="$PROJECT_DIR$/constants/endpoints.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clientside_test/runner.js" afterPath="$PROJECT_DIR$/clientside_test/runner.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/inplayer.cjs.js" afterPath="$PROJECT_DIR$/dist/inplayer.cjs.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/inplayer.cjs.js.map" afterPath="$PROJECT_DIR$/dist/inplayer.cjs.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/inplayer.umd.js" afterPath="$PROJECT_DIR$/dist/inplayer.umd.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/examples/js/inplayer.js" afterPath="$PROJECT_DIR$/examples/js/inplayer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Models/Asset.js" afterPath="$PROJECT_DIR$/src/Models/Asset.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Models/Misc.js" afterPath="$PROJECT_DIR$/src/Models/Misc.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Models/Payment.js" afterPath="$PROJECT_DIR$/src/Models/Payment.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Models/Subscription.js" afterPath="$PROJECT_DIR$/src/Models/Subscription.js" />
@@ -30,18 +28,18 @@
       <file leaf-file-name="runner.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/clientside_test/runner.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="173" column="67" lean-forward="false" selection-start-line="173" selection-start-column="67" selection-end-line="173" selection-end-column="67" />
+            <state relative-caret-position="118">
+              <caret line="103" column="37" lean-forward="false" selection-start-line="103" selection-start-column="37" selection-end-line="103" selection-end-column="37" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="User.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Models/User.js">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/clientside_test/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="358" column="24" lean-forward="true" selection-start-line="358" selection-start-column="24" selection-end-line="358" selection-end-column="24" />
+            <state relative-caret-position="105">
+              <caret line="5" column="40" lean-forward="false" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -50,8 +48,32 @@
       <file leaf-file-name="endpoints.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/constants/endpoints.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="2" selection-end-line="30" selection-end-column="13" />
+            <state relative-caret-position="177">
+              <caret line="12" column="4" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+              <folding>
+                <marker date="1515590022923" expanded="true" signature="59:1995" ph="{&quot;signIn&quot;: `${config.BASE_URL}/accounts/login`...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="User.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Models/User.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="149">
+              <caret line="336" column="50" lean-forward="false" selection-start-line="336" selection-start-column="50" selection-end-line="336" selection-end-column="50" />
+              <folding>
+                <element signature="e#0#45#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-63">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -61,36 +83,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>payForAsset</find>
-      <find>dlc</find>
-      <find>getDlcLinks</find>
-      <find>access_fees</find>
-      <find>disc</find>
-      <find>disco</find>
-      <find>merchant</find>
-      <find>info</find>
-      <find>accessFeeId</find>
-      <find>voucherCode</find>
-      <find>paypal</find>
-      <find>get_p</find>
-      <find>paypa</find>
-      <find>get_paypa</find>
-      <find>get_discount_data</find>
-      <find>getdisc</find>
-      <find>getDiscount</find>
-      <find>getPaymentMethods:</find>
-      <find>getPaymentTools</find>
-      <find>getPaymentMethods</find>
-      <find>subscribeForAsset</find>
-      <find>logout:</find>
-      <find>catch</find>
-      <find>token =</find>
-      <find>token:</find>
-      <find>ui</find>
-      <find>uid</find>
-      <find>tuid</find>
-      <find>t_uid</find>
-      <find>uuid</find>
+      <find>settokenincookie(</find>
+      <find>localStorage.setItem(</find>
+      <find>console.log('vvv</find>
+      <find>console.log('vv</find>
+      <find>reject.</find>
+      <find>reject(</find>
+      <find>description:</find>
+      <find>ion:</find>
+      <find>request</find>
+      <find>setTokenInCookie</find>
+      <find>setTokenInCookie,</find>
+      <find>userData.em</find>
+      <find>append</find>
+      <find>data</find>
+      <find>data.</find>
+      <find>data)</find>
+      <find>data = {}) {</find>
+      <find>var data = {</find>
+      <find>setn</find>
+      <find>userData)</find>
+      <find># InPlayer.User.signIn</find>
+      <find>x-www-form-urlencoded</find>
+      <find>setnew</find>
+      <find>updateAccount</find>
+      <find>social</find>
+      <find>res.description =</find>
+      <find>setnewP</find>
+      <find>change</find>
+      <find>updateacc</find>
+      <find>new_ra</find>
     </findStrings>
     <dirStrings>
       <dir>D:\repos\inplayer.js\src</dir>
@@ -104,11 +126,12 @@
       <list>
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/clientside_test/index.html" />
+        <option value="$PROJECT_DIR$/node_modules/rollup/bin/rollup" />
+        <option value="$PROJECT_DIR$/src/Models/Asset.js" />
+        <option value="$PROJECT_DIR$/src/Models/Misc.js" />
         <option value="$PROJECT_DIR$/src/Models/Payment.js" />
         <option value="$PROJECT_DIR$/src/Models/Subscription.js" />
         <option value="$PROJECT_DIR$/constants/endpoints.js" />
-        <option value="$PROJECT_DIR$/src/Models/Asset.js" />
-        <option value="$PROJECT_DIR$/src/Models/Misc.js" />
         <option value="$PROJECT_DIR$/src/Models/User.js" />
         <option value="$PROJECT_DIR$/clientside_test/runner.js" />
       </list>
@@ -194,8 +217,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -215,6 +238,14 @@
       </list>
     </option>
   </component>
+  <component name="RunManager" selected="Node.js.runner.js">
+    <configuration name="runner.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="runner.js" working-dir="$PROJECT_DIR$/clientside_test" />
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Node.js.runner.js" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
@@ -226,12 +257,13 @@
       <option name="presentableId" value="Default" />
       <updated>1515489003188</updated>
       <workItem from="1515489004502" duration="1358000" />
-      <workItem from="1515490479353" duration="14059000" />
+      <workItem from="1515490479353" duration="15089000" />
+      <workItem from="1515574502125" duration="16916000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15417000" />
+    <option name="totallyTimeSpent" value="33363000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -241,12 +273,12 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32915717" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32915717" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32915717" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -267,6 +299,34 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/clientside_test/runner.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Models/User.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7518">
+          <caret line="358" column="24" lean-forward="true" selection-start-line="358" selection-start-column="24" selection-end-line="358" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/constants/endpoints.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+          <folding>
+            <marker date="1515590022923" expanded="true" signature="59:1995" ph="{&quot;signIn&quot;: `${config.BASE_URL}/accounts/login`...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -307,9 +367,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-378">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -357,6 +414,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/dist/inplayer.umd.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2171">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/clientside_test/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -365,10 +430,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/constants/endpoints.js">
+    <entry file="file://$PROJECT_DIR$/node_modules/rollup/bin/rollup">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="2" selection-end-line="30" selection-end-column="13" />
+        <state relative-caret-position="140">
+          <caret line="21347" column="28" lean-forward="false" selection-start-line="21347" selection-start-column="28" selection-end-line="21347" selection-end-column="28" />
           <folding />
         </state>
       </provider>
@@ -376,15 +441,23 @@
     <entry file="file://$PROJECT_DIR$/src/Models/Asset.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="163">
-          <caret line="44" column="41" lean-forward="false" selection-start-line="44" selection-start-column="38" selection-end-line="44" selection-end-column="41" />
+          <caret line="112" column="39" lean-forward="false" selection-start-line="112" selection-start-column="39" selection-end-line="112" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Models/Misc.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="56" column="38" lean-forward="false" selection-start-line="56" selection-start-column="38" selection-end-line="56" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Models/Subscription.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="163">
-          <caret line="83" column="65" lean-forward="false" selection-start-line="83" selection-start-column="62" selection-end-line="83" selection-end-column="65" />
+          <caret line="90" column="49" lean-forward="false" selection-start-line="90" selection-start-column="49" selection-end-line="90" selection-end-column="49" />
           <folding />
         </state>
       </provider>
@@ -392,31 +465,43 @@
     <entry file="file://$PROJECT_DIR$/src/Models/Payment.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="163">
-          <caret line="52" column="12" lean-forward="false" selection-start-line="52" selection-start-column="12" selection-end-line="52" selection-end-column="12" />
+          <caret line="86" column="42" lean-forward="false" selection-start-line="86" selection-start-column="37" selection-end-line="86" selection-end-column="42" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Models/Subscription.js">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="115" column="12" lean-forward="false" selection-start-line="115" selection-start-column="12" selection-end-line="115" selection-end-column="12" />
+        <state relative-caret-position="-63">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/constants/endpoints.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="12" column="4" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+          <folding>
+            <marker date="1515590022923" expanded="true" signature="59:1995" ph="{&quot;signIn&quot;: `${config.BASE_URL}/accounts/login`...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Models/User.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="358" column="24" lean-forward="true" selection-start-line="358" selection-start-column="24" selection-end-line="358" selection-end-column="24" />
-          <folding />
+        <state relative-caret-position="149">
+          <caret line="336" column="50" lean-forward="false" selection-start-line="336" selection-start-column="50" selection-end-line="336" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/clientside_test/runner.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="173" column="67" lean-forward="false" selection-start-line="173" selection-start-column="67" selection-end-line="173" selection-end-column="67" />
+        <state relative-caret-position="118">
+          <caret line="103" column="37" lean-forward="false" selection-start-line="103" selection-start-column="37" selection-end-line="103" selection-end-column="37" />
           <folding />
         </state>
       </provider>

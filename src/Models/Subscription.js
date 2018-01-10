@@ -88,7 +88,7 @@ class Subscription {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async assetSubscribe(token, data) {
+    async assetSubscribe(token = '', data = {}) {
         const fd = new FormData();
         fd.append('number', data.number);
         fd.append('card_name', data.cardName);

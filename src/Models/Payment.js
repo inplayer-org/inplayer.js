@@ -87,7 +87,7 @@ class Payment {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async payForAsset(token, data) {
+    async payForAsset(token = '', data = {}) {
         const fd = new FormData();
         fd.append('number', data.number);
         fd.append('card_name', data.cardName);
@@ -136,7 +136,7 @@ class Payment {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getPayPalParams(token, data) {
+    async getPayPalParams(token = '', data = {}) {
         const fd = new FormData();
         fd.append('origin', data.origin);
         fd.append('access_fee', data.accessFee);
