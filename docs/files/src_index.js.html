@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src\index.js - InPlayer SDK</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/lucid.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+            InPlayer SDK
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.1.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+<div>
+    <div id="sidebar">
+    <div id="classes">
+        <ul id="api-classes" class="nav nav-list">
+                <li><a href="../classes/Asset.html">Asset</a></li>
+                <li><a href="../classes/InPlayer.html">InPlayer</a></li>
+                <li><a href="../classes/Misc.html">Misc</a></li>
+                <li><a href="../classes/Payment.html">Payment</a></li>
+                <li><a href="../classes/Subscription.html">Subscription</a></li>
+                <li><a href="../classes/User.html">User</a></li>
+        </ul>
+    </div>
+    </div>
+</div>
+        </div>
+        <div class="span9">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>src\index.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+import User from &#x27;./Models/User&#x27;;
+import Asset from &#x27;./Models/Asset&#x27;;
+import Payment from &#x27;./Models/Payment&#x27;;
+import Subscription from &#x27;./Models/Subscription&#x27;;
+import Misc from &#x27;./Models/Misc&#x27;;
+import Socket from &#x27;./Socket&#x27;;
+
+/**
+ * Main class. Contains all others methods and websocket subscription
+ *
+ * @class InPlayer
+ */
+class InPlayer {
+
+  constructor(){
+    /**
+     * @property User
+     * @type User
+     */
+    this.User = new User();
+    /**
+     * @property Asset
+     * @type Asset
+     */
+    this.Asset = new Asset();
+    /**
+     * @property Payment
+     * @type Payment
+     */
+    this.Payment = new Payment();
+    /**
+     * @property Subscription
+     * @type Subscription
+     */
+    this.Subscription = new Subscription();
+    /**
+     * @property Misc
+     * @type Misc
+     */
+    this.Misc = new Misc();
+    this.Socket = new Socket();
+  }
+
+  /**
+   * Subscribes to websocket events
+   * @method subscribe
+   * @param {String} accountUid - The users account UUID
+   * @param {Object} callbackParams - Methods regarding websocket
+   * {
+   *  onmessage: function,
+   *  onopen: function,
+   *  onclose: function
+   * }
+   * @example
+   *     InPlayer.subscribe(
+   *      &#x27;adsasd-d1-cjc1c-1ajaveo&#x27;,
+   *      {
+   *       onmessage: (message) =&gt; { let body = JSON.parse(message.body); console.log(body, &#x27;message&#x27;) },
+   *       onopen: (e) =&gt; console.log(&#x27;open&#x27;),
+   *       onclose: (e) =&gt; console.log(&#x27;close&#x27;, e)
+   *      }
+   *    )
+   * @return {Boolean}
+  */
+  subscribe(accountUid, callbackParams) {
+    if(this.User.isSignedIn()){
+      this.Socket.subscribe(accountUid, callbackParams);
+      return true;
+    }else {
+      return false;
+    }
+
+  }
+
+  /**
+   * Unsubscribes from the websocket and event listeners
+   * @method unsubscribe
+   * @example
+   *     InPlayer.unsubscribe()
+   * @return {Boolean}
+  */
+  unsubscribe(){
+    this.Socket.unsubscribe();
+  }
+}
+
+export default new InPlayer();
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src\Models\Subscription.js - InPlayer SDK</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/lucid.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+            InPlayer SDK
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.1.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+<div>
+    <div id="sidebar">
+    <div id="classes">
+        <ul id="api-classes" class="nav nav-list">
+                <li><a href="../classes/Asset.html">Asset</a></li>
+                <li><a href="../classes/InPlayer.html">InPlayer</a></li>
+                <li><a href="../classes/Misc.html">Misc</a></li>
+                <li><a href="../classes/Payment.html">Payment</a></li>
+                <li><a href="../classes/Subscription.html">Subscription</a></li>
+                <li><a href="../classes/User.html">User</a></li>
+        </ul>
+    </div>
+    </div>
+</div>
+        </div>
+        <div class="span9">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>src\Models\Subscription.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+import { API } from &#x27;../../constants/endpoints&#x27;;
+
+/**
+ * Contains all Requests connected with subscriptions
+ *
+ * @class Subscription
+ */
+class Subscription {
+    /**
+     * Gets all subscriptions for a given user
+     * @method getSubscriptions
+     * @async
+     * @param {String} token - The Authorization token
+     * @example
+     *     InPlayer.Subscription
+     *     .getSubscriptions(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;)
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async getSubscriptions(token) {
+        const response = await fetch(API.getSubscriptions, {
+            method: &#x27;GET&#x27;,
+            headers: {
+                Authorization: &#x27;Bearer &#x27; + token,
+            },
+        });
+
+        const data = response.json();
+
+        return data;
+    }
+
+    /**
+     * Cancels a subscription
+     * @method cancelSubscription
+     * @async
+     * @param {String} unsubscribeUrl - The url for the subscription which is getting unsubscribed
+     * @param {String} token - The Authorization token
+     * @example
+     *     InPlayer.Subscription
+     *     .cancelSubscription(&#x27;http://localhost/subscription/1&#x27;,&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;)
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async cancelSubscription(unsubscribeUrl, token) {
+        const response = await fetch(unsubscribeUrl, {
+            method: &#x27;GET&#x27;,
+            headers: {
+                Authorization: &#x27;Bearer &#x27; + token,
+            },
+        });
+
+        const data = response.json();
+
+        return data;
+    }
+
+    /**
+     * Subscribes to a given asset
+     * @method assetSubscribe
+     * @async
+     * @param {String} token - The Authorization token
+     * @param {Object} data - {
+     *  number: Number,
+     *  cardName: String,
+     *  expMonth: Number,
+     *  expYear: Number,
+     *  cvv: Number,
+     *  accessFee: Number,
+     *  paymentMethod: String,
+     *  referrer: String
+     *  voucherCode?: String
+     * }
+     * @example
+     *     InPlayer.Subscription
+     *     .assetSubscribe(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;, {
+     *        number: 1,
+     *        cardName: &#x27;Payoneer&#x27;,
+     *        expMonth: 11,
+     *        expYear: 12,
+     *        cvv: 546,
+     *        accessFee: 13.4,
+     *        paymentMethod: &#x27;card&#x27;,
+     *        referrer: &#x27;http://localhost:3000&#x27;,
+     *        voucherCode: &#x27;123123125914i2erjfg&#x27;
+     *        }
+     *     )
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async assetSubscribe(token, data) {
+        const fd = new FormData();
+        fd.append(&#x27;number&#x27;, data.number);
+        fd.append(&#x27;card_name&#x27;, data.cardName);
+        fd.append(&#x27;exp_month&#x27;, data.expMonth);
+        fd.append(&#x27;exp_year&#x27;, data.expYear);
+        fd.append(&#x27;cvv&#x27;, data.cvv);
+        fd.append(&#x27;access_fee&#x27;, data.accessFee);
+        fd.append(&#x27;payment_method&#x27;, data.paymentMethod);
+        fd.append(&#x27;referrer&#x27;, data.referrer);
+        fd.append(&#x27;voucher_code&#x27;, data.voucherCode);
+
+        const response = await fetch(API.subscribe, {
+            method: &#x27;POST&#x27;,
+            headers: {
+                Authorization: &#x27;Bearer &#x27; + token,
+            },
+            body: fd,
+        });
+
+        const responseData = await response.json();
+
+        return responseData;
+    }
+}
+
+export default Subscription;
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>
