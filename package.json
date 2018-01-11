@@ -1,6 +1,6 @@
 {
   "name": "@inplayer-org/inplayer.js",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "author": "InPlayer",
   "license": "ISC",
   "description": "A Javascript SDK for Inplayer's RESTful API",
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://repo.inplayer.com/platform/inplayer.js.git"
+    "url": "https://github.com/inplayer-org/inplayer.js.git"
   },
   "babel": {
     "presets": [
@@ -73,5 +73,8 @@
     "rollup-watch": "^4.3.1",
     "uglify-es": "^3.2.0",
     "yuidoc-lucid-theme": "^0.1.2"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
