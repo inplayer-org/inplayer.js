@@ -73,5 +73,8 @@
     "rollup-watch": "^4.3.1",
     "uglify-es": "^3.2.0",
     "yuidoc-lucid-theme": "^0.1.2"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
