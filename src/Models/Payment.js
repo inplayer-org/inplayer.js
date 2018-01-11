@@ -139,7 +139,7 @@ class Payment {
     async getPayPalParams(token = '', data = {}) {
         const fd = new FormData();
         fd.append('origin', data.origin);
-        fd.append('access_fee', data.accessFee);
+        fd.append('access_fee', data.accessFeeId);
         fd.append('payment_method', data.paymentMethod);
         fd.append('voucher_code', data.voucherCode);
 

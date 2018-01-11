@@ -132,14 +132,16 @@ class Asset {
      * @return {Object}
      */
     async getFreemiumAsset(token, accessFee) {
+        const fd = new FormData();
+
+        fd.append('access_fee', accessFee);
+
         const response = await fetch(API.freemium, {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + token,
             },
-            body: {
-                access_fee: accessFee,
-            },
+            body: fd,
         });
 
         const data = await response.json();
