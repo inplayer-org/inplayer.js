@@ -81,24 +81,20 @@ describe('User', function() {
         });
     });
 
-    describe('#setNewPassword()', function() {
-        it('should throw error for missing data', async () => {
-            const result = await user.setNewPassword(
-                {
-                    password: 'test@test.com',
-                    passwordConfirmation: 'asd-f1hf1-fa1f-gh',
-                },
-                'asdhgf19jrf2g89fdlkfgjhgklsd19'
-            );
-
-            expect(result).to.deep.equal({
-                errors: {
-                    password_confirmation:
-                        'The password_confirmation does not match the password.',
-                },
-            });
-        });
-    });
+    // describe("#setNewPassword()", function() {
+    //   it('should throw error for missing data', async () => {
+    //     const result = await user.setNewPassword({
+    //       password: "test@test.com",
+    //       passwordConfirmation: "asd-f1hf1-fa1f-gh",
+    //     }, 'asdhgf19jrf2g89fdlkfgjhgklsd19');
+    //
+    //     expect(result).to.deep.equal({
+    //       "errors": {
+    //         "password_confirmation": "The password_confirmation does not match the password.",
+    //       }
+    //     });
+    //   });
+    // });
 
     describe('#getAccountInfo()', function() {
         it('should throw error for invalid auth', async () => {

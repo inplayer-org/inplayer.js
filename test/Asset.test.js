@@ -66,20 +66,4 @@ describe('Asset', function() {
             expect(typeof result).equal('object');
         });
     });
-
-    describe('#getFreemiumAsset()', function() {
-        it('should return an object with an error for invalid auth token', async () => {
-            const result = await asset.getFreemiumAsset(
-                'eyJ0eXAiOiJOGIxYjgNR5Y',
-                36320
-            );
-
-            //check only 1 property (there are a lot)
-            expect(result).to.deep.equal({
-                errors: {
-                    '401': 'Invalid auth token',
-                },
-            });
-        });
-    });
 });

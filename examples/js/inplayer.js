@@ -88,11 +88,11 @@
                 return r + '/dlc/' + e + '/' + t;
             },
         },
-        u = function() {
+        a = function() {
             ('undefined' != typeof localStorage && null !== localStorage) ||
                 (localStorage = new e('./scratch'));
         };
-    (u.prototype.signIn = function(e) {
+    (a.prototype.signIn = function(e) {
         return (
             void 0 === e && (e = {}),
             o(
@@ -115,7 +115,7 @@
             )
         );
     }),
-        (u.prototype.signOut = function() {
+        (a.prototype.signOut = function() {
             return o(
                 (function*() {
                     var e = localStorage.getItem(i);
@@ -128,7 +128,7 @@
                 })()
             );
         }),
-        (u.prototype.signUp = function(e) {
+        (a.prototype.signUp = function(e) {
             return (
                 void 0 === e && (e = {}),
                 o(
@@ -154,16 +154,16 @@
                 )
             );
         }),
-        (u.prototype.isSignedIn = function() {
+        (a.prototype.isSignedIn = function() {
             return void 0 !== localStorage.getItem(i);
         }),
-        (u.prototype.token = function() {
+        (a.prototype.token = function() {
             return localStorage.getItem(i);
         }),
-        (u.prototype.setTokenInCookie = function(e) {
+        (a.prototype.setTokenInCookie = function(e) {
             void 0 === e && (e = ''), localStorage.setItem(i, e);
         }),
-        (u.prototype.requestNewPassword = function(e) {
+        (a.prototype.requestNewPassword = function(e) {
             return (
                 void 0 === e && (e = {}),
                 o(
@@ -181,7 +181,7 @@
                 )
             );
         }),
-        (u.prototype.setNewPassword = function(e, t) {
+        (a.prototype.setNewPassword = function(e, t) {
             return (
                 void 0 === e && (e = {}),
                 void 0 === t && (t = ''),
@@ -203,7 +203,7 @@
                 )
             );
         }),
-        (u.prototype.getAccountInfo = function(e) {
+        (a.prototype.getAccountInfo = function(e) {
             return (
                 void 0 === e && (e = ''),
                 o(
@@ -217,7 +217,7 @@
                 )
             );
         }),
-        (u.prototype.getSocialLoginUrls = function(e) {
+        (a.prototype.getSocialLoginUrls = function(e) {
             return o(
                 (function*() {
                     return yield (yield fetch(c.social(e), {
@@ -226,7 +226,7 @@
                 })()
             );
         }),
-        (u.prototype.updateAccount = function(e, t) {
+        (a.prototype.updateAccount = function(e, t) {
             return (
                 void 0 === e && (e = {}),
                 void 0 === t && (t = ''),
@@ -256,7 +256,7 @@
                 )
             );
         }),
-        (u.prototype.changePassword = function(e, t) {
+        (a.prototype.changePassword = function(e, t) {
             return (
                 void 0 === e && (e = {}),
                 void 0 === t && (t = ''),
@@ -280,7 +280,7 @@
                 )
             );
         }),
-        (u.prototype.getRegisterFields = function(e) {
+        (a.prototype.getRegisterFields = function(e) {
             return (
                 void 0 === e && (e = ''),
                 o(
@@ -292,8 +292,8 @@
                 )
             );
         });
-    var a = function() {};
-    (a.prototype.checkAccessForAsset = function(e, t) {
+    var u = function() {};
+    (u.prototype.checkAccessForAsset = function(e, t) {
         return o(
             (function*() {
                 return yield (yield fetch(c.checkAccess(t), {
@@ -302,7 +302,7 @@
             })()
         );
     }),
-        (a.prototype.findAsset = function(e, t) {
+        (u.prototype.findAsset = function(e, t) {
             return o(
                 (function*() {
                     return yield (yield fetch(c.findAsset(e, t), {
@@ -311,7 +311,7 @@
                 })()
             );
         }),
-        (a.prototype.findExternalAsset = function(e, t) {
+        (u.prototype.findExternalAsset = function(e, t) {
             return o(
                 (function*() {
                     return yield (yield fetch(c.findExternalAsset(e, t), {
@@ -320,7 +320,7 @@
                 })()
             );
         }),
-        (a.prototype.findPackage = function(e) {
+        (u.prototype.findPackage = function(e) {
             return o(
                 (function*() {
                     return yield (yield fetch(c.findPackage(e), {
@@ -329,7 +329,7 @@
                 })()
             );
         }),
-        (a.prototype.getAssetAccessFees = function(e) {
+        (u.prototype.getAssetAccessFees = function(e) {
             return o(
                 (function*() {
                     return yield (yield fetch(c.findAccessFees(e), {
@@ -338,14 +338,18 @@
                 })()
             );
         }),
-        (a.prototype.getFreemiumAsset = function(e, t) {
+        (u.prototype.getFreemiumAsset = function(e, t) {
             return o(
                 (function*() {
-                    return yield (yield fetch(c.freemium, {
-                        method: 'POST',
-                        headers: { Authorization: 'Bearer ' + e },
-                        body: { access_fee: t },
-                    })).json();
+                    var n = new FormData();
+                    return (
+                        n.append('access_fee', t),
+                        yield (yield fetch(c.freemium, {
+                            method: 'POST',
+                            headers: { Authorization: 'Bearer ' + e },
+                            body: n,
+                        })).json()
+                    );
                 })()
             );
         });
@@ -405,7 +409,7 @@
                         var n = new FormData();
                         return (
                             n.append('origin', t.origin),
-                            n.append('access_fee', t.accessFee),
+                            n.append('access_fee', t.accessFeeId),
                             n.append('payment_method', t.paymentMethod),
                             n.append('voucher_code', t.voucherCode),
                             yield (yield fetch(c.externalPayments, {
@@ -575,8 +579,8 @@
                                     i,
                                     s,
                                     c,
-                                    u,
                                     a,
+                                    u,
                                     d,
                                     p,
                                     f,
@@ -592,7 +596,7 @@
                                         i = (c = t
                                             .substring(0, s)
                                             .split(e.LF)).shift(),
-                                        u = {},
+                                        a = {},
                                         h = function(e) {
                                             return e.replace(/^\s+|\s+$/g, '');
                                         },
@@ -602,23 +606,23 @@
                                     y++
                                 )
                                     (d = (f = v[y]).indexOf(':')),
-                                        (u[h(f.substring(0, d))] = h(
+                                        (a[h(f.substring(0, d))] = h(
                                             f.substring(d + 1)
                                         ));
                                 if (
-                                    ((o = ''), (l = s + 2), u['content-length'])
+                                    ((o = ''), (l = s + 2), a['content-length'])
                                 )
-                                    (p = parseInt(u['content-length'])),
+                                    (p = parseInt(a['content-length'])),
                                         (o = ('' + t).substring(l, l + p));
                                 else
                                     for (
-                                        r = null, a = g = l, b = t.length;
+                                        r = null, u = g = l, b = t.length;
                                         (l <= b ? g < b : g > b) &&
-                                        (r = t.charAt(a)) !== e.NULL;
-                                        a = l <= b ? ++g : --g
+                                        (r = t.charAt(u)) !== e.NULL;
+                                        u = l <= b ? ++g : --g
                                     )
                                         o += r;
-                                return new n(i, u, o);
+                                return new n(i, a, o);
                             }),
                             (n.unmarshall = function(n) {
                                 var o;
@@ -702,13 +706,13 @@
                                 }
                             }),
                             (n.prototype._setupHeartbeat = function(n) {
-                                var o, i, s, c, u, a, d, p;
+                                var o, i, s, c, a, u, d, p;
                                 if (
-                                    (u = n.version) === r.VERSIONS.V1_1 ||
-                                    u === r.VERSIONS.V1_2
+                                    (a = n.version) === r.VERSIONS.V1_1 ||
+                                    a === r.VERSIONS.V1_2
                                 )
                                     return (
-                                        (i = (a = (function() {
+                                        (i = (u = (function() {
                                             var e, t, o, r;
                                             for (
                                                 r = [],
@@ -722,7 +726,7 @@
                                                 (c = o[e]), r.push(parseInt(c));
                                             return r;
                                         })())[0]),
-                                        (o = a[1]),
+                                        (o = u[1]),
                                         0 !== this.heartbeat.outgoing &&
                                             0 !== o &&
                                             ((s = Math.max(
@@ -822,23 +826,23 @@
                                 return [o, t, n];
                             }),
                             (n.prototype.connect = function() {
-                                var n, i, c, u, a, d, p;
+                                var n, i, c, a, u, d, p;
                                 return (
                                     (n =
                                         1 <= arguments.length
                                             ? s.call(arguments, 0)
                                             : []),
-                                    (u = this._parseConnect.apply(this, n)),
-                                    (c = u[0]),
-                                    (this.connectCallback = u[1]),
-                                    (i = u[2]),
+                                    (a = this._parseConnect.apply(this, n)),
+                                    (c = a[0]),
+                                    (this.connectCallback = a[1]),
+                                    (i = a[2]),
                                     'function' == typeof this.debug &&
                                         this.debug('Opening Web Socket...'),
-                                    (this.ws.onmessage = ((a = this),
+                                    (this.ws.onmessage = ((u = this),
                                     function(n) {
-                                        var r, s, c, u, d, p, f, l, h, y, g, m;
+                                        var r, s, c, a, d, p, f, l, h, y, g, m;
                                         if (
-                                            ((u =
+                                            ((a =
                                                 'undefined' !=
                                                     typeof ArrayBuffer &&
                                                 n.data instanceof ArrayBuffer
@@ -846,8 +850,8 @@
                                                           n.data
                                                       )),
                                                       'function' ==
-                                                          typeof a.debug &&
-                                                          a.debug(
+                                                          typeof u.debug &&
+                                                          u.debug(
                                                               '--- got data length: ' +
                                                                   r.length
                                                           ),
@@ -869,15 +873,15 @@
                                                           return n;
                                                       })().join(''))
                                                     : n.data),
-                                            (a.serverActivity = t()),
-                                            u !== e.LF)
+                                            (u.serverActivity = t()),
+                                            a !== e.LF)
                                         ) {
                                             for (
-                                                'function' == typeof a.debug &&
-                                                    a.debug('<<< ' + u),
+                                                'function' == typeof u.debug &&
+                                                    u.debug('<<< ' + a),
                                                     m = [],
                                                     h = 0,
-                                                    y = (g = o.unmarshall(u))
+                                                    y = (g = o.unmarshall(a))
                                                         .length;
                                                 h < y;
                                                 h++
@@ -885,20 +889,20 @@
                                                 switch ((d = g[h]).command) {
                                                     case 'CONNECTED':
                                                         'function' ==
-                                                            typeof a.debug &&
-                                                            a.debug(
+                                                            typeof u.debug &&
+                                                            u.debug(
                                                                 'connected to server ' +
                                                                     d.headers
                                                                         .server
                                                             ),
-                                                            (a.connected = !0),
-                                                            a._setupHeartbeat(
+                                                            (u.connected = !0),
+                                                            u._setupHeartbeat(
                                                                 d.headers
                                                             ),
                                                             m.push(
                                                                 'function' ==
-                                                                typeof a.connectCallback
-                                                                    ? a.connectCallback(
+                                                                typeof u.connectCallback
+                                                                    ? u.connectCallback(
                                                                           d
                                                                       )
                                                                     : void 0
@@ -909,11 +913,11 @@
                                                             d.headers
                                                                 .subscription),
                                                             (f =
-                                                                a.subscriptions[
+                                                                u.subscriptions[
                                                                     l
                                                                 ] ||
-                                                                a.onreceive)
-                                                                ? ((c = a),
+                                                                u.onreceive)
+                                                                ? ((c = u),
                                                                   (p =
                                                                       d.headers[
                                                                           'message-id'
@@ -949,8 +953,8 @@
                                                                   m.push(f(d)))
                                                                 : m.push(
                                                                       'function' ==
-                                                                      typeof a.debug
-                                                                          ? a.debug(
+                                                                      typeof u.debug
+                                                                          ? u.debug(
                                                                                 'Unhandled received MESSAGE: ' +
                                                                                     d
                                                                             )
@@ -960,8 +964,8 @@
                                                     case 'RECEIPT':
                                                         m.push(
                                                             'function' ==
-                                                            typeof a.onreceipt
-                                                                ? a.onreceipt(d)
+                                                            typeof u.onreceipt
+                                                                ? u.onreceipt(d)
                                                                 : void 0
                                                         );
                                                         break;
@@ -976,8 +980,8 @@
                                                     default:
                                                         m.push(
                                                             'function' ==
-                                                            typeof a.debug
-                                                                ? a.debug(
+                                                            typeof u.debug
+                                                                ? u.debug(
                                                                       'Unhandled frame: ' +
                                                                           d
                                                                   )
@@ -986,8 +990,8 @@
                                                 }
                                             return m;
                                         }
-                                        'function' == typeof a.debug &&
-                                            a.debug('<<< PONG');
+                                        'function' == typeof u.debug &&
+                                            u.debug('<<< PONG');
                                     })),
                                     (this.ws.onclose = ((d = this),
                                     function() {
@@ -1153,7 +1157,7 @@
         g = (y.Stomp,
         h(function(e, o) {
             (function() {
-                var e, r, i, s, c, u;
+                var e, r, i, s, c, a;
                 (r = t),
                     ((e = y).Stomp.setInterval = function(e, t) {
                         return setInterval(t, e);
@@ -1195,7 +1199,7 @@
                             o
                         );
                     }),
-                    (u = function(e) {
+                    (a = function(e) {
                         var t, o, r, i;
                         return (
                             (t = n.client),
@@ -1243,7 +1247,7 @@
                     }),
                     (s = function(t) {
                         var n;
-                        return (n = u(t)), e.Stomp.over(n);
+                        return (n = a(t)), e.Stomp.over(n);
                     }),
                     (o.overTCP = i),
                     (o.overWS = s);
@@ -1299,8 +1303,8 @@
                 this.subscription.unsubscribe();
         });
     var S = function() {
-        (this.User = new u()),
-            (this.Asset = new a()),
+        (this.User = new a()),
+            (this.Asset = new u()),
             (this.Payment = new d()),
             (this.Subscription = new p()),
             (this.Misc = new f()),

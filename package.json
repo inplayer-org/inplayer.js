@@ -37,6 +37,7 @@
     "inplayer"
   ],
   "dependencies": {
+    "es6-promise": "^4.2.2",
     "node-localstorage": "^1.3.0",
     "stompjs": "^2.3.3",
     "ws": "^3.3.2"
