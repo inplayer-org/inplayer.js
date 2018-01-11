@@ -7,24 +7,26 @@
         _run = function(fnArray) {
             var fn = fnArray.shift();
 
-            fn()
+            new Promise(fn)
                 .then(function(data) {
-                    console.log(data);
-                    console.log('');
+                    if (data.warn) {
+                        console.warn(data.warn + '\n');
+                    } else {
+                        console.log(data);
+                        console.log('');
+                    }
 
                     if (fnArray.length) {
                         _run(fnArray);
                     }
                 })
                 .catch(function(data) {
-                    console.log(data.description, data.errors, fn);
-                    console.log('');
+                    console.error(data.description, data.errors);
                 });
         };
 
     SDKTest = (function() {
         var token,
-            fremium_access_id,
             test_subscription,
             access_fees = [],
             asset_id = 36187,
@@ -56,7 +58,7 @@
 
                 return {
                     origin: location.href,
-                    accessFee: discountData.accessFee,
+                    accessFee: discountData.accessFeeId,
                     paymentMethod: 2,
                     voucherCode: discountData.voucherCode,
                 };
@@ -92,24 +94,23 @@
                 this.changePassword,
 
                 /* Asset */
-                this.checkAccessForAsset.bind(this, asset_id),
+                this.checkAccessForAsset,
                 this.findAsset,
                 this.findExternalAsset,
                 this.findPackage,
-                this.getAssetAccessFees.bind(this, asset_id),
-                // // this.getFreemiumAccess,
+                this.getAssetAccessFees,
 
                 /* Payments */
                 this.getPaymentMethods,
                 this.getPayPalParams,
                 this.payForAsset,
                 this.getPaymentTools,
+                this.getFreemiumAccess,
 
                 /* Misc */
                 this.getBranding,
                 this.getDlcLinks,
                 this.getDiscount,
-                // // this.downloadProtectedFile,
 
                 /* Subscription */
                 this.getSubscriptions,
@@ -119,327 +120,350 @@
         }
 
         _extend(Constructor.prototype, {
-            logIn: function() {
-                return new Promise(function(resolve, reject) {
-                    console.log('### InPlayer.User.signIn ###');
-                    user.signIn(userData).then(function(res) {
-                        if (!res.errors) {
-                            token = res.access_token;
-                            resolve(res);
-                        } else {
-                            console.log('### InPlayer.User.signUp ###');
-                            user.signUp(userData).then(function(res) {
-                                if (!res.errors) {
-                                    token = res.access_token;
-                                    resolve(res);
-                                } else {
-                                    res.description = '# InPlayer.User.signIn';
-                                    reject(res);
-                                }
-                            });
-                        }
-                    });
-                });
-            },
-            logOut: function() {
-                console.log('### InPlayer.User.signOut ###');
-                return new Promise(function(resolve, reject) {
-                    user.signOut().then(function(res) {
+            logIn: function(resolve, reject) {
+                console.log('### InPlayer.User.signIn ###');
+
+                user.signIn(userData).then(function(res) {
+                    if (!res.errors) {
+                        token = res.access_token;
                         resolve(res);
-                    });
-                });
-            },
-            isSignedIn: function() {
-                console.log('### InPlayer.User.isSignedIn ###');
-                return new Promise(function(resolve, reject) {
-                    resolve(user.isSignedIn());
-                });
-            },
-            getToken: function() {
-                console.log('### InPlayer.User.token ###');
-                return new Promise(function(resolve) {
-                    resolve(user.token());
-                });
-            },
-            setTokenInCookie: function() {
-                console.log('### InPlayer.User.setTokenInCookie ###');
-                return new Promise(function(resolve, reject) {
-                    if (user.token() === token) {
-                        resolve(token);
                     } else {
-                        reject({
-                            description: '# InPlayer.User.setTokenInCookie',
-                            errors:
-                                'For some reason token was not set in local storage. This happens in Chrome when using the file:// protocol',
+                        console.log('### InPlayer.User.signUp ###');
+                        user.signUp(userData).then(function(res) {
+                            if (!res.errors) {
+                                token = res.access_token;
+                                resolve(res);
+                            } else {
+                                res.description = '# InPlayer.User.signIn';
+                                reject(res);
+                            }
                         });
                     }
                 });
             },
-            requestNewPassword: function() {
+            logOut: function(resolve, reject) {
+                console.log('### InPlayer.User.signOut ###');
+
+                user.signOut().then(function(res) {
+                    resolve(res);
+                });
+            },
+            isSignedIn: function(resolve, reject) {
+                console.log('### InPlayer.User.isSignedIn ###');
+                resolve(user.isSignedIn());
+            },
+            getToken: function(resolve) {
+                console.log('### InPlayer.User.token ###');
+                resolve(user.token());
+            },
+            setTokenInCookie: function(resolve, reject) {
+                console.log('### InPlayer.User.setTokenInCookie ###');
+
+                if (user.token() === token) {
+                    resolve(token);
+                } else {
+                    reject({
+                        description: '# InPlayer.User.setTokenInCookie',
+                        errors:
+                            'For some reason token was not set in local storage. This happens in Chrome when using the file:// protocol',
+                    });
+                }
+            },
+            requestNewPassword: function(resolve, reject) {
                 console.log('### InPlayer.User.requestNewPassword ###');
-                return new Promise(function(resolve, reject) {
-                    var data = {
-                        email: userData.email,
-                        merchantUuid: userData.merchantUuid,
-                    };
 
-                    user.requestNewPassword(data).then(function(res) {
+                var data = {
+                    email: userData.email,
+                    merchantUuid: userData.merchantUuid,
+                };
+
+                user.requestNewPassword(data).then(function(res) {
+                    if (!res.errors) {
                         resolve(res);
-                    });
+                    } else {
+                        res.description = '# InPlayer.User.requestNewPassword';
+                        reject(res);
+                    }
                 });
             },
-            setNewPassword: function() {
+            setNewPassword: function(resolve, reject) {
                 console.log('### InPlayer.User.setNewPassword ###');
-                return new Promise(function(resolve, reject) {
-                    user
-                        .setNewPassword(userData, '49160496d22483ec')
-                        .then(function(res) {
-                            if (!res.errors) {
-                                resolve(res);
-                            } else {
-                                res.description =
-                                    '# InPlayer.User.setNewPassword';
-                                reject(res);
-                            }
-                        });
+
+                var mailToken = 'e01391be769497c9';
+                user.setNewPassword(userData, mailToken).then(function(res) {
+                    if (!res.errors) {
+                        if (res.status === 204) {
+                            resolve('Setting a new passwort went well');
+                        } else {
+                            resolve({
+                                warn:
+                                    'Setting a new password did not go well. You may be using an expired token. This token is sent by e-mail when a new password request has been made.',
+                            });
+                        }
+                    } else {
+                        res.description = '# InPlayer.User.setNewPassword';
+                        reject(res);
+                    }
                 });
             },
-            getSocialLoginUrls: function() {
+            getSocialLoginUrls: function(resolve, reject) {
                 console.log('### InPlayer.User.getSocialLoginUrls ###');
-                return new Promise(function(resolve, reject) {
-                    var state = btoa(
-                        JSON.stringify({
-                            uuid: userData.merchantUuid,
-                            redirect: window.location.href,
-                        })
-                    );
 
-                    user.getSocialLoginUrls(state).then(function(res) {
+                var state = btoa(
+                    JSON.stringify({
+                        uuid: userData.merchantUuid,
+                        redirect: window.location.href,
+                    })
+                );
+
+                user.getSocialLoginUrls(state).then(function(res) {
+                    if (!res.errors) {
                         resolve(res);
-                    });
+                    } else {
+                        res.description = '# InPlayer.User.getSocialLoginUrls';
+                        reject(res);
+                    }
                 });
             },
-            getRegisterFields: function() {
+            getRegisterFields: function(resolve, reject) {
                 console.log('### InPlayer.User.getRegisterFields ###');
-                return new Promise(function(resolve, reject) {
-                    user
-                        .getRegisterFields(userData.merchantUuid)
-                        .then(function(res) {
+
+                user
+                    .getRegisterFields(userData.merchantUuid)
+                    .then(function(res) {
+                        if (!res.errors) {
                             resolve(res);
-                        });
-                });
+                        } else {
+                            res.description =
+                                '# InPlayer.User.getRegisterFields';
+                            reject(res);
+                        }
+                    });
             },
-            updateAccount: function() {
+            updateAccount: function(resolve, reject) {
                 console.log('### InPlayer.User.updateAccount ###');
-                return new Promise(function(resolve, reject) {
-                    var data = {
-                        fullName:
-                            'New_Random_Name_' +
-                            Math.round(Math.random() * 10000),
-                        gender: 'male',
-                        favorite_sport: 'soccer',
-                    };
 
-                    user.updateAccount(data, token).then(function(res) {
-                        if (!res.errors) {
-                            resolve(res);
-                        } else {
-                            res.description = '# InPlayer.User.updateAccount';
-                            reject(res);
-                        }
-                    });
+                var data = {
+                    fullName:
+                        'New_Random_Name_' + Math.round(Math.random() * 10000),
+                    gender: 'male',
+                    favorite_sport: 'soccer',
+                };
+
+                user.updateAccount(data, token).then(function(res) {
+                    if (!res.errors) {
+                        resolve(res);
+                    } else {
+                        res.description = '# InPlayer.User.updateAccount';
+                        reject(res);
+                    }
                 });
             },
-            changePassword: function() {
+            changePassword: function(resolve, reject) {
                 console.log('### InPlayer.User.changePassword ###');
-                return new Promise(function(resolve, reject) {
-                    var data = {
-                        oldPassword: userData.password,
-                        password: userData.password,
-                        passwordConfirmation: userData.passwordConfirmation,
-                    };
 
-                    user.changePassword(data, token).then(function(res) {
-                        console.log(res);
-                    });
+                var data = {
+                    oldPassword: userData.password,
+                    password: userData.password,
+                    passwordConfirmation: userData.passwordConfirmation,
+                };
+
+                user.changePassword(data, token).then(function(res) {
+                    if (!res.errors) {
+                        resolve(res);
+                    } else {
+                        res.description = '# InPlayer.User.changePassword';
+                        reject(res);
+                    }
                 });
             },
-            checkAccessForAsset: function(assets) {
+            checkAccessForAsset: function(resolve, reject) {
                 console.log('### InPlayer.Asset.checkAccessForAsset ###');
-                return new Promise(function(resolve, reject) {
-                    asset
-                        .checkAccessForAsset(token, assets)
-                        .then(function(res) {
-                            resolve(res);
-                        });
+
+                asset.checkAccessForAsset(token, asset_id).then(function(res) {
+                    resolve(res);
                 });
             },
-            findAsset: function() {
+            findAsset: function(resolve, reject) {
                 console.log('### InPlayer.Asset.findAsset ###');
-                return new Promise(function(resolve, reject) {
-                    asset
-                        .findAsset(asset_id, userData.merchantUuid)
-                        .then(function(res) {
-                            resolve(res);
-                        });
-                });
-            },
-            findExternalAsset: function() {
-                console.log('### InPlayer.Asset.findExternalAsset ###');
-                return new Promise(function(resolve, reject) {
-                    asset
-                        .findExternalAsset(
-                            external_asset.type,
-                            external_asset.id
-                        )
-                        .then(function(res) {
-                            if (!res.errors) {
-                                resolve(res);
-                            } else {
-                                res.description =
-                                    '# InPlayer.User.findExternalAsset';
-                                reject(res);
-                            }
-                        });
-                });
-            },
-            findPackage: function() {
-                console.log('### InPlayer.Asset.findPackage ###');
-                return new Promise(function(resolve, reject) {
-                    asset.findPackage(package.id).then(function(res) {
+
+                asset
+                    .findAsset(asset_id, userData.merchantUuid)
+                    .then(function(res) {
                         if (!res.errors) {
                             resolve(res);
                         } else {
-                            res.description = '# Inplayer.Asset.findPackage';
+                            res.description = '# InPlayer.Asset.findAsset';
                             reject(res);
                         }
                     });
-                });
             },
-            getAssetAccessFees: function() {
-                console.log('### InPlayer.Asset.getAssetAccessFees ###');
-                return new Promise(function(resolve, reject) {
-                    asset.getAssetAccessFees(asset_id).then(function(res) {
-                        if (res.length) {
-                            access_fees = res;
-                        }
-                        resolve(res);
-                    });
-                });
-            },
-            getFreemiumAccess: function(access_fee) {
-                console.log('### InPlayer.Asset.freemiumAsset ###');
-                return new Promise(function(resolve, reject) {
-                    asset.freemiumAsset(token, access_fee);
-                });
-            },
-            getBranding: function() {
-                console.log('### InPlayer.Misc.getBranding ###');
-                return new Promise(function(resolve, reject) {
-                    misc.getBranding(userData.merchantUuid).then(function(res) {
-                        resolve(res);
-                    });
-                });
-            },
-            getDlcLinks: function() {
-                console.log('### InPlayer.Misc.getDlcLinks ###');
-                return new Promise(function(resolve, reject) {
-                    misc.getDlcLinks(token, asset_id).then(function(res) {
-                        resolve(res);
-                    });
-                });
-            },
-            getDiscount: function() {
-                console.log('### InPlayer.Misc.getDiscount ###');
-                return new Promise(function(resolve, reject) {
-                    misc
-                        .getDiscount(token, get_discount_data())
-                        .then(function(res) {
-                            resolve(res);
-                        });
-                });
-            },
-            getPaymentMethods: function() {
-                console.log('### InPlayer.Payment.getPaymentMethods ###');
-                return new Promise(function(resolve, reject) {
-                    payment.getPaymentMethods(token).then(function(res) {
-                        resolve(res);
-                    });
-                });
-            },
-            getPaymentTools: function() {
-                console.log('### InPlayer.Payment.getPaymentTools ###');
-                return new Promise(function(resolve, reject) {
-                    payment.getPaymentTools(token, 1).then(function(res) {
-                        resolve(res);
-                    });
-                });
-            },
-            getPayPalParams: function() {
-                console.log('### InPlayer.Payment.getPayPalParams ###');
-                return new Promise(function(resolve, reject) {
-                    payment
-                        .getPayPalParams(token, get_paypal_data())
-                        .then(function(res) {
-                            resolve(res);
-                        });
-                });
-            },
-            payForAsset: function() {
-                console.log('### InPlayer.Payment.payForAsset ###');
-                return new Promise(function(resolve, reject) {
-                    payment
-                        .payForAsset(token, get_card_data())
-                        .then(function(res) {
-                            resolve(res);
-                        });
-                });
-            },
-            getSubscriptions: function() {
-                console.log('### InPlayer.Subscription.getSubscriptions ###');
-                return new Promise(function(resolve, reject) {
-                    subscription.getSubscriptions(token).then(function(res) {
-                        if (res.length) {
-                            test_subscription = res[0];
-                        }
+            findExternalAsset: function(resolve, reject) {
+                console.log('### InPlayer.Asset.findExternalAsset ###');
 
+                asset
+                    .findExternalAsset(external_asset.type, external_asset.id)
+                    .then(function(res) {
+                        if (!res.errors) {
+                            resolve(res);
+                        } else {
+                            res.description =
+                                '# InPlayer.User.findExternalAsset';
+                            reject(res);
+                        }
+                    });
+            },
+            findPackage: function(resolve, reject) {
+                console.log('### InPlayer.Asset.findPackage ###');
+
+                asset.findPackage(package.id).then(function(res) {
+                    if (!res.errors) {
+                        resolve(res);
+                    } else {
+                        res.description = '# Inplayer.Asset.findPackage';
+                        reject(res);
+                    }
+                });
+            },
+            getAssetAccessFees: function(resolve, reject) {
+                console.log('### InPlayer.Asset.getAssetAccessFees ###');
+
+                asset.getAssetAccessFees(asset_id).then(function(res) {
+                    if (res.length) {
+                        access_fees = res;
+                    }
+                    resolve(res);
+                });
+            },
+            getFreemiumAccess: function(resolve, reject) {
+                console.log('### InPlayer.Asset.freemiumAsset ###');
+
+                var freemium_access_id;
+                access_fees.forEach(function(fee) {
+                    if (
+                        fee.access_type &&
+                        fee.access_type.name === 'freemium'
+                    ) {
+                        freemium_access_id = fee.id;
+                    }
+                });
+
+                if (!freemium_access_id) {
+                    resolve({
+                        warn:
+                            'There is no freemium access fee available for current asset ' +
+                            asset_id +
+                            '. Please create one before testing this method.',
+                    });
+
+                    return;
+                }
+
+                asset
+                    .getFreemiumAsset(token, freemium_access_id)
+                    .then(function(res) {
+                        if (!res.errors) {
+                            resolve(res);
+                        } else {
+                            res.description = '# InPlayer.Asset.freemiumAsset';
+                            reject(res);
+                        }
+                    });
+            },
+            getBranding: function(resolve, reject) {
+                console.log('### InPlayer.Misc.getBranding ###');
+
+                misc.getBranding(userData.merchantUuid).then(function(res) {
+                    resolve(res);
+                });
+            },
+            getDlcLinks: function(resolve, reject) {
+                console.log('### InPlayer.Misc.getDlcLinks ###');
+
+                misc.getDlcLinks(token, asset_id).then(function(res) {
+                    resolve(res);
+                });
+            },
+            getDiscount: function(resolve, reject) {
+                console.log('### InPlayer.Misc.getDiscount ###');
+
+                misc
+                    .getDiscount(token, get_discount_data())
+                    .then(function(res) {
                         resolve(res);
                     });
+            },
+            getPaymentMethods: function(resolve, reject) {
+                console.log('### InPlayer.Payment.getPaymentMethods ###');
+
+                payment.getPaymentMethods(token).then(function(res) {
+                    resolve(res);
                 });
             },
-            subscribeForAsset: function() {
+            getPaymentTools: function(resolve, reject) {
+                console.log('### InPlayer.Payment.getPaymentTools ###');
+
+                payment.getPaymentTools(token, 1).then(function(res) {
+                    resolve(res);
+                });
+            },
+            getPayPalParams: function(resolve, reject) {
+                console.log('### InPlayer.Payment.getPayPalParams ###');
+
+                payment
+                    .getPayPalParams(token, get_paypal_data())
+                    .then(function(res) {
+                        resolve(res);
+                    });
+            },
+            payForAsset: function(resolve, reject) {
+                console.log('### InPlayer.Payment.payForAsset ###');
+
+                payment.payForAsset(token, get_card_data()).then(function(res) {
+                    resolve(res);
+                });
+            },
+            getSubscriptions: function(resolve, reject) {
+                console.log('### InPlayer.Subscription.getSubscriptions ###');
+
+                subscription.getSubscriptions(token).then(function(res) {
+                    if (res.length) {
+                        test_subscription = res[0];
+                    }
+
+                    resolve(res);
+                });
+            },
+            subscribeForAsset: function(resolve, reject) {
                 console.log('### InPlayer.Subscription.assetSubscribe ###');
-                return new Promise(function(resolve, reject) {
-                    subscription
-                        .assetSubscribe(token, get_card_data())
-                        .then(function(res) {
-                            resolve(res);
-                        });
-                });
+
+                subscription
+                    .assetSubscribe(token, get_card_data())
+                    .then(function(res) {
+                        resolve(res);
+                    });
             },
-            cancelSubscription: function() {
+            cancelSubscription: function(resolve, reject) {
                 console.log('### InPlayer.Subscription.cancelSubscription ###');
+
                 if (!test_subscription) {
                     return Promise.resolve('No subscriptions to cancel');
                 }
 
-                return new Promise(function(resolve, reject) {
-                    subscription
-                        .cancelSubscription(
-                            test_subscription.unsubscribe_url,
-                            token
-                        )
-                        .then(function(res) {
-                            resolve(res);
-                        });
-                });
-            },
-            getAccountInfo: function() {
-                console.log('### InPlayer.User.getAccountInfo ###');
-                return new Promise(function(resolve, reject) {
-                    user.getAccountInfo(token).then(function(res) {
+                subscription
+                    .cancelSubscription(
+                        test_subscription.unsubscribe_url,
+                        token
+                    )
+                    .then(function(res) {
                         resolve(res);
                     });
+            },
+            getAccountInfo: function(resolve, reject) {
+                console.log('### InPlayer.User.getAccountInfo ###');
+
+                user.getAccountInfo(token).then(function(res) {
+                    resolve(res);
                 });
             },
         });
