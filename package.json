@@ -1,7 +1,12 @@
 {
   "name": "@inplayer/inplayer-sdk",
   "version": "0.1.9",
+  "author": "InPlayer",
+  "license": "ISC",
   "description": "A Javascript SDK for Inplayer's RESTful API",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/inplayer.umd.js",
   "cjs:main": "dist/inplayer.cjs.js",
   "browser": "dist/inplayer.umd.js",
@@ -31,8 +36,6 @@
     "sdk",
     "inplayer"
   ],
-  "author": "InPlayer",
-  "license": "ISC",
   "dependencies": {
     "node-localstorage": "^1.3.0",
     "stompjs": "^2.3.3",
