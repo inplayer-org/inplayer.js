@@ -1,6 +1,8 @@
 InPlayer JavaScript SDK
 =======================
 
+[![Build Status](https://travis-ci.org/inplayer-org/inplayer.js.svg?branch=ci)](https://travis-ci.org/inplayer-org/inplayer.js)
+
 [inplayer.com](https://inplayer.com)
 
 ## Installation
