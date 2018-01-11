@@ -1,4 +1,4 @@
-import { expect } from 'Chai';
+import { expect } from 'chai';
 import Asset from '../src/Models/Asset';
 
 describe('Asset', function() {

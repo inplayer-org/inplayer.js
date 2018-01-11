@@ -1,5 +1,5 @@
 var jsdom = require('mocha-jsdom');
-import { expect } from 'Chai';
+import { expect } from 'chai';
 import Misc from '../src/Models/Misc';
 
 describe('Misc', function() {

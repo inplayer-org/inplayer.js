@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- node
+- '7'
+- '6'
+- '5'
+- '4'
+deploy:
+  provider: npm
+  email: filip.nikolovski@inplayer.com
+  api_key:
+    secure: uHCseVxB5Fq14u2AGbZqkxcpvQ08x7+UKjNryQZANM5A/9v8wyyUoqytIAFikdsxUj9qGTMgy7KknTcOAs+/9J3mC62QaZ5N77yrag1nuOMQjvz+Osm96FUMPjl1woqVHl5I+jG+5tw2Ke5UfifbNc8mrb8oGxZBf1qr5AxKmkwGpvGdrS1c/yWPCg+611i/6XNQce7BWVPQHbNo9KbKT9lb8CTrQE3nHnc6vTm4bjNGePTkW9qG8f7o9K/Jc3TbMEw+S0Gnl0X8+H4G4dPQVArpukGr0sHa7QNvIUZkAvjkkDXNtLkhARJ3TEbeJ24i7m/ZxxOOW3CPlFoSL9a3PWjO+fO4hTa8xZY3MZcvPfZuikSK9gnF8ujcPLQ5vKJa1cqgAisHTab0426NXB6B0E3uZuI0BtkQQjJJJGbzSFaTViN74uvb6FlWdEJf3UXO3iftPCJmGqnu5Mhvo/FiZ8Kn5tPBl/PqrJThes+syK6adR81X+d/y8mR8Ctva+VC0V6r70HiHRSKOQI/N/ivrvYbQKi4aW1jQECZTx7Q6S/mW+zL4GnvKJYmRdpW3B+2bEavt843PebkYr34PNpbT5yrW3jAIirhx6UMXMCqJB0THvp5ktLOWOarWmiA+Q+nk+QeMaoQX3ksPAvmhA5jHuSJvWc71kNmspHt5r0hYVw=
+  on:
+    tags: true
+    repo: inplayer-org/inplayer.js
+  tag: next

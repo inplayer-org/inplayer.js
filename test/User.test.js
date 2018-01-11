@@ -1,5 +1,5 @@
 var jsdom = require('mocha-jsdom');
-import { expect } from 'Chai';
+import { expect } from 'chai';
 import User from '../src/Models/User';
 
 describe('User', function() {
