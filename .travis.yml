@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+- node
+- '7'
+- '6'
+- '5'
+- '4'
+deploy:
+  provider: npm
+  email: filip.nikol92@gmail.com
+  api_key:
+    secure: cNMBOjc6pYfkCXrgxE5zcqouqDpZAtpYQExuuPpS8xXr+v6KlJgplwZHX9ccyQCJdiQzTOEXd2pKe4b38bYDJ6vgeS1mJHHo8wt4W1pIwPdgj5X0pHIfVfkByt98iDqrpmUBA/2gfkAjqxBwElysPcDXCrTSydH1GlGbL7N147fH8tXDXXJJNH1cXBRBPaaVfwsCx4VdYBTmI4er/Bnw9Nmc7BwJzsCaPX6rHP97W3M8kicw/kOQLqxXhtlaRsyYUgACe++VYH1un5dhmT2ov0jLXO3bcHOqaV5DuCLKnBpNLfNaAQrxQlVrzJcGvbUzDrSKJ+QCFBMnq9jQT4R9ZNmhFCavwKClpHxQHaUlz5B5QMKBWKB/YO6sz3YyvW8bXOdvwmxnWFz5IJeDPzzkAyE5TASfskf0+25nCr9ijOBbSTLNNe8a7+7Xcoij3xy6B7ferZX/1SXQCRKeGFys/9FHeTI/J732FnCtMvP38T4E7dkjXIUPxb0VYJjsSneBxYkpfdBZ6tUE+x00/MXr4506Wlr9HT+hd/3PWFcjZSqGW47d6DMzq07Z1OoRvQ7YwGG1V/J8QKSjuiuO6obO4frZpgWhMVPbmApazxGCY4jn5Z+Q13ZpoW1O4jfGfy8EdhHh/lIZAKcrCYH8+zMFQppl/h+3AeerDCHxjZSVOMo=
+  on:
+    tags: true
+    repo: inplayer-org/inplayer.js
