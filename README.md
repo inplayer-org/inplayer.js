@@ -1,6 +1,7 @@
 InPlayer JavaScript SDK
 =======================
 
+[![npm version](https://img.shields.io/npm/v/@inplayer-org/inplayer.js.svg)](https://www.npmjs.com/package/@inplayer-org/inplayer.js)
 [![Build Status](https://travis-ci.org/inplayer-org/inplayer.js.svg?branch=ci)](https://travis-ci.org/inplayer-org/inplayer.js)
 
 [inplayer.com](https://inplayer.com)
@@ -11,6 +12,12 @@ Install the package from [npm](https://www.npmjs.com/package/@inplayer-org/inpla
 
 ```bash
 npm install --save @inplayer-org/inplayer.js
+```
+
+Alternatively you can include the script like so:
+
+```
+<script src="https://unpkg.com/@inplayer-org/inplayer.js"></script>
 ```
 
 ## Usage
