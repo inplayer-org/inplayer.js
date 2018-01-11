@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://repo.inplayer.com/platform/inplayer.js.git"
+    "url": "https://github.com/inplayer-org/inplayer.js.git"
   },
   "babel": {
     "presets": [
