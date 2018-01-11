@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>InPlayer SDK</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+  <div id="status"></div>
+</body>
+<script src="js/inplayer.js"></script>
+<script>
+  // console.log(InPlayer);
+  InPlayer.User.signIn({
+      merchantUid: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
+      referrer: 'http://localhost:3000/',
+      email: 'vld_test@consumer.com',
+      password: '11111111',
+  }).then(data => console.log(data));
+  // InPlayer.Misc.getDiscount('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTMyNDMwODgsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTMyNDY2ODh9.1-8i9lsUaIL6BF1MRelGlU7J2FGi0xNlr9MB18oqYG4',{
+  //   voucher_code: 'm-true',
+  //   merchant_id: 21,
+  //   access_fee_id: 2042
+  // }).then(data =>console.log(data));
+  //
+  // /* signin call */
+  // if(inPlayer.User.signIn(
+  //   {
+  //     merchant_uuid: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
+  //     referrer: 'http://localhost:3000/',
+  //     email: 'vld_test@consumer.com',
+  //     password: '11111111',
+  //   }
+  // )){
+  //   document.getElementById('status').innerHTML +=
+  //   `<p>
+  //   Successfully signed in.
+  //   </p>`;
+  // }
+
+  // /* sing out call */
+  // if(inPlayer.User.signOut()){
+  //   document.getElementById('status').innerHTML += `<p>
+  //     Successfully signed out.
+  //   </p>`;
+  // }
+
+  // /* Request new pass */
+  // if(inPlayer.User.requestNewPassword({
+  //   email: 'test32@test.com',
+  //   merchant_uuid: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
+  // })){
+  //   document.getElementById('status').innerHTML += `<p>
+  //     Successfully requested password.
+  //   </p>`;
+  // }
+
+  // /* Set new pass */
+  // if(inPlayer.User.setNewPassword({
+  //   'password': 'TEST123456789',
+  //   'password_confirmation': 'TEST123456789',
+  // }, 'bde216579eb833ba')){
+  //   document.getElementById('status').innerHTML += `<p>
+  //     Password set successfully.
+  //   </p>`;
+  // }
+
+  // /* Sign up call */
+  // if(inPlayer.User.signUp({
+  //   full_name: "test",
+  //   email: "test32@test.com",
+  //   password: "12345678",
+  //   password_confirmation: "12345678",
+  //   merchant_uuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
+  //   type: "consumer",
+  //   referrer: "http://localhost:3000/",
+  // })){
+  //   document.getElementById('status').innerHTML += `<p>
+  //    Successfully Signed Up.
+  //   </p>`;
+  // }
+  // const tmp = inPlayer.User.getAccountInfo('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI0OTc5Yjk2Yi1mMjQyLTQ3ODEtYTQzMi1mNDRjMzAwM2RlYTgiLCJpYXQiOjE1MTE5NDQ3NzEsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLnZ2diIsImFpZCI6MjE3MjUsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTE5NDgzNzF9.EB6Eq3jePcVttrSTEKKe8_ISN3G_GwDiuJr7b6ElRZk');
+  // tmp.then(data => console.log(data));
+  // const tmp = inPlayer.User.getSocialLoginUrls('eyJ1dWlkIjoiNTI4YjFiODAtNTg2OC00YWJjLWE5YjYtNGQzNDU1ZDcxOWM4IiwicmVkaXJlY3QiOiJodHRwOi8vc3luZGljYXRlLnZpZGVvL3ZpZGVvL2Fzc2V0LzM2MzIwP2Fzc2V0X2lkPTM2MzIwIn0');
+  // tmp.then(data=> console.log(data))
+  // InPlayer.Asset.checkAccessForAsset('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIwMzU3MzksInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIwMzkzMzl9.MMEATCu25SWpod8nfuuYcDjEQ67n4qOUFY0PECENR5Y',36320)
+  // .then(data => console.log(data));
+  // InPlayer.Asset.getDlcLinks('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIwMzU3MzksInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIwMzkzMzl9.MMEATCu25SWpod8nfuuYcDjEQ67n4qOUFY0PECENR5Y',36320)
+  // .then(data => console.log(data));
+  // InPlayer.Asset.findAsset(36320,'528b1b80-5868-4abc-a9b6-4d3455d719c8')
+  // .then(data => console.log(data));
+  // InPlayer.Asset.findPackage(36332).then(data => console.log(data));
+  // InPlayer.Asset.getAssetAccessFees(36320).then(data => console.log(data));
+  // InPlayer.Asset.freemiumAsset('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIwNDczMjgsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIwNTA5Mjh9.dZ_xAEiwcJvisovAI-2y72IP8R0IW8z04tPe8aeKv_0', {
+  //   access_fee: 2065,
+  // }).then(data => console.log(data));
+  // InPlayer.Payment.getPaymentMethod('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data => console.log(data));
+  // InPlayer.Payment.getPaymentTools('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIxMTgxMDEsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIxMjE3MDF9.ZBrNhCG0KeYfnh0HQKUJ8RD2ETghcccu5Z4MIfEusP0',1).then(data => console.log(data));
+  // InPlayer.Payment.getPaymentMethods('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIxMTgxMDEsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIxMjE3MDF9.ZBrNhCG0KeYfnh0HQKUJ8RD2ETghcccu5Z4MIfEusP0').then(data => console.log(data));
+  // InPlayer.Payment.getPayPalParams('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIxMTgxMDEsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIxMjE3MDF9.ZBrNhCG0KeYfnh0HQKUJ8RD2ETghcccu5Z4MIfEusP0',{
+  //   origin: 'http://localhost:3000',
+  //   access_fee: 2065,
+  //   payment_method: 2,
+  // }).then(data => console.log(data));
+  // InPlayer.Subscriptions.getSubscriptions('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIxMTgxMDEsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIxMjE3MDF9.ZBrNhCG0KeYfnh0HQKUJ8RD2ETghcccu5Z4MIfEusP0')
+  // .then(data=> console.log(data));
+  // InPlayer.User.getRegisterFields('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data=>console.log(data));
+  // InPlayer.subscribe('8425fe2d-b082-4b1d-9080-f3c155990744',
+  //     {
+  //       onmessage: (message) => { console.log('called'); let body = JSON.parse(message.body); console.log(body, 'message') },
+  //       onopen: (e) => console.log('open'),
+  //       onclose: (e) => console.log('close', e)
+  //     });
+  //
+  // InPlayer.unsubscribe();
+</script>
+</html>

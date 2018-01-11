@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>User - InPlayer SDK</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/lucid.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+            InPlayer SDK
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.1.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+<div>
+    <div id="sidebar">
+    <div id="classes">
+        <ul id="api-classes" class="nav nav-list">
+                <li><a href="../classes/Asset.html">Asset</a></li>
+                <li><a href="../classes/InPlayer.html">InPlayer</a></li>
+                <li><a href="../classes/Misc.html">Misc</a></li>
+                <li><a href="../classes/Payment.html">Payment</a></li>
+                <li><a href="../classes/Subscription.html">Subscription</a></li>
+                <li><a href="../classes/User.html">User</a></li>
+        </ul>
+    </div>
+    </div>
+</div>
+        </div>
+        <div class="span9">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>User</h1>
+</div>
+
+
+
+
+
+
+<div class="yuidoc-class-description">
+<p>Contains all Requests regarding user/account and authentication</p>
+
+</div>
+
+<!-- table of contents -->
+
+<div id="class-toc" class="page-section">
+	<h2>Table of Contents</h2>
+    <ul>
+		<li>
+			<strong>Methods</strong>
+			<ul>
+				<li><a href="#method-changePassword"><span class="im">changePassword</span>(<span class="ia">data</span><span class="ia">token</span>)</a></li>
+				<li><a href="#method-getAccountInfo"><span class="im">getAccountInfo</span>(<span class="ia">token</span>)</a></li>
+				<li><a href="#method-getRegisterFields"><span class="im">getRegisterFields</span>(<span class="ia">merchantUid</span>)</a></li>
+				<li><a href="#method-getSocialLoginUrls"><span class="im">getSocialLoginUrls</span>(<span class="ia">state</span>)</a></li>
+				<li><a href="#method-isSignedIn"><span class="im">isSignedIn</span>()</a></li>
+				<li><a href="#method-requestNewPassword"><span class="im">requestNewPassword</span>(<span class="ia">data</span>)</a></li>
+				<li><a href="#method-setNewPassword"><span class="im">setNewPassword</span>(<span class="ia">data</span><span class="ia">token</span>)</a></li>
+				<li><a href="#method-signIn"><span class="im">signIn</span>(<span class="ia">data</span>)</a></li>
+				<li><a href="#method-signOut"><span class="im">signOut</span>()</a></li>
+				<li><a href="#method-signUp"><span class="im">signUp</span>(<span class="ia">data</span>)</a></li>
+				<li><a href="#method-token"><span class="im">token</span>(<span class="ia">token</span>)</a></li>
+				<li><a href="#method-token"><span class="im">token</span>()</a></li>
+				<li><a href="#method-updateAccount"><span class="im">updateAccount</span>(<span class="ia">data</span><span class="ia">token</span>)</a></li>
+			</ul>
+		</li>
+
+
+
+	</ul>
+</div>
+
+<!-- details -->
+
+
+    <div id="methods" class="page-section">
+        <h2 class="off-left">Methods</h2>
+        <div class="item-list">
+<div id="method-changePassword" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>changePassword</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>data</code>
+				</li>
+				<li class="arg">
+						<code>token</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_User.js.html#l318"><code>src\Models\User.js:318</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Changes password for a given user</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">data</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><ul>
+<li>Contains new password</li>
+</ul>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">token</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><ul>
+<li>The authorization token</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.User
+.updateAccount({
+  email: 'test@test.com',
+  password: 'test123',
+  passwordConfirmation: 'test123'
+},'123124-1r-1r13ur1h1')
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-getAccountInfo" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>getAccountInfo</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>token</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_User.js.html#l243"><code>src\Models\User.js:243</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Gets the user/account information for a given auth token</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">token</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><ul>
+<li>The authorization token</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.User
+.getAccountInfo('afhqi83rji74hjf7e43df')
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-getRegisterFields" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>getRegisterFields</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>merchantUid</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_User.js.html#l353"><code>src\Models\User.js:353</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Gets register fields</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">merchantUid</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><ul>
+<li>The merchant UUID</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.User
+.getRegisterFields('123124-1r-1r13ur1h1')
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-getSocialLoginUrls" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>getSocialLoginUrls</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>state</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_User.js.html#l266"><code>src\Models\User.js:266</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Gets the social login urls for fb/twitter/google</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">state</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><ul>
+<li>The state for the social</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.User
+.getSocialLoginUrls('123124-1r-1r13ur1h1')
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-isSignedIn" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>isSignedIn</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">Boolean</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_User.js.html#l137"><code>src\Models\User.js:137</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Checks if user is signed in</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Boolean</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<p>InPlayer.User
+.isSignedIn()</p>
+
+			</div>
+		</div>
+</div>
+<div id="method-requestNewPassword" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>requestNewPassword</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>data</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_User.js.html#l174"><code>src\Models\User.js:174</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Requests new password for a given user</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">data</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><ul>
+<li>Contains {
+email: String,
+merchantUid: string
+}</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.User
+.requestNewPassword({
+ email: "test32@test.com",
+ merchantUid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
+})
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-setNewPassword" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>setNewPassword</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>data</code>
+				</li>
+				<li class="arg">
+						<code>token</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_User.js.html#l207"><code>src\Models\User.js:207</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Sets new password for the user</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">data</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><ul>
+<li>Contains {
+password: string
+passwordConfirmation: string
+}</li>
+</ul>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">token</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><ul>
+<li>The authorization token</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.User
+.setNewPassword({
+ password: "12345",
+ passwordConfirmation: "12345",
+}, 'afhqi83rji74hjf7e43df')
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-signIn" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>signIn</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>data</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_User.js.html#l19"><code>src\Models\User.js:19</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Signs in the user</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">data</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><ul>
+<li>Contains {
+email: string,
+password: string,
+merchantUid: string,
+referrer: string,
+}</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.User.signIn({
+ email: 'test@test.com',
+ password: 'test123',
+ merchantUid: '123-123-hf1hd1-12dhd1',
+ referrer: 'http://localhost.com'
+})
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-signOut" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>signOut</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">Boolean</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_User.js.html#l63"><code>src\Models\User.js:63</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Signs out the user and destroys cookies</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Boolean</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.User.signOut()
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-signUp" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>signUp</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>data</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_User.js.html#l90"><code>src\Models\User.js:90</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Signs up/Registers user</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">data</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><ul>
+<li>Contains {
+fullName: string,
+email: string
+password: string,
+passwordConfirmation: string,
+merchantUid: string,
+type: number
+referrer: string,
+}</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.User.signUp({
+ fullName: "test",
+ email: "test32@test.com",
+ password: "12345678",
+ passwordConfirmation: "12345678",
+ merchantUid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
+ type: "consumer",
+ referrer: "http://localhost:3000/",
+})
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-token" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>token</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>token</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Void</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_User.js.html#l161"><code>src\Models\User.js:161</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Sets Auth token into cookies</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">token</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><ul>
+<li>The Authorization token which needs to be set</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Void</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.User
+.setTokenInCookie('aed1g284i3dnfrfnd1o23rtegk')</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-token" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>token</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">String</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_User.js.html#l149"><code>src\Models\User.js:149</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Returns users Auth token</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">String</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.User
+.token()</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-updateAccount" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>updateAccount</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>data</code>
+				</li>
+				<li class="arg">
+						<code>token</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_User.js.html#l287"><code>src\Models\User.js:287</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">data</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><ul>
+<li>The new data for the account</li>
+</ul>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">token</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><ul>
+<li>The authorization token</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.User
+.updateAccount({fullName: 'test test', metadata: {country: 'Germany'}},'123124-1r-1r13ur1h1')
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+        </div>
+    </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>
