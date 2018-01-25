@@ -1,11 +1,12 @@
-import { API } from '../../constants/endpoints';
-
 /**
  * Contains all Requests connected with assets/items
  *
  * @class Asset
  */
 class Asset {
+    constructor(config) {
+        this.config = config;
+    }
     /**
      * Checks whether a given authenticated user has access for an asset
      * @method checkAccessForAsset
@@ -19,7 +20,7 @@ class Asset {
      * @return {Object}
      */
     async checkAccessForAsset(token, id) {
-        const response = await fetch(API.checkAccess(id), {
+        const response = await fetch(this.config.API.checkAccess(id), {
             headers: {
                 Authorization: 'Bearer ' + token,
             },
@@ -43,9 +44,12 @@ class Asset {
      * @return {Object}
      */
     async findAsset(assetId, merchantUuid) {
-        const response = await fetch(API.findAsset(assetId, merchantUuid), {
-            method: 'GET',
-        });
+        const response = await fetch(
+            this.config.API.findAsset(assetId, merchantUuid),
+            {
+                method: 'GET',
+            }
+        );
 
         const data = await response.json();
 
@@ -66,7 +70,7 @@ class Asset {
      */
     async findExternalAsset(assetType, externalId) {
         const response = await fetch(
-            API.findExternalAsset(assetType, externalId),
+            this.config.API.findExternalAsset(assetType, externalId),
             {
                 method: 'GET',
             }
@@ -89,7 +93,7 @@ class Asset {
      * @return {Object}
      */
     async findPackage(id) {
-        const response = await fetch(API.findPackage(id), {
+        const response = await fetch(this.config.API.findPackage(id), {
             method: 'GET',
         });
 
@@ -110,7 +114,7 @@ class Asset {
      * @return {Object}
      */
     async getAssetAccessFees(id) {
-        const response = await fetch(API.findAccessFees(id), {
+        const response = await fetch(this.config.API.findAccessFees(id), {
             method: 'GET',
         });
 
@@ -136,7 +140,7 @@ class Asset {
 
         fd.append('access_fee', accessFee);
 
-        const response = await fetch(API.freemium, {
+        const response = await fetch(this.config.API.freemium, {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + token,

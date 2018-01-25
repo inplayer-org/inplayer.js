@@ -1,11 +1,12 @@
-import { API } from '../../constants/endpoints';
-
 /**
  * Contains all Requests connected with payments
  *
  * @class Payment
  */
 class Payment {
+    constructor(config) {
+        this.config = config;
+    }
     /**
      * Get all payment methods for a User
      * @method getPaymentMethods
@@ -18,7 +19,7 @@ class Payment {
      * @return {Object}
      */
     async getPaymentMethods(token) {
-        const response = await fetch(API.getPaymentMethods, {
+        const response = await fetch(this.config.API.getPaymentMethods, {
             headers: {
                 Authorization: 'Bearer ' + token,
             },
@@ -42,11 +43,14 @@ class Payment {
      * @return {Object}
      */
     async getPaymentTools(token, paymentMethodId) {
-        const response = await fetch(API.getPaymentTools(paymentMethodId), {
-            headers: {
-                Authorization: 'Bearer ' + token,
-            },
-        });
+        const response = await fetch(
+            this.config.API.getPaymentTools(paymentMethodId),
+            {
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                },
+            }
+        );
 
         const data = await response.json();
 
@@ -102,7 +106,7 @@ class Payment {
             fd.append('voucher_code', data.voucherCode);
         }
 
-        const response = await fetch(API.payForAsset, {
+        const response = await fetch(this.config.API.payForAsset, {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + token,
@@ -143,7 +147,7 @@ class Payment {
         fd.append('payment_method', data.paymentMethod);
         fd.append('voucher_code', data.voucherCode);
 
-        const response = await fetch(API.externalPayments, {
+        const response = await fetch(this.config.API.externalPayments, {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + token,

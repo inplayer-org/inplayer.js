@@ -1,11 +1,12 @@
-import { API } from '../../constants/endpoints';
-
 /**
  * Contains mixed various types of functiosn for dlcs, discounts, branding, etc.
  *
  * @class Misc
  */
 class Misc {
+    constructor(config) {
+        this.config = config;
+    }
     /**
      * Gets all DLC links
      * @method getDlcLinks
@@ -19,7 +20,7 @@ class Misc {
      * @return {Object}
      */
     async getDlcLinks(token, assetId) {
-        const response = await fetch(API.getDlcLinks(assetId), {
+        const response = await fetch(this.config.API.getDlcLinks(assetId), {
             headers: {
                 Authorization: 'Bearer ' + token,
             },
@@ -56,7 +57,7 @@ class Misc {
         fd.append('voucher_code', data.voucherCode);
         fd.append('merchant_id', data.merchantUuid);
 
-        const response = await fetch(API.getDiscount, {
+        const response = await fetch(this.config.API.getDiscount, {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + token,
@@ -81,9 +82,12 @@ class Misc {
      * @return {Object}
      */
     async getBranding(merchantUuid) {
-        const response = await fetch(API.getBranding(merchantUuid), {
-            method: 'GET',
-        });
+        const response = await fetch(
+            this.config.API.getBranding(merchantUuid),
+            {
+                method: 'GET',
+            }
+        );
 
         const data = await response.json();
 
@@ -104,11 +108,14 @@ class Misc {
      * @return {Object}
      */
     async downloadProtectedFile(token, assetId, filename) {
-        const response = await fetch(API.downloadFile(assetId, filename), {
-            headers: {
-                Authorization: 'Bearer ' + token,
-            },
-        });
+        const response = await fetch(
+            this.config.API.downloadFile(assetId, filename),
+            {
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                },
+            }
+        );
 
         const data = await response.json();
 
