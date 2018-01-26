@@ -81,14 +81,15 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-import { API } from &#x27;../../constants/endpoints&#x27;;
-
 /**
  * Contains all Requests connected with payments
  *
  * @class Payment
  */
 class Payment {
+    constructor(config){
+      this.config = config;
+    }
     /**
      * Get all payment methods for a User
      * @method getPaymentMethods
@@ -101,7 +102,7 @@ class Payment {
      * @return {Object}
      */
     async getPaymentMethods(token) {
-        const response = await fetch(API.getPaymentMethods, {
+        const response = await fetch(this.config.API.getPaymentMethods, {
             headers: {
                 Authorization: &#x27;Bearer &#x27; + token,
             },
@@ -125,7 +126,7 @@ class Payment {
      * @return {Object}
      */
     async getPaymentTools(token, paymentMethodId) {
-        const response = await fetch(API.getPaymentTools(paymentMethodId), {
+        const response = await fetch(this.config.API.getPaymentTools(paymentMethodId), {
             headers: {
                 Authorization: &#x27;Bearer &#x27; + token,
             },
@@ -170,7 +171,7 @@ class Payment {
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async payForAsset(token, data) {
+    async payForAsset(token = &#x27;&#x27;, data = {}) {
         const fd = new FormData();
         fd.append(&#x27;number&#x27;, data.number);
         fd.append(&#x27;card_name&#x27;, data.cardName);
@@ -180,9 +181,12 @@ class Payment {
         fd.append(&#x27;access_fee&#x27;, data.accessFee);
         fd.append(&#x27;payment_method&#x27;, data.paymentMethod);
         fd.append(&#x27;referrer&#x27;, data.referrer);
-        fd.append(&#x27;voucher_code&#x27;, data.voucherCode);
 
-        const response = await fetch(API.payForAsset, {
+        if (data.voucherCode) {
+            fd.append(&#x27;voucher_code&#x27;, data.voucherCode);
+        }
+
+        const response = await fetch(this.config.API.payForAsset, {
             method: &#x27;POST&#x27;,
             headers: {
                 Authorization: &#x27;Bearer &#x27; + token,
@@ -216,14 +220,14 @@ class Payment {
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async getPayPalParams(token, data) {
+    async getPayPalParams(token = &#x27;&#x27;, data = {}) {
         const fd = new FormData();
         fd.append(&#x27;origin&#x27;, data.origin);
-        fd.append(&#x27;access_fee&#x27;, data.accessFee);
+        fd.append(&#x27;access_fee&#x27;, data.accessFeeId);
         fd.append(&#x27;payment_method&#x27;, data.paymentMethod);
         fd.append(&#x27;voucher_code&#x27;, data.voucherCode);
 
-        const response = await fetch(API.externalPayments, {
+        const response = await fetch(this.config.API.externalPayments, {
             method: &#x27;POST&#x27;,
             headers: {
                 Authorization: &#x27;Bearer &#x27; + token,

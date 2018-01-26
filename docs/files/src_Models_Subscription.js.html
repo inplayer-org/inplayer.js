@@ -81,14 +81,15 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-import { API } from &#x27;../../constants/endpoints&#x27;;
-
 /**
  * Contains all Requests connected with subscriptions
  *
  * @class Subscription
  */
 class Subscription {
+    constructor(config){
+      this.config = config;
+    }
     /**
      * Gets all subscriptions for a given user
      * @method getSubscriptions
@@ -101,7 +102,7 @@ class Subscription {
      * @return {Object}
      */
     async getSubscriptions(token) {
-        const response = await fetch(API.getSubscriptions, {
+        const response = await fetch(this.config.API.getSubscriptions, {
             method: &#x27;GET&#x27;,
             headers: {
                 Authorization: &#x27;Bearer &#x27; + token,
@@ -171,7 +172,7 @@ class Subscription {
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async assetSubscribe(token, data) {
+    async assetSubscribe(token = &#x27;&#x27;, data = {}) {
         const fd = new FormData();
         fd.append(&#x27;number&#x27;, data.number);
         fd.append(&#x27;card_name&#x27;, data.cardName);
@@ -181,9 +182,12 @@ class Subscription {
         fd.append(&#x27;access_fee&#x27;, data.accessFee);
         fd.append(&#x27;payment_method&#x27;, data.paymentMethod);
         fd.append(&#x27;referrer&#x27;, data.referrer);
-        fd.append(&#x27;voucher_code&#x27;, data.voucherCode);
 
-        const response = await fetch(API.subscribe, {
+        if (data.voucherCode) {
+            fd.append(&#x27;voucher_code&#x27;, data.voucherCode);
+        }
+
+        const response = await fetch(this.config.API.subscribe, {
             method: &#x27;POST&#x27;,
             headers: {
                 Authorization: &#x27;Bearer &#x27; + token,

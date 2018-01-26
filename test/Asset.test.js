@@ -1,11 +1,11 @@
 import { expect } from 'chai';
-import Asset from '../src/Models/Asset';
+import InPlayer from '../src';
 
 describe('Asset', function() {
     let asset;
 
     beforeEach(() => {
-        asset = new Asset();
+        asset = InPlayer.Asset;
     });
 
     describe('#checkAccessForAsset()', function() {
@@ -26,13 +26,12 @@ describe('Asset', function() {
     describe('#findAsset()', function() {
         it('should return data with asset object', async () => {
             const result = await asset.findAsset(
-                36320,
-                '528b1b80-5868-4abc-a9b6-4d3455d719c8'
+                1,
+                'c62e75f2-e090-4b0b-a3b2-ca70d52f19ac'
             );
-
             //check only 1 property (there are a lot)
             expect(result).to.include({
-                merchant_uuid: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
+                merchant_uuid: 'c62e75f2-e090-4b0b-a3b2-ca70d52f19ac',
             });
         });
     });
@@ -51,10 +50,10 @@ describe('Asset', function() {
 
     describe('#findPackage()', function() {
         it('should return data with package object', async () => {
-            const result = await asset.findPackage(36332);
+            const result = await asset.findPackage(13);
 
             //check only 1 property (there are a lot)
-            expect(result.merchant_id).equal(68);
+            expect(result.merchant_id).equal(2);
         });
     });
 

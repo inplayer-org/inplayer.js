@@ -1,19 +1,17 @@
 import LocalStorage from 'node-localstorage';
 
-import { API } from '../../constants/endpoints';
-
-import { config } from '../../config';
-
 /**
  * Contains all Requests regarding user/account and authentication
  *
  * @class User
  */
 class User {
-    constructor() {
+    constructor(config) {
         if (typeof localStorage === 'undefined' || localStorage === null) {
             localStorage = new LocalStorage('./scratch');
         }
+
+        this.config = config;
     }
 
     /**
@@ -45,7 +43,7 @@ class User {
         fd.append('referrer', data.referrer);
 
         // request
-        const response = await fetch(API.signIn, {
+        const response = await fetch(this.config.API.signIn, {
             method: 'POST',
             body: fd,
         });
@@ -55,7 +53,7 @@ class User {
         /* set cookies */
         if (responseData.access_token) {
             localStorage.setItem(
-                config.INPLAYER_TOKEN_NAME,
+                this.config.INPLAYER_TOKEN_NAME,
                 responseData.access_token
             );
         }
@@ -73,9 +71,9 @@ class User {
      * @return {Boolean}
      */
     async signOut() {
-        const token = localStorage.getItem(config.INPLAYER_TOKEN_NAME);
+        const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
 
-        const response = await fetch(API.signOut, {
+        const response = await fetch(this.config.API.signOut, {
             headers: {
                 Authorization: 'Bearer ' + token,
             },
@@ -84,7 +82,7 @@ class User {
         const data = await response.json();
         // if response is okay
         if (data.explain) {
-            localStorage.removeItem(config.INPLAYER_TOKEN_NAME);
+            localStorage.removeItem(this.config.INPLAYER_TOKEN_NAME);
         }
 
         return true;
@@ -127,7 +125,7 @@ class User {
         fd.append('type', data.type);
         fd.append('referrer', data.referrer);
 
-        const response = await fetch(API.signUp, {
+        const response = await fetch(this.config.API.signUp, {
             method: 'POST',
             body: fd,
         });
@@ -146,7 +144,9 @@ class User {
      * @return {Boolean}
      */
     isSignedIn() {
-        return localStorage.getItem(config.INPLAYER_TOKEN_NAME) !== undefined;
+        return (
+            localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !== undefined
+        );
     }
 
     /**
@@ -158,7 +158,7 @@ class User {
      * @return {String}
      */
     token() {
-        return localStorage.getItem(config.INPLAYER_TOKEN_NAME);
+        return localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
     }
 
     /**
@@ -171,7 +171,7 @@ class User {
      * @return {void}
      */
     setTokenInCookie(token = '') {
-        localStorage.setItem(config.INPLAYER_TOKEN_NAME, token);
+        localStorage.setItem(this.config.INPLAYER_TOKEN_NAME, token);
     }
 
     /**
@@ -197,7 +197,7 @@ class User {
         fd.append('email', data.email);
         fd.append('merchant_uuid', data.merchantUuid);
 
-        const response = await fetch(API.requestNewPassword, {
+        const response = await fetch(this.config.API.requestNewPassword, {
             method: 'POST',
             body: fd,
         });
@@ -230,7 +230,7 @@ class User {
             data.passwordConfirmation
         }`;
 
-        const response = await fetch(API.setNewPassword(token), {
+        const response = await fetch(this.config.API.setNewPassword(token), {
             method: 'PUT',
             body: body,
             headers: {
@@ -253,7 +253,7 @@ class User {
      * @return {Object}
      */
     async getAccountInfo(token = '') {
-        const response = await fetch(API.getAccountInfo, {
+        const response = await fetch(this.config.API.getAccountInfo, {
             method: 'GET',
             headers: {
                 Authorization: 'Bearer ' + token,
@@ -276,7 +276,7 @@ class User {
      * @return {Object}
      */
     async getSocialLoginUrls(state) {
-        const response = await fetch(API.social(state), {
+        const response = await fetch(this.config.API.social(state), {
             method: 'GET',
         });
 
@@ -306,7 +306,7 @@ class User {
             queryString += (queryString ? '&' : '') + `${newKey}=${data[key]}`;
         });
 
-        const response = await fetch(API.updateAccount, {
+        const response = await fetch(this.config.API.updateAccount, {
             method: 'PUT',
             body: queryString,
             headers: {
@@ -342,7 +342,7 @@ class User {
         fd.append('password', data.password);
         fd.append('password_confirmation', data.passwordConfirmation);
 
-        const response = await fetch(API.changePassword, {
+        const response = await fetch(this.config.API.changePassword, {
             method: 'POST',
             body: fd,
             headers: {
@@ -367,7 +367,9 @@ class User {
      * @return {Object}
      */
     async getRegisterFields(merchantUuid = '') {
-        const response = await fetch(API.getRegisterFields(merchantUuid));
+        const response = await fetch(
+            this.config.API.getRegisterFields(merchantUuid)
+        );
 
         const data = await response.json();
 

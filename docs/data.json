@@ -72,7 +72,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src\\Models\\Asset.js",
-            "line": 3,
+            "line": 1,
             "description": "Contains all Requests connected with assets/items"
         },
         "Misc": {
@@ -84,7 +84,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src\\Models\\Misc.js",
-            "line": 3,
+            "line": 1,
             "description": "Contains mixed various types of functiosn for dlcs, discounts, branding, etc."
         },
         "Payment": {
@@ -96,7 +96,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src\\Models\\Payment.js",
-            "line": 3,
+            "line": 1,
             "description": "Contains all Requests connected with payments"
         },
         "Subscription": {
@@ -108,7 +108,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src\\Models\\Subscription.js",
-            "line": 3,
+            "line": 1,
             "description": "Contains all Requests connected with subscriptions"
         },
         "User": {
@@ -120,7 +120,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src\\Models\\User.js",
-            "line": 7,
+            "line": 3,
             "description": "Contains all Requests regarding user/account and authentication"
         },
         "InPlayer": {
@@ -132,7 +132,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src\\index.js",
-            "line": 8,
+            "line": 12,
             "description": "Main class. Contains all others methods and websocket subscription"
         }
     },
@@ -140,7 +140,7 @@
     "classitems": [
         {
             "file": "src\\Models\\Asset.js",
-            "line": 9,
+            "line": 10,
             "description": "Checks whether a given authenticated user has access for an asset",
             "itemtype": "method",
             "name": "checkAccessForAsset",
@@ -168,35 +168,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 33,
-            "description": "Checks whether a given authenticated user has access for an array of assets",
-            "itemtype": "method",
-            "name": "checkAccessForMultipleAssets",
-            "async": 1,
-            "params": [
-                {
-                    "name": "token",
-                    "description": "- The Authorization token",
-                    "type": "String"
-                },
-                {
-                    "name": "ids",
-                    "description": "- Array with asset ids",
-                    "type": "Array"
-                }
-            ],
-            "example": [
-                "\n    InPlayer.Asset\n    .checkAccessForMultipleAssets('eyJ0eXAiOiJKPECENR5Y',[36320,27215])\n    .then(data => console.log(data));"
-            ],
-            "return": {
-                "description": "",
-                "type": "Object"
-            },
-            "class": "Asset"
-        },
-        {
-            "file": "src\\Models\\Asset.js",
-            "line": 57,
+            "line": 34,
             "description": "Get the asset info for a given asset ID and merchant UUID",
             "itemtype": "method",
             "name": "findAsset",
@@ -224,7 +196,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 79,
+            "line": 56,
             "description": "Get an external assets' info",
             "itemtype": "method",
             "name": "findExternalAsset",
@@ -252,7 +224,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 104,
+            "line": 81,
             "description": "Get package info for a given Package ID",
             "itemtype": "method",
             "name": "findPackage",
@@ -275,7 +247,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 125,
+            "line": 102,
             "description": "Get the access fees for a given asset ID",
             "itemtype": "method",
             "name": "getAssetAccessFees",
@@ -298,7 +270,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 146,
+            "line": 123,
             "description": "Authorize for the freemium asset (login)",
             "itemtype": "method",
             "name": "getFreemiumAsset",
@@ -326,7 +298,7 @@
         },
         {
             "file": "src\\Models\\Misc.js",
-            "line": 9,
+            "line": 10,
             "description": "Gets all DLC links",
             "itemtype": "method",
             "name": "getDlcLinks",
@@ -354,7 +326,7 @@
         },
         {
             "file": "src\\Models\\Misc.js",
-            "line": 33,
+            "line": 34,
             "description": "Gets the discount for a given ..",
             "itemtype": "method",
             "name": "getDiscount",
@@ -367,7 +339,7 @@
                 },
                 {
                     "name": "data",
-                    "description": "- {\n  voucherCode: String,\n  merchantUid: String,\n  accessFeeId: Number\n}",
+                    "description": "- {\n  voucherCode: String,\n  merchantUuid: String,\n  accessFeeId: Number\n}",
                     "type": "Object"
                 }
             ],
@@ -382,14 +354,14 @@
         },
         {
             "file": "src\\Models\\Misc.js",
-            "line": 72,
+            "line": 73,
             "description": "Gets branding for given merchant",
             "itemtype": "method",
             "name": "getBranding",
             "async": 1,
             "params": [
                 {
-                    "name": "merchantUid",
+                    "name": "merchantUuid",
                     "description": "- The UUID of the merchant",
                     "type": "String"
                 }
@@ -405,7 +377,7 @@
         },
         {
             "file": "src\\Models\\Misc.js",
-            "line": 93,
+            "line": 94,
             "description": "Downloads a file",
             "itemtype": "method",
             "name": "downloadProtectedFile",
@@ -438,7 +410,7 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 9,
+            "line": 10,
             "description": "Get all payment methods for a User",
             "itemtype": "method",
             "name": "getPaymentMethods",
@@ -461,7 +433,7 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 32,
+            "line": 33,
             "description": "Get the payment tools for an aothorization token and payment method ID",
             "itemtype": "method",
             "name": "getPaymentTools",
@@ -489,7 +461,7 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 56,
+            "line": 57,
             "description": "Makes a Payment for a given Authorization token + asset/payment details",
             "itemtype": "method",
             "name": "payForAsset",
@@ -517,7 +489,7 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 115,
+            "line": 119,
             "description": "Gets parameters for PayPal",
             "itemtype": "method",
             "name": "getPayPalParams",
@@ -545,7 +517,7 @@
         },
         {
             "file": "src\\Models\\Subscription.js",
-            "line": 9,
+            "line": 10,
             "description": "Gets all subscriptions for a given user",
             "itemtype": "method",
             "name": "getSubscriptions",
@@ -568,7 +540,7 @@
         },
         {
             "file": "src\\Models\\Subscription.js",
-            "line": 33,
+            "line": 34,
             "description": "Cancels a subscription",
             "itemtype": "method",
             "name": "cancelSubscription",
@@ -596,7 +568,7 @@
         },
         {
             "file": "src\\Models\\Subscription.js",
-            "line": 58,
+            "line": 59,
             "description": "Subscribes to a given asset",
             "itemtype": "method",
             "name": "assetSubscribe",
@@ -624,7 +596,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 19,
+            "line": 17,
             "description": "Signs in the user",
             "itemtype": "method",
             "name": "signIn",
@@ -632,12 +604,12 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- Contains {\n email: string,\n password: string,\n merchantUid: string,\n referrer: string,\n}",
+                    "description": "- Contains {\n email: string,\n password: string,\n merchantUuid: string,\n referrer: string,\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.User.signIn({\n     email: 'test@test.com',\n     password: 'test123',\n     merchantUid: '123-123-hf1hd1-12dhd1',\n     referrer: 'http://localhost.com'\n    })\n    .then(data => console.log(data));"
+                "\n    InPlayer.User.signIn({\n     email: 'test@test.com',\n     password: 'test123',\n     merchantUuid: '123-123-hf1hd1-12dhd1',\n     referrer: 'http://localhost.com'\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -647,7 +619,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 63,
+            "line": 64,
             "description": "Signs out the user and destroys cookies",
             "itemtype": "method",
             "name": "signOut",
@@ -663,7 +635,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 90,
+            "line": 91,
             "description": "Signs up/Registers user",
             "itemtype": "method",
             "name": "signUp",
@@ -671,12 +643,12 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- Contains {\n fullName: string,\n email: string\n password: string,\n passwordConfirmation: string,\n merchantUid: string,\n type: number\n referrer: string,\n}",
+                    "description": "- Contains {\n fullName: string,\n email: string\n password: string,\n passwordConfirmation: string,\n merchantUuid: string,\n type: number\n referrer: string,\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.User.signUp({\n     fullName: \"test\",\n     email: \"test32@test.com\",\n     password: \"12345678\",\n     passwordConfirmation: \"12345678\",\n     merchantUid: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n     type: \"consumer\",\n     referrer: \"http://localhost:3000/\",\n    })\n    .then(data => console.log(data));"
+                "\n    InPlayer.User.signUp({\n     fullName: \"test\",\n     email: \"test32@test.com\",\n     password: \"12345678\",\n     passwordConfirmation: \"12345678\",\n     merchantUuid: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n     type: \"consumer\",\n     referrer: \"http://localhost:3000/\",\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -686,7 +658,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 137,
+            "line": 138,
             "description": "Checks if user is signed in",
             "itemtype": "method",
             "name": "isSignedIn",
@@ -701,7 +673,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 149,
+            "line": 150,
             "description": "Returns users Auth token",
             "itemtype": "method",
             "name": "token",
@@ -716,7 +688,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 161,
+            "line": 162,
             "description": "Sets Auth token into cookies",
             "itemtype": "method",
             "name": "token",
@@ -738,7 +710,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 174,
+            "line": 175,
             "description": "Requests new password for a given user",
             "itemtype": "method",
             "name": "requestNewPassword",
@@ -746,12 +718,12 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- Contains {\n email: String,\n merchantUid: string\n}",
+                    "description": "- Contains {\n email: String,\n merchantUuid: string\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.User\n    .requestNewPassword({\n     email: \"test32@test.com\",\n     merchantUid: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n    })\n    .then(data => console.log(data));"
+                "\n    InPlayer.User\n    .requestNewPassword({\n     email: \"test32@test.com\",\n     merchantUuid: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -761,7 +733,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 207,
+            "line": 208,
             "description": "Sets new password for the user",
             "itemtype": "method",
             "name": "setNewPassword",
@@ -789,7 +761,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 243,
+            "line": 242,
             "description": "Gets the user/account information for a given auth token",
             "itemtype": "method",
             "name": "getAccountInfo",
@@ -812,7 +784,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 266,
+            "line": 265,
             "description": "Gets the social login urls for fb/twitter/google",
             "itemtype": "method",
             "name": "getSocialLoginUrls",
@@ -835,7 +807,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 287,
+            "line": 286,
             "description": "Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()",
             "itemtype": "method",
             "name": "updateAccount",
@@ -863,7 +835,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 318,
+            "line": 321,
             "description": "Changes password for a given user",
             "itemtype": "method",
             "name": "changePassword",
@@ -891,14 +863,14 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 353,
+            "line": 356,
             "description": "Gets register fields",
             "itemtype": "method",
             "name": "getRegisterFields",
             "async": 1,
             "params": [
                 {
-                    "name": "merchantUid",
+                    "name": "merchantUuid",
                     "description": "- The merchant UUID",
                     "type": "String"
                 }
@@ -914,7 +886,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 16,
+            "line": 21,
             "itemtype": "property",
             "name": "User",
             "type": "User",
@@ -922,7 +894,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 21,
+            "line": 26,
             "itemtype": "property",
             "name": "Asset",
             "type": "Asset",
@@ -930,7 +902,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 26,
+            "line": 31,
             "itemtype": "property",
             "name": "Payment",
             "type": "Payment",
@@ -938,7 +910,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 31,
+            "line": 36,
             "itemtype": "property",
             "name": "Subscription",
             "type": "Subscription",
@@ -946,7 +918,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 36,
+            "line": 41,
             "itemtype": "property",
             "name": "Misc",
             "type": "Misc",
@@ -954,7 +926,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 44,
+            "line": 49,
             "description": "Subscribes to websocket events",
             "itemtype": "method",
             "name": "subscribe",
@@ -981,7 +953,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 75,
+            "line": 79,
             "description": "Unsubscribes from the websocket and event listeners",
             "itemtype": "method",
             "name": "unsubscribe",
@@ -992,6 +964,24 @@
                 "description": "",
                 "type": "Boolean"
             },
+            "class": "InPlayer"
+        },
+        {
+            "file": "src\\index.js",
+            "line": 90,
+            "description": "Overrides the default configs",
+            "itemtype": "method",
+            "name": "setConfig",
+            "params": [
+                {
+                    "name": "config",
+                    "description": "'prod', 'develop' or 'sandobx'",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.setConfig('develop');"
+            ],
             "class": "InPlayer"
         }
     ],

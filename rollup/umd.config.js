@@ -64,7 +64,7 @@ export default {
         net: 'net',
         websocket: 'websocket',
     },
-    external: ['net', 'websocket', 'node-localstorage'],
+    external: ['net', 'websocket', 'node-localstorage', 'es6-promise/auto'],
     exports: 'named',
     context: 'self',
     acorn: {

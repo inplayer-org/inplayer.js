@@ -52,7 +52,7 @@ export default {
         globals(),
         json(),
     ],
-    external: ['node-localstorage', 'ws', 'stompjs'],
+    external: ['node-localstorage', 'ws', 'stompjs', 'es6-promise/auto'],
     exports: 'named',
     sourcemap: true,
     acorn: {

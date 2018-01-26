@@ -1,13 +1,13 @@
 var jsdom = require('mocha-jsdom');
 import { expect } from 'chai';
-import Payment from '../src/Models/Payment';
+import InPlayer from '../src';
 
 describe('Payment', function() {
     jsdom();
     let payment;
 
     beforeEach(() => {
-        payment = new Payment();
+        payment = InPlayer.Payment;
     });
 
     describe('#getPaymentMethods()', function() {
