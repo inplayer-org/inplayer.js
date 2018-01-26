@@ -22,7 +22,23 @@ Alternatively you can include the script like so:
 
 ## Usage
 
-> @Todo write usage with examples on how to get started
+```
+// Change default config example
+
+InPlayer.setConfig('develop');
+```
+
+```
+// Sign in user
+
+InPlayer.User.signIn({
+    merchantUid: '528b1b80-ddd1hj-4abc-gha3j-111111',
+    referrer: 'http://localhost:3000/',
+    email: 'test@test.com',
+    password: 'test123',
+}).then(data => console.log(data));
+
+```
 
 ## Contributing
 
