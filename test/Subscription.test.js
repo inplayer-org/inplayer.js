@@ -1,13 +1,12 @@
 var jsdom = require('mocha-jsdom');
 import { expect } from 'chai';
-import Subscription from '../src/Models/Subscription';
-
+import InPlayer from '../src';
 describe('Subscription', function() {
     jsdom();
     let subscription;
 
     beforeEach(() => {
-        subscription = new Subscription();
+        subscription = InPlayer.Subscription;
     });
 
     describe('#getSubscriptions()', function() {

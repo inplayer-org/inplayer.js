@@ -1,13 +1,13 @@
 var jsdom = require('mocha-jsdom');
 import { expect } from 'chai';
-import Misc from '../src/Models/Misc';
+import InPlayer from '../src';
 
 describe('Misc', function() {
     jsdom();
     let misc;
 
     beforeEach(() => {
-        misc = new Misc();
+        misc = InPlayer.Misc;
     });
 
     describe('#getDlcLinks()', function() {
@@ -45,7 +45,7 @@ describe('Misc', function() {
     describe('#getBranding()', function() {
         it('should return branding object', async () => {
             const result = await misc.getBranding(
-                '528b1b80-5868-4abc-a9b6-4d3455d719c8'
+                'c62e75f2-e090-4b0b-a3b2-ca70d52f19ac'
             );
 
             expect(result).to.include({ exists: true });
