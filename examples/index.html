@@ -10,12 +10,12 @@
 <script src="js/inplayer.js"></script>
 <script>
   // console.log(InPlayer);
-  InPlayer.User.signIn({
-      merchantUid: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
-      referrer: 'http://localhost:3000/',
-      email: 'vld_test@consumer.com',
-      password: '11111111',
-  }).then(data => console.log(data));
+  // InPlayer.User.signIn({
+  //     merchantUid: '4cced19c-49ed-420d-8c49-a79a64542760',
+  //     referrer: 'http://localhost:3000/',
+  //     email: 'vladimir@inplayer.com',
+  //     password: '11111111',
+  // }).then(data => console.log(data));
   // InPlayer.Misc.getDiscount('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTMyNDMwODgsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTMyNDY2ODh9.1-8i9lsUaIL6BF1MRelGlU7J2FGi0xNlr9MB18oqYG4',{
   //   voucher_code: 'm-true',
   //   merchant_id: 21,
@@ -64,20 +64,16 @@
   //   </p>`;
   // }
 
-  // /* Sign up call */
-  // if(inPlayer.User.signUp({
-  //   full_name: "test",
-  //   email: "test32@test.com",
-  //   password: "12345678",
-  //   password_confirmation: "12345678",
-  //   merchant_uuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
-  //   type: "consumer",
-  //   referrer: "http://localhost:3000/",
-  // })){
-  //   document.getElementById('status').innerHTML += `<p>
-  //    Successfully Signed Up.
-  //   </p>`;
-  // }
+  /* Sign up call */
+  InPlayer.User.signUp({
+    fullName: "test",
+    email: "testing_goran@test.com",
+    password: "12345678",
+    passwordConfirmation: "12345678",
+    merchantUuid: "4cced19c-49ed-420d-8c49-a79a64542760",
+    type: "consumer",
+    referrer: "http://localhost:3000/",
+  }).then(data => console.log(data));
   // const tmp = inPlayer.User.getAccountInfo('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI0OTc5Yjk2Yi1mMjQyLTQ3ODEtYTQzMi1mNDRjMzAwM2RlYTgiLCJpYXQiOjE1MTE5NDQ3NzEsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLnZ2diIsImFpZCI6MjE3MjUsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTE5NDgzNzF9.EB6Eq3jePcVttrSTEKKe8_ISN3G_GwDiuJr7b6ElRZk');
   // tmp.then(data => console.log(data));
   // const tmp = inPlayer.User.getSocialLoginUrls('eyJ1dWlkIjoiNTI4YjFiODAtNTg2OC00YWJjLWE5YjYtNGQzNDU1ZDcxOWM4IiwicmVkaXJlY3QiOiJodHRwOi8vc3luZGljYXRlLnZpZGVvL3ZpZGVvL2Fzc2V0LzM2MzIwP2Fzc2V0X2lkPTM2MzIwIn0');
