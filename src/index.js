@@ -17,7 +17,7 @@ import { config } from '../config';
 class InPlayer {
     constructor() {
         this.config = config;
-        this.config.API = API;
+        this.config.API = API(config);
         /**
          * @property User
          * @type User
@@ -103,20 +103,19 @@ class InPlayer {
             }
             case 'develop': {
                 this.config.BASE_URL = 'https://staging-v2.inplayer.com';
-                this.config.stomp.url =
-                    'wss://staging-v2.inplayer.com:15671/ws';
+                this.config.stomp.url = 'ws://staging-v2.inplayer.com:15674/ws';
                 break;
             }
             case 'sandbox': {
                 //TODO: to be changed in future
                 this.config.BASE_URL = 'https://staging-v2.inplayer.com';
-                this.config.stomp.url =
-                    'wss://staging-v2.inplayer.com:15671/ws';
+                this.config.stomp.url = 'ws://staging-v2.inplayer.com:15674/ws';
                 break;
             }
             default:
                 break;
         }
+        this.config.API = API(this.config);
     }
 }
 
