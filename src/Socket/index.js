@@ -1,11 +1,11 @@
 import Stomp from 'stompjs';
-import { config } from '../../config.js';
 
 var WebSocket = 'MozWebSocket' in window ? MozWebSocket : WebSocket;
 
 class Socket {
-    constructor() {
+    constructor(config) {
         this.subscription = null;
+        this.config = config;
     }
 
     subscribe(accountUid, callbackParams) {
@@ -35,6 +35,7 @@ class Socket {
 
         var parent = this;
         var uuid = accountUid;
+
         var credentials = {
             login: config.stomp.login,
             passcode: config.stomp.password,
@@ -60,6 +61,7 @@ class Socket {
 
                 // parent.setClient(client);
             },
+
             function() {
                 reconnect(config.stomp.url, () => {
                     // subscribe to events

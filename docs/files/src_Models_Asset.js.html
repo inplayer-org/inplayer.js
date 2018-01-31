@@ -81,14 +81,15 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-import { API } from &#x27;../../constants/endpoints&#x27;;
-
 /**
  * Contains all Requests connected with assets/items
  *
  * @class Asset
  */
 class Asset {
+    constructor(config){
+      this.config = config;
+    }
     /**
      * Checks whether a given authenticated user has access for an asset
      * @method checkAccessForAsset
@@ -102,31 +103,7 @@ class Asset {
      * @return {Object}
      */
     async checkAccessForAsset(token, id) {
-        const response = await fetch(API.checkAccess(id), {
-            headers: {
-                Authorization: &#x27;Bearer &#x27; + token,
-            },
-        });
-
-        const data = await response.json();
-
-        return data;
-    }
-
-    /**
-     * Checks whether a given authenticated user has access for an array of assets
-     * @method checkAccessForMultipleAssets
-     * @async
-     * @param {String} token - The Authorization token
-     * @param {Array} ids - Array with asset ids
-     * @example
-     *     InPlayer.Asset
-     *     .checkAccessForMultipleAssets(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,[36320,27215])
-     *     .then(data =&gt; console.log(data));
-     * @return {Object}
-     */
-    async checkAccessForMultipleAssets(token, ids) {
-        const response = await fetch(API.checkAccess(ids, true), {
+        const response = await fetch(this.config.API.checkAccess(id), {
             headers: {
                 Authorization: &#x27;Bearer &#x27; + token,
             },
@@ -149,8 +126,8 @@ class Asset {
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async findAsset(assetId, merchantUid) {
-        const response = await fetch(API.findAsset(assetId, merchantUid), {
+    async findAsset(assetId, merchantUuid) {
+        const response = await fetch(this.config.API.findAsset(assetId, merchantUuid), {
             method: &#x27;GET&#x27;,
         });
 
@@ -173,7 +150,7 @@ class Asset {
      */
     async findExternalAsset(assetType, externalId) {
         const response = await fetch(
-            API.findExternalAsset(assetType, externalId),
+            this.config.API.findExternalAsset(assetType, externalId),
             {
                 method: &#x27;GET&#x27;,
             }
@@ -196,7 +173,7 @@ class Asset {
      * @return {Object}
      */
     async findPackage(id) {
-        const response = await fetch(API.findPackage(id), {
+        const response = await fetch(this.config.API.findPackage(id), {
             method: &#x27;GET&#x27;,
         });
 
@@ -217,7 +194,7 @@ class Asset {
      * @return {Object}
      */
     async getAssetAccessFees(id) {
-        const response = await fetch(API.findAccessFees(id), {
+        const response = await fetch(this.config.API.findAccessFees(id), {
             method: &#x27;GET&#x27;,
         });
 
@@ -239,14 +216,16 @@ class Asset {
      * @return {Object}
      */
     async getFreemiumAsset(token, accessFee) {
-        const response = await fetch(API.freemium, {
+        const fd = new FormData();
+
+        fd.append(&#x27;access_fee&#x27;, accessFee);
+
+        const response = await fetch(this.config.API.freemium, {
             method: &#x27;POST&#x27;,
             headers: {
                 Authorization: &#x27;Bearer &#x27; + token,
             },
-            body: {
-                access_fee: accessFee,
-            },
+            body: fd,
         });
 
         const data = await response.json();

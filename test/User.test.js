@@ -1,13 +1,14 @@
 var jsdom = require('mocha-jsdom');
 import { expect } from 'chai';
 import User from '../src/Models/User';
+import InPlayer from '../src';
 
 describe('User', function() {
     jsdom();
     let user;
 
     beforeEach(() => {
-        user = new User();
+        user = InPlayer.User;
     });
 
     describe('#signIn()', function() {
@@ -81,21 +82,6 @@ describe('User', function() {
         });
     });
 
-    // describe("#setNewPassword()", function() {
-    //   it('should throw error for missing data', async () => {
-    //     const result = await user.setNewPassword({
-    //       password: "test@test.com",
-    //       passwordConfirmation: "asd-f1hf1-fa1f-gh",
-    //     }, 'asdhgf19jrf2g89fdlkfgjhgklsd19');
-    //
-    //     expect(result).to.deep.equal({
-    //       "errors": {
-    //         "password_confirmation": "The password_confirmation does not match the password.",
-    //       }
-    //     });
-    //   });
-    // });
-
     describe('#getAccountInfo()', function() {
         it('should throw error for invalid auth', async () => {
             const result = await user.getAccountInfo(
@@ -155,7 +141,7 @@ describe('User', function() {
     describe('#getRegisterFields()', function() {
         it('should return register fields', async () => {
             const result = await user.getRegisterFields(
-                '528b1b80-5868-4abc-a9b6-4d3455d719c8'
+                'c62e75f2-e090-4b0b-a3b2-ca70d52f19ac'
             );
 
             expect(result).to.have.property('collection');

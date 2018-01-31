@@ -6,6 +6,8 @@ import Payment from './Models/Payment';
 import Subscription from './Models/Subscription';
 import Misc from './Models/Misc';
 import Socket from './Socket';
+import { API } from '../constants/endpoints';
+import { config } from '../config';
 
 /**
  * Main class. Contains all others methods and websocket subscription
@@ -14,32 +16,34 @@ import Socket from './Socket';
  */
 class InPlayer {
     constructor() {
+        this.config = config;
+        this.config.API = API;
         /**
          * @property User
          * @type User
          */
-        this.User = new User();
+        this.User = new User(this.config);
         /**
          * @property Asset
          * @type Asset
          */
-        this.Asset = new Asset();
+        this.Asset = new Asset(this.config);
         /**
          * @property Payment
          * @type Payment
          */
-        this.Payment = new Payment();
+        this.Payment = new Payment(this.config);
         /**
          * @property Subscription
          * @type Subscription
          */
-        this.Subscription = new Subscription();
+        this.Subscription = new Subscription(this.config);
         /**
          * @property Misc
          * @type Misc
          */
-        this.Misc = new Misc();
-        this.Socket = new Socket();
+        this.Misc = new Misc(this.config);
+        this.Socket = new Socket(this.config);
     }
 
     /**
@@ -81,6 +85,38 @@ class InPlayer {
      */
     unsubscribe() {
         this.Socket.unsubscribe();
+    }
+
+    /**
+     * Overrides the default configs
+     * @method setConfig
+     * @param {String} config 'prod', 'develop' or 'sandobx'
+     * @example
+     *     InPlayer.setConfig('develop');
+     */
+    setConfig(config) {
+        switch (config) {
+            case 'prod': {
+                this.config.BASE_URL = 'https://services.inplayer.com';
+                this.config.stomp.url = 'wss://notify.inplayer.com:15671/ws';
+                break;
+            }
+            case 'develop': {
+                this.config.BASE_URL = 'https://staging-v2.inplayer.com';
+                this.config.stomp.url =
+                    'wss://staging-v2.inplayer.com:15671/ws';
+                break;
+            }
+            case 'sandbox': {
+                //TODO: to be changed in future
+                this.config.BASE_URL = 'https://staging-v2.inplayer.com';
+                this.config.stomp.url =
+                    'wss://staging-v2.inplayer.com:15671/ws';
+                break;
+            }
+            default:
+                break;
+        }
     }
 }
 

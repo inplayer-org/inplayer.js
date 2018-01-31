@@ -1,11 +1,12 @@
-import { API } from '../../constants/endpoints';
-
 /**
  * Contains all Requests connected with subscriptions
  *
  * @class Subscription
  */
 class Subscription {
+    constructor(config) {
+        this.config = config;
+    }
     /**
      * Gets all subscriptions for a given user
      * @method getSubscriptions
@@ -18,7 +19,7 @@ class Subscription {
      * @return {Object}
      */
     async getSubscriptions(token) {
-        const response = await fetch(API.getSubscriptions, {
+        const response = await fetch(this.config.API.getSubscriptions, {
             method: 'GET',
             headers: {
                 Authorization: 'Bearer ' + token,
@@ -103,7 +104,7 @@ class Subscription {
             fd.append('voucher_code', data.voucherCode);
         }
 
-        const response = await fetch(API.subscribe, {
+        const response = await fetch(this.config.API.subscribe, {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + token,

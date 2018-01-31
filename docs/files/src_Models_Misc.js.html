@@ -81,14 +81,15 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-import { API } from &#x27;../../constants/endpoints&#x27;;
-
 /**
  * Contains mixed various types of functiosn for dlcs, discounts, branding, etc.
  *
  * @class Misc
  */
 class Misc {
+    constructor(config){
+      this.config = config;
+    }
     /**
      * Gets all DLC links
      * @method getDlcLinks
@@ -102,7 +103,7 @@ class Misc {
      * @return {Object}
      */
     async getDlcLinks(token, assetId) {
-        const response = await fetch(API.getDlcLinks(assetId), {
+        const response = await fetch(this.config.API.getDlcLinks(assetId), {
             headers: {
                 Authorization: &#x27;Bearer &#x27; + token,
             },
@@ -120,7 +121,7 @@ class Misc {
      * @param {String} token - The Authorization token
      * @param {Object} data - {
      *   voucherCode: String,
-     *   merchantUid: String,
+     *   merchantUuid: String,
      *   accessFeeId: Number
      * }
      * @example
@@ -133,13 +134,13 @@ class Misc {
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async getDiscount(token, data) {
+    async getDiscount(token = &#x27;&#x27;, data = {}) {
         const fd = new FormData();
         fd.append(&#x27;access_fee_id&#x27;, data.accessFeeId);
         fd.append(&#x27;voucher_code&#x27;, data.voucherCode);
-        fd.append(&#x27;merchant_id&#x27;, data.merchantUid);
+        fd.append(&#x27;merchant_id&#x27;, data.merchantUuid);
 
-        const response = await fetch(API.getDiscount, {
+        const response = await fetch(this.config.API.getDiscount, {
             method: &#x27;POST&#x27;,
             headers: {
                 Authorization: &#x27;Bearer &#x27; + token,
@@ -156,15 +157,15 @@ class Misc {
      * Gets branding for given merchant
      * @method getBranding
      * @async
-     * @param {String} merchantUid - The UUID of the merchant
+     * @param {String} merchantUuid - The UUID of the merchant
      * @example
      *     InPlayer.Misc
      *     .getBranding(&#x27;eyJ0e-XAiOi-JKPEC-ENR5Y&#x27;)
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async getBranding(merchantUid) {
-        const response = await fetch(API.getBranding(merchantUid), {
+    async getBranding(merchantUuid) {
+        const response = await fetch(this.config.API.getBranding(merchantUuid), {
             method: &#x27;GET&#x27;,
         });
 
@@ -187,7 +188,7 @@ class Misc {
      * @return {Object}
      */
     async downloadProtectedFile(token, assetId, filename) {
-        const response = await fetch(API.downloadFile(assetId, filename), {
+        const response = await fetch(this.config.API.downloadFile(assetId, filename), {
             headers: {
                 Authorization: &#x27;Bearer &#x27; + token,
             },
