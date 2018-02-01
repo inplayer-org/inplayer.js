@@ -251,12 +251,12 @@
                         });
                 });
             }
-            function p(e) {
+            function l(e) {
                 var t = new FileReader(),
                     n = h(t);
                 return t.readAsArrayBuffer(e), n;
             }
-            function l(e) {
+            function p(e) {
                 if (e.slice) return e.slice(0);
                 var t = new Uint8Array(e.byteLength);
                 return t.set(new Uint8Array(e)), t.buffer;
@@ -280,7 +280,7 @@
                             )
                                 this._bodyText = e.toString();
                             else if (t.arrayBuffer && t.blob && o(e))
-                                (this._bodyArrayBuffer = l(e.buffer)),
+                                (this._bodyArrayBuffer = p(e.buffer)),
                                     (this._bodyInit = new Blob([
                                         this._bodyArrayBuffer,
                                     ]));
@@ -293,7 +293,7 @@
                                     throw new Error(
                                         'unsupported BodyInit type'
                                     );
-                                this._bodyArrayBuffer = l(e);
+                                this._bodyArrayBuffer = p(e);
                             }
                         else this._bodyText = '';
                         this.headers.get('content-type') ||
@@ -336,7 +336,7 @@
                             return this._bodyArrayBuffer
                                 ? d(this) ||
                                       Promise.resolve(this._bodyArrayBuffer)
-                                : this.blob().then(p);
+                                : this.blob().then(l);
                         })),
                     (this.text = function() {
                         var e,
@@ -988,8 +988,8 @@
                                     f,
                                     d,
                                     h,
-                                    p,
                                     l,
+                                    p,
                                     y,
                                     g,
                                     m,
@@ -1001,7 +1001,7 @@
                                             .substring(0, s)
                                             .split(e.LF)).shift(),
                                         c = {},
-                                        l = function(e) {
+                                        p = function(e) {
                                             return e.replace(/^\s+|\s+$/g, '');
                                         },
                                         y = 0,
@@ -1010,20 +1010,20 @@
                                     y++
                                 )
                                     (f = (h = b[y]).indexOf(':')),
-                                        (c[l(h.substring(0, f))] = l(
+                                        (c[p(h.substring(0, f))] = p(
                                             h.substring(f + 1)
                                         ));
                                 if (
-                                    ((o = ''), (p = s + 2), c['content-length'])
+                                    ((o = ''), (l = s + 2), c['content-length'])
                                 )
                                     (d = parseInt(c['content-length'])),
-                                        (o = ('' + t).substring(p, p + d));
+                                        (o = ('' + t).substring(l, l + d));
                                 else
                                     for (
-                                        r = null, u = g = p, v = t.length;
-                                        (p <= v ? g < v : g > v) &&
+                                        r = null, u = g = l, v = t.length;
+                                        (l <= v ? g < v : g > v) &&
                                         (r = t.charAt(u)) !== e.NULL;
-                                        u = p <= v ? ++g : --g
+                                        u = l <= v ? ++g : --g
                                     )
                                         o += r;
                                 return new n(i, c, o);
@@ -1244,7 +1244,7 @@
                                         this.debug('Opening Web Socket...'),
                                     (this.ws.onmessage = ((u = this),
                                     function(n) {
-                                        var r, s, a, c, f, d, h, p, l, y, g, m;
+                                        var r, s, a, c, f, d, h, l, p, y, g, m;
                                         if (
                                             ((c =
                                                 'undefined' !=
@@ -1284,13 +1284,13 @@
                                                 'function' == typeof u.debug &&
                                                     u.debug('<<< ' + c),
                                                     m = [],
-                                                    l = 0,
+                                                    p = 0,
                                                     y = (g = o.unmarshall(c))
                                                         .length;
-                                                l < y;
-                                                l++
+                                                p < y;
+                                                p++
                                             )
-                                                switch ((f = g[l]).command) {
+                                                switch ((f = g[p]).command) {
                                                     case 'CONNECTED':
                                                         'function' ==
                                                             typeof u.debug &&
@@ -1313,12 +1313,12 @@
                                                             );
                                                         break;
                                                     case 'MESSAGE':
-                                                        (p =
+                                                        (l =
                                                             f.headers
                                                                 .subscription),
                                                             (h =
                                                                 u.subscriptions[
-                                                                    p
+                                                                    l
                                                                 ] ||
                                                                 u.onreceive)
                                                                 ? ((a = u),
@@ -1335,7 +1335,7 @@
                                                                               (e = {}),
                                                                           a.ack(
                                                                               d,
-                                                                              p,
+                                                                              l,
                                                                               e
                                                                           )
                                                                       );
@@ -1349,7 +1349,7 @@
                                                                               (e = {}),
                                                                           a.nack(
                                                                               d,
-                                                                              p,
+                                                                              l,
                                                                               e
                                                                           )
                                                                       );
@@ -1558,7 +1558,7 @@
                         : t || (self.Stomp = r);
             }.call(f));
         }),
-        p = (h.Stomp,
+        l = (h.Stomp,
         d(function(e, t) {
             (function() {
                 var e, r, i, s, a, c;
@@ -1657,14 +1657,15 @@
                     (t.overWS = s);
             }.call(f));
         })),
-        l = (p.net, p.websocket, p.overTCP, p.overWS, h.Stomp),
-        y = p.overTCP,
-        g = p.overWS;
-    (l.overTCP = y), (l.overWS = g);
-    var m = function(e) {
-        (this.subscription = null), (this.config = e);
-    };
-    (m.prototype.subscribe = function(e, t) {
+        p = (l.net, l.websocket, l.overTCP, l.overWS, h.Stomp),
+        y = l.overTCP,
+        g = l.overWS;
+    (p.overTCP = y), (p.overWS = g);
+    var m = window && (window.WebSocket || window.MozWebSocket),
+        b = function(e) {
+            (this.subscription = null), (this.config = e);
+        };
+    (b.prototype.subscribe = function(e, t) {
         if (!e && '' !== e) return !1;
         if (t && t.onmessage) {
             if ('function' != typeof t.onmessage) return !1;
@@ -1673,44 +1674,64 @@
                 return console.log('Received message:', e);
             };
         if (t && t.onopen && 'function' != typeof t.onopen) return !1;
-        var n = new ('MozWebSocket' in window ? MozWebSocket : WebSocket)(
-            this.config.stomp.url
-        );
-        (this.client = l.over(n)),
-            (this.client.heartbeat.outgoing = 2e4),
-            (this.client.heartbeat.incoming = 2e4),
-            (this.client.debug = null);
-        var o = this,
-            r = e;
-        this.client.connect(
-            {
+        var n = this,
+            o = {
                 login: this.config.stomp.login,
                 passcode: this.config.stomp.password,
                 'client-id': e,
             },
-            function() {
-                t && t.onopen && t.onopen(),
-                    o.client.subscribe(
-                        '/exchange/notifications/' + r,
-                        t.onmessage,
-                        { id: e, ack: 'client' }
-                    );
-            },
-            function(e) {
-                'string' != typeof e && console.warn('Stomp error: ', e);
-            }
-        ),
+            r = new m(this.config.stomp.url);
+        (this.client = p.over(r)),
+            (this.client.heartbeat.outgoing = 3e4),
+            (this.client.heartbeat.incoming = 3e4),
+            (this.client.debug = null),
+            this.client.connect(
+                o,
+                function() {
+                    return n.connectCallback(t, n.client, e);
+                },
+                function() {
+                    return n.errorCallback(t, n.config, n.client, o, e, n);
+                }
+            ),
             this.setClient(this.client);
     }),
-        (m.prototype.setClient = function(e) {
+        (b.prototype.connectCallback = function(e, t, n) {
+            if ((e && e.onopen && e.onopen(), t.ws.readyState === t.ws.OPEN))
+                t.subscribe('/exchange/notifications/' + n, e.onmessage, {
+                    id: n,
+                    ack: 'client',
+                });
+        }),
+        (b.prototype.errorCallback = function(e, t, n, o, r, i) {
+            var s = !1,
+                a = setInterval(function() {
+                    var c = new m(t.stomp.url);
+                    ((n = new p.over(c)).heartbeat.outgoing = 3e4),
+                        (n.heartbeat.incoming = 3e4),
+                        (n.debug = null),
+                        n.connect(
+                            o,
+                            function() {
+                                clearInterval(a),
+                                    (s = !0),
+                                    i.connectCallback(e, n, r);
+                            },
+                            function() {
+                                s && i.errorCallback(e, t, n, o, r, i);
+                            }
+                        );
+                }, 1e3);
+        }),
+        (b.prototype.setClient = function(e) {
             this.subscription = e;
         }),
-        (m.prototype.unsubscribe = function() {
+        (b.prototype.unsubscribe = function() {
             this.subscription &&
                 this.subscription.connected &&
                 this.subscription.unsubscribe();
         });
-    var b = {
+    var v = {
             BASE_URL: 'https://services.inplayer.com',
             INPLAYER_TOKEN_NAME: 'inplayer_token',
             stomp: {
@@ -1719,78 +1740,80 @@
                 password: 'notifications',
             },
         },
-        v = {
-            signIn: b.BASE_URL + '/accounts/login',
-            signOut: b.BASE_URL + '/accounts/logout',
-            signUp: b.BASE_URL + '/accounts',
-            requestNewPassword: b.BASE_URL + '/accounts/forgot-password',
-            setNewPassword: function(e) {
-                return b.BASE_URL + '/accounts/forgot-password/' + e;
-            },
-            getAccountInfo: b.BASE_URL + '/accounts',
-            social: function(e) {
-                return b.BASE_URL + '/accounts/social?state=' + e;
-            },
-            updateAccount: b.BASE_URL + '/accounts',
-            changePassword: b.BASE_URL + '/accounts/change-password',
-            getRegisterFields: function(e) {
-                return b.BASE_URL + '/accounts/register-fields/' + e;
-            },
-            checkAccess: function(e) {
-                return b.BASE_URL + '/items/' + e + '/access';
-            },
-            findAsset: function(e, t) {
-                return b.BASE_URL + '/items/' + t + '/' + e;
-            },
-            findExternalAsset: function(e, t) {
-                return b.BASE_URL + '/items/assets/external/' + e + '/' + t;
-            },
-            findPackage: function(e) {
-                return b.BASE_URL + '/items/packages/' + e;
-            },
-            findAccessFees: function(e) {
-                return b.BASE_URL + '/items/' + e + '/access-fees';
-            },
-            freemium: b.BASE_URL + '/items/access/unlimited',
-            getPaymentMethods: b.BASE_URL + '/payments/methods',
-            getPaymentTools: function(e) {
-                return b.BASE_URL + '/payments/method/' + e + '/tools';
-            },
-            payForAsset: b.BASE_URL + '/payments',
-            externalPayments: b.BASE_URL + '/external-payments',
-            getSubscriptions: b.BASE_URL + '/subscriptions',
-            subscribe: b.BASE_URL + '/subscriptions',
-            getDlcLinks: function(e) {
-                return b.BASE_URL + '/dlc/' + e + '/links';
-            },
-            getDiscount: b.BASE_URL + '/vouchers/discount',
-            getBranding: function(e) {
-                return b.BASE_URL + '/branding/paywall/' + e;
-            },
-            downloadFile: function(e, t) {
-                return b.BASE_URL + '/dlc/' + e + '/' + t;
-            },
+        w = function(e) {
+            return {
+                signIn: e.BASE_URL + '/accounts/login',
+                signOut: e.BASE_URL + '/accounts/logout',
+                signUp: e.BASE_URL + '/accounts',
+                requestNewPassword: e.BASE_URL + '/accounts/forgot-password',
+                setNewPassword: function(t) {
+                    return e.BASE_URL + '/accounts/forgot-password/' + t;
+                },
+                getAccountInfo: e.BASE_URL + '/accounts',
+                social: function(t) {
+                    return e.BASE_URL + '/accounts/social?state=' + t;
+                },
+                updateAccount: e.BASE_URL + '/accounts',
+                changePassword: e.BASE_URL + '/accounts/change-password',
+                getRegisterFields: function(t) {
+                    return e.BASE_URL + '/accounts/register-fields/' + t;
+                },
+                checkAccess: function(t) {
+                    return e.BASE_URL + '/items/' + t + '/access';
+                },
+                findAsset: function(t, n) {
+                    return e.BASE_URL + '/items/' + n + '/' + t;
+                },
+                findExternalAsset: function(t, n) {
+                    return e.BASE_URL + '/items/assets/external/' + t + '/' + n;
+                },
+                findPackage: function(t) {
+                    return e.BASE_URL + '/items/packages/' + t;
+                },
+                findAccessFees: function(t) {
+                    return e.BASE_URL + '/items/' + t + '/access-fees';
+                },
+                freemium: e.BASE_URL + '/items/access/unlimited',
+                getPaymentMethods: e.BASE_URL + '/payments/methods',
+                getPaymentTools: function(t) {
+                    return e.BASE_URL + '/payments/method/' + t + '/tools';
+                },
+                payForAsset: e.BASE_URL + '/payments',
+                externalPayments: e.BASE_URL + '/external-payments',
+                getSubscriptions: e.BASE_URL + '/subscriptions',
+                subscribe: e.BASE_URL + '/subscriptions',
+                getDlcLinks: function(t) {
+                    return e.BASE_URL + '/dlc/' + t + '/links';
+                },
+                getDiscount: e.BASE_URL + '/vouchers/discount',
+                getBranding: function(t) {
+                    return e.BASE_URL + '/branding/paywall/' + t;
+                },
+                downloadFile: function(t, n) {
+                    return e.BASE_URL + '/dlc/' + t + '/' + n;
+                },
+            };
         },
-        w = function() {
-            (this.config = b),
-                (this.config.API = v),
+        A = function() {
+            (this.config = v),
+                (this.config.API = w(v)),
                 (this.User = new i(this.config)),
                 (this.Asset = new s(this.config)),
                 (this.Payment = new a(this.config)),
                 (this.Subscription = new c(this.config)),
                 (this.Misc = new u(this.config)),
-                (this.Socket = new m(this.config));
+                (this.Socket = new b(this.config));
         };
     return (
-        (w.prototype.subscribe = function(e, t) {
+        (A.prototype.subscribe = function(e, t) {
             return (
                 !!this.User.isSignedIn() && (this.Socket.subscribe(e, t), !0)
             );
         }),
-        (w.prototype.unsubscribe = function() {
+        (A.prototype.unsubscribe = function() {
             this.Socket.unsubscribe();
         }),
-        (w.prototype.setConfig = function(e) {
+        (A.prototype.setConfig = function(e) {
             switch (e) {
                 case 'prod':
                     (this.config.BASE_URL = 'https://services.inplayer.com'),
@@ -1801,9 +1824,10 @@
                 case 'sandbox':
                     (this.config.BASE_URL = 'https://staging-v2.inplayer.com'),
                         (this.config.stomp.url =
-                            'wss://staging-v2.inplayer.com:15671/ws');
+                            'ws://staging-v2.inplayer.com:15674/ws');
             }
+            this.config.API = w(this.config);
         }),
-        new w()
+        new A()
     );
 });

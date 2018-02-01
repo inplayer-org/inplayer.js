@@ -1,8 +1,6 @@
-var jsdom = require('mocha-jsdom');
 import { expect } from 'chai';
 import InPlayer from '../src';
 describe('Subscription', function() {
-    jsdom();
     let subscription;
 
     beforeEach(() => {

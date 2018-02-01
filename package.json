@@ -13,7 +13,7 @@
   "scripts": {
     "dev": "rollup -c --watch",
     "build": "rollup -c",
-    "test": "mocha -r mock-local-storage --require babel-core/register --require isomorphic-fetch --require babel-polyfill ./test/*.test.js",
+    "test": "mocha -r mock-local-storage --require jsdom-global/register --require babel-core/register --require isomorphic-fetch --require babel-polyfill ./test/*.test.js",
     "precommit": "lint-staged"
   },
   "lint-staged": {
@@ -53,6 +53,8 @@
     "formdata-polyfill": "^3.0.9",
     "husky": "^0.14.3",
     "isomorphic-fetch": "^2.2.1",
+    "jsdom": "11.6.2",
+    "jsdom-global": "3.0.2",
     "lint-staged": "^6.0.0",
     "mocha": "^4.0.1",
     "mocha-jsdom": "^1.1.0",
