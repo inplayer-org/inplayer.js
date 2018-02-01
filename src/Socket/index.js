@@ -96,9 +96,14 @@ class Socket {
         var connected = false;
         var reconInt = setInterval(function() {
             if (client.ws.readyState === client.ws.CONNECTING) {
+                return;
+            }
+
+            if (client.ws.readyState === client.ws.OPEN) {
                 clearInterval(reconInt);
                 return;
             }
+
             var ws = new WebSocket(config.stomp.url);
 
             client = new Stomp.over(ws);
