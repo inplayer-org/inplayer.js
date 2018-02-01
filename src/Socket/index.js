@@ -1,6 +1,6 @@
 import Stomp from 'stompjs';
 
-var WebSocket = window.WebSocket || window.MozWebSocket;
+var WebSocket = window && (window.WebSocket || window.MozWebSocket);
 
 class Socket {
     constructor(config) {

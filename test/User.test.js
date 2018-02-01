@@ -1,10 +1,8 @@
-var jsdom = require('mocha-jsdom');
 import { expect } from 'chai';
 import User from '../src/Models/User';
 import InPlayer from '../src';
 
 describe('User', function() {
-    jsdom();
     let user;
 
     beforeEach(() => {

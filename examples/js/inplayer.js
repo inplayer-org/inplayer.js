@@ -1661,7 +1661,7 @@
         y = l.overTCP,
         g = l.overWS;
     (p.overTCP = y), (p.overWS = g);
-    var m = window.WebSocket || window.MozWebSocket,
+    var m = window && (window.WebSocket || window.MozWebSocket),
         b = function(e) {
             (this.subscription = null), (this.config = e);
         };
