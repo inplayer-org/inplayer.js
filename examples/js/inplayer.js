@@ -1706,21 +1706,23 @@
         (b.prototype.errorCallback = function(e, t, n, o, r, i) {
             var s = !1,
                 a = setInterval(function() {
-                    var c = new m(t.stomp.url);
-                    ((n = new p.over(c)).heartbeat.outgoing = 3e4),
-                        (n.heartbeat.incoming = 3e4),
-                        (n.debug = null),
-                        n.connect(
-                            o,
-                            function() {
-                                clearInterval(a),
-                                    (s = !0),
-                                    i.connectCallback(e, n, r);
-                            },
-                            function() {
-                                s && i.errorCallback(e, t, n, o, r, i);
-                            }
-                        );
+                    if (n.ws.readyState !== n.ws.CONNECTING) {
+                        var c = new m(t.stomp.url);
+                        ((n = new p.over(c)).heartbeat.outgoing = 3e4),
+                            (n.heartbeat.incoming = 3e4),
+                            (n.debug = null),
+                            n.connect(
+                                o,
+                                function() {
+                                    clearInterval(a),
+                                        (s = !0),
+                                        i.connectCallback(e, n, r);
+                                },
+                                function() {
+                                    s && i.errorCallback(e, t, n, o, r, i);
+                                }
+                            );
+                    } else clearInterval(a);
                 }, 1e3);
         }),
         (b.prototype.setClient = function(e) {
