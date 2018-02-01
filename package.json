@@ -1,6 +1,6 @@
 {
   "name": "@inplayer-org/inplayer.js",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "author": "InPlayer",
   "license": "ISC",
   "description": "A Javascript SDK for Inplayer's RESTful API",
