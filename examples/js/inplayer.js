@@ -1703,28 +1703,36 @@
                     ack: 'client',
                 });
         }),
-        (b.prototype.errorCallback = function(e, t, n, o, r, i) {
-            var s = !1,
-                a = setInterval(function() {
+        (b.prototype.errorCallback = function(e, t, n, o, r, i, s) {
+            void 0 === s && (s = 0),
+                0 === s && (s = 1e3 * (Math.floor(10 * Math.random()) + 1)),
+                setTimeout(function() {
                     if (n.ws.readyState !== n.ws.CONNECTING)
                         if (n.ws.readyState !== n.ws.OPEN) {
-                            var c = new m(t.stomp.url);
-                            ((n = new p.over(c)).heartbeat.outgoing = 3e4),
+                            var a = new m(t.stomp.url);
+                            ((n = new p.over(a)).heartbeat.outgoing = 3e4),
                                 (n.heartbeat.incoming = 3e4),
                                 (n.debug = null),
                                 n.connect(
                                     o,
                                     function() {
-                                        clearInterval(a),
-                                            (s = !0),
-                                            i.connectCallback(e, n, r);
+                                        i.connectCallback(e, n, r),
+                                            (s =
+                                                1e3 *
+                                                (Math.floor(
+                                                    10 * Math.random()
+                                                ) +
+                                                    1));
                                     },
                                     function() {
-                                        s && i.errorCallback(e, t, n, o, r, i);
+                                        i.errorCallback(e, t, n, o, r, i, s);
                                     }
                                 );
-                        } else clearInterval(a);
-                }, 1e3);
+                        } else clearInterval(reconInt);
+                }, s),
+                s >= 6e5
+                    ? (s = 1e3 * (Math.floor(10 * Math.random()) + 1))
+                    : (s += Math.ceil(s / 2));
         }),
         (b.prototype.setClient = function(e) {
             this.subscription = e;

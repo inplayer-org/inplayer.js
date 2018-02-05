@@ -1,6 +1,8 @@
 import Stomp from 'stompjs';
 
 var WebSocket = window && (window.WebSocket || window.MozWebSocket);
+const MAX_INTERVAL = 600000;
+const MAX_INITIAL_INTERVAL = 10;
 
 class Socket {
     constructor(config) {
@@ -91,10 +93,15 @@ class Socket {
         client,
         credentials,
         accountUid,
-        parent
+        parent,
+        timeoutStart = 0
     ) {
         var connected = false;
-        var reconInt = setInterval(function() {
+        if (timeoutStart === 0)
+            timeoutStart =
+                (Math.floor(Math.random() * MAX_INITIAL_INTERVAL) + 1) * 1000; //get a random start timeout between 1-max
+
+        setTimeout(function() {
             if (client.ws.readyState === client.ws.CONNECTING) {
                 return;
             }
@@ -115,24 +122,33 @@ class Socket {
             client.connect(
                 credentials,
                 () => {
-                    clearInterval(reconInt);
                     connected = true;
                     parent.connectCallback(callbackParams, client, accountUid);
+                    //reset the timeoutStart
+                    timeoutStart =
+                        (Math.floor(Math.random() * MAX_INITIAL_INTERVAL) + 1) *
+                        1000; //get a random start timeout between 1-max
                 },
                 () => {
-                    if (connected) {
-                        parent.errorCallback(
-                            callbackParams,
-                            config,
-                            client,
-                            credentials,
-                            accountUid,
-                            parent
-                        );
-                    }
+                    parent.errorCallback(
+                        callbackParams,
+                        config,
+                        client,
+                        credentials,
+                        accountUid,
+                        parent,
+                        timeoutStart
+                    );
                 }
             );
-        }, 1000);
+        }, timeoutStart);
+        if (timeoutStart >= MAX_INTERVAL) {
+            //if more than 10 minutes reset the timer
+            timeoutStart =
+                (Math.floor(Math.random() * MAX_INITIAL_INTERVAL) + 1) * 1000; //get a random start timeout between 1-max
+        } else {
+            timeoutStart += Math.ceil(timeoutStart / 2);
+        }
     }
 
     setClient(client) {
