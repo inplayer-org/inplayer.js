@@ -1706,7 +1706,6 @@
         (b.prototype.errorCallback = function(e, t, n, o, r, i, s) {
             void 0 === s && (s = 0),
                 0 === s && (s = 1e3 * (Math.floor(10 * Math.random()) + 1)),
-                console.log(s),
                 setTimeout(function() {
                     if (n.ws.readyState !== n.ws.CONNECTING)
                         if (n.ws.readyState !== n.ws.OPEN) {

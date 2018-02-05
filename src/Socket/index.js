@@ -1,6 +1,8 @@
 import Stomp from 'stompjs';
 
 var WebSocket = window && (window.WebSocket || window.MozWebSocket);
+const MAX_INTERVAL = 600000;
+const MAX_INITIAL_INTERVAL = 10;
 
 class Socket {
     constructor(config) {
@@ -96,9 +98,9 @@ class Socket {
     ) {
         var connected = false;
         if (timeoutStart === 0)
-            timeoutStart = (Math.floor(Math.random() * 10) + 1) * 1000; //get a random start timeout between 1-10
+            timeoutStart =
+                (Math.floor(Math.random() * MAX_INITIAL_INTERVAL) + 1) * 1000; //get a random start timeout between 1-max
 
-        console.log(timeoutStart);
         setTimeout(function() {
             if (client.ws.readyState === client.ws.CONNECTING) {
                 return;
@@ -123,7 +125,9 @@ class Socket {
                     connected = true;
                     parent.connectCallback(callbackParams, client, accountUid);
                     //reset the timeoutStart
-                    timeoutStart = (Math.floor(Math.random() * 10) + 1) * 1000; //get a random start timeout between 1-10
+                    timeoutStart =
+                        (Math.floor(Math.random() * MAX_INITIAL_INTERVAL) + 1) *
+                        1000; //get a random start timeout between 1-max
                 },
                 () => {
                     parent.errorCallback(
@@ -138,9 +142,10 @@ class Socket {
                 }
             );
         }, timeoutStart);
-        if (timeoutStart >= 600000) {
+        if (timeoutStart >= MAX_INTERVAL) {
             //if more than 10 minutes reset the timer
-            timeoutStart = (Math.floor(Math.random() * 10) + 1) * 1000; //get a random start timeout between 1-10
+            timeoutStart =
+                (Math.floor(Math.random() * MAX_INITIAL_INTERVAL) + 1) * 1000; //get a random start timeout between 1-max
         } else {
             timeoutStart += Math.ceil(timeoutStart / 2);
         }
