@@ -91,10 +91,15 @@ class Socket {
         client,
         credentials,
         accountUid,
-        parent
+        parent,
+        timeoutStart = 0
     ) {
         var connected = false;
-        var reconInt = setInterval(function() {
+        if (timeoutStart === 0)
+            timeoutStart = (Math.floor(Math.random() * 10) + 1) * 1000; //get a random start timeout between 1-10
+
+        console.log(timeoutStart);
+        setTimeout(function() {
             if (client.ws.readyState === client.ws.CONNECTING) {
                 return;
             }
@@ -115,24 +120,30 @@ class Socket {
             client.connect(
                 credentials,
                 () => {
-                    clearInterval(reconInt);
                     connected = true;
                     parent.connectCallback(callbackParams, client, accountUid);
+                    //reset the timeoutStart
+                    timeoutStart = (Math.floor(Math.random() * 10) + 1) * 1000; //get a random start timeout between 1-10
                 },
                 () => {
-                    if (connected) {
-                        parent.errorCallback(
-                            callbackParams,
-                            config,
-                            client,
-                            credentials,
-                            accountUid,
-                            parent
-                        );
-                    }
+                    parent.errorCallback(
+                        callbackParams,
+                        config,
+                        client,
+                        credentials,
+                        accountUid,
+                        parent,
+                        timeoutStart
+                    );
                 }
             );
-        }, 1000);
+        }, timeoutStart);
+        if (timeoutStart >= 600000) {
+            //if more than 10 minutes reset the timer
+            timeoutStart = (Math.floor(Math.random() * 10) + 1) * 1000; //get a random start timeout between 1-10
+        } else {
+            timeoutStart += Math.ceil(timeoutStart / 2);
+        }
     }
 
     setClient(client) {
