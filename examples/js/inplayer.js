@@ -1707,28 +1707,28 @@
             void 0 === s && (s = 0),
                 0 === s && (s = 1e3 * (Math.floor(10 * Math.random()) + 1)),
                 setTimeout(function() {
-                    if (n.ws.readyState !== n.ws.CONNECTING)
-                        if (n.ws.readyState !== n.ws.OPEN) {
-                            var a = new m(t.stomp.url);
-                            ((n = new p.over(a)).heartbeat.outgoing = 3e4),
-                                (n.heartbeat.incoming = 3e4),
-                                (n.debug = null),
-                                n.connect(
-                                    o,
-                                    function() {
-                                        i.connectCallback(e, n, r),
-                                            (s =
-                                                1e3 *
-                                                (Math.floor(
-                                                    10 * Math.random()
-                                                ) +
-                                                    1));
-                                    },
-                                    function() {
-                                        i.errorCallback(e, t, n, o, r, i, s);
-                                    }
-                                );
-                        } else clearInterval(reconInt);
+                    if (
+                        n.ws.readyState !== n.ws.CONNECTING &&
+                        n.ws.readyState !== n.ws.OPEN
+                    ) {
+                        var a = new m(t.stomp.url);
+                        ((n = new p.over(a)).heartbeat.outgoing = 3e4),
+                            (n.heartbeat.incoming = 3e4),
+                            (n.debug = null),
+                            n.connect(
+                                o,
+                                function() {
+                                    i.connectCallback(e, n, r),
+                                        (s =
+                                            1e3 *
+                                            (Math.floor(10 * Math.random()) +
+                                                1));
+                                },
+                                function() {
+                                    i.errorCallback(e, t, n, o, r, i, s);
+                                }
+                            );
+                    }
                 }, s),
                 s >= 6e5
                     ? (s = 1e3 * (Math.floor(10 * Math.random()) + 1))
