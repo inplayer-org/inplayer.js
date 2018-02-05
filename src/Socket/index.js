@@ -97,17 +97,15 @@ class Socket {
         timeoutStart = 0
     ) {
         var connected = false;
-        if (timeoutStart === 0)
+        if (timeoutStart === 0) {
             timeoutStart =
                 (Math.floor(Math.random() * MAX_INITIAL_INTERVAL) + 1) * 1000; //get a random start timeout between 1-max
-
+        }
         setTimeout(function() {
-            if (client.ws.readyState === client.ws.CONNECTING) {
-                return;
-            }
-
-            if (client.ws.readyState === client.ws.OPEN) {
-                clearInterval(reconInt);
+            if (
+                client.ws.readyState === client.ws.CONNECTING ||
+                client.ws.readyState === client.ws.OPEN
+            ) {
                 return;
             }
 
@@ -122,7 +120,6 @@ class Socket {
             client.connect(
                 credentials,
                 () => {
-                    connected = true;
                     parent.connectCallback(callbackParams, client, accountUid);
                     //reset the timeoutStart
                     timeoutStart =
