@@ -96,7 +96,6 @@ class Socket {
         parent,
         timeoutStart = 0
     ) {
-        var connected = false;
         if (timeoutStart === 0) {
             timeoutStart =
                 (Math.floor(Math.random() * MAX_INITIAL_INTERVAL) + 1) * 1000; //get a random start timeout between 1-max
