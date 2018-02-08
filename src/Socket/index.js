@@ -2,7 +2,7 @@ import Stomp from 'stompjs';
 
 var WebSocket = window && (window.WebSocket || window.MozWebSocket);
 const MAX_INTERVAL = 600000;
-const MAX_INITIAL_INTERVAL = 10;
+const MAX_INITIAL_INTERVAL = 6;
 
 class Socket {
     constructor(config) {
@@ -54,15 +54,18 @@ class Socket {
                     parent.client,
                     accountUid
                 ),
-            () =>
-                parent.errorCallback(
-                    callbackParams,
-                    parent.config,
-                    parent.client,
-                    credentials,
-                    accountUid,
-                    parent
-                )
+            error => {
+                if (typeof error === 'string') {
+                    parent.errorCallback(
+                        callbackParams,
+                        parent.config,
+                        parent.client,
+                        credentials,
+                        accountUid,
+                        parent
+                    );
+                }
+            }
         );
 
         this.setClient(this.client);
@@ -125,16 +128,18 @@ class Socket {
                         (Math.floor(Math.random() * MAX_INITIAL_INTERVAL) + 1) *
                         1000; //get a random start timeout between 1-max
                 },
-                () => {
-                    parent.errorCallback(
-                        callbackParams,
-                        config,
-                        client,
-                        credentials,
-                        accountUid,
-                        parent,
-                        timeoutStart
-                    );
+                error => {
+                    if (typeof error === 'string') {
+                        parent.errorCallback(
+                            callbackParams,
+                            config,
+                            client,
+                            credentials,
+                            accountUid,
+                            parent,
+                            timeoutStart
+                        );
+                    }
                 }
             );
         }, timeoutStart);

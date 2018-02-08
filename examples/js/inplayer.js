@@ -1690,8 +1690,9 @@
                 function() {
                     return n.connectCallback(t, n.client, e);
                 },
-                function() {
-                    return n.errorCallback(t, n.config, n.client, o, e, n);
+                function(r) {
+                    'string' == typeof r &&
+                        n.errorCallback(t, n.config, n.client, o, e, n);
                 }
             ),
             this.setClient(this.client);
@@ -1705,7 +1706,7 @@
         }),
         (b.prototype.errorCallback = function(e, t, n, o, r, i, s) {
             void 0 === s && (s = 0),
-                0 === s && (s = 1e3 * (Math.floor(10 * Math.random()) + 1)),
+                0 === s && (s = 1e3 * (Math.floor(6 * Math.random()) + 1)),
                 setTimeout(function() {
                     if (
                         n.ws.readyState !== n.ws.CONNECTING &&
@@ -1721,17 +1722,18 @@
                                     i.connectCallback(e, n, r),
                                         (s =
                                             1e3 *
-                                            (Math.floor(10 * Math.random()) +
+                                            (Math.floor(6 * Math.random()) +
                                                 1));
                                 },
-                                function() {
-                                    i.errorCallback(e, t, n, o, r, i, s);
+                                function(a) {
+                                    'string' == typeof a &&
+                                        i.errorCallback(e, t, n, o, r, i, s);
                                 }
                             );
                     }
                 }, s),
                 s >= 6e5
-                    ? (s = 1e3 * (Math.floor(10 * Math.random()) + 1))
+                    ? (s = 1e3 * (Math.floor(6 * Math.random()) + 1))
                     : (s += Math.ceil(s / 2));
         }),
         (b.prototype.setClient = function(e) {
@@ -1746,7 +1748,7 @@
             BASE_URL: 'https://services.inplayer.com',
             INPLAYER_TOKEN_NAME: 'inplayer_token',
             stomp: {
-                url: 'wss://notify.inplayer.com:15671/ws',
+                url: 'wss://notify.inplayer.com:61614/ws',
                 login: 'notifications',
                 password: 'notifications',
             },
