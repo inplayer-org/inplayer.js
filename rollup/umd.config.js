@@ -63,6 +63,7 @@ export default {
     globals: {
         net: 'net',
         websocket: 'websocket',
+        'node-localstorage': 'LocalStorage',
     },
     external: ['net', 'websocket', 'node-localstorage', 'es6-promise/auto'],
     exports: 'named',
