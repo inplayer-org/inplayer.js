@@ -34,13 +34,6 @@ export default {
         }),
         commonjs({
             include: 'node_modules/**',
-            namedExports: {
-                'node_modules/node-localstorage/LocalStorage.js': [
-                    'path',
-                    'fs',
-                    'events',
-                ],
-            },
         }),
         buble({
             exclude: '**.json',
@@ -52,7 +45,7 @@ export default {
         globals(),
         json(),
     ],
-    external: ['node-localstorage', 'ws', 'stompjs', 'es6-promise/auto'],
+    external: ['ws', 'stompjs', 'es6-promise/auto'],
     exports: 'named',
     sourcemap: true,
     acorn: {

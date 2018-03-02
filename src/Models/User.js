@@ -1,5 +1,3 @@
-import LocalStorage from 'node-localstorage';
-
 /**
  * Contains all Requests regarding user/account and authentication
  *
@@ -7,10 +5,6 @@ import LocalStorage from 'node-localstorage';
  */
 class User {
     constructor(config) {
-        if (typeof localStorage === 'undefined' || localStorage === null) {
-            localStorage = new LocalStorage('./scratch');
-        }
-
         this.config = config;
     }
 

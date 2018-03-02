@@ -2,21 +2,16 @@
     'object' == typeof exports && 'undefined' != typeof module
         ? (module.exports = t(
               require('es6-promise/auto'),
-              require('node-localstorage'),
               require('net'),
               require('websocket')
           ))
         : 'function' == typeof define && define.amd
-          ? define(
-                ['es6-promise/auto', 'node-localstorage', 'net', 'websocket'],
-                t
-            )
-          : (e.InPlayer = t(null, e.LocalStorage, e.net, e.websocket));
-})(this, function(e, t, n, o) {
+          ? define(['es6-promise/auto', 'net', 'websocket'], t)
+          : (e.InPlayer = t(null, e.net, e.websocket));
+})(this, function(e, t, n) {
     'use strict';
     (t = t && t.hasOwnProperty('default') ? t.default : t),
         (n = n && n.hasOwnProperty('default') ? n.default : n),
-        (o = o && o.hasOwnProperty('default') ? o.default : o),
         (function(e) {
             if (!e.fetch) {
                 var t = {
@@ -112,10 +107,10 @@
                     t.iterable &&
                         (f.prototype[Symbol.iterator] = f.prototype.entries);
                 var i = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT'];
-                (g.prototype.clone = function() {
-                    return new g(this, { body: this._bodyInit });
+                (m.prototype.clone = function() {
+                    return new m(this, { body: this._bodyInit });
                 }),
-                    y.call(g.prototype),
+                    y.call(m.prototype),
                     y.call(b.prototype),
                     (b.prototype.clone = function() {
                         return new b(this._bodyInit, {
@@ -136,11 +131,11 @@
                     return new b(null, { status: t, headers: { location: e } });
                 }),
                     (e.Headers = f),
-                    (e.Request = g),
+                    (e.Request = m),
                     (e.Response = b),
                     (e.fetch = function(e, n) {
                         return new Promise(function(o, r) {
-                            var i = new g(e, n),
+                            var i = new m(e, n),
                                 s = new XMLHttpRequest();
                             (s.onload = function() {
                                 var e,
@@ -251,12 +246,12 @@
                         });
                 });
             }
-            function l(e) {
+            function p(e) {
                 var t = new FileReader(),
                     n = h(t);
                 return t.readAsArrayBuffer(e), n;
             }
-            function p(e) {
+            function l(e) {
                 if (e.slice) return e.slice(0);
                 var t = new Uint8Array(e.byteLength);
                 return t.set(new Uint8Array(e)), t.buffer;
@@ -280,7 +275,7 @@
                             )
                                 this._bodyText = e.toString();
                             else if (t.arrayBuffer && t.blob && o(e))
-                                (this._bodyArrayBuffer = p(e.buffer)),
+                                (this._bodyArrayBuffer = l(e.buffer)),
                                     (this._bodyInit = new Blob([
                                         this._bodyArrayBuffer,
                                     ]));
@@ -293,7 +288,7 @@
                                     throw new Error(
                                         'unsupported BodyInit type'
                                     );
-                                this._bodyArrayBuffer = p(e);
+                                this._bodyArrayBuffer = l(e);
                             }
                         else this._bodyText = '';
                         this.headers.get('content-type') ||
@@ -336,7 +331,7 @@
                             return this._bodyArrayBuffer
                                 ? d(this) ||
                                       Promise.resolve(this._bodyArrayBuffer)
-                                : this.blob().then(l);
+                                : this.blob().then(p);
                         })),
                     (this.text = function() {
                         var e,
@@ -374,7 +369,7 @@
                     }),
                     t.formData &&
                         (this.formData = function() {
-                            return this.text().then(m);
+                            return this.text().then(g);
                         }),
                     (this.json = function() {
                         return this.text().then(JSON.parse);
@@ -382,11 +377,11 @@
                     this
                 );
             }
-            function g(e, t) {
+            function m(e, t) {
                 var n,
                     o,
                     r = (t = t || {}).body;
-                if (e instanceof g) {
+                if (e instanceof m) {
                     if (e.bodyUsed) throw new TypeError('Already read');
                     (this.url = e.url),
                         (this.credentials = e.credentials),
@@ -414,7 +409,7 @@
                     );
                 this._initBody(r);
             }
-            function m(e) {
+            function g(e) {
                 var t = new FormData();
                 return (
                     e
@@ -446,7 +441,7 @@
             }
         })(self);
     self.fetch.bind(self);
-    function r(e) {
+    function o(e) {
         return new Promise(function(t, n) {
             function o(i, s) {
                 try {
@@ -462,15 +457,13 @@
             o();
         });
     }
-    var i = function(e) {
-        ('undefined' != typeof localStorage && null !== localStorage) ||
-            (localStorage = new t('./scratch')),
-            (this.config = e);
+    var r = function(e) {
+        this.config = e;
     };
-    (i.prototype.signIn = function(e) {
+    (r.prototype.signIn = function(e) {
         return (
             void 0 === e && (e = {}),
-            r(
+            o(
                 function*() {
                     var t = new FormData();
                     t.append('email', e.email),
@@ -493,8 +486,8 @@
             )
         );
     }),
-        (i.prototype.signOut = function() {
-            return r(
+        (r.prototype.signOut = function() {
+            return o(
                 function*() {
                     var e = localStorage.getItem(
                         this.config.INPLAYER_TOKEN_NAME
@@ -511,10 +504,10 @@
                 }.call(this)
             );
         }),
-        (i.prototype.signUp = function(e) {
+        (r.prototype.signUp = function(e) {
             return (
                 void 0 === e && (e = {}),
-                r(
+                o(
                     function*() {
                         var t = new FormData();
                         return (
@@ -537,22 +530,22 @@
                 )
             );
         }),
-        (i.prototype.isSignedIn = function() {
+        (r.prototype.isSignedIn = function() {
             return (
                 void 0 !== localStorage.getItem(this.config.INPLAYER_TOKEN_NAME)
             );
         }),
-        (i.prototype.token = function() {
+        (r.prototype.token = function() {
             return localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
         }),
-        (i.prototype.setTokenInCookie = function(e) {
+        (r.prototype.setTokenInCookie = function(e) {
             void 0 === e && (e = ''),
                 localStorage.setItem(this.config.INPLAYER_TOKEN_NAME, e);
         }),
-        (i.prototype.requestNewPassword = function(e) {
+        (r.prototype.requestNewPassword = function(e) {
             return (
                 void 0 === e && (e = {}),
-                r(
+                o(
                     function*() {
                         var t = new FormData();
                         return (
@@ -567,11 +560,11 @@
                 )
             );
         }),
-        (i.prototype.setNewPassword = function(e, t) {
+        (r.prototype.setNewPassword = function(e, t) {
             return (
                 void 0 === e && (e = {}),
                 void 0 === t && (t = ''),
-                r(
+                o(
                     function*() {
                         var n =
                             'password=' +
@@ -589,10 +582,10 @@
                 )
             );
         }),
-        (i.prototype.getAccountInfo = function(e) {
+        (r.prototype.getAccountInfo = function(e) {
             return (
                 void 0 === e && (e = ''),
-                r(
+                o(
                     function*() {
                         var t = yield (yield fetch(
                             this.config.API.getAccountInfo,
@@ -606,8 +599,8 @@
                 )
             );
         }),
-        (i.prototype.getSocialLoginUrls = function(e) {
-            return r(
+        (r.prototype.getSocialLoginUrls = function(e) {
+            return o(
                 function*() {
                     return yield (yield fetch(this.config.API.social(e), {
                         method: 'GET',
@@ -615,11 +608,11 @@
                 }.call(this)
             );
         }),
-        (i.prototype.updateAccount = function(e, t) {
+        (r.prototype.updateAccount = function(e, t) {
             return (
                 void 0 === e && (e = {}),
                 void 0 === t && (t = ''),
-                r(
+                o(
                     function*() {
                         var n = '';
                         return (
@@ -645,11 +638,11 @@
                 )
             );
         }),
-        (i.prototype.changePassword = function(e, t) {
+        (r.prototype.changePassword = function(e, t) {
             return (
                 void 0 === e && (e = {}),
                 void 0 === t && (t = ''),
-                r(
+                o(
                     function*() {
                         var n = new FormData();
                         return (
@@ -669,10 +662,10 @@
                 )
             );
         }),
-        (i.prototype.getRegisterFields = function(e) {
+        (r.prototype.getRegisterFields = function(e) {
             return (
                 void 0 === e && (e = ''),
-                r(
+                o(
                     function*() {
                         return yield (yield fetch(
                             this.config.API.getRegisterFields(e)
@@ -681,11 +674,11 @@
                 )
             );
         });
-    var s = function(e) {
+    var i = function(e) {
         this.config = e;
     };
-    (s.prototype.checkAccessForAsset = function(e, t) {
-        return r(
+    (i.prototype.checkAccessForAsset = function(e, t) {
+        return o(
             function*() {
                 return yield (yield fetch(this.config.API.checkAccess(t), {
                     headers: { Authorization: 'Bearer ' + e },
@@ -693,8 +686,8 @@
             }.call(this)
         );
     }),
-        (s.prototype.findAsset = function(e, t) {
-            return r(
+        (i.prototype.findAsset = function(e, t) {
+            return o(
                 function*() {
                     return yield (yield fetch(this.config.API.findAsset(e, t), {
                         method: 'GET',
@@ -702,8 +695,8 @@
                 }.call(this)
             );
         }),
-        (s.prototype.findExternalAsset = function(e, t) {
-            return r(
+        (i.prototype.findExternalAsset = function(e, t) {
+            return o(
                 function*() {
                     return yield (yield fetch(
                         this.config.API.findExternalAsset(e, t),
@@ -712,8 +705,8 @@
                 }.call(this)
             );
         }),
-        (s.prototype.findPackage = function(e) {
-            return r(
+        (i.prototype.findPackage = function(e) {
+            return o(
                 function*() {
                     return yield (yield fetch(this.config.API.findPackage(e), {
                         method: 'GET',
@@ -721,8 +714,8 @@
                 }.call(this)
             );
         }),
-        (s.prototype.getAssetAccessFees = function(e) {
-            return r(
+        (i.prototype.getAssetAccessFees = function(e) {
+            return o(
                 function*() {
                     return yield (yield fetch(
                         this.config.API.findAccessFees(e),
@@ -731,8 +724,8 @@
                 }.call(this)
             );
         }),
-        (s.prototype.getFreemiumAsset = function(e, t) {
-            return r(
+        (i.prototype.getFreemiumAsset = function(e, t) {
+            return o(
                 function*() {
                     var n = new FormData();
                     return (
@@ -746,11 +739,11 @@
                 }.call(this)
             );
         });
-    var a = function(e) {
+    var s = function(e) {
         this.config = e;
     };
-    (a.prototype.getPaymentMethods = function(e) {
-        return r(
+    (s.prototype.getPaymentMethods = function(e) {
+        return o(
             function*() {
                 return yield (yield fetch(this.config.API.getPaymentMethods, {
                     headers: { Authorization: 'Bearer ' + e },
@@ -758,8 +751,8 @@
             }.call(this)
         );
     }),
-        (a.prototype.getPaymentTools = function(e, t) {
-            return r(
+        (s.prototype.getPaymentTools = function(e, t) {
+            return o(
                 function*() {
                     return yield (yield fetch(
                         this.config.API.getPaymentTools(t),
@@ -768,11 +761,11 @@
                 }.call(this)
             );
         }),
-        (a.prototype.payForAsset = function(e, t) {
+        (s.prototype.payForAsset = function(e, t) {
             return (
                 void 0 === e && (e = ''),
                 void 0 === t && (t = {}),
-                r(
+                o(
                     function*() {
                         var n = new FormData();
                         return (
@@ -796,11 +789,11 @@
                 )
             );
         }),
-        (a.prototype.getPayPalParams = function(e, t) {
+        (s.prototype.getPayPalParams = function(e, t) {
             return (
                 void 0 === e && (e = ''),
                 void 0 === t && (t = {}),
-                r(
+                o(
                     function*() {
                         var n = new FormData();
                         return (
@@ -821,11 +814,11 @@
                 )
             );
         });
-    var c = function(e) {
+    var a = function(e) {
         this.config = e;
     };
-    (c.prototype.getSubscriptions = function(e) {
-        return r(
+    (a.prototype.getSubscriptions = function(e) {
+        return o(
             function*() {
                 return (yield fetch(this.config.API.getSubscriptions, {
                     method: 'GET',
@@ -834,8 +827,8 @@
             }.call(this)
         );
     }),
-        (c.prototype.cancelSubscription = function(e, t) {
-            return r(
+        (a.prototype.cancelSubscription = function(e, t) {
+            return o(
                 (function*() {
                     return (yield fetch(e, {
                         method: 'GET',
@@ -844,11 +837,11 @@
                 })()
             );
         }),
-        (c.prototype.assetSubscribe = function(e, t) {
+        (a.prototype.assetSubscribe = function(e, t) {
             return (
                 void 0 === e && (e = ''),
                 void 0 === t && (t = {}),
-                r(
+                o(
                     function*() {
                         var n = new FormData();
                         return (
@@ -872,11 +865,11 @@
                 )
             );
         });
-    var u = function(e) {
+    var c = function(e) {
         this.config = e;
     };
-    (u.prototype.getDlcLinks = function(e, t) {
-        return r(
+    (c.prototype.getDlcLinks = function(e, t) {
+        return o(
             function*() {
                 return yield (yield fetch(this.config.API.getDlcLinks(t), {
                     headers: { Authorization: 'Bearer ' + e },
@@ -884,11 +877,11 @@
             }.call(this)
         );
     }),
-        (u.prototype.getDiscount = function(e, t) {
+        (c.prototype.getDiscount = function(e, t) {
             return (
                 void 0 === e && (e = ''),
                 void 0 === t && (t = {}),
-                r(
+                o(
                     function*() {
                         var n = new FormData();
                         return (
@@ -905,8 +898,8 @@
                 )
             );
         }),
-        (u.prototype.getBranding = function(e) {
-            return r(
+        (c.prototype.getBranding = function(e) {
+            return o(
                 function*() {
                     return yield (yield fetch(this.config.API.getBranding(e), {
                         method: 'GET',
@@ -914,8 +907,8 @@
                 }.call(this)
             );
         }),
-        (u.prototype.downloadProtectedFile = function(e, t, n) {
-            return r(
+        (c.prototype.downloadProtectedFile = function(e, t, n) {
+            return o(
                 function*() {
                     return yield (yield fetch(
                         this.config.API.downloadFile(t, n),
@@ -924,16 +917,16 @@
                 }.call(this)
             );
         });
-    var f =
+    var u =
         'undefined' != typeof window
             ? window
             : 'undefined' != typeof global
               ? global
               : 'undefined' != typeof self ? self : {};
-    function d(e, t) {
+    function f(e, t) {
         return e((t = { exports: {} }), t.exports), t.exports;
     }
-    var h = d(function(e, t) {
+    var d = f(function(e, t) {
             (function() {
                 var e,
                     n,
@@ -988,11 +981,11 @@
                                     f,
                                     d,
                                     h,
-                                    l,
                                     p,
+                                    l,
                                     y,
-                                    g,
                                     m,
+                                    g,
                                     b,
                                     v;
                                 for (
@@ -1001,29 +994,29 @@
                                             .substring(0, s)
                                             .split(e.LF)).shift(),
                                         c = {},
-                                        p = function(e) {
+                                        l = function(e) {
                                             return e.replace(/^\s+|\s+$/g, '');
                                         },
                                         y = 0,
-                                        m = (b = a.reverse()).length;
-                                    y < m;
+                                        g = (b = a.reverse()).length;
+                                    y < g;
                                     y++
                                 )
                                     (f = (h = b[y]).indexOf(':')),
-                                        (c[p(h.substring(0, f))] = p(
+                                        (c[l(h.substring(0, f))] = l(
                                             h.substring(f + 1)
                                         ));
                                 if (
-                                    ((o = ''), (l = s + 2), c['content-length'])
+                                    ((o = ''), (p = s + 2), c['content-length'])
                                 )
                                     (d = parseInt(c['content-length'])),
-                                        (o = ('' + t).substring(l, l + d));
+                                        (o = ('' + t).substring(p, p + d));
                                 else
                                     for (
-                                        r = null, u = g = l, v = t.length;
-                                        (l <= v ? g < v : g > v) &&
+                                        r = null, u = m = p, v = t.length;
+                                        (p <= v ? m < v : m > v) &&
                                         (r = t.charAt(u)) !== e.NULL;
-                                        u = l <= v ? ++g : --g
+                                        u = p <= v ? ++m : --m
                                     )
                                         o += r;
                                 return new n(i, c, o);
@@ -1244,7 +1237,7 @@
                                         this.debug('Opening Web Socket...'),
                                     (this.ws.onmessage = ((u = this),
                                     function(n) {
-                                        var r, s, a, c, f, d, h, l, p, y, g, m;
+                                        var r, s, a, c, f, d, h, p, l, y, m, g;
                                         if (
                                             ((c =
                                                 'undefined' !=
@@ -1283,14 +1276,14 @@
                                             for (
                                                 'function' == typeof u.debug &&
                                                     u.debug('<<< ' + c),
-                                                    m = [],
-                                                    p = 0,
-                                                    y = (g = o.unmarshall(c))
+                                                    g = [],
+                                                    l = 0,
+                                                    y = (m = o.unmarshall(c))
                                                         .length;
-                                                p < y;
-                                                p++
+                                                l < y;
+                                                l++
                                             )
-                                                switch ((f = g[p]).command) {
+                                                switch ((f = m[l]).command) {
                                                     case 'CONNECTED':
                                                         'function' ==
                                                             typeof u.debug &&
@@ -1303,7 +1296,7 @@
                                                             u._setupHeartbeat(
                                                                 f.headers
                                                             ),
-                                                            m.push(
+                                                            g.push(
                                                                 'function' ==
                                                                 typeof u.connectCallback
                                                                     ? u.connectCallback(
@@ -1313,12 +1306,12 @@
                                                             );
                                                         break;
                                                     case 'MESSAGE':
-                                                        (l =
+                                                        (p =
                                                             f.headers
                                                                 .subscription),
                                                             (h =
                                                                 u.subscriptions[
-                                                                    l
+                                                                    p
                                                                 ] ||
                                                                 u.onreceive)
                                                                 ? ((a = u),
@@ -1335,7 +1328,7 @@
                                                                               (e = {}),
                                                                           a.ack(
                                                                               d,
-                                                                              l,
+                                                                              p,
                                                                               e
                                                                           )
                                                                       );
@@ -1349,13 +1342,13 @@
                                                                               (e = {}),
                                                                           a.nack(
                                                                               d,
-                                                                              l,
+                                                                              p,
                                                                               e
                                                                           )
                                                                       );
                                                                   }),
-                                                                  m.push(h(f)))
-                                                                : m.push(
+                                                                  g.push(h(f)))
+                                                                : g.push(
                                                                       'function' ==
                                                                       typeof u.debug
                                                                           ? u.debug(
@@ -1366,7 +1359,7 @@
                                                                   );
                                                         break;
                                                     case 'RECEIPT':
-                                                        m.push(
+                                                        g.push(
                                                             'function' ==
                                                             typeof u.onreceipt
                                                                 ? u.onreceipt(f)
@@ -1374,7 +1367,7 @@
                                                         );
                                                         break;
                                                     case 'ERROR':
-                                                        m.push(
+                                                        g.push(
                                                             'function' ==
                                                             typeof i
                                                                 ? i(f)
@@ -1382,7 +1375,7 @@
                                                         );
                                                         break;
                                                     default:
-                                                        m.push(
+                                                        g.push(
                                                             'function' ==
                                                             typeof u.debug
                                                                 ? u.debug(
@@ -1392,7 +1385,7 @@
                                                                 : void 0
                                                         );
                                                 }
-                                            return m;
+                                            return g;
                                         }
                                         'function' == typeof u.debug &&
                                             u.debug('<<< PONG');
@@ -1556,14 +1549,14 @@
                           }),
                           (window.Stomp = r))
                         : t || (self.Stomp = r);
-            }.call(f));
+            }.call(u));
         }),
-        l = (h.Stomp,
-        d(function(e, t) {
+        h = (d.Stomp,
+        f(function(e, o) {
             (function() {
                 var e, r, i, s, a, c;
-                (r = n),
-                    ((e = h).Stomp.setInterval = function(e, t) {
+                (r = t),
+                    ((e = d).Stomp.setInterval = function(e, t) {
                         return setInterval(t, e);
                     }),
                     (e.Stomp.clearInterval = function(e) {
@@ -1604,34 +1597,34 @@
                         );
                     }),
                     (c = function(e) {
-                        var t, n, r, i;
+                        var t, o, r, i;
                         return (
-                            (t = o.client),
-                            (n = null),
+                            (t = n.client),
+                            (o = null),
                             (i = {
                                 url: e,
                                 send: function(e) {
-                                    return n.sendUTF(e);
+                                    return o.sendUTF(e);
                                 },
                                 close: function() {
-                                    return n.close();
+                                    return o.close();
                                 },
                             }),
                             (r = new t()).on('connect', function(e) {
                                 return (
-                                    (n = e),
+                                    (o = e),
                                     i.onopen(),
-                                    n.on('error', function(e) {
+                                    o.on('error', function(e) {
                                         return 'function' == typeof i.onclose
                                             ? i.onclose(e)
                                             : void 0;
                                     }),
-                                    n.on('close', function() {
+                                    o.on('close', function() {
                                         return 'function' == typeof i.onclose
                                             ? i.onclose()
                                             : void 0;
                                     }),
-                                    n.on('message', function(e) {
+                                    o.on('message', function(e) {
                                         var t;
                                         if ('utf8' === e.type)
                                             return (
@@ -1653,19 +1646,19 @@
                         var n;
                         return (n = c(t)), e.Stomp.over(n);
                     }),
-                    (t.overTCP = i),
-                    (t.overWS = s);
-            }.call(f));
+                    (o.overTCP = i),
+                    (o.overWS = s);
+            }.call(u));
         })),
-        p = (l.net, l.websocket, l.overTCP, l.overWS, h.Stomp),
-        y = l.overTCP,
-        g = l.overWS;
-    (p.overTCP = y), (p.overWS = g);
+        p = (h.net, h.websocket, h.overTCP, h.overWS, d.Stomp),
+        l = h.overTCP,
+        y = h.overWS;
+    (p.overTCP = l), (p.overWS = y);
     var m = window && (window.WebSocket || window.MozWebSocket),
-        b = function(e) {
+        g = function(e) {
             (this.subscription = null), (this.config = e);
         };
-    (b.prototype.subscribe = function(e, t) {
+    (g.prototype.subscribe = function(e, t) {
         if (!e && '' !== e) return !1;
         if (t && t.onmessage) {
             if ('function' != typeof t.onmessage) return !1;
@@ -1697,14 +1690,14 @@
             ),
             this.setClient(this.client);
     }),
-        (b.prototype.connectCallback = function(e, t, n) {
+        (g.prototype.connectCallback = function(e, t, n) {
             if ((e && e.onopen && e.onopen(), t.ws.readyState === t.ws.OPEN))
                 t.subscribe('/exchange/notifications/' + n, e.onmessage, {
                     id: n,
                     ack: 'client',
                 });
         }),
-        (b.prototype.errorCallback = function(e, t, n, o, r, i, s) {
+        (g.prototype.errorCallback = function(e, t, n, o, r, i, s) {
             void 0 === s && (s = 0),
                 0 === s && (s = 1e3 * (Math.floor(6 * Math.random()) + 1)),
                 setTimeout(function() {
@@ -1736,15 +1729,15 @@
                     ? (s = 1e3 * (Math.floor(6 * Math.random()) + 1))
                     : (s += Math.ceil(s / 2));
         }),
-        (b.prototype.setClient = function(e) {
+        (g.prototype.setClient = function(e) {
             this.subscription = e;
         }),
-        (b.prototype.unsubscribe = function() {
+        (g.prototype.unsubscribe = function() {
             this.subscription &&
                 this.subscription.connected &&
                 this.subscription.unsubscribe();
         });
-    var v = {
+    var b = {
             BASE_URL: 'https://services.inplayer.com',
             INPLAYER_TOKEN_NAME: 'inplayer_token',
             stomp: {
@@ -1753,7 +1746,7 @@
                 password: 'notifications',
             },
         },
-        w = function(e) {
+        v = function(e) {
             return {
                 signIn: e.BASE_URL + '/accounts/login',
                 signOut: e.BASE_URL + '/accounts/logout',
@@ -1807,26 +1800,26 @@
                 },
             };
         },
-        A = function() {
-            (this.config = v),
-                (this.config.API = w(v)),
-                (this.User = new i(this.config)),
-                (this.Asset = new s(this.config)),
-                (this.Payment = new a(this.config)),
-                (this.Subscription = new c(this.config)),
-                (this.Misc = new u(this.config)),
-                (this.Socket = new b(this.config));
+        w = function() {
+            (this.config = b),
+                (this.config.API = v(b)),
+                (this.User = new r(this.config)),
+                (this.Asset = new i(this.config)),
+                (this.Payment = new s(this.config)),
+                (this.Subscription = new a(this.config)),
+                (this.Misc = new c(this.config)),
+                (this.Socket = new g(this.config));
         };
     return (
-        (A.prototype.subscribe = function(e, t) {
+        (w.prototype.subscribe = function(e, t) {
             return (
                 !!this.User.isSignedIn() && (this.Socket.subscribe(e, t), !0)
             );
         }),
-        (A.prototype.unsubscribe = function() {
+        (w.prototype.unsubscribe = function() {
             this.Socket.unsubscribe();
         }),
-        (A.prototype.setConfig = function(e) {
+        (w.prototype.setConfig = function(e) {
             switch (e) {
                 case 'prod':
                     (this.config.BASE_URL = 'https://services.inplayer.com'),
@@ -1839,8 +1832,8 @@
                         (this.config.stomp.url =
                             'ws://staging-v2.inplayer.com:15674/ws');
             }
-            this.config.API = w(this.config);
+            this.config.API = v(this.config);
         }),
-        new A()
+        new w()
     );
 });

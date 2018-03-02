@@ -42,11 +42,6 @@ export default {
         commonjs({
             include: 'node_modules/**',
             namedExports: {
-                'node_modules/node-localstorage/LocalStorage.js': [
-                    'path',
-                    'fs',
-                    'events',
-                ],
                 'node_modules/stompjs/lib/stomp-node.js': ['net', 'websocket'],
             },
         }),
@@ -63,9 +58,8 @@ export default {
     globals: {
         net: 'net',
         websocket: 'websocket',
-        'node-localstorage': 'LocalStorage',
     },
-    external: ['net', 'websocket', 'node-localstorage', 'es6-promise/auto'],
+    external: ['net', 'websocket', 'es6-promise/auto'],
     exports: 'named',
     context: 'self',
     acorn: {
