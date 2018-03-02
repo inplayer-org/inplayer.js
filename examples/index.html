@@ -18,19 +18,14 @@
   // }).then(data =>console.log(data));
   //
   // /* signin call */
-  // if(inPlayer.User.signIn(
-  //   {
-  //     merchant_uuid: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
-  //     referrer: 'http://localhost:3000/',
-  //     email: 'vld_test@consumer.com',
-  //     password: '11111111',
-  //   }
-  // )){
-  //   document.getElementById('status').innerHTML +=
-  //   `<p>
-  //   Successfully signed in.
-  //   </p>`;
-  // }
+  InPlayer.User.signIn(
+    {
+      merchantUuid: 'c62e75f2-e090-4b0b-a3b2-ca70d52f19ac',
+      referrer: 'http://localhost:3000/',
+      email: 'goran.g@inplayer.com',
+      password: 'Goran123',
+    }
+  ).then(data => console.log(data));
 
   // /* sing out call */
   // if(inPlayer.User.signOut()){
