@@ -521,6 +521,7 @@
                             t.append('merchant_uuid', e.merchantUuid),
                             t.append('type', e.type),
                             t.append('referrer', e.referrer),
+                            t.append('metadata', e.metadata),
                             yield (yield fetch(this.config.API.signUp, {
                                 method: 'POST',
                                 body: t,

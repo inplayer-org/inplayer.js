@@ -118,6 +118,7 @@ class User {
         fd.append('merchant_uuid', data.merchantUuid);
         fd.append('type', data.type);
         fd.append('referrer', data.referrer);
+        fd.append('metadata', data.metadata);
 
         const response = await fetch(this.config.API.signUp, {
             method: 'POST',
