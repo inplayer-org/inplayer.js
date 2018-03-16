@@ -296,9 +296,19 @@ class User {
         let queryString = '';
 
         Object.keys(data).forEach(function(key) {
-            const newKey =
-                key === 'fullName' ? 'full_name' : `metadata[${key}]`;
-            queryString += (queryString ? '&' : '') + `${newKey}=${data[key]}`;
+            let newKey = '';
+
+            if (key === 'fullName') {
+                newKey = 'full_name';
+                queryString +=
+                    (queryString ? '&' : '') + `${newKey}=${data[key]}`;
+            } else if (key === 'metadata') {
+                Object.keys(data[key]).forEach(metadata_key => {
+                    queryString +=
+                        (queryString ? '&' : '') +
+                        `medatada[${metadata_key}]=${data[key][metadata_key]}`;
+                });
+            }
         });
 
         const response = await fetch(this.config.API.updateAccount, {
