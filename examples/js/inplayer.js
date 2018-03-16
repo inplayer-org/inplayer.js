@@ -618,13 +618,21 @@
                         var n = '';
                         return (
                             Object.keys(e).forEach(function(t) {
-                                n +=
-                                    (n ? '&' : '') +
-                                    ('fullName' === t
-                                        ? 'full_name'
-                                        : 'metadata[' + t + ']') +
-                                    '=' +
-                                    e[t];
+                                'fullName' === t
+                                    ? (n +=
+                                          (n ? '&' : '') +
+                                          'full_name' +
+                                          '=' +
+                                          e[t])
+                                    : 'metadata' === t &&
+                                      Object.keys(e[t]).forEach(function(o) {
+                                          n +=
+                                              (n ? '&' : '') +
+                                              'medatada[' +
+                                              o +
+                                              ']=' +
+                                              e[t][o];
+                                      });
                             }),
                             yield (yield fetch(this.config.API.updateAccount, {
                                 method: 'PUT',
