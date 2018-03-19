@@ -628,7 +628,7 @@
                                       Object.keys(e[t]).forEach(function(o) {
                                           n +=
                                               (n ? '&' : '') +
-                                              'medatada[' +
+                                              'metadata[' +
                                               o +
                                               ']=' +
                                               e[t][o];
