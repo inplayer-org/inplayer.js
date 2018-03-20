@@ -1,6 +1,6 @@
 {
   "name": "@inplayer-org/inplayer.js",
-  "version": "0.3.15",
+  "version": "0.3.16",
   "author": "InPlayer",
   "license": "ISC",
   "description": "A Javascript SDK for Inplayer's RESTful API",
@@ -71,6 +71,7 @@
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.1.0",
     "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-regenerator": "^0.5.4",
     "rollup-plugin-replace": "^2.0.0",
     "rollup-plugin-uglify": "^2.0.1",
     "rollup-watch": "^4.3.1",
