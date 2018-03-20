@@ -1,6 +1,5 @@
 import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
-import buble from 'rollup-plugin-buble';
 import builtins from 'rollup-plugin-node-builtins';
 import uglify from 'rollup-plugin-uglify';
 import commonjs from 'rollup-plugin-commonjs';
@@ -8,7 +7,6 @@ import async from 'rollup-plugin-async';
 import json from 'rollup-plugin-json';
 import replace from 'rollup-plugin-replace';
 import globals from 'rollup-plugin-node-globals';
-import regenerator from 'rollup-plugin-regenerator';
 import { minify } from 'uglify-es';
 
 const pkg = require('./package.json');
@@ -28,7 +26,6 @@ export default {
     ],
     plugins: [
         builtins(),
-        regenerator(),
         async(),
         replace({
             ENVIRONMENT: JSON.stringify('production'),
@@ -45,12 +42,6 @@ export default {
             include: 'node_modules/**',
             namedExports: {
                 'node_modules/stompjs/lib/stomp-node.js': ['net', 'websocket'],
-            },
-        }),
-        buble({
-            exclude: '**.json',
-            transforms: {
-                generator: false,
             },
         }),
         uglify({}, minify),
