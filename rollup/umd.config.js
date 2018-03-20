@@ -32,7 +32,6 @@ export default {
         }),
         babel({
             exclude: ['node_modules/**'],
-            babelrc: false,
         }),
         resolve({
             browser: true,
