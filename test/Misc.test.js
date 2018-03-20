@@ -47,7 +47,7 @@ describe('Misc', function() {
                 'c62e75f2-e090-4b0b-a3b2-ca70d52f19ac'
             );
 
-            expect(result).to.include({ exists: true });
+            expect(result).to.be.an('array');
         });
     });
 

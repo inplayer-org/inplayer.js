@@ -1,6 +1,6 @@
 {
   "name": "@inplayer-org/inplayer.js",
-  "version": "0.3.14",
+  "version": "0.3.15",
   "author": "InPlayer",
   "license": "ISC",
   "description": "A Javascript SDK for Inplayer's RESTful API",
@@ -29,7 +29,8 @@
   "babel": {
     "presets": [
       "env",
-      "es2015"
+      "es2015",
+      "stage-3"
     ]
   },
   "keywords": [
@@ -47,6 +48,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015-rollup": "^3.0.0",
+    "babel-preset-stage-3": "^6.24.1",
     "chai": "^4.1.2",
     "esdoc": "^1.0.4",
     "formdata-polyfill": "^3.0.9",
