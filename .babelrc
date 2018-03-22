@@ -5,11 +5,12 @@
       {
         "modules": false
       }
-    ]
+    ],
+    "es2015"
   ],
   "env": {
     "test": {
-      "presets": ["es2015", "env"],
+      "presets": ["env", "es2015"],
     }
   }
 }
