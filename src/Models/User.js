@@ -306,7 +306,7 @@ class User {
                 Object.keys(data[key]).forEach(metadata_key => {
                     queryString +=
                         (queryString ? '&' : '') +
-                        `metadata[${metadata_key}]=${data[key][metadata_key]}`;
+                        `metadata[${data[key][metadata_key]}]=${metadata_key}`;
                 });
             }
         });

@@ -25,7 +25,6 @@ export default {
         }),
         babel({
             exclude: ['node_modules/**', '*.json'],
-            babelrc: false,
         }),
         resolve({
             browser: true,

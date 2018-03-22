@@ -1,5 +1,6 @@
 import 'isomorphic-fetch';
 import 'es6-promise/auto';
+import 'babel-polyfill';
 import User from './Models/User';
 import Asset from './Models/Asset';
 import Payment from './Models/Payment';
