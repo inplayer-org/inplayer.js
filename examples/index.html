@@ -7,7 +7,7 @@
 <body>
   <div id="status"></div>
 </body>
-<script src="js/inplayer.js"></script>
+<script src="./../dist/inplayer.umd.js"></script>
 <script>
   // console.log(InPlayer);
 
@@ -17,15 +17,7 @@
   //   access_fee_id: 2042
   // }).then(data =>console.log(data));
   //
-  // /* signin call */
-  InPlayer.User.signIn(
-    {
-      merchantUuid: 'c62e75f2-e090-4b0b-a3b2-ca70d52f19ac',
-      referrer: 'http://localhost:3000/',
-      email: 'goran.g@inplayer.com',
-      password: 'Goran123',
-    }
-  ).then(data => console.log(data));
+
 
   // /* sing out call */
   // if(inPlayer.User.signOut()){
@@ -90,19 +82,35 @@
   // InPlayer.Subscriptions.getSubscriptions('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIxMTgxMDEsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIxMjE3MDF9.ZBrNhCG0KeYfnh0HQKUJ8RD2ETghcccu5Z4MIfEusP0')
   // .then(data=> console.log(data));
   // InPlayer.User.getRegisterFields('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data=>console.log(data));
-  InPlayer.setConfig('develop');
+  // InPlayer.setConfig('develop');
   // InPlayer.User.signIn({
   //     merchantUuid: '4cced19c-49ed-420d-8c49-a79a64542760',
   //     referrer: 'http://localhost:3000/',
   //     email: 'testing_goran@test.com',
   //     password: '12345678',
   // }).then(data => console.log(data));
-  InPlayer.subscribe('4cced19c-49ed-420d-8c49-a79a64542760',
-      {
-        onmessage: (message) => { console.log('called'); let body = JSON.parse(message.body); console.log(body, 'message') },
-        onopen: (e) => console.log('open'),
-        onclose: (e) => console.log('close', e)
-      });
+  // /* signin call */
+  InPlayer.setConfig('develop');
+  InPlayer.User.signIn(
+    {
+      // merchantUuid: 'c62e75f2-e090-4b0b-a3b2-ca70d52f19ac',
+      merchantUuid: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
+      referrer: 'http://localhost:3000/',
+      // email: 'goran.g@inplayer.com',
+      // password: 'Goran123',
+      email: 'vld_test@consumer.com',
+      password: '11111111',
+    }
+  ).then(data => {
+    console.log(data);
+    InPlayer.subscribe(/*'4cced19c-49ed-420d-8c49-a79a64542760',*/ '8425fe2d-b082-4b1d-9080-f3c155990744',
+        {
+          onMessage: (message) => { console.log('called'); console.log(message, 'message') },
+          onOpen: (e) => console.log('open'),
+          onClose: (e) => console.log('close', e)
+        });
+  });
+
 
   // InPlayer.unsubscribe();
 </script>

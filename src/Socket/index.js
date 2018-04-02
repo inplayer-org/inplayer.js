@@ -1,8 +1,6 @@
-import Stomp from 'stompjs';
-
-var WebSocket = window && (window.WebSocket || window.MozWebSocket);
-const MAX_INTERVAL = 600000;
-const MAX_INITIAL_INTERVAL = 6;
+import awsIot from 'aws-iot-device-sdk';
+import { config } from '../../config';
+import User from '../Models/User';
 
 class Socket {
     constructor(config) {
@@ -10,22 +8,42 @@ class Socket {
         this.config = config;
     }
 
+    async getIotToken() {
+        const authToken = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+
+        if (!authToken) {
+            return null;
+        }
+
+        const response = await fetch(this.config.AWS_IOT_URL, {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + authToken,
+            },
+        });
+
+        const responseData = await response.json();
+
+        return responseData;
+    }
+
+    /* Subscribes to Websocket notifications */
     subscribe(accountUid, callbackParams) {
         /* Check for callback functions */
         if (!accountUid && accountUid !== '') {
             return false;
         }
 
-        if (callbackParams && callbackParams.onmessage) {
-            if (typeof callbackParams.onmessage !== 'function') {
+        if (callbackParams && callbackParams.onMessage) {
+            if (typeof callbackParams.onMessage !== 'function') {
                 return false;
             }
         } else {
             callbackParams.onMessage = e => console.log('Received message:', e);
         }
 
-        if (callbackParams && callbackParams.onopen) {
-            if (typeof callbackParams.onopen !== 'function') {
+        if (callbackParams && callbackParams.onOpen) {
+            if (typeof callbackParams.onOpen !== 'function') {
                 return false;
             }
         }
@@ -34,122 +52,58 @@ class Socket {
         var parent = this;
         var uuid = accountUid;
 
-        var credentials = {
-            login: this.config.stomp.login,
-            passcode: this.config.stomp.password,
-            'client-id': accountUid,
-        };
+        const IAMToken = localStorage.getItem(config.INPLAYER_IOT_NAME);
 
-        const ws = new WebSocket(this.config.stomp.url);
-        this.client = Stomp.over(ws);
-        this.client.heartbeat.outgoing = 30000;
-        this.client.heartbeat.incoming = 30000;
-        this.client.debug = null;
-
-        this.client.connect(
-            credentials,
-            () =>
-                parent.connectCallback(
-                    callbackParams,
-                    parent.client,
-                    accountUid
-                ),
-            error => {
-                if (typeof error === 'string') {
-                    parent.errorCallback(
-                        callbackParams,
-                        parent.config,
-                        parent.client,
-                        credentials,
-                        accountUid,
-                        parent
+        if (!IAMToken) {
+            this.getIotToken().then(data => {
+                if (!data) {
+                    throw new Error(
+                        'Invalid AUTH token. You need to be signed in to subscribe.'
                     );
                 }
-            }
-        );
+                localStorage.setItem(
+                    config.INPLAYER_IOT_NAME,
+                    JSON.stringify(data)
+                );
 
-        this.setClient(this.client);
-    }
-
-    /* callback on success with the websocket connection */
-    connectCallback(callbackParams, client, accountUid) {
-        // call onopen callback
-        if (callbackParams && callbackParams.onopen) callbackParams.onopen();
-
-        if (client.ws.readyState === client.ws.OPEN) {
-            // subscribe to events
-            let tmp = client.subscribe(
-                '/exchange/notifications/' + accountUid,
-                callbackParams.onmessage,
-                {
-                    id: accountUid,
-                    ack: 'client',
-                }
-            );
-        }
-    }
-
-    /* callback on error with the websocket connection */
-    errorCallback(
-        callbackParams,
-        config,
-        client,
-        credentials,
-        accountUid,
-        parent,
-        timeoutStart = 0
-    ) {
-        if (timeoutStart === 0) {
-            timeoutStart =
-                (Math.floor(Math.random() * MAX_INITIAL_INTERVAL) + 1) * 1000; //get a random start timeout between 1-max
-        }
-        setTimeout(function() {
-            if (
-                client.ws.readyState === client.ws.CONNECTING ||
-                client.ws.readyState === client.ws.OPEN
-            ) {
-                return;
-            }
-
-            var ws = new WebSocket(config.stomp.url);
-
-            client = new Stomp.over(ws);
-
-            client.heartbeat.outgoing = 30000;
-            client.heartbeat.incoming = 30000;
-            client.debug = null;
-
-            client.connect(
-                credentials,
-                () => {
-                    parent.connectCallback(callbackParams, client, accountUid);
-                    //reset the timeoutStart
-                    timeoutStart =
-                        (Math.floor(Math.random() * MAX_INITIAL_INTERVAL) + 1) *
-                        1000; //get a random start timeout between 1-max
-                },
-                error => {
-                    if (typeof error === 'string') {
-                        parent.errorCallback(
-                            callbackParams,
-                            config,
-                            client,
-                            credentials,
-                            accountUid,
-                            parent,
-                            timeoutStart
-                        );
-                    }
-                }
-            );
-        }, timeoutStart);
-        if (timeoutStart >= MAX_INTERVAL) {
-            //if more than 10 minutes reset the timer
-            timeoutStart =
-                (Math.floor(Math.random() * MAX_INITIAL_INTERVAL) + 1) * 1000; //get a random start timeout between 1-max
+                //subscribe
+                this.handleSubscribe(data, callbackParams, uuid);
+            });
         } else {
-            timeoutStart += Math.ceil(timeoutStart / 2);
+            const data = JSON.parse(IAMToken);
+            this.handleSubscribe(data, callbackParams, uuid);
         }
+    }
+
+    handleSubscribe(data, callbackParams, uuid) {
+        const credentials = {
+            region: data.region,
+            protocol: 'wss',
+            accessKeyId: data.accessKey,
+            secretKey: data.secretKey,
+            sessionToken: data.sessionToken,
+            port: 443,
+            host: data.iotEndpoint,
+        };
+
+        const client = awsIot.device(credentials);
+
+        client.on('connect', data => {
+            client.subscribe(uuid);
+            callbackParams.onOpen();
+            this.setClient(client);
+        });
+
+        client.on('message', (topic, message) => {
+            const decoded_message = message.toString();
+            callbackParams.onMessage(decoded_message);
+        });
+
+        client.on('close', () => {
+            if (callbackParams.onClose === 'function') {
+                callbackParams.onClose();
+            }
+        });
     }
 
     setClient(client) {
@@ -157,8 +111,8 @@ class Socket {
     }
 
     unsubscribe() {
-        if (this.subscription && this.subscription.connected) {
-            this.subscription.unsubscribe();
+        if (this.subscription) {
+            this.subscription.end();
         }
     }
 }
