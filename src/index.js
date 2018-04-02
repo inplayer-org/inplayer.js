@@ -99,18 +99,21 @@ class InPlayer {
         switch (config) {
             case 'prod': {
                 this.config.BASE_URL = 'https://services.inplayer.com';
-                this.config.stomp.url = 'wss://notify.inplayer.com:15671/ws';
+                this.config.AWS_IOT_URL =
+                    'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys';
                 break;
             }
             case 'develop': {
                 this.config.BASE_URL = 'https://staging-v2.inplayer.com';
-                this.config.stomp.url = 'ws://staging-v2.inplayer.com:15674/ws';
+                this.config.AWS_IOT_URL =
+                    'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys';
                 break;
             }
             case 'sandbox': {
                 //TODO: to be changed in future
                 this.config.BASE_URL = 'https://staging-v2.inplayer.com';
-                this.config.stomp.url = 'ws://staging-v2.inplayer.com:15674/ws';
+                this.config.AWS_IOT_URL =
+                    'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys';
                 break;
             }
             default:
