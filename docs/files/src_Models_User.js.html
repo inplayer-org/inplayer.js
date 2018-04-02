@@ -81,8 +81,6 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-import LocalStorage from &#x27;node-localstorage&#x27;;
-
 /**
  * Contains all Requests regarding user/account and authentication
  *
@@ -90,10 +88,6 @@ import LocalStorage from &#x27;node-localstorage&#x27;;
  */
 class User {
     constructor(config) {
-        if (typeof localStorage === &#x27;undefined&#x27; || localStorage === null) {
-            localStorage = new LocalStorage(&#x27;./scratch&#x27;);
-        }
-
         this.config = config;
     }
 
@@ -166,6 +160,7 @@ class User {
         // if response is okay
         if (data.explain) {
             localStorage.removeItem(this.config.INPLAYER_TOKEN_NAME);
+            localStorage.removeItem(this.config.INPLAYER_IOT_NAME);
         }
 
         return true;
@@ -190,7 +185,7 @@ class User {
      *      email: &quot;test32@test.com&quot;,
      *      password: &quot;12345678&quot;,
      *      passwordConfirmation: &quot;12345678&quot;,
-     *      merchantUuid: &quot;528b1b80-5868-4abc-a9b6-4d3455d719c8&quot;,
+     *      clientId: &quot;528b1b80-5868-4abc-a9b6-4d3455d719c8&quot;,
      *      type: &quot;consumer&quot;,
      *      referrer: &quot;http://localhost:3000/&quot;,
      *     })
@@ -201,12 +196,21 @@ class User {
         // Add into form data
         const fd = new FormData();
         fd.append(&#x27;full_name&#x27;, data.fullName);
-        fd.append(&#x27;email&#x27;, data.email);
+        fd.append(&#x27;username&#x27;, data.email);
         fd.append(&#x27;password&#x27;, data.password);
         fd.append(&#x27;password_confirmation&#x27;, data.passwordConfirmation);
-        fd.append(&#x27;merchant_uuid&#x27;, data.merchantUuid);
+        fd.append(&#x27;client_id&#x27;, data.clientId);
         fd.append(&#x27;type&#x27;, data.type);
+        fd.append(&#x27;grant_type&#x27;, &#x27;password&#x27;);
         fd.append(&#x27;referrer&#x27;, data.referrer);
+
+        const keys = Object.keys(data.metadata);
+        if(keys.length){
+          keys.forEach((key) =&gt; {
+            fd.append(&#x60;metadata[${key}]&#x60;, data.metadata[key]);
+          })
+        }
+
 
         const response = await fetch(this.config.API.signUp, {
             method: &#x27;POST&#x27;,
@@ -227,7 +231,10 @@ class User {
      * @return {Boolean}
      */
     isSignedIn() {
-        return localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !== undefined;
+        return (
+            localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !== undefined &amp;&amp;
+            localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !== null
+        );
     }
 
     /**
@@ -382,11 +389,21 @@ class User {
         let queryString = &#x27;&#x27;;
 
         Object.keys(data).forEach(function(key) {
-            const newKey =
-                key === &#x27;fullName&#x27; ? &#x27;full_name&#x27; : &#x60;metadata[${key}]&#x60;;
-            queryString += (queryString ? &#x27;&amp;&#x27; : &#x27;&#x27;) + &#x60;${newKey}=${data[key]}&#x60;;
-        });
+            let newKey = &#x27;&#x27;;
 
+            if (key === &#x27;fullName&#x27;) {
+                newKey = &#x27;full_name&#x27;;
+                queryString +=
+                    (queryString ? &#x27;&amp;&#x27; : &#x27;&#x27;) + &#x60;${newKey}=${data[key]}&#x60;;
+            } else if (key === &#x27;metadata&#x27;) {
+                Object.keys(data[key]).forEach(metadata_key =&gt; {
+                    queryString +=
+                        (queryString ? &#x27;&amp;&#x27; : &#x27;&#x27;) +
+                        &#x60;metadata[${metadata_key}]=${data[key][metadata_key]}&#x60;;
+                });
+            }
+        });
+        console.log(queryString);
         const response = await fetch(this.config.API.updateAccount, {
             method: &#x27;PUT&#x27;,
             body: queryString,
@@ -448,7 +465,9 @@ class User {
      * @return {Object}
      */
     async getRegisterFields(merchantUuid = &#x27;&#x27;) {
-        const response = await fetch(this.config.API.getRegisterFields(merchantUuid));
+        const response = await fetch(
+            this.config.API.getRegisterFields(merchantUuid)
+        );
 
         const data = await response.json();
 
