@@ -83,6 +83,7 @@
     <pre class="prettyprint linenums">
 import &#x27;isomorphic-fetch&#x27;;
 import &#x27;es6-promise/auto&#x27;;
+import &#x27;babel-polyfill&#x27;;
 import User from &#x27;./Models/User&#x27;;
 import Asset from &#x27;./Models/Asset&#x27;;
 import Payment from &#x27;./Models/Payment&#x27;;
@@ -100,7 +101,7 @@ import { config } from &#x27;../config&#x27;;
 class InPlayer {
     constructor() {
         this.config = config;
-        this.config.API = API;
+        this.config.API = API(config);
         /**
          * @property User
          * @type User
@@ -177,29 +178,31 @@ class InPlayer {
      * @example
      *     InPlayer.setConfig(&#x27;develop&#x27;);
      */
-    setConfig(config){
-      switch(config){
-        case &#x27;prod&#x27;:
-        {
-          this.config.BASE_URL = &#x27;https://services.inplayer.com&#x27;;
-          this.config.stomp.url = &#x27;wss://notify.inplayer.com:15671/ws&#x27;;
-          break;
+    setConfig(config) {
+        switch (config) {
+            case &#x27;prod&#x27;: {
+                this.config.BASE_URL = &#x27;https://services.inplayer.com&#x27;;
+                this.config.AWS_IOT_URL =
+                    &#x27;https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys&#x27;;
+                break;
+            }
+            case &#x27;develop&#x27;: {
+                this.config.BASE_URL = &#x27;https://staging-v2.inplayer.com&#x27;;
+                this.config.AWS_IOT_URL =
+                    &#x27;https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys&#x27;;
+                break;
+            }
+            case &#x27;sandbox&#x27;: {
+                //TODO: to be changed in future
+                this.config.BASE_URL = &#x27;https://staging-v2.inplayer.com&#x27;;
+                this.config.AWS_IOT_URL =
+                    &#x27;https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys&#x27;;
+                break;
+            }
+            default:
+                break;
         }
-        case &#x27;develop&#x27;:
-        {
-          this.config.BASE_URL = &#x27;https://staging-v2.inplayer.com&#x27;;
-          this.config.stomp.url = &#x27;wss://staging-v2.inplayer.com:15671/ws&#x27;;
-          break;
-        }
-        case &#x27;sandbox&#x27;: //TODO: to be changed in future
-        {
-          this.config.BASE_URL = &#x27;https://staging-v2.inplayer.com&#x27;;
-          this.config.stomp.url = &#x27;wss://staging-v2.inplayer.com:15671/ws&#x27;;
-          break;
-        }
-        default:
-          break;
-      }
+        this.config.API = API(this.config);
     }
 }
 

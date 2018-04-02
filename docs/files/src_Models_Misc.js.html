@@ -87,8 +87,8 @@
  * @class Misc
  */
 class Misc {
-    constructor(config){
-      this.config = config;
+    constructor(config) {
+        this.config = config;
     }
     /**
      * Gets all DLC links
@@ -165,9 +165,12 @@ class Misc {
      * @return {Object}
      */
     async getBranding(merchantUuid) {
-        const response = await fetch(this.config.API.getBranding(merchantUuid), {
-            method: &#x27;GET&#x27;,
-        });
+        const response = await fetch(
+            this.config.API.getBranding(merchantUuid),
+            {
+                method: &#x27;GET&#x27;,
+            }
+        );
 
         const data = await response.json();
 
@@ -188,11 +191,14 @@ class Misc {
      * @return {Object}
      */
     async downloadProtectedFile(token, assetId, filename) {
-        const response = await fetch(this.config.API.downloadFile(assetId, filename), {
-            headers: {
-                Authorization: &#x27;Bearer &#x27; + token,
-            },
-        });
+        const response = await fetch(
+            this.config.API.downloadFile(assetId, filename),
+            {
+                headers: {
+                    Authorization: &#x27;Bearer &#x27; + token,
+                },
+            }
+        );
 
         const data = await response.json();
 

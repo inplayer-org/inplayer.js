@@ -120,7 +120,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src\\Models\\User.js",
-            "line": 3,
+            "line": 1,
             "description": "Contains all Requests regarding user/account and authentication"
         },
         "InPlayer": {
@@ -132,7 +132,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src\\index.js",
-            "line": 12,
+            "line": 13,
             "description": "Main class. Contains all others methods and websocket subscription"
         }
     },
@@ -196,7 +196,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 56,
+            "line": 59,
             "description": "Get an external assets' info",
             "itemtype": "method",
             "name": "findExternalAsset",
@@ -224,7 +224,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 81,
+            "line": 84,
             "description": "Get package info for a given Package ID",
             "itemtype": "method",
             "name": "findPackage",
@@ -247,7 +247,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 102,
+            "line": 105,
             "description": "Get the access fees for a given asset ID",
             "itemtype": "method",
             "name": "getAssetAccessFees",
@@ -270,7 +270,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 123,
+            "line": 126,
             "description": "Authorize for the freemium asset (login)",
             "itemtype": "method",
             "name": "getFreemiumAsset",
@@ -377,7 +377,7 @@
         },
         {
             "file": "src\\Models\\Misc.js",
-            "line": 94,
+            "line": 97,
             "description": "Downloads a file",
             "itemtype": "method",
             "name": "downloadProtectedFile",
@@ -461,7 +461,7 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 57,
+            "line": 60,
             "description": "Makes a Payment for a given Authorization token + asset/payment details",
             "itemtype": "method",
             "name": "payForAsset",
@@ -489,7 +489,7 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 119,
+            "line": 122,
             "description": "Gets parameters for PayPal",
             "itemtype": "method",
             "name": "getPayPalParams",
@@ -596,7 +596,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 17,
+            "line": 11,
             "description": "Signs in the user",
             "itemtype": "method",
             "name": "signIn",
@@ -619,7 +619,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 64,
+            "line": 58,
             "description": "Signs out the user and destroys cookies",
             "itemtype": "method",
             "name": "signOut",
@@ -635,7 +635,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 91,
+            "line": 86,
             "description": "Signs up/Registers user",
             "itemtype": "method",
             "name": "signUp",
@@ -648,7 +648,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.User.signUp({\n     fullName: \"test\",\n     email: \"test32@test.com\",\n     password: \"12345678\",\n     passwordConfirmation: \"12345678\",\n     merchantUuid: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n     type: \"consumer\",\n     referrer: \"http://localhost:3000/\",\n    })\n    .then(data => console.log(data));"
+                "\n    InPlayer.User.signUp({\n     fullName: \"test\",\n     email: \"test32@test.com\",\n     password: \"12345678\",\n     passwordConfirmation: \"12345678\",\n     clientId: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n     type: \"consumer\",\n     referrer: \"http://localhost:3000/\",\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -658,7 +658,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 138,
+            "line": 142,
             "description": "Checks if user is signed in",
             "itemtype": "method",
             "name": "isSignedIn",
@@ -673,7 +673,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 150,
+            "line": 157,
             "description": "Returns users Auth token",
             "itemtype": "method",
             "name": "token",
@@ -688,7 +688,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 162,
+            "line": 169,
             "description": "Sets Auth token into cookies",
             "itemtype": "method",
             "name": "token",
@@ -710,7 +710,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 175,
+            "line": 182,
             "description": "Requests new password for a given user",
             "itemtype": "method",
             "name": "requestNewPassword",
@@ -733,7 +733,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 208,
+            "line": 215,
             "description": "Sets new password for the user",
             "itemtype": "method",
             "name": "setNewPassword",
@@ -761,7 +761,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 242,
+            "line": 249,
             "description": "Gets the user/account information for a given auth token",
             "itemtype": "method",
             "name": "getAccountInfo",
@@ -784,7 +784,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 265,
+            "line": 272,
             "description": "Gets the social login urls for fb/twitter/google",
             "itemtype": "method",
             "name": "getSocialLoginUrls",
@@ -807,7 +807,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 286,
+            "line": 293,
             "description": "Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()",
             "itemtype": "method",
             "name": "updateAccount",
@@ -835,7 +835,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 321,
+            "line": 338,
             "description": "Changes password for a given user",
             "itemtype": "method",
             "name": "changePassword",
@@ -863,7 +863,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 356,
+            "line": 373,
             "description": "Gets register fields",
             "itemtype": "method",
             "name": "getRegisterFields",
@@ -886,7 +886,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 21,
+            "line": 22,
             "itemtype": "property",
             "name": "User",
             "type": "User",
@@ -894,7 +894,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 26,
+            "line": 27,
             "itemtype": "property",
             "name": "Asset",
             "type": "Asset",
@@ -902,7 +902,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 31,
+            "line": 32,
             "itemtype": "property",
             "name": "Payment",
             "type": "Payment",
@@ -910,7 +910,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 36,
+            "line": 37,
             "itemtype": "property",
             "name": "Subscription",
             "type": "Subscription",
@@ -918,7 +918,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 41,
+            "line": 42,
             "itemtype": "property",
             "name": "Misc",
             "type": "Misc",
@@ -926,7 +926,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 49,
+            "line": 50,
             "description": "Subscribes to websocket events",
             "itemtype": "method",
             "name": "subscribe",
@@ -953,7 +953,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 79,
+            "line": 80,
             "description": "Unsubscribes from the websocket and event listeners",
             "itemtype": "method",
             "name": "unsubscribe",
@@ -968,7 +968,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 90,
+            "line": 91,
             "description": "Overrides the default configs",
             "itemtype": "method",
             "name": "setConfig",

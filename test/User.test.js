@@ -45,6 +45,7 @@ describe('User', function() {
                 passwordConfirmation: '12345678j',
                 merchantUid: 'd1-d1-d1-ddfh',
                 type: 'merchant',
+                metadata: {},
                 referrer: 'http://localhost',
             });
 

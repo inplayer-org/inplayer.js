@@ -87,8 +87,8 @@
  * @class Payment
  */
 class Payment {
-    constructor(config){
-      this.config = config;
+    constructor(config) {
+        this.config = config;
     }
     /**
      * Get all payment methods for a User
@@ -126,11 +126,14 @@ class Payment {
      * @return {Object}
      */
     async getPaymentTools(token, paymentMethodId) {
-        const response = await fetch(this.config.API.getPaymentTools(paymentMethodId), {
-            headers: {
-                Authorization: &#x27;Bearer &#x27; + token,
-            },
-        });
+        const response = await fetch(
+            this.config.API.getPaymentTools(paymentMethodId),
+            {
+                headers: {
+                    Authorization: &#x27;Bearer &#x27; + token,
+                },
+            }
+        );
 
         const data = await response.json();
 

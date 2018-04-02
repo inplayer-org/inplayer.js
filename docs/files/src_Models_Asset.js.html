@@ -87,8 +87,8 @@
  * @class Asset
  */
 class Asset {
-    constructor(config){
-      this.config = config;
+    constructor(config) {
+        this.config = config;
     }
     /**
      * Checks whether a given authenticated user has access for an asset
@@ -127,9 +127,12 @@ class Asset {
      * @return {Object}
      */
     async findAsset(assetId, merchantUuid) {
-        const response = await fetch(this.config.API.findAsset(assetId, merchantUuid), {
-            method: &#x27;GET&#x27;,
-        });
+        const response = await fetch(
+            this.config.API.findAsset(assetId, merchantUuid),
+            {
+                method: &#x27;GET&#x27;,
+            }
+        );
 
         const data = await response.json();
 

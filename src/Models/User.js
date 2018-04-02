@@ -77,6 +77,7 @@ class User {
         // if response is okay
         if (data.explain) {
             localStorage.removeItem(this.config.INPLAYER_TOKEN_NAME);
+            localStorage.removeItem(this.config.INPLAYER_IOT_NAME);
         }
 
         return true;
@@ -101,7 +102,7 @@ class User {
      *      email: "test32@test.com",
      *      password: "12345678",
      *      passwordConfirmation: "12345678",
-     *      merchantUuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
+     *      clientId: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
      *      type: "consumer",
      *      referrer: "http://localhost:3000/",
      *     })
@@ -112,13 +113,20 @@ class User {
         // Add into form data
         const fd = new FormData();
         fd.append('full_name', data.fullName);
-        fd.append('email', data.email);
+        fd.append('username', data.email);
         fd.append('password', data.password);
         fd.append('password_confirmation', data.passwordConfirmation);
-        fd.append('merchant_uuid', data.merchantUuid);
+        fd.append('client_id', data.clientId);
         fd.append('type', data.type);
+        fd.append('grant_type', 'password');
         fd.append('referrer', data.referrer);
-        fd.append('metadata', data.metadata);
+
+        const keys = Object.keys(data.metadata);
+        if (keys.length) {
+            keys.forEach(key => {
+                fd.append(`metadata[${key}]`, data.metadata[key]);
+            });
+        }
 
         const response = await fetch(this.config.API.signUp, {
             method: 'POST',
@@ -140,7 +148,9 @@ class User {
      */
     isSignedIn() {
         return (
-            localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !== undefined
+            localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !==
+                undefined &&
+            localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !== null
         );
     }
 
@@ -306,11 +316,11 @@ class User {
                 Object.keys(data[key]).forEach(metadata_key => {
                     queryString +=
                         (queryString ? '&' : '') +
-                        `metadata[${data[key][metadata_key]}]=${metadata_key}`;
+                        `metadata[${metadata_key}]=${data[key][metadata_key]}`;
                 });
             }
         });
-
+        console.log(queryString);
         const response = await fetch(this.config.API.updateAccount, {
             method: 'PUT',
             body: queryString,
