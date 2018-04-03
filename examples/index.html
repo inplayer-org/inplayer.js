@@ -60,22 +60,12 @@ InPlayer.setConfig('develop');
   //   }
   // ).then(data => {
   //   console.log(data);
-  //   InPlayer.subscribe("c033caa2-8b12-4e98-9ee4-5b4a199db3b8",
-  //       {
-  //         onMessage: (message) => { console.log('called'); console.log(message, 'message') },
-  //         onOpen: (e) => {console.log('open'); InPlayer.Payment.payForAsset(`eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6ImMwMzNjYWEyLThiMTItNGU5OC05ZWU0LTViNGExOTlkYjNiOCJ9.eyJhdWQiOiI1MjhiMWI4MC01ODY4LTRhYmMtYTliNi00ZDM0NTVkNzE5YzgiLCJqdGkiOiJjMDMzY2FhMi04YjEyLTRlOTgtOWVlNC01YjRhMTk5ZGIzYjgiLCJpYXQiOjE1MjI2NzYzMzQsIm5iZiI6MTUyMjY3NjMzNCwiZXhwIjoxNTI1MjY4MzM0LCJzdWIiOiJ0ZXN0aW5nX2dvcmFuQHRlc3QuY29tIiwic2NvcGVzIjpbXSwibWlkIjoyMSwiYWlkIjoyNTY4MCwibXVpIjoiNTI4YjFiODAtNTg2OC00YWJjLWE5YjYtNGQzNDU1ZDcxOWM4IiwiY3R4IjpbImNvbnN1bWVyIl19.pS4E7icQrywbKQYehqaPoS_GslDk7px1DMUmqmW2kK4`,{
-  //            number: 4111111111111111,
-  //            cardName: 'PayPal',
-  //             expMonth: 10,
-  //             expYear: 2030,
-  //             cvv: 656,
-  //             accessFee: 2877,
-  //               paymentMethod: 1,
-  //              referrer: 'http://google.com',
-  //          }).then(data => console.log(data));},
-  //         onClose: (e) => console.log('close', e)
-  //       });
-  // });
+    InPlayer.subscribe("c033caa2-8b12-4e98-9ee4-5b4a199db3b8",
+        {
+          onMessage: (message) => { console.log('called'); console.log(message, 'message') },
+          onOpen: (e) => {console.log('open'); console.log(InPlayer.isSubscribed());},
+          onClose: (e) => console.log('close', e)
+        });
   // InPlayer.Asset.checkAccessForAsset(`eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6ImMwMzNjYWEyLThiMTItNGU5OC05ZWU0LTViNGExOTlkYjNiOCJ9.eyJhdWQiOiI1MjhiMWI4MC01ODY4LTRhYmMtYTliNi00ZDM0NTVkNzE5YzgiLCJqdGkiOiJjMDMzY2FhMi04YjEyLTRlOTgtOWVlNC01YjRhMTk5ZGIzYjgiLCJpYXQiOjE1MjI2NzYzMzQsIm5iZiI6MTUyMjY3NjMzNCwiZXhwIjoxNTI1MjY4MzM0LCJzdWIiOiJ0ZXN0aW5nX2dvcmFuQHRlc3QuY29tIiwic2NvcGVzIjpbXSwibWlkIjoyMSwiYWlkIjoyNTY4MCwibXVpIjoiNTI4YjFiODAtNTg2OC00YWJjLWE5YjYtNGQzNDU1ZDcxOWM4IiwiY3R4IjpbImNvbnN1bWVyIl19.pS4E7icQrywbKQYehqaPoS_GslDk7px1DMUmqmW2kK4`, 40295).then(data => console.log(data));
   //
   /* Unsubscribe stuff */

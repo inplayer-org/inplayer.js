@@ -77,6 +77,10 @@ class InPlayer {
         }
     }
 
+    isSubscribed() {
+        return this.Socket.isSubscribed();
+    }
+
     /**
      * Unsubscribes from the websocket and event listeners
      * @method unsubscribe
