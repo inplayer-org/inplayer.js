@@ -86,28 +86,34 @@ class Socket {
             host: data.iotEndpoint,
         };
 
-        const client = awsIot.device(credentials);
+        this.client = awsIot.device(credentials);
+        var parent = this;
 
-        client.on('connect', data => {
-            client.subscribe(uuid);
+        this.client.on('connect', function(data) {
+            parent.client.subscribe(uuid);
             callbackParams.onOpen();
-            this.setClient(client);
         });
 
-        client.on('message', (topic, message) => {
+        this.client.on('message', function(topic, message) {
             const decoded_message = message.toString();
             callbackParams.onMessage(decoded_message);
         });
 
-        client.on('close', () => {
+        this.client.on('close', function() {
             if (callbackParams.onClose === 'function') {
                 callbackParams.onClose();
             }
         });
+
+        this.setClient(this.client);
     }
 
     setClient(client) {
         this.subscription = client;
+    }
+
+    isSubscribed() {
+        return this.subscription !== null;
     }
 
     unsubscribe() {
