@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-    entry: path.resolve(__dirname, 'src/index.js'),
+    entry: ['babel-polyfill', path.resolve(__dirname, 'src/index.js')],
     mode: 'production',
     output: {
         filename: 'inplayer.umd.js',

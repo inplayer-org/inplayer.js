@@ -205,12 +205,11 @@ class User {
         fd.append(&#x27;referrer&#x27;, data.referrer);
 
         const keys = Object.keys(data.metadata);
-        if(keys.length){
-          keys.forEach((key) =&gt; {
-            fd.append(&#x60;metadata[${key}]&#x60;, data.metadata[key]);
-          })
+        if (keys.length) {
+            keys.forEach(key =&gt; {
+                fd.append(&#x60;metadata[${key}]&#x60;, data.metadata[key]);
+            });
         }
-
 
         const response = await fetch(this.config.API.signUp, {
             method: &#x27;POST&#x27;,
@@ -232,7 +231,8 @@ class User {
      */
     isSignedIn() {
         return (
-            localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !== undefined &amp;&amp;
+            localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !==
+                undefined &amp;&amp;
             localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !== null
         );
     }
@@ -467,6 +467,36 @@ class User {
     async getRegisterFields(merchantUuid = &#x27;&#x27;) {
         const response = await fetch(
             this.config.API.getRegisterFields(merchantUuid)
+        );
+
+        const data = await response.json();
+
+        return data;
+    }
+
+    /**
+     * Gets the purchase history
+     * @method getPurchaseHistory
+     * @async
+     * @param {String} token - The authorization token
+     * @param {String} status - The status of the purchase - active/inactive
+     * @param {Number} page - The current page
+     * @param {Number} limit - The number of items per page
+     * @example
+     *     InPlayer.User
+     *     .getPurchaseHistory(&#x27;fg1h213f8g9fefgud23fg&#x27;,&#x27;active&#x27;, 0, 5)
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async getPurchaseHistory(token = &#x27;&#x27;, status = &#x27;active&#x27;, page, limit) {
+        const response = await fetch(
+            this.config.API.getPurchaseHistory(status, page, limit),
+            {
+                method: &#x27;GET&#x27;,
+                headers: {
+                    Authorization: &#x27;Bearer &#x27; + token,
+                },
+            }
         );
 
         const data = await response.json();

@@ -132,7 +132,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src\\index.js",
-            "line": 13,
+            "line": 15,
             "description": "Main class. Contains all others methods and websocket subscription"
         }
     },
@@ -658,7 +658,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 142,
+            "line": 141,
             "description": "Checks if user is signed in",
             "itemtype": "method",
             "name": "isSignedIn",
@@ -885,8 +885,46 @@
             "class": "User"
         },
         {
+            "file": "src\\Models\\User.js",
+            "line": 394,
+            "description": "Gets the purchase history",
+            "itemtype": "method",
+            "name": "getPurchaseHistory",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "status",
+                    "description": "- The status of the purchase - active/inactive",
+                    "type": "String"
+                },
+                {
+                    "name": "page",
+                    "description": "- The current page",
+                    "type": "Number"
+                },
+                {
+                    "name": "limit",
+                    "description": "- The number of items per page",
+                    "type": "Number"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.User\n    .getPurchaseHistory('fg1h213f8g9fefgud23fg','active', 0, 5)\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "User"
+        },
+        {
             "file": "src\\index.js",
-            "line": 22,
+            "line": 24,
             "itemtype": "property",
             "name": "User",
             "type": "User",
@@ -894,7 +932,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 27,
+            "line": 29,
             "itemtype": "property",
             "name": "Asset",
             "type": "Asset",
@@ -902,7 +940,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 32,
+            "line": 34,
             "itemtype": "property",
             "name": "Payment",
             "type": "Payment",
@@ -910,7 +948,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 37,
+            "line": 39,
             "itemtype": "property",
             "name": "Subscription",
             "type": "Subscription",
@@ -918,7 +956,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 42,
+            "line": 44,
             "itemtype": "property",
             "name": "Misc",
             "type": "Misc",
@@ -926,7 +964,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 50,
+            "line": 52,
             "description": "Subscribes to websocket events",
             "itemtype": "method",
             "name": "subscribe",
@@ -953,7 +991,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 80,
+            "line": 86,
             "description": "Unsubscribes from the websocket and event listeners",
             "itemtype": "method",
             "name": "unsubscribe",
@@ -968,7 +1006,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 91,
+            "line": 97,
             "description": "Overrides the default configs",
             "itemtype": "method",
             "name": "setConfig",

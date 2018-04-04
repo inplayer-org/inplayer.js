@@ -15,6 +15,10 @@ export const API = config => {
         changePassword: `${config.BASE_URL}/accounts/change-password`,
         getRegisterFields: merchant_uuid =>
             `${config.BASE_URL}/accounts/register-fields/${merchant_uuid}`,
+        getPurchaseHistory: (status, page = 0, limit = 5) =>
+            `${
+                config.BASE_URL
+            }/reporting/access/customers?status=${status}&page=${page}&limit=${limit}`,
         //Asset
         checkAccess: id => `${config.BASE_URL}/items/${id}/access`,
         findAsset: (assetId, merchant_uuid) =>
