@@ -1,6 +1,6 @@
 import 'isomorphic-fetch';
 import 'es6-promise/auto';
-import 'babel-polyfill';
+
 import User from './Models/User';
 import Asset from './Models/Asset';
 import Payment from './Models/Payment';
@@ -9,6 +9,8 @@ import Misc from './Models/Misc';
 import Socket from './Socket';
 import { API } from '../constants/endpoints';
 import { config } from '../config';
+
+global._babelPolyfill = false;
 
 /**
  * Main class. Contains all others methods and websocket subscription
