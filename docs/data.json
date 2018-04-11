@@ -502,12 +502,12 @@
                 },
                 {
                     "name": "data",
-                    "description": "- Contains details - {\n origin: {String},\n accessFee: {Number},\n paymentMethod: {Number}\n}",
+                    "description": "- Contains details - {\n origin: {String},\n accessFeeId: {Number},\n paymentMethod: {Number}\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.Payment\n    .getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {\n    origin: location.href,\n    accessFee: 34,\n    paymentMethod: 2\n    voucherCode: '1231231'\n    })\n    .then(data => console.log(data));"
+                "\n    InPlayer.Payment\n    .getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {\n    origin: location.href,\n    accessFeeId: 34,\n    paymentMethod: 2\n    voucherCode: '1231231'\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",

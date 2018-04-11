@@ -126,14 +126,14 @@ class Payment {
      * @param {String} token - The Authorization token
      * @param {Object} data - Contains details - {
      *  origin: {String},
-     *  accessFee: {Number},
+     *  accessFeeId: {Number},
      *  paymentMethod: {Number}
      * }
      * @example
      *     InPlayer.Payment
      *     .getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {
      *     origin: location.href,
-     *     accessFee: 34,
+     *     accessFeeId: 34,
      *     paymentMethod: 2
      *     voucherCode: '1231231'
      *     })
@@ -145,7 +145,10 @@ class Payment {
         fd.append('origin', data.origin);
         fd.append('access_fee', data.accessFeeId);
         fd.append('payment_method', data.paymentMethod);
-        fd.append('voucher_code', data.voucherCode);
+        if (data.voucherCode) {
+            console.log('WTF');
+            fd.append('voucher_code', data.voucherCode);
+        }
 
         const response = await fetch(this.config.API.externalPayments, {
             method: 'POST',

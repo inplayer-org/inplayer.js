@@ -26,14 +26,14 @@ InPlayer.setConfig('develop');
 // }).then(data => console.log(data));
 
 /* Sign in call */
-// InPlayer.User.signIn(
-//     {
-//       merchantUuid: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
-//       referrer: 'http://localhost:3000/',
-//       email: 'testing_goran@test.com',
-//       password: '12345678',
-//     }
-// ).then(data => console.log(data));
+InPlayer.User.signIn(
+    {
+      merchantUuid: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
+      referrer: 'http://localhost:3000/',
+      email: 'testing_goran@test.com',
+      password: '12345678',
+    }
+).then(data => console.log(data));
 
 /* UPDATE call */
   // InPlayer.User.updateAccount({
@@ -60,12 +60,12 @@ InPlayer.setConfig('develop');
   //   }
   // ).then(data => {
   //   console.log(data);
-    InPlayer.subscribe("c033caa2-8b12-4e98-9ee4-5b4a199db3b8",
-        {
-          onMessage: (message) => { console.log('called'); console.log(message, 'message') },
-          onOpen: (e) => {console.log('open'); console.log(InPlayer.isSubscribed());},
-          onClose: (e) => console.log('close', e)
-        });
+    // InPlayer.subscribe("c033caa2-8b12-4e98-9ee4-5b4a199db3b8",
+    //     {
+    //       onMessage: (message) => { console.log('called'); console.log(message, 'message') },
+    //       onOpen: (e) => {console.log('open'); console.log(InPlayer.isSubscribed());},
+    //       onClose: (e) => console.log('close', e)
+    //     });
   // InPlayer.Asset.checkAccessForAsset(`eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6ImMwMzNjYWEyLThiMTItNGU5OC05ZWU0LTViNGExOTlkYjNiOCJ9.eyJhdWQiOiI1MjhiMWI4MC01ODY4LTRhYmMtYTliNi00ZDM0NTVkNzE5YzgiLCJqdGkiOiJjMDMzY2FhMi04YjEyLTRlOTgtOWVlNC01YjRhMTk5ZGIzYjgiLCJpYXQiOjE1MjI2NzYzMzQsIm5iZiI6MTUyMjY3NjMzNCwiZXhwIjoxNTI1MjY4MzM0LCJzdWIiOiJ0ZXN0aW5nX2dvcmFuQHRlc3QuY29tIiwic2NvcGVzIjpbXSwibWlkIjoyMSwiYWlkIjoyNTY4MCwibXVpIjoiNTI4YjFiODAtNTg2OC00YWJjLWE5YjYtNGQzNDU1ZDcxOWM4IiwiY3R4IjpbImNvbnN1bWVyIl19.pS4E7icQrywbKQYehqaPoS_GslDk7px1DMUmqmW2kK4`, 40295).then(data => console.log(data));
   //
   /* Unsubscribe stuff */
@@ -128,18 +128,18 @@ InPlayer.setConfig('develop');
   // InPlayer.Asset.findAsset(36320,'528b1b80-5868-4abc-a9b6-4d3455d719c8')
   // .then(data => console.log(data));
   // InPlayer.Asset.findPackage(36332).then(data => console.log(data));
-  // InPlayer.Asset.getAssetAccessFees(36320).then(data => console.log(data));
+  InPlayer.Asset.getAssetAccessFees(40361).then(data => console.log(data));
   // InPlayer.Asset.freemiumAsset('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIwNDczMjgsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIwNTA5Mjh9.dZ_xAEiwcJvisovAI-2y72IP8R0IW8z04tPe8aeKv_0', {
   //   access_fee: 2065,
   // }).then(data => console.log(data));
   // InPlayer.Payment.getPaymentMethod('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data => console.log(data));
   // InPlayer.Payment.getPaymentTools('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIxMTgxMDEsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIxMjE3MDF9.ZBrNhCG0KeYfnh0HQKUJ8RD2ETghcccu5Z4MIfEusP0',1).then(data => console.log(data));
   // InPlayer.Payment.getPaymentMethods('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIxMTgxMDEsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIxMjE3MDF9.ZBrNhCG0KeYfnh0HQKUJ8RD2ETghcccu5Z4MIfEusP0').then(data => console.log(data));
-  // InPlayer.Payment.getPayPalParams('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIxMTgxMDEsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIxMjE3MDF9.ZBrNhCG0KeYfnh0HQKUJ8RD2ETghcccu5Z4MIfEusP0',{
-  //   origin: 'http://localhost:3000',
-  //   access_fee: 2065,
-  //   payment_method: 2,
-  // }).then(data => console.log(data));
+  InPlayer.Payment.getPayPalParams(InPlayer.User.token(),{
+    origin: 'http://localhost:3000',
+    accessFeeId: 2961,
+    paymentMethod: 2,
+  }).then(data => console.log(data));
   // InPlayer.Subscriptions.getSubscriptions('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIxMTgxMDEsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIxMjE3MDF9.ZBrNhCG0KeYfnh0HQKUJ8RD2ETghcccu5Z4MIfEusP0')
   // .then(data=> console.log(data));
   // InPlayer.User.getRegisterFields('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data=>console.log(data));
