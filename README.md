@@ -6,6 +6,8 @@ InPlayer JavaScript SDK
 
 [inplayer.com](https://inplayer.com)
 
+SDK Documentation can be found [here](https://inplayer-org.github.io/inplayer.js/)
+
 ## Installation
 
 Install the package from [npm](https://www.npmjs.com/package/@inplayer-org/inplayer.js) and import it in your project.
