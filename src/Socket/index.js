@@ -53,14 +53,20 @@ class Socket {
         var uuid = accountUid;
 
         const IAMToken = localStorage.getItem(config.INPLAYER_IOT_NAME);
+        const ONE_HOUR = 60 * 60 * 1000;
 
-        if (!IAMToken) {
+        if (
+            !IAMToken ||
+            !IAMToken.expiresAt ||
+            new Date() - IAMToken.expiresAt > ONE_HOUR
+        ) {
             this.getIotToken().then(data => {
                 if (!data) {
                     throw new Error(
                         'Invalid AUTH token. You need to be signed in to subscribe.'
                     );
                 }
+                data.expiresAt = new Date();
                 localStorage.setItem(
                     config.INPLAYER_IOT_NAME,
                     JSON.stringify(data)
