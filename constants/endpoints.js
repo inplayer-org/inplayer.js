@@ -14,7 +14,9 @@ export const API = config => {
         updateAccount: `${config.BASE_URL}/accounts`,
         changePassword: `${config.BASE_URL}/accounts/change-password`,
         getRegisterFields: merchant_uuid =>
-            `${config.BASE_URL}/accounts/register-fields/${merchant_uuid}`,
+            `${
+                config.BASE_URL
+            }/accounts/register-fields/${merchant_uuid}?rnd=${Math.random(15)}`,
         getPurchaseHistory: (status, page = 0, limit = 5) =>
             `${
                 config.BASE_URL
