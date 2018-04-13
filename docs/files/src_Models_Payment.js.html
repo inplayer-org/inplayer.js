@@ -146,7 +146,7 @@ class Payment {
      * @async
      * @param {String} token - The Authorization token
      * @param {Object} data - Payment data - {
-     *  number: Number,
+     *  number: Number || String,
      *  cardName: String,
      *  expMonth: Number,
      *  expYear: Number,
@@ -228,11 +228,10 @@ class Payment {
         fd.append(&#x27;origin&#x27;, data.origin);
         fd.append(&#x27;access_fee&#x27;, data.accessFeeId);
         fd.append(&#x27;payment_method&#x27;, data.paymentMethod);
-        if(data.voucherCode){
-          console.log(&quot;WTF&quot;);
-          fd.append(&#x27;voucher_code&#x27;, data.voucherCode);
+        if (data.voucherCode) {
+            console.log(&#x27;WTF&#x27;);
+            fd.append(&#x27;voucher_code&#x27;, data.voucherCode);
         }
-
 
         const response = await fetch(this.config.API.externalPayments, {
             method: &#x27;POST&#x27;,

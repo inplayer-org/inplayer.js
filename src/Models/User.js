@@ -220,7 +220,7 @@ class User {
      *  password: string
      *  passwordConfirmation: string
      * }
-     * @param {String} token - The authorization token
+     * @param {String} token - The reset token
      * @example
      *     InPlayer.User
      *     .setNewPassword({

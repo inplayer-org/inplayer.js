@@ -474,7 +474,7 @@
                 },
                 {
                     "name": "data",
-                    "description": "- Payment data - {\n number: Number,\n cardName: String,\n expMonth: Number,\n expYear: Number,\n cvv: Number,\n accessFee: Number,\n paymentMethod: String,\n referrer: String\n voucherCode?: String\n}",
+                    "description": "- Payment data - {\n number: Number || String,\n cardName: String,\n expMonth: Number,\n expYear: Number,\n cvv: Number,\n accessFee: Number,\n paymentMethod: String,\n referrer: String\n voucherCode?: String\n}",
                     "type": "Object"
                 }
             ],
@@ -746,7 +746,7 @@
                 },
                 {
                     "name": "token",
-                    "description": "- The authorization token",
+                    "description": "- The reset token",
                     "type": "String"
                 }
             ],

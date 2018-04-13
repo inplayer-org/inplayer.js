@@ -63,7 +63,7 @@ class Payment {
      * @async
      * @param {String} token - The Authorization token
      * @param {Object} data - Payment data - {
-     *  number: Number,
+     *  number: Number || String,
      *  cardName: String,
      *  expMonth: Number,
      *  expYear: Number,
