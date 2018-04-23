@@ -158,7 +158,6 @@ class Payment {
      *       expMonth: 10,
      *       expYear: 2030,
      *       cvv: 656,
-     *       accessFee: 2341,
      *       paymentMethod: 1,
      *       referrer: 'http://google.com',
      *       voucherCode: 'fgh1982gff-0f2grfds'

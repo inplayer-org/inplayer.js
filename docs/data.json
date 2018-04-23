@@ -96,7 +96,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src\\Models\\Payment.js",
-            "line": 1,
+            "line": 3,
             "description": "Contains all Requests connected with payments"
         },
         "Subscription": {
@@ -410,7 +410,7 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 10,
+            "line": 12,
             "description": "Get all payment methods for a User",
             "itemtype": "method",
             "name": "getPaymentMethods",
@@ -433,7 +433,7 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 33,
+            "line": 35,
             "description": "Get the payment tools for an aothorization token and payment method ID",
             "itemtype": "method",
             "name": "getPaymentTools",
@@ -461,8 +461,8 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 60,
-            "description": "Makes a Payment for a given Authorization token + asset/payment details",
+            "line": 62,
+            "description": "Makes a Payment for a given Authorization token + asset/payment details.\nUse this method ONLY if the assetFee.type is not 'subscription' or 'freemium'. Otherwise\nplease use InPlayer.Subscription.assetSubscribe()",
             "itemtype": "method",
             "name": "payForAsset",
             "async": 1,
@@ -489,7 +489,40 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 122,
+            "line": 126,
+            "description": "Makes a payment with a given access fee object, for both subscription and PPV",
+            "itemtype": "method",
+            "name": "purchaseAsset",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "accessFee",
+                    "description": "- The access fee object",
+                    "type": "Object"
+                },
+                {
+                    "name": "data",
+                    "description": "- Payment data - {\n number: Number || String,\n cardName: String,\n expMonth: Number,\n expYear: Number,\n cvv: Number,\n accessFee: Number,\n paymentMethod: String,\n referrer: String\n voucherCode?: String\n}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Payment\n    .purchaseAsset('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj',\n     {\n       access_fee: {\n         id: 10,\n         name: 'subscription',\n         quantity: 10,\n       },\n       amount: 6.99,\n       id: 2221\n     },\n     {\n      number: 4111111111111111,\n      cardName: 'PayPal',\n      expMonth: 10,\n      expYear: 2030,\n      cvv: 656,\n      paymentMethod: 1,\n      referrer: 'http://google.com',\n      voucherCode: 'fgh1982gff-0f2grfds'\n     })\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "src\\Models\\Payment.js",
+            "line": 183,
             "description": "Gets parameters for PayPal",
             "itemtype": "method",
             "name": "getPayPalParams",
@@ -569,7 +602,7 @@
         {
             "file": "src\\Models\\Subscription.js",
             "line": 59,
-            "description": "Subscribes to a given asset",
+            "description": "Subscribes to a given asset. Use this method ONLY if the accessFee.type === 'subscription'.\nOtherwise please use InPlayer.Payment.payForAsset()",
             "itemtype": "method",
             "name": "assetSubscribe",
             "async": 1,
@@ -853,7 +886,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.User\n    .updateAccount({\n      email: 'test@test.com',\n      password: 'test123',\n      passwordConfirmation: 'test123'\n    },'123124-1r-1r13ur1h1')\n    .then(data => console.log(data));"
+                "\n    InPlayer.User\n    .updateAccount({\n      oldPassword: 'old123',\n      password: 'test123',\n      passwordConfirmation: 'test123'\n    },'123124-1r-1r13ur1h1')\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
