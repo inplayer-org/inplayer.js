@@ -1,3 +1,5 @@
+import Subscription from './Subscription';
+
 /**
  * Contains all Requests connected with payments
  *
@@ -58,7 +60,9 @@ class Payment {
     }
 
     /**
-     * Makes a Payment for a given Authorization token + asset/payment details
+     * Makes a Payment for a given Authorization token + asset/payment details.
+     * Use this method ONLY if the assetFee.type is not 'subscription' or 'freemium'. Otherwise
+     * please use InPlayer.Subscription.assetSubscribe()
      * @method payForAsset
      * @async
      * @param {String} token - The Authorization token
@@ -117,6 +121,64 @@ class Payment {
         const responseData = await response.json();
 
         return responseData;
+    }
+
+    /**
+     * Makes a payment with a given access fee object, for both subscription and PPV
+     * @method purchaseAsset
+     * @async
+     * @param {String} token - The Authorization token
+     * @param {Object} accessFee - The access fee object
+     * @param {Object} data - Payment data - {
+     *  number: Number || String,
+     *  cardName: String,
+     *  expMonth: Number,
+     *  expYear: Number,
+     *  cvv: Number,
+     *  accessFee: Number,
+     *  paymentMethod: String,
+     *  referrer: String
+     *  voucherCode?: String
+     * }
+     * @example
+     *     InPlayer.Payment
+     *     .purchaseAsset('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj',
+     *      {
+     *        access_fee: {
+     *          id: 10,
+     *          name: 'subscription',
+     *          quantity: 10,
+     *        },
+     *        amount: 6.99,
+     *        id: 2221
+     *      },
+     *      {
+     *       number: 4111111111111111,
+     *       cardName: 'PayPal',
+     *       expMonth: 10,
+     *       expYear: 2030,
+     *       cvv: 656,
+     *       accessFee: 2341,
+     *       paymentMethod: 1,
+     *       referrer: 'http://google.com',
+     *       voucherCode: 'fgh1982gff-0f2grfds'
+     *      })
+     *     .then(data => console.log(data));
+     * @return {Object}
+     */
+    async purchaseAsset(token = '', accessFee = {}, data = {}) {
+        let response;
+        data.accessFee = accessFee.id;
+
+        if (accessFee.access_type.name === 'subscription') {
+            data.accessFee = accessFee.id;
+            let subscription = new Subscription(this.config);
+            response = await subscription.assetSubscribe(token, data);
+        } else {
+            response = await this.payForAsset(token, data);
+        }
+
+        return response;
     }
 
     /**

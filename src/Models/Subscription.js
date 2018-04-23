@@ -57,7 +57,8 @@ class Subscription {
     }
 
     /**
-     * Subscribes to a given asset
+     * Subscribes to a given asset. Use this method ONLY if the accessFee.type === 'subscription'.
+     * Otherwise please use InPlayer.Payment.payForAsset()
      * @method assetSubscribe
      * @async
      * @param {String} token - The Authorization token
