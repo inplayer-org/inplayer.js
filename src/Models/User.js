@@ -344,7 +344,7 @@ class User {
      * @example
      *     InPlayer.User
      *     .updateAccount({
-     *       email: 'test@test.com',
+     *       oldPassword: 'old123',
      *       password: 'test123',
      *       passwordConfirmation: 'test123'
      *     },'123124-1r-1r13ur1h1')

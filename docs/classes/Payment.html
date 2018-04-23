@@ -101,6 +101,7 @@
 				<li><a href="#method-getPaymentTools"><span class="im">getPaymentTools</span>(<span class="ia">token</span><span class="ia">paymentMethodId</span>)</a></li>
 				<li><a href="#method-getPayPalParams"><span class="im">getPayPalParams</span>(<span class="ia">token</span><span class="ia">data</span>)</a></li>
 				<li><a href="#method-payForAsset"><span class="im">payForAsset</span>(<span class="ia">token</span><span class="ia">data</span>)</a></li>
+				<li><a href="#method-purchaseAsset"><span class="im">purchaseAsset</span>(<span class="ia">token</span><span class="ia">accessFee</span><span class="ia">data</span>)</a></li>
 			</ul>
 		</li>
 
@@ -140,7 +141,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Payment.js.html#l10"><code>src\Models\Payment.js:10</code></a>
+		<a href="../files/src_Models_Payment.js.html#l12"><code>src\Models\Payment.js:12</code></a>
 		</p>
 
 
@@ -215,7 +216,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Payment.js.html#l33"><code>src\Models\Payment.js:33</code></a>
+		<a href="../files/src_Models_Payment.js.html#l35"><code>src\Models\Payment.js:35</code></a>
 		</p>
 
 
@@ -301,7 +302,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Payment.js.html#l122"><code>src\Models\Payment.js:122</code></a>
+		<a href="../files/src_Models_Payment.js.html#l183"><code>src\Models\Payment.js:183</code></a>
 		</p>
 
 
@@ -396,14 +397,16 @@ voucherCode: '1231231'
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Payment.js.html#l60"><code>src\Models\Payment.js:60</code></a>
+		<a href="../files/src_Models_Payment.js.html#l62"><code>src\Models\Payment.js:62</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Makes a Payment for a given Authorization token + asset/payment details</p>
+	<div class="description"><p>Makes a Payment for a given Authorization token + asset/payment details.
+Use this method ONLY if the assetFee.type is not 'subscription' or 'freemium'. Otherwise
+please use InPlayer.Subscription.assetSubscribe()</p>
 </div>
 
 		<div class="params">
@@ -467,6 +470,135 @@ InPlayer.Payment
   expYear: 2030,
   cvv: 656,
   accessFee: 2341,
+  paymentMethod: 1,
+  referrer: 'http://google.com',
+  voucherCode: 'fgh1982gff-0f2grfds'
+ })
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-purchaseAsset" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>purchaseAsset</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>token</code>
+				</li>
+				<li class="arg">
+						<code>accessFee</code>
+				</li>
+				<li class="arg">
+						<code>data</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_Payment.js.html#l126"><code>src\Models\Payment.js:126</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Makes a payment with a given access fee object, for both subscription and PPV</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">token</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><ul>
+<li>The Authorization token</li>
+</ul>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">accessFee</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><ul>
+<li>The access fee object</li>
+</ul>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">data</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><ul>
+<li>Payment data - {
+number: Number || String,
+cardName: String,
+expMonth: Number,
+expYear: Number,
+cvv: Number,
+accessFee: Number,
+paymentMethod: String,
+referrer: String
+voucherCode?: String
+}</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.Payment
+.purchaseAsset('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj',
+ {
+   access_fee: {
+     id: 10,
+     name: 'subscription',
+     quantity: 10,
+   },
+   amount: 6.99,
+   id: 2221
+ },
+ {
+  number: 4111111111111111,
+  cardName: 'PayPal',
+  expMonth: 10,
+  expYear: 2030,
+  cvv: 656,
   paymentMethod: 1,
   referrer: 'http://google.com',
   voucherCode: 'fgh1982gff-0f2grfds'

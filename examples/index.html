@@ -140,13 +140,18 @@ InPlayer.User.signIn(
   //   accessFeeId: 2961,
   //   paymentMethod: 2,
   // }).then(data => console.log(data));
-  InPlayer.Payment.payForAsset(InPlayer.User.token(),{
+    InPlayer.Payment.purchaseAsset(InPlayer.User.token(),{
+      access_type: {
+        id: 10,
+        name: 'subscription',
+      },
+      id: 2991,
+    },{
     number: '4111111111111111',
     cardName: 'PayPal',
     expMonth: 10,
     expYear: 2030,
     cvv: 656,
-    accessFee: 2341,
     paymentMethod: 1,
     referrer: 'http://google.com',
   }).then(data => console.log(data));
