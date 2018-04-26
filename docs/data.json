@@ -1,8 +1,8 @@
 {
     "project": {
         "name": "InPlayer SDK",
-        "url": "www.inplayer.com/sdk",
-        "version": "0.1.0",
+        "url": "https://inplayer-org.github.io/inplayer.js/",
+        "version": "0.3.36",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -418,7 +418,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.Account\n    .updateAccount({\n      oldPassword: 'old123',\n      password: 'test123',\n      passwordConfirmation: 'test123'\n    },'123124-1r-1r13ur1h1')\n    .then(data => console.log(data));"
+                "\n    InPlayer.Account\n    .changePassword({\n      oldPassword: 'old123',\n      password: 'test123',\n      passwordConfirmation: 'test123'\n    },'123124-1r-1r13ur1h1')\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -1259,7 +1259,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.User\n    .updateAccount({\n      oldPassword: 'old123',\n      password: 'test123',\n      passwordConfirmation: 'test123'\n    },'123124-1r-1r13ur1h1')\n    .then(data => console.log(data));"
+                "\n    InPlayer.User\n    .changePassword({\n      oldPassword: 'old123',\n      password: 'test123',\n      passwordConfirmation: 'test123'\n    },'123124-1r-1r13ur1h1')\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
