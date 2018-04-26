@@ -388,7 +388,7 @@ class User {
      * @param {String} token - The authorization token
      * @example
      *     InPlayer.User
-     *     .updateAccount({
+     *     .changePassword({
      *       oldPassword: 'old123',
      *       password: 'test123',
      *       passwordConfirmation: 'test123'
