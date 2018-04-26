@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>User - InPlayer SDK</title>
+    <title>Account - InPlayer SDK</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -77,7 +77,7 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>User</h1>
+    <h1>Account</h1>
 </div>
 
 
@@ -126,7 +126,7 @@
     <div id="methods" class="page-section">
         <h2 class="off-left">Methods</h2>
         <div class="item-list">
-<div id="method-changePassword" class="method item deprecated">
+<div id="method-changePassword" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>changePassword</code></span>
 
@@ -145,7 +145,6 @@
 		</span>
 	</div>
 
-		<span class="flag deprecated" title="Please use &#x27;InPlayer.Account.changePassword()&#x27;">deprecated</span>
 
 
 
@@ -155,11 +154,10 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l382"><code>src\Models\User.js:382</code></a>
+		<a href="../files/src_Models_Account.js.html#l338"><code>src\Models\Account.js:338</code></a>
 		</p>
 
 
-			<p>Deprecated: Please use &#x27;InPlayer.Account.changePassword()&#x27;</p>
 
 	</div>
 
@@ -207,7 +205,7 @@
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.User
+				<pre class="code prettyprint"><code>InPlayer.Account
 .updateAccount({
   oldPassword: 'old123',
   password: 'test123',
@@ -218,7 +216,7 @@
 			</div>
 		</div>
 </div>
-<div id="method-getAccountInfo" class="method item deprecated">
+<div id="method-getAccountInfo" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>getAccountInfo</code></span>
 
@@ -234,7 +232,6 @@
 		</span>
 	</div>
 
-		<span class="flag deprecated" title="Please use &#x27;InPlayer.Account.getAccountInfo()&#x27;">deprecated</span>
 
 
 
@@ -244,11 +241,10 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l281"><code>src\Models\User.js:281</code></a>
+		<a href="../files/src_Models_Account.js.html#l249"><code>src\Models\Account.js:249</code></a>
 		</p>
 
 
-			<p>Deprecated: Please use &#x27;InPlayer.Account.getAccountInfo()&#x27;</p>
 
 	</div>
 
@@ -285,14 +281,14 @@
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.User
+				<pre class="code prettyprint"><code>InPlayer.Account
 .getAccountInfo('afhqi83rji74hjf7e43df')
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>
 		</div>
 </div>
-<div id="method-getPurchaseHistory" class="method item deprecated">
+<div id="method-getPurchaseHistory" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>getPurchaseHistory</code></span>
 
@@ -317,7 +313,6 @@
 		</span>
 	</div>
 
-		<span class="flag deprecated" title="Please use &#x27;InPlayer.Account.getPurchaseHistory()&#x27;">deprecated</span>
 
 
 
@@ -327,11 +322,10 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l446"><code>src\Models\User.js:446</code></a>
+		<a href="../files/src_Models_Account.js.html#l394"><code>src\Models\Account.js:394</code></a>
 		</p>
 
 
-			<p>Deprecated: Please use &#x27;InPlayer.Account.getPurchaseHistory()&#x27;</p>
 
 	</div>
 
@@ -401,14 +395,14 @@
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.User
+				<pre class="code prettyprint"><code>InPlayer.Account
 .getPurchaseHistory('fg1h213f8g9fefgud23fg','active', 0, 5)
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>
 		</div>
 </div>
-<div id="method-getRegisterFields" class="method item deprecated">
+<div id="method-getRegisterFields" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>getRegisterFields</code></span>
 
@@ -424,7 +418,6 @@
 		</span>
 	</div>
 
-		<span class="flag deprecated" title="Please use &#x27;InPlayer.Account.getRegisterFields()&#x27;">deprecated</span>
 
 
 
@@ -434,11 +427,10 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l421"><code>src\Models\User.js:421</code></a>
+		<a href="../files/src_Models_Account.js.html#l373"><code>src\Models\Account.js:373</code></a>
 		</p>
 
 
-			<p>Deprecated: Please use &#x27;InPlayer.Account.getRegisterFields()&#x27;</p>
 
 	</div>
 
@@ -475,14 +467,14 @@
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.User
+				<pre class="code prettyprint"><code>InPlayer.Account
 .getRegisterFields('123124-1r-1r13ur1h1')
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>
 		</div>
 </div>
-<div id="method-getSocialLoginUrls" class="method item deprecated">
+<div id="method-getSocialLoginUrls" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>getSocialLoginUrls</code></span>
 
@@ -498,7 +490,6 @@
 		</span>
 	</div>
 
-		<span class="flag deprecated" title="Please use &#x27;InPlayer.Account.getSOcialLoginUrls()&#x27;">deprecated</span>
 
 
 
@@ -508,11 +499,10 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l308"><code>src\Models\User.js:308</code></a>
+		<a href="../files/src_Models_Account.js.html#l272"><code>src\Models\Account.js:272</code></a>
 		</p>
 
 
-			<p>Deprecated: Please use &#x27;InPlayer.Account.getSOcialLoginUrls()&#x27;</p>
 
 	</div>
 
@@ -549,14 +539,14 @@
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.User
+				<pre class="code prettyprint"><code>InPlayer.Account
 .getSocialLoginUrls('123124-1r-1r13ur1h1')
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>
 		</div>
 </div>
-<div id="method-isSignedIn" class="method item deprecated">
+<div id="method-isSignedIn" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>isSignedIn</code></span>
 
@@ -566,7 +556,6 @@
 		</span>
 	</div>
 
-		<span class="flag deprecated" title="Please use &#x27;InPlayer.Account.isSignedIn()&#x27;">deprecated</span>
 
 
 
@@ -575,11 +564,10 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l153"><code>src\Models\User.js:153</code></a>
+		<a href="../files/src_Models_Account.js.html#l141"><code>src\Models\Account.js:141</code></a>
 		</p>
 
 
-			<p>Deprecated: Please use &#x27;InPlayer.Account.isSignedIn()&#x27;</p>
 
 	</div>
 
@@ -599,13 +587,13 @@
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<p>InPlayer.User
+				<p>InPlayer.Account
 .isSignedIn()</p>
 
 			</div>
 		</div>
 </div>
-<div id="method-requestNewPassword" class="method item deprecated">
+<div id="method-requestNewPassword" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>requestNewPassword</code></span>
 
@@ -621,7 +609,6 @@
 		</span>
 	</div>
 
-		<span class="flag deprecated" title="Please use &#x27;InPlayer.Account.requestNewPassword()&#x27;">deprecated</span>
 
 
 
@@ -631,11 +618,10 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l206"><code>src\Models\User.js:206</code></a>
+		<a href="../files/src_Models_Account.js.html#l182"><code>src\Models\Account.js:182</code></a>
 		</p>
 
 
-			<p>Deprecated: Please use &#x27;InPlayer.Account.requestNewPassword()&#x27;</p>
 
 	</div>
 
@@ -675,7 +661,7 @@ merchantUuid: string
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.User
+				<pre class="code prettyprint"><code>InPlayer.Account
 .requestNewPassword({
  email: "test32@test.com",
  merchantUuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
@@ -685,7 +671,7 @@ merchantUuid: string
 			</div>
 		</div>
 </div>
-<div id="method-setNewPassword" class="method item deprecated">
+<div id="method-setNewPassword" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>setNewPassword</code></span>
 
@@ -704,7 +690,6 @@ merchantUuid: string
 		</span>
 	</div>
 
-		<span class="flag deprecated" title="Please use &#x27;InPlayer.Account.setNewPassword()&#x27;">deprecated</span>
 
 
 
@@ -714,11 +699,10 @@ merchantUuid: string
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l243"><code>src\Models\User.js:243</code></a>
+		<a href="../files/src_Models_Account.js.html#l215"><code>src\Models\Account.js:215</code></a>
 		</p>
 
 
-			<p>Deprecated: Please use &#x27;InPlayer.Account.setNewPassword()&#x27;</p>
 
 	</div>
 
@@ -769,7 +753,7 @@ passwordConfirmation: string
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.User
+				<pre class="code prettyprint"><code>InPlayer.Account
 .setNewPassword({
  password: "12345",
  passwordConfirmation: "12345",
@@ -779,7 +763,7 @@ passwordConfirmation: string
 			</div>
 		</div>
 </div>
-<div id="method-signIn" class="method item deprecated">
+<div id="method-signIn" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>signIn</code></span>
 
@@ -795,7 +779,6 @@ passwordConfirmation: string
 		</span>
 	</div>
 
-		<span class="flag deprecated" title="Please use &#x27;InPlayer.Account.signIn()&#x27;">deprecated</span>
 
 
 
@@ -805,11 +788,10 @@ passwordConfirmation: string
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l11"><code>src\Models\User.js:11</code></a>
+		<a href="../files/src_Models_Account.js.html#l11"><code>src\Models\Account.js:11</code></a>
 		</p>
 
 
-			<p>Deprecated: Please use &#x27;InPlayer.Account.signIn()&#x27;</p>
 
 	</div>
 
@@ -851,7 +833,7 @@ referrer: string,
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.User.signIn({
+				<pre class="code prettyprint"><code>InPlayer.Account.signIn({
  email: 'test@test.com',
  password: 'test123',
  merchantUuid: '123-123-hf1hd1-12dhd1',
@@ -862,7 +844,7 @@ referrer: string,
 			</div>
 		</div>
 </div>
-<div id="method-signOut" class="method item deprecated">
+<div id="method-signOut" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>signOut</code></span>
 
@@ -872,7 +854,6 @@ referrer: string,
 		</span>
 	</div>
 
-		<span class="flag deprecated" title="Please use &#x27;InPlayer.Account.signOut()&#x27;">deprecated</span>
 
 
 
@@ -882,11 +863,10 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l62"><code>src\Models\User.js:62</code></a>
+		<a href="../files/src_Models_Account.js.html#l58"><code>src\Models\Account.js:58</code></a>
 		</p>
 
 
-			<p>Deprecated: Please use &#x27;InPlayer.Account.signOut()&#x27;</p>
 
 	</div>
 
@@ -906,13 +886,13 @@ referrer: string,
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.User.signOut()
+				<pre class="code prettyprint"><code>InPlayer.Account.signOut()
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>
 		</div>
 </div>
-<div id="method-signUp" class="method item deprecated">
+<div id="method-signUp" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>signUp</code></span>
 
@@ -928,7 +908,6 @@ referrer: string,
 		</span>
 	</div>
 
-		<span class="flag deprecated" title="Please use &#x27;InPlayer.Account.signUp()&#x27;">deprecated</span>
 
 
 
@@ -938,11 +917,10 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l94"><code>src\Models\User.js:94</code></a>
+		<a href="../files/src_Models_Account.js.html#l86"><code>src\Models\Account.js:86</code></a>
 		</p>
 
 
-			<p>Deprecated: Please use &#x27;InPlayer.Account.signUp()&#x27;</p>
 
 	</div>
 
@@ -987,7 +965,7 @@ referrer: string,
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.User.signUp({
+				<pre class="code prettyprint"><code>InPlayer.Account.signUp({
  fullName: "test",
  email: "test32@test.com",
  password: "12345678",
@@ -1001,7 +979,7 @@ referrer: string,
 			</div>
 		</div>
 </div>
-<div id="method-token" class="method item deprecated">
+<div id="method-token" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>token</code></span>
 
@@ -1017,7 +995,6 @@ referrer: string,
 		</span>
 	</div>
 
-		<span class="flag deprecated" title="Please use &#x27;InPlayer.Account.setTokenInCookie()&#x27;">deprecated</span>
 
 
 
@@ -1026,11 +1003,10 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l189"><code>src\Models\User.js:189</code></a>
+		<a href="../files/src_Models_Account.js.html#l169"><code>src\Models\Account.js:169</code></a>
 		</p>
 
 
-			<p>Deprecated: Please use &#x27;InPlayer.Account.setTokenInCookie()&#x27;</p>
 
 	</div>
 
@@ -1067,13 +1043,13 @@ referrer: string,
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.User
+				<pre class="code prettyprint"><code>InPlayer.Account
 .setTokenInCookie('aed1g284i3dnfrfnd1o23rtegk')</code></pre>
 
 			</div>
 		</div>
 </div>
-<div id="method-token" class="method item deprecated">
+<div id="method-token" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>token</code></span>
 
@@ -1083,7 +1059,6 @@ referrer: string,
 		</span>
 	</div>
 
-		<span class="flag deprecated" title="Please use &#x27;InPlayer.Account.token()&#x27;">deprecated</span>
 
 
 
@@ -1092,11 +1067,10 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l173"><code>src\Models\User.js:173</code></a>
+		<a href="../files/src_Models_Account.js.html#l157"><code>src\Models\Account.js:157</code></a>
 		</p>
 
 
-			<p>Deprecated: Please use &#x27;InPlayer.Account.token()&#x27;</p>
 
 	</div>
 
@@ -1116,13 +1090,13 @@ referrer: string,
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.User
+				<pre class="code prettyprint"><code>InPlayer.Account
 .token()</code></pre>
 
 			</div>
 		</div>
 </div>
-<div id="method-updateAccount" class="method item deprecated">
+<div id="method-updateAccount" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>updateAccount</code></span>
 
@@ -1141,7 +1115,6 @@ referrer: string,
 		</span>
 	</div>
 
-		<span class="flag deprecated" title="Please use &#x27;InPlayer.Account.updateAccount()&#x27;">deprecated</span>
 
 
 
@@ -1151,11 +1124,10 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_User.js.html#l333"><code>src\Models\User.js:333</code></a>
+		<a href="../files/src_Models_Account.js.html#l293"><code>src\Models\Account.js:293</code></a>
 		</p>
 
 
-			<p>Deprecated: Please use &#x27;InPlayer.Account.updateAccount()&#x27;</p>
 
 	</div>
 
@@ -1203,7 +1175,7 @@ referrer: string,
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.User
+				<pre class="code prettyprint"><code>InPlayer.Account
 .updateAccount({fullName: 'test test', metadata: {country: 'Germany'}},'123124-1r-1r13ur1h1')
 .then(data =&gt; console.log(data));</code></pre>
 

@@ -6,6 +6,15 @@
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
+        "src\\Models\\Account.js": {
+            "name": "src\\Models\\Account.js",
+            "modules": {},
+            "classes": {
+                "Account": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "src\\Models\\Asset.js": {
             "name": "src\\Models\\Asset.js",
             "modules": {},
@@ -63,6 +72,18 @@
     },
     "modules": {},
     "classes": {
+        "Account": {
+            "name": "Account",
+            "shortname": "Account",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src\\Models\\Account.js",
+            "line": 1,
+            "description": "Contains all Requests regarding user/account and authentication"
+        },
         "Asset": {
             "name": "Asset",
             "shortname": "Asset",
@@ -132,12 +153,340 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src\\index.js",
-            "line": 15,
+            "line": 16,
             "description": "Main class. Contains all others methods and websocket subscription"
         }
     },
     "elements": {},
     "classitems": [
+        {
+            "file": "src\\Models\\Account.js",
+            "line": 11,
+            "description": "Signs in the user",
+            "itemtype": "method",
+            "name": "signIn",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains {\n email: string,\n password: string,\n merchantUuid: string,\n referrer: string,\n}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Account.signIn({\n     email: 'test@test.com',\n     password: 'test123',\n     merchantUuid: '123-123-hf1hd1-12dhd1',\n     referrer: 'http://localhost.com'\n    })\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Account"
+        },
+        {
+            "file": "src\\Models\\Account.js",
+            "line": 58,
+            "description": "Signs out the user and destroys cookies",
+            "itemtype": "method",
+            "name": "signOut",
+            "async": 1,
+            "example": [
+                "\n    InPlayer.Account.signOut()\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "Account"
+        },
+        {
+            "file": "src\\Models\\Account.js",
+            "line": 86,
+            "description": "Signs up/Registers user",
+            "itemtype": "method",
+            "name": "signUp",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains {\n fullName: string,\n email: string\n password: string,\n passwordConfirmation: string,\n merchantUuid: string,\n type: number\n referrer: string,\n}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Account.signUp({\n     fullName: \"test\",\n     email: \"test32@test.com\",\n     password: \"12345678\",\n     passwordConfirmation: \"12345678\",\n     clientId: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n     type: \"consumer\",\n     referrer: \"http://localhost:3000/\",\n    })\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Account"
+        },
+        {
+            "file": "src\\Models\\Account.js",
+            "line": 141,
+            "description": "Checks if user is signed in",
+            "itemtype": "method",
+            "name": "isSignedIn",
+            "example": [
+                "\n   InPlayer.Account\n   .isSignedIn()"
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "Account"
+        },
+        {
+            "file": "src\\Models\\Account.js",
+            "line": 157,
+            "description": "Returns users Auth token",
+            "itemtype": "method",
+            "name": "token",
+            "example": [
+                "\n    InPlayer.Account\n    .token()"
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Account"
+        },
+        {
+            "file": "src\\Models\\Account.js",
+            "line": 169,
+            "description": "Sets Auth token into cookies",
+            "itemtype": "method",
+            "name": "token",
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token which needs to be set",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Account\n    .setTokenInCookie('aed1g284i3dnfrfnd1o23rtegk')"
+            ],
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "class": "Account"
+        },
+        {
+            "file": "src\\Models\\Account.js",
+            "line": 182,
+            "description": "Requests new password for a given user",
+            "itemtype": "method",
+            "name": "requestNewPassword",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains {\n email: String,\n merchantUuid: string\n}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Account\n    .requestNewPassword({\n     email: \"test32@test.com\",\n     merchantUuid: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n    })\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Account"
+        },
+        {
+            "file": "src\\Models\\Account.js",
+            "line": 215,
+            "description": "Sets new password for the user",
+            "itemtype": "method",
+            "name": "setNewPassword",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains {\n password: string\n passwordConfirmation: string\n}",
+                    "type": "Object"
+                },
+                {
+                    "name": "token",
+                    "description": "- The reset token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Account\n    .setNewPassword({\n     password: \"12345\",\n     passwordConfirmation: \"12345\",\n    }, 'afhqi83rji74hjf7e43df')\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Account"
+        },
+        {
+            "file": "src\\Models\\Account.js",
+            "line": 249,
+            "description": "Gets the user/account information for a given auth token",
+            "itemtype": "method",
+            "name": "getAccountInfo",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Account\n    .getAccountInfo('afhqi83rji74hjf7e43df')\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Account"
+        },
+        {
+            "file": "src\\Models\\Account.js",
+            "line": 272,
+            "description": "Gets the social login urls for fb/twitter/google",
+            "itemtype": "method",
+            "name": "getSocialLoginUrls",
+            "async": 1,
+            "params": [
+                {
+                    "name": "state",
+                    "description": "- The state for the social",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Account\n    .getSocialLoginUrls('123124-1r-1r13ur1h1')\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Account"
+        },
+        {
+            "file": "src\\Models\\Account.js",
+            "line": 293,
+            "description": "Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()",
+            "itemtype": "method",
+            "name": "updateAccount",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- The new data for the account",
+                    "type": "Object"
+                },
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Account\n    .updateAccount({fullName: 'test test', metadata: {country: 'Germany'}},'123124-1r-1r13ur1h1')\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Account"
+        },
+        {
+            "file": "src\\Models\\Account.js",
+            "line": 338,
+            "description": "Changes password for a given user",
+            "itemtype": "method",
+            "name": "changePassword",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains new password",
+                    "type": "Object"
+                },
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Account\n    .updateAccount({\n      oldPassword: 'old123',\n      password: 'test123',\n      passwordConfirmation: 'test123'\n    },'123124-1r-1r13ur1h1')\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Account"
+        },
+        {
+            "file": "src\\Models\\Account.js",
+            "line": 373,
+            "description": "Gets register fields",
+            "itemtype": "method",
+            "name": "getRegisterFields",
+            "async": 1,
+            "params": [
+                {
+                    "name": "merchantUuid",
+                    "description": "- The merchant UUID",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Account\n    .getRegisterFields('123124-1r-1r13ur1h1')\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Account"
+        },
+        {
+            "file": "src\\Models\\Account.js",
+            "line": 394,
+            "description": "Gets the purchase history",
+            "itemtype": "method",
+            "name": "getPurchaseHistory",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "status",
+                    "description": "- The status of the purchase - active/inactive",
+                    "type": "String"
+                },
+                {
+                    "name": "page",
+                    "description": "- The current page",
+                    "type": "Number"
+                },
+                {
+                    "name": "limit",
+                    "description": "- The number of items per page",
+                    "type": "Number"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Account\n    .getPurchaseHistory('fg1h213f8g9fefgud23fg','active', 0, 5)\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Account"
+        },
         {
             "file": "src\\Models\\Asset.js",
             "line": 10,
@@ -344,7 +693,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.Misc\n    .getDiscount('eyJ0eXAiOiJKPECENR5Y',{\n       voucherCode: '120fwjhniudh42i7',\n       merchantId: 'hghfqw92dm29-1g',\n       accessFeeId: 2\n    })\n    .then(data => console.log(data));"
+                "\n    InPlayer.Misc\n    .getDiscount('eyJ0eXAiOiJKPECENR5Y',{\n       voucherCode: '120fwjhniudh42i7',\n       merchantUuid: 'hghfqw92dm29-1g',\n       accessFeeId: 2\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -634,6 +983,8 @@
             "itemtype": "method",
             "name": "signIn",
             "async": 1,
+            "deprecated": true,
+            "deprecationMessage": "Please use 'InPlayer.Account.signIn()'",
             "params": [
                 {
                     "name": "data",
@@ -652,11 +1003,13 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 58,
+            "line": 62,
             "description": "Signs out the user and destroys cookies",
             "itemtype": "method",
             "name": "signOut",
             "async": 1,
+            "deprecated": true,
+            "deprecationMessage": "Please use 'InPlayer.Account.signOut()'",
             "example": [
                 "\n    InPlayer.User.signOut()\n    .then(data => console.log(data));"
             ],
@@ -668,11 +1021,13 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 86,
+            "line": 94,
             "description": "Signs up/Registers user",
             "itemtype": "method",
             "name": "signUp",
             "async": 1,
+            "deprecated": true,
+            "deprecationMessage": "Please use 'InPlayer.Account.signUp()'",
             "params": [
                 {
                     "name": "data",
@@ -691,10 +1046,12 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 141,
+            "line": 153,
             "description": "Checks if user is signed in",
             "itemtype": "method",
             "name": "isSignedIn",
+            "deprecated": true,
+            "deprecationMessage": "Please use 'InPlayer.Account.isSignedIn()'",
             "example": [
                 "\n   InPlayer.User\n   .isSignedIn()"
             ],
@@ -706,10 +1063,12 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 157,
+            "line": 173,
             "description": "Returns users Auth token",
             "itemtype": "method",
             "name": "token",
+            "deprecated": true,
+            "deprecationMessage": "Please use 'InPlayer.Account.token()'",
             "example": [
                 "\n    InPlayer.User\n    .token()"
             ],
@@ -721,10 +1080,12 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 169,
+            "line": 189,
             "description": "Sets Auth token into cookies",
             "itemtype": "method",
             "name": "token",
+            "deprecated": true,
+            "deprecationMessage": "Please use 'InPlayer.Account.setTokenInCookie()'",
             "params": [
                 {
                     "name": "token",
@@ -743,11 +1104,13 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 182,
+            "line": 206,
             "description": "Requests new password for a given user",
             "itemtype": "method",
             "name": "requestNewPassword",
             "async": 1,
+            "deprecated": true,
+            "deprecationMessage": "Please use 'InPlayer.Account.requestNewPassword()'",
             "params": [
                 {
                     "name": "data",
@@ -766,11 +1129,13 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 215,
+            "line": 243,
             "description": "Sets new password for the user",
             "itemtype": "method",
             "name": "setNewPassword",
             "async": 1,
+            "deprecated": true,
+            "deprecationMessage": "Please use 'InPlayer.Account.setNewPassword()'",
             "params": [
                 {
                     "name": "data",
@@ -794,11 +1159,13 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 249,
+            "line": 281,
             "description": "Gets the user/account information for a given auth token",
             "itemtype": "method",
             "name": "getAccountInfo",
             "async": 1,
+            "deprecated": true,
+            "deprecationMessage": "Please use 'InPlayer.Account.getAccountInfo()'",
             "params": [
                 {
                     "name": "token",
@@ -817,11 +1184,13 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 272,
+            "line": 308,
             "description": "Gets the social login urls for fb/twitter/google",
             "itemtype": "method",
             "name": "getSocialLoginUrls",
             "async": 1,
+            "deprecated": true,
+            "deprecationMessage": "Please use 'InPlayer.Account.getSOcialLoginUrls()'",
             "params": [
                 {
                     "name": "state",
@@ -840,10 +1209,12 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 293,
+            "line": 333,
             "description": "Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()",
             "itemtype": "method",
             "name": "updateAccount",
+            "deprecated": true,
+            "deprecationMessage": "Please use 'InPlayer.Account.updateAccount()'",
             "async": 1,
             "params": [
                 {
@@ -868,11 +1239,13 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 338,
+            "line": 382,
             "description": "Changes password for a given user",
             "itemtype": "method",
             "name": "changePassword",
             "async": 1,
+            "deprecated": true,
+            "deprecationMessage": "Please use 'InPlayer.Account.changePassword()'",
             "params": [
                 {
                     "name": "data",
@@ -896,11 +1269,13 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 373,
+            "line": 421,
             "description": "Gets register fields",
             "itemtype": "method",
             "name": "getRegisterFields",
             "async": 1,
+            "deprecated": true,
+            "deprecationMessage": "Please use 'InPlayer.Account.getRegisterFields()'",
             "params": [
                 {
                     "name": "merchantUuid",
@@ -919,11 +1294,13 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 394,
+            "line": 446,
             "description": "Gets the purchase history",
             "itemtype": "method",
             "name": "getPurchaseHistory",
             "async": 1,
+            "deprecated": true,
+            "deprecationMessage": "Please use 'InPlayer.Account.getPurchaseHistory()'",
             "params": [
                 {
                     "name": "token",
@@ -957,7 +1334,15 @@
         },
         {
             "file": "src\\index.js",
-            "line": 24,
+            "line": 25,
+            "itemtype": "property",
+            "name": "Account",
+            "type": "Account",
+            "class": "InPlayer"
+        },
+        {
+            "file": "src\\index.js",
+            "line": 30,
             "itemtype": "property",
             "name": "User",
             "type": "User",
@@ -965,7 +1350,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 29,
+            "line": 35,
             "itemtype": "property",
             "name": "Asset",
             "type": "Asset",
@@ -973,7 +1358,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 34,
+            "line": 40,
             "itemtype": "property",
             "name": "Payment",
             "type": "Payment",
@@ -981,7 +1366,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 39,
+            "line": 45,
             "itemtype": "property",
             "name": "Subscription",
             "type": "Subscription",
@@ -989,7 +1374,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 44,
+            "line": 50,
             "itemtype": "property",
             "name": "Misc",
             "type": "Misc",
@@ -997,7 +1382,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 52,
+            "line": 58,
             "description": "Subscribes to websocket events",
             "itemtype": "method",
             "name": "subscribe",
@@ -1024,7 +1409,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 86,
+            "line": 92,
             "description": "Unsubscribes from the websocket and event listeners",
             "itemtype": "method",
             "name": "unsubscribe",
@@ -1039,7 +1424,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 97,
+            "line": 103,
             "description": "Overrides the default configs",
             "itemtype": "method",
             "name": "setConfig",
