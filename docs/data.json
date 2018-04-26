@@ -1003,7 +1003,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 60,
+            "line": 62,
             "description": "Signs out the user and destroys cookies",
             "itemtype": "method",
             "name": "signOut",
@@ -1021,7 +1021,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 90,
+            "line": 94,
             "description": "Signs up/Registers user",
             "itemtype": "method",
             "name": "signUp",
@@ -1046,7 +1046,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 147,
+            "line": 153,
             "description": "Checks if user is signed in",
             "itemtype": "method",
             "name": "isSignedIn",
@@ -1063,7 +1063,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 165,
+            "line": 173,
             "description": "Returns users Auth token",
             "itemtype": "method",
             "name": "token",
@@ -1080,7 +1080,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 179,
+            "line": 189,
             "description": "Sets Auth token into cookies",
             "itemtype": "method",
             "name": "token",
@@ -1104,7 +1104,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 194,
+            "line": 206,
             "description": "Requests new password for a given user",
             "itemtype": "method",
             "name": "requestNewPassword",
@@ -1129,7 +1129,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 229,
+            "line": 243,
             "description": "Sets new password for the user",
             "itemtype": "method",
             "name": "setNewPassword",
@@ -1159,7 +1159,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 265,
+            "line": 281,
             "description": "Gets the user/account information for a given auth token",
             "itemtype": "method",
             "name": "getAccountInfo",
@@ -1184,7 +1184,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 290,
+            "line": 308,
             "description": "Gets the social login urls for fb/twitter/google",
             "itemtype": "method",
             "name": "getSocialLoginUrls",
@@ -1209,7 +1209,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 313,
+            "line": 333,
             "description": "Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()",
             "itemtype": "method",
             "name": "updateAccount",
@@ -1239,7 +1239,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 360,
+            "line": 382,
             "description": "Changes password for a given user",
             "itemtype": "method",
             "name": "changePassword",
@@ -1269,7 +1269,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 397,
+            "line": 421,
             "description": "Gets register fields",
             "itemtype": "method",
             "name": "getRegisterFields",
@@ -1294,7 +1294,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 420,
+            "line": 446,
             "description": "Gets the purchase history",
             "itemtype": "method",
             "name": "getPurchaseHistory",

@@ -114,7 +114,9 @@ class User {
      * @return {Object}
      */
     async signIn(data = {}) {
-        console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.signIn() instead.&#x27;);
+        console.warn(
+            &#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.signIn() instead.&#x27;
+        );
         // Add into form data
         const fd = new FormData();
         fd.append(&#x27;email&#x27;, data.email);
@@ -152,7 +154,9 @@ class User {
      * @return {Boolean}
      */
     async signOut() {
-        console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.signOut() instead.&#x27;);
+        console.warn(
+            &#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.signOut() instead.&#x27;
+        );
         const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
 
         const response = await fetch(this.config.API.signOut, {
@@ -199,7 +203,9 @@ class User {
      * @return {Object}
      */
     async signUp(data = {}) {
-        console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.signUp() instead.&#x27;);
+        console.warn(
+            &#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.signUp() instead.&#x27;
+        );
         // Add into form data
         const fd = new FormData();
         fd.append(&#x27;full_name&#x27;, data.fullName);
@@ -238,7 +244,9 @@ class User {
      * @return {Boolean}
      */
     isSignedIn() {
-        console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.isSignedIn() instead.&#x27;);
+        console.warn(
+            &#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.isSignedIn() instead.&#x27;
+        );
         return (
             localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !==
                 undefined &amp;&amp;
@@ -256,7 +264,9 @@ class User {
      * @return {String}
      */
     token() {
-        console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.token() instead.&#x27;);
+        console.warn(
+            &#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.token() instead.&#x27;
+        );
         return localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
     }
 
@@ -271,7 +281,9 @@ class User {
      * @return {void}
      */
     setTokenInCookie(token = &#x27;&#x27;) {
-        console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.setTokenInCookie() instead.&#x27;);
+        console.warn(
+            &#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.setTokenInCookie() instead.&#x27;
+        );
         localStorage.setItem(this.config.INPLAYER_TOKEN_NAME, token);
     }
 
@@ -294,7 +306,9 @@ class User {
      * @return {Object}
      */
     async requestNewPassword(data = {}) {
-        console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.requestNewPassword() instead.&#x27;);
+        console.warn(
+            &#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.requestNewPassword() instead.&#x27;
+        );
         // Add into from FormData
         const fd = new FormData();
         fd.append(&#x27;email&#x27;, data.email);
@@ -330,7 +344,9 @@ class User {
      * @return {Object}
      */
     async setNewPassword(data = {}, token = &#x27;&#x27;) {
-      console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.setNewPassword() instead.&#x27;);
+        console.warn(
+            &#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.setNewPassword() instead.&#x27;
+        );
         const body = &#x60;password=${data.password}&amp;password_confirmation=${
             data.passwordConfirmation
         }&#x60;;
@@ -359,7 +375,9 @@ class User {
      * @return {Object}
      */
     async getAccountInfo(token = &#x27;&#x27;) {
-      console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.getAccountInfo() instead.&#x27;);
+        console.warn(
+            &#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.getAccountInfo() instead.&#x27;
+        );
         const response = await fetch(this.config.API.getAccountInfo, {
             method: &#x27;GET&#x27;,
             headers: {
@@ -384,7 +402,9 @@ class User {
      * @return {Object}
      */
     async getSocialLoginUrls(state) {
-      console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.getSocialLoginUrls() instead.&#x27;);
+        console.warn(
+            &#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.getSocialLoginUrls() instead.&#x27;
+        );
         const response = await fetch(this.config.API.social(state), {
             method: &#x27;GET&#x27;,
         });
@@ -408,7 +428,9 @@ class User {
      * @return {Object}
      */
     async updateAccount(data = {}, token = &#x27;&#x27;) {
-      console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.updateAccount() instead.&#x27;);
+        console.warn(
+            &#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.updateAccount() instead.&#x27;
+        );
         let queryString = &#x27;&#x27;;
 
         Object.keys(data).forEach(function(key) {
@@ -459,7 +481,9 @@ class User {
      * @return {Object}
      */
     async changePassword(data = {}, token = &#x27;&#x27;) {
-      console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.changePassword() instead.&#x27;);
+        console.warn(
+            &#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.changePassword() instead.&#x27;
+        );
         const fd = new FormData();
         fd.append(&#x27;old_password&#x27;, data.oldPassword);
         fd.append(&#x27;password&#x27;, data.password);
@@ -491,7 +515,9 @@ class User {
      * @return {Object}
      */
     async getRegisterFields(merchantUuid = &#x27;&#x27;) {
-      console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.getRegisterFields() instead.&#x27;);
+        console.warn(
+            &#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.getRegisterFields() instead.&#x27;
+        );
         const response = await fetch(
             this.config.API.getRegisterFields(merchantUuid)
         );
@@ -517,7 +543,9 @@ class User {
      * @return {Object}
      */
     async getPurchaseHistory(token = &#x27;&#x27;, status = &#x27;active&#x27;, page, limit) {
-      console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.getPurchaseHistory() instead.&#x27;);
+        console.warn(
+            &#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.getPurchaseHistory() instead.&#x27;
+        );
         const response = await fetch(
             this.config.API.getPurchaseHistory(status, page, limit),
             {
