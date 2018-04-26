@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src\Models\User.js - InPlayer SDK</title>
+    <title>src\Models\Account.js - InPlayer SDK</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -77,7 +77,7 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>src\Models\User.js <small>File</small></h1>
+    <h1>src\Models\Account.js <small>File</small></h1>
 </div>
 
 <div class="file">
@@ -85,9 +85,9 @@
 /**
  * Contains all Requests regarding user/account and authentication
  *
- * @class User
+ * @class Account
  */
-class User {
+class Account {
     constructor(config) {
         this.config = config;
     }
@@ -96,7 +96,6 @@ class User {
      * Signs in the user
      * @method signIn
      * @async
-     * @deprecated Please use &#x27;InPlayer.Account.signIn()&#x27;
      * @param {Object} data - Contains {
      *  email: string,
      *  password: string,
@@ -104,7 +103,7 @@ class User {
      *  referrer: string,
      * }
      * @example
-     *     InPlayer.User.signIn({
+     *     InPlayer.Account.signIn({
      *      email: &#x27;test@test.com&#x27;,
      *      password: &#x27;test123&#x27;,
      *      merchantUuid: &#x27;123-123-hf1hd1-12dhd1&#x27;,
@@ -114,7 +113,6 @@ class User {
      * @return {Object}
      */
     async signIn(data = {}) {
-        console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.signIn() instead.&#x27;);
         // Add into form data
         const fd = new FormData();
         fd.append(&#x27;email&#x27;, data.email);
@@ -145,14 +143,12 @@ class User {
      * Signs out the user and destroys cookies
      * @method signOut
      * @async
-     * @deprecated Please use &#x27;InPlayer.Account.signOut()&#x27;
      * @example
-     *     InPlayer.User.signOut()
+     *     InPlayer.Account.signOut()
      *     .then(data =&gt; console.log(data));
      * @return {Boolean}
      */
     async signOut() {
-        console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.signOut() instead.&#x27;);
         const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
 
         const response = await fetch(this.config.API.signOut, {
@@ -175,7 +171,6 @@ class User {
      * Signs up/Registers user
      * @method signUp
      * @async
-     * @deprecated Please use &#x27;InPlayer.Account.signUp()&#x27;
      * @param {Object} data - Contains {
      *  fullName: string,
      *  email: string
@@ -186,7 +181,7 @@ class User {
      *  referrer: string,
      * }
      * @example
-     *     InPlayer.User.signUp({
+     *     InPlayer.Account.signUp({
      *      fullName: &quot;test&quot;,
      *      email: &quot;test32@test.com&quot;,
      *      password: &quot;12345678&quot;,
@@ -199,7 +194,6 @@ class User {
      * @return {Object}
      */
     async signUp(data = {}) {
-        console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.signUp() instead.&#x27;);
         // Add into form data
         const fd = new FormData();
         fd.append(&#x27;full_name&#x27;, data.fullName);
@@ -231,14 +225,12 @@ class User {
     /**
      * Checks if user is signed in
      * @method isSignedIn
-     * @deprecated Please use &#x27;InPlayer.Account.isSignedIn()&#x27;
      * @example
-     *    InPlayer.User
+     *    InPlayer.Account
      *    .isSignedIn()
      * @return {Boolean}
      */
     isSignedIn() {
-        console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.isSignedIn() instead.&#x27;);
         return (
             localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !==
                 undefined &amp;&amp;
@@ -249,29 +241,25 @@ class User {
     /**
      * Returns users Auth token
      * @method token
-     * @deprecated Please use &#x27;InPlayer.Account.token()&#x27;
      * @example
-     *     InPlayer.User
+     *     InPlayer.Account
      *     .token()
      * @return {String}
      */
     token() {
-        console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.token() instead.&#x27;);
         return localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
     }
 
     /**
      * Sets Auth token into cookies
      * @method token
-     * @deprecated Please use &#x27;InPlayer.Account.setTokenInCookie()&#x27;
      * @param {String} token - The Authorization token which needs to be set
      * @example
-     *     InPlayer.User
+     *     InPlayer.Account
      *     .setTokenInCookie(&#x27;aed1g284i3dnfrfnd1o23rtegk&#x27;)
      * @return {void}
      */
     setTokenInCookie(token = &#x27;&#x27;) {
-        console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.setTokenInCookie() instead.&#x27;);
         localStorage.setItem(this.config.INPLAYER_TOKEN_NAME, token);
     }
 
@@ -279,13 +267,12 @@ class User {
      * Requests new password for a given user
      * @method requestNewPassword
      * @async
-     * @deprecated Please use &#x27;InPlayer.Account.requestNewPassword()&#x27;
      * @param {Object} data - Contains {
      *  email: String,
      *  merchantUuid: string
      * }
      * @example
-     *     InPlayer.User
+     *     InPlayer.Account
      *     .requestNewPassword({
      *      email: &quot;test32@test.com&quot;,
      *      merchantUuid: &quot;528b1b80-5868-4abc-a9b6-4d3455d719c8&quot;,
@@ -294,7 +281,6 @@ class User {
      * @return {Object}
      */
     async requestNewPassword(data = {}) {
-        console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.requestNewPassword() instead.&#x27;);
         // Add into from FormData
         const fd = new FormData();
         fd.append(&#x27;email&#x27;, data.email);
@@ -314,14 +300,13 @@ class User {
      * Sets new password for the user
      * @method setNewPassword
      * @async
-     * @deprecated Please use &#x27;InPlayer.Account.setNewPassword()&#x27;
      * @param {Object} data - Contains {
      *  password: string
      *  passwordConfirmation: string
      * }
      * @param {String} token - The reset token
      * @example
-     *     InPlayer.User
+     *     InPlayer.Account
      *     .setNewPassword({
      *      password: &quot;12345&quot;,
      *      passwordConfirmation: &quot;12345&quot;,
@@ -330,7 +315,6 @@ class User {
      * @return {Object}
      */
     async setNewPassword(data = {}, token = &#x27;&#x27;) {
-      console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.setNewPassword() instead.&#x27;);
         const body = &#x60;password=${data.password}&amp;password_confirmation=${
             data.passwordConfirmation
         }&#x60;;
@@ -350,16 +334,14 @@ class User {
      * Gets the user/account information for a given auth token
      * @method getAccountInfo
      * @async
-     * @deprecated Please use &#x27;InPlayer.Account.getAccountInfo()&#x27;
      * @param {String} token - The authorization token
      * @example
-     *     InPlayer.User
+     *     InPlayer.Account
      *     .getAccountInfo(&#x27;afhqi83rji74hjf7e43df&#x27;)
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
     async getAccountInfo(token = &#x27;&#x27;) {
-      console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.getAccountInfo() instead.&#x27;);
         const response = await fetch(this.config.API.getAccountInfo, {
             method: &#x27;GET&#x27;,
             headers: {
@@ -375,16 +357,14 @@ class User {
      * Gets the social login urls for fb/twitter/google
      * @method getSocialLoginUrls
      * @async
-     * @deprecated Please use &#x27;InPlayer.Account.getSOcialLoginUrls()&#x27;
      * @param {String} state - The state for the social
      * @example
-     *     InPlayer.User
+     *     InPlayer.Account
      *     .getSocialLoginUrls(&#x27;123124-1r-1r13ur1h1&#x27;)
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
     async getSocialLoginUrls(state) {
-      console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.getSocialLoginUrls() instead.&#x27;);
         const response = await fetch(this.config.API.social(state), {
             method: &#x27;GET&#x27;,
         });
@@ -397,18 +377,16 @@ class User {
     /**
      * Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()
      * @method updateAccount
-     * @deprecated Please use &#x27;InPlayer.Account.updateAccount()&#x27;
      * @async
      * @param {Object} data - The new data for the account
      * @param {String} token - The authorization token
      * @example
-     *     InPlayer.User
+     *     InPlayer.Account
      *     .updateAccount({fullName: &#x27;test test&#x27;, metadata: {country: &#x27;Germany&#x27;}},&#x27;123124-1r-1r13ur1h1&#x27;)
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
     async updateAccount(data = {}, token = &#x27;&#x27;) {
-      console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.updateAccount() instead.&#x27;);
         let queryString = &#x27;&#x27;;
 
         Object.keys(data).forEach(function(key) {
@@ -445,11 +423,10 @@ class User {
      * Changes password for a given user
      * @method changePassword
      * @async
-     * @deprecated Please use &#x27;InPlayer.Account.changePassword()&#x27;
      * @param {Object} data - Contains new password
      * @param {String} token - The authorization token
      * @example
-     *     InPlayer.User
+     *     InPlayer.Account
      *     .updateAccount({
      *       oldPassword: &#x27;old123&#x27;,
      *       password: &#x27;test123&#x27;,
@@ -459,7 +436,6 @@ class User {
      * @return {Object}
      */
     async changePassword(data = {}, token = &#x27;&#x27;) {
-      console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.changePassword() instead.&#x27;);
         const fd = new FormData();
         fd.append(&#x27;old_password&#x27;, data.oldPassword);
         fd.append(&#x27;password&#x27;, data.password);
@@ -482,16 +458,14 @@ class User {
      * Gets register fields
      * @method getRegisterFields
      * @async
-     * @deprecated Please use &#x27;InPlayer.Account.getRegisterFields()&#x27;
      * @param {String} merchantUuid - The merchant UUID
      * @example
-     *     InPlayer.User
+     *     InPlayer.Account
      *     .getRegisterFields(&#x27;123124-1r-1r13ur1h1&#x27;)
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
     async getRegisterFields(merchantUuid = &#x27;&#x27;) {
-      console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.getRegisterFields() instead.&#x27;);
         const response = await fetch(
             this.config.API.getRegisterFields(merchantUuid)
         );
@@ -505,19 +479,17 @@ class User {
      * Gets the purchase history
      * @method getPurchaseHistory
      * @async
-     * @deprecated Please use &#x27;InPlayer.Account.getPurchaseHistory()&#x27;
      * @param {String} token - The authorization token
      * @param {String} status - The status of the purchase - active/inactive
      * @param {Number} page - The current page
      * @param {Number} limit - The number of items per page
      * @example
-     *     InPlayer.User
+     *     InPlayer.Account
      *     .getPurchaseHistory(&#x27;fg1h213f8g9fefgud23fg&#x27;,&#x27;active&#x27;, 0, 5)
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
     async getPurchaseHistory(token = &#x27;&#x27;, status = &#x27;active&#x27;, page, limit) {
-      console.warn(&#x27;This function is deprecated and will be removed in future versions. Please use InPlayer.Account.getPurchaseHistory() instead.&#x27;);
         const response = await fetch(
             this.config.API.getPurchaseHistory(status, page, limit),
             {
@@ -534,7 +506,7 @@ class User {
     }
 }
 
-export default User;
+export default Account;
 
     </pre>
 </div>

@@ -1,6 +1,7 @@
 import 'isomorphic-fetch';
 import 'es6-promise/auto';
 
+import Account from './Models/Account';
 import User from './Models/User';
 import Asset from './Models/Asset';
 import Payment from './Models/Payment';
@@ -21,6 +22,11 @@ class InPlayer {
     constructor() {
         this.config = config;
         this.config.API = API(config);
+        /**
+         * @property Account
+         * @type Account
+         */
+        this.Account = new Account(this.config);
         /**
          * @property User
          * @type User

@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription", "classes/User"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Account", "classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription", "classes/User"]'>
         </form>
     </div>
 </div>
@@ -37,6 +37,7 @@
     <div id="sidebar">
     <div id="classes">
         <ul id="api-classes" class="nav nav-list">
+                <li><a href="../classes/Account.html">Account</a></li>
                 <li><a href="../classes/Asset.html">Asset</a></li>
                 <li><a href="../classes/InPlayer.html">InPlayer</a></li>
                 <li><a href="../classes/Misc.html">Misc</a></li>
@@ -84,6 +85,7 @@
 import &#x27;isomorphic-fetch&#x27;;
 import &#x27;es6-promise/auto&#x27;;
 
+import Account from &#x27;./Models/Account&#x27;;
 import User from &#x27;./Models/User&#x27;;
 import Asset from &#x27;./Models/Asset&#x27;;
 import Payment from &#x27;./Models/Payment&#x27;;
@@ -104,6 +106,11 @@ class InPlayer {
     constructor() {
         this.config = config;
         this.config.API = API(config);
+        /**
+         * @property Account
+         * @type Account
+         */
+        this.Account = new Account(this.config);
         /**
          * @property User
          * @type User

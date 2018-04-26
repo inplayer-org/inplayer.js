@@ -45,7 +45,7 @@ class Misc {
      *     InPlayer.Misc
      *     .getDiscount('eyJ0eXAiOiJKPECENR5Y',{
      *        voucherCode: '120fwjhniudh42i7',
-     *        merchantId: 'hghfqw92dm29-1g',
+     *        merchantUuid: 'hghfqw92dm29-1g',
      *        accessFeeId: 2
      *     })
      *     .then(data => console.log(data));
