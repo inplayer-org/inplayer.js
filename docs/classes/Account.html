@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.3.36</b>
+                    API Docs for Version: <b>0.3.37</b>
                 </p>
             </li>
         </div>
@@ -98,6 +98,7 @@
 		<li>
 			<strong>Methods</strong>
 			<ul>
+				<li><a href="#method-authenticate"><span class="im">authenticate</span>(<span class="ia">data</span>)</a></li>
 				<li><a href="#method-changePassword"><span class="im">changePassword</span>(<span class="ia">data</span><span class="ia">token</span>)</a></li>
 				<li><a href="#method-getAccountInfo"><span class="im">getAccountInfo</span>(<span class="ia">token</span>)</a></li>
 				<li><a href="#method-getPurchaseHistory"><span class="im">getPurchaseHistory</span>(<span class="ia">token</span><span class="ia">status</span><span class="ia">page</span><span class="ia">limit</span>)</a></li>
@@ -109,8 +110,8 @@
 				<li><a href="#method-signIn"><span class="im">signIn</span>(<span class="ia">data</span>)</a></li>
 				<li><a href="#method-signOut"><span class="im">signOut</span>()</a></li>
 				<li><a href="#method-signUp"><span class="im">signUp</span>(<span class="ia">data</span>)</a></li>
+				<li><a href="#method-token"><span class="im">token</span>(<span class="ia">clientId</span>)</a></li>
 				<li><a href="#method-token"><span class="im">token</span>(<span class="ia">token</span>)</a></li>
-				<li><a href="#method-token"><span class="im">token</span>()</a></li>
 				<li><a href="#method-updateAccount"><span class="im">updateAccount</span>(<span class="ia">data</span><span class="ia">token</span>)</a></li>
 			</ul>
 		</li>
@@ -126,6 +127,85 @@
     <div id="methods" class="page-section">
         <h2 class="off-left">Methods</h2>
         <div class="item-list">
+<div id="method-authenticate" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>authenticate</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>data</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_Account.js.html#l11"><code>src\Models\Account.js:11</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Signs in the user</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">data</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><ul>
+<li>Contains {
+email: string,
+password: string,
+clientId: string,
+}</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.Account.authenticate({
+ email: 'test@test.com',
+ password: 'test123',
+ clientId: '123-123-hf1hd1-12dhd1',
+})
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
 <div id="method-changePassword" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>changePassword</code></span>
@@ -154,7 +234,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l338"><code>src\Models\Account.js:338</code></a>
+		<a href="../files/src_Models_Account.js.html#l425"><code>src\Models\Account.js:425</code></a>
 		</p>
 
 
@@ -241,7 +321,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l249"><code>src\Models\Account.js:249</code></a>
+		<a href="../files/src_Models_Account.js.html#l336"><code>src\Models\Account.js:336</code></a>
 		</p>
 
 
@@ -322,7 +402,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l394"><code>src\Models\Account.js:394</code></a>
+		<a href="../files/src_Models_Account.js.html#l481"><code>src\Models\Account.js:481</code></a>
 		</p>
 
 
@@ -427,7 +507,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l373"><code>src\Models\Account.js:373</code></a>
+		<a href="../files/src_Models_Account.js.html#l460"><code>src\Models\Account.js:460</code></a>
 		</p>
 
 
@@ -499,7 +579,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l272"><code>src\Models\Account.js:272</code></a>
+		<a href="../files/src_Models_Account.js.html#l359"><code>src\Models\Account.js:359</code></a>
 		</p>
 
 
@@ -564,7 +644,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l141"><code>src\Models\Account.js:141</code></a>
+		<a href="../files/src_Models_Account.js.html#l186"><code>src\Models\Account.js:186</code></a>
 		</p>
 
 
@@ -618,7 +698,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l182"><code>src\Models\Account.js:182</code></a>
+		<a href="../files/src_Models_Account.js.html#l269"><code>src\Models\Account.js:269</code></a>
 		</p>
 
 
@@ -699,7 +779,7 @@ merchantUuid: string
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l215"><code>src\Models\Account.js:215</code></a>
+		<a href="../files/src_Models_Account.js.html#l302"><code>src\Models\Account.js:302</code></a>
 		</p>
 
 
@@ -788,7 +868,7 @@ passwordConfirmation: string
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l11"><code>src\Models\Account.js:11</code></a>
+		<a href="../files/src_Models_Account.js.html#l56"><code>src\Models\Account.js:56</code></a>
 		</p>
 
 
@@ -863,7 +943,7 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l58"><code>src\Models\Account.js:58</code></a>
+		<a href="../files/src_Models_Account.js.html#l103"><code>src\Models\Account.js:103</code></a>
 		</p>
 
 
@@ -917,7 +997,7 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l86"><code>src\Models\Account.js:86</code></a>
+		<a href="../files/src_Models_Account.js.html#l131"><code>src\Models\Account.js:131</code></a>
 		</p>
 
 
@@ -986,6 +1066,77 @@ referrer: string,
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
 				<li class="arg">
+						<code>clientId</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">String</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_Account.js.html#l209"><code>src\Models\Account.js:209</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Returns users Auth token</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">clientId</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><ul>
+<li>The client ID of the merchant</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">String</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.Account
+.token('1dasf-ad-1f-radsfsdf')</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-token" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>token</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
 						<code>token</code>
 				</li>
 			</ul><span class="paren">)</span>
@@ -1003,7 +1154,7 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l169"><code>src\Models\Account.js:169</code></a>
+		<a href="../files/src_Models_Account.js.html#l256"><code>src\Models\Account.js:256</code></a>
 		</p>
 
 
@@ -1049,53 +1200,6 @@ referrer: string,
 			</div>
 		</div>
 </div>
-<div id="method-token" class="method item">
-	<div class="method-signature">
-	<span class="name"><code>token</code></span>
-
-		<span class="paren">()</span>
-		<span class="returns-inline">
-			<span class="type">String</span>
-		</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/src_Models_Account.js.html#l157"><code>src\Models\Account.js:157</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Returns users Auth token</p>
-</div>
-
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type">String</span>
-			</div>
-		</div>
-
-		<div class="example">
-			<h4>Example:</h4>
-
-			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.Account
-.token()</code></pre>
-
-			</div>
-		</div>
-</div>
 <div id="method-updateAccount" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>updateAccount</code></span>
@@ -1124,7 +1228,7 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l293"><code>src\Models\Account.js:293</code></a>
+		<a href="../files/src_Models_Account.js.html#l380"><code>src\Models\Account.js:380</code></a>
 		</p>
 
 
