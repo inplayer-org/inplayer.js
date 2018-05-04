@@ -77,7 +77,7 @@ class InPlayer {
      * @return {Boolean}
      */
     subscribe(accountUid, callbackParams) {
-        if (this.User.isSignedIn()) {
+        if (this.Account.isSignedIn()) {
             this.Socket.subscribe(accountUid, callbackParams);
             return true;
         } else {

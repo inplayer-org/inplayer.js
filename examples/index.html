@@ -26,14 +26,14 @@ InPlayer.setConfig('develop');
 // }).then(data => console.log(data));
 
 /* Sign in call */
-InPlayer.Account.signIn(
-    {
-      merchantUuid: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
-      referrer: 'http://localhost:3000/',
-      email: 'testing_goran@test.com',
-      password: '12345678',
-    }
-).then(data => console.log(data));
+// InPlayer.Account.authenticate(
+//     {
+//       clientId: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
+//       email: 'testing_goran@test.com',
+//       password: '12345678',
+//     }
+// ).then(data => {console.log(data); InPlayer.Account.token().then(data => console.log(data)) });
+InPlayer.Account.token('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data => console.log(data));
 
 /* UPDATE call */
   // InPlayer.User.updateAccount({
@@ -140,21 +140,21 @@ InPlayer.Account.signIn(
   //   accessFeeId: 2961,
   //   paymentMethod: 2,
   // }).then(data => console.log(data));
-    InPlayer.Payment.purchaseAsset(InPlayer.User.token(),{
-      access_type: {
-        id: 10,
-        name: 'subscription',
-      },
-      id: 2991,
-    },{
-    number: '4111111111111111',
-    cardName: 'PayPal',
-    expMonth: 10,
-    expYear: 2030,
-    cvv: 656,
-    paymentMethod: 1,
-    referrer: 'http://google.com',
-  }).then(data => console.log(data));
+  //   InPlayer.Payment.purchaseAsset(InPlayer.Account.token(),{
+  //     access_type: {
+  //       id: 10,
+  //       name: 'subscription',
+  //     },
+  //     id: 2991,
+  //   },{
+  //   number: '4111111111111111',
+  //   cardName: 'PayPal',
+  //   expMonth: 10,
+  //   expYear: 2030,
+  //   cvv: 656,
+  //   paymentMethod: 1,
+  //   referrer: 'http://google.com',
+  // }).then(data => console.log(data));
   // InPlayer.Subscriptions.getSubscriptions('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIxMTgxMDEsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIxMjE3MDF9.ZBrNhCG0KeYfnh0HQKUJ8RD2ETghcccu5Z4MIfEusP0')
   // .then(data=> console.log(data));
   // InPlayer.User.getRegisterFields('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data=>console.log(data));

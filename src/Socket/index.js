@@ -1,6 +1,5 @@
 import awsIot from 'aws-iot-device-sdk';
 import { config } from '../../config';
-import User from '../Models/User';
 
 class Socket {
     constructor(config) {

@@ -3,6 +3,7 @@ import { config } from '../config.js';
 export const API = config => {
     return {
         //User
+        authenticate: `${config.BASE_URL}/accounts/authenticate`,
         signIn: `${config.BASE_URL}/accounts/login`,
         signOut: `${config.BASE_URL}/accounts/logout`,
         signUp: `${config.BASE_URL}/accounts`,
