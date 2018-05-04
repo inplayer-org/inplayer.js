@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "0.3.36",
+        "version": "0.3.37",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -164,6 +164,29 @@
             "line": 11,
             "description": "Signs in the user",
             "itemtype": "method",
+            "name": "authenticate",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains {\n email: string,\n password: string,\n clientId: string,\n}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Account.authenticate({\n     email: 'test@test.com',\n     password: 'test123',\n     clientId: '123-123-hf1hd1-12dhd1',\n    })\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Account"
+        },
+        {
+            "file": "src\\Models\\Account.js",
+            "line": 56,
+            "description": "Signs in the user",
+            "itemtype": "method",
             "name": "signIn",
             "async": 1,
             "params": [
@@ -184,7 +207,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 58,
+            "line": 103,
             "description": "Signs out the user and destroys cookies",
             "itemtype": "method",
             "name": "signOut",
@@ -200,7 +223,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 86,
+            "line": 131,
             "description": "Signs up/Registers user",
             "itemtype": "method",
             "name": "signUp",
@@ -223,7 +246,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 141,
+            "line": 186,
             "description": "Checks if user is signed in",
             "itemtype": "method",
             "name": "isSignedIn",
@@ -238,12 +261,20 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 157,
+            "line": 209,
             "description": "Returns users Auth token",
             "itemtype": "method",
             "name": "token",
+            "async": 1,
+            "params": [
+                {
+                    "name": "clientId",
+                    "description": "- The client ID of the merchant",
+                    "type": "String"
+                }
+            ],
             "example": [
-                "\n    InPlayer.Account\n    .token()"
+                "\n    InPlayer.Account\n    .token('1dasf-ad-1f-radsfsdf')"
             ],
             "return": {
                 "description": "",
@@ -253,7 +284,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 169,
+            "line": 256,
             "description": "Sets Auth token into cookies",
             "itemtype": "method",
             "name": "token",
@@ -275,7 +306,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 182,
+            "line": 269,
             "description": "Requests new password for a given user",
             "itemtype": "method",
             "name": "requestNewPassword",
@@ -298,7 +329,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 215,
+            "line": 302,
             "description": "Sets new password for the user",
             "itemtype": "method",
             "name": "setNewPassword",
@@ -326,7 +357,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 249,
+            "line": 336,
             "description": "Gets the user/account information for a given auth token",
             "itemtype": "method",
             "name": "getAccountInfo",
@@ -349,7 +380,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 272,
+            "line": 359,
             "description": "Gets the social login urls for fb/twitter/google",
             "itemtype": "method",
             "name": "getSocialLoginUrls",
@@ -372,7 +403,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 293,
+            "line": 380,
             "description": "Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()",
             "itemtype": "method",
             "name": "updateAccount",
@@ -400,7 +431,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 338,
+            "line": 425,
             "description": "Changes password for a given user",
             "itemtype": "method",
             "name": "changePassword",
@@ -428,7 +459,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 373,
+            "line": 460,
             "description": "Gets register fields",
             "itemtype": "method",
             "name": "getRegisterFields",
@@ -451,7 +482,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 394,
+            "line": 481,
             "description": "Gets the purchase history",
             "itemtype": "method",
             "name": "getPurchaseHistory",

@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.3.36</b>
+                    API Docs for Version: <b>0.3.37</b>
                 </p>
             </li>
         </div>
@@ -161,7 +161,7 @@ class InPlayer {
      * @return {Boolean}
      */
     subscribe(accountUid, callbackParams) {
-        if (this.User.isSignedIn()) {
+        if (this.Account.isSignedIn()) {
             this.Socket.subscribe(accountUid, callbackParams);
             return true;
         } else {

@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.3.36</b>
+                    API Docs for Version: <b>0.3.37</b>
                 </p>
             </li>
         </div>
@@ -90,6 +90,51 @@
 class Account {
     constructor(config) {
         this.config = config;
+    }
+
+    /**
+     * Signs in the user
+     * @method authenticate
+     * @async
+     * @param {Object} data - Contains {
+     *  email: string,
+     *  password: string,
+     *  clientId: string,
+     * }
+     * @example
+     *     InPlayer.Account.authenticate({
+     *      email: &#x27;test@test.com&#x27;,
+     *      password: &#x27;test123&#x27;,
+     *      clientId: &#x27;123-123-hf1hd1-12dhd1&#x27;,
+     *     })
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async authenticate(data = {}) {
+        // Add into form data
+        const fd = new FormData();
+        fd.append(&#x27;username&#x27;, data.email);
+        fd.append(&#x27;password&#x27;, data.password);
+        fd.append(&#x27;client_id&#x27;, data.clientId);
+        fd.append(&#x27;grant_type&#x27;, &#x27;password&#x27;);
+
+        // request
+        const response = await fetch(this.config.API.authenticate, {
+            method: &#x27;POST&#x27;,
+            body: fd,
+        });
+
+        const responseData = await response.json();
+
+        /* set cookies */
+        if (responseData.access_token) {
+            localStorage.setItem(
+                this.config.INPLAYER_TOKEN_NAME,
+                JSON.stringify(responseData)
+            );
+        }
+
+        return responseData;
     }
 
     /**
@@ -231,23 +276,65 @@ class Account {
      * @return {Boolean}
      */
     isSignedIn() {
-        return (
-            localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !==
-                undefined &amp;&amp;
-            localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !== null
-        );
+        const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+
+        const tokenExists = token !== undefined &amp;&amp; token !== null;
+
+        if (!tokenExists) {
+            return false;
+        }
+
+        const tokenExpires = JSON.parse(token).expires;
+        const nowDate = Math.round(new Date().getTime() / 1000);
+
+        return nowDate &lt; tokenExpires &amp;&amp; tokenExists;
     }
 
     /**
      * Returns users Auth token
      * @method token
+     * @async
+     * @param clientId {String} - The client ID of the merchant
      * @example
      *     InPlayer.Account
-     *     .token()
+     *     .token(&#x27;1dasf-ad-1f-radsfsdf&#x27;)
      * @return {String}
      */
-    token() {
-        return localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+    async token(clientId) {
+        const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+
+        if (token === undefined || token === null) return null;
+
+        const tokenExpires = JSON.parse(token).expires;
+        const nowDate = Math.round(new Date().getTime() / 1000);
+
+        if (nowDate &gt; tokenExpires) {
+            const fd = new FormData();
+            fd.append(&#x27;refresh_token&#x27;, JSON.parse(token).refresh_token);
+            fd.append(&#x27;client_id&#x27;, clientId);
+            fd.append(&#x27;grant_type&#x27;, &#x27;refresh_token&#x27;);
+            // request
+            const response = await fetch(this.config.API.authenticate, {
+                method: &#x27;POST&#x27;,
+                body: fd,
+            });
+
+            const responseData = await response.json();
+
+            /* set cookies */
+            if (responseData.access_token) {
+                localStorage.setItem(
+                    this.config.INPLAYER_TOKEN_NAME,
+                    JSON.stringify(responseData)
+                );
+            }
+        }
+
+        const newToken = JSON.parse(
+            localStorage.getItem(this.config.INPLAYER_TOKEN_NAME)
+        );
+
+        return newToken.access_token;
     }
 
     /**
