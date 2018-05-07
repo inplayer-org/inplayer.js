@@ -26,9 +26,7 @@ class Subscription {
             },
         });
 
-        const data = response.json();
-
-        return data;
+        return response.json();
     }
 
     /**
@@ -51,9 +49,7 @@ class Subscription {
             },
         });
 
-        const data = response.json();
-
-        return data;
+        return response.json();
     }
 
     /**
@@ -113,9 +109,7 @@ class Subscription {
             body: fd,
         });
 
-        const responseData = await response.json();
-
-        return responseData;
+        return await response.json();
     }
 }
 

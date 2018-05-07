@@ -2,6 +2,8 @@
  * Contains all Requests regarding user/account and authentication
  *
  * @class User
+ * @deprecated Please use 'InPlayer.Account'
+ *
  */
 class User {
     constructor(config) {

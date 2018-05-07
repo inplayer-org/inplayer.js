@@ -26,17 +26,15 @@ class Asset {
             },
         });
 
-        const data = await response.json();
-
-        return data;
+        return await response.json();
     }
 
     /**
      * Get the asset info for a given asset ID and merchant UUID
      * @method findAsset
      * @async
-     * @param {Numer} assetId - The ID of the asset
-     * @param {String} merchantUid - The merchant UUID string
+     * @param {Number} assetId - The ID of the asset
+     * @param {String} merchantUuid - The merchant UUID string
      * @example
      *     InPlayer.Asset
      *     .findAsset(2,'a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl')
@@ -51,9 +49,7 @@ class Asset {
             }
         );
 
-        const data = await response.json();
-
-        return data;
+        return await response.json();
     }
 
     /**
@@ -76,9 +72,7 @@ class Asset {
             }
         );
 
-        const data = await response.json();
-
-        return data;
+        return await response.json();
     }
 
     /**
@@ -97,16 +91,14 @@ class Asset {
             method: 'GET',
         });
 
-        const data = await response.json();
-
-        return data;
+        return await response.json();
     }
 
     /**
      * Get the access fees for a given asset ID
      * @method getAssetAccessFees
      * @async
-     * @param {Numer} id - The ID of the asset
+     * @param {Number} id - The ID of the asset
      * @example
      *     InPlayer.Asset
      *     .getAssetAccessFees(555)
@@ -128,7 +120,7 @@ class Asset {
      * @method getFreemiumAsset
      * @async
      * @param {String} token - The authorization token
-     * @param {Object} data - { accessFee: Number }
+     * @param accessFee
      * @example
      *     InPlayer.Asset
      *     .freemiumAsset('uoifhadafefbad1312nfuqd123', { accessFee: 22 })
@@ -148,9 +140,7 @@ class Asset {
             body: fd,
         });
 
-        const data = await response.json();
-
-        return data;
+        return await response.json();
     }
 }
 
