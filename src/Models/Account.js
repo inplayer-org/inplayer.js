@@ -192,65 +192,24 @@ class Account {
      * @return {Boolean}
      */
     isSignedIn() {
-        const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
-
-        const tokenExists = token !== undefined && token !== null;
-
-        if (!tokenExists) {
-            return false;
-        }
-
-        const tokenExpires = JSON.parse(token).expires;
-        const nowDate = Math.round(new Date().getTime() / 1000);
-
-        return nowDate < tokenExpires && tokenExists;
+        return (
+            localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !==
+                undefined &&
+            localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !== null
+        );
     }
 
     /**
      * Returns users Auth token
      * @method token
      * @async
-     * @param clientId {String} - The client ID of the merchant
      * @example
      *     InPlayer.Account
-     *     .token('1dasf-ad-1f-radsfsdf')
+     *     .token()
      * @return {String}
      */
-    async token(clientId) {
-        const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
-
-        if (token === undefined || token === null) return null;
-
-        const tokenExpires = JSON.parse(token).expires;
-        const nowDate = Math.round(new Date().getTime() / 1000);
-
-        if (nowDate > tokenExpires) {
-            const fd = new FormData();
-            fd.append('refresh_token', JSON.parse(token).refresh_token);
-            fd.append('client_id', clientId);
-            fd.append('grant_type', 'refresh_token');
-            // request
-            const response = await fetch(this.config.API.authenticate, {
-                method: 'POST',
-                body: fd,
-            });
-
-            const responseData = await response.json();
-
-            /* set cookies */
-            if (responseData.access_token) {
-                localStorage.setItem(
-                    this.config.INPLAYER_TOKEN_NAME,
-                    JSON.stringify(responseData)
-                );
-            }
-        }
-
-        const newToken = JSON.parse(
-            localStorage.getItem(this.config.INPLAYER_TOKEN_NAME)
-        );
-
-        return newToken.access_token;
+    async token() {
+        return localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
     }
 
     /**
