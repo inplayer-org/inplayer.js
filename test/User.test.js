@@ -6,7 +6,7 @@ describe('User', function() {
     let user;
 
     beforeEach(() => {
-        user = InPlayer.User;
+        user = InPlayer.Account;
     });
 
     describe('#signIn()', function() {
