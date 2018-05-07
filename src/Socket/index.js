@@ -21,9 +21,7 @@ class Socket {
             },
         });
 
-        const responseData = await response.json();
-
-        return responseData;
+        return await response.json();
     }
 
     /* Subscribes to Websocket notifications */
@@ -48,8 +46,8 @@ class Socket {
         }
 
         /* Connect Stomp over ws */
-        var parent = this;
-        var uuid = accountUid;
+        let parent = this;
+        let uuid = accountUid;
 
         const IAMToken = localStorage.getItem(config.INPLAYER_IOT_NAME);
         const ONE_HOUR = 60 * 60 * 1000;
@@ -92,7 +90,7 @@ class Socket {
         };
 
         this.client = awsIot.device(credentials);
-        var parent = this;
+        let parent = this;
 
         this.client.on('connect', function(data) {
             parent.client.subscribe(uuid);

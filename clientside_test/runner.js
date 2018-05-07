@@ -43,6 +43,7 @@
                 password: 'inplayer1',
                 passwordConfirmation: 'inplayer1',
                 merchantUuid: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
+                metadata: {},
                 type: 'consumer',
                 referrer: location.href,
             },
@@ -473,7 +474,7 @@
 
     new SDKTest();
 })(
-    InPlayer.User,
+    InPlayer.Account,
     InPlayer.Asset,
     InPlayer.Misc,
     InPlayer.Payment,

@@ -27,9 +27,7 @@ class Payment {
             },
         });
 
-        const data = await response.json();
-
-        return data;
+        return await response.json();
     }
 
     /**
@@ -54,9 +52,7 @@ class Payment {
             }
         );
 
-        const data = await response.json();
-
-        return data;
+        return await response.json();
     }
 
     /**
@@ -118,9 +114,7 @@ class Payment {
             body: fd,
         });
 
-        const responseData = await response.json();
-
-        return responseData;
+        return await response.json();
     }
 
     /**
@@ -219,9 +213,7 @@ class Payment {
             body: fd,
         });
 
-        const responseData = await response.json();
-
-        return responseData;
+        return await response.json();
     }
 }
 

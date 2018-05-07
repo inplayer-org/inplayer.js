@@ -166,11 +166,13 @@ class Account {
         fd.append('grant_type', 'password');
         fd.append('referrer', data.referrer);
 
-        const keys = Object.keys(data.metadata);
-        if (keys.length) {
-            keys.forEach(key => {
-                fd.append(`metadata[${key}]`, data.metadata[key]);
-            });
+        if (data.metadata) {
+            const keys = Object.keys(data.metadata);
+            if (keys.length) {
+                keys.forEach(key => {
+                    fd.append(`metadata[${key}]`, data.metadata[key]);
+                });
+            }
         }
 
         const response = await fetch(this.config.API.signUp, {
@@ -178,9 +180,7 @@ class Account {
             body: fd,
         });
 
-        const responseData = await response.json();
-
-        return responseData;
+        return await response.json();
     }
 
     /**
@@ -294,9 +294,7 @@ class Account {
             body: fd,
         });
 
-        const responseData = await response.json();
-
-        return responseData;
+        return await response.json();
     }
 
     /**
@@ -322,15 +320,13 @@ class Account {
             data.passwordConfirmation
         }`;
 
-        const response = await fetch(this.config.API.setNewPassword(token), {
+        return await fetch(this.config.API.setNewPassword(token), {
             method: 'PUT',
             body: body,
             headers: {
                 'Content-Type': 'x-www-form-urlencoded',
             },
         });
-
-        return response;
     }
 
     /**
@@ -372,9 +368,7 @@ class Account {
             method: 'GET',
         });
 
-        const data = await response.json();
-
-        return data;
+        return await response.json();
     }
 
     /**
@@ -417,9 +411,7 @@ class Account {
             },
         });
 
-        const responseData = await response.json();
-
-        return responseData;
+        return await response.json();
     }
 
     /**
@@ -452,9 +444,7 @@ class Account {
             },
         });
 
-        const responseData = await response.json();
-
-        return responseData;
+        return await response.json();
     }
 
     /**
@@ -473,9 +463,7 @@ class Account {
             this.config.API.getRegisterFields(merchantUuid)
         );
 
-        const data = await response.json();
-
-        return data;
+        return await response.json();
     }
 
     /**
@@ -503,9 +491,7 @@ class Account {
             }
         );
 
-        const data = await response.json();
-
-        return data;
+        return await response.json();
     }
 }
 

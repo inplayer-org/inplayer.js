@@ -26,9 +26,7 @@ class Misc {
             },
         });
 
-        const data = await response.json();
-
-        return data;
+        return await response.json();
     }
 
     /**
@@ -65,9 +63,7 @@ class Misc {
             body: fd,
         });
 
-        const responseData = await response.json();
-
-        return responseData;
+        return await response.json();
     }
 
     /**
@@ -89,9 +85,7 @@ class Misc {
             }
         );
 
-        const data = await response.json();
-
-        return data;
+        return await response.json();
     }
 
     /**
@@ -117,9 +111,7 @@ class Misc {
             }
         );
 
-        const data = await response.json();
-
-        return data;
+        return await response.json();
     }
 }
 
