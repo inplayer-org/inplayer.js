@@ -1,8 +1,8 @@
 var path = require('path');
-var webpack = require('webpack');
 
 module.exports = {
     entry: ['babel-polyfill', path.resolve(__dirname, 'src/index.js')],
+    devtool: 'source-map',
     mode: 'production',
     output: {
         filename: 'inplayer.umd.js',
@@ -18,6 +18,9 @@ module.exports = {
                 loader: 'babel-loader',
             },
         ],
+    },
+    optimization: {
+        minimize: true,
     },
     stats: {
         colors: true,
