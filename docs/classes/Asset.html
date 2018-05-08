@@ -99,11 +99,11 @@
 			<strong>Methods</strong>
 			<ul>
 				<li><a href="#method-checkAccessForAsset"><span class="im">checkAccessForAsset</span>(<span class="ia">token</span><span class="ia">id</span>)</a></li>
-				<li><a href="#method-findAsset"><span class="im">findAsset</span>(<span class="ia">assetId</span><span class="ia">merchantUid</span>)</a></li>
+				<li><a href="#method-findAsset"><span class="im">findAsset</span>(<span class="ia">assetId</span><span class="ia">merchantUuid</span>)</a></li>
 				<li><a href="#method-findExternalAsset"><span class="im">findExternalAsset</span>(<span class="ia">assetType</span><span class="ia">externalId</span>)</a></li>
 				<li><a href="#method-findPackage"><span class="im">findPackage</span>(<span class="ia">id</span>)</a></li>
 				<li><a href="#method-getAssetAccessFees"><span class="im">getAssetAccessFees</span>(<span class="ia">id</span>)</a></li>
-				<li><a href="#method-getFreemiumAsset"><span class="im">getFreemiumAsset</span>(<span class="ia">token</span><span class="ia">data</span>)</a></li>
+				<li><a href="#method-getFreemiumAsset"><span class="im">getFreemiumAsset</span>(<span class="ia">token</span><span class="ia">accessFee</span>)</a></li>
 			</ul>
 		</li>
 
@@ -214,7 +214,7 @@
 						<code>assetId</code>
 				</li>
 				<li class="arg">
-						<code>merchantUid</code>
+						<code>merchantUuid</code>
 				</li>
 			</ul><span class="paren">)</span>
 		</div>
@@ -232,7 +232,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l34"><code>src\Models\Asset.js:34</code></a>
+		<a href="../files/src_Models_Asset.js.html#l32"><code>src\Models\Asset.js:32</code></a>
 		</p>
 
 
@@ -248,7 +248,7 @@
 			<ul class="params-list">
 				<li class="param">
 						<code class="param-name">assetId</code>
-						<span class="type">Numer</span>
+						<span class="type">Number</span>
 
 
 					<div class="param-description"><ul>
@@ -258,7 +258,7 @@
 
 				</li>
 				<li class="param">
-						<code class="param-name">merchantUid</code>
+						<code class="param-name">merchantUuid</code>
 						<span class="type">String</span>
 
 
@@ -318,7 +318,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l59"><code>src\Models\Asset.js:59</code></a>
+		<a href="../files/src_Models_Asset.js.html#l55"><code>src\Models\Asset.js:55</code></a>
 		</p>
 
 
@@ -401,7 +401,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l84"><code>src\Models\Asset.js:84</code></a>
+		<a href="../files/src_Models_Asset.js.html#l78"><code>src\Models\Asset.js:78</code></a>
 		</p>
 
 
@@ -473,7 +473,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l105"><code>src\Models\Asset.js:105</code></a>
+		<a href="../files/src_Models_Asset.js.html#l97"><code>src\Models\Asset.js:97</code></a>
 		</p>
 
 
@@ -489,7 +489,7 @@
 			<ul class="params-list">
 				<li class="param">
 						<code class="param-name">id</code>
-						<span class="type">Numer</span>
+						<span class="type">Number</span>
 
 
 					<div class="param-description"><ul>
@@ -530,7 +530,7 @@
 						<code>token</code>
 				</li>
 				<li class="arg">
-						<code>data</code>
+						<code>accessFee</code>
 				</li>
 			</ul><span class="paren">)</span>
 		</div>
@@ -548,7 +548,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l126"><code>src\Models\Asset.js:126</code></a>
+		<a href="../files/src_Models_Asset.js.html#l118"><code>src\Models\Asset.js:118</code></a>
 		</p>
 
 
@@ -574,14 +574,10 @@
 
 				</li>
 				<li class="param">
-						<code class="param-name">data</code>
+						<code class="param-name">accessFee</code>
 						<span class="type">Object</span>
 
 
-					<div class="param-description"><ul>
-<li>{ accessFee: Number }</li>
-</ul>
-</div>
 
 				</li>
 			</ul>

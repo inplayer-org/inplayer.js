@@ -142,7 +142,9 @@
             "extension_for": [],
             "file": "src\\Models\\User.js",
             "line": 1,
-            "description": "Contains all Requests regarding user/account and authentication"
+            "description": "Contains all Requests regarding user/account and authentication",
+            "deprecated": true,
+            "deprecationMessage": "Please use 'InPlayer.Account'"
         },
         "InPlayer": {
             "name": "InPlayer",
@@ -247,6 +249,21 @@
         {
             "file": "src\\Models\\Account.js",
             "line": 186,
+            "description": "Checks if the user is authenticated OAuth2",
+            "itemtype": "method",
+            "name": "isAuthenticated",
+            "example": [
+                "\n   InPlayer.Account.isAuthenticated()"
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "Account"
+        },
+        {
+            "file": "src\\Models\\Account.js",
+            "line": 208,
             "description": "Checks if user is signed in",
             "itemtype": "method",
             "name": "isSignedIn",
@@ -261,20 +278,11 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 209,
-            "description": "Returns users Auth token",
+            "line": 224,
             "itemtype": "method",
-            "name": "token",
-            "async": 1,
-            "params": [
-                {
-                    "name": "clientId",
-                    "description": "- The client ID of the merchant",
-                    "type": "String"
-                }
-            ],
+            "name": "getToken",
             "example": [
-                "\n    InPlayer.Account\n    .token('1dasf-ad-1f-radsfsdf')"
+                "\nInPlayer.Account.getToken()"
             ],
             "return": {
                 "description": "",
@@ -284,7 +292,45 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 256,
+            "line": 245,
+            "description": "Returns users Auth token",
+            "itemtype": "method",
+            "name": "token",
+            "async": 1,
+            "example": [
+                "\n    InPlayer.Account\n    .token()"
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Account"
+        },
+        {
+            "file": "src\\Models\\Account.js",
+            "line": 258,
+            "description": "Refreshes the token",
+            "itemtype": "method",
+            "name": "refreshToken",
+            "async": 1,
+            "params": [
+                {
+                    "name": "clientId",
+                    "description": "- The merchant's clientId"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Account.refreshToken('123123121-d1-t1-1ff').then(data => console.log(data))"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Account"
+        },
+        {
+            "file": "src\\Models\\Account.js",
+            "line": 299,
             "description": "Sets Auth token into cookies",
             "itemtype": "method",
             "name": "token",
@@ -306,7 +352,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 269,
+            "line": 312,
             "description": "Requests new password for a given user",
             "itemtype": "method",
             "name": "requestNewPassword",
@@ -329,7 +375,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 302,
+            "line": 343,
             "description": "Sets new password for the user",
             "itemtype": "method",
             "name": "setNewPassword",
@@ -357,7 +403,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 336,
+            "line": 375,
             "description": "Gets the user/account information for a given auth token",
             "itemtype": "method",
             "name": "getAccountInfo",
@@ -380,7 +426,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 359,
+            "line": 398,
             "description": "Gets the social login urls for fb/twitter/google",
             "itemtype": "method",
             "name": "getSocialLoginUrls",
@@ -403,7 +449,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 380,
+            "line": 417,
             "description": "Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()",
             "itemtype": "method",
             "name": "updateAccount",
@@ -431,7 +477,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 425,
+            "line": 460,
             "description": "Changes password for a given user",
             "itemtype": "method",
             "name": "changePassword",
@@ -459,7 +505,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 460,
+            "line": 493,
             "description": "Gets register fields",
             "itemtype": "method",
             "name": "getRegisterFields",
@@ -482,7 +528,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 481,
+            "line": 512,
             "description": "Gets the purchase history",
             "itemtype": "method",
             "name": "getPurchaseHistory",
@@ -519,6 +565,29 @@
             "class": "Account"
         },
         {
+            "file": "src\\Models\\Account.js",
+            "line": 540,
+            "description": "Returns purchase history with types",
+            "itemtype": "method",
+            "name": "getAssetsHistory",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Account\n    .getAssetsHistory('1dfh1f-1g1f2e-1gg')\n    .then(data => console.log(data))"
+            ],
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "Account"
+        },
+        {
             "file": "src\\Models\\Asset.js",
             "line": 10,
             "description": "Checks whether a given authenticated user has access for an asset",
@@ -548,7 +617,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 34,
+            "line": 32,
             "description": "Get the asset info for a given asset ID and merchant UUID",
             "itemtype": "method",
             "name": "findAsset",
@@ -557,10 +626,10 @@
                 {
                     "name": "assetId",
                     "description": "- The ID of the asset",
-                    "type": "Numer"
+                    "type": "Number"
                 },
                 {
-                    "name": "merchantUid",
+                    "name": "merchantUuid",
                     "description": "- The merchant UUID string",
                     "type": "String"
                 }
@@ -576,7 +645,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 59,
+            "line": 55,
             "description": "Get an external assets' info",
             "itemtype": "method",
             "name": "findExternalAsset",
@@ -604,7 +673,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 84,
+            "line": 78,
             "description": "Get package info for a given Package ID",
             "itemtype": "method",
             "name": "findPackage",
@@ -627,7 +696,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 105,
+            "line": 97,
             "description": "Get the access fees for a given asset ID",
             "itemtype": "method",
             "name": "getAssetAccessFees",
@@ -636,7 +705,7 @@
                 {
                     "name": "id",
                     "description": "- The ID of the asset",
-                    "type": "Numer"
+                    "type": "Number"
                 }
             ],
             "example": [
@@ -650,7 +719,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 126,
+            "line": 118,
             "description": "Authorize for the freemium asset (login)",
             "itemtype": "method",
             "name": "getFreemiumAsset",
@@ -662,9 +731,8 @@
                     "type": "String"
                 },
                 {
-                    "name": "data",
-                    "description": "- { accessFee: Number }",
-                    "type": "Object"
+                    "name": "accessFee",
+                    "description": ""
                 }
             ],
             "example": [
@@ -706,7 +774,7 @@
         },
         {
             "file": "src\\Models\\Misc.js",
-            "line": 34,
+            "line": 32,
             "description": "Gets the discount for a given ..",
             "itemtype": "method",
             "name": "getDiscount",
@@ -734,7 +802,7 @@
         },
         {
             "file": "src\\Models\\Misc.js",
-            "line": 73,
+            "line": 69,
             "description": "Gets branding for given merchant",
             "itemtype": "method",
             "name": "getBranding",
@@ -757,7 +825,7 @@
         },
         {
             "file": "src\\Models\\Misc.js",
-            "line": 97,
+            "line": 91,
             "description": "Downloads a file",
             "itemtype": "method",
             "name": "downloadProtectedFile",
@@ -813,7 +881,7 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 35,
+            "line": 33,
             "description": "Get the payment tools for an aothorization token and payment method ID",
             "itemtype": "method",
             "name": "getPaymentTools",
@@ -841,7 +909,7 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 62,
+            "line": 58,
             "description": "Makes a Payment for a given Authorization token + asset/payment details.\nUse this method ONLY if the assetFee.type is not 'subscription' or 'freemium'. Otherwise\nplease use InPlayer.Subscription.assetSubscribe()",
             "itemtype": "method",
             "name": "payForAsset",
@@ -869,7 +937,7 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 126,
+            "line": 120,
             "description": "Makes a payment with a given access fee object, for both subscription and PPV",
             "itemtype": "method",
             "name": "purchaseAsset",
@@ -902,7 +970,7 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 183,
+            "line": 177,
             "description": "Gets parameters for PayPal",
             "itemtype": "method",
             "name": "getPayPalParams",
@@ -953,7 +1021,7 @@
         },
         {
             "file": "src\\Models\\Subscription.js",
-            "line": 34,
+            "line": 32,
             "description": "Cancels a subscription",
             "itemtype": "method",
             "name": "cancelSubscription",
@@ -981,7 +1049,7 @@
         },
         {
             "file": "src\\Models\\Subscription.js",
-            "line": 59,
+            "line": 55,
             "description": "Subscribes to a given asset. Use this method ONLY if the accessFee.type === 'subscription'.\nOtherwise please use InPlayer.Payment.payForAsset()",
             "itemtype": "method",
             "name": "assetSubscribe",
@@ -1009,7 +1077,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 11,
+            "line": 13,
             "description": "Signs in the user",
             "itemtype": "method",
             "name": "signIn",
@@ -1034,7 +1102,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 62,
+            "line": 64,
             "description": "Signs out the user and destroys cookies",
             "itemtype": "method",
             "name": "signOut",
@@ -1052,7 +1120,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 94,
+            "line": 96,
             "description": "Signs up/Registers user",
             "itemtype": "method",
             "name": "signUp",
@@ -1077,7 +1145,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 153,
+            "line": 155,
             "description": "Checks if user is signed in",
             "itemtype": "method",
             "name": "isSignedIn",
@@ -1094,7 +1162,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 173,
+            "line": 175,
             "description": "Returns users Auth token",
             "itemtype": "method",
             "name": "token",
@@ -1111,7 +1179,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 189,
+            "line": 191,
             "description": "Sets Auth token into cookies",
             "itemtype": "method",
             "name": "token",
@@ -1135,7 +1203,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 206,
+            "line": 208,
             "description": "Requests new password for a given user",
             "itemtype": "method",
             "name": "requestNewPassword",
@@ -1160,7 +1228,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 243,
+            "line": 245,
             "description": "Sets new password for the user",
             "itemtype": "method",
             "name": "setNewPassword",
@@ -1190,7 +1258,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 281,
+            "line": 283,
             "description": "Gets the user/account information for a given auth token",
             "itemtype": "method",
             "name": "getAccountInfo",
@@ -1215,7 +1283,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 308,
+            "line": 310,
             "description": "Gets the social login urls for fb/twitter/google",
             "itemtype": "method",
             "name": "getSocialLoginUrls",
@@ -1240,7 +1308,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 333,
+            "line": 335,
             "description": "Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()",
             "itemtype": "method",
             "name": "updateAccount",
@@ -1270,7 +1338,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 382,
+            "line": 384,
             "description": "Changes password for a given user",
             "itemtype": "method",
             "name": "changePassword",
@@ -1300,7 +1368,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 421,
+            "line": 423,
             "description": "Gets register fields",
             "itemtype": "method",
             "name": "getRegisterFields",
@@ -1325,7 +1393,7 @@
         },
         {
             "file": "src\\Models\\User.js",
-            "line": 446,
+            "line": 448,
             "description": "Gets the purchase history",
             "itemtype": "method",
             "name": "getPurchaseHistory",

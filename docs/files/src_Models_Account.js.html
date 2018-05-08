@@ -250,11 +250,13 @@ class Account {
         fd.append(&#x27;grant_type&#x27;, &#x27;password&#x27;);
         fd.append(&#x27;referrer&#x27;, data.referrer);
 
-        const keys = Object.keys(data.metadata);
-        if (keys.length) {
-            keys.forEach(key =&gt; {
-                fd.append(&#x60;metadata[${key}]&#x60;, data.metadata[key]);
-            });
+        if (data.metadata) {
+            const keys = Object.keys(data.metadata);
+            if (keys.length) {
+                keys.forEach(key =&gt; {
+                    fd.append(&#x60;metadata[${key}]&#x60;, data.metadata[key]);
+                });
+            }
         }
 
         const response = await fetch(this.config.API.signUp, {
@@ -262,9 +264,29 @@ class Account {
             body: fd,
         });
 
-        const responseData = await response.json();
+        return await response.json();
+    }
 
-        return responseData;
+    /**
+     * Checks if the user is authenticated OAuth2
+     * @method isAuthenticated
+     * @example
+     *    InPlayer.Account.isAuthenticated()
+     * @return {Boolean}
+     */
+    isAuthenticated(){
+      const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+
+      const tokenExists = token !== undefined &amp;&amp; token !== null;
+
+        if (!tokenExists) {
+           return false;
+        }
+
+        const tokenExpires = JSON.parse(token).expires;
+        const nowDate = Math.round(new Date().getTime() / 1000);
+
+        return nowDate &lt; tokenExpires &amp;&amp; tokenExists;
     }
 
     /**
@@ -276,65 +298,86 @@ class Account {
      * @return {Boolean}
      */
     isSignedIn() {
-        const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
-
-        const tokenExists = token !== undefined &amp;&amp; token !== null;
-
-        if (!tokenExists) {
-            return false;
-        }
-
-        const tokenExpires = JSON.parse(token).expires;
-        const nowDate = Math.round(new Date().getTime() / 1000);
-
-        return nowDate &lt; tokenExpires &amp;&amp; tokenExists;
+        return (
+            localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !==
+                undefined &amp;&amp;
+            localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !== null
+        );
     }
 
-    /**
-     * Returns users Auth token
-     * @method token
-     * @async
-     * @param clientId {String} - The client ID of the merchant
-     * @example
-     *     InPlayer.Account
-     *     .token(&#x27;1dasf-ad-1f-radsfsdf&#x27;)
-     * @return {String}
-     */
-    async token(clientId) {
-        const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+    /** Retruns the OAuth token
+     *  @method getToken
+     *  @example
+     *  InPlayer.Account.getToken()
+     *  @return {String}
+    */
+    getToken(){
+      const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
 
-        if (token === undefined || token === null) return null;
+        if (token === undefined || token === null)
+          return { token: null, expired: false, expires_at: null};
 
         const tokenExpires = JSON.parse(token).expires;
         const nowDate = Math.round(new Date().getTime() / 1000);
 
         if (nowDate &gt; tokenExpires) {
-            const fd = new FormData();
-            fd.append(&#x27;refresh_token&#x27;, JSON.parse(token).refresh_token);
-            fd.append(&#x27;client_id&#x27;, clientId);
-            fd.append(&#x27;grant_type&#x27;, &#x27;refresh_token&#x27;);
-            // request
-            const response = await fetch(this.config.API.authenticate, {
-                method: &#x27;POST&#x27;,
-                body: fd,
-            });
-
-            const responseData = await response.json();
-
-            /* set cookies */
-            if (responseData.access_token) {
-                localStorage.setItem(
-                    this.config.INPLAYER_TOKEN_NAME,
-                    JSON.stringify(responseData)
-                );
-            }
+          return {token: null, expired: true, expires_at: tokenExpires};
         }
 
-        const newToken = JSON.parse(
-            localStorage.getItem(this.config.INPLAYER_TOKEN_NAME)
-        );
+        return {token: JSON.parse(token).access_token, expired: false, expires_at: JSON.parse(token).expires};
+    }
+    /**
+     * Returns users Auth token
+     * @method token
+     * @async
+     * @example
+     *     InPlayer.Account
+     *     .token()
+     * @return {String}
+     */
+    token() {
+        return localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+    }
 
-        return newToken.access_token;
+    /**
+     * Refreshes the token
+     * @method refreshToken
+     * @async
+     * @param clientId - The merchant&#x27;s clientId
+     * @example
+     *     InPlayer.Account.refreshToken(&#x27;123123121-d1-t1-1ff&#x27;).then(data =&gt; console.log(data))
+     * @return {Object}
+     */
+    async refreshToken(clientId){
+          const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+
+          if (token === undefined || token === null){
+            throw new Error(&quot;The token must exist in order to refresh it. Please use InPlayer.Account.authenticate()&quot;);
+            return;
+          }
+
+
+          const fd = new FormData();
+          fd.append(&#x27;refresh_token&#x27;, JSON.parse(token).refresh_token);
+          fd.append(&#x27;client_id&#x27;, clientId);
+          fd.append(&#x27;grant_type&#x27;, &#x27;refresh_token&#x27;);
+          // request
+          const response = await fetch(this.config.API.authenticate, {
+              method: &#x27;POST&#x27;,
+              body: fd,
+         });
+
+          const responseData = await response.json();
+
+          /* set cookies */
+          if (responseData.access_token) {
+              localStorage.setItem(
+                  this.config.INPLAYER_TOKEN_NAME,
+                  JSON.stringify(responseData)
+              );
+          }
+
+          return responseData;
     }
 
     /**
@@ -378,9 +421,7 @@ class Account {
             body: fd,
         });
 
-        const responseData = await response.json();
-
-        return responseData;
+        return await response.json();
     }
 
     /**
@@ -406,15 +447,13 @@ class Account {
             data.passwordConfirmation
         }&#x60;;
 
-        const response = await fetch(this.config.API.setNewPassword(token), {
+        return await fetch(this.config.API.setNewPassword(token), {
             method: &#x27;PUT&#x27;,
             body: body,
             headers: {
                 &#x27;Content-Type&#x27;: &#x27;x-www-form-urlencoded&#x27;,
             },
         });
-
-        return response;
     }
 
     /**
@@ -456,9 +495,7 @@ class Account {
             method: &#x27;GET&#x27;,
         });
 
-        const data = await response.json();
-
-        return data;
+        return await response.json();
     }
 
     /**
@@ -501,9 +538,7 @@ class Account {
             },
         });
 
-        const responseData = await response.json();
-
-        return responseData;
+        return await response.json();
     }
 
     /**
@@ -536,9 +571,7 @@ class Account {
             },
         });
 
-        const responseData = await response.json();
-
-        return responseData;
+        return await response.json();
     }
 
     /**
@@ -557,9 +590,7 @@ class Account {
             this.config.API.getRegisterFields(merchantUuid)
         );
 
-        const data = await response.json();
-
-        return data;
+        return await response.json();
     }
 
     /**
@@ -587,9 +618,33 @@ class Account {
             }
         );
 
-        const data = await response.json();
+        return await response.json();
+    }
 
-        return data;
+    /**
+     * Returns purchase history with types
+     * @method getAssetsHistory
+     * @async
+     * @param {String} token - The authorization token
+     * @example
+     *     InPlayer.Account
+     *     .getAssetsHistory(&#x27;1dfh1f-1g1f2e-1gg&#x27;)
+     *     .then(data =&gt; console.log(data))
+     * @return {Array}
+     */
+
+    async getAssetsHistory(token = &#x27;&#x27;){
+      const response = await fetch(
+          this.config.API.assetHistory,
+          {
+              method: &#x27;GET&#x27;,
+              headers: {
+                  Authorization: &#x27;Bearer &#x27; + token,
+              },
+          }
+      );
+
+      return await response.json();
     }
 }
 
