@@ -32,8 +32,24 @@ InPlayer.setConfig('develop');
 //       email: 'testing_goran@test.com',
 //       password: '12345678',
 //     }
-// ).then(data => {console.log(data); InPlayer.Account.token().then(data => console.log(data)) });
-InPlayer.Account.token('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data => console.log(data));
+// ).then(data => {console.log(data); InPlayer.Account.getToken('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data => console.log(data)) });
+// /* Sign in call */
+// InPlayer.Account.signIn(
+//      {
+//        merchantUuid: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
+//        email: 'testing_goran@test.com',
+//        password: '12345678',
+//        referrer: 'localhost',
+//      }
+//  ).then(data => {console.log(data); });
+// console.log(InPlayer.Account.getToken('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data => console.log(data)));
+// console.log(InPlayer.Account.getToken());
+// if(!InPlayer.Account.getToken().token){
+//   InPlayer.Account.refreshToken('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data1 => {
+//     InPlayer.Account.getAssetsHistory(InPlayer.Account.getToken().token).then(data => console.log(data));
+//   })
+// }
+
 
 /* UPDATE call */
   // InPlayer.User.updateAccount({

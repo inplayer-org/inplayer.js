@@ -22,6 +22,9 @@ export const API = config => {
             `${
                 config.BASE_URL
             }/reporting/access/customers?status=${status}&page=${page}&limit=${limit}`,
+        assetHistory: `${
+            config.BASE_URL
+        }/reporting/transactions?exclude=store-payment`,
         //Asset
         checkAccess: id => `${config.BASE_URL}/items/${id}/access`,
         findAsset: (assetId, merchant_uuid) =>

@@ -184,6 +184,28 @@ class Account {
     }
 
     /**
+     * Checks if the user is authenticated OAuth2
+     * @method isAuthenticated
+     * @example
+     *    InPlayer.Account.isAuthenticated()
+     * @return {Boolean}
+     */
+    isAuthenticated() {
+        const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+
+        const tokenExists = token !== undefined && token !== null;
+
+        if (!tokenExists) {
+            return false;
+        }
+
+        const tokenExpires = JSON.parse(token).expires;
+        const nowDate = Math.round(new Date().getTime() / 1000);
+
+        return nowDate < tokenExpires && tokenExists;
+    }
+
+    /**
      * Checks if user is signed in
      * @method isSignedIn
      * @example
@@ -199,6 +221,31 @@ class Account {
         );
     }
 
+    /** Retruns the OAuth token
+     *  @method getToken
+     *  @example
+     *  InPlayer.Account.getToken()
+     *  @return {String}
+     */
+    getToken() {
+        const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+
+        if (token === undefined || token === null)
+            return { token: null, expired: false, expires_at: null };
+
+        const tokenExpires = JSON.parse(token).expires;
+        const nowDate = Math.round(new Date().getTime() / 1000);
+
+        if (nowDate > tokenExpires) {
+            return { token: null, expired: true, expires_at: tokenExpires };
+        }
+
+        return {
+            token: JSON.parse(token).access_token,
+            expired: false,
+            expires_at: JSON.parse(token).expires,
+        };
+    }
     /**
      * Returns users Auth token
      * @method token
@@ -208,8 +255,50 @@ class Account {
      *     .token()
      * @return {String}
      */
-    async token() {
+    token() {
         return localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+    }
+
+    /**
+     * Refreshes the token
+     * @method refreshToken
+     * @async
+     * @param clientId - The merchant's clientId
+     * @example
+     *     InPlayer.Account.refreshToken('123123121-d1-t1-1ff').then(data => console.log(data))
+     * @return {Object}
+     */
+    async refreshToken(clientId) {
+        const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+
+        if (token === undefined || token === null) {
+            throw new Error(
+                'The token must exist in order to refresh it. Please use InPlayer.Account.authenticate()'
+            );
+            return;
+        }
+
+        const fd = new FormData();
+        fd.append('refresh_token', JSON.parse(token).refresh_token);
+        fd.append('client_id', clientId);
+        fd.append('grant_type', 'refresh_token');
+        // request
+        const response = await fetch(this.config.API.authenticate, {
+            method: 'POST',
+            body: fd,
+        });
+
+        const responseData = await response.json();
+
+        /* set cookies */
+        if (responseData.access_token) {
+            localStorage.setItem(
+                this.config.INPLAYER_TOKEN_NAME,
+                JSON.stringify(responseData)
+            );
+        }
+
+        return responseData;
     }
 
     /**
@@ -449,6 +538,29 @@ class Account {
                 },
             }
         );
+
+        return await response.json();
+    }
+
+    /**
+     * Returns purchase history with types
+     * @method getAssetsHistory
+     * @async
+     * @param {String} token - The authorization token
+     * @example
+     *     InPlayer.Account
+     *     .getAssetsHistory('1dfh1f-1g1f2e-1gg')
+     *     .then(data => console.log(data))
+     * @return {Array}
+     */
+
+    async getAssetsHistory(token = '') {
+        const response = await fetch(this.config.API.assetHistory, {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + token,
+            },
+        });
 
         return await response.json();
     }
