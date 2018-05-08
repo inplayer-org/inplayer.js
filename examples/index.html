@@ -43,12 +43,15 @@ InPlayer.setConfig('develop');
 //      }
 //  ).then(data => {console.log(data); });
 // console.log(InPlayer.Account.getToken('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data => console.log(data)));
-// console.log(InPlayer.Account.getToken());
-// if(!InPlayer.Account.getToken().token){
-//   InPlayer.Account.refreshToken('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data1 => {
-//     InPlayer.Account.getAssetsHistory(InPlayer.Account.getToken().token).then(data => console.log(data));
-//   })
-// }
+console.log(InPlayer.Account.getToken());
+if(!InPlayer.Account.getToken().token){
+  InPlayer.Account.refreshToken('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data1 => {
+    InPlayer.Account.getAssetsHistory(InPlayer.Account.getToken().token).then(data => console.log(data));
+  })
+}
+else{
+  InPlayer.Account.getAssetsHistory(InPlayer.Account.getToken().token, 15, 0).then(data => console.log(data));
+}
 
 
 /* UPDATE call */

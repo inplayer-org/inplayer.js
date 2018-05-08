@@ -22,9 +22,20 @@ export const API = config => {
             `${
                 config.BASE_URL
             }/reporting/access/customers?status=${status}&page=${page}&limit=${limit}`,
-        assetHistory: `${
-            config.BASE_URL
-        }/reporting/transactions?exclude=store-payment`,
+        assetHistory: (size, page, startDate, endDate) => {
+            let url = `${
+                config.BASE_URL
+            }/reporting/transactions?exclude=store-payment&size=${size}&page=${page}`;
+            if (startDate) {
+                url += `&startDate=${startDate}`;
+            }
+
+            if (endDate) {
+                url += `&endDate=${endDate}`;
+            }
+
+            return url;
+        },
         //Asset
         checkAccess: id => `${config.BASE_URL}/items/${id}/access`,
         findAsset: (assetId, merchant_uuid) =>
