@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.3.37</b>
+                    API Docs for Version: <b>0.3.42</b>
                 </p>
             </li>
         </div>
@@ -101,7 +101,7 @@
 				<li><a href="#method-authenticate"><span class="im">authenticate</span>(<span class="ia">data</span>)</a></li>
 				<li><a href="#method-changePassword"><span class="im">changePassword</span>(<span class="ia">data</span><span class="ia">token</span>)</a></li>
 				<li><a href="#method-getAccountInfo"><span class="im">getAccountInfo</span>(<span class="ia">token</span>)</a></li>
-				<li><a href="#method-getAssetsHistory"><span class="im">getAssetsHistory</span>(<span class="ia">token</span>)</a></li>
+				<li><a href="#method-getAssetsHistory"><span class="im">getAssetsHistory</span>(<span class="ia">token</span><span class="ia">size</span><span class="ia">page</span><span class="ia">startDate</span><span class="ia">endDate</span>)</a></li>
 				<li><a href="#method-getPurchaseHistory"><span class="im">getPurchaseHistory</span>(<span class="ia">token</span><span class="ia">status</span><span class="ia">page</span><span class="ia">limit</span>)</a></li>
 				<li><a href="#method-getRegisterFields"><span class="im">getRegisterFields</span>(<span class="ia">merchantUuid</span>)</a></li>
 				<li><a href="#method-getSocialLoginUrls"><span class="im">getSocialLoginUrls</span>(<span class="ia">state</span>)</a></li>
@@ -238,7 +238,7 @@ clientId: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l460"><code>src\Models\Account.js:460</code></a>
+		<a href="../files/src_Models_Account.js.html#l465"><code>src\Models\Account.js:465</code></a>
 		</p>
 
 
@@ -325,7 +325,7 @@ clientId: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l375"><code>src\Models\Account.js:375</code></a>
+		<a href="../files/src_Models_Account.js.html#l380"><code>src\Models\Account.js:380</code></a>
 		</p>
 
 
@@ -381,6 +381,18 @@ clientId: string,
 				<li class="arg">
 						<code>token</code>
 				</li>
+				<li class="arg">
+						<code>size</code>
+				</li>
+				<li class="arg">
+						<code>page</code>
+				</li>
+				<li class="arg">
+						<code>startDate</code>
+				</li>
+				<li class="arg">
+						<code>endDate</code>
+				</li>
 			</ul><span class="paren">)</span>
 		</div>
 		<span class="returns-inline">
@@ -397,7 +409,7 @@ clientId: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l540"><code>src\Models\Account.js:540</code></a>
+		<a href="../files/src_Models_Account.js.html#l545"><code>src\Models\Account.js:545</code></a>
 		</p>
 
 
@@ -418,6 +430,50 @@ clientId: string,
 
 					<div class="param-description"><ul>
 <li>The authorization token</li>
+</ul>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">size</code>
+						<span class="type">Number</span>
+
+
+					<div class="param-description"><ul>
+<li>The page size</li>
+</ul>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">page</code>
+						<span class="type">Number</span>
+
+
+					<div class="param-description"><ul>
+<li>The current page / starting index = 0</li>
+</ul>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">startDate</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><ul>
+<li>Staring date filter</li>
+</ul>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">endDate</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><ul>
+<li>Ending date filter</li>
 </ul>
 </div>
 
@@ -478,7 +534,7 @@ clientId: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l512"><code>src\Models\Account.js:512</code></a>
+		<a href="../files/src_Models_Account.js.html#l517"><code>src\Models\Account.js:517</code></a>
 		</p>
 
 
@@ -583,7 +639,7 @@ clientId: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l493"><code>src\Models\Account.js:493</code></a>
+		<a href="../files/src_Models_Account.js.html#l498"><code>src\Models\Account.js:498</code></a>
 		</p>
 
 
@@ -655,7 +711,7 @@ clientId: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l398"><code>src\Models\Account.js:398</code></a>
+		<a href="../files/src_Models_Account.js.html#l403"><code>src\Models\Account.js:403</code></a>
 		</p>
 
 
@@ -864,7 +920,7 @@ clientId: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l258"><code>src\Models\Account.js:258</code></a>
+		<a href="../files/src_Models_Account.js.html#l262"><code>src\Models\Account.js:262</code></a>
 		</p>
 
 
@@ -934,7 +990,7 @@ clientId: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l312"><code>src\Models\Account.js:312</code></a>
+		<a href="../files/src_Models_Account.js.html#l317"><code>src\Models\Account.js:317</code></a>
 		</p>
 
 
@@ -1015,7 +1071,7 @@ merchantUuid: string
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l343"><code>src\Models\Account.js:343</code></a>
+		<a href="../files/src_Models_Account.js.html#l348"><code>src\Models\Account.js:348</code></a>
 		</p>
 
 
@@ -1314,7 +1370,7 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l245"><code>src\Models\Account.js:245</code></a>
+		<a href="../files/src_Models_Account.js.html#l249"><code>src\Models\Account.js:249</code></a>
 		</p>
 
 
@@ -1367,7 +1423,7 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l299"><code>src\Models\Account.js:299</code></a>
+		<a href="../files/src_Models_Account.js.html#l304"><code>src\Models\Account.js:304</code></a>
 		</p>
 
 
@@ -1441,7 +1497,7 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l417"><code>src\Models\Account.js:417</code></a>
+		<a href="../files/src_Models_Account.js.html#l422"><code>src\Models\Account.js:422</code></a>
 		</p>
 
 

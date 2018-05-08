@@ -547,6 +547,10 @@ class Account {
      * @method getAssetsHistory
      * @async
      * @param {String} token - The authorization token
+     * @param {Number} size - The page size
+     * @param {Number} page - The current page / starting index = 0
+     * @param {String} startDate - Staring date filter
+     * @param {String} endDate - Ending date filter
      * @example
      *     InPlayer.Account
      *     .getAssetsHistory('1dfh1f-1g1f2e-1gg')
@@ -554,13 +558,22 @@ class Account {
      * @return {Array}
      */
 
-    async getAssetsHistory(token = '') {
-        const response = await fetch(this.config.API.assetHistory, {
-            method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + token,
-            },
-        });
+    async getAssetsHistory(
+        token = '',
+        size = 10,
+        page = 0,
+        startDate = null,
+        endDate = null
+    ) {
+        const response = await fetch(
+            this.config.API.assetHistory(size, page, startDate, endDate),
+            {
+                method: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                },
+            }
+        );
 
         return await response.json();
     }

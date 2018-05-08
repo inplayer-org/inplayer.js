@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "0.3.37",
+        "version": "0.3.42",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -292,7 +292,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 245,
+            "line": 249,
             "description": "Returns users Auth token",
             "itemtype": "method",
             "name": "token",
@@ -308,7 +308,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 258,
+            "line": 262,
             "description": "Refreshes the token",
             "itemtype": "method",
             "name": "refreshToken",
@@ -330,7 +330,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 299,
+            "line": 304,
             "description": "Sets Auth token into cookies",
             "itemtype": "method",
             "name": "token",
@@ -352,7 +352,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 312,
+            "line": 317,
             "description": "Requests new password for a given user",
             "itemtype": "method",
             "name": "requestNewPassword",
@@ -375,7 +375,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 343,
+            "line": 348,
             "description": "Sets new password for the user",
             "itemtype": "method",
             "name": "setNewPassword",
@@ -403,7 +403,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 375,
+            "line": 380,
             "description": "Gets the user/account information for a given auth token",
             "itemtype": "method",
             "name": "getAccountInfo",
@@ -426,7 +426,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 398,
+            "line": 403,
             "description": "Gets the social login urls for fb/twitter/google",
             "itemtype": "method",
             "name": "getSocialLoginUrls",
@@ -449,7 +449,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 417,
+            "line": 422,
             "description": "Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()",
             "itemtype": "method",
             "name": "updateAccount",
@@ -477,7 +477,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 460,
+            "line": 465,
             "description": "Changes password for a given user",
             "itemtype": "method",
             "name": "changePassword",
@@ -505,7 +505,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 493,
+            "line": 498,
             "description": "Gets register fields",
             "itemtype": "method",
             "name": "getRegisterFields",
@@ -528,7 +528,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 512,
+            "line": 517,
             "description": "Gets the purchase history",
             "itemtype": "method",
             "name": "getPurchaseHistory",
@@ -566,7 +566,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 540,
+            "line": 545,
             "description": "Returns purchase history with types",
             "itemtype": "method",
             "name": "getAssetsHistory",
@@ -575,6 +575,26 @@
                 {
                     "name": "token",
                     "description": "- The authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "size",
+                    "description": "- The page size",
+                    "type": "Number"
+                },
+                {
+                    "name": "page",
+                    "description": "- The current page / starting index = 0",
+                    "type": "Number"
+                },
+                {
+                    "name": "startDate",
+                    "description": "- Staring date filter",
+                    "type": "String"
+                },
+                {
+                    "name": "endDate",
+                    "description": "- Ending date filter",
                     "type": "String"
                 }
             ],

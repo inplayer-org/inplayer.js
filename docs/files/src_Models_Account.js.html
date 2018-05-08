@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.3.37</b>
+                    API Docs for Version: <b>0.3.42</b>
                 </p>
             </li>
         </div>
@@ -274,13 +274,13 @@ class Account {
      *    InPlayer.Account.isAuthenticated()
      * @return {Boolean}
      */
-    isAuthenticated(){
-      const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+    isAuthenticated() {
+        const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
 
-      const tokenExists = token !== undefined &amp;&amp; token !== null;
+        const tokenExists = token !== undefined &amp;&amp; token !== null;
 
         if (!tokenExists) {
-           return false;
+            return false;
         }
 
         const tokenExpires = JSON.parse(token).expires;
@@ -310,21 +310,25 @@ class Account {
      *  @example
      *  InPlayer.Account.getToken()
      *  @return {String}
-    */
-    getToken(){
-      const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+     */
+    getToken() {
+        const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
 
         if (token === undefined || token === null)
-          return { token: null, expired: false, expires_at: null};
+            return { token: null, expired: false, expires_at: null };
 
         const tokenExpires = JSON.parse(token).expires;
         const nowDate = Math.round(new Date().getTime() / 1000);
 
         if (nowDate &gt; tokenExpires) {
-          return {token: null, expired: true, expires_at: tokenExpires};
+            return { token: null, expired: true, expires_at: tokenExpires };
         }
 
-        return {token: JSON.parse(token).access_token, expired: false, expires_at: JSON.parse(token).expires};
+        return {
+            token: JSON.parse(token).access_token,
+            expired: false,
+            expires_at: JSON.parse(token).expires,
+        };
     }
     /**
      * Returns users Auth token
@@ -348,36 +352,37 @@ class Account {
      *     InPlayer.Account.refreshToken(&#x27;123123121-d1-t1-1ff&#x27;).then(data =&gt; console.log(data))
      * @return {Object}
      */
-    async refreshToken(clientId){
-          const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+    async refreshToken(clientId) {
+        const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
 
-          if (token === undefined || token === null){
-            throw new Error(&quot;The token must exist in order to refresh it. Please use InPlayer.Account.authenticate()&quot;);
+        if (token === undefined || token === null) {
+            throw new Error(
+                &#x27;The token must exist in order to refresh it. Please use InPlayer.Account.authenticate()&#x27;
+            );
             return;
-          }
+        }
 
+        const fd = new FormData();
+        fd.append(&#x27;refresh_token&#x27;, JSON.parse(token).refresh_token);
+        fd.append(&#x27;client_id&#x27;, clientId);
+        fd.append(&#x27;grant_type&#x27;, &#x27;refresh_token&#x27;);
+        // request
+        const response = await fetch(this.config.API.authenticate, {
+            method: &#x27;POST&#x27;,
+            body: fd,
+        });
 
-          const fd = new FormData();
-          fd.append(&#x27;refresh_token&#x27;, JSON.parse(token).refresh_token);
-          fd.append(&#x27;client_id&#x27;, clientId);
-          fd.append(&#x27;grant_type&#x27;, &#x27;refresh_token&#x27;);
-          // request
-          const response = await fetch(this.config.API.authenticate, {
-              method: &#x27;POST&#x27;,
-              body: fd,
-         });
+        const responseData = await response.json();
 
-          const responseData = await response.json();
+        /* set cookies */
+        if (responseData.access_token) {
+            localStorage.setItem(
+                this.config.INPLAYER_TOKEN_NAME,
+                JSON.stringify(responseData)
+            );
+        }
 
-          /* set cookies */
-          if (responseData.access_token) {
-              localStorage.setItem(
-                  this.config.INPLAYER_TOKEN_NAME,
-                  JSON.stringify(responseData)
-              );
-          }
-
-          return responseData;
+        return responseData;
     }
 
     /**
@@ -626,6 +631,10 @@ class Account {
      * @method getAssetsHistory
      * @async
      * @param {String} token - The authorization token
+     * @param {Number} size - The page size
+     * @param {Number} page - The current page / starting index = 0
+     * @param {String} startDate - Staring date filter
+     * @param {String} endDate - Ending date filter
      * @example
      *     InPlayer.Account
      *     .getAssetsHistory(&#x27;1dfh1f-1g1f2e-1gg&#x27;)
@@ -633,18 +642,15 @@ class Account {
      * @return {Array}
      */
 
-    async getAssetsHistory(token = &#x27;&#x27;){
-      const response = await fetch(
-          this.config.API.assetHistory,
-          {
-              method: &#x27;GET&#x27;,
-              headers: {
-                  Authorization: &#x27;Bearer &#x27; + token,
-              },
-          }
-      );
+    async getAssetsHistory(token = &#x27;&#x27;, size = 10, page = 0, startDate = null, endDate = null) {
+        const response = await fetch(this.config.API.assetHistory(size,page,startDate,endDate), {
+            method: &#x27;GET&#x27;,
+            headers: {
+                Authorization: &#x27;Bearer &#x27; + token,
+            },
+        });
 
-      return await response.json();
+        return await response.json();
     }
 }
 
