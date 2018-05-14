@@ -195,6 +195,8 @@ class Account {
 
         const tokenExists = token !== undefined && token !== null;
 
+        //sso
+
         if (!tokenExists) {
             return false;
         }

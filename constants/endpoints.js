@@ -18,10 +18,10 @@ export const API = config => {
             `${
                 config.BASE_URL
             }/accounts/register-fields/${merchant_uuid}?rnd=${Math.random(15)}`,
-        getPurchaseHistory: (status, page = 0, limit = 5) =>
+        getPurchaseHistory: (status, page = 0, size = 5) =>
             `${
                 config.BASE_URL
-            }/reporting/access/customers?status=${status}&page=${page}&limit=${limit}`,
+            }/reporting/access/customers?status=${status}&page=${page}&size=${size}`,
         assetHistory: (size, page, startDate, endDate) => {
             let url = `${
                 config.BASE_URL
