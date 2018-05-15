@@ -17,6 +17,23 @@ class Socket {
         const response = await fetch(this.config.AWS_IOT_URL, {
             method: 'GET',
             headers: {
+                Authorization: 'Bearer ' + authToken,
+            },
+        });
+
+        return await response.json();
+    }
+
+    async getIotOAuthToken() {
+        const authToken = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+
+        if (!authToken) {
+            return null;
+        }
+
+        const response = await fetch(this.config.AWS_IOT_URL, {
+            method: 'GET',
+            headers: {
                 Authorization: 'Bearer ' + JSON.parse(authToken).access_token,
             },
         });
@@ -59,9 +76,22 @@ class Socket {
         ) {
             this.getIotToken().then(data => {
                 if (!data) {
-                    throw new Error(
-                        'Invalid AUTH token. You need to be signed in to subscribe.'
-                    );
+                    this.getIotOAuthToken().then(data2 => {
+                        if (!data2) {
+                            throw new Error(
+                                'Invalid AUTH token. You need to be signed in to subscribe.'
+                            );
+                        }
+
+                        data2.expiresAt = new Date();
+                        localStorage.setItem(
+                            config.INPLAYER_IOT_NAME,
+                            JSON.stringify(data2)
+                        );
+
+                        //subscribe
+                        this.handleSubscribe(data2, callbackParams, uuid);
+                    });
                 }
                 data.expiresAt = new Date();
                 localStorage.setItem(
