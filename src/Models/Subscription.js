@@ -111,6 +111,35 @@ class Subscription {
 
         return await response.json();
     }
+
+    /**
+     * Cancels a subscription with a provided transaction and authorization token
+     * Will receive
+     *  -external.subscribe.cancel.success notification for Paypal transaction
+     *  -subscribe.cancel.success notification for other types of transactions
+     * @method cancelTokenSubscription
+     * @async
+     * @param {String} authorizationToken - The Authorization token
+     * @param {String} transactionToken - The transaction token
+     * @example
+     *     InPlayer.Subscription
+     *     .cancelTokenSubscription('eyJ0eXAiOiJKPECENR5Y', 'dgh19t1-f1g1ug1f')
+     *     .then(data => console.log(data));
+     * @return {Object}
+     */
+    async cancelTokenSubscription(authorizationToken, transactionToken) {
+        const response = await fetch(
+            this.config.API.cancelTokenSubscribe(transactionToken),
+            {
+                method: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + authorizationToken,
+                },
+            }
+        );
+
+        return await response.json();
+    }
 }
 
 export default Subscription;

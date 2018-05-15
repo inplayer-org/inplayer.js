@@ -17,7 +17,7 @@ class Socket {
         const response = await fetch(this.config.AWS_IOT_URL, {
             method: 'GET',
             headers: {
-                Authorization: 'Bearer ' + authToken,
+                Authorization: 'Bearer ' + JSON.parse(authToken).access_token,
             },
         });
 
