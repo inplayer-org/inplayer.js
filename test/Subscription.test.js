@@ -25,8 +25,7 @@ describe('Subscription', function() {
                 'https://staging-v2.inplayer.com/subscriptions/cancel/S-WS30tLFpkYbaMsHHMor51ViJ3-ST',
                 '12312dashgsfa'
             );
-
-            expect(result).to.have.property('code');
+            expect(result).to.have.property('errors');
         });
     });
 });
