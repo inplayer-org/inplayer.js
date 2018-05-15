@@ -263,7 +263,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 208,
+            "line": 210,
             "description": "Checks if user is signed in",
             "itemtype": "method",
             "name": "isSignedIn",
@@ -278,7 +278,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 224,
+            "line": 226,
             "itemtype": "method",
             "name": "getToken",
             "example": [
@@ -292,7 +292,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 249,
+            "line": 251,
             "description": "Returns users Auth token",
             "itemtype": "method",
             "name": "token",
@@ -308,7 +308,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 262,
+            "line": 264,
             "description": "Refreshes the token",
             "itemtype": "method",
             "name": "refreshToken",
@@ -330,7 +330,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 304,
+            "line": 306,
             "description": "Sets Auth token into cookies",
             "itemtype": "method",
             "name": "token",
@@ -352,7 +352,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 317,
+            "line": 319,
             "description": "Requests new password for a given user",
             "itemtype": "method",
             "name": "requestNewPassword",
@@ -375,7 +375,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 348,
+            "line": 350,
             "description": "Sets new password for the user",
             "itemtype": "method",
             "name": "setNewPassword",
@@ -403,7 +403,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 380,
+            "line": 382,
             "description": "Gets the user/account information for a given auth token",
             "itemtype": "method",
             "name": "getAccountInfo",
@@ -426,7 +426,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 403,
+            "line": 405,
             "description": "Gets the social login urls for fb/twitter/google",
             "itemtype": "method",
             "name": "getSocialLoginUrls",
@@ -449,7 +449,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 422,
+            "line": 424,
             "description": "Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()",
             "itemtype": "method",
             "name": "updateAccount",
@@ -477,7 +477,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 465,
+            "line": 467,
             "description": "Changes password for a given user",
             "itemtype": "method",
             "name": "changePassword",
@@ -505,7 +505,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 498,
+            "line": 500,
             "description": "Gets register fields",
             "itemtype": "method",
             "name": "getRegisterFields",
@@ -528,7 +528,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 517,
+            "line": 519,
             "description": "Gets the purchase history",
             "itemtype": "method",
             "name": "getPurchaseHistory",
@@ -566,7 +566,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 545,
+            "line": 547,
             "description": "Returns purchase history with types",
             "itemtype": "method",
             "name": "getAssetsHistory",
@@ -1088,6 +1088,34 @@
             ],
             "example": [
                 "\n    InPlayer.Subscription\n    .assetSubscribe('eyJ0eXAiOiJKPECENR5Y', {\n       number: 1,\n       cardName: 'Payoneer',\n       expMonth: 11,\n       expYear: 12,\n       cvv: 546,\n       accessFee: 13.4,\n       paymentMethod: 'card',\n       referrer: 'http://localhost:3000',\n       voucherCode: '123123125914i2erjfg'\n       }\n    )\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Subscription"
+        },
+        {
+            "file": "src\\Models\\Subscription.js",
+            "line": 115,
+            "description": "Cancels a subscription with a provided transaction and authorization token\nWill receive\n -external.subscribe.cancel.success notification for Paypal transaction\n -subscribe.cancel.success notification for other types of transactions",
+            "itemtype": "method",
+            "name": "cancelTokenSubscription",
+            "async": 1,
+            "params": [
+                {
+                    "name": "authorizationToken",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "transactionToken",
+                    "description": "- The transaction token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Subscription\n    .cancelTokenSubscription('eyJ0eXAiOiJKPECENR5Y', 'dgh19t1-f1g1ug1f')\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",

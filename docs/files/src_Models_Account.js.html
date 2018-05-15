@@ -279,6 +279,8 @@ class Account {
 
         const tokenExists = token !== undefined &amp;&amp; token !== null;
 
+        //sso
+
         if (!tokenExists) {
             return false;
         }
@@ -642,13 +644,22 @@ class Account {
      * @return {Array}
      */
 
-    async getAssetsHistory(token = &#x27;&#x27;, size = 10, page = 0, startDate = null, endDate = null) {
-        const response = await fetch(this.config.API.assetHistory(size,page,startDate,endDate), {
-            method: &#x27;GET&#x27;,
-            headers: {
-                Authorization: &#x27;Bearer &#x27; + token,
-            },
-        });
+    async getAssetsHistory(
+        token = &#x27;&#x27;,
+        size = 10,
+        page = 0,
+        startDate = null,
+        endDate = null
+    ) {
+        const response = await fetch(
+            this.config.API.assetHistory(size, page, startDate, endDate),
+            {
+                method: &#x27;GET&#x27;,
+                headers: {
+                    Authorization: &#x27;Bearer &#x27; + token,
+                },
+            }
+        );
 
         return await response.json();
     }

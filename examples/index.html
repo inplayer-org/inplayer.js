@@ -44,17 +44,25 @@ InPlayer.setConfig('develop');
 //  ).then(data => {console.log(data); });
 // console.log(InPlayer.Account.getToken('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data => console.log(data)));
 // console.log(InPlayer.Account.getToken());
-// if(!InPlayer.Account.getToken().token){
-//   InPlayer.Account.refreshToken('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data1 => {
-//     InPlayer.Account.getAssetsHistory(InPlayer.Account.getToken().token).then(data => console.log(data));
-//   })
-// }
-// else{
-//   InPlayer.Account.getAssetsHistory(InPlayer.Account.getToken().token, 15, 0).then(data => console.log(data));
-// }
+InPlayer.subscribe("c033caa2-8b12-4e98-9ee4-5b4a199db3b8",
+    {
+      onMessage: (message) => { console.log('called'); console.log(message, 'message') },
+      onOpen: (e) => {console.log('open'); console.log(InPlayer.isSubscribed());},
+      onClose: (e) => console.log('close', e)
+    });
+if(!InPlayer.Account.getToken().token){
+  InPlayer.Account.refreshToken('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data1 => {
+    InPlayer.Account.getAssetsHistory(InPlayer.Account.getToken().token).then(data => console.log(data));
+  })
+}
+else{
+  InPlayer.Account.getAssetsHistory(InPlayer.Account.getToken().token, 15, 0).then(data => console.log(data));
+}
 
 InPlayer.Account.getPurchaseHistory(InPlayer.Account.getToken().token, 'all',0, 3).then(data => console.log(data));
 
+
+InPlayer.Subscription.cancelTokenSubscription(InPlayer.Account.getToken().token, 'S-7LHJlHrOFyyLx7YCoWFdxoyNY-PP').then(data => console.log(data));
 
 /* UPDATE call */
   // InPlayer.User.updateAccount({
@@ -81,12 +89,7 @@ InPlayer.Account.getPurchaseHistory(InPlayer.Account.getToken().token, 'all',0, 
   //   }
   // ).then(data => {
   //   console.log(data);
-    // InPlayer.subscribe("c033caa2-8b12-4e98-9ee4-5b4a199db3b8",
-    //     {
-    //       onMessage: (message) => { console.log('called'); console.log(message, 'message') },
-    //       onOpen: (e) => {console.log('open'); console.log(InPlayer.isSubscribed());},
-    //       onClose: (e) => console.log('close', e)
-    //     });
+
   // InPlayer.Asset.checkAccessForAsset(`eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6ImMwMzNjYWEyLThiMTItNGU5OC05ZWU0LTViNGExOTlkYjNiOCJ9.eyJhdWQiOiI1MjhiMWI4MC01ODY4LTRhYmMtYTliNi00ZDM0NTVkNzE5YzgiLCJqdGkiOiJjMDMzY2FhMi04YjEyLTRlOTgtOWVlNC01YjRhMTk5ZGIzYjgiLCJpYXQiOjE1MjI2NzYzMzQsIm5iZiI6MTUyMjY3NjMzNCwiZXhwIjoxNTI1MjY4MzM0LCJzdWIiOiJ0ZXN0aW5nX2dvcmFuQHRlc3QuY29tIiwic2NvcGVzIjpbXSwibWlkIjoyMSwiYWlkIjoyNTY4MCwibXVpIjoiNTI4YjFiODAtNTg2OC00YWJjLWE5YjYtNGQzNDU1ZDcxOWM4IiwiY3R4IjpbImNvbnN1bWVyIl19.pS4E7icQrywbKQYehqaPoS_GslDk7px1DMUmqmW2kK4`, 40295).then(data => console.log(data));
   //
   /* Unsubscribe stuff */
