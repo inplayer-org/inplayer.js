@@ -10,6 +10,7 @@
 <script src="./../dist/inplayer.umd.js"></script>
 <script>
 InPlayer.setConfig('develop');
+InPlayer.Asset.findExternalAsset('brightcove',605946943001, '16172041-5ce5-44a9-95e5-f3029ca320c8').then(data => console.log(data))
 /* Sign up call */
 // InPlayer.User.signUp({
 //  fullName: "goran test",
@@ -61,7 +62,7 @@ InPlayer.setConfig('develop');
 // }
 //
 // InPlayer.Account.getAssetsHistory(InPlayer.Account.getToken().token, 15, 0).then(data => console.log(data));
-InPlayer.Account.isAuthenticated('528b1b80-5868-4abc-a9b6-4d3455d719c8', 'https://test.accounts.staging-v2.inplayer.com');
+// InPlayer.Account.isAuthenticated('528b1b80-5868-4abc-a9b6-4d3455d719c8', 'https://test.accounts.staging-v2.inplayer.com');
 // InPlayer.Account.getPurchaseHistory(InPlayer.Account.getToken().token, 'all',0, 15).then(data => console.log(data));
 //
 //

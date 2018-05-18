@@ -42,14 +42,14 @@ export const API = config => {
             `${config.BASE_URL}/items/${merchant_uuid}/${assetId}`,
         findExternalAsset: (assetType, externalId, merchantUuid) => {
             if (merchantUuid) {
-                return;
-                `${
+                return `${
                     config.BASE_URL
                 }/items/assets/external/${assetType}/${externalId}?merchant_uuid=${merchantUuid}`;
+            } else {
+                return `${
+                    config.BASE_URL
+                }/items/assets/external/${assetType}/${externalId}`;
             }
-            return `${
-                config.BASE_URL
-            }/items/assets/external/${assetType}/${externalId}`;
         },
         findPackage: id => `${config.BASE_URL}/items/packages/${id}`,
         findAccessFees: id => `${config.BASE_URL}/items/${id}/access-fees`,
