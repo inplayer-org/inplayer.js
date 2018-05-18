@@ -32,37 +32,40 @@ InPlayer.setConfig('develop');
 //       email: 'testing_goran@test.com',
 //       password: '12345678',
 //     }
-// ).then(data => {console.log(data); InPlayer.Account.getToken('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data => console.log(data)) });
+// ).then(data => { console.log(InPlayer.Account.getToken().token) });
 // /* Sign in call */
-InPlayer.Account.signIn(
-     {
-       merchantUuid: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
-       email: 'testing_goran@test.com',
-       password: '12345678',
-       referrer: 'localhost',
-     }
- ).then(data => {console.log(data); });
+// InPlayer.Account.signIn(
+//      {
+//        merchantUuid: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
+//        email: 'testing_goran@test.com',
+//        password: '12345678',
+//        referrer: 'localhost',
+//      }
+//  ).then(data => {console.log(data); });
+// InPlayer.Account.isAuthenticated();
 // console.log(InPlayer.Account.getToken('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data => console.log(data)));
 // console.log(InPlayer.Account.getToken());
-InPlayer.subscribe("c033caa2-8b12-4e98-9ee4-5b4a199db3b8",
-    {
-      onMessage: (message) => { console.log('called'); console.log(message, 'message') },
-      onOpen: (e) => {console.log('open'); console.log(InPlayer.isSubscribed());},
-      onClose: (e) => console.log('close', e)
-    });
+// InPlayer.subscribe("c033caa2-8b12-4e98-9ee4-5b4a199db3b8",
+//     {
+//       onMessage: (message) => { console.log('called'); console.log(message, 'message') },
+//       onOpen: (e) => {console.log('open'); console.log(InPlayer.isSubscribed());},
+//       onClose: (e) => console.log('close', e)
+//     });
 // if(!InPlayer.Account.getToken().token){
 //   InPlayer.Account.refreshToken('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data1 => {
 //     InPlayer.Account.getAssetsHistory(InPlayer.Account.getToken().token).then(data => console.log(data));
 //   })
 // }
 // else{
-//   InPlayer.Account.getAssetsHistory(InPlayer.Account.getToken().token, 15, 0).then(data => console.log(data));
+//   InPlayer.Account.getAssetsHistory(InPlayer.Account.token(), 15, 0).then(data => console.log(data));
 // }
 //
-// InPlayer.Account.getPurchaseHistory(InPlayer.Account.getToken().token, 'all',0, 3).then(data => console.log(data));
+// InPlayer.Account.getAssetsHistory(InPlayer.Account.getToken().token, 15, 0).then(data => console.log(data));
+InPlayer.Account.isAuthenticated('528b1b80-5868-4abc-a9b6-4d3455d719c8', 'https://test.accounts.staging-v2.inplayer.com');
+// InPlayer.Account.getPurchaseHistory(InPlayer.Account.getToken().token, 'all',0, 15).then(data => console.log(data));
 //
 //
-// InPlayer.Subscription.cancelTokenSubscription(InPlayer.Account.getToken().token, 'S-7LHJlHrOFyyLx7YCoWFdxoyNY-PP').then(data => console.log(data));
+// InPlayer.Subscription.cancelTokenSubscription(InPlayer.Account.token(), 'S-Very0zyDmtLMHqjM9qlEIIx3L-SC').then(data => console.log(data));
 
 /* UPDATE call */
   // InPlayer.User.updateAccount({

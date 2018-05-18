@@ -190,12 +190,25 @@ class Account {
      *    InPlayer.Account.isAuthenticated()
      * @return {Boolean}
      */
-    isAuthenticated() {
+    isAuthenticated(clientId, subdomain) {
         const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
 
         const tokenExists = token !== undefined && token !== null;
 
         //sso
+        const iframe = document.createElement('iframe');
+        const url = `${subdomain}/sso/login#${clientId}`;
+        iframe.setAttribute('src', url);
+        iframe.style.display = 'none';
+
+        iframe.onload = () => {
+            window.addEventListener('message', event => {
+                console.log(event);
+            });
+            iframe.contentWindow.postMessage('', subdomain);
+        };
+
+        document.body.prepend(iframe);
 
         if (!tokenExists) {
             return false;
