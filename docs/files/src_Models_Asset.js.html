@@ -142,15 +142,20 @@ class Asset {
      * @async
      * @param {String} assetType - The type ID of the asset
      * @param {String} externalId - The ID of the external asset
+     * @param {String} merchantUuid - OPTIONAL - the merchant uuid
      * @example
      *     InPlayer.Asset
      *     .findExternalAsset(&#x27;331ff2&#x27;,&#x27;44237&#x27;)
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async findExternalAsset(assetType, externalId) {
+    async findExternalAsset(assetType, externalId, merchantUuid = null) {
         const response = await fetch(
-            this.config.API.findExternalAsset(assetType, externalId),
+            this.config.API.findExternalAsset(
+                assetType,
+                externalId,
+                merchantUuid
+            ),
             {
                 method: &#x27;GET&#x27;,
             }
