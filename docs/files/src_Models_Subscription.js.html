@@ -211,16 +211,18 @@ class Subscription {
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async cancelTokenSubscription(authorizationToken, transactionToken){
+    async cancelTokenSubscription(authorizationToken, transactionToken) {
+        const response = await fetch(
+            this.config.API.cancelTokenSubscribe(transactionToken),
+            {
+                method: &#x27;GET&#x27;,
+                headers: {
+                    Authorization: &#x27;Bearer &#x27; + authorizationToken,
+                },
+            }
+        );
 
-      const response = await fetch(this.config.API.cancelTokenSubscribe(transactionToken), {
-          method: &#x27;GET&#x27;,
-          headers: {
-              Authorization: &#x27;Bearer &#x27; + authorizationToken,
-          },
-      });
-
-      return await response.json();
+        return await response.json();
     }
 }
 
