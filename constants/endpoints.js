@@ -40,10 +40,17 @@ export const API = config => {
         checkAccess: id => `${config.BASE_URL}/items/${id}/access`,
         findAsset: (assetId, merchant_uuid) =>
             `${config.BASE_URL}/items/${merchant_uuid}/${assetId}`,
-        findExternalAsset: (assetType, externalId) =>
-            `${
+        findExternalAsset: (assetType, externalId, merchantUuid) => {
+            if (merchantUuid) {
+                return;
+                `${
+                    config.BASE_URL
+                }/items/assets/external/${assetType}/${externalId}?merchant_uuid=${merchantUuid}`;
+            }
+            return `${
                 config.BASE_URL
-            }/items/assets/external/${assetType}/${externalId}`,
+            }/items/assets/external/${assetType}/${externalId}`;
+        },
         findPackage: id => `${config.BASE_URL}/items/packages/${id}`,
         findAccessFees: id => `${config.BASE_URL}/items/${id}/access-fees`,
         freemium: `${config.BASE_URL}/items/access/unlimited`,
