@@ -42,6 +42,7 @@ InPlayer.setConfig('develop');
 //        referrer: 'localhost',
 //      }
 //  ).then(data => {console.log(data); });
+InPlayer.Account.getPurchaseHistory(InPlayer.Account.token(),'all',1, 2).then(data => console.log(data));
 // InPlayer.Account.isAuthenticated();
 // console.log(InPlayer.Account.getToken('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data => console.log(data)));
 // console.log(InPlayer.Account.getToken());
@@ -61,7 +62,7 @@ InPlayer.setConfig('develop');
 // }
 //
 // InPlayer.Account.getAssetsHistory(InPlayer.Account.getToken().token, 15, 0).then(data => console.log(data));
-InPlayer.Account.isAuthenticated('528b1b80-5868-4abc-a9b6-4d3455d719c8', 'https://test.accounts.staging-v2.inplayer.com');
+// InPlayer.Account.isAuthenticated('528b1b80-5868-4abc-a9b6-4d3455d719c8', 'https://test.accounts.staging-v2.inplayer.com');
 // InPlayer.Account.getPurchaseHistory(InPlayer.Account.getToken().token, 'all',0, 15).then(data => console.log(data));
 //
 //
