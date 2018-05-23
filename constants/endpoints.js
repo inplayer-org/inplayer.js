@@ -1,5 +1,3 @@
-import { config } from '../config.js';
-
 export const API = config => {
     return {
         //User
@@ -22,7 +20,7 @@ export const API = config => {
             `${
                 config.BASE_URL
             }/reporting/access/customers?status=${status}&page=${page}&size=${size}`,
-        assetHistory: (size, page, startDate, endDate) => {
+        assetsHistory: (size, page, startDate, endDate) => {
             let url = `${
                 config.BASE_URL
             }/reporting/transactions?exclude=store-payment&size=${size}&page=${page}`;
@@ -42,11 +40,11 @@ export const API = config => {
             `${config.BASE_URL}/items/${merchant_uuid}/${assetId}`,
         findExternalAsset: (assetType, externalId, merchantUuid) => {
             if (merchantUuid) {
-                return;
-                `${
+                return `${
                     config.BASE_URL
                 }/items/assets/external/${assetType}/${externalId}?merchant_uuid=${merchantUuid}`;
             }
+
             return `${
                 config.BASE_URL
             }/items/assets/external/${assetType}/${externalId}`;
@@ -62,6 +60,8 @@ export const API = config => {
         externalPayments: `${config.BASE_URL}/external-payments`,
         //Subscriptions
         getSubscriptions: `${config.BASE_URL}/subscriptions`,
+        getSubscription: id =>
+            `${config.BASE_URL}/reporting/subscriptions/${id}`,
         subscribe: `${config.BASE_URL}/subscriptions`,
         cancelTokenSubscribe: token => {
             if (token.endsWith('PP')) {
