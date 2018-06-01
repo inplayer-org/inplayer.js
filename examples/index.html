@@ -10,6 +10,7 @@
 <script src="./../dist/inplayer.umd.js"></script>
 <script>
 InPlayer.setConfig('develop');
+// InPlayer.Asset.findExternalAsset('brightcove',605946943001, '16172041-5ce5-44a9-95e5-f3029ca320c8').then(data => console.log(data))
 /* Sign up call */
 // InPlayer.User.signUp({
 //  fullName: "goran test",
@@ -31,8 +32,11 @@ InPlayer.setConfig('develop');
 //       clientId: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
 //       email: 'testing_goran@test.com',
 //       password: '12345678',
-//     }
+//     },
+//     'test',
 // ).then(data => { console.log(InPlayer.Account.getToken().token) });
+
+// console.log(InPlayer.Account.isAuthenticated('528b1b80-5868-4abc-a9b6-4d3455d719c8', 'https://test.accounts.staging-v2.inplayer.com'));
 // /* Sign in call */
 // InPlayer.Account.signIn(
 //      {
@@ -42,8 +46,8 @@ InPlayer.setConfig('develop');
 //        referrer: 'localhost',
 //      }
 //  ).then(data => {console.log(data); });
-InPlayer.Account.getPurchaseHistory(InPlayer.Account.token(),'all',1, 2).then(data => console.log(data));
-// InPlayer.Account.isAuthenticated();
+// InPlayer.Account.isAuthenticated('528b1b80-5868-4abc-a9b6-4d3455d719c8', 'https://test.accounts.staging-v2.inplayer.com');
+
 // console.log(InPlayer.Account.getToken('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data => console.log(data)));
 // console.log(InPlayer.Account.getToken());
 // InPlayer.subscribe("c033caa2-8b12-4e98-9ee4-5b4a199db3b8",
@@ -63,6 +67,7 @@ InPlayer.Account.getPurchaseHistory(InPlayer.Account.token(),'all',1, 2).then(da
 //
 // InPlayer.Account.getAssetsHistory(InPlayer.Account.getToken().token, 15, 0).then(data => console.log(data));
 // InPlayer.Account.isAuthenticated('528b1b80-5868-4abc-a9b6-4d3455d719c8', 'https://test.accounts.staging-v2.inplayer.com');
+
 // InPlayer.Account.getPurchaseHistory(InPlayer.Account.getToken().token, 'all',0, 15).then(data => console.log(data));
 //
 //
@@ -136,15 +141,15 @@ InPlayer.Account.getPurchaseHistory(InPlayer.Account.token(),'all',1, 2).then(da
   // }
 
   /* Sign up call */
-  // InPlayer.User.signUp({
-  //   fullName: "test",
-  //   email: "testing_goran@test.com",
-  //   password: "12345678",
-  //   passwordConfirmation: "12345678",
-  //   merchantUuid: "4cced19c-49ed-420d-8c49-a79a64542760",
-  //   type: "consumer",
-  //   referrer: "http://localhost:3000/",
-  // }).then(data => console.log(data));
+  InPlayer.Account.signUp({
+    fullName: "testz",
+    email: "testing_goranzdrddddtyypadddd@test.com",
+    password: "12345678",
+    passwordConfirmation: "12345678",
+    clientId: "8b14364a-3ff0-4599-bc8e-6f68b877599c",
+    type: "consumer",
+    referrer: "http://localhost:3000/",
+  }).then(data => console.log(data));
   // const tmp = inPlayer.User.getAccountInfo('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI0OTc5Yjk2Yi1mMjQyLTQ3ODEtYTQzMi1mNDRjMzAwM2RlYTgiLCJpYXQiOjE1MTE5NDQ3NzEsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLnZ2diIsImFpZCI6MjE3MjUsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTE5NDgzNzF9.EB6Eq3jePcVttrSTEKKe8_ISN3G_GwDiuJr7b6ElRZk');
   // tmp.then(data => console.log(data));
   // const tmp = inPlayer.User.getSocialLoginUrls('eyJ1dWlkIjoiNTI4YjFiODAtNTg2OC00YWJjLWE5YjYtNGQzNDU1ZDcxOWM4IiwicmVkaXJlY3QiOiJodHRwOi8vc3luZGljYXRlLnZpZGVvL3ZpZGVvL2Fzc2V0LzM2MzIwP2Fzc2V0X2lkPTM2MzIwIn0');
@@ -163,9 +168,9 @@ InPlayer.Account.getPurchaseHistory(InPlayer.Account.token(),'all',1, 2).then(da
   // InPlayer.Payment.getPaymentMethod('528b1b80-5868-4abc-a9b6-4d3455d719c8').then(data => console.log(data));
   // InPlayer.Payment.getPaymentTools('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIxMTgxMDEsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIxMjE3MDF9.ZBrNhCG0KeYfnh0HQKUJ8RD2ETghcccu5Z4MIfEusP0',1).then(data => console.log(data));
   // InPlayer.Payment.getPaymentMethods('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTIxMTgxMDEsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTIxMjE3MDF9.ZBrNhCG0KeYfnh0HQKUJ8RD2ETghcccu5Z4MIfEusP0').then(data => console.log(data));
-  // InPlayer.Payment.getPayPalParams(InPlayer.User.token(),{
+  // InPlayer.Payment.getPayPalParams(InPlayer.Account.getToken().token,{
   //   origin: 'http://localhost:3000',
-  //   accessFeeId: 2961,
+  //   accessFeeId: 3111,
   //   paymentMethod: 2,
   // }).then(data => console.log(data));
   //   InPlayer.Payment.purchaseAsset(InPlayer.Account.token(),{

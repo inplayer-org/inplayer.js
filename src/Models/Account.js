@@ -17,16 +17,17 @@ class Account {
      *  password: string,
      *  clientId: string,
      * }
+     * @param {String} subdomain - Used only if SSO is enabled - contains the subdomain
      * @example
      *     InPlayer.Account.authenticate({
      *      email: 'test@test.com',
      *      password: 'test123',
      *      clientId: '123-123-hf1hd1-12dhd1',
-     *     })
+     *     }, 'testing/subdomain')
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async authenticate(data = {}) {
+    async authenticate(data = {}, subdomain = '') {
         // Add into form data
         const fd = new FormData();
         fd.append('username', data.email);
@@ -43,7 +44,26 @@ class Account {
         const responseData = await response.json();
 
         /* set cookies */
-        if (responseData.access_token) {
+        if (responseData.access_token && subdomain) {
+            const fd2 = new FormData();
+            fd2.append('token', responseData.access_token);
+
+            const cookieResponse = await fetch(
+                this.config.API.ssoCookie(subdomain),
+                {
+                    method: 'POST',
+                    body: fd2,
+                    credentials: 'include',
+                }
+            );
+
+            const cookieResponseData = await cookieResponse.json();
+
+            localStorage.setItem(
+                this.config.INPLAYER_TOKEN_NAME,
+                JSON.stringify(responseData)
+            );
+        } else if (responseData.access_token && !subdomain) {
             localStorage.setItem(
                 this.config.INPLAYER_TOKEN_NAME,
                 JSON.stringify(responseData)
@@ -137,7 +157,7 @@ class Account {
      *  email: string
      *  password: string,
      *  passwordConfirmation: string,
-     *  merchantUuid: string,
+     *  clientId: string,
      *  type: number
      *  referrer: string,
      * }
@@ -155,6 +175,7 @@ class Account {
      * @return {Object}
      */
     async signUp(data = {}) {
+        var result = 'shit';
         // Add into form data
         const fd = new FormData();
         fd.append('full_name', data.fullName);
@@ -180,44 +201,79 @@ class Account {
             body: fd,
         });
 
-        return await response.json();
+        var parent = this;
+        result = response.json().then(async function(responseData) {
+            if (responseData.errors) {
+                let result = new Promise((resolve, reject) => {
+                    resolve(responseData);
+                });
+                return result;
+            }
+
+            const loginResponse = parent.authenticate({
+                email: data.email,
+                password: data.password,
+                clientId: data.clientId,
+                referrer: data.referrer,
+            });
+
+            return loginResponse;
+        });
+
+        return result;
     }
 
     /**
      * Checks if the user is authenticated OAuth2
      * @method isAuthenticated
+     * @async
+     * @param {String} clientId - Use only if SSO is enabled - contains the clientId
+     * @param {String} subdomain - Use only if SSO is enabled - contains the subdomain
      * @example
      *    InPlayer.Account.isAuthenticated()
      * @return {Boolean}
      */
-    isAuthenticated(clientId, subdomain) {
+    async isAuthenticated(clientId = null, subdomain = null) {
         const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
-
         const tokenExists = token !== undefined && token !== null;
+        var isSSOSignedIn = false;
 
-        //sso
-        const iframe = document.createElement('iframe');
-        const url = `${subdomain}/sso/login#${clientId}`;
-        iframe.setAttribute('src', url);
-        iframe.style.display = 'none';
+        if (!tokenExists && clientId !== null && subdomain !== null) {
+            //check SSO
+            const iframe = document.createElement('iframe');
+            const url = `${subdomain}/sso/login#${clientId}`;
+            iframe.setAttribute('src', url);
+            iframe.style.display = 'none';
+            var parent = this;
+            iframe.onload = function() {
+                var configToken = parent.config.INPLAYER_TOKEN_NAME;
 
-        iframe.onload = () => {
-            window.addEventListener('message', event => {
-                console.log(event);
-            });
-            iframe.contentWindow.postMessage('', subdomain);
-        };
+                window.addEventListener('message', function(event) {
+                    const jsonData = JSON.parse(event.data);
 
-        document.body.prepend(iframe);
+                    localStorage.setItem(
+                        configToken,
+                        JSON.stringify({
+                            access_token: jsonData.access_token,
+                            expires: jsonData.expires,
+                        })
+                    );
+                    isSSOSignedIn = true;
+                });
+                iframe.contentWindow.postMessage('', subdomain);
+            };
 
-        if (!tokenExists) {
-            return false;
+            document.body.prepend(iframe);
+        } else {
+            const tokenExpires = JSON.parse(token).expires;
+            const nowDate = Math.round(new Date().getTime() / 1000);
+
+            return nowDate < tokenExpires && tokenExists;
         }
 
-        const tokenExpires = JSON.parse(token).expires;
-        const nowDate = Math.round(new Date().getTime() / 1000);
-
-        return nowDate < tokenExpires && tokenExists;
+        if (isSSOSignedIn) {
+            return true;
+        }
     }
 
     /**
