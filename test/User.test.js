@@ -19,6 +19,7 @@ describe('User', function() {
             });
 
             expect(result).to.deep.equal({
+                code: 400,
                 errors: {
                     email: 'The email is not in a valid format.',
                     merchant_uuid: 'The UUID must not be empty.',
@@ -50,6 +51,7 @@ describe('User', function() {
             });
 
             expect(result).to.deep.equal({
+                code: 400,
                 errors: {
                     full_name:
                         'The full_name must not be empty and between 2 and 250 characters.',
@@ -73,6 +75,7 @@ describe('User', function() {
             });
 
             expect(result).to.deep.equal({
+                code: 400,
                 errors: {
                     email: 'The email is not in a valid format.',
                     merchant_uuid: 'The uuid must not be empty.',
