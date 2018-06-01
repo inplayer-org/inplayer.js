@@ -346,7 +346,6 @@ class Account {
             throw new Error(
                 'The token must exist in order to refresh it. Please use InPlayer.Account.authenticate()'
             );
-            return;
         }
 
         const fd = new FormData();
@@ -467,8 +466,7 @@ class Account {
             },
         });
 
-        const data = await response.json();
-        if (data) return data;
+        return await response.json();
     }
 
     /**
@@ -628,7 +626,6 @@ class Account {
      *     .then(data => console.log(data))
      * @return {Array}
      */
-
     async getAssetsHistory(
         token = '',
         size = 10,
@@ -637,7 +634,7 @@ class Account {
         endDate = null
     ) {
         const response = await fetch(
-            this.config.API.assetHistory(size, page, startDate, endDate),
+            this.config.API.assetsHistory(size, page, startDate, endDate),
             {
                 method: 'GET',
                 headers: {
