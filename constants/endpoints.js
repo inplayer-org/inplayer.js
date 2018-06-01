@@ -2,7 +2,7 @@ import { config } from '../config.js';
 
 export const API = config => {
     return {
-        //User
+        //Account
         authenticate: `${config.BASE_URL}/accounts/authenticate`,
         signIn: `${config.BASE_URL}/accounts/login`,
         signOut: `${config.BASE_URL}/accounts/logout`,
@@ -36,6 +36,8 @@ export const API = config => {
 
             return url;
         },
+        ssoCookie: subdomain =>
+            `https://${subdomain}.accounts.staging-v2.inplayer.com/sso/cookie`, //NOTE: hardcoded URL
         //Asset
         checkAccess: id => `${config.BASE_URL}/items/${id}/access`,
         findAsset: (assetId, merchant_uuid) =>
