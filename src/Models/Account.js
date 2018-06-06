@@ -439,13 +439,14 @@ class Account {
             data.passwordConfirmation
         }`;
 
-        return await fetch(this.config.API.setNewPassword(token), {
+        const response = await fetch(this.config.API.setNewPassword(token), {
             method: 'PUT',
             body: body,
             headers: {
                 'Content-Type': 'x-www-form-urlencoded',
             },
         });
+        return await response.json();
     }
 
     /**
