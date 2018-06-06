@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "0.3.57",
+        "version": "0.3.59",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -656,9 +656,9 @@
         {
             "file": "src\\Models\\Asset.js",
             "line": 32,
-            "description": "Checks whether Free trial has been used for a given account",
+            "description": "Checks whether Free trial has been used for a given asset",
             "itemtype": "method",
-            "name": "checkFreeTrial",
+            "name": "isFreeTrialUsed",
             "async": 1,
             "params": [
                 {
@@ -673,7 +673,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.Asset\n    .checkFreeTrial(36320)\n    .then(data => console.log(data));"
+                "\n    InPlayer.Asset\n    .isFreeTrialUsed(36320)\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -683,7 +683,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 56,
+            "line": 54,
             "description": "Get the asset info for a given asset ID and merchant UUID",
             "itemtype": "method",
             "name": "findAsset",
@@ -711,7 +711,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 79,
+            "line": 77,
             "description": "Get an external assets' info",
             "itemtype": "method",
             "name": "findExternalAsset",
@@ -744,7 +744,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 107,
+            "line": 105,
             "description": "Get package info for a given Package ID",
             "itemtype": "method",
             "name": "findPackage",
@@ -767,7 +767,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 126,
+            "line": 124,
             "description": "Get the access fees for a given asset ID",
             "itemtype": "method",
             "name": "getAssetAccessFees",
@@ -790,7 +790,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 147,
+            "line": 145,
             "description": "Authorize for the freemium asset (login)",
             "itemtype": "method",
             "name": "getFreemiumAsset",

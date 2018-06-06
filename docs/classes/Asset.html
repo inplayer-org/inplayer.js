@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.3.57</b>
+                    API Docs for Version: <b>0.3.59</b>
                 </p>
             </li>
         </div>
@@ -99,12 +99,12 @@
 			<strong>Methods</strong>
 			<ul>
 				<li><a href="#method-checkAccessForAsset"><span class="im">checkAccessForAsset</span>(<span class="ia">token</span><span class="ia">id</span>)</a></li>
-				<li><a href="#method-checkFreeTrial"><span class="im">checkFreeTrial</span>(<span class="ia">token</span><span class="ia">id</span>)</a></li>
 				<li><a href="#method-findAsset"><span class="im">findAsset</span>(<span class="ia">assetId</span><span class="ia">merchantUuid</span>)</a></li>
 				<li><a href="#method-findExternalAsset"><span class="im">findExternalAsset</span>(<span class="ia">assetType</span><span class="ia">externalId</span><span class="ia">merchantUuid</span>)</a></li>
 				<li><a href="#method-findPackage"><span class="im">findPackage</span>(<span class="ia">id</span>)</a></li>
 				<li><a href="#method-getAssetAccessFees"><span class="im">getAssetAccessFees</span>(<span class="ia">id</span>)</a></li>
 				<li><a href="#method-getFreemiumAsset"><span class="im">getFreemiumAsset</span>(<span class="ia">token</span><span class="ia">accessFee</span>)</a></li>
+				<li><a href="#method-isFreeTrialUsed"><span class="im">isFreeTrialUsed</span>(<span class="ia">token</span><span class="ia">id</span>)</a></li>
 			</ul>
 		</li>
 
@@ -205,92 +205,6 @@
 			</div>
 		</div>
 </div>
-<div id="method-checkFreeTrial" class="method item">
-	<div class="method-signature">
-	<span class="name"><code>checkFreeTrial</code></span>
-
-		<div class="args">
-			<span class="paren">(</span><ul class="args-list inline commas">
-				<li class="arg">
-						<code>token</code>
-				</li>
-				<li class="arg">
-						<code>id</code>
-				</li>
-			</ul><span class="paren">)</span>
-		</div>
-		<span class="returns-inline">
-			<span class="type">Object</span>
-		</span>
-	</div>
-
-
-
-
-
-		<span class="flag async">async</span>
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/src_Models_Asset.js.html#l32"><code>src\Models\Asset.js:32</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Checks whether Free trial has been used for a given account</p>
-</div>
-
-		<div class="params">
-			<h4>Parameters:</h4>
-
-			<ul class="params-list">
-				<li class="param">
-						<code class="param-name">token</code>
-						<span class="type">String</span>
-
-
-					<div class="param-description"><ul>
-<li>The Authorization token</li>
-</ul>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name">id</code>
-						<span class="type">Number</span>
-
-
-					<div class="param-description"><ul>
-<li>The ID of the asset</li>
-</ul>
-</div>
-
-				</li>
-			</ul>
-		</div>
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type">Object</span>
-			</div>
-		</div>
-
-		<div class="example">
-			<h4>Example:</h4>
-
-			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.Asset
-.checkFreeTrial(36320)
-.then(data =&gt; console.log(data));</code></pre>
-
-			</div>
-		</div>
-</div>
 <div id="method-findAsset" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>findAsset</code></span>
@@ -319,7 +233,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l56"><code>src\Models\Asset.js:56</code></a>
+		<a href="../files/src_Models_Asset.js.html#l54"><code>src\Models\Asset.js:54</code></a>
 		</p>
 
 
@@ -408,7 +322,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l79"><code>src\Models\Asset.js:79</code></a>
+		<a href="../files/src_Models_Asset.js.html#l77"><code>src\Models\Asset.js:77</code></a>
 		</p>
 
 
@@ -502,7 +416,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l107"><code>src\Models\Asset.js:107</code></a>
+		<a href="../files/src_Models_Asset.js.html#l105"><code>src\Models\Asset.js:105</code></a>
 		</p>
 
 
@@ -574,7 +488,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l126"><code>src\Models\Asset.js:126</code></a>
+		<a href="../files/src_Models_Asset.js.html#l124"><code>src\Models\Asset.js:124</code></a>
 		</p>
 
 
@@ -649,7 +563,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l147"><code>src\Models\Asset.js:147</code></a>
+		<a href="../files/src_Models_Asset.js.html#l145"><code>src\Models\Asset.js:145</code></a>
 		</p>
 
 
@@ -698,6 +612,92 @@
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.Asset
 .freemiumAsset('uoifhadafefbad1312nfuqd123', { accessFee: 22 })
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-isFreeTrialUsed" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>isFreeTrialUsed</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>token</code>
+				</li>
+				<li class="arg">
+						<code>id</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_Asset.js.html#l32"><code>src\Models\Asset.js:32</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Checks whether Free trial has been used for a given asset</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">token</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><ul>
+<li>The Authorization token</li>
+</ul>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">id</code>
+						<span class="type">Number</span>
+
+
+					<div class="param-description"><ul>
+<li>The ID of the asset</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.Asset
+.isFreeTrialUsed(36320)
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>
