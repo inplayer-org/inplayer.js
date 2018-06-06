@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "0.3.55",
+        "version": "0.3.57",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -421,7 +421,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 451,
+            "line": 452,
             "description": "Gets the user/account information for a given auth token",
             "itemtype": "method",
             "name": "getAccountInfo",
@@ -444,7 +444,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 474,
+            "line": 475,
             "description": "Gets the social login urls for fb/twitter/google",
             "itemtype": "method",
             "name": "getSocialLoginUrls",
@@ -467,7 +467,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 493,
+            "line": 494,
             "description": "Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()",
             "itemtype": "method",
             "name": "updateAccount",
@@ -495,7 +495,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 536,
+            "line": 537,
             "description": "Changes password for a given user",
             "itemtype": "method",
             "name": "changePassword",
@@ -523,7 +523,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 569,
+            "line": 570,
             "description": "Gets register fields",
             "itemtype": "method",
             "name": "getRegisterFields",
@@ -546,7 +546,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 588,
+            "line": 589,
             "description": "Gets the purchase history",
             "itemtype": "method",
             "name": "getPurchaseHistory",
@@ -584,7 +584,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 616,
+            "line": 617,
             "description": "Returns purchase history with types",
             "itemtype": "method",
             "name": "getAssetsHistory",
@@ -656,6 +656,34 @@
         {
             "file": "src\\Models\\Asset.js",
             "line": 32,
+            "description": "Checks whether Free trial has been used for a given account",
+            "itemtype": "method",
+            "name": "checkFreeTrial",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "id",
+                    "description": "- The ID of the asset",
+                    "type": "Number"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Asset\n    .checkFreeTrial(36320)\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Asset"
+        },
+        {
+            "file": "src\\Models\\Asset.js",
+            "line": 56,
             "description": "Get the asset info for a given asset ID and merchant UUID",
             "itemtype": "method",
             "name": "findAsset",
@@ -683,7 +711,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 55,
+            "line": 79,
             "description": "Get an external assets' info",
             "itemtype": "method",
             "name": "findExternalAsset",
@@ -716,7 +744,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 83,
+            "line": 107,
             "description": "Get package info for a given Package ID",
             "itemtype": "method",
             "name": "findPackage",
@@ -739,7 +767,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 102,
+            "line": 126,
             "description": "Get the access fees for a given asset ID",
             "itemtype": "method",
             "name": "getAssetAccessFees",
@@ -762,7 +790,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 123,
+            "line": 147,
             "description": "Authorize for the freemium asset (login)",
             "itemtype": "method",
             "name": "getFreemiumAsset",

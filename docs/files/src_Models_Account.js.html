@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.3.55</b>
+                    API Docs for Version: <b>0.3.57</b>
                 </p>
             </li>
         </div>
@@ -523,13 +523,14 @@ class Account {
             data.passwordConfirmation
         }&#x60;;
 
-        return await fetch(this.config.API.setNewPassword(token), {
+        const response = await fetch(this.config.API.setNewPassword(token), {
             method: &#x27;PUT&#x27;,
             body: body,
             headers: {
                 &#x27;Content-Type&#x27;: &#x27;x-www-form-urlencoded&#x27;,
             },
         });
+        return await response.json();
     }
 
     /**

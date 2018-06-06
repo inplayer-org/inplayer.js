@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.3.55</b>
+                    API Docs for Version: <b>0.3.57</b>
                 </p>
             </li>
         </div>
@@ -112,6 +112,30 @@ class Asset {
 
         return await response.json();
     }
+
+    /**
+     * Checks whether Free trial has been used for a given account
+     * @method checkFreeTrial
+     * @async
+     * @param {String} token - The Authorization token
+     * @param {Number} id - The ID of the asset
+     * @example
+     *     InPlayer.Asset
+     *     .checkFreeTrial(36320)
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async checkFreeTrial(token, id) {
+        const response = await fetch(this.config.API.checkFreeTrial(id), {
+            headers: {
+                Authorization: &#x27;Bearer &#x27; + token,
+            },
+        });
+
+        return await response.json();
+    }
+
+
 
     /**
      * Get the asset info for a given asset ID and merchant UUID

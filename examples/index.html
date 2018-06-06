@@ -9,7 +9,7 @@
 </body>
 <script src="./../dist/inplayer.umd.js"></script>
 <script>
-InPlayer.setConfig('prod');
+InPlayer.setConfig('develop');
 // InPlayer.Asset.findExternalAsset('brightcove',605946943001, '16172041-5ce5-44a9-95e5-f3029ca320c8').then(data => console.log(data))
 /* Sign up call */
 // InPlayer.User.signUp({
@@ -32,8 +32,7 @@ InPlayer.setConfig('prod');
 //       clientId: '528b1b80-5868-4abc-a9b6-4d3455d719c8',
 //       email: 'testing_goran@test.com',
 //       password: '12345678',
-//     },
-//     'test',
+//     }
 // ).then(data => { console.log(InPlayer.Account.getToken().token) });
 
 // console.log(InPlayer.Account.isAuthenticated('528b1b80-5868-4abc-a9b6-4d3455d719c8', 'https://test.accounts.staging-v2.inplayer.com'));
@@ -138,10 +137,11 @@ InPlayer.setConfig('prod');
   //     Password set successfully.
   //   </p>`;
   // }
-  InPlayer.Account.setNewPassword({
-    password: '12345678',
-    'passwordConfirmation': '12345678',
-  },'18c753293b2516d9').then(data => console.log(data));
+  // InPlayer.Account.setNewPassword({
+  //   password: '12345678',
+  //   'passwordConfirmation': '12345678',
+  // },'18c753293b2516d9').then(data => console.log(data));
+  InPlayer.Asset.checkFreeTrial(InPlayer.Account.getToken().token, 41851).then(data => console.log(data));
   /* Sign up call */
   // InPlayer.Account.signUp({
   //   fullName: "testz",
