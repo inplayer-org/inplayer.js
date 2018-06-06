@@ -30,18 +30,18 @@ class Asset {
     }
 
     /**
-     * Checks whether Free trial has been used for a given account
-     * @method checkFreeTrial
+     * Checks whether Free trial has been used for a given asset
+     * @method isFreeTrialUsed
      * @async
      * @param {String} token - The Authorization token
      * @param {Number} id - The ID of the asset
      * @example
      *     InPlayer.Asset
-     *     .checkFreeTrial(36320)
+     *     .isFreeTrialUsed(36320)
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async checkFreeTrial(token, id) {
+    async isFreeTrialUsed(token, id) {
         const response = await fetch(this.config.API.checkFreeTrial(id), {
             headers: {
                 Authorization: 'Bearer ' + token,
