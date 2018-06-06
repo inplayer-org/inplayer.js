@@ -38,6 +38,7 @@ export const API = config => {
             `https://${subdomain}.accounts.staging-v2.inplayer.com/sso/cookie`, //NOTE: hardcoded URL
         //Asset
         checkAccess: id => `${config.BASE_URL}/items/${id}/access`,
+        checkFreeTrial: id => `${config.BASE_URL}/items/usedfreetrial/${id}`,
         findAsset: (assetId, merchant_uuid) =>
             `${config.BASE_URL}/items/${merchant_uuid}/${assetId}`,
         findExternalAsset: (assetType, externalId, merchantUuid) => {

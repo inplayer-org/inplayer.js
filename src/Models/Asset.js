@@ -31,6 +31,28 @@ class Asset {
     }
 
     /**
+     * Checks whether Free trial has been used for a given account
+     * @method checkFreeTrial
+     * @async
+     * @param {String} token - The Authorization token
+     * @param {Number} id - The ID of the asset
+     * @example
+     *     InPlayer.Asset
+     *     .checkFreeTrial(36320)
+     *     .then(data => console.log(data));
+     * @return {Object}
+     */
+    async checkFreeTrial(token, id) {
+        const response = await fetch(this.config.API.checkFreeTrial(id), {
+            headers: {
+                Authorization: 'Bearer ' + token,
+            },
+        });
+
+        return await response.json();
+    }
+
+    /**
      * Get the asset info for a given asset ID and merchant UUID
      * @method findAsset
      * @async
