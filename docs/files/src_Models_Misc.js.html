@@ -151,19 +151,20 @@ class Misc {
     }
 
     /**
-     * Gets branding for given merchant
+     * Gets branding params for given merchant
      * @method getBranding
      * @async
-     * @param {String} merchantUuid - The UUID of the merchant
+     * @param {String} clientId - The Client id
+     * @param {String} brandingId - The branding id or &#x27;default&#x27;
      * @example
      *     InPlayer.Misc
-     *     .getBranding(&#x27;eyJ0e-XAiOi-JKPEC-ENR5Y&#x27;)
+     *     .getBranding(&#x27;eyJ0e-XAiOi-JKPEC-ENR5Y&#x27;, &#x27;123&#x27;)
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async getBranding(merchantUuid) {
+    async getBranding(clientId, brandingId) {
         const response = await fetch(
-            this.config.API.getBranding(merchantUuid),
+            this.config.API.getBranding(clientId, brandingId),
             {
                 method: &#x27;GET&#x27;,
             }

@@ -76,8 +76,10 @@ export const API = config => {
         //Misc
         getDlcLinks: id => `${config.BASE_URL}/dlc/${id}/links`,
         getDiscount: `${config.BASE_URL}/vouchers/discount`,
-        getBranding: merchant_uuid =>
-            `${config.BASE_URL}/branding/paywall/${merchant_uuid}`,
+        getBranding: (merchant_uuid, brandingId) =>
+            `${
+                config.BASE_URL
+            }/branding/paywall/${merchant_uuid}/${brandingId}`,
         downloadFile: (assetId, filename) =>
             `${config.BASE_URL}/dlc/${assetId}/${filename}`,
     };
