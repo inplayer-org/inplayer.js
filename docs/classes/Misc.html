@@ -99,7 +99,7 @@
 			<strong>Methods</strong>
 			<ul>
 				<li><a href="#method-downloadProtectedFile"><span class="im">downloadProtectedFile</span>(<span class="ia">token</span><span class="ia">assetId</span><span class="ia">filename</span>)</a></li>
-				<li><a href="#method-getBranding"><span class="im">getBranding</span>(<span class="ia">merchantUuid</span>)</a></li>
+				<li><a href="#method-getBranding"><span class="im">getBranding</span>(<span class="ia">clientId</span><span class="ia">brandingId</span>)</a></li>
 				<li><a href="#method-getDiscount"><span class="im">getDiscount</span>(<span class="ia">token</span><span class="ia">data</span>)</a></li>
 				<li><a href="#method-getDlcLinks"><span class="im">getDlcLinks</span>(<span class="ia">token</span><span class="ia">assetId</span>)</a></li>
 			</ul>
@@ -147,7 +147,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Misc.js.html#l91"><code>src\Models\Misc.js:91</code></a>
+		<a href="../files/src_Models_Misc.js.html#l92"><code>src\Models\Misc.js:92</code></a>
 		</p>
 
 
@@ -223,7 +223,10 @@
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
 				<li class="arg">
-						<code>merchantUuid</code>
+						<code>clientId</code>
+				</li>
+				<li class="arg">
+						<code>brandingId</code>
 				</li>
 			</ul><span class="paren">)</span>
 		</div>
@@ -248,7 +251,7 @@
 
 	</div>
 
-	<div class="description"><p>Gets branding for given merchant</p>
+	<div class="description"><p>Gets branding params for given merchant</p>
 </div>
 
 		<div class="params">
@@ -256,12 +259,23 @@
 
 			<ul class="params-list">
 				<li class="param">
-						<code class="param-name">merchantUuid</code>
+						<code class="param-name">clientId</code>
 						<span class="type">String</span>
 
 
 					<div class="param-description"><ul>
-<li>The UUID of the merchant</li>
+<li>The Client id</li>
+</ul>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">brandingId</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><ul>
+<li>The branding id or 'default'</li>
 </ul>
 </div>
 
@@ -282,7 +296,7 @@
 
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.Misc
-.getBranding('eyJ0e-XAiOi-JKPEC-ENR5Y')
+.getBranding('eyJ0e-XAiOi-JKPEC-ENR5Y', '123')
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>

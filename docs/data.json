@@ -874,19 +874,24 @@
         {
             "file": "src\\Models\\Misc.js",
             "line": 69,
-            "description": "Gets branding for given merchant",
+            "description": "Gets branding params for given merchant",
             "itemtype": "method",
             "name": "getBranding",
             "async": 1,
             "params": [
                 {
-                    "name": "merchantUuid",
-                    "description": "- The UUID of the merchant",
+                    "name": "clientId",
+                    "description": "- The Client id",
+                    "type": "String"
+                },
+                {
+                    "name": "brandingId",
+                    "description": "- The branding id or 'default'",
                     "type": "String"
                 }
             ],
             "example": [
-                "\n    InPlayer.Misc\n    .getBranding('eyJ0e-XAiOi-JKPEC-ENR5Y')\n    .then(data => console.log(data));"
+                "\n    InPlayer.Misc\n    .getBranding('eyJ0e-XAiOi-JKPEC-ENR5Y', '123')\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -896,7 +901,7 @@
         },
         {
             "file": "src\\Models\\Misc.js",
-            "line": 91,
+            "line": 92,
             "description": "Downloads a file",
             "itemtype": "method",
             "name": "downloadProtectedFile",
