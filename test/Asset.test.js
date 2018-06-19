@@ -14,7 +14,7 @@ describe('Asset', function() {
                 'eyJ0eXAiOiJOGIxYjgNR5Y',
                 36320
             );
-
+            //error
             expect(result).to.deep.equal({
                 errors: {
                     '401': 'Invalid auth token',
