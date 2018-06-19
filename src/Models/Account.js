@@ -130,7 +130,10 @@ class Account {
      * @return {Boolean}
      */
     async signOut() {
-        const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+        let token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+        if (token) {
+            token = JSON.parse(token).access_token;
+        }
 
         const response = await fetch(this.config.API.signOut, {
             headers: {
@@ -445,7 +448,9 @@ class Account {
                 'Content-Type': 'x-www-form-urlencoded',
             },
         });
-        return await response.json();
+        const result = await response.json();
+
+        return result;
     }
 
     /**

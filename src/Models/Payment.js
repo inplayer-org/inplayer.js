@@ -201,7 +201,6 @@ class Payment {
         fd.append('access_fee', data.accessFeeId);
         fd.append('payment_method', data.paymentMethod);
         if (data.voucherCode) {
-            console.log('WTF');
             fd.append('voucher_code', data.voucherCode);
         }
 
