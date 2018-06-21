@@ -448,7 +448,18 @@ class Account {
                 'Content-Type': 'x-www-form-urlencoded',
             },
         });
-        const result = await response.json();
+        let result = {};
+        if (response.status >= 200 && response.status <= 300) {
+            result.code = response.status;
+            result.message = 'The password has been successfully changed.';
+        } else {
+            result = response.json().then(async function(responseData) {
+                let result = new Promise((resolve, reject) => {
+                    resolve(responseData);
+                });
+                return result;
+            });
+        }
 
         return result;
     }
@@ -650,6 +661,72 @@ class Account {
         );
 
         return await response.json();
+    }
+
+    /**
+     * Deletes an account
+     * @method deleteAccount
+     * @async
+     * @param {String} token - The authorization token
+     * @param {String} password - The password of the account
+     * @example
+     *     InPlayer.Account
+     *     .deleteAccount('f1hg1f-1g1hg183-g1ggh-13311','1231231')
+     *     .then(data => console.log(data))
+     * @return {Boolean}
+     */
+
+    async deleteAccount(token = '', password = '') {
+        const fd = new FormData();
+
+        fd.append('password', password);
+
+        const response = await fetch(this.config.API.deleteAccount, {
+            method: 'DELETE',
+            headers: {
+                Authorization: 'Bearer ' + token,
+            },
+            body: fd,
+        });
+
+        if (response.status > 200 && response.status < 400) {
+            localStorage.removeItem(this.config.INPLAYER_TOKEN_NAME);
+            localStorage.removeItem(this.config.INPLAYER_IOT_NAME);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Exports account data to the users' email
+     * @method exportData
+     * @async
+     * @param {String} token - The authorization token
+     * @param {String} password - The password of the account
+     * @example
+     *     InPlayer.Account
+     *     .exportData('f1hg1f-1g1hg183-g1ggh-13311','1231231')
+     *     .then(data => console.log(data))
+     * @return {Boolean}
+     */
+
+    async exportData(token = '', password = '') {
+        const fd = new FormData();
+
+        fd.append('password', password);
+
+        const response = await fetch(this.config.API.exportData, {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + token,
+            },
+            body: fd,
+        });
+
+        if (response.status > 200 && response.status < 400) {
+            return true;
+        }
+        return false;
     }
 }
 
