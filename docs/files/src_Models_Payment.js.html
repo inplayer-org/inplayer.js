@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.3.60</b>
+                    API Docs for Version: <b>0.3.66</b>
                 </p>
             </li>
         </div>
@@ -285,7 +285,6 @@ class Payment {
         fd.append(&#x27;access_fee&#x27;, data.accessFeeId);
         fd.append(&#x27;payment_method&#x27;, data.paymentMethod);
         if (data.voucherCode) {
-            console.log(&#x27;WTF&#x27;);
             fd.append(&#x27;voucher_code&#x27;, data.voucherCode);
         }
 
