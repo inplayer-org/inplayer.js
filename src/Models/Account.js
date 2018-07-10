@@ -686,7 +686,7 @@ class Account {
             headers: {
                 Authorization: 'Bearer ' + token,
             },
-            body: fd,
+            body: `password=${password}`,
         });
 
         if (response.status > 200 && response.status < 400) {
