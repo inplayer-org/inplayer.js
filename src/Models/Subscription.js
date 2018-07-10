@@ -18,13 +18,16 @@ class Subscription {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getSubscriptions(token) {
-        const response = await fetch(this.config.API.getSubscriptions, {
-            method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + token,
-            },
-        });
+    async getSubscriptions(token, limit, page) {
+        const response = await fetch(
+            this.config.API.getSubscriptions(limit, page),
+            {
+                method: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                },
+            }
+        );
 
         return response.json();
     }

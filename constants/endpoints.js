@@ -67,7 +67,8 @@ export const API = config => {
         payForAsset: `${config.BASE_URL}/payments`,
         externalPayments: `${config.BASE_URL}/external-payments`,
         //Subscriptions
-        getSubscriptions: `${config.BASE_URL}/subscriptions`,
+        getSubscriptions: (limit, page) =>
+            `${config.BASE_URL}/subscriptions?limit=${limit}&page=${page}`,
         subscribe: `${config.BASE_URL}/subscriptions`,
         cancelTokenSubscribe: token => {
             if (token.endsWith('PP')) {
