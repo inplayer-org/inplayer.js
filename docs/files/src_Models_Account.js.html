@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.3.66</b>
+                    API Docs for Version: <b>0.3.67</b>
                 </p>
             </li>
         </div>
@@ -534,16 +534,16 @@ class Account {
             },
         });
         let result = {};
-        if(response.status &gt;= 200 &amp;&amp; response.status &lt;=300){
-          result.code = response.status;
-          result.message = &quot;The password has been successfully changed.&quot;;
-        }else {
-          result = response.json().then(async function(responseData) {
-                  let result = new Promise((resolve, reject) =&gt; {
-                      resolve(responseData);
-                  });
-                  return result;
+        if (response.status &gt;= 200 &amp;&amp; response.status &lt;= 300) {
+            result.code = response.status;
+            result.message = &#x27;The password has been successfully changed.&#x27;;
+        } else {
+            result = response.json().then(async function(responseData) {
+                let result = new Promise((resolve, reject) =&gt; {
+                    resolve(responseData);
                 });
+                return result;
+            });
         }
 
         return result;
@@ -763,72 +763,58 @@ class Account {
      * @return {Boolean}
      */
 
-     async deleteAccount(
-         token = &#x27;&#x27;,
-         password = &#x27;&#x27;,
-     ) {
-         const fd = new FormData();
+    async deleteAccount(token = &#x27;&#x27;, password = &#x27;&#x27;) {
+        const fd = new FormData();
 
-         fd.append(&#x27;password&#x27;, password);
+        fd.append(&#x27;password&#x27;, password);
 
-         const response = await fetch(
-             this.config.API.deleteAccount,
-             {
-                 method: &#x27;DELETE&#x27;,
-                 headers: {
-                     Authorization: &#x27;Bearer &#x27; + token,
-                 },
-                 body: fd
-             }
-         );
+        const response = await fetch(this.config.API.deleteAccount, {
+            method: &#x27;DELETE&#x27;,
+            headers: {
+                Authorization: &#x27;Bearer &#x27; + token,
+            },
+            body: fd,
+        });
 
-         if(response.status&gt;200 &amp;&amp; response.status &lt; 400){
-           localStorage.removeItem(this.config.INPLAYER_TOKEN_NAME);
-           localStorage.removeItem(this.config.INPLAYER_IOT_NAME);
-           return true;
-         }
-         return false;
-     }
-
-
-     /**
-      * Exports account data to the users&#x27; email
-      * @method exportData
-      * @async
-      * @param {String} token - The authorization token
-      * @param {String} password - The password of the account
-      * @example
-      *     InPlayer.Account
-      *     .exportData(&#x27;f1hg1f-1g1hg183-g1ggh-13311&#x27;,&#x27;1231231&#x27;)
-      *     .then(data =&gt; console.log(data))
-      * @return {Boolean}
-      */
-
-      async exportData(
-          token = &#x27;&#x27;,
-          password = &#x27;&#x27;,
-      ) {
-          const fd = new FormData();
-
-          fd.append(&#x27;password&#x27;, password);
-
-          const response = await fetch(
-              this.config.API.exportData,
-              {
-                  method: &#x27;POST&#x27;,
-                  headers: {
-                      Authorization: &#x27;Bearer &#x27; + token
-                  },
-                  body: fd,
-              }
-          );
-
-          if(response.status&gt;200 &amp;&amp; response.status &lt; 400){
+        if (response.status &gt; 200 &amp;&amp; response.status &lt; 400) {
+            localStorage.removeItem(this.config.INPLAYER_TOKEN_NAME);
+            localStorage.removeItem(this.config.INPLAYER_IOT_NAME);
             return true;
-          }
-          return false;
-      }
+        }
+        return false;
+    }
 
+    /**
+     * Exports account data to the users&#x27; email
+     * @method exportData
+     * @async
+     * @param {String} token - The authorization token
+     * @param {String} password - The password of the account
+     * @example
+     *     InPlayer.Account
+     *     .exportData(&#x27;f1hg1f-1g1hg183-g1ggh-13311&#x27;,&#x27;1231231&#x27;)
+     *     .then(data =&gt; console.log(data))
+     * @return {Boolean}
+     */
+
+    async exportData(token = &#x27;&#x27;, password = &#x27;&#x27;) {
+        const fd = new FormData();
+
+        fd.append(&#x27;password&#x27;, password);
+
+        const response = await fetch(this.config.API.exportData, {
+            method: &#x27;POST&#x27;,
+            headers: {
+                Authorization: &#x27;Bearer &#x27; + token,
+            },
+            body: fd,
+        });
+
+        if (response.status &gt; 200 &amp;&amp; response.status &lt; 400) {
+            return true;
+        }
+        return false;
+    }
 }
 
 export default Account;

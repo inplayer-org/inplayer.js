@@ -65,7 +65,8 @@ export const API = config => {
         payForAsset: `${config.BASE_URL}/payments`,
         externalPayments: `${config.BASE_URL}/external-payments`,
         //Subscriptions
-        getSubscriptions: `${config.BASE_URL}/subscriptions`,
+        getSubscriptions: (limit, page) =>
+            `${config.BASE_URL}/subscriptions?limit=${limit}&page=${page}`,
         getSubscription: id =>
             `${config.BASE_URL}/reporting/subscriptions/${id}`,
         subscribe: `${config.BASE_URL}/subscriptions`,

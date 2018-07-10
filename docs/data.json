@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "0.3.66",
+        "version": "0.3.67",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -655,7 +655,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 710,
+            "line": 703,
             "description": "Exports account data to the users' email",
             "itemtype": "method",
             "name": "exportData",
@@ -1153,7 +1153,7 @@
         },
         {
             "file": "src\\Models\\Subscription.js",
-            "line": 32,
+            "line": 35,
             "description": "Cancels a subscription",
             "itemtype": "method",
             "name": "cancelSubscription",
@@ -1181,7 +1181,7 @@
         },
         {
             "file": "src\\Models\\Subscription.js",
-            "line": 55,
+            "line": 58,
             "description": "Subscribes to a given asset. Use this method ONLY if the accessFee.type === 'subscription'.\nOtherwise please use InPlayer.Payment.payForAsset()",
             "itemtype": "method",
             "name": "assetSubscribe",
@@ -1209,7 +1209,7 @@
         },
         {
             "file": "src\\Models\\Subscription.js",
-            "line": 115,
+            "line": 118,
             "description": "Cancels a subscription with a provided transaction and authorization token\nWill receive\n -external.subscribe.cancel.success notification for Paypal transaction\n -subscribe.cancel.success notification for other types of transactions",
             "itemtype": "method",
             "name": "cancelTokenSubscription",
