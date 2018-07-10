@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.3.66</b>
+                    API Docs for Version: <b>0.3.67</b>
                 </p>
             </li>
         </div>
@@ -102,13 +102,16 @@ class Subscription {
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async getSubscriptions(token) {
-        const response = await fetch(this.config.API.getSubscriptions, {
-            method: &#x27;GET&#x27;,
-            headers: {
-                Authorization: &#x27;Bearer &#x27; + token,
-            },
-        });
+    async getSubscriptions(token, limit, page) {
+        const response = await fetch(
+            this.config.API.getSubscriptions(limit, page),
+            {
+                method: &#x27;GET&#x27;,
+                headers: {
+                    Authorization: &#x27;Bearer &#x27; + token,
+                },
+            }
+        );
 
         return response.json();
     }
