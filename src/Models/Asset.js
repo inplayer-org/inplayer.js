@@ -7,6 +7,7 @@ class Asset {
     constructor(config) {
         this.config = config;
     }
+
     /**
      * Checks whether a given authenticated user has access for an asset
      * @method checkAccessForAsset
@@ -106,7 +107,7 @@ class Asset {
      * Get package info for a given Package ID
      * @method findPackage
      * @async
-     * @param {Numer} id - The type ID of the package
+     * @param {Number} id - The type ID of the package
      * @example
      *     InPlayer.Asset
      *     .findPackage(4444)
@@ -137,9 +138,7 @@ class Asset {
             method: 'GET',
         });
 
-        const data = await response.json();
-
-        return data;
+        return await response.json();
     }
 
     /**

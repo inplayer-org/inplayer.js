@@ -1,5 +1,3 @@
-import { config } from '../config.js';
-
 export const API = config => {
     return {
         //Account
@@ -22,7 +20,7 @@ export const API = config => {
             `${
                 config.BASE_URL
             }/reporting/access/customers?status=${status}&page=${page}&size=${size}`,
-        assetHistory: (size, page, startDate, endDate) => {
+        assetsHistory: (size, page, startDate, endDate) => {
             let url = `${
                 config.BASE_URL
             }/reporting/transactions?exclude=store-payment&size=${size}&page=${page}`;
@@ -69,6 +67,8 @@ export const API = config => {
         //Subscriptions
         getSubscriptions: (limit, page) =>
             `${config.BASE_URL}/subscriptions?limit=${limit}&page=${page}`,
+        getSubscription: id =>
+            `${config.BASE_URL}/reporting/subscriptions/${id}`,
         subscribe: `${config.BASE_URL}/subscriptions`,
         cancelTokenSubscribe: token => {
             if (token.endsWith('PP')) {
