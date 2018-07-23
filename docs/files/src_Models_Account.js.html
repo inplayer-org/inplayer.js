@@ -433,7 +433,6 @@ class Account {
             throw new Error(
                 &#x27;The token must exist in order to refresh it. Please use InPlayer.Account.authenticate()&#x27;
             );
-            return;
         }
 
         const fd = new FormData();
@@ -568,8 +567,7 @@ class Account {
             },
         });
 
-        const data = await response.json();
-        if (data) return data;
+        return await response.json();
     }
 
     /**
@@ -729,7 +727,6 @@ class Account {
      *     .then(data =&gt; console.log(data))
      * @return {Array}
      */
-
     async getAssetsHistory(
         token = &#x27;&#x27;,
         size = 10,
@@ -738,7 +735,7 @@ class Account {
         endDate = null
     ) {
         const response = await fetch(
-            this.config.API.assetHistory(size, page, startDate, endDate),
+            this.config.API.assetsHistory(size, page, startDate, endDate),
             {
                 method: &#x27;GET&#x27;,
                 headers: {
@@ -773,7 +770,7 @@ class Account {
             headers: {
                 Authorization: &#x27;Bearer &#x27; + token,
             },
-            body: fd,
+            body: &#x60;password=${password}&#x60;,
         });
 
         if (response.status &gt; 200 &amp;&amp; response.status &lt; 400) {
@@ -794,7 +791,7 @@ class Account {
      *     InPlayer.Account
      *     .exportData(&#x27;f1hg1f-1g1hg183-g1ggh-13311&#x27;,&#x27;1231231&#x27;)
      *     .then(data =&gt; console.log(data))
-     * @return {Boolean}
+     * @return {Object}
      */
 
     async exportData(token = &#x27;&#x27;, password = &#x27;&#x27;) {
@@ -810,10 +807,7 @@ class Account {
             body: fd,
         });
 
-        if (response.status &gt; 200 &amp;&amp; response.status &lt; 400) {
-            return true;
-        }
-        return false;
+        return await response.json();
     }
 }
 

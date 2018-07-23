@@ -117,6 +117,31 @@ class Subscription {
     }
 
     /**
+     * Get subscription details for a given user by id
+     *
+     * @method getSubscription
+     * @async
+     *
+     * @param {String} id - The subscription id
+     * @param {String} token - The Authorization token
+     * @example
+     *     InPlayer.Subscription
+     *     .getSubscription(&#x27;abcdef&#x27;, &#x27;eyJ0eXAiOiJKPECENR5Y&#x27;)
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async getSubscription(id, token) {
+        const response = await fetch(this.config.API.getSubscription(id), {
+            method: &#x27;GET&#x27;,
+            headers: {
+                Authorization: &#x27;Bearer &#x27; + token,
+            },
+        });
+
+        return response.json();
+    }
+
+    /**
      * Cancels a subscription
      * @method cancelSubscription
      * @async
