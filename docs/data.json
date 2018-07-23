@@ -348,7 +348,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 378,
+            "line": 377,
             "description": "Sets Auth token into cookies",
             "itemtype": "method",
             "name": "token",
@@ -370,7 +370,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 391,
+            "line": 390,
             "description": "Requests new password for a given user",
             "itemtype": "method",
             "name": "requestNewPassword",
@@ -393,7 +393,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 422,
+            "line": 421,
             "description": "Sets new password for the user",
             "itemtype": "method",
             "name": "setNewPassword",
@@ -421,7 +421,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 468,
+            "line": 467,
             "description": "Gets the user/account information for a given auth token",
             "itemtype": "method",
             "name": "getAccountInfo",
@@ -444,7 +444,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 491,
+            "line": 489,
             "description": "Gets the social login urls for fb/twitter/google",
             "itemtype": "method",
             "name": "getSocialLoginUrls",
@@ -467,7 +467,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 510,
+            "line": 508,
             "description": "Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()",
             "itemtype": "method",
             "name": "updateAccount",
@@ -495,7 +495,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 553,
+            "line": 551,
             "description": "Changes password for a given user",
             "itemtype": "method",
             "name": "changePassword",
@@ -523,7 +523,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 586,
+            "line": 584,
             "description": "Gets register fields",
             "itemtype": "method",
             "name": "getRegisterFields",
@@ -546,7 +546,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 605,
+            "line": 603,
             "description": "Gets the purchase history",
             "itemtype": "method",
             "name": "getPurchaseHistory",
@@ -584,7 +584,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 633,
+            "line": 631,
             "description": "Returns purchase history with types",
             "itemtype": "method",
             "name": "getAssetsHistory",
@@ -627,7 +627,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 669,
+            "line": 666,
             "description": "Deletes an account",
             "itemtype": "method",
             "name": "deleteAccount",
@@ -655,7 +655,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 703,
+            "line": 700,
             "description": "Exports account data to the users' email",
             "itemtype": "method",
             "name": "exportData",
@@ -677,13 +677,13 @@
             ],
             "return": {
                 "description": "",
-                "type": "Boolean"
+                "type": "Object"
             },
             "class": "Account"
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 10,
+            "line": 11,
             "description": "Checks whether a given authenticated user has access for an asset",
             "itemtype": "method",
             "name": "checkAccessForAsset",
@@ -711,7 +711,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 32,
+            "line": 33,
             "description": "Checks whether Free trial has been used for a given asset",
             "itemtype": "method",
             "name": "isFreeTrialUsed",
@@ -739,7 +739,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 54,
+            "line": 55,
             "description": "Get the asset info for a given asset ID and merchant UUID",
             "itemtype": "method",
             "name": "findAsset",
@@ -767,7 +767,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 77,
+            "line": 78,
             "description": "Get an external assets' info",
             "itemtype": "method",
             "name": "findExternalAsset",
@@ -800,7 +800,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 105,
+            "line": 106,
             "description": "Get package info for a given Package ID",
             "itemtype": "method",
             "name": "findPackage",
@@ -809,7 +809,7 @@
                 {
                     "name": "id",
                     "description": "- The type ID of the package",
-                    "type": "Numer"
+                    "type": "Number"
                 }
             ],
             "example": [
@@ -823,7 +823,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 124,
+            "line": 125,
             "description": "Get the access fees for a given asset ID",
             "itemtype": "method",
             "name": "getAssetAccessFees",
@@ -846,7 +846,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 145,
+            "line": 144,
             "description": "Authorize for the freemium asset (login)",
             "itemtype": "method",
             "name": "getFreemiumAsset",
@@ -1154,6 +1154,34 @@
         {
             "file": "src\\Models\\Subscription.js",
             "line": 35,
+            "description": "Get subscription details for a given user by id",
+            "itemtype": "method",
+            "name": "getSubscription",
+            "async": 1,
+            "params": [
+                {
+                    "name": "id",
+                    "description": "- The subscription id",
+                    "type": "String"
+                },
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Subscription\n    .getSubscription('abcdef', 'eyJ0eXAiOiJKPECENR5Y')\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Subscription"
+        },
+        {
+            "file": "src\\Models\\Subscription.js",
+            "line": 60,
             "description": "Cancels a subscription",
             "itemtype": "method",
             "name": "cancelSubscription",
@@ -1181,7 +1209,7 @@
         },
         {
             "file": "src\\Models\\Subscription.js",
-            "line": 58,
+            "line": 83,
             "description": "Subscribes to a given asset. Use this method ONLY if the accessFee.type === 'subscription'.\nOtherwise please use InPlayer.Payment.payForAsset()",
             "itemtype": "method",
             "name": "assetSubscribe",
@@ -1209,7 +1237,7 @@
         },
         {
             "file": "src\\Models\\Subscription.js",
-            "line": 118,
+            "line": 143,
             "description": "Cancels a subscription with a provided transaction and authorization token\nWill receive\n -external.subscribe.cancel.success notification for Paypal transaction\n -subscribe.cancel.success notification for other types of transactions",
             "itemtype": "method",
             "name": "cancelTokenSubscription",

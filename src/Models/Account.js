@@ -707,7 +707,7 @@ class Account {
      *     InPlayer.Account
      *     .exportData('f1hg1f-1g1hg183-g1ggh-13311','1231231')
      *     .then(data => console.log(data))
-     * @return {Boolean}
+     * @return {Object}
      */
 
     async exportData(token = '', password = '') {
@@ -723,10 +723,7 @@ class Account {
             body: fd,
         });
 
-        if (response.status > 200 && response.status < 400) {
-            return true;
-        }
-        return false;
+        return await response.json();
     }
 }
 
