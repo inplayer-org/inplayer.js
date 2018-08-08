@@ -40,7 +40,8 @@ describe('Asset', function() {
         it('should return data with external asset object (not found)', async () => {
             const result = await asset.findExternalAsset(
                 'brightcove',
-                'shddasdas-2623-sdgd-23623'
+                'shddasdas-2623-sdgd-23623',
+                'b43613af-dacc-44c3-b640-c89a1115aeba'
             );
 
             //check only 1 property (there are a lot)
