@@ -66,9 +66,7 @@ export const API = config => {
         externalPayments: `${config.BASE_URL}/external-payments`,
         //Subscriptions
         getSubscriptions: (limit, page) =>
-            `${
-                config.BASE_URL
-            }/reporting/subscriptions?limit=${limit}&page=${page}`,
+            `${config.BASE_URL}/subscriptions?limit=${limit}&page=${page}`,
         getSubscription: id =>
             `${config.BASE_URL}/reporting/subscriptions/${id}`,
         subscribe: `${config.BASE_URL}/subscriptions`,
