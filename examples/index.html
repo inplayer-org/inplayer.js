@@ -34,7 +34,8 @@ InPlayer.setConfig('develop');
 //       password: '12345678',
 //     }
 // ).then(data => { console.log(InPlayer.Account.getToken().token) });
-InPlayer.Account.deleteAccount(InPlayer.Account.getToken().token, '12345678');
+// InPlayer.Account.deleteAccount(InPlayer.Account.getToken().token, '12345678');
+// InPlayer.Account.deleteAccount('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6IjA4YmU0NGU3LWI0NGMtNDgzZS1iNjU0LTY0ZjUwMTk1ZjU3OSJ9.eyJhdWQiOiJjNmY0MDAyZi03NDE1LTRlYjYtYWIwMy03MmIwZjdhZmYwZTgiLCJqdGkiOiIwOGJlNDRlNy1iNDRjLTQ4M2UtYjY1NC02NGY1MDE5NWY1NzkiLCJpYXQiOjE1MzM2NDkyODksIm5iZiI6MTUzMzY0OTI4OSwiZXhwIjoxNTM2MjQxMjg5LCJzdWIiOiJ1c2VyMTFAdXNlcjExLmNvbSIsInNjb3BlcyI6W10sIm1pZCI6NjgsImFpZCI6MjcyMzcsIm11aSI6ImM2ZjQwMDJmLTc0MTUtNGViNi1hYjAzLTcyYjBmN2FmZjBlOCIsImN0eCI6WyJjb25zdW1lciJdfQ.5LEwRLbLMV2KJ1XyxvrUsatOV5ugLOHdAOkvYHnMnDc', 'inplayer123').then(data => console.log(data));
 
 // console.log(InPlayer.Account.isAuthenticated('528b1b80-5868-4abc-a9b6-4d3455d719c8', 'https://test.accounts.staging-v2.inplayer.com'));
 // /* Sign in call */
@@ -102,7 +103,7 @@ InPlayer.Account.deleteAccount(InPlayer.Account.getToken().token, '12345678');
   // InPlayer.Asset.checkAccessForAsset(`eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6ImMwMzNjYWEyLThiMTItNGU5OC05ZWU0LTViNGExOTlkYjNiOCJ9.eyJhdWQiOiI1MjhiMWI4MC01ODY4LTRhYmMtYTliNi00ZDM0NTVkNzE5YzgiLCJqdGkiOiJjMDMzY2FhMi04YjEyLTRlOTgtOWVlNC01YjRhMTk5ZGIzYjgiLCJpYXQiOjE1MjI2NzYzMzQsIm5iZiI6MTUyMjY3NjMzNCwiZXhwIjoxNTI1MjY4MzM0LCJzdWIiOiJ0ZXN0aW5nX2dvcmFuQHRlc3QuY29tIiwic2NvcGVzIjpbXSwibWlkIjoyMSwiYWlkIjoyNTY4MCwibXVpIjoiNTI4YjFiODAtNTg2OC00YWJjLWE5YjYtNGQzNDU1ZDcxOWM4IiwiY3R4IjpbImNvbnN1bWVyIl19.pS4E7icQrywbKQYehqaPoS_GslDk7px1DMUmqmW2kK4`, 40295).then(data => console.log(data));
   //
   /* Unsubscribe stuff */
-  // InPlayer.Subscription.getSubscriptions('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6ImMwMzNjYWEyLThiMTItNGU5OC05ZWU0LTViNGExOTlkYjNiOCJ9.eyJhdWQiOiI1MjhiMWI4MC01ODY4LTRhYmMtYTliNi00ZDM0NTVkNzE5YzgiLCJqdGkiOiJjMDMzY2FhMi04YjEyLTRlOTgtOWVlNC01YjRhMTk5ZGIzYjgiLCJpYXQiOjE1MjI2NzYzMzQsIm5iZiI6MTUyMjY3NjMzNCwiZXhwIjoxNTI1MjY4MzM0LCJzdWIiOiJ0ZXN0aW5nX2dvcmFuQHRlc3QuY29tIiwic2NvcGVzIjpbXSwibWlkIjoyMSwiYWlkIjoyNTY4MCwibXVpIjoiNTI4YjFiODAtNTg2OC00YWJjLWE5YjYtNGQzNDU1ZDcxOWM4IiwiY3R4IjpbImNvbnN1bWVyIl19.pS4E7icQrywbKQYehqaPoS_GslDk7px1DMUmqmW2kK4').then(data => console.log(data));
+  // InPlayer.Subscription.getSubscriptions('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6IjQzOTkyYjgxLWM0OTQtNDhlNy1iNGIwLWY5OTU0Njc0YjY3OSJ9.eyJhdWQiOiJjNmY0MDAyZi03NDE1LTRlYjYtYWIwMy03MmIwZjdhZmYwZTgiLCJqdGkiOiI0Mzk5MmI4MS1jNDk0LTQ4ZTctYjRiMC1mOTk1NDY3NGI2NzkiLCJpYXQiOjE1MzM2NTQ3NTIsIm5iZiI6MTUzMzY1NDc1MiwiZXhwIjoxNTM2MjQ2NzUyLCJzdWIiOiJ1c2VyMUB1c2VyMS5jb20iLCJzY29wZXMiOltdLCJtaWQiOjY4LCJhaWQiOjI2ODA4LCJtdWkiOiJjNmY0MDAyZi03NDE1LTRlYjYtYWIwMy03MmIwZjdhZmYwZTgiLCJjdHgiOlsiY29uc3VtZXIiXX0.vNlDMHon0WoHNHicoNA3EdmKw8KxVWCli35maCaGbFg').then(data => console.log(data));
   // InPlayer.Subscription.cancelSubscription('https://staging-v2.inplayer.com/subscriptions/cancel/S-A8fcPaXOOJ8Ir3DXaGngF0CBF-SC','eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6ImMwMzNjYWEyLThiMTItNGU5OC05ZWU0LTViNGExOTlkYjNiOCJ9.eyJhdWQiOiI1MjhiMWI4MC01ODY4LTRhYmMtYTliNi00ZDM0NTVkNzE5YzgiLCJqdGkiOiJjMDMzY2FhMi04YjEyLTRlOTgtOWVlNC01YjRhMTk5ZGIzYjgiLCJpYXQiOjE1MjI2NzYzMzQsIm5iZiI6MTUyMjY3NjMzNCwiZXhwIjoxNTI1MjY4MzM0LCJzdWIiOiJ0ZXN0aW5nX2dvcmFuQHRlc3QuY29tIiwic2NvcGVzIjpbXSwibWlkIjoyMSwiYWlkIjoyNTY4MCwibXVpIjoiNTI4YjFiODAtNTg2OC00YWJjLWE5YjYtNGQzNDU1ZDcxOWM4IiwiY3R4IjpbImNvbnN1bWVyIl19.pS4E7icQrywbKQYehqaPoS_GslDk7px1DMUmqmW2kK4').then(data => console.log(data));
 
   // InPlayer.Misc.getDiscount('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4NDI1ZmUyZC1iMDgyLTRiMWQtOTA4MC1mM2MxNTU5OTA3NDQiLCJpYXQiOjE1MTMyNDMwODgsInN1YiI6InZsZF90ZXN0QGNvbnN1bWVyLmNvbSIsImFpZCI6MjE0ODIsIm1pZCI6MjEsIm11aSI6IjUyOGIxYjgwLTU4NjgtNGFiYy1hOWI2LTRkMzQ1NWQ3MTljOCIsImN0eCI6WyJjb25zdW1lciJdLCJleHAiOjE1MTMyNDY2ODh9.1-8i9lsUaIL6BF1MRelGlU7J2FGi0xNlr9MB18oqYG4',{
@@ -144,7 +145,7 @@ InPlayer.Account.deleteAccount(InPlayer.Account.getToken().token, '12345678');
   //   password: '12345678',
   //   'passwordConfirmation': '12345678',
   // },'18c753293b2516d9').then(data => console.log(data));
-  InPlayer.Asset.isFreeTrialUsed(InPlayer.Account.getToken().token, 41851).then(data => console.log(data));
+  // InPlayer.Asset.isFreeTrialUsed(InPlayer.Account.getToken().token, 41851).then(data => console.log(data));
   /* Sign up call */
   // InPlayer.Account.signUp({
   //   fullName: "testz",
