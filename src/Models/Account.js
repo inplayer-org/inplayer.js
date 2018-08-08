@@ -692,9 +692,8 @@ class Account {
         if (response.status > 200 && response.status < 400) {
             localStorage.removeItem(this.config.INPLAYER_TOKEN_NAME);
             localStorage.removeItem(this.config.INPLAYER_IOT_NAME);
-            return true;
         }
-        return false;
+        return { code: response.status };
     }
 
     /**
@@ -723,7 +722,8 @@ class Account {
             body: fd,
         });
 
-        return await response.json();
+        const result = await response;
+        return { code: response.status };
     }
 }
 

@@ -18,7 +18,7 @@ class Subscription {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getSubscriptions(token, limit, page) {
+    async getSubscriptions(token, limit = 15, page = 0) {
         const response = await fetch(
             this.config.API.getSubscriptions(limit, page),
             {
