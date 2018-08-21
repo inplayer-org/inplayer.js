@@ -1,8 +1,8 @@
 import { expect } from 'chai';
-import User from '../src/Models/User';
+import Account from '../src/Models/Account';
 import InPlayer from '../src';
 
-describe('User', function() {
+describe('Account', function() {
     let user;
 
     beforeEach(() => {
