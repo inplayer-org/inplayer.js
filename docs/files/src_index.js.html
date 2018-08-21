@@ -21,12 +21,12 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.3.67</b>
+                    API Docs for Version: <b>1.0.0</b>
                 </p>
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Account", "classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription", "classes/User"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Account", "classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription"]'>
         </form>
     </div>
 </div>
@@ -43,7 +43,6 @@
                 <li><a href="../classes/Misc.html">Misc</a></li>
                 <li><a href="../classes/Payment.html">Payment</a></li>
                 <li><a href="../classes/Subscription.html">Subscription</a></li>
-                <li><a href="../classes/User.html">User</a></li>
         </ul>
     </div>
     </div>
@@ -86,7 +85,6 @@ import &#x27;isomorphic-fetch&#x27;;
 import &#x27;es6-promise/auto&#x27;;
 
 import Account from &#x27;./Models/Account&#x27;;
-import User from &#x27;./Models/User&#x27;;
 import Asset from &#x27;./Models/Asset&#x27;;
 import Payment from &#x27;./Models/Payment&#x27;;
 import Subscription from &#x27;./Models/Subscription&#x27;;
@@ -111,11 +109,6 @@ class InPlayer {
          * @type Account
          */
         this.Account = new Account(this.config);
-        /**
-         * @property User
-         * @type User
-         */
-        this.User = new User(this.config);
         /**
          * @property Asset
          * @type Asset

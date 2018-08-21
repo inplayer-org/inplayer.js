@@ -8,7 +8,6 @@ YUI.add('yuidoc-meta', function(Y) {
                 'Misc',
                 'Payment',
                 'Subscription',
-                'User',
             ],
             modules: [],
             allModules: [],
