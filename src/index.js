@@ -10,8 +10,6 @@ import Socket from './Socket';
 import { API } from '../constants/endpoints';
 import { config } from '../config';
 
-global._babelPolyfill = false;
-
 /**
  * Main class. Contains all others methods and websocket subscription
  *
