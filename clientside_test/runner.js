@@ -124,7 +124,7 @@
             logIn: function(resolve, reject) {
                 console.log('### InPlayer.User.signIn ###');
 
-                user.signIn(userData).then(function(res) {
+                user.authenticate(userData).then(function(res) {
                     if (!res.errors) {
                         token = res.access_token;
                         resolve(res);
@@ -229,17 +229,16 @@
             getRegisterFields: function(resolve, reject) {
                 console.log('### InPlayer.User.getRegisterFields ###');
 
-                user
-                    .getRegisterFields(userData.merchantUuid)
-                    .then(function(res) {
-                        if (!res.errors) {
-                            resolve(res);
-                        } else {
-                            res.description =
-                                '# InPlayer.User.getRegisterFields';
-                            reject(res);
-                        }
-                    });
+                user.getRegisterFields(userData.merchantUuid).then(function(
+                    res
+                ) {
+                    if (!res.errors) {
+                        resolve(res);
+                    } else {
+                        res.description = '# InPlayer.User.getRegisterFields';
+                        reject(res);
+                    }
+                });
             },
             updateAccount: function(resolve, reject) {
                 console.log('### InPlayer.User.updateAccount ###');
@@ -388,11 +387,11 @@
             getDiscount: function(resolve, reject) {
                 console.log('### InPlayer.Misc.getDiscount ###');
 
-                misc
-                    .getDiscount(token, get_discount_data())
-                    .then(function(res) {
-                        resolve(res);
-                    });
+                misc.getDiscount(token, get_discount_data()).then(function(
+                    res
+                ) {
+                    resolve(res);
+                });
             },
             getPaymentMethods: function(resolve, reject) {
                 console.log('### InPlayer.Payment.getPaymentMethods ###');

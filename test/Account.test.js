@@ -11,19 +11,17 @@ describe('Account', function() {
 
     describe('#signIn()', function() {
         it('should return missing data because of FormData', async () => {
-            const result = await user.signIn({
+            const result = await user.authenticate({
                 email: 'test@test.com',
                 password: 'test123',
-                merchantUid: '1jh1f-1fff1fjr1-fr',
+                clientId: '1jh1f-1fff1fjr1-fr',
                 referrer: 'localhost.com',
             });
 
             expect(result).to.deep.equal({
                 code: 400,
                 errors: {
-                    email: 'The email is not in a valid format.',
-                    merchant_uuid: 'The UUID must not be empty.',
-                    password: 'The password must not be empty.',
+                    grant_type: 'Grant type must not be empty.',
                 },
             });
         });
