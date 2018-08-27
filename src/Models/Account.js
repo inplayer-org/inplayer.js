@@ -43,79 +43,10 @@ class Account {
 
         const responseData = await response.json();
 
-        /* set cookies */
-        if (responseData.access_token && subdomain) {
-            const fd2 = new FormData();
-            fd2.append('token', responseData.access_token);
-
-            const cookieResponse = await fetch(
-                this.config.API.ssoCookie(subdomain),
-                {
-                    method: 'POST',
-                    body: fd2,
-                    credentials: 'include',
-                }
-            );
-
-            const cookieResponseData = await cookieResponse.json();
-
-            localStorage.setItem(
-                this.config.INPLAYER_TOKEN_NAME,
-                JSON.stringify(responseData)
-            );
-        } else if (responseData.access_token && !subdomain) {
-            localStorage.setItem(
-                this.config.INPLAYER_TOKEN_NAME,
-                JSON.stringify(responseData)
-            );
-        }
-
-        return responseData;
-    }
-
-    /**
-     * Signs in the user
-     * @method signIn
-     * @async
-     * @param {Object} data - Contains {
-     *  email: string,
-     *  password: string,
-     *  merchantUuid: string,
-     *  referrer: string,
-     * }
-     * @example
-     *     InPlayer.Account.signIn({
-     *      email: 'test@test.com',
-     *      password: 'test123',
-     *      merchantUuid: '123-123-hf1hd1-12dhd1',
-     *      referrer: 'http://localhost.com'
-     *     })
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
-    async signIn(data = {}) {
-        // Add into form data
-        const fd = new FormData();
-        fd.append('email', data.email);
-        fd.append('password', data.password);
-        fd.append('merchant_uuid', data.merchantUuid);
-        fd.append('referrer', data.referrer);
-
-        // request
-        const response = await fetch(this.config.API.signIn, {
-            method: 'POST',
-            body: fd,
-        });
-
-        const responseData = await response.json();
-
-        /* set cookies */
-        if (responseData.access_token) {
-            localStorage.setItem(
-                this.config.INPLAYER_TOKEN_NAME,
-                responseData.access_token
-            );
-        }
+        localStorage.setItem(
+            this.config.INPLAYER_TOKEN_NAME,
+            JSON.stringify(responseData)
+        );
 
         return responseData;
     }
@@ -268,10 +199,15 @@ class Account {
 
             document.body.prepend(iframe);
         } else {
-            const tokenExpires = JSON.parse(token).expires;
-            const nowDate = Math.round(new Date().getTime() / 1000);
+            const t = JSON.parse(token);
+            if (t) {
+                const nowDate = Math.round(new Date().getTime() / 1000);
 
-            return nowDate < tokenExpires && tokenExists;
+                return nowDate < t.expires && tokenExists;
+            } else {
+                console.warning('Could not parse token: ', token);
+                return false;
+            }
         }
 
         if (isSSOSignedIn) {
@@ -299,7 +235,7 @@ class Account {
      *  @method getToken
      *  @example
      *  InPlayer.Account.getToken()
-     *  @return {String}
+     *  @return {Object}
      */
     getToken() {
         const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
@@ -307,18 +243,25 @@ class Account {
         if (token === undefined || token === null)
             return { token: null, expired: false, expires_at: null };
 
-        const tokenExpires = JSON.parse(token).expires;
-        const nowDate = Math.round(new Date().getTime() / 1000);
+        const t = JSON.parse(token);
+        if (t) {
+            const tokenExpires = t.expires;
+            const nowDate = Math.round(new Date().getTime() / 1000);
 
-        if (nowDate > tokenExpires) {
-            return { token: null, expired: true, expires_at: tokenExpires };
+            if (nowDate > tokenExpires) {
+                return { token: null, expired: true, expires_at: tokenExpires };
+            }
+
+            return {
+                token: t.access_token,
+                expired: false,
+                expires_at: t.expires,
+            };
         }
 
-        return {
-            token: JSON.parse(token).access_token,
-            expired: false,
-            expires_at: JSON.parse(token).expires,
-        };
+        console.warning('Could not parse token: ', token);
+
+        return null;
     }
     /**
      * Returns users Auth token
@@ -327,7 +270,7 @@ class Account {
      * @example
      *     InPlayer.Account
      *     .token()
-     * @return {String}
+     * @return {Object}
      */
     token() {
         return localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
@@ -351,27 +294,33 @@ class Account {
             );
         }
 
-        const fd = new FormData();
-        fd.append('refresh_token', JSON.parse(token).refresh_token);
-        fd.append('client_id', clientId);
-        fd.append('grant_type', 'refresh_token');
-        // request
-        const response = await fetch(this.config.API.authenticate, {
-            method: 'POST',
-            body: fd,
-        });
+        const t = JSON.parse(token);
 
-        const responseData = await response.json();
+        if (t) {
+            const fd = new FormData();
+            fd.append('refresh_token', t.refresh_token);
+            fd.append('client_id', clientId);
+            fd.append('grant_type', 'refresh_token');
+            // request
+            const response = await fetch(this.config.API.authenticate, {
+                method: 'POST',
+                body: fd,
+            });
 
-        /* set cookies */
-        if (responseData.access_token) {
-            localStorage.setItem(
-                this.config.INPLAYER_TOKEN_NAME,
-                JSON.stringify(responseData)
-            );
+            const responseData = await response.json();
+
+            /* set cookies */
+            if (responseData.access_token) {
+                localStorage.setItem(
+                    this.config.INPLAYER_TOKEN_NAME,
+                    JSON.stringify(responseData)
+                );
+            }
+
+            return responseData;
         }
 
-        return responseData;
+        return null;
     }
 
     /**
@@ -603,6 +552,7 @@ class Account {
     /**
      * Gets the purchase history
      * @method getPurchaseHistory
+     * @deprecated Moved to Payment.js
      * @async
      * @param {String} token - The authorization token
      * @param {String} status - The status of the purchase - active/inactive
@@ -631,6 +581,7 @@ class Account {
     /**
      * Returns purchase history with types
      * @method getAssetsHistory
+     * @deprecated Moved to Assets.js
      * @async
      * @param {String} token - The authorization token
      * @param {Number} size - The page size

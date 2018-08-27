@@ -214,6 +214,34 @@ class Payment {
 
         return await response.json();
     }
+
+    /**
+     * Gets the purchase history
+     * @method getPurchaseHistory
+     * @async
+     * @param {String} token - The authorization token
+     * @param {String} status - The status of the purchase - active/inactive
+     * @param {Number} page - The current page
+     * @param {Number} limit - The number of items per page
+     * @example
+     *     InPlayer.Payment
+     *     .getPurchaseHistory('fg1h213f8g9fefgud23fg','active', 0, 5)
+     *     .then(data => console.log(data));
+     * @return {Object}
+     */
+    async getPurchaseHistory(token = '', status = 'active', page, limit) {
+        const response = await fetch(
+            this.config.API.getPurchaseHistory(status, page, limit),
+            {
+                method: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                },
+            }
+        );
+
+        return await response.json();
+    }
 }
 
 export default Payment;

@@ -142,6 +142,41 @@ class Asset {
     }
 
     /**
+     * Returns purchase history with types
+     * @method getAssetsHistory
+     * @async
+     * @param {String} token - The authorization token
+     * @param {Number} size - The page size
+     * @param {Number} page - The current page / starting index = 0
+     * @param {String} startDate - Staring date filter
+     * @param {String} endDate - Ending date filter
+     * @example
+     *     InPlayer.Asset
+     *     .getAssetsHistory('1dfh1f-1g1f2e-1gg')
+     *     .then(data => console.log(data))
+     * @return {Array}
+     */
+    async getAssetsHistory(
+        token = '',
+        size = 10,
+        page = 0,
+        startDate = null,
+        endDate = null
+    ) {
+        const response = await fetch(
+            this.config.API.assetsHistory(size, page, startDate, endDate),
+            {
+                method: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                },
+            }
+        );
+
+        return await response.json();
+    }
+
+    /**
      * Authorize for the freemium asset (login)
      * @method getFreemiumAsset
      * @async

@@ -31,9 +31,9 @@ InPlayer.setConfig('develop');
 ```
 
 ```
-// Sign in user
+// Authenticate
 
-InPlayer.Account.signIn({
+InPlayer.Account.authenticate({
     merchantUid: '528b1b80-ddd1hj-4abc-gha3j-111111',
     referrer: 'http://localhost:3000/',
     email: 'test@test.com',

@@ -32,6 +32,7 @@ class Misc {
     /**
      * Gets the discount for a given ..
      * @method getDiscount
+     * @deprecated moved to Voucher.js
      * @async
      * @param {String} token - The Authorization token
      * @param {Object} data - {

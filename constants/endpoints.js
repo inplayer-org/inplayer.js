@@ -34,8 +34,6 @@ export const API = config => {
 
             return url;
         },
-        ssoCookie: subdomain =>
-            `https://${subdomain}.accounts.staging-v2.inplayer.com/sso/cookie`, //NOTE: hardcoded URL,
         deleteAccount: `${config.BASE_URL}/accounts/erase`,
         exportData: `${config.BASE_URL}/accounts/export`,
         //Asset
