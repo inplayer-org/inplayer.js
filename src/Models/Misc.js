@@ -70,6 +70,7 @@ class Misc {
     /**
      * Gets branding params for given merchant
      * @method getBranding
+     * @deprecated Moved to Branding.js
      * @async
      * @param {String} clientId - The Client id
      * @param {String} brandingId - The branding id or 'default'
