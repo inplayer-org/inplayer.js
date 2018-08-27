@@ -6,6 +6,8 @@ import Asset from './Models/Asset';
 import Payment from './Models/Payment';
 import Subscription from './Models/Subscription';
 import Misc from './Models/Misc';
+import Branding from './Models/Branding';
+import Voucher from './Models/Voucher';
 import Socket from './Socket';
 import { API } from '../constants/endpoints';
 import { config } from '../config';
@@ -44,6 +46,16 @@ class InPlayer {
          * @type Misc
          */
         this.Misc = new Misc(this.config);
+        /**
+         * @property Misc
+         * @type Misc
+         */
+        this.Voucher = new Voucher(this.config);
+        /**
+         * @property Misc
+         * @type Misc
+         */
+        this.Branding = new Branding(this.config);
         this.Socket = new Socket(this.config);
     }
 

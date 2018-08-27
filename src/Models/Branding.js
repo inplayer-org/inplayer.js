@@ -31,3 +31,5 @@ class Branding {
         return await response.json();
     }
 }
+
+export default Branding;

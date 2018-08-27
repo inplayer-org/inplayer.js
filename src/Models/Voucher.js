@@ -45,3 +45,5 @@ class Voucher {
         return await response.json();
     }
 }
+
+export default Voucher;
