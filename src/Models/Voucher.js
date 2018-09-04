@@ -30,6 +30,7 @@ class Voucher {
      */
     async getDiscount(token = '', data = {}) {
         const fd = new FormData();
+
         fd.append('access_fee_id', data.accessFeeId);
         fd.append('voucher_code', data.voucherCode);
         fd.append('merchant_id', data.merchantUuid);

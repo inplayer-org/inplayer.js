@@ -116,6 +116,7 @@ class Subscription {
      */
     async assetSubscribe(token = '', data = {}) {
         const fd = new FormData();
+
         fd.append('number', data.number);
         fd.append('card_name', data.cardName);
         fd.append('exp_month', data.expMonth);

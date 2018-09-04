@@ -90,9 +90,8 @@ class InPlayer {
         if (this.Account.isSignedIn()) {
             this.Notifications.subscribe(accountUid, callbackParams);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     isSubscribed() {
@@ -132,7 +131,7 @@ class InPlayer {
                 break;
             }
             case 'sandbox': {
-                //TODO: to be changed in future
+                // TODO: to be changed in future
                 this.config.BASE_URL = 'https://staging-v2.inplayer.com';
                 this.config.AWS_IOT_URL =
                     'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys';

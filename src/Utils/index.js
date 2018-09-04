@@ -1,42 +1,16 @@
 export const checkStatus = response => {
     if (response.status >= 200 && response.status < 300) {
         return response;
-    } else {
-        let error = new Error(response.statusText);
-        error.response = response;
-        throw error;
     }
-};
+    let error = new Error(response.statusText);
 
-export const parseJSON = response => {
-    return response.json();
-};
-
-export const params = a => {
-    var prefix, s, add, name, r20, output;
-    s = [];
-    r20 = /%20/g;
-    add = function(key, value) {
-        // If value is a function, invoke it and return its value
-        value =
-            typeof value == 'function' ? value() : value == null ? '' : value;
-        s[s.length] = encodeURIComponent(key) + '=' + encodeURIComponent(value);
-    };
-    if (a instanceof Array) {
-        for (name in a) {
-            add(name, a[name]);
-        }
-    } else {
-        for (prefix in a) {
-            buildParams(prefix, a[prefix], add);
-        }
-    }
-    output = s.join('&').replace(r20, '+');
-    return output;
+    error.response = response;
+    throw error;
 };
 
 const buildParams = (prefix, obj, add) => {
     var name, i, l, rbracket;
+
     rbracket = /\[\]$/;
     if (obj instanceof Array) {
         for (i = 0, l = obj.length; i < l; i++) {
@@ -50,7 +24,7 @@ const buildParams = (prefix, obj, add) => {
                 );
             }
         }
-    } else if (typeof obj == 'object') {
+    } else if (typeof obj === 'object') {
         // Serialize object item.
         for (name in obj) {
             buildParams(prefix + '[' + name + ']', obj[name], add);
@@ -59,4 +33,32 @@ const buildParams = (prefix, obj, add) => {
         // Serialize scalar item.
         add(prefix, obj);
     }
+};
+
+export const parseJSON = response => {
+    return response.json();
+};
+
+export const params = a => {
+    var prefix, s, add, name, r20, output;
+
+    s = [];
+    r20 = /%20/g;
+    add = function(key, value) {
+        // If value is a function, invoke it and return its value
+        value =
+            typeof value === 'function' ? value() : value === null ? '' : value;
+        s[s.length] = encodeURIComponent(key) + '=' + encodeURIComponent(value);
+    };
+    if (a instanceof Array) {
+        for (name in a) {
+            add(name, a[name]);
+        }
+    } else {
+        for (prefix in a) {
+            buildParams(prefix, a[prefix], add);
+        }
+    }
+    output = s.join('&').replace(r20, '+');
+    return output;
 };

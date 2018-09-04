@@ -93,6 +93,7 @@ class Payment {
      */
     async payForAsset(token = '', data = {}) {
         const fd = new FormData();
+
         fd.append('number', data.number);
         fd.append('card_name', data.cardName);
         fd.append('exp_month', data.expMonth);
@@ -161,11 +162,13 @@ class Payment {
      */
     async purchaseAsset(token = '', accessFee = {}, data = {}) {
         let response;
+
         data.accessFee = accessFee.id;
 
         if (accessFee.access_type.name === 'subscription') {
             data.accessFee = accessFee.id;
             let subscription = new Subscription(this.config);
+
             response = await subscription.assetSubscribe(token, data);
         } else {
             response = await this.payForAsset(token, data);
@@ -197,6 +200,7 @@ class Payment {
      */
     async getPayPalParams(token = '', data = {}) {
         const fd = new FormData();
+
         fd.append('origin', data.origin);
         fd.append('access_fee', data.accessFeeId);
         fd.append('payment_method', data.paymentMethod);

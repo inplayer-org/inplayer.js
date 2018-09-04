@@ -32,13 +32,13 @@ class Account {
      */
     async authenticate(data = {}) {
         let body = {
-            client_id: data.clientId,
-            grant_type: 'password',
+            clientId: data.clientId,
+            grantType: 'password',
         };
 
         if (data.clientSecret) {
-            body.client_secret = data.clientSecret;
-            body.grant_type = 'client_credentials';
+            body.clientSecret = data.clientSecret;
+            body.grantType = 'client_credentials';
         } else {
             body.username = data.email;
             body.password = data.password;
@@ -57,8 +57,8 @@ class Account {
         const respData = await response.json();
 
         this.setToken(
-            respData.access_token,
-            respData.refresh_token,
+            respData.accessToken,
+            respData.refreshToken,
             respData.expires
         );
 
@@ -93,14 +93,14 @@ class Account {
      */
     async signUp(data = {}) {
         let body = {
-            full_name: data.fullName,
+            fullName: data.fullName,
             username: data.email,
             password: data.password,
-            password_confirmation: data.passwordConfirmation,
-            client_id: data.clientId,
+            passwordConfirmation: data.passwordConfirmation,
+            clientId: data.clientId,
             type: data.type,
             referrer: data.referrer,
-            grant_type: 'password',
+            grantType: 'password',
             metadata: data.metadata,
         };
 
@@ -117,8 +117,8 @@ class Account {
         const respData = await response.json();
 
         this.setToken(
-            respData.access_token,
-            respData.refresh_token,
+            respData.accessToken,
+            respData.refreshToken,
             respData.expires
         );
 
@@ -138,7 +138,7 @@ class Account {
         if (!this.isAuthenticated()) {
             throw new Error('The user is not authenticated');
         }
-        const t = this.getToken();
+        const token = this.getToken();
 
         const response = await fetch(this.config.API.signOut, {
             headers: {
@@ -204,14 +204,16 @@ class Account {
      */
     async refreshToken(clientId) {
         const t = this.getToken();
+
         if (!t.refreshToken) {
             throw new Error('The refresh token is not present');
         }
 
         const fd = new FormData();
-        fd.append('refresh_token', t.refreshToken);
-        fd.append('client_id', clientId);
-        fd.append('grant_type', 'refresh_token');
+
+        fd.append('refreshToken', t.refreshToken);
+        fd.append('clientId', clientId);
+        fd.append('grantType', 'refreshToken');
 
         const response = await fetch(this.config.API.authenticate, {
             method: 'POST',
@@ -222,8 +224,8 @@ class Account {
         const responseData = await response.json();
 
         this.setToken(
-            responseData.access_token,
-            responseData.refresh_token,
+            responseData.accessToken,
+            responseData.refreshToken,
             responseData.expires
         );
 
@@ -250,8 +252,9 @@ class Account {
     async requestNewPassword(data = {}) {
         // Add into from FormData
         const fd = new FormData();
+
         fd.append('email', data.email);
-        fd.append('merchant_uuid', data.merchantUuid);
+        fd.append('merchantUuid', data.merchantUuid);
 
         const response = await fetch(this.config.API.requestNewPassword, {
             method: 'POST',
@@ -282,7 +285,7 @@ class Account {
      * @return {Object}
      */
     async setNewPassword(data = {}, token = '') {
-        const body = `password=${data.password}&password_confirmation=${
+        const body = `password=${data.password}&passwordConfirmation=${
             data.passwordConfirmation
         }`;
 
@@ -372,14 +375,14 @@ class Account {
             let newKey = '';
 
             if (key === 'fullName') {
-                newKey = 'full_name';
+                newKey = 'fullName';
                 queryString +=
                     (queryString ? '&' : '') + `${newKey}=${data[key]}`;
             } else if (key === 'metadata') {
-                Object.keys(data[key]).forEach(metadata_key => {
+                Object.keys(data[key]).forEach(metaDataKey => {
                     queryString +=
                         (queryString ? '&' : '') +
-                        `metadata[${metadata_key}]=${data[key][metadata_key]}`;
+                        `metadata[${metaDataKey}]=${data[key][metaDataKey]}`;
                 });
             }
         });
@@ -421,9 +424,10 @@ class Account {
         const t = this.getToken();
 
         const fd = new FormData();
+
         fd.append('old_password', data.oldPassword);
         fd.append('password', data.password);
-        fd.append('password_confirmation', data.passwordConfirmation);
+        fd.append('passwordConfirmation', data.passwordConfirmation);
 
         const response = await fetch(this.config.API.changePassword, {
             method: 'POST',
@@ -524,7 +528,6 @@ class Account {
             body: fd,
         });
 
-        const result = await response;
         return { code: response.status };
     }
 }

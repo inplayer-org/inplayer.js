@@ -62,7 +62,6 @@ class Notifications {
         }
 
         /* Connect Stomp over ws */
-        let parent = this;
         let uuid = accountUid;
 
         const IAMToken = localStorage.getItem(this.config.INPLAYER_IOT_NAME);
@@ -88,7 +87,7 @@ class Notifications {
                             JSON.stringify(data2)
                         );
 
-                        //subscribe
+                        // subscribe
                         this.handleSubscribe(data2, callbackParams, uuid);
                     });
                 }
@@ -98,11 +97,12 @@ class Notifications {
                     JSON.stringify(data)
                 );
 
-                //subscribe
+                // subscribe
                 this.handleSubscribe(data, callbackParams, uuid);
             });
         } else {
             const data = JSON.parse(IAMToken);
+
             this.handleSubscribe(data, callbackParams, uuid);
         }
     }
@@ -127,8 +127,9 @@ class Notifications {
         });
 
         this.client.on('message', function(topic, message) {
-            const decoded_message = message.toString();
-            callbackParams.onMessage(decoded_message);
+            const decodedMessage = message.toString();
+
+            callbackParams.onMessage(decodedMessage);
         });
 
         this.client.on('close', function() {
