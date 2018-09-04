@@ -8,9 +8,8 @@ import Subscription from './Models/Subscription';
 import Misc from './Models/Misc';
 import Branding from './Models/Branding';
 import Voucher from './Models/Voucher';
-import Socket from './Socket';
-import { API } from '../constants/endpoints';
-import { config } from '../config';
+import Notifications from './Notifications';
+import { API } from './constants/endpoints';
 
 /**
  * Main class. Contains all others methods and websocket subscription
@@ -19,7 +18,14 @@ import { config } from '../config';
  */
 class InPlayer {
     constructor() {
-        this.config = config;
+        this.config = {
+            BASE_URL: 'https://services.inplayer.com',
+            AWS_IOT_URL:
+                'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys',
+            INPLAYER_TOKEN_NAME: 'inplayer_token',
+            INPLAYER_IOT_NAME: 'inplayer_iot',
+        };
+
         this.config.API = API(config);
         /**
          * @property Account
@@ -56,7 +62,7 @@ class InPlayer {
          * @type Misc
          */
         this.Branding = new Branding(this.config);
-        this.Socket = new Socket(this.config);
+        this.Notifications = new Notifications(this.config);
     }
 
     /**
@@ -82,7 +88,7 @@ class InPlayer {
      */
     subscribe(accountUid, callbackParams) {
         if (this.Account.isSignedIn()) {
-            this.Socket.subscribe(accountUid, callbackParams);
+            this.Notifications.subscribe(accountUid, callbackParams);
             return true;
         } else {
             return false;

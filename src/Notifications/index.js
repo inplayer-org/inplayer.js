@@ -1,7 +1,6 @@
 import awsIot from 'aws-iot-device-sdk';
-import { config } from '../../config';
 
-class Socket {
+class Notifications {
     constructor(config) {
         this.subscription = null;
         this.config = config;
@@ -66,7 +65,7 @@ class Socket {
         let parent = this;
         let uuid = accountUid;
 
-        const IAMToken = localStorage.getItem(config.INPLAYER_IOT_NAME);
+        const IAMToken = localStorage.getItem(this.config.INPLAYER_IOT_NAME);
         const ONE_HOUR = 60 * 60 * 1000;
 
         if (
@@ -85,7 +84,7 @@ class Socket {
 
                         data2.expiresAt = new Date();
                         localStorage.setItem(
-                            config.INPLAYER_IOT_NAME,
+                            this.config.INPLAYER_IOT_NAME,
                             JSON.stringify(data2)
                         );
 
@@ -95,7 +94,7 @@ class Socket {
                 }
                 data.expiresAt = new Date();
                 localStorage.setItem(
-                    config.INPLAYER_IOT_NAME,
+                    this.config.INPLAYER_IOT_NAME,
                     JSON.stringify(data)
                 );
 
@@ -156,4 +155,4 @@ class Socket {
     }
 }
 
-export default Socket;
+export default Notifications;

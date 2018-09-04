@@ -1,3 +1,5 @@
+import { checkStatus } from '../Utils';
+
 /**
  * Contains all Requests regarding user/account and authentication
  *
@@ -17,38 +19,39 @@ class Account {
      *  password: string,
      *  clientId: string,
      * }
-     * @param {String} subdomain - Used only if SSO is enabled - contains the subdomain
      * @example
      *     InPlayer.Account.authenticate({
      *      email: 'test@test.com',
      *      password: 'test123',
      *      clientId: '123-123-hf1hd1-12dhd1',
-     *     }, 'testing/subdomain')
+     *      grantType: 'password'
+     *     })
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async authenticate(data = {}, subdomain = '') {
-        // Add into form data
+    async authenticate(data = {}) {
         const fd = new FormData();
         fd.append('username', data.email);
         fd.append('password', data.password);
         fd.append('client_id', data.clientId);
-        fd.append('grant_type', 'password');
+        fd.append('grant_type', data.grantType);
 
-        // request
         const response = await fetch(this.config.API.authenticate, {
             method: 'POST',
             body: fd,
         });
 
-        const responseData = await response.json();
+        checkStatus(response);
 
-        localStorage.setItem(
-            this.config.INPLAYER_TOKEN_NAME,
-            JSON.stringify(responseData)
+        const respData = await response.json();
+
+        this.setToken(
+            respData.access_token,
+            respData.refresh_token,
+            respData.expires
         );
 
-        return responseData;
+        return respData;
     }
 
     /**
@@ -62,9 +65,11 @@ class Account {
      */
     async signOut() {
         let token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
-        if (token) {
-            token = JSON.parse(token).access_token;
+        if (!token) {
+            return;
         }
+
+        token = JSON.parse(token).access_token;
 
         const response = await fetch(this.config.API.signOut, {
             headers: {
@@ -72,14 +77,9 @@ class Account {
             },
         });
 
-        const data = await response.json();
-        // if response is okay
-        if (data.explain) {
-            localStorage.removeItem(this.config.INPLAYER_TOKEN_NAME);
-            localStorage.removeItem(this.config.INPLAYER_IOT_NAME);
-        }
+        checkStatus(response);
 
-        return true;
+        return await response.json();
     }
 
     /**
@@ -109,8 +109,6 @@ class Account {
      * @return {Object}
      */
     async signUp(data = {}) {
-        var result = 'shit';
-        // Add into form data
         const fd = new FormData();
         fd.append('full_name', data.fullName);
         fd.append('username', data.email);
@@ -135,26 +133,17 @@ class Account {
             body: fd,
         });
 
-        var parent = this;
-        result = response.json().then(async function(responseData) {
-            if (responseData.errors) {
-                let result = new Promise((resolve, reject) => {
-                    resolve(responseData);
-                });
-                return result;
-            }
+        checkStatus(response);
 
-            const loginResponse = parent.authenticate({
-                email: data.email,
-                password: data.password,
-                clientId: data.clientId,
-                referrer: data.referrer,
-            });
+        const respData = await response.json();
 
-            return loginResponse;
-        });
+        this.setToken(
+            respData.access_token,
+            respData.refresh_token,
+            respData.expires
+        );
 
-        return result;
+        return respData;
     }
 
     /**
@@ -167,68 +156,10 @@ class Account {
      *    InPlayer.Account.isAuthenticated()
      * @return {Boolean}
      */
-    async isAuthenticated(clientId = null, subdomain = null) {
-        const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
-        const tokenExists = token !== undefined && token !== null;
-        var isSSOSignedIn = false;
+    async isAuthenticated() {
+        const t = this.getToken();
 
-        if (!tokenExists && clientId !== null && subdomain !== null) {
-            //check SSO
-            const iframe = document.createElement('iframe');
-            const url = `${subdomain}/sso/login#${clientId}`;
-            iframe.setAttribute('src', url);
-            iframe.style.display = 'none';
-            var parent = this;
-            iframe.onload = function() {
-                var configToken = parent.config.INPLAYER_TOKEN_NAME;
-
-                window.addEventListener('message', function(event) {
-                    const jsonData = JSON.parse(event.data);
-
-                    localStorage.setItem(
-                        configToken,
-                        JSON.stringify({
-                            access_token: jsonData.access_token,
-                            expires: jsonData.expires,
-                        })
-                    );
-                    isSSOSignedIn = true;
-                });
-                iframe.contentWindow.postMessage('', subdomain);
-            };
-
-            document.body.prepend(iframe);
-        } else {
-            const t = JSON.parse(token);
-            if (t) {
-                const nowDate = Math.round(new Date().getTime() / 1000);
-
-                return nowDate < t.expires && tokenExists;
-            } else {
-                console.warning('Could not parse token: ', token);
-                return false;
-            }
-        }
-
-        if (isSSOSignedIn) {
-            return true;
-        }
-    }
-
-    /**
-     * Checks if user is signed in
-     * @method isSignedIn
-     * @example
-     *    InPlayer.Account
-     *    .isSignedIn()
-     * @return {Boolean}
-     */
-    isSignedIn() {
-        return (
-            localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !==
-                undefined &&
-            localStorage.getItem(this.config.INPLAYER_TOKEN_NAME) !== null
-        );
+        return !t.expired && t.token !== '';
     }
 
     /** Retruns the OAuth token
@@ -240,8 +171,14 @@ class Account {
     getToken() {
         const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
 
-        if (token === undefined || token === null)
-            return { token: null, expired: false, expires_at: null };
+        if (token === undefined || token === null) {
+            return {
+                token: '',
+                expired: true,
+                expires_at: 0,
+                refresh_token: '',
+            };
+        }
 
         const t = JSON.parse(token);
         if (t) {
@@ -249,31 +186,30 @@ class Account {
             const nowDate = Math.round(new Date().getTime() / 1000);
 
             if (nowDate > tokenExpires) {
-                return { token: null, expired: true, expires_at: tokenExpires };
+                return {
+                    token: '',
+                    expired: true,
+                    expires_at: tokenExpires,
+                    refresh_token: t.refresh_token,
+                };
             }
 
-            return {
-                token: t.access_token,
-                expired: false,
-                expires_at: t.expires,
-            };
+            return t;
         }
 
-        console.warning('Could not parse token: ', token);
-
-        return null;
+        return { token: '', expired: true, expires_at: 0, refresh_token: '' };
     }
-    /**
-     * Returns users Auth token
-     * @method token
-     * @async
-     * @example
-     *     InPlayer.Account
-     *     .token()
-     * @return {Object}
-     */
-    token() {
-        return localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+
+    setToken(token, refreshToken, expiresAt) {
+        localStorage.setItem(
+            this.config.INPLAYER_TOKEN_NAME,
+            JSON.stringify({
+                access_token: token,
+                refresh_token: refreshToken,
+                expires: expiresAt,
+                expired: false,
+            })
+        );
     }
 
     /**
@@ -286,54 +222,31 @@ class Account {
      * @return {Object}
      */
     async refreshToken(clientId) {
-        const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
-
-        if (token === undefined || token === null) {
-            throw new Error(
-                'The token must exist in order to refresh it. Please use InPlayer.Account.authenticate()'
-            );
+        const t = this.getToken();
+        if (!t.refresh_token) {
+            throw new Error('The refresh token is not present');
         }
 
-        const t = JSON.parse(token);
+        const fd = new FormData();
+        fd.append('refresh_token', t.refresh_token);
+        fd.append('client_id', clientId);
+        fd.append('grant_type', 'refresh_token');
 
-        if (t) {
-            const fd = new FormData();
-            fd.append('refresh_token', t.refresh_token);
-            fd.append('client_id', clientId);
-            fd.append('grant_type', 'refresh_token');
-            // request
-            const response = await fetch(this.config.API.authenticate, {
-                method: 'POST',
-                body: fd,
-            });
+        const response = await fetch(this.config.API.authenticate, {
+            method: 'POST',
+            body: fd,
+        });
 
-            const responseData = await response.json();
+        checkStatus(response);
+        const responseData = await response.json();
 
-            /* set cookies */
-            if (responseData.access_token) {
-                localStorage.setItem(
-                    this.config.INPLAYER_TOKEN_NAME,
-                    JSON.stringify(responseData)
-                );
-            }
+        this.setToken(
+            responseData.access_token,
+            responseData.refresh_token,
+            responseData.expires
+        );
 
-            return responseData;
-        }
-
-        return null;
-    }
-
-    /**
-     * Sets Auth token into cookies
-     * @method token
-     * @param {String} token - The Authorization token which needs to be set
-     * @example
-     *     InPlayer.Account
-     *     .setTokenInCookie('aed1g284i3dnfrfnd1o23rtegk')
-     * @return {void}
-     */
-    setTokenInCookie(token = '') {
-        localStorage.setItem(this.config.INPLAYER_TOKEN_NAME, token);
+        return responseData;
     }
 
     /**
@@ -363,6 +276,8 @@ class Account {
             method: 'POST',
             body: fd,
         });
+
+        checkStatus(response);
 
         return await response.json();
     }
@@ -397,40 +312,37 @@ class Account {
                 'Content-Type': 'x-www-form-urlencoded',
             },
         });
-        let result = {};
-        if (response.status >= 200 && response.status <= 300) {
-            result.code = response.status;
-            result.message = 'The password has been successfully changed.';
-        } else {
-            result = response.json().then(async function(responseData) {
-                let result = new Promise((resolve, reject) => {
-                    resolve(responseData);
-                });
-                return result;
-            });
-        }
 
-        return result;
+        checkStatus(response);
+
+        return await response.json();
     }
 
     /**
      * Gets the user/account information for a given auth token
      * @method getAccountInfo
      * @async
-     * @param {String} token - The authorization token
      * @example
      *     InPlayer.Account
-     *     .getAccountInfo('afhqi83rji74hjf7e43df')
+     *     .getAccountInfo()
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getAccountInfo(token = '') {
+    async getAccountInfo() {
+        if (!this.isAuthenticated()) {
+            throw new Error('The user is not authenticated');
+        }
+
+        const t = this.getToken();
+
         const response = await fetch(this.config.API.getAccountInfo, {
             method: 'GET',
             headers: {
-                Authorization: 'Bearer ' + token,
+                Authorization: 'Bearer ' + t.access_token,
             },
         });
+
+        checkStatus(response);
 
         return await response.json();
     }
@@ -439,7 +351,7 @@ class Account {
      * Gets the social login urls for fb/twitter/google
      * @method getSocialLoginUrls
      * @async
-     * @param {String} state - The state for the social
+     * @param {String} state - Social login state
      * @example
      *     InPlayer.Account
      *     .getSocialLoginUrls('123124-1r-1r13ur1h1')
@@ -451,6 +363,8 @@ class Account {
             method: 'GET',
         });
 
+        checkStatus(response);
+
         return await response.json();
     }
 
@@ -459,14 +373,18 @@ class Account {
      * @method updateAccount
      * @async
      * @param {Object} data - The new data for the account
-     * @param {String} token - The authorization token
      * @example
      *     InPlayer.Account
-     *     .updateAccount({fullName: 'test test', metadata: {country: 'Germany'}},'123124-1r-1r13ur1h1')
+     *     .updateAccount({fullName: 'test test', metadata: {country: 'Germany'}})
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async updateAccount(data = {}, token = '') {
+    async updateAccount(data = {}) {
+        if (!this.isAuthenticated()) {
+            throw new Error('The user is not authenticated');
+        }
+        const t = this.getToken();
+
         let queryString = '';
 
         Object.keys(data).forEach(function(key) {
@@ -489,10 +407,12 @@ class Account {
             method: 'PUT',
             body: queryString,
             headers: {
-                Authorization: 'Bearer ' + token,
+                Authorization: 'Bearer ' + t.access_token,
                 'Content-Type': 'x-www-form-urlencoded',
             },
         });
+
+        checkStatus(response);
 
         return await response.json();
     }
@@ -513,7 +433,12 @@ class Account {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async changePassword(data = {}, token = '') {
+    async changePassword(data = {}) {
+        if (!this.isAuthenticated()) {
+            throw new Error('The user is not authenticated');
+        }
+        const t = this.getToken();
+
         const fd = new FormData();
         fd.append('old_password', data.oldPassword);
         fd.append('password', data.password);
@@ -523,9 +448,11 @@ class Account {
             method: 'POST',
             body: fd,
             headers: {
-                Authorization: 'Bearer ' + token,
+                Authorization: 'Bearer ' + t.access_token,
             },
         });
+
+        checkStatus(response);
 
         return await response.json();
     }
@@ -546,70 +473,7 @@ class Account {
             this.config.API.getRegisterFields(merchantUuid)
         );
 
-        return await response.json();
-    }
-
-    /**
-     * Gets the purchase history
-     * @method getPurchaseHistory
-     * @deprecated Moved to Payment.js
-     * @async
-     * @param {String} token - The authorization token
-     * @param {String} status - The status of the purchase - active/inactive
-     * @param {Number} page - The current page
-     * @param {Number} limit - The number of items per page
-     * @example
-     *     InPlayer.Account
-     *     .getPurchaseHistory('fg1h213f8g9fefgud23fg','active', 0, 5)
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
-    async getPurchaseHistory(token = '', status = 'active', page, limit) {
-        const response = await fetch(
-            this.config.API.getPurchaseHistory(status, page, limit),
-            {
-                method: 'GET',
-                headers: {
-                    Authorization: 'Bearer ' + token,
-                },
-            }
-        );
-
-        return await response.json();
-    }
-
-    /**
-     * Returns purchase history with types
-     * @method getAssetsHistory
-     * @deprecated Moved to Assets.js
-     * @async
-     * @param {String} token - The authorization token
-     * @param {Number} size - The page size
-     * @param {Number} page - The current page / starting index = 0
-     * @param {String} startDate - Staring date filter
-     * @param {String} endDate - Ending date filter
-     * @example
-     *     InPlayer.Account
-     *     .getAssetsHistory('1dfh1f-1g1f2e-1gg')
-     *     .then(data => console.log(data))
-     * @return {Array}
-     */
-    async getAssetsHistory(
-        token = '',
-        size = 10,
-        page = 0,
-        startDate = null,
-        endDate = null
-    ) {
-        const response = await fetch(
-            this.config.API.assetsHistory(size, page, startDate, endDate),
-            {
-                method: 'GET',
-                headers: {
-                    Authorization: 'Bearer ' + token,
-                },
-            }
-        );
+        checkStatus(response);
 
         return await response.json();
     }
@@ -624,10 +488,15 @@ class Account {
      *     InPlayer.Account
      *     .deleteAccount('f1hg1f-1g1hg183-g1ggh-13311','1231231')
      *     .then(data => console.log(data))
-     * @return {Boolean}
+     * @return {Object}
      */
 
-    async deleteAccount(token = '', password = '') {
+    async deleteAccount(password = '') {
+        if (!this.isAuthenticated()) {
+            throw new Error('The user is not authenticated');
+        }
+        const t = this.getToken();
+
         const fd = new FormData();
 
         fd.append('password', password);
@@ -635,15 +504,16 @@ class Account {
         const response = await fetch(this.config.API.deleteAccount, {
             method: 'DELETE',
             headers: {
-                Authorization: 'Bearer ' + token,
+                Authorization: 'Bearer ' + t.access_token,
             },
             body: `password=${password}`,
         });
 
-        if (response.status > 200 && response.status < 400) {
-            localStorage.removeItem(this.config.INPLAYER_TOKEN_NAME);
-            localStorage.removeItem(this.config.INPLAYER_IOT_NAME);
-        }
+        checkStatus(response);
+
+        localStorage.removeItem(this.config.INPLAYER_TOKEN_NAME);
+        localStorage.removeItem(this.config.INPLAYER_IOT_NAME);
+
         return { code: response.status };
     }
 
