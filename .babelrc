@@ -1,19 +1,4 @@
 {
-  "presets": [
-    [
-      "env",
-      {
-        "modules": false
-      }
-    ],
-    "es2015"
-  ],
-  "plugins": [
-   "add-module-exports"
-  ],
-  "env": {
-    "test": {
-      "presets": ["env", "es2015"]
-    }
-  }
+	"presets": [ "env" ],
+	"plugins": [ "babel-plugin-add-module-exports" ]
 }
