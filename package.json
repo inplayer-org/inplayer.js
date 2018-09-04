@@ -62,6 +62,7 @@
     "prettier": "^1.14.2",
     "uglify-js": "^3.4.8",
     "webpack": "^4.17.1",
+    "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^2.1.5",
     "yuidoc-lucid-theme": "^0.1.2"
   },

@@ -1,4 +1,6 @@
 var path = require('path');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+    .BundleAnalyzerPlugin;
 
 module.exports = {
     entry: ['babel-polyfill', path.resolve(__dirname, 'src/index.js')],
@@ -31,4 +33,5 @@ module.exports = {
         dns: 'empty',
         fs: 'empty',
     },
+    plugins: [new BundleAnalyzerPlugin()],
 };
