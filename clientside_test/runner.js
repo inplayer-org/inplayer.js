@@ -151,24 +151,11 @@
             },
             isSignedIn: function(resolve, reject) {
                 console.log('### InPlayer.User.isSignedIn ###');
-                resolve(user.isSignedIn());
+                resolve(user.isAuthenticated());
             },
             getToken: function(resolve) {
                 console.log('### InPlayer.User.token ###');
-                resolve(user.token());
-            },
-            setTokenInCookie: function(resolve, reject) {
-                console.log('### InPlayer.User.setTokenInCookie ###');
-
-                if (user.token() === token) {
-                    resolve(token);
-                } else {
-                    reject({
-                        description: '# InPlayer.User.setTokenInCookie',
-                        errors:
-                            'For some reason token was not set in local storage. This happens in Chrome when using the file:// protocol',
-                    });
-                }
+                resolve(user.getToken());
             },
             requestNewPassword: function(resolve, reject) {
                 console.log('### InPlayer.User.requestNewPassword ###');

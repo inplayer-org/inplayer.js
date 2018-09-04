@@ -26,7 +26,7 @@ class InPlayer {
             INPLAYER_IOT_NAME: 'inplayer_iot',
         };
 
-        this.config.API = API(config);
+        this.config.API = API(this.config);
         /**
          * @property Account
          * @type Account

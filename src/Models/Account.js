@@ -1,4 +1,5 @@
-import { checkStatus } from '../Utils';
+import { checkStatus, params } from '../Utils';
+import Credentials from '../Credentials';
 
 /**
  * Contains all Requests regarding user/account and authentication
@@ -30,15 +31,25 @@ class Account {
      * @return {Object}
      */
     async authenticate(data = {}) {
-        const fd = new FormData();
-        fd.append('username', data.email);
-        fd.append('password', data.password);
-        fd.append('client_id', data.clientId);
-        fd.append('grant_type', data.grantType);
+        let body = {
+            client_id: data.clientId,
+            grant_type: 'password',
+        };
+
+        if (data.clientSecret) {
+            body.client_secret = data.clientSecret;
+            body.grant_type = 'client_credentials';
+        } else {
+            body.username = data.email;
+            body.password = data.password;
+        }
 
         const response = await fetch(this.config.API.authenticate, {
             method: 'POST',
-            body: fd,
+            body: params(body),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
         });
 
         checkStatus(response);
@@ -52,34 +63,6 @@ class Account {
         );
 
         return respData;
-    }
-
-    /**
-     * Signs out the user and destroys cookies
-     * @method signOut
-     * @async
-     * @example
-     *     InPlayer.Account.signOut()
-     *     .then(data => console.log(data));
-     * @return {Boolean}
-     */
-    async signOut() {
-        let token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
-        if (!token) {
-            return;
-        }
-
-        token = JSON.parse(token).access_token;
-
-        const response = await fetch(this.config.API.signOut, {
-            headers: {
-                Authorization: 'Bearer ' + token,
-            },
-        });
-
-        checkStatus(response);
-
-        return await response.json();
     }
 
     /**
@@ -109,28 +92,24 @@ class Account {
      * @return {Object}
      */
     async signUp(data = {}) {
-        const fd = new FormData();
-        fd.append('full_name', data.fullName);
-        fd.append('username', data.email);
-        fd.append('password', data.password);
-        fd.append('password_confirmation', data.passwordConfirmation);
-        fd.append('client_id', data.clientId);
-        fd.append('type', data.type);
-        fd.append('grant_type', 'password');
-        fd.append('referrer', data.referrer);
-
-        if (data.metadata) {
-            const keys = Object.keys(data.metadata);
-            if (keys.length) {
-                keys.forEach(key => {
-                    fd.append(`metadata[${key}]`, data.metadata[key]);
-                });
-            }
-        }
+        let body = {
+            full_name: data.fullName,
+            username: data.email,
+            password: data.password,
+            password_confirmation: data.passwordConfirmation,
+            client_id: data.clientId,
+            type: data.type,
+            referrer: data.referrer,
+            grant_type: 'password',
+            metadata: data.metadata,
+        };
 
         const response = await fetch(this.config.API.signUp, {
             method: 'POST',
-            body: fd,
+            body: params(body),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
         });
 
         checkStatus(response);
@@ -147,68 +126,70 @@ class Account {
     }
 
     /**
-     * Checks if the user is authenticated OAuth2
-     * @method isAuthenticated
+     * Signs out the user and destroys cookies
+     * @method signOut
      * @async
-     * @param {String} clientId - Use only if SSO is enabled - contains the clientId
-     * @param {String} subdomain - Use only if SSO is enabled - contains the subdomain
+     * @example
+     *     InPlayer.Account.signOut()
+     *     .then(data => console.log(data));
+     * @return {Object}
+     */
+    async signOut() {
+        if (!this.isAuthenticated()) {
+            throw new Error('The user is not authenticated');
+        }
+        const t = this.getToken();
+
+        const response = await fetch(this.config.API.signOut, {
+            headers: {
+                Authorization: 'Bearer ' + token,
+            },
+        });
+
+        checkStatus(response);
+
+        return await response.json();
+    }
+
+    /**
+     * Checks if the user is authenticated
+     * @method isAuthenticated
      * @example
      *    InPlayer.Account.isAuthenticated()
      * @return {Boolean}
      */
-    async isAuthenticated() {
+    isAuthenticated() {
         const t = this.getToken();
 
-        return !t.expired && t.token !== '';
+        return !t.isExpired() && t.token !== '';
     }
 
     /** Retruns the OAuth token
      *  @method getToken
      *  @example
      *  InPlayer.Account.getToken()
-     *  @return {Object}
+     *  @return {Credentials}
      */
     getToken() {
         const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
 
         if (token === undefined || token === null) {
-            return {
-                token: '',
-                expired: true,
-                expires_at: 0,
-                refresh_token: '',
-            };
+            return new Credentials();
         }
 
-        const t = JSON.parse(token);
-        if (t) {
-            const tokenExpires = t.expires;
-            const nowDate = Math.round(new Date().getTime() / 1000);
-
-            if (nowDate > tokenExpires) {
-                return {
-                    token: '',
-                    expired: true,
-                    expires_at: tokenExpires,
-                    refresh_token: t.refresh_token,
-                };
-            }
-
-            return t;
-        }
-
-        return { token: '', expired: true, expires_at: 0, refresh_token: '' };
+        return new Credentials(JSON.parse(token));
     }
 
     setToken(token, refreshToken, expiresAt) {
+        const credentials = new Credentials({
+            token: token,
+            refreshToken: refreshToken,
+            expires: expiresAt,
+        });
+
         localStorage.setItem(
             this.config.INPLAYER_TOKEN_NAME,
-            JSON.stringify({
-                access_token: token,
-                refresh_token: refreshToken,
-                expires: expiresAt,
-                expired: false,
-            })
+            JSON.stringify(credentials)
         );
     }
 
@@ -223,12 +204,12 @@ class Account {
      */
     async refreshToken(clientId) {
         const t = this.getToken();
-        if (!t.refresh_token) {
+        if (!t.refreshToken) {
             throw new Error('The refresh token is not present');
         }
 
         const fd = new FormData();
-        fd.append('refresh_token', t.refresh_token);
+        fd.append('refresh_token', t.refreshToken);
         fd.append('client_id', clientId);
         fd.append('grant_type', 'refresh_token');
 
@@ -309,7 +290,7 @@ class Account {
             method: 'PUT',
             body: body,
             headers: {
-                'Content-Type': 'x-www-form-urlencoded',
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
         });
 
@@ -338,7 +319,7 @@ class Account {
         const response = await fetch(this.config.API.getAccountInfo, {
             method: 'GET',
             headers: {
-                Authorization: 'Bearer ' + t.access_token,
+                Authorization: 'Bearer ' + t.token,
             },
         });
 
@@ -407,8 +388,8 @@ class Account {
             method: 'PUT',
             body: queryString,
             headers: {
-                Authorization: 'Bearer ' + t.access_token,
-                'Content-Type': 'x-www-form-urlencoded',
+                Authorization: 'Bearer ' + t.token,
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
         });
 
@@ -448,7 +429,7 @@ class Account {
             method: 'POST',
             body: fd,
             headers: {
-                Authorization: 'Bearer ' + t.access_token,
+                Authorization: 'Bearer ' + t.token,
             },
         });
 
@@ -504,7 +485,7 @@ class Account {
         const response = await fetch(this.config.API.deleteAccount, {
             method: 'DELETE',
             headers: {
-                Authorization: 'Bearer ' + t.access_token,
+                Authorization: 'Bearer ' + t.token,
             },
             body: `password=${password}`,
         });

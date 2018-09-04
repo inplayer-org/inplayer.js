@@ -11,27 +11,39 @@ describe('Account', function() {
 
     describe('#signIn()', function() {
         it('should return missing data because of FormData', async () => {
-            const result = await user.authenticate({
-                email: 'test@test.com',
-                password: 'test123',
-                clientId: '1jh1f-1fff1fjr1-fr',
-                referrer: 'localhost.com',
-            });
+            try {
+                const result = await user.authenticate({
+                    email: 'test@test.com',
+                    password: 'test123',
+                    clientId: '1jh1f-1fff1fjr1-fr',
+                    referrer: 'localhost.com',
+                });
+            } catch (error) {
+                const res = error.response.json();
 
-            expect(result).to.deep.equal({
-                code: 400,
-                errors: {
-                    grant_type: 'Grant type must not be empty.',
-                },
-            });
+                res.then(data => {
+                    expect(data).to.deep.equal({
+                        code: 400,
+                        errors: {
+                            grant_type: 'Grant type must not be empty.',
+                        },
+                    });
+                }).catch(error => {
+                    console.log(error);
+                });
+            }
         });
     });
 
     describe('#signOut()', function() {
         it('should sign out', async () => {
-            const result = await user.signOut();
-
-            expect(result).to.deep.equal(true);
+            try {
+                const result = await user.signOut();
+            } catch (error) {
+                expect(error).to.equal(
+                    new Error('The user is not authenticated')
+                );
+            }
         });
     });
 
@@ -44,7 +56,7 @@ describe('Account', function() {
                 passwordConfirmation: '12345678j',
                 merchantUid: 'd1-d1-d1-ddfh',
                 type: 'merchant',
-                metadata: {},
+                metadata: { foo: 'bar' },
                 referrer: 'http://localhost',
             });
 
