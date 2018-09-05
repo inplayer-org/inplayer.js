@@ -38,6 +38,7 @@ class Notifications {
 
         if (callbackParams && callbackParams.onMessage) {
             if (typeof callbackParams.onMessage !== 'function') {
+                console.warn('[InPlayer Notifications] onMessage not defined');
                 return false;
             }
         } else {
@@ -46,13 +47,16 @@ class Notifications {
 
         if (callbackParams && callbackParams.onOpen) {
             if (typeof callbackParams.onOpen !== 'function') {
+                console.warn('[InPlayer Notifications] onOpen not defined');
                 return false;
             }
         }
 
         const json = localStorage.getItem(this.config.INPLAYER_IOT_NAME);
         if (!json) {
-            console.warn('Unable to fetch iot credentials');
+            console.warn(
+                '[InPlayer Notifications] Unable to fetch iot credentials'
+            );
             return false;
         }
 

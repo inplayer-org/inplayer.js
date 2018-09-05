@@ -2,57 +2,59 @@ import { expect } from 'chai';
 import InPlayer from '../src';
 
 describe('Payment', function() {
-    let payment;
+    InPlayer.setConfig('develop');
 
-    beforeEach(() => {
-        payment = InPlayer.Payment;
+    let secret = process.env.CLIENT_SECRET;
+    let payment = InPlayer.Payment;
+
+    before(() => {
+        async () =>
+            await user.authenticate({
+                clientId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
+                clientSecret: secret,
+                referrer: 'localhost.com',
+            })();
     });
 
     describe('#getPaymentMethods()', function() {
         it('should return unaothorized request with wrong auth', async () => {
-            const result = await payment.getPaymentMethods('12312dashgsfa');
+            const result = await payment.getPaymentMethods();
 
-            expect(result).to.deep.equal({
-                errors: {
-                    '401': 'Invalid auth token',
-                },
-            });
+            expect(result).to.be.a('array');
         });
     });
 
     describe('#getPaymentTools()', function() {
         it('should return unaothorized request with wrong auth', async () => {
-            const result = await payment.getPaymentTools('12312dashgsfa', 123);
+            const result = await payment.getPaymentTools(123);
 
-            expect(result).to.deep.equal({
-                errors: {
-                    '401': 'Invalid auth token',
-                },
-            });
+            expect(result).to.be.a('array');
         });
     });
 
     describe('#payForAsset()', function() {
         it('should return unaothorized request with wrong auth', async () => {
-            const result = await payment.payForAsset('12312dashgsfa', {});
+            try {
+                await payment.create({});
+            } catch (error) {
+                const result = await error.response.json();
 
-            expect(result).to.deep.equal({
-                errors: {
-                    '401': 'Invalid auth token',
-                },
-            });
+                expect(result).to.have.property('code');
+                expect(result).to.have.property('errors');
+            }
         });
     });
 
     describe('#getPayPalParams()', function() {
         it('should return unaothorized request with wrong auth', async () => {
-            const result = await payment.getPayPalParams('12312dashgsfa', {});
+            try {
+                await payment.getPayPalParams({});
+            } catch (error) {
+                const result = await error.response.json();
 
-            expect(result).to.deep.equal({
-                errors: {
-                    '401': 'Invalid auth token',
-                },
-            });
+                expect(result).to.have.property('code');
+                expect(result).to.have.property('errors');
+            }
         });
     });
 });

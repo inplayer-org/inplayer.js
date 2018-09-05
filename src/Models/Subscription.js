@@ -1,35 +1,46 @@
+import { checkStatus, errorResponse, params } from '../Utils';
+
 /**
  * Contains all Requests connected with subscriptions
  *
  * @class Subscription
  */
 class Subscription {
-    constructor(config) {
+    constructor(config, Account) {
         this.config = config;
+        this.Account = Account;
     }
     /**
      * Gets all subscriptions for a given user
      * @method getSubscriptions
      * @async
-     * @param {String} token - The Authorization token
      * @example
      *     InPlayer.Subscription
-     *     .getSubscriptions('eyJ0eXAiOiJKPECENR5Y')
+     *     .getSubscriptions()
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getSubscriptions(token, limit = 15, page = 0) {
+    async getSubscriptions(page = 0, limit = 15) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated',
+            });
+        }
+        const t = this.Account.getToken();
+
         const response = await fetch(
             this.config.API.getSubscriptions(limit, page),
             {
-                method: 'GET',
                 headers: {
-                    Authorization: 'Bearer ' + token,
+                    Authorization: 'Bearer ' + t.token,
                 },
             }
         );
 
-        return response.json();
+        checkStatus(response);
+
+        return await response.json();
     }
 
     /**
@@ -39,45 +50,64 @@ class Subscription {
      * @async
      *
      * @param {String} id - The subscription id
-     * @param {String} token - The Authorization token
      * @example
      *     InPlayer.Subscription
-     *     .getSubscription('abcdef', 'eyJ0eXAiOiJKPECENR5Y')
+     *     .getSubscription('abcdef')
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getSubscription(id, token) {
+    async getSubscription(id) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated',
+            });
+        }
+        const t = this.Account.getToken();
+
         const response = await fetch(this.config.API.getSubscription(id), {
-            method: 'GET',
             headers: {
-                Authorization: 'Bearer ' + token,
+                Authorization: 'Bearer ' + t.token,
             },
         });
 
-        return response.json();
+        checkStatus(response);
+
+        return await response.json();
     }
 
     /**
      * Cancels a subscription
      * @method cancelSubscription
      * @async
-     * @param {String} unsubscribeUrl - The url for the subscription which is getting unsubscribed
-     * @param {String} token - The Authorization token
+     * @param {String} transactionToken - The transaction token
      * @example
      *     InPlayer.Subscription
-     *     .cancelSubscription('http://localhost/subscription/1','eyJ0eXAiOiJKPECENR5Y')
+     *     .cancelSubscription('abcdef')
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async cancelSubscription(unsubscribeUrl, token) {
-        const response = await fetch(unsubscribeUrl, {
-            method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + token,
-            },
-        });
+    async cancelSubscription(transactionToken) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated',
+            });
+        }
+        const t = this.Account.getToken();
 
-        return response.json();
+        const response = await fetch(
+            this.config.API.cancelTokenSubscribe(transactionToken),
+            {
+                headers: {
+                    Authorization: 'Bearer ' + t.token,
+                },
+            }
+        );
+
+        checkStatus(response);
+
+        return await response.json();
     }
 
     /**
@@ -99,7 +129,7 @@ class Subscription {
      * }
      * @example
      *     InPlayer.Subscription
-     *     .assetSubscribe('eyJ0eXAiOiJKPECENR5Y', {
+     *     .create({
      *        number: 1,
      *        cardName: 'Payoneer',
      *        expMonth: 11,
@@ -114,58 +144,41 @@ class Subscription {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async assetSubscribe(token = '', data = {}) {
-        const fd = new FormData();
+    async create(data = {}) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated',
+            });
+        }
 
-        fd.append('number', data.number);
-        fd.append('card_name', data.cardName);
-        fd.append('exp_month', data.expMonth);
-        fd.append('exp_year', data.expYear);
-        fd.append('cvv', data.cvv);
-        fd.append('access_fee', data.accessFee);
-        fd.append('payment_method', data.paymentMethod);
-        fd.append('referrer', data.referrer);
+        const t = this.Account.getToken();
+
+        let body = {
+            number: data.number,
+            card_name: data.cardName,
+            exp_month: data.expMonth,
+            exp_year: data.expYear,
+            cvv: data.cvv,
+            access_fee: data.accessFee,
+            payment_method: data.paymentMethod,
+            referrer: data.referrer,
+        };
 
         if (data.voucherCode) {
-            fd.append('voucher_code', data.voucherCode);
+            body.voucher_code = data.voucherCode;
         }
 
         const response = await fetch(this.config.API.subscribe, {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + token,
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: fd,
+            body: params(body),
         });
 
-        return await response.json();
-    }
-
-    /**
-     * Cancels a subscription with a provided transaction and authorization token
-     * Will receive
-     *  -external.subscribe.cancel.success notification for Paypal transaction
-     *  -subscribe.cancel.success notification for other types of transactions
-     * @method cancelTokenSubscription
-     * @async
-     * @param {String} authorizationToken - The Authorization token
-     * @param {String} transactionToken - The transaction token
-     * @example
-     *     InPlayer.Subscription
-     *     .cancelTokenSubscription('eyJ0eXAiOiJKPECENR5Y', 'dgh19t1-f1g1ug1f')
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
-    async cancelTokenSubscription(authorizationToken, transactionToken) {
-        const response = await fetch(
-            this.config.API.cancelTokenSubscribe(transactionToken),
-            {
-                method: 'GET',
-                headers: {
-                    Authorization: 'Bearer ' + authorizationToken,
-                },
-            }
-        );
+        checkStatus(response);
 
         return await response.json();
     }

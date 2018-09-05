@@ -5,9 +5,9 @@ import Account from './Models/Account';
 import Asset from './Models/Asset';
 import Payment from './Models/Payment';
 import Subscription from './Models/Subscription';
-import Misc from './Models/Misc';
 import Branding from './Models/Branding';
 import Voucher from './Models/Voucher';
+import DLC from './Models/Dlc';
 import Notifications from './Notifications';
 import { API } from './constants/endpoints';
 
@@ -48,18 +48,18 @@ class InPlayer {
          */
         this.Subscription = new Subscription(this.config, this.Account);
         /**
-         * @property Misc
-         * @type Misc
-         */
-        this.Misc = new Misc(this.config);
-        /**
-         * @property Misc
-         * @type Misc
+         * @property Voucher
+         * @type Voucher
          */
         this.Voucher = new Voucher(this.config, this.Account);
         /**
-         * @property Misc
-         * @type Misc
+         * @property Voucher
+         * @type Voucher
+         */
+        this.DLC = new DLC(this.config, this.Account);
+        /**
+         * @property Branding
+         * @type Branding
          */
         this.Branding = new Branding(this.config);
         this.Notifications = new Notifications(this.config);
@@ -87,15 +87,25 @@ class InPlayer {
      * @return {Boolean}
      */
     subscribe(accountUid, callbackParams) {
-        if (this.Account.isSignedIn()) {
-            this.Notifications.subscribe(accountUid, callbackParams);
-            return true;
+        if (this.Account.isAuthenticated()) {
+            this.Notifications.subscribe(accountUid, callbackParams)
+                .then(data => {
+                    if (data) {
+                        console.log('Subscription successful');
+                    }
+                })
+                .catch(error => {
+                    if (error.response) {
+                        error.response.json().then(data => {
+                            console.warn(data);
+                        });
+                    }
+                });
         }
-        return false;
     }
 
     isSubscribed() {
-        return this.Socket.isSubscribed();
+        return this.Notifications.isSubscribed();
     }
 
     /**
@@ -106,13 +116,13 @@ class InPlayer {
      * @return {Boolean}
      */
     unsubscribe() {
-        this.Socket.unsubscribe();
+        this.Notifications.unsubscribe();
     }
 
     /**
      * Overrides the default configs
      * @method setConfig
-     * @param {String} config 'prod', 'develop' or 'sandobx'
+     * @param {String} config 'prod', 'develop' or 'sandbox'
      * @example
      *     InPlayer.setConfig('develop');
      */
