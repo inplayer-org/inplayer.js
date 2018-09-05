@@ -1,4 +1,4 @@
-import { checkStatus, errorResponse, params } from '../Utils';
+import { checkStatus, errorResponse } from '../Utils';
 
 /**
  * Contains mixed various types of functiosn for dlcs, discounts, branding, etc.

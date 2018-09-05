@@ -53,6 +53,7 @@ class Notifications {
         }
 
         const json = localStorage.getItem(this.config.INPLAYER_IOT_NAME);
+
         if (!json) {
             console.warn(
                 '[InPlayer Notifications] Unable to fetch iot credentials'
@@ -97,7 +98,7 @@ class Notifications {
         this.client = awsIot.device(credentials);
 
         this.client.on('connect', data => {
-            this.client.subscribe(accountUuid);
+            this.client.subscribe(uuid);
             callbackParams.onOpen();
         });
 

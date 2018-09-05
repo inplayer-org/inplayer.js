@@ -351,7 +351,8 @@ class Account {
      * Gets the social login urls for fb/twitter/google
      * @method getSocialLoginUrls
      * @async
-     * @param {String} state - Social login state. The state needs to be json and base64 encoded to be sent as a query parameter.
+     * @param {String} state - Social login state.
+     * The state needs to be json and base64 encoded to be sent as a query parameter.
      * Example: btoa(JSON.stringify({uuid: 'foo', redirect: 'http://example.com'}))
      * @example
      *     InPlayer.Account

@@ -15,10 +15,12 @@ export const errorResponse = (statusCode = 400, body = {}) => {
     }
 
     let response = new Response(JSON.stringify(body));
+
     response.status = statusCode;
     response.ok = false;
 
     let err = new Error(statusCode);
+
     err.response = response;
 
     throw err;

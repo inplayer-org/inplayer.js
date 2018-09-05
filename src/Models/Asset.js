@@ -197,7 +197,7 @@ class Asset {
             this.config.API.assetsHistory(size, page, startDate, endDate),
             {
                 headers: {
-                    Authorization: 'Bearer ' + token,
+                    Authorization: 'Bearer ' + t.token,
                 },
             }
         );

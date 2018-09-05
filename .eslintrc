@@ -27,12 +27,6 @@
 				"allowSingleLine": true
 			}
 		],
-		"camelcase": [
-			2,
-			{
-				"properties": "always"
-			}
-		],
 		"comma-spacing": [
 			2,
 			{

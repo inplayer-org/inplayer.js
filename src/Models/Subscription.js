@@ -172,7 +172,7 @@ class Subscription {
         const response = await fetch(this.config.API.subscribe, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + token,
+                Authorization: 'Bearer ' + t.token,
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: params(body),
