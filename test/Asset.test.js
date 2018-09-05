@@ -2,68 +2,81 @@ import { expect } from 'chai';
 import InPlayer from '../src';
 
 describe('Asset', function() {
-    let asset;
+    InPlayer.setConfig('develop');
 
-    beforeEach(() => {
-        asset = InPlayer.Asset;
+    let secret = process.env.CLIENT_SECRET;
+    let asset = InPlayer.Asset;
+
+    before(() => {
+        async () =>
+            await user.authenticate({
+                clientId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
+                clientSecret: secret,
+                referrer: 'localhost.com',
+            })();
     });
 
     describe('#checkAccessForAsset()', function() {
-        it('should return data with error object - invalid auth', async () => {
-            const result = await asset.checkAccessForAsset(
-                'eyJ0eXAiOiJOGIxYjgNR5Y',
-                36320
-            );
-            //error
-            expect(result).to.deep.equal({
-                errors: {
-                    '401': 'Invalid auth token',
-                },
-            });
+        it('should return data with error object - asset not found', async () => {
+            try {
+                const result = await asset.checkAccessForAsset(123);
+            } catch (error) {
+                const result = await error.response.json();
+                expect(result).to.have.property('code');
+                expect(result).to.have.property('message');
+                expect(result).to.have.property('errors');
+            }
         });
     });
 
-    describe('#findAsset()', function() {
+    describe('#getAsset()', function() {
         it('should return data with asset object', async () => {
-            const result = await asset.findAsset(
-                1,
-                'c62e75f2-e090-4b0b-a3b2-ca70d52f19ac'
+            const result = await asset.getAsset(
+                36356,
+                'b0899d7f-66da-40fc-8eeb-36cad735589c'
             );
             //check only 1 property (there are a lot)
             expect(result).to.include({
-                merchant_uuid: 'c62e75f2-e090-4b0b-a3b2-ca70d52f19ac',
+                merchant_uuid: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
             });
         });
     });
 
     describe('#findExternalAsset()', function() {
         it('should return data with external asset object (not found)', async () => {
-            const result = await asset.findExternalAsset(
-                'brightcove',
-                'shddasdas-2623-sdgd-23623',
-                'b43613af-dacc-44c3-b640-c89a1115aeba'
-            );
+            try {
+                await asset.getExternalAsset(
+                    'brightcove',
+                    'shddasdas-2623-sdgd-23623',
+                    'b43613af-dacc-44c3-b640-c89a1115aeba'
+                );
+            } catch (error) {
+                const result = await error.response.json();
 
-            //check only 1 property (there are a lot)
-            expect(result.message).equal('Asset not found');
+                expect(result).to.have.property('code');
+                expect(result).to.have.property('message');
+            }
         });
     });
 
-    describe('#findPackage()', function() {
+    describe('#getPackage()', function() {
         it('should return data with package object', async () => {
-            const result = await asset.findPackage(13);
+            try {
+                await asset.getPackage(13);
+            } catch (error) {
+                const result = await error.response.json();
 
-            //check only 1 property (there are a lot)
-            expect(result.merchant_id).equal(2);
+                expect(result).to.have.property('code');
+                expect(result).to.have.property('message');
+            }
         });
     });
 
     describe('#getAssetAccessFees()', function() {
         it('should return array with access fees', async () => {
-            const result = await asset.getAssetAccessFees(36320);
+            const result = await asset.getAssetAccessFees(36356);
 
-            //check only 1 property (there are a lot)
-            expect(typeof result).equal('object');
+            expect(result).to.be.a('array');
         });
     });
 });

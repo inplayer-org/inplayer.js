@@ -36,17 +36,17 @@ class InPlayer {
          * @property Asset
          * @type Asset
          */
-        this.Asset = new Asset(this.config);
+        this.Asset = new Asset(this.config, this.Account);
         /**
          * @property Payment
          * @type Payment
          */
-        this.Payment = new Payment(this.config);
+        this.Payment = new Payment(this.config, this.Account);
         /**
          * @property Subscription
          * @type Subscription
          */
-        this.Subscription = new Subscription(this.config);
+        this.Subscription = new Subscription(this.config, this.Account);
         /**
          * @property Misc
          * @type Misc
@@ -56,7 +56,7 @@ class InPlayer {
          * @property Misc
          * @type Misc
          */
-        this.Voucher = new Voucher(this.config);
+        this.Voucher = new Voucher(this.config, this.Account);
         /**
          * @property Misc
          * @type Misc

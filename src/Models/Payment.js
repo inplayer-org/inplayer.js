@@ -6,8 +6,9 @@ import Subscription from './Subscription';
  * @class Payment
  */
 class Payment {
-    constructor(config) {
+    constructor(config, Account) {
         this.config = config;
+        this.Account = Account;
     }
     /**
      * Get all payment methods for a User

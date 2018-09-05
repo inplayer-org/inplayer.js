@@ -1,4 +1,4 @@
-import { checkStatus, params } from '../Utils';
+import { checkStatus, params, errorResponse } from '../Utils';
 import Credentials from '../Credentials';
 
 /**
@@ -32,13 +32,13 @@ class Account {
      */
     async authenticate(data = {}) {
         let body = {
-            clientId: data.clientId,
-            grantType: 'password',
+            client_id: data.clientId,
+            grant_type: 'password',
         };
 
         if (data.clientSecret) {
-            body.clientSecret = data.clientSecret;
-            body.grantType = 'client_credentials';
+            body.client_secret = data.clientSecret;
+            body.grant_type = 'client_credentials';
         } else {
             body.username = data.email;
             body.password = data.password;
@@ -57,8 +57,8 @@ class Account {
         const respData = await response.json();
 
         this.setToken(
-            respData.accessToken,
-            respData.refreshToken,
+            respData.access_token,
+            respData.refresh_token,
             respData.expires
         );
 
@@ -93,14 +93,14 @@ class Account {
      */
     async signUp(data = {}) {
         let body = {
-            fullName: data.fullName,
+            full_name: data.fullName,
             username: data.email,
             password: data.password,
-            passwordConfirmation: data.passwordConfirmation,
-            clientId: data.clientId,
+            password_confirmation: data.passwordConfirmation,
+            client_id: data.clientId,
             type: data.type,
             referrer: data.referrer,
-            grantType: 'password',
+            grant_type: 'password',
             metadata: data.metadata,
         };
 
@@ -117,8 +117,8 @@ class Account {
         const respData = await response.json();
 
         this.setToken(
-            respData.accessToken,
-            respData.refreshToken,
+            respData.access_token,
+            respData.refresh_token,
             respData.expires
         );
 
@@ -136,17 +136,22 @@ class Account {
      */
     async signOut() {
         if (!this.isAuthenticated()) {
-            throw new Error('The user is not authenticated');
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated',
+            });
         }
-        const token = this.getToken();
+        const t = this.getToken();
 
         const response = await fetch(this.config.API.signOut, {
             headers: {
-                Authorization: 'Bearer ' + token,
+                Authorization: 'Bearer ' + t.token,
             },
         });
 
         checkStatus(response);
+
+        this.setToken('', '', 0);
 
         return await response.json();
     }
@@ -206,26 +211,32 @@ class Account {
         const t = this.getToken();
 
         if (!t.refreshToken) {
-            throw new Error('The refresh token is not present');
+            errorResponse(401, {
+                code: 400,
+                message: 'The refresh token is not present',
+            });
         }
 
-        const fd = new FormData();
-
-        fd.append('refreshToken', t.refreshToken);
-        fd.append('clientId', clientId);
-        fd.append('grantType', 'refreshToken');
+        let body = {
+            refresh_token: t.refreshToken,
+            client_id: clientId,
+            grant_type: 'refresh_token',
+        };
 
         const response = await fetch(this.config.API.authenticate, {
             method: 'POST',
-            body: fd,
+            body: params(body),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
         });
 
         checkStatus(response);
         const responseData = await response.json();
 
         this.setToken(
-            responseData.accessToken,
-            responseData.refreshToken,
+            responseData.access_token,
+            responseData.refresh_token,
             responseData.expires
         );
 
@@ -250,15 +261,17 @@ class Account {
      * @return {Object}
      */
     async requestNewPassword(data = {}) {
-        // Add into from FormData
-        const fd = new FormData();
-
-        fd.append('email', data.email);
-        fd.append('merchantUuid', data.merchantUuid);
+        let body = {
+            email: data.email,
+            merchant_uuid: data.merchantUuid,
+        };
 
         const response = await fetch(this.config.API.requestNewPassword, {
             method: 'POST',
-            body: fd,
+            body: params(body),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
         });
 
         checkStatus(response);
@@ -285,13 +298,14 @@ class Account {
      * @return {Object}
      */
     async setNewPassword(data = {}, token = '') {
-        const body = `password=${data.password}&passwordConfirmation=${
-            data.passwordConfirmation
-        }`;
+        let body = {
+            password: data.password,
+            password_confirmation: data.passwordConfirmation,
+        };
 
         const response = await fetch(this.config.API.setNewPassword(token), {
             method: 'PUT',
-            body: body,
+            body: params(body),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
@@ -303,24 +317,26 @@ class Account {
     }
 
     /**
-     * Gets the user/account information for a given auth token
+     * Gets the account information for a given auth token
      * @method getAccountInfo
      * @async
      * @example
      *     InPlayer.Account
-     *     .getAccountInfo()
+     *     .getAccount()
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getAccountInfo() {
+    async getAccount() {
         if (!this.isAuthenticated()) {
-            throw new Error('The user is not authenticated');
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated',
+            });
         }
 
         const t = this.getToken();
 
         const response = await fetch(this.config.API.getAccountInfo, {
-            method: 'GET',
             headers: {
                 Authorization: 'Bearer ' + t.token,
             },
@@ -335,7 +351,8 @@ class Account {
      * Gets the social login urls for fb/twitter/google
      * @method getSocialLoginUrls
      * @async
-     * @param {String} state - Social login state
+     * @param {String} state - Social login state. The state needs to be json and base64 encoded to be sent as a query parameter.
+     * Example: btoa(JSON.stringify({uuid: 'foo', redirect: 'http://example.com'}))
      * @example
      *     InPlayer.Account
      *     .getSocialLoginUrls('123124-1r-1r13ur1h1')
@@ -343,9 +360,7 @@ class Account {
      * @return {Object}
      */
     async getSocialLoginUrls(state) {
-        const response = await fetch(this.config.API.social(state), {
-            method: 'GET',
-        });
+        const response = await fetch(this.config.API.social(state));
 
         checkStatus(response);
 
@@ -365,31 +380,24 @@ class Account {
      */
     async updateAccount(data = {}) {
         if (!this.isAuthenticated()) {
-            throw new Error('The user is not authenticated');
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated',
+            });
         }
         const t = this.getToken();
 
-        let queryString = '';
+        let body = {
+            full_name: data.fullName,
+        };
 
-        Object.keys(data).forEach(function(key) {
-            let newKey = '';
-
-            if (key === 'fullName') {
-                newKey = 'fullName';
-                queryString +=
-                    (queryString ? '&' : '') + `${newKey}=${data[key]}`;
-            } else if (key === 'metadata') {
-                Object.keys(data[key]).forEach(metaDataKey => {
-                    queryString +=
-                        (queryString ? '&' : '') +
-                        `metadata[${metaDataKey}]=${data[key][metaDataKey]}`;
-                });
-            }
-        });
+        if (data.metadata) {
+            body.metadata = data.metadata;
+        }
 
         const response = await fetch(this.config.API.updateAccount, {
             method: 'PUT',
-            body: queryString,
+            body: params(body),
             headers: {
                 Authorization: 'Bearer ' + t.token,
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -419,21 +427,25 @@ class Account {
      */
     async changePassword(data = {}) {
         if (!this.isAuthenticated()) {
-            throw new Error('The user is not authenticated');
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated',
+            });
         }
         const t = this.getToken();
 
-        const fd = new FormData();
-
-        fd.append('old_password', data.oldPassword);
-        fd.append('password', data.password);
-        fd.append('passwordConfirmation', data.passwordConfirmation);
+        let body = {
+            old_password: data.oldPassword,
+            password: data.password,
+            password_confirmation: data.passwordConfirmation,
+        };
 
         const response = await fetch(this.config.API.changePassword, {
             method: 'POST',
-            body: fd,
+            body: params(body),
             headers: {
                 Authorization: 'Bearer ' + t.token,
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
         });
 
@@ -471,27 +483,31 @@ class Account {
      * @param {String} password - The password of the account
      * @example
      *     InPlayer.Account
-     *     .deleteAccount('f1hg1f-1g1hg183-g1ggh-13311','1231231')
+     *     .deleteAccount('1231231')
      *     .then(data => console.log(data))
      * @return {Object}
      */
 
-    async deleteAccount(password = '') {
+    async deleteAccount(password) {
         if (!this.isAuthenticated()) {
-            throw new Error('The user is not authenticated');
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated',
+            });
         }
         const t = this.getToken();
 
-        const fd = new FormData();
-
-        fd.append('password', password);
+        let body = {
+            password: password,
+        };
 
         const response = await fetch(this.config.API.deleteAccount, {
             method: 'DELETE',
             headers: {
                 Authorization: 'Bearer ' + t.token,
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: `password=${password}`,
+            body: params(body),
         });
 
         checkStatus(response);
@@ -499,7 +515,10 @@ class Account {
         localStorage.removeItem(this.config.INPLAYER_TOKEN_NAME);
         localStorage.removeItem(this.config.INPLAYER_IOT_NAME);
 
-        return { code: response.status };
+        return {
+            code: response.status,
+            message: 'Account has been successfuly deleted',
+        };
     }
 
     /**
@@ -515,20 +534,32 @@ class Account {
      * @return {Object}
      */
 
-    async exportData(token = '', password = '') {
-        const fd = new FormData();
+    async exportData(password) {
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated',
+            });
+        }
+        const t = this.getToken();
 
-        fd.append('password', password);
+        let body = {
+            password: password,
+        };
 
         const response = await fetch(this.config.API.exportData, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + token,
+                Authorization: 'Bearer ' + t.token,
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: fd,
+            body: params(body),
         });
 
-        return { code: response.status };
+        return {
+            code: response.status,
+            message: 'Your data is being exported, please check your email.',
+        };
     }
 }
 

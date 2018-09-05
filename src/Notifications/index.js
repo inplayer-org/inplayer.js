@@ -1,49 +1,38 @@
 import awsIot from 'aws-iot-device-sdk';
+import { checkStatus, errorResponse } from '../Utils';
+
+const ONE_HOUR = 60 * 60 * 1000;
 
 class Notifications {
-    constructor(config) {
+    constructor(config, Account) {
         this.subscription = null;
         this.config = config;
+        this.Account = Account;
     }
 
     async getIotToken() {
-        const authToken = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
-
-        if (!authToken) {
-            return null;
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated',
+            });
         }
+        const t = this.getToken();
 
         const response = await fetch(this.config.AWS_IOT_URL, {
-            method: 'GET',
             headers: {
-                Authorization: 'Bearer ' + JSON.parse(authToken).access_token,
+                Authorization: 'Bearer ' + t.token,
             },
         });
 
-        return await response.json();
-    }
-
-    async getIotOAuthToken() {
-        const authToken = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
-
-        if (!authToken) {
-            return null;
-        }
-
-        const response = await fetch(this.config.AWS_IOT_URL, {
-            method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + JSON.parse(authToken).access_token,
-            },
-        });
+        checkStatus(response);
 
         return await response.json();
     }
 
     /* Subscribes to Websocket notifications */
-    subscribe(accountUid, callbackParams) {
-        /* Check for callback functions */
-        if (!accountUid && accountUid !== '') {
+    async subscribe(accountUuid = '', callbackParams) {
+        if (!accountUuid && accountUuid === '') {
             return false;
         }
 
@@ -61,50 +50,33 @@ class Notifications {
             }
         }
 
-        /* Connect Stomp over ws */
-        let uuid = accountUid;
+        const json = localStorage.getItem(this.config.INPLAYER_IOT_NAME);
+        if (!json) {
+            console.warn('Unable to fetch iot credentials');
+            return false;
+        }
 
-        const IAMToken = localStorage.getItem(this.config.INPLAYER_IOT_NAME);
-        const ONE_HOUR = 60 * 60 * 1000;
+        const iamCreds = JSON.parse(json);
 
         if (
-            !IAMToken ||
-            !IAMToken.expiresAt ||
-            new Date() - IAMToken.expiresAt > ONE_HOUR
+            iamCreds &&
+            iamCreds.expiresAt &&
+            new Date() - iamCreds.expiresAt > ONE_HOUR
         ) {
-            this.getIotToken().then(data => {
-                if (!data) {
-                    this.getIotOAuthToken().then(data2 => {
-                        if (!data2) {
-                            throw new Error(
-                                'Invalid AUTH token. You need to be signed in to subscribe.'
-                            );
-                        }
+            this.handleSubscribe(iamCreds, callbackParams, accountUuid);
 
-                        data2.expiresAt = new Date();
-                        localStorage.setItem(
-                            this.config.INPLAYER_IOT_NAME,
-                            JSON.stringify(data2)
-                        );
-
-                        // subscribe
-                        this.handleSubscribe(data2, callbackParams, uuid);
-                    });
-                }
-                data.expiresAt = new Date();
-                localStorage.setItem(
-                    this.config.INPLAYER_IOT_NAME,
-                    JSON.stringify(data)
-                );
-
-                // subscribe
-                this.handleSubscribe(data, callbackParams, uuid);
-            });
-        } else {
-            const data = JSON.parse(IAMToken);
-
-            this.handleSubscribe(data, callbackParams, uuid);
+            return true;
         }
+
+        const resp = await this.getIotToken();
+
+        localStorage.setItem(
+            this.config.INPLAYER_IOT_NAME,
+            JSON.stringify(resp)
+        );
+
+        this.handleSubscribe(resp, callbackParams, accountUuid);
+        return true;
     }
 
     handleSubscribe(data, callbackParams, uuid) {
@@ -119,20 +91,17 @@ class Notifications {
         };
 
         this.client = awsIot.device(credentials);
-        let parent = this;
 
-        this.client.on('connect', function(data) {
-            parent.client.subscribe(uuid);
+        this.client.on('connect', data => {
+            this.client.subscribe(accountUuid);
             callbackParams.onOpen();
         });
 
-        this.client.on('message', function(topic, message) {
-            const decodedMessage = message.toString();
-
-            callbackParams.onMessage(decodedMessage);
+        this.client.on('message', (topic, message) => {
+            callbackParams.onMessage(message.toString());
         });
 
-        this.client.on('close', function() {
+        this.client.on('close', () => {
             if (callbackParams.onClose === 'function') {
                 callbackParams.onClose();
             }
