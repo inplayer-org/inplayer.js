@@ -14,7 +14,7 @@
     "build": "webpack",
     "dev": "webpack --progress --colors --watch",
     "test":
-      "mocha --compilers js:babel-register -r mock-local-storage --compilers js:babel-register --require jsdom-global/register --require babel-register --require isomorphic-fetch --require ./test/*.test.js",
+      "mocha -r babel-register -r mock-local-storage -r jsdom-global/register -r isomorphic-fetch ./test/*.test.js",
     "precommit": "lint-staged"
   },
   "lint-staged": {
