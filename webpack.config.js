@@ -1,7 +1,9 @@
 let path = require('path');
 const UglifyPlugin = require('uglifyjs-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-    .BundleAnalyzerPlugin;
+
+// TODO: add webpack-bundler-analyzer to dev config
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+//     .BundleAnalyzerPlugin;
 
 module.exports = {
     entry: path.resolve(__dirname, 'src/index.js'),
@@ -57,5 +59,5 @@ module.exports = {
         modules: [path.resolve('./node_modules'), path.resolve('./src')],
         extensions: ['.json', '.js'],
     },
-    plugins: [new BundleAnalyzerPlugin()],
+    plugins: [],
 };
