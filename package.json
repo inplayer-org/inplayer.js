@@ -13,7 +13,8 @@
   "scripts": {
     "build": "webpack",
     "dev": "webpack --progress --colors --watch",
-    "test": "mocha -watch -r babel-register -r mock-local-storage -r jsdom-global/register -r isomorphic-fetch -r @babel/polyfill ./test/*.test.js",
+	"test": "mocha -r babel-register -r mock-local-storage -r jsdom-global/register -r isomorphic-fetch -r @babel/polyfill ./test/*.test.js",
+	"test:watch": "mocha -watch -r babel-register -r mock-local-storage -r jsdom-global/register -r isomorphic-fetch -r @babel/polyfill ./test/*.test.js",
     "precommit": "lint-staged"
   },
   "lint-staged": {
