@@ -13,8 +13,7 @@
   "scripts": {
     "build": "webpack",
     "dev": "webpack --progress --colors --watch",
-    "test":
-      "mocha -watch -r babel-register -r mock-local-storage -r jsdom-global/register -r isomorphic-fetch -r @babel/polyfill ./test/*.test.js",
+    "test": "mocha -watch -r babel-register -r mock-local-storage -r jsdom-global/register -r isomorphic-fetch -r @babel/polyfill ./test/*.test.js",
     "precommit": "lint-staged"
   },
   "lint-staged": {
@@ -27,7 +26,10 @@
     "type": "git",
     "url": "https://github.com/inplayer-org/inplayer.js.git"
   },
-  "keywords": ["sdk", "inplayer"],
+  "keywords": [
+    "sdk",
+    "inplayer"
+  ],
   "dependencies": {
     "aws-iot-device-sdk": "^2.2.1",
     "es6-promise": "^4.2.2",
@@ -63,5 +65,7 @@
     "webpack-cli": "^2.1.5",
     "yuidoc-lucid-theme": "^0.1.2"
   },
-  "files": ["dist"]
+  "files": [
+    "dist"
+  ]
 }

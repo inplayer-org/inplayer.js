@@ -62,7 +62,7 @@ export const params = a => {
 
     s = [];
     r20 = /%20/g;
-    add = function(key, value) {
+    add = (key, value) => {
         // If value is a function, invoke it and return its value
         value =
             typeof value === 'function' ? value() : value === null ? '' : value;
