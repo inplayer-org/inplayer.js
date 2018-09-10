@@ -1,4 +1,3 @@
 {
-	"presets": [ "env" ],
-	"plugins": [ "babel-plugin-add-module-exports" ]
+	"presets": [ "./.babelrc.js" ]
 }
