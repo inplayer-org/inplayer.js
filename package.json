@@ -7,9 +7,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/inplayer.umd.min.js",
+  "main": "dist/inplayer.umd.js",
   "cjs:main": "dist/inplayer.cjs.js",
-  "browser": "dist/inplayer.umd.min.js",
+  "browser": "dist/inplayer.umd.js",
   "engines": {
     "node": ">=6"
   },
@@ -62,7 +62,6 @@
     "jsdom-global": "3.0.2",
     "json-loader": "^0.5.7",
     "lint-staged": "^6.0.0",
-    "lodash": "^4.17.10",
     "mocha": "^4.0.1",
     "mocha-jsdom": "^1.2.0",
     "mock-local-storage": "^1.0.5",
