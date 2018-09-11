@@ -36,12 +36,12 @@
     "inplayer"
   ],
   "dependencies": {
-    "@babel/runtime": "^7.0.0",
     "aws-iot-device-sdk": "^2.2.1",
     "es6-promise": "^4.2.2",
     "isomorphic-fetch": "^2.2.1"
   },
   "devDependencies": {
+    "@babel/runtime": "^7.0.0",
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.0.0",
