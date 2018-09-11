@@ -13,24 +13,19 @@ const plugins = [
 
 if (PROD) {
     plugins.push(new MinifyPlugin());
-    plugins.push(
-        new webpack.LoaderOptionsPlugin({
-            minimize: true,
-            debug: false,
-        })
-    );
 }
 
-const baseFileName = `inplayer`;
+const baseFileName = 'inplayer';
 
 const baseBundleConfig = {
     mode: PROD ? 'production' : 'development',
-    entry: path.resolve(__dirname, 'src/index.js'),
+    entry: './src/index.js',
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: path.resolve(__dirname, './dist'),
         libraryTarget: 'umd',
         library: 'inplayer',
     },
+
     module: {
         rules: [],
     },
@@ -48,49 +43,30 @@ const baseBundleConfig = {
 const defaultBabelLoader = {
     test: /\.js?$/,
     include: [path.resolve(__dirname, 'src'), path.resolve(__dirname, 'test')],
+    exclude: /(node_modules|bower_components)/,
     loader: 'babel-loader',
     options: {},
 };
 
 // Browsers
 const browserBundle = clone(baseBundleConfig);
+
 browserBundle.module.rules = [
     Object.assign({}, defaultBabelLoader, {
         options: Object.assign({}, defaultBabelLoader.options, {
-            forceEnv: 'browser',
+            envName: 'browser',
         }),
     }),
 ];
 browserBundle.output.filename = `${baseFileName}.umd${PROD ? '.min' : ''}.js`;
 
-// Legacy browsers like IE11
-const legacyBundle = clone(baseBundleConfig);
-legacyBundle.module.rules = [
-    Object.assign({}, defaultBabelLoader, {
-        options: Object.assign({}, defaultBabelLoader.options, {
-            forceEnv: 'legacy',
-        }),
-    }),
-];
-// To be replaced with babel-polyfill with babel-preset-env 2.0:
-// https://github.com/babel/babel-preset-env#usebuiltins
-// https://github.com/babel/babel-preset-env/pull/241
-legacyBundle.entry = [
-    'core-js/fn/promise',
-    'core-js/fn/object/assign',
-    'core-js/fn/array/from',
-    'core-js/fn/array/find',
-    'core-js/fn/set',
-].concat(legacyBundle.entry);
-
-legacyBundle.output.filename = `${baseFileName}.legacy${PROD ? '.min' : ''}.js`;
-
 // Node
 const nodeBundle = clone(baseBundleConfig);
+
 nodeBundle.module.rules = [
     Object.assign({}, defaultBabelLoader, {
         options: Object.assign({}, defaultBabelLoader.options, {
-            forceEnv: 'node',
+            envName: 'node',
         }),
     }),
 ];
@@ -103,4 +79,4 @@ nodeBundle.plugins.push(
 );
 delete nodeBundle.node;
 
-module.exports = [browserBundle, legacyBundle, nodeBundle];
+module.exports = [browserBundle, nodeBundle];
