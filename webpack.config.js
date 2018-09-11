@@ -1,37 +1,53 @@
-var path = require('path');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-    .BundleAnalyzerPlugin;
+const path = require('path');
+const webpack = require('webpack');
+const MinifyPlugin = require('babel-minify-webpack-plugin');
+const PROD = process.env.NODE_ENV === 'production';
+
+const plugins = [
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    }),
+];
+
+if (PROD) {
+    plugins.push(new MinifyPlugin());
+}
 
 module.exports = {
-    entry: ['babel-polyfill', path.resolve(__dirname, 'src/index.js')],
-    devtool: 'source-map',
-    mode: 'production',
+    mode: PROD ? 'production' : 'development',
+    entry: './src/index.js',
     output: {
-        filename: 'inplayer.umd.js',
-        // export to AMD, CommonJS, or window
+        path: path.resolve(__dirname, './dist'),
         libraryTarget: 'umd',
+        filename: 'inplayer.umd.js',
         // the name exported to window
         library: 'InPlayer',
+        umdNamedDefine: true,
     },
     module: {
         rules: [
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
+                exclude: /(node_modules|bower_components)/,
+            },
+            {
+                test: /(\.jsx|\.js)$/,
+                loader: 'eslint-loader',
+                exclude: /node_modules/,
             },
         ],
     },
     optimization: {
         minimize: true,
     },
-    stats: {
-        colors: true,
-    },
+    devtool: PROD ? false : 'source-map',
+    plugins,
     node: {
         net: 'empty',
         tls: 'empty',
         dns: 'empty',
         fs: 'empty',
     },
-    plugins: [new BundleAnalyzerPlugin()],
 };

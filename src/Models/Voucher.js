@@ -1,18 +1,20 @@
+import { checkStatus, errorResponse, params } from '../Utils';
+
 /**
  * Contains all Requests regarding vouchers.
  *
  * @class Voucher
  */
 class Voucher {
-    constructor(config) {
+    constructor(config, Account) {
         this.config = config;
+        this.Account = Account;
     }
 
     /**
      * Gets the discount for a given code.
      * @method getDiscount
      * @async
-     * @param {String} token - The Authorization token
      * @param {Object} data - {
      *   voucherCode: String,
      *   merchantUuid: String,
@@ -20,27 +22,38 @@ class Voucher {
      * }
      * @example
      *     InPlayer.Voucher
-     *     .getDiscount('eyJ0eXAiOiJKPECENR5Y',{
+     *     .getDiscount({
      *        voucherCode: '120fwjhniudh42i7',
-     *        merchantUuid: 'hghfqw92dm29-1g',
-     *        accessFeeId: 2
+     *        merchantId: 123,
+     *        accessFee: 2
      *     })
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getDiscount(token = '', data = {}) {
-        const fd = new FormData();
-        fd.append('access_fee_id', data.accessFeeId);
-        fd.append('voucher_code', data.voucherCode);
-        fd.append('merchant_id', data.merchantUuid);
+    async getDiscount(data = {}) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated',
+            });
+        }
+        const t = this.Account.getToken();
+
+        let body = {
+            access_fee_id: data.accessFee,
+            voucher_code: data.voucherCode,
+        };
 
         const response = await fetch(this.config.API.getDiscount, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + token,
+                Authorization: 'Bearer ' + t.token,
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: fd,
+            body: params(body),
         });
+
+        checkStatus(response);
 
         return await response.json();
     }

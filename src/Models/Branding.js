@@ -1,3 +1,5 @@
+import { checkStatus } from '../Utils';
+
 /**
  * Contains all Requests regarding branding.
  *
@@ -22,11 +24,10 @@ class Branding {
      */
     async getBranding(clientId, brandingId) {
         const response = await fetch(
-            this.config.API.getBranding(clientId, brandingId),
-            {
-                method: 'GET',
-            }
+            this.config.API.getBranding(clientId, brandingId)
         );
+
+        checkStatus(response);
 
         return await response.json();
     }

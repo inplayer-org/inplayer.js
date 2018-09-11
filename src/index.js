@@ -5,12 +5,11 @@ import Account from './Models/Account';
 import Asset from './Models/Asset';
 import Payment from './Models/Payment';
 import Subscription from './Models/Subscription';
-import Misc from './Models/Misc';
 import Branding from './Models/Branding';
 import Voucher from './Models/Voucher';
-import Socket from './Socket';
-import { API } from '../constants/endpoints';
-import { config } from '../config';
+import DLC from './Models/Dlc';
+import Notifications from './Notifications';
+import { API } from './constants/endpoints';
 
 /**
  * Main class. Contains all others methods and websocket subscription
@@ -19,8 +18,15 @@ import { config } from '../config';
  */
 class InPlayer {
     constructor() {
-        this.config = config;
-        this.config.API = API(config);
+        this.config = {
+            BASE_URL: 'https://services.inplayer.com',
+            AWS_IOT_URL:
+                'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys',
+            INPLAYER_TOKEN_NAME: 'inplayer_token',
+            INPLAYER_IOT_NAME: 'inplayer_iot',
+        };
+
+        this.config.API = API(this.config);
         /**
          * @property Account
          * @type Account
@@ -30,33 +36,33 @@ class InPlayer {
          * @property Asset
          * @type Asset
          */
-        this.Asset = new Asset(this.config);
+        this.Asset = new Asset(this.config, this.Account);
         /**
          * @property Payment
          * @type Payment
          */
-        this.Payment = new Payment(this.config);
+        this.Payment = new Payment(this.config, this.Account);
         /**
          * @property Subscription
          * @type Subscription
          */
-        this.Subscription = new Subscription(this.config);
+        this.Subscription = new Subscription(this.config, this.Account);
         /**
-         * @property Misc
-         * @type Misc
+         * @property Voucher
+         * @type Voucher
          */
-        this.Misc = new Misc(this.config);
+        this.Voucher = new Voucher(this.config, this.Account);
         /**
-         * @property Misc
-         * @type Misc
+         * @property Voucher
+         * @type Voucher
          */
-        this.Voucher = new Voucher(this.config);
+        this.DLC = new DLC(this.config, this.Account);
         /**
-         * @property Misc
-         * @type Misc
+         * @property Branding
+         * @type Branding
          */
         this.Branding = new Branding(this.config);
-        this.Socket = new Socket(this.config);
+        this.Notifications = new Notifications(this.config);
     }
 
     /**
@@ -81,16 +87,25 @@ class InPlayer {
      * @return {Boolean}
      */
     subscribe(accountUid, callbackParams) {
-        if (this.Account.isSignedIn()) {
-            this.Socket.subscribe(accountUid, callbackParams);
-            return true;
-        } else {
-            return false;
+        if (this.Account.isAuthenticated()) {
+            this.Notifications.subscribe(accountUid, callbackParams)
+                .then(data => {
+                    if (data) {
+                        console.log('Subscription successful');
+                    }
+                })
+                .catch(error => {
+                    if (error.response) {
+                        error.response.json().then(data => {
+                            console.warn(data);
+                        });
+                    }
+                });
         }
     }
 
     isSubscribed() {
-        return this.Socket.isSubscribed();
+        return this.Notifications.isSubscribed();
     }
 
     /**
@@ -101,13 +116,13 @@ class InPlayer {
      * @return {Boolean}
      */
     unsubscribe() {
-        this.Socket.unsubscribe();
+        this.Notifications.unsubscribe();
     }
 
     /**
      * Overrides the default configs
      * @method setConfig
-     * @param {String} config 'prod', 'develop' or 'sandobx'
+     * @param {String} config 'prod', 'develop' or 'sandbox'
      * @example
      *     InPlayer.setConfig('develop');
      */
@@ -126,7 +141,7 @@ class InPlayer {
                 break;
             }
             case 'sandbox': {
-                //TODO: to be changed in future
+                // TODO: to be changed in future
                 this.config.BASE_URL = 'https://staging-v2.inplayer.com';
                 this.config.AWS_IOT_URL =
                     'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys';

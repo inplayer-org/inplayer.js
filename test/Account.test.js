@@ -1,67 +1,59 @@
 import { expect } from 'chai';
 import Account from '../src/Models/Account';
 import InPlayer from '../src';
+import LocalStorageMock from './LocalStorageMock';
+
+global.localStorage = new LocalStorageMock();
 
 describe('Account', function() {
-    let user;
+    InPlayer.setConfig('develop');
 
-    beforeEach(() => {
-        user = InPlayer.Account;
-    });
+    let secret = process.env.CLIENT_SECRET;
+    let user = InPlayer.Account;
 
-    describe('#signIn()', function() {
-        it('should return missing data because of FormData', async () => {
+    describe('#authenticate()', function() {
+        it('should authenticate the user', async () => {
             const result = await user.authenticate({
-                email: 'test@test.com',
-                password: 'test123',
-                clientId: '1jh1f-1fff1fjr1-fr',
+                clientId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
+                clientSecret: secret,
                 referrer: 'localhost.com',
             });
 
-            expect(result).to.deep.equal({
-                code: 400,
-                errors: {
-                    grant_type: 'Grant type must not be empty.',
-                },
-            });
+            expect(result).to.have.property('account');
+            expect(result).to.have.property('access_token');
+
+            expect(user.isAuthenticated()).to.equal(true);
         });
     });
 
     describe('#signOut()', function() {
         it('should sign out', async () => {
+            expect(user.isAuthenticated()).to.equal(true);
             const result = await user.signOut();
-
-            expect(result).to.deep.equal(true);
+            expect(result).to.have.property('code');
+            expect(result).to.have.property('message');
+            expect(user.isAuthenticated()).to.equal(false);
         });
     });
 
     describe('#signUp()', function() {
-        it('should throw error for missing data', async () => {
-            const result = await user.signUp({
-                full_name: 'Test',
-                email: 'test@test.com',
-                password: '12345678j',
-                passwordConfirmation: '12345678j',
-                merchantUid: 'd1-d1-d1-ddfh',
-                type: 'merchant',
-                metadata: {},
-                referrer: 'http://localhost',
-            });
-
-            expect(result).to.deep.equal({
-                code: 400,
-                errors: {
-                    full_name:
-                        'The full_name must not be empty and between 2 and 250 characters.',
-                    email: 'The email is not in a valid format.',
-                    merchant_uuid: 'The UUID must not be empty.',
-                    password: 'The password must be at least 8 characters.',
-                    password_confirmation:
-                        'The password_confirmation does not match the password.',
-                    type:
-                        'The type must not be empty and must be consumer or merchant.',
-                },
-            });
+        it('should throw error for invalid data', async () => {
+            try {
+                const result = await user.signUp({
+                    full_name: '',
+                    email: 'test@test.com',
+                    password: '12345678j',
+                    passwordConfirmation: '12345678jjjj',
+                    clientId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
+                    type: 'consumer',
+                    metadata: { foo: 'bar' },
+                    referrer: 'http://localhost',
+                });
+            } catch (error) {
+                const result = await error.response.json();
+                expect(result).to.have.property('code');
+                expect(result).to.have.property('errors');
+            }
         });
     });
 
@@ -69,79 +61,84 @@ describe('Account', function() {
         it('should throw missing data error because of FormData', async () => {
             const result = await user.requestNewPassword({
                 email: 'test@test.com',
-                merchantUid: 'asd-f1hf1-fa1f-gh',
+                merchantUuid: 'asd-f1hf1-fa1f-gh',
             });
 
-            expect(result).to.deep.equal({
-                code: 400,
-                errors: {
-                    email: 'The email is not in a valid format.',
-                    merchant_uuid: 'The uuid must not be empty.',
-                },
-            });
+            expect(result).to.have.property('explain');
         });
     });
 
-    describe('#getAccountInfo()', function() {
-        it('should throw error for invalid auth', async () => {
-            const result = await user.getAccountInfo(
-                'asdhgf19jrf2g89fdlkfgjhgklsd19'
-            );
-
-            expect(result).to.deep.equal({
-                errors: {
-                    '401': 'Invalid auth token',
-                },
+    describe('#getAccount()', function() {
+        it('should fetch the account info', async () => {
+            await user.authenticate({
+                clientId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
+                clientSecret: secret,
+                referrer: 'localhost.com',
             });
+
+            const result = await user.getAccount();
+
+            expect(result).to.have.property('id');
         });
     });
 
     describe('#getSocialLoginUrls()', function() {
-        it('should throw error for invalid state', async () => {
-            const result = await user.getAccountInfo(
-                'asdhgf19jrf2g89fdlkfgjhgklsd19'
+        it('should fetch social login urls', async () => {
+            let state = btoa(
+                JSON.stringify({
+                    uuid: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
+                    redirect: 'http://example.com',
+                })
             );
+            const result = await user.getSocialLoginUrls(state);
 
-            expect(result).to.deep.equal({
-                errors: {
-                    '401': 'Invalid auth token',
-                },
-            });
+            expect(result).to.have.property('social_urls');
+            expect(result.social_urls).to.be.a('array');
         });
     });
 
     describe('#updateAccount()', function() {
         it('should throw error for invalid state', async () => {
-            const result = await user.updateAccount({ full_name: 'TEST' });
-
-            expect(result).to.deep.equal({
-                errors: {
-                    '401': 'Invalid auth token',
-                },
+            await user.authenticate({
+                clientId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
+                clientSecret: secret,
+                referrer: 'localhost.com',
             });
+
+            const result = await user.updateAccount({
+                fullName: 'Automated Tests Merchant',
+            });
+
+            expect(result).to.have.property('id');
         });
     });
 
     describe('#changePassword()', function() {
         it('should throw error for invalid data', async () => {
-            const result = await user.changePassword({
-                token: 'gy189d89efrjdkwejhg8f3fwj',
-                password: 'password123',
-                passwordConfirmation: 'password123',
+            await user.authenticate({
+                clientId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
+                clientSecret: secret,
+                referrer: 'localhost.com',
             });
 
-            expect(result).to.deep.equal({
-                errors: {
-                    '401': 'Invalid auth token',
-                },
-            });
+            try {
+                const result = await user.changePassword({
+                    oldPassword: 'test123',
+                    password: 'password123',
+                    passwordConfirmation: 'password123',
+                });
+            } catch (error) {
+                const result = await error.response.json();
+                expect(result).to.have.property('code');
+                expect(result).to.have.property('errors');
+            }
         });
     });
 
     describe('#getRegisterFields()', function() {
         it('should return register fields', async () => {
             const result = await user.getRegisterFields(
-                'c62e75f2-e090-4b0b-a3b2-ca70d52f19ac'
+                'b0899d7f-66da-40fc-8eeb-36cad735589c'
             );
 
             expect(result).to.have.property('collection');
