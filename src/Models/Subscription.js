@@ -115,7 +115,6 @@ class Subscription {
      * Otherwise please use InPlayer.Payment.payForAsset()
      * @method assetSubscribe
      * @async
-     * @param {String} token - The Authorization token
      * @param {Object} data - {
      *  number: Number,
      *  cardName: String,
