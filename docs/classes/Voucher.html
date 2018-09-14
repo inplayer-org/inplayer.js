@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.0.3</b>
+                    API Docs for Version: <b>2.1.0</b>
                 </p>
             </li>
         </div>
@@ -161,7 +161,6 @@
 					<div class="param-description"><ul>
 <li>{
 voucherCode: String,
-merchantUuid: String,
 accessFeeId: Number
 }</li>
 </ul>
@@ -185,9 +184,8 @@ accessFeeId: Number
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.Voucher
 .getDiscount({
-   voucherCode: '120fwjhniudh42i7',
-   merchantId: 123,
-   accessFee: 2
+   voucherCode: '120fwjhniudh42i7',,
+   accessFeeId: 2
 })
 .then(data =&gt; console.log(data));</code></pre>
 

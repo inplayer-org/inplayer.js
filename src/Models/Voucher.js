@@ -17,15 +17,13 @@ class Voucher {
      * @async
      * @param {Object} data - {
      *   voucherCode: String,
-     *   merchantUuid: String,
      *   accessFeeId: Number
      * }
      * @example
      *     InPlayer.Voucher
      *     .getDiscount({
-     *        voucherCode: '120fwjhniudh42i7',
-     *        merchantId: 123,
-     *        accessFee: 2
+     *        voucherCode: '120fwjhniudh42i7',,
+     *        accessFeeId: 2
      *     })
      *     .then(data => console.log(data));
      * @return {Object}
@@ -40,7 +38,7 @@ class Voucher {
         const t = this.Account.getToken();
 
         let body = {
-            access_fee_id: data.accessFee,
+            access_fee_id: data.accessFeeId,
             voucher_code: data.voucherCode,
         };
 

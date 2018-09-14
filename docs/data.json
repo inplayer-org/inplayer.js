@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "2.0.3",
+        "version": "2.1.0",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -522,18 +522,13 @@
             "async": 1,
             "params": [
                 {
-                    "name": "token",
-                    "description": "- The Authorization token",
-                    "type": "String"
-                },
-                {
                     "name": "id",
                     "description": "- The id of the asset",
                     "type": "Number"
                 }
             ],
             "example": [
-                "\n    InPlayer.Asset\n    .checkAccessForAsset(36320)\n    .then(data => console.log(data));"
+                "\n    InPlayer.Asset\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -543,17 +538,12 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 46,
+            "line": 44,
             "description": "Checks whether Free trial has been used for a given asset",
             "itemtype": "method",
             "name": "isFreeTrialUsed",
             "async": 1,
             "params": [
-                {
-                    "name": "token",
-                    "description": "- The Authorization token",
-                    "type": "String"
-                },
                 {
                     "name": "id",
                     "description": "- The ID of the asset",
@@ -571,7 +561,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 79,
+            "line": 76,
             "description": "Get the asset info for a given asset ID and merchant UUID",
             "itemtype": "method",
             "name": "findAsset",
@@ -599,7 +589,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 101,
+            "line": 98,
             "description": "Get an external assets info",
             "itemtype": "method",
             "name": "findExternalAsset",
@@ -632,7 +622,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 128,
+            "line": 125,
             "description": "Get package info for a given Package ID",
             "itemtype": "method",
             "name": "findPackage",
@@ -655,7 +645,7 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 147,
+            "line": 144,
             "description": "Get the access fees for a given asset ID",
             "itemtype": "method",
             "name": "getAssetAccessFees",
@@ -678,17 +668,12 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 166,
+            "line": 163,
             "description": "Returns purchase history with types",
             "itemtype": "method",
             "name": "getAssetsHistory",
             "async": 1,
             "params": [
-                {
-                    "name": "token",
-                    "description": "- The authorization token",
-                    "type": "String"
-                },
                 {
                     "name": "size",
                     "description": "- The page size",
@@ -721,17 +706,12 @@
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 210,
+            "line": 206,
             "description": "Authorize for the freemium asset (login)",
             "itemtype": "method",
             "name": "getFreemiumAsset",
             "async": 1,
             "params": [
-                {
-                    "name": "token",
-                    "description": "- The authorization token",
-                    "type": "String"
-                },
                 {
                     "name": "accessFee",
                     "description": ""
@@ -986,11 +966,6 @@
             "async": 1,
             "params": [
                 {
-                    "name": "token",
-                    "description": "- The Authorization token",
-                    "type": "String"
-                },
-                {
                     "name": "data",
                     "description": "- {\n number: Number,\n cardName: String,\n expMonth: Number,\n expYear: Number,\n cvv: Number,\n accessFee: Number,\n paymentMethod: String,\n referrer: String\n voucherCode?: String\n}",
                     "type": "Object"
@@ -1015,12 +990,12 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- {\n  voucherCode: String,\n  merchantUuid: String,\n  accessFeeId: Number\n}",
+                    "description": "- {\n  voucherCode: String,\n  accessFeeId: Number\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.Voucher\n    .getDiscount({\n       voucherCode: '120fwjhniudh42i7',\n       merchantId: 123,\n       accessFee: 2\n    })\n    .then(data => console.log(data));"
+                "\n    InPlayer.Voucher\n    .getDiscount({\n       voucherCode: '120fwjhniudh42i7',,\n       accessFeeId: 2\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
