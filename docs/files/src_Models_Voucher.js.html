@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src\Models\Misc.js - InPlayer SDK</title>
+    <title>src\Models\Voucher.js - InPlayer SDK</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -21,12 +21,12 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>1.0.0</b>
+                    API Docs for Version: <b>2.0.3</b>
                 </p>
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Account", "classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Account", "classes/Asset", "classes/Branding", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription", "classes/Voucher"]'>
         </form>
     </div>
 </div>
@@ -39,10 +39,12 @@
         <ul id="api-classes" class="nav nav-list">
                 <li><a href="../classes/Account.html">Account</a></li>
                 <li><a href="../classes/Asset.html">Asset</a></li>
+                <li><a href="../classes/Branding.html">Branding</a></li>
                 <li><a href="../classes/InPlayer.html">InPlayer</a></li>
                 <li><a href="../classes/Misc.html">Misc</a></li>
                 <li><a href="../classes/Payment.html">Payment</a></li>
                 <li><a href="../classes/Subscription.html">Subscription</a></li>
+                <li><a href="../classes/Voucher.html">Voucher</a></li>
         </ul>
     </div>
     </div>
@@ -76,130 +78,73 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>src\Models\Misc.js <small>File</small></h1>
+    <h1>src\Models\Voucher.js <small>File</small></h1>
 </div>
 
 <div class="file">
     <pre class="prettyprint linenums">
+import { checkStatus, errorResponse, params } from &#x27;../Utils&#x27;;
+
 /**
- * Contains mixed various types of functiosn for dlcs, discounts, branding, etc.
+ * Contains all Requests regarding vouchers.
  *
- * @class Misc
+ * @class Voucher
  */
-class Misc {
-    constructor(config) {
+class Voucher {
+    constructor(config, Account) {
         this.config = config;
-    }
-    /**
-     * Gets all DLC links
-     * @method getDlcLinks
-     * @async
-     * @param {String} token - The Authorization token
-     * @param {Number} assetId - The id of the asset
-     * @example
-     *     InPlayer.Misc
-     *     .getDlcLinks(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,36320)
-     *     .then(data =&gt; console.log(data));
-     * @return {Object}
-     */
-    async getDlcLinks(token, assetId) {
-        const response = await fetch(this.config.API.getDlcLinks(assetId), {
-            headers: {
-                Authorization: &#x27;Bearer &#x27; + token,
-            },
-        });
-
-        return await response.json();
+        this.Account = Account;
     }
 
     /**
-     * Gets the discount for a given ..
+     * Gets the discount for a given code.
      * @method getDiscount
      * @async
-     * @param {String} token - The Authorization token
      * @param {Object} data - {
      *   voucherCode: String,
      *   merchantUuid: String,
      *   accessFeeId: Number
      * }
      * @example
-     *     InPlayer.Misc
-     *     .getDiscount(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,{
+     *     InPlayer.Voucher
+     *     .getDiscount({
      *        voucherCode: &#x27;120fwjhniudh42i7&#x27;,
-     *        merchantUuid: &#x27;hghfqw92dm29-1g&#x27;,
-     *        accessFeeId: 2
+     *        merchantId: 123,
+     *        accessFee: 2
      *     })
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async getDiscount(token = &#x27;&#x27;, data = {}) {
-        const fd = new FormData();
-        fd.append(&#x27;access_fee_id&#x27;, data.accessFeeId);
-        fd.append(&#x27;voucher_code&#x27;, data.voucherCode);
-        fd.append(&#x27;merchant_id&#x27;, data.merchantUuid);
+    async getDiscount(data = {}) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: &#x27;User is not authenticated&#x27;,
+            });
+        }
+        const t = this.Account.getToken();
+
+        let body = {
+            access_fee_id: data.accessFee,
+            voucher_code: data.voucherCode,
+        };
 
         const response = await fetch(this.config.API.getDiscount, {
             method: &#x27;POST&#x27;,
             headers: {
-                Authorization: &#x27;Bearer &#x27; + token,
+                Authorization: &#x27;Bearer &#x27; + t.token,
+                &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;,
             },
-            body: fd,
+            body: params(body),
         });
 
-        return await response.json();
-    }
-
-    /**
-     * Gets branding params for given merchant
-     * @method getBranding
-     * @async
-     * @param {String} clientId - The Client id
-     * @param {String} brandingId - The branding id or &#x27;default&#x27;
-     * @example
-     *     InPlayer.Misc
-     *     .getBranding(&#x27;eyJ0e-XAiOi-JKPEC-ENR5Y&#x27;, &#x27;123&#x27;)
-     *     .then(data =&gt; console.log(data));
-     * @return {Object}
-     */
-    async getBranding(clientId, brandingId) {
-        const response = await fetch(
-            this.config.API.getBranding(clientId, brandingId),
-            {
-                method: &#x27;GET&#x27;,
-            }
-        );
-
-        return await response.json();
-    }
-
-    /**
-     * Downloads a file
-     * @method downloadProtectedFile
-     * @async
-     * @param {String} token - The Authorization token
-     * @param {number} assetId - The Id of the asset
-     * @param {String} filename - The name of the file
-     * @example
-     *     InPlayer.Misc
-     *     .downloadProtectedFile(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,2234, &#x27;test.js&#x27;)
-     *     .then(data =&gt; console.log(data));
-     * @return {Object}
-     */
-    async downloadProtectedFile(token, assetId, filename) {
-        const response = await fetch(
-            this.config.API.downloadFile(assetId, filename),
-            {
-                headers: {
-                    Authorization: &#x27;Bearer &#x27; + token,
-                },
-            }
-        );
+        checkStatus(response);
 
         return await response.json();
     }
 }
 
-export default Misc;
+export default Voucher;
 
     </pre>
 </div>

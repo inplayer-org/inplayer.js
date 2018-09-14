@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Misc - InPlayer SDK</title>
+    <title>src\Models\Branding.js - InPlayer SDK</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -78,120 +78,50 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>Misc</h1>
+    <h1>src\Models\Branding.js <small>File</small></h1>
 </div>
 
+<div class="file">
+    <pre class="prettyprint linenums">
+import { checkStatus } from &#x27;../Utils&#x27;;
 
+/**
+ * Contains all Requests regarding branding.
+ *
+ * @class Branding
+ */
+class Branding {
+    constructor(config) {
+        this.config = config;
+    }
 
+    /**
+     * Gets branding params for given merchant
+     * @method getBranding
+     * @async
+     * @param {String} clientId - The Client id
+     * @param {String} brandingId - The branding id or &#x27;default&#x27;
+     * @example
+     *     InPlayer.Branding
+     *     .getBranding(&#x27;eyJ0e-XAiOi-JKPEC-ENR5Y&#x27;, &#x27;123&#x27;)
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async getBranding(clientId, brandingId) {
+        const response = await fetch(
+            this.config.API.getBranding(clientId, brandingId)
+        );
 
+        checkStatus(response);
 
+        return await response.json();
+    }
+}
 
-<div class="yuidoc-class-description">
-<p>Contains mixed various types of functiosn for dlcs, discounts, branding, etc.</p>
+export default Branding;
 
+    </pre>
 </div>
-
-<!-- table of contents -->
-
-<div id="class-toc" class="page-section">
-	<h2>Table of Contents</h2>
-    <ul>
-		<li>
-			<strong>Methods</strong>
-			<ul>
-				<li><a href="#method-getDlcLinks"><span class="im">getDlcLinks</span>(<span class="ia">assetId</span>)</a></li>
-			</ul>
-		</li>
-
-
-
-	</ul>
-</div>
-
-<!-- details -->
-
-
-    <div id="methods" class="page-section">
-        <h2 class="off-left">Methods</h2>
-        <div class="item-list">
-<div id="method-getDlcLinks" class="method item">
-	<div class="method-signature">
-	<span class="name"><code>getDlcLinks</code></span>
-
-		<div class="args">
-			<span class="paren">(</span><ul class="args-list inline commas">
-				<li class="arg">
-						<code>assetId</code>
-				</li>
-			</ul><span class="paren">)</span>
-		</div>
-		<span class="returns-inline">
-			<span class="type">Object</span>
-		</span>
-	</div>
-
-
-
-
-
-		<span class="flag async">async</span>
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/src_Models_Dlc.js.html#l13"><code>src\Models\Dlc.js:13</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Gets all DLC links</p>
-</div>
-
-		<div class="params">
-			<h4>Parameters:</h4>
-
-			<ul class="params-list">
-				<li class="param">
-						<code class="param-name">assetId</code>
-						<span class="type">Number</span>
-
-
-					<div class="param-description"><ul>
-<li>The id of the asset</li>
-</ul>
-</div>
-
-				</li>
-			</ul>
-		</div>
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type">Object</span>
-			</div>
-		</div>
-
-		<div class="example">
-			<h4>Example:</h4>
-
-			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.DLC
-.getDlcLinks(36320)
-.then(data =&gt; console.log(data));</code></pre>
-
-			</div>
-		</div>
-</div>
-        </div>
-    </div>
-
-
-
-
                     </div>
                 </div>
             </div>

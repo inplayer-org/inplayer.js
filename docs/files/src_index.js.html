@@ -21,12 +21,12 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>1.0.0</b>
+                    API Docs for Version: <b>2.0.3</b>
                 </p>
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Account", "classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Account", "classes/Asset", "classes/Branding", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription", "classes/Voucher"]'>
         </form>
     </div>
 </div>
@@ -39,10 +39,12 @@
         <ul id="api-classes" class="nav nav-list">
                 <li><a href="../classes/Account.html">Account</a></li>
                 <li><a href="../classes/Asset.html">Asset</a></li>
+                <li><a href="../classes/Branding.html">Branding</a></li>
                 <li><a href="../classes/InPlayer.html">InPlayer</a></li>
                 <li><a href="../classes/Misc.html">Misc</a></li>
                 <li><a href="../classes/Payment.html">Payment</a></li>
                 <li><a href="../classes/Subscription.html">Subscription</a></li>
+                <li><a href="../classes/Voucher.html">Voucher</a></li>
         </ul>
     </div>
     </div>
@@ -88,12 +90,11 @@ import Account from &#x27;./Models/Account&#x27;;
 import Asset from &#x27;./Models/Asset&#x27;;
 import Payment from &#x27;./Models/Payment&#x27;;
 import Subscription from &#x27;./Models/Subscription&#x27;;
-import Misc from &#x27;./Models/Misc&#x27;;
-import Socket from &#x27;./Socket&#x27;;
-import { API } from &#x27;../constants/endpoints&#x27;;
-import { config } from &#x27;../config&#x27;;
-
-global._babelPolyfill = false;
+import Branding from &#x27;./Models/Branding&#x27;;
+import Voucher from &#x27;./Models/Voucher&#x27;;
+import DLC from &#x27;./Models/Dlc&#x27;;
+import Notifications from &#x27;./Notifications&#x27;;
+import { API } from &#x27;./constants/endpoints&#x27;;
 
 /**
  * Main class. Contains all others methods and websocket subscription
@@ -102,8 +103,15 @@ global._babelPolyfill = false;
  */
 class InPlayer {
     constructor() {
-        this.config = config;
-        this.config.API = API(config);
+        this.config = {
+            BASE_URL: &#x27;https://services.inplayer.com&#x27;,
+            AWS_IOT_URL:
+                &#x27;https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys&#x27;,
+            INPLAYER_TOKEN_NAME: &#x27;inplayer_token&#x27;,
+            INPLAYER_IOT_NAME: &#x27;inplayer_iot&#x27;,
+        };
+
+        this.config.API = API(this.config);
         /**
          * @property Account
          * @type Account
@@ -113,23 +121,33 @@ class InPlayer {
          * @property Asset
          * @type Asset
          */
-        this.Asset = new Asset(this.config);
+        this.Asset = new Asset(this.config, this.Account);
         /**
          * @property Payment
          * @type Payment
          */
-        this.Payment = new Payment(this.config);
+        this.Payment = new Payment(this.config, this.Account);
         /**
          * @property Subscription
          * @type Subscription
          */
-        this.Subscription = new Subscription(this.config);
+        this.Subscription = new Subscription(this.config, this.Account);
         /**
-         * @property Misc
-         * @type Misc
+         * @property Voucher
+         * @type Voucher
          */
-        this.Misc = new Misc(this.config);
-        this.Socket = new Socket(this.config);
+        this.Voucher = new Voucher(this.config, this.Account);
+        /**
+         * @property Voucher
+         * @type Voucher
+         */
+        this.DLC = new DLC(this.config, this.Account);
+        /**
+         * @property Branding
+         * @type Branding
+         */
+        this.Branding = new Branding(this.config);
+        this.Notifications = new Notifications(this.config);
     }
 
     /**
@@ -154,16 +172,25 @@ class InPlayer {
      * @return {Boolean}
      */
     subscribe(accountUid, callbackParams) {
-        if (this.Account.isSignedIn()) {
-            this.Socket.subscribe(accountUid, callbackParams);
-            return true;
-        } else {
-            return false;
+        if (this.Account.isAuthenticated()) {
+            this.Notifications.subscribe(accountUid, callbackParams)
+                .then(data =&gt; {
+                    if (data) {
+                        console.log(&#x27;Subscription successful&#x27;);
+                    }
+                })
+                .catch(error =&gt; {
+                    if (error.response) {
+                        error.response.json().then(data =&gt; {
+                            console.warn(data);
+                        });
+                    }
+                });
         }
     }
 
     isSubscribed() {
-        return this.Socket.isSubscribed();
+        return this.Notifications.isSubscribed();
     }
 
     /**
@@ -174,13 +201,13 @@ class InPlayer {
      * @return {Boolean}
      */
     unsubscribe() {
-        this.Socket.unsubscribe();
+        this.Notifications.unsubscribe();
     }
 
     /**
      * Overrides the default configs
      * @method setConfig
-     * @param {String} config &#x27;prod&#x27;, &#x27;develop&#x27; or &#x27;sandobx&#x27;
+     * @param {String} config &#x27;prod&#x27;, &#x27;develop&#x27; or &#x27;sandbox&#x27;
      * @example
      *     InPlayer.setConfig(&#x27;develop&#x27;);
      */
@@ -199,7 +226,7 @@ class InPlayer {
                 break;
             }
             case &#x27;sandbox&#x27;: {
-                //TODO: to be changed in future
+                // TODO: to be changed in future
                 this.config.BASE_URL = &#x27;https://staging-v2.inplayer.com&#x27;;
                 this.config.AWS_IOT_URL =
                     &#x27;https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys&#x27;;

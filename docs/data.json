@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "1.0.0",
+        "version": "2.0.3",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -24,8 +24,17 @@
             "fors": {},
             "namespaces": {}
         },
-        "src\\Models\\Misc.js": {
-            "name": "src\\Models\\Misc.js",
+        "src\\Models\\Branding.js": {
+            "name": "src\\Models\\Branding.js",
+            "modules": {},
+            "classes": {
+                "Branding": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src\\Models\\Dlc.js": {
+            "name": "src\\Models\\Dlc.js",
             "modules": {},
             "classes": {
                 "Misc": 1
@@ -51,6 +60,15 @@
             "fors": {},
             "namespaces": {}
         },
+        "src\\Models\\Voucher.js": {
+            "name": "src\\Models\\Voucher.js",
+            "modules": {},
+            "classes": {
+                "Voucher": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "src\\index.js": {
             "name": "src\\index.js",
             "modules": {},
@@ -72,7 +90,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src\\Models\\Account.js",
-            "line": 1,
+            "line": 4,
             "description": "Contains all Requests regarding user/account and authentication"
         },
         "Asset": {
@@ -84,8 +102,20 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src\\Models\\Asset.js",
-            "line": 1,
+            "line": 3,
             "description": "Contains all Requests connected with assets/items"
+        },
+        "Branding": {
+            "name": "Branding",
+            "shortname": "Branding",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src\\Models\\Branding.js",
+            "line": 3,
+            "description": "Contains all Requests regarding branding."
         },
         "Misc": {
             "name": "Misc",
@@ -95,8 +125,8 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "src\\Models\\Misc.js",
-            "line": 1,
+            "file": "src\\Models\\Dlc.js",
+            "line": 3,
             "description": "Contains mixed various types of functiosn for dlcs, discounts, branding, etc."
         },
         "Payment": {
@@ -120,8 +150,20 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src\\Models\\Subscription.js",
-            "line": 1,
+            "line": 3,
             "description": "Contains all Requests connected with subscriptions"
+        },
+        "Voucher": {
+            "name": "Voucher",
+            "shortname": "Voucher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src\\Models\\Voucher.js",
+            "line": 3,
+            "description": "Contains all Requests regarding vouchers."
         },
         "InPlayer": {
             "name": "InPlayer",
@@ -132,7 +174,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src\\index.js",
-            "line": 15,
+            "line": 14,
             "description": "Main class. Contains all others methods and websocket subscription"
         }
     },
@@ -140,7 +182,7 @@
     "classitems": [
         {
             "file": "src\\Models\\Account.js",
-            "line": 11,
+            "line": 14,
             "description": "Signs in the user",
             "itemtype": "method",
             "name": "authenticate",
@@ -150,15 +192,10 @@
                     "name": "data",
                     "description": "- Contains {\n email: string,\n password: string,\n clientId: string,\n}",
                     "type": "Object"
-                },
-                {
-                    "name": "subdomain",
-                    "description": "- Used only if SSO is enabled - contains the subdomain",
-                    "type": "String"
                 }
             ],
             "example": [
-                "\n    InPlayer.Account.authenticate({\n     email: 'test@test.com',\n     password: 'test123',\n     clientId: '123-123-hf1hd1-12dhd1',\n    }, 'testing/subdomain')\n    .then(data => console.log(data));"
+                "\n    InPlayer.Account.authenticate({\n     email: 'test@test.com',\n     password: 'test123',\n     clientId: '123-123-hf1hd1-12dhd1',\n     grantType: 'password'\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -168,46 +205,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 76,
-            "description": "Signs in the user",
-            "itemtype": "method",
-            "name": "signIn",
-            "async": 1,
-            "params": [
-                {
-                    "name": "data",
-                    "description": "- Contains {\n email: string,\n password: string,\n merchantUuid: string,\n referrer: string,\n}",
-                    "type": "Object"
-                }
-            ],
-            "example": [
-                "\n    InPlayer.Account.signIn({\n     email: 'test@test.com',\n     password: 'test123',\n     merchantUuid: '123-123-hf1hd1-12dhd1',\n     referrer: 'http://localhost.com'\n    })\n    .then(data => console.log(data));"
-            ],
-            "return": {
-                "description": "",
-                "type": "Object"
-            },
-            "class": "Account"
-        },
-        {
-            "file": "src\\Models\\Account.js",
-            "line": 123,
-            "description": "Signs out the user and destroys cookies",
-            "itemtype": "method",
-            "name": "signOut",
-            "async": 1,
-            "example": [
-                "\n    InPlayer.Account.signOut()\n    .then(data => console.log(data));"
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "class": "Account"
-        },
-        {
-            "file": "src\\Models\\Account.js",
-            "line": 154,
+            "line": 68,
             "description": "Signs up/Registers user",
             "itemtype": "method",
             "name": "signUp",
@@ -230,23 +228,26 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 229,
-            "description": "Checks if the user is authenticated OAuth2",
+            "line": 128,
+            "description": "Signs out the user and destroys cookies",
+            "itemtype": "method",
+            "name": "signOut",
+            "async": 1,
+            "example": [
+                "\n    InPlayer.Account.signOut()\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Account"
+        },
+        {
+            "file": "src\\Models\\Account.js",
+            "line": 159,
+            "description": "Checks if the user is authenticated",
             "itemtype": "method",
             "name": "isAuthenticated",
-            "async": 1,
-            "params": [
-                {
-                    "name": "clientId",
-                    "description": "- Use only if SSO is enabled - contains the clientId",
-                    "type": "String"
-                },
-                {
-                    "name": "subdomain",
-                    "description": "- Use only if SSO is enabled - contains the subdomain",
-                    "type": "String"
-                }
-            ],
             "example": [
                 "\n   InPlayer.Account.isAuthenticated()"
             ],
@@ -258,22 +259,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 282,
-            "description": "Checks if user is signed in",
-            "itemtype": "method",
-            "name": "isSignedIn",
-            "example": [
-                "\n   InPlayer.Account\n   .isSignedIn()"
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "class": "Account"
-        },
-        {
-            "file": "src\\Models\\Account.js",
-            "line": 298,
+            "line": 172,
             "itemtype": "method",
             "name": "getToken",
             "example": [
@@ -281,29 +267,13 @@
             ],
             "return": {
                 "description": "",
-                "type": "String"
+                "type": "Credentials"
             },
             "class": "Account"
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 323,
-            "description": "Returns users Auth token",
-            "itemtype": "method",
-            "name": "token",
-            "async": 1,
-            "example": [
-                "\n    InPlayer.Account\n    .token()"
-            ],
-            "return": {
-                "description": "",
-                "type": "String"
-            },
-            "class": "Account"
-        },
-        {
-            "file": "src\\Models\\Account.js",
-            "line": 336,
+            "line": 201,
             "description": "Refreshes the token",
             "itemtype": "method",
             "name": "refreshToken",
@@ -325,29 +295,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 377,
-            "description": "Sets Auth token into cookies",
-            "itemtype": "method",
-            "name": "token",
-            "params": [
-                {
-                    "name": "token",
-                    "description": "- The Authorization token which needs to be set",
-                    "type": "String"
-                }
-            ],
-            "example": [
-                "\n    InPlayer.Account\n    .setTokenInCookie('aed1g284i3dnfrfnd1o23rtegk')"
-            ],
-            "return": {
-                "description": "",
-                "type": "Void"
-            },
-            "class": "Account"
-        },
-        {
-            "file": "src\\Models\\Account.js",
-            "line": 390,
+            "line": 246,
             "description": "Requests new password for a given user",
             "itemtype": "method",
             "name": "requestNewPassword",
@@ -370,7 +318,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 421,
+            "line": 282,
             "description": "Sets new password for the user",
             "itemtype": "method",
             "name": "setNewPassword",
@@ -398,20 +346,13 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 467,
-            "description": "Gets the user/account information for a given auth token",
+            "line": 319,
+            "description": "Gets the account information for a given auth token",
             "itemtype": "method",
             "name": "getAccountInfo",
             "async": 1,
-            "params": [
-                {
-                    "name": "token",
-                    "description": "- The authorization token",
-                    "type": "String"
-                }
-            ],
             "example": [
-                "\n    InPlayer.Account\n    .getAccountInfo('afhqi83rji74hjf7e43df')\n    .then(data => console.log(data));"
+                "\n    InPlayer.Account\n    .getAccount()\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -421,7 +362,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 489,
+            "line": 350,
             "description": "Gets the social login urls for fb/twitter/google",
             "itemtype": "method",
             "name": "getSocialLoginUrls",
@@ -429,7 +370,7 @@
             "params": [
                 {
                     "name": "state",
-                    "description": "- The state for the social",
+                    "description": "- Social login state.\nThe state needs to be json and base64 encoded to be sent as a query parameter.\nExample: btoa(JSON.stringify({uuid: 'foo', redirect: 'http://example.com'}))",
                     "type": "String"
                 }
             ],
@@ -444,7 +385,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 508,
+            "line": 371,
             "description": "Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()",
             "itemtype": "method",
             "name": "updateAccount",
@@ -454,15 +395,10 @@
                     "name": "data",
                     "description": "- The new data for the account",
                     "type": "Object"
-                },
-                {
-                    "name": "token",
-                    "description": "- The authorization token",
-                    "type": "String"
                 }
             ],
             "example": [
-                "\n    InPlayer.Account\n    .updateAccount({fullName: 'test test', metadata: {country: 'Germany'}},'123124-1r-1r13ur1h1')\n    .then(data => console.log(data));"
+                "\n    InPlayer.Account\n    .updateAccount({fullName: 'test test', metadata: {country: 'Germany'}})\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -472,7 +408,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 551,
+            "line": 413,
             "description": "Changes password for a given user",
             "itemtype": "method",
             "name": "changePassword",
@@ -500,7 +436,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 584,
+            "line": 458,
             "description": "Gets register fields",
             "itemtype": "method",
             "name": "getRegisterFields",
@@ -523,10 +459,10 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 603,
-            "description": "Gets the purchase history",
+            "line": 479,
+            "description": "Deletes an account",
             "itemtype": "method",
-            "name": "getPurchaseHistory",
+            "name": "deleteAccount",
             "async": 1,
             "params": [
                 {
@@ -535,23 +471,13 @@
                     "type": "String"
                 },
                 {
-                    "name": "status",
-                    "description": "- The status of the purchase - active/inactive",
+                    "name": "password",
+                    "description": "- The password of the account",
                     "type": "String"
-                },
-                {
-                    "name": "page",
-                    "description": "- The current page",
-                    "type": "Number"
-                },
-                {
-                    "name": "limit",
-                    "description": "- The number of items per page",
-                    "type": "Number"
                 }
             ],
             "example": [
-                "\n    InPlayer.Account\n    .getPurchaseHistory('fg1h213f8g9fefgud23fg','active', 0, 5)\n    .then(data => console.log(data));"
+                "\n    InPlayer.Account\n    .deleteAccount('1231231')\n    .then(data => console.log(data))"
             ],
             "return": {
                 "description": "",
@@ -561,7 +487,198 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 631,
+            "line": 525,
+            "description": "Exports account data to the users' email",
+            "itemtype": "method",
+            "name": "exportData",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "password",
+                    "description": "- The password of the account",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Account\n    .exportData('f1hg1f-1g1hg183-g1ggh-13311','1231231')\n    .then(data => console.log(data))"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Account"
+        },
+        {
+            "file": "src\\Models\\Asset.js",
+            "line": 14,
+            "description": "Checks whether a given authenticated user has access for an asset",
+            "itemtype": "method",
+            "name": "checkAccessForAsset",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "id",
+                    "description": "- The id of the asset",
+                    "type": "Number"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Asset\n    .checkAccessForAsset(36320)\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Asset"
+        },
+        {
+            "file": "src\\Models\\Asset.js",
+            "line": 46,
+            "description": "Checks whether Free trial has been used for a given asset",
+            "itemtype": "method",
+            "name": "isFreeTrialUsed",
+            "async": 1,
+            "params": [
+                {
+                    "name": "token",
+                    "description": "- The Authorization token",
+                    "type": "String"
+                },
+                {
+                    "name": "id",
+                    "description": "- The ID of the asset",
+                    "type": "Number"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Asset\n    .isFreeTrialUsed(36320)\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Asset"
+        },
+        {
+            "file": "src\\Models\\Asset.js",
+            "line": 79,
+            "description": "Get the asset info for a given asset ID and merchant UUID",
+            "itemtype": "method",
+            "name": "findAsset",
+            "async": 1,
+            "params": [
+                {
+                    "name": "assetId",
+                    "description": "- The ID of the asset",
+                    "type": "Number"
+                },
+                {
+                    "name": "merchantUuid",
+                    "description": "- The merchant UUID string",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Asset\n    .getAsset(2,'a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl')\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Asset"
+        },
+        {
+            "file": "src\\Models\\Asset.js",
+            "line": 101,
+            "description": "Get an external assets info",
+            "itemtype": "method",
+            "name": "findExternalAsset",
+            "async": 1,
+            "params": [
+                {
+                    "name": "assetType",
+                    "description": "- The type ID of the asset",
+                    "type": "String"
+                },
+                {
+                    "name": "externalId",
+                    "description": "- The ID of the external asset",
+                    "type": "String"
+                },
+                {
+                    "name": "merchantUuid",
+                    "description": "- OPTIONAL - the merchant uuid",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Asset\n    .getExternalAsset('ooyala','44237')\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Asset"
+        },
+        {
+            "file": "src\\Models\\Asset.js",
+            "line": 128,
+            "description": "Get package info for a given Package ID",
+            "itemtype": "method",
+            "name": "findPackage",
+            "async": 1,
+            "params": [
+                {
+                    "name": "id",
+                    "description": "- The type ID of the package",
+                    "type": "Number"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Asset\n    .getPackage(4444)\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Asset"
+        },
+        {
+            "file": "src\\Models\\Asset.js",
+            "line": 147,
+            "description": "Get the access fees for a given asset ID",
+            "itemtype": "method",
+            "name": "getAssetAccessFees",
+            "async": 1,
+            "params": [
+                {
+                    "name": "id",
+                    "description": "- The ID of the asset",
+                    "type": "Number"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Asset\n    .getAssetAccessFees(555)\n    .then(data => console.log(data))"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Asset"
+        },
+        {
+            "file": "src\\Models\\Asset.js",
+            "line": 166,
             "description": "Returns purchase history with types",
             "itemtype": "method",
             "name": "getAssetsHistory",
@@ -594,236 +711,17 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.Account\n    .getAssetsHistory('1dfh1f-1g1f2e-1gg')\n    .then(data => console.log(data))"
+                "\n    InPlayer.Asset\n    .getAssetsHistory()\n    .then(data => console.log(data))"
             ],
             "return": {
                 "description": "",
                 "type": "Array"
             },
-            "class": "Account"
-        },
-        {
-            "file": "src\\Models\\Account.js",
-            "line": 666,
-            "description": "Deletes an account",
-            "itemtype": "method",
-            "name": "deleteAccount",
-            "async": 1,
-            "params": [
-                {
-                    "name": "token",
-                    "description": "- The authorization token",
-                    "type": "String"
-                },
-                {
-                    "name": "password",
-                    "description": "- The password of the account",
-                    "type": "String"
-                }
-            ],
-            "example": [
-                "\n    InPlayer.Account\n    .deleteAccount('f1hg1f-1g1hg183-g1ggh-13311','1231231')\n    .then(data => console.log(data))"
-            ],
-            "return": {
-                "description": "",
-                "type": "Boolean"
-            },
-            "class": "Account"
-        },
-        {
-            "file": "src\\Models\\Account.js",
-            "line": 699,
-            "description": "Exports account data to the users' email",
-            "itemtype": "method",
-            "name": "exportData",
-            "async": 1,
-            "params": [
-                {
-                    "name": "token",
-                    "description": "- The authorization token",
-                    "type": "String"
-                },
-                {
-                    "name": "password",
-                    "description": "- The password of the account",
-                    "type": "String"
-                }
-            ],
-            "example": [
-                "\n    InPlayer.Account\n    .exportData('f1hg1f-1g1hg183-g1ggh-13311','1231231')\n    .then(data => console.log(data))"
-            ],
-            "return": {
-                "description": "",
-                "type": "Object"
-            },
-            "class": "Account"
-        },
-        {
-            "file": "src\\Models\\Asset.js",
-            "line": 11,
-            "description": "Checks whether a given authenticated user has access for an asset",
-            "itemtype": "method",
-            "name": "checkAccessForAsset",
-            "async": 1,
-            "params": [
-                {
-                    "name": "token",
-                    "description": "- The Authorization token",
-                    "type": "String"
-                },
-                {
-                    "name": "id",
-                    "description": "- The id of the asset",
-                    "type": "Number"
-                }
-            ],
-            "example": [
-                "\n    InPlayer.Asset\n    .checkAccessForAsset('eyJ0eXAiOiJKPECENR5Y',36320)\n    .then(data => console.log(data));"
-            ],
-            "return": {
-                "description": "",
-                "type": "Object"
-            },
             "class": "Asset"
         },
         {
             "file": "src\\Models\\Asset.js",
-            "line": 33,
-            "description": "Checks whether Free trial has been used for a given asset",
-            "itemtype": "method",
-            "name": "isFreeTrialUsed",
-            "async": 1,
-            "params": [
-                {
-                    "name": "token",
-                    "description": "- The Authorization token",
-                    "type": "String"
-                },
-                {
-                    "name": "id",
-                    "description": "- The ID of the asset",
-                    "type": "Number"
-                }
-            ],
-            "example": [
-                "\n    InPlayer.Asset\n    .isFreeTrialUsed(36320)\n    .then(data => console.log(data));"
-            ],
-            "return": {
-                "description": "",
-                "type": "Object"
-            },
-            "class": "Asset"
-        },
-        {
-            "file": "src\\Models\\Asset.js",
-            "line": 55,
-            "description": "Get the asset info for a given asset ID and merchant UUID",
-            "itemtype": "method",
-            "name": "findAsset",
-            "async": 1,
-            "params": [
-                {
-                    "name": "assetId",
-                    "description": "- The ID of the asset",
-                    "type": "Number"
-                },
-                {
-                    "name": "merchantUuid",
-                    "description": "- The merchant UUID string",
-                    "type": "String"
-                }
-            ],
-            "example": [
-                "\n    InPlayer.Asset\n    .findAsset(2,'a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl')\n    .then(data => console.log(data));"
-            ],
-            "return": {
-                "description": "",
-                "type": "Object"
-            },
-            "class": "Asset"
-        },
-        {
-            "file": "src\\Models\\Asset.js",
-            "line": 78,
-            "description": "Get an external assets' info",
-            "itemtype": "method",
-            "name": "findExternalAsset",
-            "async": 1,
-            "params": [
-                {
-                    "name": "assetType",
-                    "description": "- The type ID of the asset",
-                    "type": "String"
-                },
-                {
-                    "name": "externalId",
-                    "description": "- The ID of the external asset",
-                    "type": "String"
-                },
-                {
-                    "name": "merchantUuid",
-                    "description": "- OPTIONAL - the merchant uuid",
-                    "type": "String"
-                }
-            ],
-            "example": [
-                "\n    InPlayer.Asset\n    .findExternalAsset('331ff2','44237')\n    .then(data => console.log(data));"
-            ],
-            "return": {
-                "description": "",
-                "type": "Object"
-            },
-            "class": "Asset"
-        },
-        {
-            "file": "src\\Models\\Asset.js",
-            "line": 106,
-            "description": "Get package info for a given Package ID",
-            "itemtype": "method",
-            "name": "findPackage",
-            "async": 1,
-            "params": [
-                {
-                    "name": "id",
-                    "description": "- The type ID of the package",
-                    "type": "Number"
-                }
-            ],
-            "example": [
-                "\n    InPlayer.Asset\n    .findPackage(4444)\n    .then(data => console.log(data));"
-            ],
-            "return": {
-                "description": "",
-                "type": "Object"
-            },
-            "class": "Asset"
-        },
-        {
-            "file": "src\\Models\\Asset.js",
-            "line": 125,
-            "description": "Get the access fees for a given asset ID",
-            "itemtype": "method",
-            "name": "getAssetAccessFees",
-            "async": 1,
-            "params": [
-                {
-                    "name": "id",
-                    "description": "- The ID of the asset",
-                    "type": "Number"
-                }
-            ],
-            "example": [
-                "\n    InPlayer.Asset\n    .getAssetAccessFees(555)\n    .then(data => console.log(data))"
-            ],
-            "return": {
-                "description": "",
-                "type": "Object"
-            },
-            "class": "Asset"
-        },
-        {
-            "file": "src\\Models\\Asset.js",
-            "line": 144,
+            "line": 210,
             "description": "Authorize for the freemium asset (login)",
             "itemtype": "method",
             "name": "getFreemiumAsset",
@@ -849,64 +747,8 @@
             "class": "Asset"
         },
         {
-            "file": "src\\Models\\Misc.js",
-            "line": 10,
-            "description": "Gets all DLC links",
-            "itemtype": "method",
-            "name": "getDlcLinks",
-            "async": 1,
-            "params": [
-                {
-                    "name": "token",
-                    "description": "- The Authorization token",
-                    "type": "String"
-                },
-                {
-                    "name": "assetId",
-                    "description": "- The id of the asset",
-                    "type": "Number"
-                }
-            ],
-            "example": [
-                "\n    InPlayer.Misc\n    .getDlcLinks('eyJ0eXAiOiJKPECENR5Y',36320)\n    .then(data => console.log(data));"
-            ],
-            "return": {
-                "description": "",
-                "type": "Object"
-            },
-            "class": "Misc"
-        },
-        {
-            "file": "src\\Models\\Misc.js",
-            "line": 32,
-            "description": "Gets the discount for a given ..",
-            "itemtype": "method",
-            "name": "getDiscount",
-            "async": 1,
-            "params": [
-                {
-                    "name": "token",
-                    "description": "- The Authorization token",
-                    "type": "String"
-                },
-                {
-                    "name": "data",
-                    "description": "- {\n  voucherCode: String,\n  merchantUuid: String,\n  accessFeeId: Number\n}",
-                    "type": "Object"
-                }
-            ],
-            "example": [
-                "\n    InPlayer.Misc\n    .getDiscount('eyJ0eXAiOiJKPECENR5Y',{\n       voucherCode: '120fwjhniudh42i7',\n       merchantUuid: 'hghfqw92dm29-1g',\n       accessFeeId: 2\n    })\n    .then(data => console.log(data));"
-            ],
-            "return": {
-                "description": "",
-                "type": "Object"
-            },
-            "class": "Misc"
-        },
-        {
-            "file": "src\\Models\\Misc.js",
-            "line": 69,
+            "file": "src\\Models\\Branding.js",
+            "line": 13,
             "description": "Gets branding params for given merchant",
             "itemtype": "method",
             "name": "getBranding",
@@ -924,40 +766,30 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.Misc\n    .getBranding('eyJ0e-XAiOi-JKPEC-ENR5Y', '123')\n    .then(data => console.log(data));"
+                "\n    InPlayer.Branding\n    .getBranding('eyJ0e-XAiOi-JKPEC-ENR5Y', '123')\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
                 "type": "Object"
             },
-            "class": "Misc"
+            "class": "Branding"
         },
         {
-            "file": "src\\Models\\Misc.js",
-            "line": 92,
-            "description": "Downloads a file",
+            "file": "src\\Models\\Dlc.js",
+            "line": 13,
+            "description": "Gets all DLC links",
             "itemtype": "method",
-            "name": "downloadProtectedFile",
+            "name": "getDlcLinks",
             "async": 1,
             "params": [
                 {
-                    "name": "token",
-                    "description": "- The Authorization token",
-                    "type": "String"
-                },
-                {
                     "name": "assetId",
-                    "description": "- The Id of the asset",
+                    "description": "- The id of the asset",
                     "type": "Number"
-                },
-                {
-                    "name": "filename",
-                    "description": "- The name of the file",
-                    "type": "String"
                 }
             ],
             "example": [
-                "\n    InPlayer.Misc\n    .downloadProtectedFile('eyJ0eXAiOiJKPECENR5Y',2234, 'test.js')\n    .then(data => console.log(data));"
+                "\n    InPlayer.DLC\n    .getDlcLinks(36320)\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -967,20 +799,13 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 12,
+            "line": 13,
             "description": "Get all payment methods for a User",
             "itemtype": "method",
             "name": "getPaymentMethods",
             "async": 1,
-            "params": [
-                {
-                    "name": "token",
-                    "description": "- The Autorization token",
-                    "type": "String"
-                }
-            ],
             "example": [
-                "\n    InPlayer.Payment\n    .getPaymentMethods('aehfawfeikuehdjkc482rijfg47idqwk3n4')\n    .then(data => console.log(data));"
+                "\n    InPlayer.Payment\n    .getPaymentMethods()\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -990,17 +815,12 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 33,
+            "line": 43,
             "description": "Get the payment tools for an aothorization token and payment method ID",
             "itemtype": "method",
             "name": "getPaymentTools",
             "async": 1,
             "params": [
-                {
-                    "name": "token",
-                    "description": "- The Authorization token",
-                    "type": "String"
-                },
                 {
                     "name": "paymentMethodId",
                     "description": "- The Payment Method ID",
@@ -1008,7 +828,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.Payment\n    .getPaymentTools('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', 2)\n    .then(data => console.log(data));"
+                "\n    InPlayer.Payment\n    .getPaymentTools(2)\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -1018,17 +838,12 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 58,
-            "description": "Makes a Payment for a given Authorization token + asset/payment details.\nUse this method ONLY if the assetFee.type is not 'subscription' or 'freemium'. Otherwise\nplease use InPlayer.Subscription.assetSubscribe()",
+            "line": 77,
+            "description": "Makes a Payment for a given Authorization token + asset/payment details.\nUse this method ONLY if the assetFee.type is not 'subscription' or 'freemium'. Otherwise\nplease use InPlayer.Subscription.create()",
             "itemtype": "method",
-            "name": "payForAsset",
+            "name": "create",
             "async": 1,
             "params": [
-                {
-                    "name": "token",
-                    "description": "- The Authorization token",
-                    "type": "String"
-                },
                 {
                     "name": "data",
                     "description": "- Payment data - {\n number: Number || String,\n cardName: String,\n expMonth: Number,\n expYear: Number,\n cvv: Number,\n accessFee: Number,\n paymentMethod: String,\n referrer: String\n voucherCode?: String\n}",
@@ -1036,7 +851,7 @@
                 }
             ],
             "example": [
-                "\n    // data.payment_method = { id.... }\n    InPlayer.Payment\n    .payForAsset('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj',\n     {\n      number: 4111111111111111,\n      cardName: 'PayPal',\n      expMonth: 10,\n      expYear: 2030,\n      cvv: 656,\n      accessFee: 2341,\n      paymentMethod: 1,\n      referrer: 'http://google.com',\n      voucherCode: 'fgh1982gff-0f2grfds'\n     })\n    .then(data => console.log(data));"
+                "\n    InPlayer.Payment\n    .payForAsset({\n      number: 4111111111111111,\n      cardName: 'PayPal',\n      expMonth: 10,\n      expYear: 2030,\n      cvv: 656,\n      accessFee: 2341,\n      paymentMethod: 1,\n      referrer: 'http://google.com',\n      voucherCode: 'fgh1982gff-0f2grfds'\n     })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -1046,50 +861,12 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 120,
-            "description": "Makes a payment with a given access fee object, for both subscription and PPV",
-            "itemtype": "method",
-            "name": "purchaseAsset",
-            "async": 1,
-            "params": [
-                {
-                    "name": "token",
-                    "description": "- The Authorization token",
-                    "type": "String"
-                },
-                {
-                    "name": "accessFee",
-                    "description": "- The access fee object",
-                    "type": "Object"
-                },
-                {
-                    "name": "data",
-                    "description": "- Payment data - {\n number: Number || String,\n cardName: String,\n expMonth: Number,\n expYear: Number,\n cvv: Number,\n accessFee: Number,\n paymentMethod: String,\n referrer: String\n voucherCode?: String\n}",
-                    "type": "Object"
-                }
-            ],
-            "example": [
-                "\n    InPlayer.Payment\n    .purchaseAsset('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj',\n     {\n       access_fee: {\n         id: 10,\n         name: 'subscription',\n         quantity: 10,\n       },\n       amount: 6.99,\n       id: 2221\n     },\n     {\n      number: 4111111111111111,\n      cardName: 'PayPal',\n      expMonth: 10,\n      expYear: 2030,\n      cvv: 656,\n      paymentMethod: 1,\n      referrer: 'http://google.com',\n      voucherCode: 'fgh1982gff-0f2grfds'\n     })\n    .then(data => console.log(data));"
-            ],
-            "return": {
-                "description": "",
-                "type": "Object"
-            },
-            "class": "Payment"
-        },
-        {
-            "file": "src\\Models\\Payment.js",
-            "line": 177,
+            "line": 148,
             "description": "Gets parameters for PayPal",
             "itemtype": "method",
             "name": "getPayPalParams",
             "async": 1,
             "params": [
-                {
-                    "name": "token",
-                    "description": "- The Authorization token",
-                    "type": "String"
-                },
                 {
                     "name": "data",
                     "description": "- Contains details - {\n origin: {String},\n accessFeeId: {Number},\n paymentMethod: {Number}\n}",
@@ -1097,7 +874,40 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.Payment\n    .getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {\n    origin: location.href,\n    accessFeeId: 34,\n    paymentMethod: 2\n    voucherCode: '1231231'\n    })\n    .then(data => console.log(data));"
+                "\n    InPlayer.Payment\n    .getPayPalParams({\n    origin: location.href,\n    accessFee: 34,\n    paymentMethod: 2\n    voucherCode: '1231231'\n    })\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "src\\Models\\Payment.js",
+            "line": 201,
+            "description": "Gets the purchase history",
+            "itemtype": "method",
+            "name": "getPurchaseHistory",
+            "async": 1,
+            "params": [
+                {
+                    "name": "status",
+                    "description": "- The status of the purchase - active/inactive",
+                    "type": "String"
+                },
+                {
+                    "name": "page",
+                    "description": "- The current page",
+                    "type": "Number"
+                },
+                {
+                    "name": "limit",
+                    "description": "- The number of items per page",
+                    "type": "Number"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Payment\n    .getPurchaseHistory('active', 0, 5)\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -1107,20 +917,13 @@
         },
         {
             "file": "src\\Models\\Subscription.js",
-            "line": 10,
+            "line": 13,
             "description": "Gets all subscriptions for a given user",
             "itemtype": "method",
             "name": "getSubscriptions",
             "async": 1,
-            "params": [
-                {
-                    "name": "token",
-                    "description": "- The Authorization token",
-                    "type": "String"
-                }
-            ],
             "example": [
-                "\n    InPlayer.Subscription\n    .getSubscriptions('eyJ0eXAiOiJKPECENR5Y')\n    .then(data => console.log(data));"
+                "\n    InPlayer.Subscription\n    .getSubscriptions()\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -1130,7 +933,7 @@
         },
         {
             "file": "src\\Models\\Subscription.js",
-            "line": 35,
+            "line": 46,
             "description": "Get subscription details for a given user by id",
             "itemtype": "method",
             "name": "getSubscription",
@@ -1140,15 +943,10 @@
                     "name": "id",
                     "description": "- The subscription id",
                     "type": "String"
-                },
-                {
-                    "name": "token",
-                    "description": "- The Authorization token",
-                    "type": "String"
                 }
             ],
             "example": [
-                "\n    InPlayer.Subscription\n    .getSubscription('abcdef', 'eyJ0eXAiOiJKPECENR5Y')\n    .then(data => console.log(data));"
+                "\n    InPlayer.Subscription\n    .getSubscription('abcdef')\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -1158,25 +956,20 @@
         },
         {
             "file": "src\\Models\\Subscription.js",
-            "line": 60,
+            "line": 79,
             "description": "Cancels a subscription",
             "itemtype": "method",
             "name": "cancelSubscription",
             "async": 1,
             "params": [
                 {
-                    "name": "unsubscribeUrl",
-                    "description": "- The url for the subscription which is getting unsubscribed",
-                    "type": "String"
-                },
-                {
-                    "name": "token",
-                    "description": "- The Authorization token",
+                    "name": "transactionToken",
+                    "description": "- The transaction token",
                     "type": "String"
                 }
             ],
             "example": [
-                "\n    InPlayer.Subscription\n    .cancelSubscription('http://localhost/subscription/1','eyJ0eXAiOiJKPECENR5Y')\n    .then(data => console.log(data));"
+                "\n    InPlayer.Subscription\n    .cancelSubscription('abcdef')\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -1186,7 +979,7 @@
         },
         {
             "file": "src\\Models\\Subscription.js",
-            "line": 83,
+            "line": 113,
             "description": "Subscribes to a given asset. Use this method ONLY if the accessFee.type === 'subscription'.\nOtherwise please use InPlayer.Payment.payForAsset()",
             "itemtype": "method",
             "name": "assetSubscribe",
@@ -1204,7 +997,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.Subscription\n    .assetSubscribe('eyJ0eXAiOiJKPECENR5Y', {\n       number: 1,\n       cardName: 'Payoneer',\n       expMonth: 11,\n       expYear: 12,\n       cvv: 546,\n       accessFee: 13.4,\n       paymentMethod: 'card',\n       referrer: 'http://localhost:3000',\n       voucherCode: '123123125914i2erjfg'\n       }\n    )\n    .then(data => console.log(data));"
+                "\n    InPlayer.Subscription\n    .create({\n       number: 1,\n       cardName: 'Payoneer',\n       expMonth: 11,\n       expYear: 12,\n       cvv: 546,\n       accessFee: 13.4,\n       paymentMethod: 'card',\n       referrer: 'http://localhost:3000',\n       voucherCode: '123123125914i2erjfg'\n       }\n    )\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -1213,36 +1006,31 @@
             "class": "Subscription"
         },
         {
-            "file": "src\\Models\\Subscription.js",
-            "line": 143,
-            "description": "Cancels a subscription with a provided transaction and authorization token\nWill receive\n -external.subscribe.cancel.success notification for Paypal transaction\n -subscribe.cancel.success notification for other types of transactions",
+            "file": "src\\Models\\Voucher.js",
+            "line": 14,
+            "description": "Gets the discount for a given code.",
             "itemtype": "method",
-            "name": "cancelTokenSubscription",
+            "name": "getDiscount",
             "async": 1,
             "params": [
                 {
-                    "name": "authorizationToken",
-                    "description": "- The Authorization token",
-                    "type": "String"
-                },
-                {
-                    "name": "transactionToken",
-                    "description": "- The transaction token",
-                    "type": "String"
+                    "name": "data",
+                    "description": "- {\n  voucherCode: String,\n  merchantUuid: String,\n  accessFeeId: Number\n}",
+                    "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.Subscription\n    .cancelTokenSubscription('eyJ0eXAiOiJKPECENR5Y', 'dgh19t1-f1g1ug1f')\n    .then(data => console.log(data));"
+                "\n    InPlayer.Voucher\n    .getDiscount({\n       voucherCode: '120fwjhniudh42i7',\n       merchantId: 123,\n       accessFee: 2\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
                 "type": "Object"
             },
-            "class": "Subscription"
+            "class": "Voucher"
         },
         {
             "file": "src\\index.js",
-            "line": 24,
+            "line": 30,
             "itemtype": "property",
             "name": "Account",
             "type": "Account",
@@ -1250,7 +1038,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 29,
+            "line": 35,
             "itemtype": "property",
             "name": "Asset",
             "type": "Asset",
@@ -1258,7 +1046,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 34,
+            "line": 40,
             "itemtype": "property",
             "name": "Payment",
             "type": "Payment",
@@ -1266,7 +1054,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 39,
+            "line": 45,
             "itemtype": "property",
             "name": "Subscription",
             "type": "Subscription",
@@ -1274,15 +1062,31 @@
         },
         {
             "file": "src\\index.js",
-            "line": 44,
+            "line": 50,
             "itemtype": "property",
-            "name": "Misc",
-            "type": "Misc",
+            "name": "Voucher",
+            "type": "Voucher",
             "class": "InPlayer"
         },
         {
             "file": "src\\index.js",
-            "line": 52,
+            "line": 55,
+            "itemtype": "property",
+            "name": "Voucher",
+            "type": "Voucher",
+            "class": "InPlayer"
+        },
+        {
+            "file": "src\\index.js",
+            "line": 60,
+            "itemtype": "property",
+            "name": "Branding",
+            "type": "Branding",
+            "class": "InPlayer"
+        },
+        {
+            "file": "src\\index.js",
+            "line": 68,
             "description": "Subscribes to websocket events",
             "itemtype": "method",
             "name": "subscribe",
@@ -1309,7 +1113,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 86,
+            "line": 111,
             "description": "Unsubscribes from the websocket and event listeners",
             "itemtype": "method",
             "name": "unsubscribe",
@@ -1324,14 +1128,14 @@
         },
         {
             "file": "src\\index.js",
-            "line": 97,
+            "line": 122,
             "description": "Overrides the default configs",
             "itemtype": "method",
             "name": "setConfig",
             "params": [
                 {
                     "name": "config",
-                    "description": "'prod', 'develop' or 'sandobx'",
+                    "description": "'prod', 'develop' or 'sandbox'",
                     "type": "String"
                 }
             ],

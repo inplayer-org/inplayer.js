@@ -21,12 +21,12 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>1.0.0</b>
+                    API Docs for Version: <b>2.0.3</b>
                 </p>
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Account", "classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Account", "classes/Asset", "classes/Branding", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription", "classes/Voucher"]'>
         </form>
     </div>
 </div>
@@ -39,10 +39,12 @@
         <ul id="api-classes" class="nav nav-list">
                 <li><a href="../classes/Account.html">Account</a></li>
                 <li><a href="../classes/Asset.html">Asset</a></li>
+                <li><a href="../classes/Branding.html">Branding</a></li>
                 <li><a href="../classes/InPlayer.html">InPlayer</a></li>
                 <li><a href="../classes/Misc.html">Misc</a></li>
                 <li><a href="../classes/Payment.html">Payment</a></li>
                 <li><a href="../classes/Subscription.html">Subscription</a></li>
+                <li><a href="../classes/Voucher.html">Voucher</a></li>
         </ul>
     </div>
     </div>
@@ -81,7 +83,7 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-import Subscription from &#x27;./Subscription&#x27;;
+import { checkStatus, errorResponse, params } from &#x27;../Utils&#x27;;
 
 /**
  * Contains all Requests connected with payments
@@ -89,26 +91,36 @@ import Subscription from &#x27;./Subscription&#x27;;
  * @class Payment
  */
 class Payment {
-    constructor(config) {
+    constructor(config, Account) {
         this.config = config;
+        this.Account = Account;
     }
     /**
      * Get all payment methods for a User
      * @method getPaymentMethods
      * @async
-     * @param {String} token - The Autorization token
      * @example
      *     InPlayer.Payment
-     *     .getPaymentMethods(&#x27;aehfawfeikuehdjkc482rijfg47idqwk3n4&#x27;)
+     *     .getPaymentMethods()
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async getPaymentMethods(token) {
+    async getPaymentMethods() {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: &#x27;User is not authenticated&#x27;,
+            });
+        }
+        const t = this.Account.getToken();
+
         const response = await fetch(this.config.API.getPaymentMethods, {
             headers: {
-                Authorization: &#x27;Bearer &#x27; + token,
+                Authorization: &#x27;Bearer &#x27; + t.token,
             },
         });
+
+        checkStatus(response);
 
         return await response.json();
     }
@@ -117,23 +129,32 @@ class Payment {
      * Get the payment tools for an aothorization token and payment method ID
      * @method getPaymentTools
      * @async
-     * @param {String} token - The Authorization token
      * @param {Number} paymentMethodId - The Payment Method ID
      * @example
      *     InPlayer.Payment
-     *     .getPaymentTools(&#x27;dajh8ao8djadd2o8jh2ofkhdhqkgog3oj&#x27;, 2)
+     *     .getPaymentTools(2)
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async getPaymentTools(token, paymentMethodId) {
+    async getPaymentTools(paymentMethodId) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: &#x27;User is not authenticated&#x27;,
+            });
+        }
+        const t = this.Account.getToken();
+
         const response = await fetch(
             this.config.API.getPaymentTools(paymentMethodId),
             {
                 headers: {
-                    Authorization: &#x27;Bearer &#x27; + token,
+                    Authorization: &#x27;Bearer &#x27; + t.token,
                 },
             }
         );
+
+        checkStatus(response);
 
         return await response.json();
     }
@@ -141,10 +162,9 @@ class Payment {
     /**
      * Makes a Payment for a given Authorization token + asset/payment details.
      * Use this method ONLY if the assetFee.type is not &#x27;subscription&#x27; or &#x27;freemium&#x27;. Otherwise
-     * please use InPlayer.Subscription.assetSubscribe()
-     * @method payForAsset
+     * please use InPlayer.Subscription.create()
+     * @method create
      * @async
-     * @param {String} token - The Authorization token
      * @param {Object} data - Payment data - {
      *  number: Number || String,
      *  cardName: String,
@@ -157,10 +177,8 @@ class Payment {
      *  voucherCode?: String
      * }
      * @example
-     *     // data.payment_method = { id.... }
      *     InPlayer.Payment
-     *     .payForAsset(&#x27;dajh8ao8djadd2o8jh2ofkhdhqkgog3oj&#x27;,
-     *      {
+     *     .payForAsset({
      *       number: 4111111111111111,
      *       cardName: &#x27;PayPal&#x27;,
      *       expMonth: 10,
@@ -174,94 +192,48 @@ class Payment {
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async payForAsset(token = &#x27;&#x27;, data = {}) {
-        const fd = new FormData();
-        fd.append(&#x27;number&#x27;, data.number);
-        fd.append(&#x27;card_name&#x27;, data.cardName);
-        fd.append(&#x27;exp_month&#x27;, data.expMonth);
-        fd.append(&#x27;exp_year&#x27;, data.expYear);
-        fd.append(&#x27;cvv&#x27;, data.cvv);
-        fd.append(&#x27;access_fee&#x27;, data.accessFee);
-        fd.append(&#x27;payment_method&#x27;, data.paymentMethod);
-        fd.append(&#x27;referrer&#x27;, data.referrer);
+    async create(data = {}) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: &#x27;User is not authenticated&#x27;,
+            });
+        }
+        const t = this.Account.getToken();
+
+        let body = {
+            number: data.number,
+            card_name: data.cardName,
+            exp_month: data.expMonth,
+            exp_year: data.expYear,
+            cvv: data.cvv,
+            access_fee: data.accessFee,
+            payment_method: data.paymentMethod,
+            referrer: data.referrer,
+        };
 
         if (data.voucherCode) {
-            fd.append(&#x27;voucher_code&#x27;, data.voucherCode);
+            body.voucher_code = data.voucherCode;
         }
 
         const response = await fetch(this.config.API.payForAsset, {
             method: &#x27;POST&#x27;,
             headers: {
-                Authorization: &#x27;Bearer &#x27; + token,
+                Authorization: &#x27;Bearer &#x27; + t.token,
+                &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;,
             },
-            body: fd,
+            body: params(body),
         });
 
+        checkStatus(response);
+
         return await response.json();
-    }
-
-    /**
-     * Makes a payment with a given access fee object, for both subscription and PPV
-     * @method purchaseAsset
-     * @async
-     * @param {String} token - The Authorization token
-     * @param {Object} accessFee - The access fee object
-     * @param {Object} data - Payment data - {
-     *  number: Number || String,
-     *  cardName: String,
-     *  expMonth: Number,
-     *  expYear: Number,
-     *  cvv: Number,
-     *  accessFee: Number,
-     *  paymentMethod: String,
-     *  referrer: String
-     *  voucherCode?: String
-     * }
-     * @example
-     *     InPlayer.Payment
-     *     .purchaseAsset(&#x27;dajh8ao8djadd2o8jh2ofkhdhqkgog3oj&#x27;,
-     *      {
-     *        access_fee: {
-     *          id: 10,
-     *          name: &#x27;subscription&#x27;,
-     *          quantity: 10,
-     *        },
-     *        amount: 6.99,
-     *        id: 2221
-     *      },
-     *      {
-     *       number: 4111111111111111,
-     *       cardName: &#x27;PayPal&#x27;,
-     *       expMonth: 10,
-     *       expYear: 2030,
-     *       cvv: 656,
-     *       paymentMethod: 1,
-     *       referrer: &#x27;http://google.com&#x27;,
-     *       voucherCode: &#x27;fgh1982gff-0f2grfds&#x27;
-     *      })
-     *     .then(data =&gt; console.log(data));
-     * @return {Object}
-     */
-    async purchaseAsset(token = &#x27;&#x27;, accessFee = {}, data = {}) {
-        let response;
-        data.accessFee = accessFee.id;
-
-        if (accessFee.access_type.name === &#x27;subscription&#x27;) {
-            data.accessFee = accessFee.id;
-            let subscription = new Subscription(this.config);
-            response = await subscription.assetSubscribe(token, data);
-        } else {
-            response = await this.payForAsset(token, data);
-        }
-
-        return response;
     }
 
     /**
      * Gets parameters for PayPal
      * @method getPayPalParams
      * @async
-     * @param {String} token - The Authorization token
      * @param {Object} data - Contains details - {
      *  origin: {String},
      *  accessFeeId: {Number},
@@ -269,31 +241,78 @@ class Payment {
      * }
      * @example
      *     InPlayer.Payment
-     *     .getPayPalParams(&#x27;dajh8ao8djadd2o8jh2ofkhdhqkgog3oj&#x27;, {
+     *     .getPayPalParams({
      *     origin: location.href,
-     *     accessFeeId: 34,
+     *     accessFee: 34,
      *     paymentMethod: 2
      *     voucherCode: &#x27;1231231&#x27;
      *     })
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async getPayPalParams(token = &#x27;&#x27;, data = {}) {
-        const fd = new FormData();
-        fd.append(&#x27;origin&#x27;, data.origin);
-        fd.append(&#x27;access_fee&#x27;, data.accessFeeId);
-        fd.append(&#x27;payment_method&#x27;, data.paymentMethod);
+    async getPayPalParams(data = {}) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: &#x27;User is not authenticated&#x27;,
+            });
+        }
+        const t = this.Account.getToken();
+
+        let body = {
+            origin: data.origin,
+            access_fee: data.acessFee,
+            payment_method: data.paymentMethod,
+        };
+
         if (data.voucherCode) {
-            fd.append(&#x27;voucher_code&#x27;, data.voucherCode);
+            body.voucher_code = data.voucherCode;
         }
 
         const response = await fetch(this.config.API.externalPayments, {
             method: &#x27;POST&#x27;,
             headers: {
-                Authorization: &#x27;Bearer &#x27; + token,
+                Authorization: &#x27;Bearer &#x27; + t.token,
+                &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;,
             },
-            body: fd,
+            body: params(body),
         });
+
+        checkStatus(response);
+
+        return await response.json();
+    }
+
+    /**
+     * Gets the purchase history
+     * @method getPurchaseHistory
+     * @async
+     * @param {String} status - The status of the purchase - active/inactive
+     * @param {Number} page - The current page
+     * @param {Number} limit - The number of items per page
+     * @example
+     *     InPlayer.Payment
+     *     .getPurchaseHistory(&#x27;active&#x27;, 0, 5)
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async getPurchaseHistory(status = &#x27;active&#x27;, page, limit) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: &#x27;User is not authenticated&#x27;,
+            });
+        }
+        const t = this.Account.getToken();
+
+        const response = await fetch(
+            this.config.API.getPurchaseHistory(status, page, limit),
+            {
+                headers: {
+                    Authorization: &#x27;Bearer &#x27; + t.token,
+                },
+            }
+        );
 
         return await response.json();
     }

@@ -21,12 +21,12 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>1.0.0</b>
+                    API Docs for Version: <b>2.0.3</b>
                 </p>
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Account", "classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Account", "classes/Asset", "classes/Branding", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription", "classes/Voucher"]'>
         </form>
     </div>
 </div>
@@ -39,10 +39,12 @@
         <ul id="api-classes" class="nav nav-list">
                 <li><a href="../classes/Account.html">Account</a></li>
                 <li><a href="../classes/Asset.html">Asset</a></li>
+                <li><a href="../classes/Branding.html">Branding</a></li>
                 <li><a href="../classes/InPlayer.html">InPlayer</a></li>
                 <li><a href="../classes/Misc.html">Misc</a></li>
                 <li><a href="../classes/Payment.html">Payment</a></li>
                 <li><a href="../classes/Subscription.html">Subscription</a></li>
+                <li><a href="../classes/Voucher.html">Voucher</a></li>
         </ul>
     </div>
     </div>
@@ -97,11 +99,11 @@
 		<li>
 			<strong>Methods</strong>
 			<ul>
-				<li><a href="#method-getPaymentMethods"><span class="im">getPaymentMethods</span>(<span class="ia">token</span>)</a></li>
-				<li><a href="#method-getPaymentTools"><span class="im">getPaymentTools</span>(<span class="ia">token</span><span class="ia">paymentMethodId</span>)</a></li>
-				<li><a href="#method-getPayPalParams"><span class="im">getPayPalParams</span>(<span class="ia">token</span><span class="ia">data</span>)</a></li>
-				<li><a href="#method-payForAsset"><span class="im">payForAsset</span>(<span class="ia">token</span><span class="ia">data</span>)</a></li>
-				<li><a href="#method-purchaseAsset"><span class="im">purchaseAsset</span>(<span class="ia">token</span><span class="ia">accessFee</span><span class="ia">data</span>)</a></li>
+				<li><a href="#method-create"><span class="im">create</span>(<span class="ia">data</span>)</a></li>
+				<li><a href="#method-getPaymentMethods"><span class="im">getPaymentMethods</span>()</a></li>
+				<li><a href="#method-getPaymentTools"><span class="im">getPaymentTools</span>(<span class="ia">paymentMethodId</span>)</a></li>
+				<li><a href="#method-getPayPalParams"><span class="im">getPayPalParams</span>(<span class="ia">data</span>)</a></li>
+				<li><a href="#method-getPurchaseHistory"><span class="im">getPurchaseHistory</span>(<span class="ia">status</span><span class="ia">page</span><span class="ia">limit</span>)</a></li>
 			</ul>
 		</li>
 
@@ -116,14 +118,14 @@
     <div id="methods" class="page-section">
         <h2 class="off-left">Methods</h2>
         <div class="item-list">
-<div id="method-getPaymentMethods" class="method item">
+<div id="method-create" class="method item">
 	<div class="method-signature">
-	<span class="name"><code>getPaymentMethods</code></span>
+	<span class="name"><code>create</code></span>
 
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
 				<li class="arg">
-						<code>token</code>
+						<code>data</code>
 				</li>
 			</ul><span class="paren">)</span>
 		</div>
@@ -141,14 +143,16 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Payment.js.html#l12"><code>src\Models\Payment.js:12</code></a>
+		<a href="../files/src_Models_Payment.js.html#l77"><code>src\Models\Payment.js:77</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Get all payment methods for a User</p>
+	<div class="description"><p>Makes a Payment for a given Authorization token + asset/payment details.
+Use this method ONLY if the assetFee.type is not 'subscription' or 'freemium'. Otherwise
+please use InPlayer.Subscription.create()</p>
 </div>
 
 		<div class="params">
@@ -156,12 +160,22 @@
 
 			<ul class="params-list">
 				<li class="param">
-						<code class="param-name">token</code>
-						<span class="type">String</span>
+						<code class="param-name">data</code>
+						<span class="type">Object</span>
 
 
 					<div class="param-description"><ul>
-<li>The Autorization token</li>
+<li>Payment data - {
+number: Number || String,
+cardName: String,
+expMonth: Number,
+expYear: Number,
+cvv: Number,
+accessFee: Number,
+paymentMethod: String,
+referrer: String
+voucherCode?: String
+}</li>
 </ul>
 </div>
 
@@ -182,7 +196,66 @@
 
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.Payment
-.getPaymentMethods('aehfawfeikuehdjkc482rijfg47idqwk3n4')
+.payForAsset({
+  number: 4111111111111111,
+  cardName: 'PayPal',
+  expMonth: 10,
+  expYear: 2030,
+  cvv: 656,
+  accessFee: 2341,
+  paymentMethod: 1,
+  referrer: 'http://google.com',
+  voucherCode: 'fgh1982gff-0f2grfds'
+ })
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-getPaymentMethods" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>getPaymentMethods</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_Payment.js.html#l13"><code>src\Models\Payment.js:13</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Get all payment methods for a User</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.Payment
+.getPaymentMethods()
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>
@@ -194,9 +267,6 @@
 
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
-				<li class="arg">
-						<code>token</code>
-				</li>
 				<li class="arg">
 						<code>paymentMethodId</code>
 				</li>
@@ -216,7 +286,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Payment.js.html#l33"><code>src\Models\Payment.js:33</code></a>
+		<a href="../files/src_Models_Payment.js.html#l43"><code>src\Models\Payment.js:43</code></a>
 		</p>
 
 
@@ -230,17 +300,6 @@
 			<h4>Parameters:</h4>
 
 			<ul class="params-list">
-				<li class="param">
-						<code class="param-name">token</code>
-						<span class="type">String</span>
-
-
-					<div class="param-description"><ul>
-<li>The Authorization token</li>
-</ul>
-</div>
-
-				</li>
 				<li class="param">
 						<code class="param-name">paymentMethodId</code>
 						<span class="type">Number</span>
@@ -268,7 +327,7 @@
 
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.Payment
-.getPaymentTools('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', 2)
+.getPaymentTools(2)
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>
@@ -280,9 +339,6 @@
 
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
-				<li class="arg">
-						<code>token</code>
-				</li>
 				<li class="arg">
 						<code>data</code>
 				</li>
@@ -302,7 +358,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Payment.js.html#l177"><code>src\Models\Payment.js:177</code></a>
+		<a href="../files/src_Models_Payment.js.html#l148"><code>src\Models\Payment.js:148</code></a>
 		</p>
 
 
@@ -316,17 +372,6 @@
 			<h4>Parameters:</h4>
 
 			<ul class="params-list">
-				<li class="param">
-						<code class="param-name">token</code>
-						<span class="type">String</span>
-
-
-					<div class="param-description"><ul>
-<li>The Authorization token</li>
-</ul>
-</div>
-
-				</li>
 				<li class="param">
 						<code class="param-name">data</code>
 						<span class="type">Object</span>
@@ -358,9 +403,9 @@ paymentMethod: {Number}
 
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.Payment
-.getPayPalParams('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj', {
+.getPayPalParams({
 origin: location.href,
-accessFeeId: 34,
+accessFee: 34,
 paymentMethod: 2
 voucherCode: '1231231'
 })
@@ -369,17 +414,20 @@ voucherCode: '1231231'
 			</div>
 		</div>
 </div>
-<div id="method-payForAsset" class="method item">
+<div id="method-getPurchaseHistory" class="method item">
 	<div class="method-signature">
-	<span class="name"><code>payForAsset</code></span>
+	<span class="name"><code>getPurchaseHistory</code></span>
 
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
 				<li class="arg">
-						<code>token</code>
+						<code>status</code>
 				</li>
 				<li class="arg">
-						<code>data</code>
+						<code>page</code>
+				</li>
+				<li class="arg">
+						<code>limit</code>
 				</li>
 			</ul><span class="paren">)</span>
 		</div>
@@ -397,16 +445,14 @@ voucherCode: '1231231'
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Payment.js.html#l58"><code>src\Models\Payment.js:58</code></a>
+		<a href="../files/src_Models_Payment.js.html#l201"><code>src\Models\Payment.js:201</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Makes a Payment for a given Authorization token + asset/payment details.
-Use this method ONLY if the assetFee.type is not 'subscription' or 'freemium'. Otherwise
-please use InPlayer.Subscription.assetSubscribe()</p>
+	<div class="description"><p>Gets the purchase history</p>
 </div>
 
 		<div class="params">
@@ -414,155 +460,34 @@ please use InPlayer.Subscription.assetSubscribe()</p>
 
 			<ul class="params-list">
 				<li class="param">
-						<code class="param-name">token</code>
+						<code class="param-name">status</code>
 						<span class="type">String</span>
 
 
 					<div class="param-description"><ul>
-<li>The Authorization token</li>
+<li>The status of the purchase - active/inactive</li>
 </ul>
 </div>
 
 				</li>
 				<li class="param">
-						<code class="param-name">data</code>
-						<span class="type">Object</span>
+						<code class="param-name">page</code>
+						<span class="type">Number</span>
 
 
 					<div class="param-description"><ul>
-<li>Payment data - {
-number: Number || String,
-cardName: String,
-expMonth: Number,
-expYear: Number,
-cvv: Number,
-accessFee: Number,
-paymentMethod: String,
-referrer: String
-voucherCode?: String
-}</li>
-</ul>
-</div>
-
-				</li>
-			</ul>
-		</div>
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type">Object</span>
-			</div>
-		</div>
-
-		<div class="example">
-			<h4>Example:</h4>
-
-			<div class="example-content">
-				<pre class="code prettyprint"><code>// data.payment_method = { id.... }
-InPlayer.Payment
-.payForAsset('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj',
- {
-  number: 4111111111111111,
-  cardName: 'PayPal',
-  expMonth: 10,
-  expYear: 2030,
-  cvv: 656,
-  accessFee: 2341,
-  paymentMethod: 1,
-  referrer: 'http://google.com',
-  voucherCode: 'fgh1982gff-0f2grfds'
- })
-.then(data =&gt; console.log(data));</code></pre>
-
-			</div>
-		</div>
-</div>
-<div id="method-purchaseAsset" class="method item">
-	<div class="method-signature">
-	<span class="name"><code>purchaseAsset</code></span>
-
-		<div class="args">
-			<span class="paren">(</span><ul class="args-list inline commas">
-				<li class="arg">
-						<code>token</code>
-				</li>
-				<li class="arg">
-						<code>accessFee</code>
-				</li>
-				<li class="arg">
-						<code>data</code>
-				</li>
-			</ul><span class="paren">)</span>
-		</div>
-		<span class="returns-inline">
-			<span class="type">Object</span>
-		</span>
-	</div>
-
-
-
-
-
-		<span class="flag async">async</span>
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/src_Models_Payment.js.html#l120"><code>src\Models\Payment.js:120</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Makes a payment with a given access fee object, for both subscription and PPV</p>
-</div>
-
-		<div class="params">
-			<h4>Parameters:</h4>
-
-			<ul class="params-list">
-				<li class="param">
-						<code class="param-name">token</code>
-						<span class="type">String</span>
-
-
-					<div class="param-description"><ul>
-<li>The Authorization token</li>
+<li>The current page</li>
 </ul>
 </div>
 
 				</li>
 				<li class="param">
-						<code class="param-name">accessFee</code>
-						<span class="type">Object</span>
+						<code class="param-name">limit</code>
+						<span class="type">Number</span>
 
 
 					<div class="param-description"><ul>
-<li>The access fee object</li>
-</ul>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name">data</code>
-						<span class="type">Object</span>
-
-
-					<div class="param-description"><ul>
-<li>Payment data - {
-number: Number || String,
-cardName: String,
-expMonth: Number,
-expYear: Number,
-cvv: Number,
-accessFee: Number,
-paymentMethod: String,
-referrer: String
-voucherCode?: String
-}</li>
+<li>The number of items per page</li>
 </ul>
 </div>
 
@@ -583,26 +508,7 @@ voucherCode?: String
 
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.Payment
-.purchaseAsset('dajh8ao8djadd2o8jh2ofkhdhqkgog3oj',
- {
-   access_fee: {
-     id: 10,
-     name: 'subscription',
-     quantity: 10,
-   },
-   amount: 6.99,
-   id: 2221
- },
- {
-  number: 4111111111111111,
-  cardName: 'PayPal',
-  expMonth: 10,
-  expYear: 2030,
-  cvv: 656,
-  paymentMethod: 1,
-  referrer: 'http://google.com',
-  voucherCode: 'fgh1982gff-0f2grfds'
- })
+.getPurchaseHistory('active', 0, 5)
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>
