@@ -1,5 +1,4 @@
 import 'isomorphic-fetch';
-import 'es6-promise/auto';
 
 import Account from './Models/Account';
 import Asset from './Models/Asset';
