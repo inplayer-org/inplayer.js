@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.0.3</b>
+                    API Docs for Version: <b>2.1.0</b>
                 </p>
             </li>
         </div>
@@ -102,15 +102,13 @@ class Voucher {
      * @async
      * @param {Object} data - {
      *   voucherCode: String,
-     *   merchantUuid: String,
      *   accessFeeId: Number
      * }
      * @example
      *     InPlayer.Voucher
      *     .getDiscount({
-     *        voucherCode: &#x27;120fwjhniudh42i7&#x27;,
-     *        merchantId: 123,
-     *        accessFee: 2
+     *        voucherCode: &#x27;120fwjhniudh42i7&#x27;,,
+     *        accessFeeId: 2
      *     })
      *     .then(data =&gt; console.log(data));
      * @return {Object}
@@ -125,7 +123,7 @@ class Voucher {
         const t = this.Account.getToken();
 
         let body = {
-            access_fee_id: data.accessFee,
+            access_fee_id: data.accessFeeId,
             voucher_code: data.voucherCode,
         };
 
