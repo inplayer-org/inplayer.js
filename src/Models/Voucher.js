@@ -1,4 +1,4 @@
-import { checkStatus, errorResponse, params } from '../Utils';
+import { checkStatus, errorResponse } from '../Utils';
 
 /**
  * Contains all Requests regarding vouchers.
@@ -37,18 +37,17 @@ class Voucher {
         }
         const t = this.Account.getToken();
 
-        let body = {
-            access_fee_id: data.accessFeeId,
-            voucher_code: data.voucherCode,
-        };
+        const formData = new FormData();
+
+        formData.append('access_fee_id', data.accessFeeId);
+        formData.append('voucher_code', data.voucherCode);
 
         const response = await fetch(this.config.API.getDiscount, {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + t.token,
-                'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: params(body),
+            body: formData,
         });
 
         checkStatus(response);
