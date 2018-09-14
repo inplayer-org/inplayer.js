@@ -15,11 +15,9 @@ class Asset {
      * Checks whether a given authenticated user has access for an asset
      * @method checkAccessForAsset
      * @async
-     * @param {String} token - The Authorization token
      * @param {Number} id - The id of the asset
      * @example
      *     InPlayer.Asset
-     *     .checkAccessForAsset(36320)
      *     .then(data => console.log(data));
      * @return {Object}
      */
@@ -47,7 +45,6 @@ class Asset {
      * Checks whether Free trial has been used for a given asset
      * @method isFreeTrialUsed
      * @async
-     * @param {String} token - The Authorization token
      * @param {Number} id - The ID of the asset
      * @example
      *     InPlayer.Asset
@@ -167,7 +164,6 @@ class Asset {
      * Returns purchase history with types
      * @method getAssetsHistory
      * @async
-     * @param {String} token - The authorization token
      * @param {Number} size - The page size
      * @param {Number} page - The current page / starting index = 0
      * @param {String} startDate - Staring date filter
@@ -211,7 +207,6 @@ class Asset {
      * Authorize for the freemium asset (login)
      * @method getFreemiumAsset
      * @async
-     * @param {String} token - The authorization token
      * @param accessFee
      * @example
      *     InPlayer.Asset
