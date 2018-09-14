@@ -21,12 +21,12 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>1.0.0</b>
+                    API Docs for Version: <b>2.0.3</b>
                 </p>
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Account", "classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Account", "classes/Asset", "classes/Branding", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription", "classes/Voucher"]'>
         </form>
     </div>
 </div>
@@ -39,10 +39,12 @@
         <ul id="api-classes" class="nav nav-list">
                 <li><a href="../classes/Account.html">Account</a></li>
                 <li><a href="../classes/Asset.html">Asset</a></li>
+                <li><a href="../classes/Branding.html">Branding</a></li>
                 <li><a href="../classes/InPlayer.html">InPlayer</a></li>
                 <li><a href="../classes/Misc.html">Misc</a></li>
                 <li><a href="../classes/Payment.html">Payment</a></li>
                 <li><a href="../classes/Subscription.html">Subscription</a></li>
+                <li><a href="../classes/Voucher.html">Voucher</a></li>
         </ul>
     </div>
     </div>
@@ -81,14 +83,17 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
+import { checkStatus, params, errorResponse } from &#x27;../Utils&#x27;;
+
 /**
  * Contains all Requests connected with assets/items
  *
  * @class Asset
  */
 class Asset {
-    constructor(config) {
+    constructor(config, Account) {
         this.config = config;
+        this.Account = Account;
     }
 
     /**
@@ -99,16 +104,26 @@ class Asset {
      * @param {Number} id - The id of the asset
      * @example
      *     InPlayer.Asset
-     *     .checkAccessForAsset(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;,36320)
+     *     .checkAccessForAsset(36320)
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async checkAccessForAsset(token, id) {
+    async checkAccessForAsset(id) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: &#x27;User is not authenticated&#x27;,
+            });
+        }
+
+        const t = this.Account.getToken();
         const response = await fetch(this.config.API.checkAccess(id), {
             headers: {
-                Authorization: &#x27;Bearer &#x27; + token,
+                Authorization: &#x27;Bearer &#x27; + t.token,
             },
         });
+
+        checkStatus(response);
 
         return await response.json();
     }
@@ -125,12 +140,23 @@ class Asset {
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async isFreeTrialUsed(token, id) {
+    async isFreeTrialUsed(id) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: &#x27;User is not authenticated&#x27;,
+            });
+        }
+
+        const t = this.Account.getToken();
+
         const response = await fetch(this.config.API.checkFreeTrial(id), {
             headers: {
-                Authorization: &#x27;Bearer &#x27; + token,
+                Authorization: &#x27;Bearer &#x27; + t.token,
             },
         });
+
+        checkStatus(response);
 
         return await response.json();
     }
@@ -143,23 +169,22 @@ class Asset {
      * @param {String} merchantUuid - The merchant UUID string
      * @example
      *     InPlayer.Asset
-     *     .findAsset(2,&#x27;a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl&#x27;)
+     *     .getAsset(2,&#x27;a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl&#x27;)
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async findAsset(assetId, merchantUuid) {
+    async getAsset(assetId, merchantUuid) {
         const response = await fetch(
-            this.config.API.findAsset(assetId, merchantUuid),
-            {
-                method: &#x27;GET&#x27;,
-            }
+            this.config.API.findAsset(assetId, merchantUuid)
         );
+
+        checkStatus(response);
 
         return await response.json();
     }
 
     /**
-     * Get an external assets&#x27; info
+     * Get an external assets info
      * @method findExternalAsset
      * @async
      * @param {String} assetType - The type ID of the asset
@@ -167,21 +192,20 @@ class Asset {
      * @param {String} merchantUuid - OPTIONAL - the merchant uuid
      * @example
      *     InPlayer.Asset
-     *     .findExternalAsset(&#x27;331ff2&#x27;,&#x27;44237&#x27;)
+     *     .getExternalAsset(&#x27;ooyala&#x27;,&#x27;44237&#x27;)
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async findExternalAsset(assetType, externalId, merchantUuid = null) {
+    async getExternalAsset(assetType, externalId, merchantUuid = &#x27;&#x27;) {
         const response = await fetch(
             this.config.API.findExternalAsset(
                 assetType,
                 externalId,
                 merchantUuid
-            ),
-            {
-                method: &#x27;GET&#x27;,
-            }
+            )
         );
+
+        checkStatus(response);
 
         return await response.json();
     }
@@ -193,14 +217,14 @@ class Asset {
      * @param {Number} id - The type ID of the package
      * @example
      *     InPlayer.Asset
-     *     .findPackage(4444)
+     *     .getPackage(4444)
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async findPackage(id) {
-        const response = await fetch(this.config.API.findPackage(id), {
-            method: &#x27;GET&#x27;,
-        });
+    async getPackage(id) {
+        const response = await fetch(this.config.API.findPackage(id));
+
+        checkStatus(response);
 
         return await response.json();
     }
@@ -217,9 +241,53 @@ class Asset {
      * @return {Object}
      */
     async getAssetAccessFees(id) {
-        const response = await fetch(this.config.API.findAccessFees(id), {
-            method: &#x27;GET&#x27;,
-        });
+        const response = await fetch(this.config.API.findAccessFees(id));
+
+        checkStatus(response);
+
+        return await response.json();
+    }
+
+    /**
+     * Returns purchase history with types
+     * @method getAssetsHistory
+     * @async
+     * @param {String} token - The authorization token
+     * @param {Number} size - The page size
+     * @param {Number} page - The current page / starting index = 0
+     * @param {String} startDate - Staring date filter
+     * @param {String} endDate - Ending date filter
+     * @example
+     *     InPlayer.Asset
+     *     .getAssetsHistory()
+     *     .then(data =&gt; console.log(data))
+     * @return {Array}
+     */
+    async getAssetsHistory(
+        size = 10,
+        page = 0,
+        startDate = null,
+        endDate = null
+    ) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: &#x27;User is not authenticated&#x27;,
+            });
+        }
+
+        const t = this.Account.getToken();
+
+        const response = await fetch(
+            this.config.API.assetsHistory(size, page, startDate, endDate),
+            {
+                headers: {
+                    Authorization: &#x27;Bearer &#x27; + t.token,
+                },
+            }
+        );
+
+        checkStatus(response);
 
         return await response.json();
     }
@@ -236,17 +304,26 @@ class Asset {
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async getFreemiumAsset(token, accessFee) {
-        const fd = new FormData();
+    async getFreemiumAsset(accessFee) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: &#x27;User is not authenticated&#x27;,
+            });
+        }
 
-        fd.append(&#x27;access_fee&#x27;, accessFee);
+        const t = this.Account.getToken();
+
+        let body = {
+            access_fee: accessFee,
+        };
 
         const response = await fetch(this.config.API.freemium, {
             method: &#x27;POST&#x27;,
             headers: {
-                Authorization: &#x27;Bearer &#x27; + token,
+                Authorization: &#x27;Bearer &#x27; + t.token,
             },
-            body: fd,
+            body: params(body),
         });
 
         return await response.json();

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Misc - InPlayer SDK</title>
+    <title>Voucher - InPlayer SDK</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -78,7 +78,7 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>Misc</h1>
+    <h1>Voucher</h1>
 </div>
 
 
@@ -87,7 +87,7 @@
 
 
 <div class="yuidoc-class-description">
-<p>Contains mixed various types of functiosn for dlcs, discounts, branding, etc.</p>
+<p>Contains all Requests regarding vouchers.</p>
 
 </div>
 
@@ -99,7 +99,7 @@
 		<li>
 			<strong>Methods</strong>
 			<ul>
-				<li><a href="#method-getDlcLinks"><span class="im">getDlcLinks</span>(<span class="ia">assetId</span>)</a></li>
+				<li><a href="#method-getDiscount"><span class="im">getDiscount</span>(<span class="ia">data</span>)</a></li>
 			</ul>
 		</li>
 
@@ -114,14 +114,14 @@
     <div id="methods" class="page-section">
         <h2 class="off-left">Methods</h2>
         <div class="item-list">
-<div id="method-getDlcLinks" class="method item">
+<div id="method-getDiscount" class="method item">
 	<div class="method-signature">
-	<span class="name"><code>getDlcLinks</code></span>
+	<span class="name"><code>getDiscount</code></span>
 
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
 				<li class="arg">
-						<code>assetId</code>
+						<code>data</code>
 				</li>
 			</ul><span class="paren">)</span>
 		</div>
@@ -139,14 +139,14 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Dlc.js.html#l13"><code>src\Models\Dlc.js:13</code></a>
+		<a href="../files/src_Models_Voucher.js.html#l14"><code>src\Models\Voucher.js:14</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Gets all DLC links</p>
+	<div class="description"><p>Gets the discount for a given code.</p>
 </div>
 
 		<div class="params">
@@ -154,12 +154,16 @@
 
 			<ul class="params-list">
 				<li class="param">
-						<code class="param-name">assetId</code>
-						<span class="type">Number</span>
+						<code class="param-name">data</code>
+						<span class="type">Object</span>
 
 
 					<div class="param-description"><ul>
-<li>The id of the asset</li>
+<li>{
+voucherCode: String,
+merchantUuid: String,
+accessFeeId: Number
+}</li>
 </ul>
 </div>
 
@@ -179,8 +183,12 @@
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.DLC
-.getDlcLinks(36320)
+				<pre class="code prettyprint"><code>InPlayer.Voucher
+.getDiscount({
+   voucherCode: '120fwjhniudh42i7',
+   merchantId: 123,
+   accessFee: 2
+})
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>

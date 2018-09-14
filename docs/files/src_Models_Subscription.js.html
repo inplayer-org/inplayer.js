@@ -21,12 +21,12 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>1.0.0</b>
+                    API Docs for Version: <b>2.0.3</b>
                 </p>
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Account", "classes/Asset", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Account", "classes/Asset", "classes/Branding", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription", "classes/Voucher"]'>
         </form>
     </div>
 </div>
@@ -39,10 +39,12 @@
         <ul id="api-classes" class="nav nav-list">
                 <li><a href="../classes/Account.html">Account</a></li>
                 <li><a href="../classes/Asset.html">Asset</a></li>
+                <li><a href="../classes/Branding.html">Branding</a></li>
                 <li><a href="../classes/InPlayer.html">InPlayer</a></li>
                 <li><a href="../classes/Misc.html">Misc</a></li>
                 <li><a href="../classes/Payment.html">Payment</a></li>
                 <li><a href="../classes/Subscription.html">Subscription</a></li>
+                <li><a href="../classes/Voucher.html">Voucher</a></li>
         </ul>
     </div>
     </div>
@@ -81,38 +83,49 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
+import { checkStatus, errorResponse, params } from &#x27;../Utils&#x27;;
+
 /**
  * Contains all Requests connected with subscriptions
  *
  * @class Subscription
  */
 class Subscription {
-    constructor(config) {
+    constructor(config, Account) {
         this.config = config;
+        this.Account = Account;
     }
     /**
      * Gets all subscriptions for a given user
      * @method getSubscriptions
      * @async
-     * @param {String} token - The Authorization token
      * @example
      *     InPlayer.Subscription
-     *     .getSubscriptions(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;)
+     *     .getSubscriptions()
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async getSubscriptions(token, limit = 15, page = 0) {
+    async getSubscriptions(page = 0, limit = 15) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: &#x27;User is not authenticated&#x27;,
+            });
+        }
+        const t = this.Account.getToken();
+
         const response = await fetch(
             this.config.API.getSubscriptions(limit, page),
             {
-                method: &#x27;GET&#x27;,
                 headers: {
-                    Authorization: &#x27;Bearer &#x27; + token,
+                    Authorization: &#x27;Bearer &#x27; + t.token,
                 },
             }
         );
 
-        return response.json();
+        checkStatus(response);
+
+        return await response.json();
     }
 
     /**
@@ -122,45 +135,64 @@ class Subscription {
      * @async
      *
      * @param {String} id - The subscription id
-     * @param {String} token - The Authorization token
      * @example
      *     InPlayer.Subscription
-     *     .getSubscription(&#x27;abcdef&#x27;, &#x27;eyJ0eXAiOiJKPECENR5Y&#x27;)
+     *     .getSubscription(&#x27;abcdef&#x27;)
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async getSubscription(id, token) {
+    async getSubscription(id) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: &#x27;User is not authenticated&#x27;,
+            });
+        }
+        const t = this.Account.getToken();
+
         const response = await fetch(this.config.API.getSubscription(id), {
-            method: &#x27;GET&#x27;,
             headers: {
-                Authorization: &#x27;Bearer &#x27; + token,
+                Authorization: &#x27;Bearer &#x27; + t.token,
             },
         });
 
-        return response.json();
+        checkStatus(response);
+
+        return await response.json();
     }
 
     /**
      * Cancels a subscription
      * @method cancelSubscription
      * @async
-     * @param {String} unsubscribeUrl - The url for the subscription which is getting unsubscribed
-     * @param {String} token - The Authorization token
+     * @param {String} transactionToken - The transaction token
      * @example
      *     InPlayer.Subscription
-     *     .cancelSubscription(&#x27;http://localhost/subscription/1&#x27;,&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;)
+     *     .cancelSubscription(&#x27;abcdef&#x27;)
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async cancelSubscription(unsubscribeUrl, token) {
-        const response = await fetch(unsubscribeUrl, {
-            method: &#x27;GET&#x27;,
-            headers: {
-                Authorization: &#x27;Bearer &#x27; + token,
-            },
-        });
+    async cancelSubscription(transactionToken) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: &#x27;User is not authenticated&#x27;,
+            });
+        }
+        const t = this.Account.getToken();
 
-        return response.json();
+        const response = await fetch(
+            this.config.API.cancelTokenSubscribe(transactionToken),
+            {
+                headers: {
+                    Authorization: &#x27;Bearer &#x27; + t.token,
+                },
+            }
+        );
+
+        checkStatus(response);
+
+        return await response.json();
     }
 
     /**
@@ -182,7 +214,7 @@ class Subscription {
      * }
      * @example
      *     InPlayer.Subscription
-     *     .assetSubscribe(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;, {
+     *     .create({
      *        number: 1,
      *        cardName: &#x27;Payoneer&#x27;,
      *        expMonth: 11,
@@ -197,57 +229,41 @@ class Subscription {
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async assetSubscribe(token = &#x27;&#x27;, data = {}) {
-        const fd = new FormData();
-        fd.append(&#x27;number&#x27;, data.number);
-        fd.append(&#x27;card_name&#x27;, data.cardName);
-        fd.append(&#x27;exp_month&#x27;, data.expMonth);
-        fd.append(&#x27;exp_year&#x27;, data.expYear);
-        fd.append(&#x27;cvv&#x27;, data.cvv);
-        fd.append(&#x27;access_fee&#x27;, data.accessFee);
-        fd.append(&#x27;payment_method&#x27;, data.paymentMethod);
-        fd.append(&#x27;referrer&#x27;, data.referrer);
+    async create(data = {}) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: &#x27;User is not authenticated&#x27;,
+            });
+        }
+
+        const t = this.Account.getToken();
+
+        let body = {
+            number: data.number,
+            card_name: data.cardName,
+            exp_month: data.expMonth,
+            exp_year: data.expYear,
+            cvv: data.cvv,
+            access_fee: data.accessFee,
+            payment_method: data.paymentMethod,
+            referrer: data.referrer,
+        };
 
         if (data.voucherCode) {
-            fd.append(&#x27;voucher_code&#x27;, data.voucherCode);
+            body.voucher_code = data.voucherCode;
         }
 
         const response = await fetch(this.config.API.subscribe, {
             method: &#x27;POST&#x27;,
             headers: {
-                Authorization: &#x27;Bearer &#x27; + token,
+                Authorization: &#x27;Bearer &#x27; + t.token,
+                &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;,
             },
-            body: fd,
+            body: params(body),
         });
 
-        return await response.json();
-    }
-
-    /**
-     * Cancels a subscription with a provided transaction and authorization token
-     * Will receive
-     *  -external.subscribe.cancel.success notification for Paypal transaction
-     *  -subscribe.cancel.success notification for other types of transactions
-     * @method cancelTokenSubscription
-     * @async
-     * @param {String} authorizationToken - The Authorization token
-     * @param {String} transactionToken - The transaction token
-     * @example
-     *     InPlayer.Subscription
-     *     .cancelTokenSubscription(&#x27;eyJ0eXAiOiJKPECENR5Y&#x27;, &#x27;dgh19t1-f1g1ug1f&#x27;)
-     *     .then(data =&gt; console.log(data));
-     * @return {Object}
-     */
-    async cancelTokenSubscription(authorizationToken, transactionToken) {
-        const response = await fetch(
-            this.config.API.cancelTokenSubscribe(transactionToken),
-            {
-                method: &#x27;GET&#x27;,
-                headers: {
-                    Authorization: &#x27;Bearer &#x27; + authorizationToken,
-                },
-            }
-        );
+        checkStatus(response);
 
         return await response.json();
     }
