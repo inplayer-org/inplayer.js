@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.1.0</b>
+                    API Docs for Version: <b>2.1.1</b>
                 </p>
             </li>
         </div>
@@ -100,7 +100,7 @@
 			<strong>Methods</strong>
 			<ul>
 				<li><a href="#method-assetSubscribe"><span class="im">assetSubscribe</span>(<span class="ia">data</span>)</a></li>
-				<li><a href="#method-cancelSubscription"><span class="im">cancelSubscription</span>(<span class="ia">transactionToken</span>)</a></li>
+				<li><a href="#method-cancelSubscription"><span class="im">cancelSubscription</span>(<span class="ia">unsubscribeUrl</span>)</a></li>
 				<li><a href="#method-getSubscription"><span class="im">getSubscription</span>(<span class="ia">id</span>)</a></li>
 				<li><a href="#method-getSubscriptions"><span class="im">getSubscriptions</span>()</a></li>
 			</ul>
@@ -218,7 +218,7 @@ voucherCode?: String
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
 				<li class="arg">
-						<code>transactionToken</code>
+						<code>unsubscribeUrl</code>
 				</li>
 			</ul><span class="paren">)</span>
 		</div>
@@ -251,12 +251,12 @@ voucherCode?: String
 
 			<ul class="params-list">
 				<li class="param">
-						<code class="param-name">transactionToken</code>
+						<code class="param-name">unsubscribeUrl</code>
 						<span class="type">String</span>
 
 
 					<div class="param-description"><ul>
-<li>The transaction token</li>
+<li>The url for the subscription which is getting unsubscribed</li>
 </ul>
 </div>
 

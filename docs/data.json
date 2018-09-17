@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "2.1.0",
+        "version": "2.1.1",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -174,7 +174,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src\\index.js",
-            "line": 14,
+            "line": 13,
             "description": "Main class. Contains all others methods and websocket subscription"
         }
     },
@@ -346,7 +346,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 319,
+            "line": 323,
             "description": "Gets the account information for a given auth token",
             "itemtype": "method",
             "name": "getAccountInfo",
@@ -362,7 +362,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 350,
+            "line": 354,
             "description": "Gets the social login urls for fb/twitter/google",
             "itemtype": "method",
             "name": "getSocialLoginUrls",
@@ -385,7 +385,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 371,
+            "line": 375,
             "description": "Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()",
             "itemtype": "method",
             "name": "updateAccount",
@@ -408,7 +408,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 413,
+            "line": 417,
             "description": "Changes password for a given user",
             "itemtype": "method",
             "name": "changePassword",
@@ -436,7 +436,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 458,
+            "line": 462,
             "description": "Gets register fields",
             "itemtype": "method",
             "name": "getRegisterFields",
@@ -459,7 +459,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 479,
+            "line": 483,
             "description": "Deletes an account",
             "itemtype": "method",
             "name": "deleteAccount",
@@ -487,7 +487,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 525,
+            "line": 529,
             "description": "Exports account data to the users' email",
             "itemtype": "method",
             "name": "exportData",
@@ -718,7 +718,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.Asset\n    .freemiumAsset('uoifhadafefbad1312nfuqd123', { accessFee: 22 })\n    .then(data => console.log(data));"
+                "\n    InPlayer.Asset\n    .freemiumAsset(2233)\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -854,7 +854,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.Payment\n    .getPayPalParams({\n    origin: location.href,\n    accessFee: 34,\n    paymentMethod: 2\n    voucherCode: '1231231'\n    })\n    .then(data => console.log(data));"
+                "\n    InPlayer.Payment\n    .getPayPalParams({\n    origin: location.href,\n    accessFeeId: 34,\n    paymentMethod: 2\n    voucherCode: '1231231'\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -864,7 +864,7 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 201,
+            "line": 199,
             "description": "Gets the purchase history",
             "itemtype": "method",
             "name": "getPurchaseHistory",
@@ -943,8 +943,8 @@
             "async": 1,
             "params": [
                 {
-                    "name": "transactionToken",
-                    "description": "- The transaction token",
+                    "name": "unsubscribeUrl",
+                    "description": "- The url for the subscription which is getting unsubscribed",
                     "type": "String"
                 }
             ],
@@ -1005,7 +1005,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 30,
+            "line": 29,
             "itemtype": "property",
             "name": "Account",
             "type": "Account",
@@ -1013,7 +1013,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 35,
+            "line": 34,
             "itemtype": "property",
             "name": "Asset",
             "type": "Asset",
@@ -1021,7 +1021,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 40,
+            "line": 39,
             "itemtype": "property",
             "name": "Payment",
             "type": "Payment",
@@ -1029,7 +1029,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 45,
+            "line": 44,
             "itemtype": "property",
             "name": "Subscription",
             "type": "Subscription",
@@ -1037,7 +1037,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 50,
+            "line": 49,
             "itemtype": "property",
             "name": "Voucher",
             "type": "Voucher",
@@ -1045,7 +1045,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 55,
+            "line": 54,
             "itemtype": "property",
             "name": "Voucher",
             "type": "Voucher",
@@ -1053,7 +1053,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 60,
+            "line": 59,
             "itemtype": "property",
             "name": "Branding",
             "type": "Branding",
@@ -1061,7 +1061,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 68,
+            "line": 67,
             "description": "Subscribes to websocket events",
             "itemtype": "method",
             "name": "subscribe",
@@ -1088,7 +1088,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 111,
+            "line": 110,
             "description": "Unsubscribes from the websocket and event listeners",
             "itemtype": "method",
             "name": "unsubscribe",
@@ -1103,7 +1103,7 @@
         },
         {
             "file": "src\\index.js",
-            "line": 122,
+            "line": 121,
             "description": "Overrides the default configs",
             "itemtype": "method",
             "name": "setConfig",

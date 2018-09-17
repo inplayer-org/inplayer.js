@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.1.0</b>
+                    API Docs for Version: <b>2.1.1</b>
                 </p>
             </li>
         </div>
@@ -83,7 +83,7 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-import { checkStatus, errorResponse, params } from &#x27;../Utils&#x27;;
+import { checkStatus, errorResponse } from &#x27;../Utils&#x27;;
 
 /**
  * Contains all Requests regarding vouchers.
@@ -122,18 +122,17 @@ class Voucher {
         }
         const t = this.Account.getToken();
 
-        let body = {
-            access_fee_id: data.accessFeeId,
-            voucher_code: data.voucherCode,
-        };
+        const formData = new FormData();
+
+        formData.append(&#x27;access_fee_id&#x27;, data.accessFeeId);
+        formData.append(&#x27;voucher_code&#x27;, data.voucherCode);
 
         const response = await fetch(this.config.API.getDiscount, {
             method: &#x27;POST&#x27;,
             headers: {
                 Authorization: &#x27;Bearer &#x27; + t.token,
-                &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;,
             },
-            body: params(body),
+            body: formData,
         });
 
         checkStatus(response);

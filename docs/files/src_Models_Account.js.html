@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.1.0</b>
+                    API Docs for Version: <b>2.1.1</b>
                 </p>
             </li>
         </div>
@@ -383,20 +383,24 @@ class Account {
      * @return {Object}
      */
     async setNewPassword(data = {}, token = &#x27;&#x27;) {
-        let body = {
-            password: data.password,
-            password_confirmation: data.passwordConfirmation,
-        };
+        const body = &#x60;password=${data.password}&amp;password_confirmation=${
+            data.passwordConfirmation
+        }&#x60;;
 
         const response = await fetch(this.config.API.setNewPassword(token), {
             method: &#x27;PUT&#x27;,
-            body: params(body),
+            body: body,
             headers: {
                 &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;,
             },
         });
 
-        checkStatus(response);
+        if (response.status &gt;= 200 &amp;&amp; response.status &lt;= 300) {
+            return {
+                code: response.status,
+                message: &#x27;The password has been successfully changed.&#x27;,
+            };
+        }
 
         return await response.json();
     }

@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.1.0</b>
+                    API Docs for Version: <b>2.1.1</b>
                 </p>
             </li>
         </div>
@@ -83,7 +83,7 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-import { checkStatus, params, errorResponse } from &#x27;../Utils&#x27;;
+import { checkStatus, errorResponse } from &#x27;../Utils&#x27;;
 
 /**
  * Contains all Requests connected with assets/items
@@ -295,11 +295,11 @@ class Asset {
      * @param accessFee
      * @example
      *     InPlayer.Asset
-     *     .freemiumAsset(&#x27;uoifhadafefbad1312nfuqd123&#x27;, { accessFee: 22 })
+     *     .freemiumAsset(2233)
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async getFreemiumAsset(accessFee) {
+    async getFreemiumAsset(accessFeeId) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -309,16 +309,16 @@ class Asset {
 
         const t = this.Account.getToken();
 
-        let body = {
-            access_fee: accessFee,
-        };
+        const formData = new FormData();
+
+        formData.append(&#x27;access_fee&#x27;, accessFeeId);
 
         const response = await fetch(this.config.API.freemium, {
             method: &#x27;POST&#x27;,
             headers: {
                 Authorization: &#x27;Bearer &#x27; + t.token,
             },
-            body: params(body),
+            body: formData,
         });
 
         return await response.json();

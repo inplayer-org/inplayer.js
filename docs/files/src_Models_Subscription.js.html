@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.1.0</b>
+                    API Docs for Version: <b>2.1.1</b>
                 </p>
             </li>
         </div>
@@ -165,14 +165,14 @@ class Subscription {
      * Cancels a subscription
      * @method cancelSubscription
      * @async
-     * @param {String} transactionToken - The transaction token
+     * @param {String} unsubscribeUrl - The url for the subscription which is getting unsubscribed
      * @example
      *     InPlayer.Subscription
      *     .cancelSubscription(&#x27;abcdef&#x27;)
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async cancelSubscription(transactionToken) {
+    async cancelSubscription(unsubscribeUrl) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -182,7 +182,7 @@ class Subscription {
         const t = this.Account.getToken();
 
         const response = await fetch(
-            this.config.API.cancelTokenSubscribe(transactionToken),
+            this.config.API.cancelTokenSubscribe(unsubscribeUrl),
             {
                 headers: {
                     Authorization: &#x27;Bearer &#x27; + t.token,
