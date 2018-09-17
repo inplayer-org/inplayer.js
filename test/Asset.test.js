@@ -19,9 +19,10 @@ describe('Asset', function() {
     describe('#checkAccessForAsset()', function() {
         it('should return data with error object - asset not found', async () => {
             try {
-                const result = await asset.checkAccessForAsset(123);
+                await asset.checkAccessForAsset(123);
             } catch (error) {
                 const result = await error.response.json();
+
                 expect(result).to.have.property('code');
                 expect(result).to.have.property('message');
                 expect(result).to.have.property('errors');
@@ -35,7 +36,8 @@ describe('Asset', function() {
                 36356,
                 'b0899d7f-66da-40fc-8eeb-36cad735589c'
             );
-            //check only 1 property (there are a lot)
+            // check only 1 property (there are a lot)
+
             expect(result).to.include({
                 merchant_uuid: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
             });

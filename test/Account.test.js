@@ -30,6 +30,7 @@ describe('Account', function() {
         it('should sign out', async () => {
             expect(user.isAuthenticated()).to.equal(true);
             const result = await user.signOut();
+
             expect(result).to.have.property('code');
             expect(result).to.have.property('message');
             expect(user.isAuthenticated()).to.equal(false);
@@ -39,7 +40,7 @@ describe('Account', function() {
     describe('#signUp()', function() {
         it('should throw error for invalid data', async () => {
             try {
-                const result = await user.signUp({
+                await user.signUp({
                     full_name: '',
                     email: 'test@test.com',
                     password: '12345678j',
@@ -51,6 +52,7 @@ describe('Account', function() {
                 });
             } catch (error) {
                 const result = await error.response.json();
+
                 expect(result).to.have.property('code');
                 expect(result).to.have.property('errors');
             }
@@ -129,6 +131,7 @@ describe('Account', function() {
                 });
             } catch (error) {
                 const result = await error.response.json();
+
                 expect(result).to.have.property('code');
                 expect(result).to.have.property('errors');
             }

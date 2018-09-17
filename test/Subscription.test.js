@@ -31,7 +31,9 @@ describe('Subscription', function() {
     describe('#cancelSubscription()', function() {
         it('should return unauthorized request with wrong auth or wrong url', async () => {
             try {
-                await subscription.cancelSubscription('abcdef');
+                await subscription.cancelSubscription(
+                    'https://staging-v2.inplayer.com/subscriptions/cancel/abcdef'
+                );
             } catch (error) {
                 const result = await error.response.json();
 
