@@ -158,7 +158,7 @@ class Payment {
      *     InPlayer.Payment
      *     .getPayPalParams({
      *     origin: location.href,
-     *     accessFee: 34,
+     *     accessFeeId: 34,
      *     paymentMethod: 2
      *     voucherCode: '1231231'
      *     })
@@ -174,23 +174,21 @@ class Payment {
         }
         const t = this.Account.getToken();
 
-        let body = {
-            origin: data.origin,
-            access_fee: data.acessFee,
-            payment_method: data.paymentMethod,
-        };
+        const formData = new FormData();
 
+        formData.append('origin', data.origin);
+        formData.append('access_fee', data.accessFeeId);
+        formData.append('payment_method', data.paymentMethod);
         if (data.voucherCode) {
-            body.voucher_code = data.voucherCode;
+            formData.append('voucher_code', data.voucherCode);
         }
 
         const response = await fetch(this.config.API.externalPayments, {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + t.token,
-                'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: params(body),
+            body: formData,
         });
 
         checkStatus(response);

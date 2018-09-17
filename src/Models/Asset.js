@@ -1,4 +1,4 @@
-import { checkStatus, params, errorResponse } from '../Utils';
+import { checkStatus, errorResponse } from '../Utils';
 
 /**
  * Contains all Requests connected with assets/items
@@ -210,11 +210,11 @@ class Asset {
      * @param accessFee
      * @example
      *     InPlayer.Asset
-     *     .freemiumAsset('uoifhadafefbad1312nfuqd123', { accessFee: 22 })
+     *     .freemiumAsset(2233)
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getFreemiumAsset(accessFee) {
+    async getFreemiumAsset(accessFeeId) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -224,16 +224,16 @@ class Asset {
 
         const t = this.Account.getToken();
 
-        let body = {
-            access_fee: accessFee,
-        };
+        const formData = new FormData();
+
+        formData.append('access_fee', accessFeeId);
 
         const response = await fetch(this.config.API.freemium, {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + t.token,
             },
-            body: params(body),
+            body: formData,
         });
 
         return await response.json();

@@ -298,20 +298,24 @@ class Account {
      * @return {Object}
      */
     async setNewPassword(data = {}, token = '') {
-        let body = {
-            password: data.password,
-            password_confirmation: data.passwordConfirmation,
-        };
+        const body = `password=${data.password}&password_confirmation=${
+            data.passwordConfirmation
+        }`;
 
         const response = await fetch(this.config.API.setNewPassword(token), {
             method: 'PUT',
-            body: params(body),
+            body: body,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
         });
 
-        checkStatus(response);
+        if (response.status >= 200 && response.status <= 300) {
+            return {
+                code: response.status,
+                message: 'The password has been successfully changed.',
+            };
+        }
 
         return await response.json();
     }

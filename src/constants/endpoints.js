@@ -68,13 +68,7 @@ export const API = config => {
         getSubscription: id =>
             `${config.BASE_URL}/reporting/subscriptions/${id}`,
         subscribe: `${config.BASE_URL}/subscriptions`,
-        cancelTokenSubscribe: token => {
-            if (token.endsWith('PP')) {
-                return `${config.BASE_URL}/external-payments/cancel/${token}`;
-            }
-
-            return `${config.BASE_URL}/subscriptions/cancel/${token}`;
-        },
+        cancelTokenSubscribe: url => `${url}`,
         // Misc
         getDlcLinks: id => `${config.BASE_URL}/dlc/${id}/links`,
         getDiscount: `${config.BASE_URL}/vouchers/discount`,

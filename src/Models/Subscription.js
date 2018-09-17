@@ -80,14 +80,14 @@ class Subscription {
      * Cancels a subscription
      * @method cancelSubscription
      * @async
-     * @param {String} transactionToken - The transaction token
+     * @param {String} unsubscribeUrl - The url for the subscription which is getting unsubscribed
      * @example
      *     InPlayer.Subscription
      *     .cancelSubscription('abcdef')
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async cancelSubscription(transactionToken) {
+    async cancelSubscription(unsubscribeUrl) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -97,7 +97,7 @@ class Subscription {
         const t = this.Account.getToken();
 
         const response = await fetch(
-            this.config.API.cancelTokenSubscribe(transactionToken),
+            this.config.API.cancelTokenSubscribe(unsubscribeUrl),
             {
                 headers: {
                     Authorization: 'Bearer ' + t.token,
