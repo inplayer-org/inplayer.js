@@ -16,7 +16,7 @@ describe('Subscription', function() {
     });
 
     describe('#getSubscriptions()', function() {
-        it('should return unaothorized request with wrong auth', async () => {
+        it('should return unauthorized request with wrong auth', async () => {
             try {
                 await subscription.getSubscriptions();
             } catch (error) {
@@ -29,7 +29,7 @@ describe('Subscription', function() {
     });
 
     describe('#cancelSubscription()', function() {
-        it('should return unaothorized request with wrong auth or wrong url', async () => {
+        it('should return unauthorized request with wrong auth or wrong url', async () => {
             try {
                 await subscription.cancelSubscription('abcdef');
             } catch (error) {

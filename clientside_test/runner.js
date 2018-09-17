@@ -438,10 +438,7 @@
                 }
 
                 subscription
-                    .cancelSubscription(
-                        test_subscription.unsubscribe_url,
-                        token
-                    )
+                    .cancelSubscription(test_subscription.unsubscribe_url)
                     .then(function(res) {
                         resolve(res);
                     });
