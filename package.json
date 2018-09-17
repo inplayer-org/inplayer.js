@@ -1,6 +1,6 @@
 {
 	"name": "@inplayer-org/inplayer.js",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"author": "InPlayer",
 	"license": "MIT",
 	"description": "A Javascript SDK for Inplayer's RESTful API",
@@ -22,13 +22,19 @@
 		"precommit": "lint-staged"
 	},
 	"lint-staged": {
-		"*.js": [ "prettier --tab-width 4 --trailing-comma es5 --single-quote --write", "git add" ]
+		"*.js": [
+			"prettier --tab-width 4 --trailing-comma es5 --single-quote --write",
+			"git add"
+		]
 	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/inplayer-org/inplayer.js.git"
 	},
-	"keywords": [ "sdk", "inplayer" ],
+	"keywords": [
+		"sdk",
+		"inplayer"
+	],
 	"dependencies": {
 		"aws-iot-device-sdk": "^2.2.1",
 		"isomorphic-fetch": "^2.2.1"
@@ -64,5 +70,7 @@
 		"yuidoc-lucid-theme": "^0.1.2",
 		"yuidocjs": "^0.10.2"
 	},
-	"files": [ "dist" ]
+	"files": [
+		"dist"
+	]
 }
