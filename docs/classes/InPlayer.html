@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.1.1</b>
+                    API Docs for Version: <b>2.1.2</b>
                 </p>
             </li>
         </div>
@@ -271,9 +271,9 @@ onclose: function
 				<pre class="code prettyprint"><code>InPlayer.subscribe(
  'adsasd-d1-cjc1c-1ajaveo',
  {
-  onmessage: (message) =&gt; { let body = JSON.parse(message.body); console.log(body, 'message') },
-  onopen: (e) =&gt; console.log('open'),
-  onclose: (e) =&gt; console.log('close', e)
+  onMessage: (message) =&gt; { let body = JSON.parse(message.body); console.log(body, 'message') },
+  onOpen: (e) =&gt; console.log('open'),
+  onClose: (e) =&gt; console.log('close', e)
  }
 </code></pre>
 <p>)</p>

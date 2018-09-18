@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "2.1.1",
+        "version": "2.1.2",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -1078,7 +1078,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.subscribe(\n     'adsasd-d1-cjc1c-1ajaveo',\n     {\n      onmessage: (message) => { let body = JSON.parse(message.body); console.log(body, 'message') },\n      onopen: (e) => console.log('open'),\n      onclose: (e) => console.log('close', e)\n     }\n   )"
+                "\n    InPlayer.subscribe(\n     'adsasd-d1-cjc1c-1ajaveo',\n     {\n      onMessage: (message) => { let body = JSON.parse(message.body); console.log(body, 'message') },\n      onOpen: (e) => console.log('open'),\n      onClose: (e) => console.log('close', e)\n     }\n   )"
             ],
             "return": {
                 "description": "",

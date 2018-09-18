@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.1.1</b>
+                    API Docs for Version: <b>2.1.2</b>
                 </p>
             </li>
         </div>
@@ -146,7 +146,7 @@ class InPlayer {
          * @type Branding
          */
         this.Branding = new Branding(this.config);
-        this.Notifications = new Notifications(this.config);
+        this.Notifications = new Notifications(this.config, this.Account);
     }
 
     /**
@@ -163,9 +163,9 @@ class InPlayer {
      *     InPlayer.subscribe(
      *      &#x27;adsasd-d1-cjc1c-1ajaveo&#x27;,
      *      {
-     *       onmessage: (message) =&gt; { let body = JSON.parse(message.body); console.log(body, &#x27;message&#x27;) },
-     *       onopen: (e) =&gt; console.log(&#x27;open&#x27;),
-     *       onclose: (e) =&gt; console.log(&#x27;close&#x27;, e)
+     *       onMessage: (message) =&gt; { let body = JSON.parse(message.body); console.log(body, &#x27;message&#x27;) },
+     *       onOpen: (e) =&gt; console.log(&#x27;open&#x27;),
+     *       onClose: (e) =&gt; console.log(&#x27;close&#x27;, e)
      *      }
      *    )
      * @return {Boolean}
