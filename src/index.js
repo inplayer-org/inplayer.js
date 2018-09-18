@@ -61,7 +61,7 @@ class InPlayer {
          * @type Branding
          */
         this.Branding = new Branding(this.config);
-        this.Notifications = new Notifications(this.config);
+        this.Notifications = new Notifications(this.config, this.Account);
     }
 
     /**
@@ -78,9 +78,9 @@ class InPlayer {
      *     InPlayer.subscribe(
      *      'adsasd-d1-cjc1c-1ajaveo',
      *      {
-     *       onmessage: (message) => { let body = JSON.parse(message.body); console.log(body, 'message') },
-     *       onopen: (e) => console.log('open'),
-     *       onclose: (e) => console.log('close', e)
+     *       onMessage: (message) => { let body = JSON.parse(message.body); console.log(body, 'message') },
+     *       onOpen: (e) => console.log('open'),
+     *       onClose: (e) => console.log('close', e)
      *      }
      *    )
      * @return {Boolean}
