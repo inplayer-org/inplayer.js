@@ -94,24 +94,24 @@ class Notifications {
             host: data.iotEndpoint,
         };
 
-        this.client = awsIot.device(credentials);
+        const client = awsIot.device(credentials);
 
-        this.client.on('connect', data => {
-            this.client.subscribe(uuid);
+        client.on('connect', () => {
+            client.subscribe(uuid);
             callbackParams.onOpen();
         });
 
-        this.client.on('message', (topic, message) => {
+        client.on('message', (topic, message) => {
             callbackParams.onMessage(message.toString());
         });
 
-        this.client.on('close', () => {
+        client.on('close', () => {
             if (callbackParams.onClose === 'function') {
                 callbackParams.onClose();
             }
         });
 
-        this.setClient(this.client);
+        this.setClient(client);
     }
 
     setClient(client) {
@@ -125,6 +125,7 @@ class Notifications {
     unsubscribe() {
         if (this.subscription) {
             this.subscription.end();
+            this.subscription = null;
         }
     }
 }
