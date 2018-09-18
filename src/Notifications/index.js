@@ -11,17 +11,17 @@ class Notifications {
     }
 
     async getIotToken() {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated',
             });
         }
-        const t = this.getToken();
+        const t = this.Account.getToken();
 
         const response = await fetch(this.config.AWS_IOT_URL, {
             headers: {
-                Authorization: 'Bearer ' + t.token,
+                Authorization: `Bearer ${t.token}`,
             },
         });
 
@@ -58,7 +58,6 @@ class Notifications {
             console.warn(
                 '[InPlayer Notifications] Unable to fetch iot credentials'
             );
-            return false;
         }
 
         const iamCreds = JSON.parse(json);
