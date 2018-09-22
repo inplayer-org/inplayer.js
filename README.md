@@ -49,5 +49,6 @@ We love community contributions, so here's a quick guide if you want to help out
 1. Fork the repository
 2. Write your changes
 3. Make sure the tests pass
-4. Commit your changes
-5. Send us a PR
+4. Update the docs
+5. Commit your changes
+6. Send us a PR
