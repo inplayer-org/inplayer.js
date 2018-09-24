@@ -4,9 +4,7 @@
       "@babel/preset-env",
       {
         "useBuiltIns": "entry",
-        "targets": {
-          "esmodules": true
-        }
+        "forceAllTransforms": true
       }
     ]
   ],
