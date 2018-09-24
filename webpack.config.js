@@ -21,8 +21,8 @@ module.exports = {
         path: path.resolve(__dirname, './dist'),
         libraryTarget: 'umd',
         filename: 'inplayer.umd.js',
-        // the name exported to window
-        library: 'InPlayer',
+        library: 'InPlayer', // the name exported to window
+        libraryExport: 'default',
         umdNamedDefine: true,
     },
     module: {
