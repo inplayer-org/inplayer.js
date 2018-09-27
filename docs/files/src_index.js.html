@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.1.4</b>
+                    API Docs for Version: <b>2.1.6</b>
                 </p>
             </li>
         </div>
@@ -174,8 +174,10 @@ class InPlayer {
         if (this.Account.isAuthenticated()) {
             this.Notifications.subscribe(accountUid, callbackParams)
                 .then(data =&gt; {
-                    if (data) {
-                        console.log(&#x27;Subscription successful&#x27;);
+                    if (!data) {
+                        console.error(
+                            &#x27;An error has occured while subscribing.&#x27;
+                        );
                     }
                 })
                 .catch(error =&gt; {
