@@ -1,14 +1,12 @@
 {
   "name": "InPlayer SDK",
   "url": "https://inplayer-org.github.io/inplayer.js/",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "options": {
     "paths": "src",
     "outdir": "docs/",
     "exclude": "lib,docs,dist,examples,tests,constants",
     "themedir": "node_modules/yuidoc-lucid-theme",
-    "helpers": [
-      "node_modules/yuidoc-lucid-theme/helpers/helpers.js"
-    ]
+    "helpers": ["node_modules/yuidoc-lucid-theme/helpers/helpers.js"]
   }
 }
