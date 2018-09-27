@@ -89,8 +89,10 @@ class InPlayer {
         if (this.Account.isAuthenticated()) {
             this.Notifications.subscribe(accountUid, callbackParams)
                 .then(data => {
-                    if (data) {
-                        console.log('Subscription successful');
+                    if (!data) {
+                        console.error(
+                            'An error has occured while subscribing.'
+                        );
                     }
                 })
                 .catch(error => {
