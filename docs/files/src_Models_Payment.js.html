@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.1.7</b>
+                    API Docs for Version: <b>2.2.0</b>
                 </p>
             </li>
         </div>
@@ -188,6 +188,7 @@ class Payment {
      *       paymentMethod: 1,
      *       referrer: &#x27;http://google.com&#x27;,
      *       voucherCode: &#x27;fgh1982gff-0f2grfds&#x27;
+     *       brandingId: &#x27;1234&#x27;
      *      })
      *     .then(data =&gt; console.log(data));
      * @return {Object}
@@ -210,6 +211,7 @@ class Payment {
             access_fee: data.accessFee,
             payment_method: data.paymentMethod,
             referrer: data.referrer,
+            branding_id: data.brandingId,
         };
 
         if (data.voucherCode) {

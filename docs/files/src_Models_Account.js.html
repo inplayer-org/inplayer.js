@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.1.7</b>
+                    API Docs for Version: <b>2.2.0</b>
                 </p>
             </li>
         </div>
@@ -162,6 +162,7 @@ class Account {
      *  clientId: string,
      *  type: number
      *  referrer: string,
+     *  brandingId: string,
      * }
      * @example
      *     InPlayer.Account.signUp({
@@ -172,6 +173,7 @@ class Account {
      *      clientId: &quot;528b1b80-5868-4abc-a9b6-4d3455d719c8&quot;,
      *      type: &quot;consumer&quot;,
      *      referrer: &quot;http://localhost:3000/&quot;,
+     *      brandingId: &quot;12345&quot;,
      *     })
      *     .then(data =&gt; console.log(data));
      * @return {Object}
@@ -187,6 +189,7 @@ class Account {
             referrer: data.referrer,
             grant_type: &#x27;password&#x27;,
             metadata: data.metadata,
+            branding_id: data.brandingId,
         };
 
         const response = await fetch(this.config.API.signUp, {
@@ -371,13 +374,15 @@ class Account {
      * @param {Object} data - Contains {
      *  password: string
      *  passwordConfirmation: string
+     *  brandingId: string
      * }
      * @param {String} token - The reset token
      * @example
      *     InPlayer.Account
      *     .setNewPassword({
-     *      password: &quot;12345&quot;,
-     *      passwordConfirmation: &quot;12345&quot;,
+     *      password: &quot;password&quot;,
+     *      passwordConfirmation: &quot;password&quot;,
+     *      brandingId: &quot;12345&quot;,
      *     }, &#x27;afhqi83rji74hjf7e43df&#x27;)
      *     .then(data =&gt; console.log(data));
      * @return {Object}
@@ -385,7 +390,7 @@ class Account {
     async setNewPassword(data = {}, token = &#x27;&#x27;) {
         const body = &#x60;password=${data.password}&amp;password_confirmation=${
             data.passwordConfirmation
-        }&#x60;;
+        }&amp;branding_id=${data.brandingId}=&#x60;;
 
         const response = await fetch(this.config.API.setNewPassword(token), {
             method: &#x27;PUT&#x27;,
@@ -569,16 +574,20 @@ class Account {
      * Deletes an account
      * @method deleteAccount
      * @async
-     * @param {String} token - The authorization token
-     * @param {String} password - The password of the account
+     * @param {Object} data - Contains {
+     *  password: string,
+     *  brandingId: string,
+     * }
      * @example
-     *     InPlayer.Account
-     *     .deleteAccount(&#x27;1231231&#x27;)
-     *     .then(data =&gt; console.log(data))
+     *     InPlayer.Account.deleteAccount({
+     *      password: &quot;password&quot;,
+     *      brandingId: &quot;43534&quot;,
+     *     })
+     *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
 
-    async deleteAccount(password) {
+    async deleteAccount(data) {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -588,7 +597,8 @@ class Account {
         const t = this.getToken();
 
         let body = {
-            password: password,
+            password: data.password,
+            branding_id: data.brandingId,
         };
 
         const response = await fetch(this.config.API.deleteAccount, {
