@@ -77,6 +77,7 @@ class Account {
      *  clientId: string,
      *  type: number
      *  referrer: string,
+     *  brandingId: string,
      * }
      * @example
      *     InPlayer.Account.signUp({
@@ -87,6 +88,7 @@ class Account {
      *      clientId: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
      *      type: "consumer",
      *      referrer: "http://localhost:3000/",
+     *      brandingId: "12345",
      *     })
      *     .then(data => console.log(data));
      * @return {Object}
@@ -102,6 +104,7 @@ class Account {
             referrer: data.referrer,
             grant_type: 'password',
             metadata: data.metadata,
+            branding_id: data.brandingId,
         };
 
         const response = await fetch(this.config.API.signUp, {
@@ -286,13 +289,15 @@ class Account {
      * @param {Object} data - Contains {
      *  password: string
      *  passwordConfirmation: string
+     *  brandingId: string
      * }
      * @param {String} token - The reset token
      * @example
      *     InPlayer.Account
      *     .setNewPassword({
-     *      password: "12345",
-     *      passwordConfirmation: "12345",
+     *      password: "password",
+     *      passwordConfirmation: "password",
+     *      brandingId: "12345",
      *     }, 'afhqi83rji74hjf7e43df')
      *     .then(data => console.log(data));
      * @return {Object}
@@ -300,7 +305,7 @@ class Account {
     async setNewPassword(data = {}, token = '') {
         const body = `password=${data.password}&password_confirmation=${
             data.passwordConfirmation
-        }`;
+        }&branding_id=${data.brandingId}=`;
 
         const response = await fetch(this.config.API.setNewPassword(token), {
             method: 'PUT',
@@ -484,16 +489,20 @@ class Account {
      * Deletes an account
      * @method deleteAccount
      * @async
-     * @param {String} token - The authorization token
-     * @param {String} password - The password of the account
+     * @param {Object} data - Contains {
+     *  password: string,
+     *  brandingId: string,
+     * }
      * @example
-     *     InPlayer.Account
-     *     .deleteAccount('1231231')
-     *     .then(data => console.log(data))
+     *     InPlayer.Account.deleteAccount({
+     *      password: "password",
+     *      brandingId: "43534",
+     *     })
+     *     .then(data => console.log(data));
      * @return {Object}
      */
 
-    async deleteAccount(password) {
+    async deleteAccount(data) {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -503,7 +512,8 @@ class Account {
         const t = this.getToken();
 
         let body = {
-            password: password,
+            password: data.password,
+            branding_id: data.brandingId,
         };
 
         const response = await fetch(this.config.API.deleteAccount, {
