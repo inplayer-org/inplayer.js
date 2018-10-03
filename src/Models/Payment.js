@@ -103,6 +103,7 @@ class Payment {
      *       paymentMethod: 1,
      *       referrer: 'http://google.com',
      *       voucherCode: 'fgh1982gff-0f2grfds'
+     *       brandingId: '1234'
      *      })
      *     .then(data => console.log(data));
      * @return {Object}
@@ -125,6 +126,7 @@ class Payment {
             access_fee: data.accessFee,
             payment_method: data.paymentMethod,
             referrer: data.referrer,
+            branding_id: data.brandingId,
         };
 
         if (data.voucherCode) {

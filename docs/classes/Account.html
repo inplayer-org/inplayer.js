@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.1.6</b>
+                    API Docs for Version: <b>2.2.1</b>
                 </p>
             </li>
         </div>
@@ -101,8 +101,8 @@
 			<ul>
 				<li><a href="#method-authenticate"><span class="im">authenticate</span>(<span class="ia">data</span>)</a></li>
 				<li><a href="#method-changePassword"><span class="im">changePassword</span>(<span class="ia">data</span><span class="ia">token</span>)</a></li>
-				<li><a href="#method-deleteAccount"><span class="im">deleteAccount</span>(<span class="ia">token</span><span class="ia">password</span>)</a></li>
-				<li><a href="#method-exportData"><span class="im">exportData</span>(<span class="ia">token</span><span class="ia">password</span>)</a></li>
+				<li><a href="#method-deleteAccount"><span class="im">deleteAccount</span>(<span class="ia">data</span>)</a></li>
+				<li><a href="#method-exportData"><span class="im">exportData</span>(<span class="ia">data</span>)</a></li>
 				<li><a href="#method-getAccountInfo"><span class="im">getAccountInfo</span>()</a></li>
 				<li><a href="#method-getRegisterFields"><span class="im">getRegisterFields</span>(<span class="ia">merchantUuid</span>)</a></li>
 				<li><a href="#method-getSocialLoginUrls"><span class="im">getSocialLoginUrls</span>(<span class="ia">state</span>)</a></li>
@@ -236,7 +236,7 @@ clientId: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l417"><code>src\Models\Account.js:417</code></a>
+		<a href="../files/src_Models_Account.js.html#l425"><code>src\Models\Account.js:425</code></a>
 		</p>
 
 
@@ -256,7 +256,12 @@ clientId: string,
 
 
 					<div class="param-description"><ul>
-<li>Contains new password</li>
+<li>Contains {
+oldPassword: string
+password: string
+passwordConfirmation: string
+brandingId: string
+}</li>
 </ul>
 </div>
 
@@ -267,7 +272,7 @@ clientId: string,
 
 
 					<div class="param-description"><ul>
-<li>The authorization token</li>
+<li>The reset token</li>
 </ul>
 </div>
 
@@ -305,10 +310,7 @@ clientId: string,
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
 				<li class="arg">
-						<code>token</code>
-				</li>
-				<li class="arg">
-						<code>password</code>
+						<code>data</code>
 				</li>
 			</ul><span class="paren">)</span>
 		</div>
@@ -326,7 +328,7 @@ clientId: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l483"><code>src\Models\Account.js:483</code></a>
+		<a href="../files/src_Models_Account.js.html#l497"><code>src\Models\Account.js:497</code></a>
 		</p>
 
 
@@ -341,23 +343,15 @@ clientId: string,
 
 			<ul class="params-list">
 				<li class="param">
-						<code class="param-name">token</code>
-						<span class="type">String</span>
+						<code class="param-name">data</code>
+						<span class="type">Object</span>
 
 
 					<div class="param-description"><ul>
-<li>The authorization token</li>
-</ul>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name">password</code>
-						<span class="type">String</span>
-
-
-					<div class="param-description"><ul>
-<li>The password of the account</li>
+<li>Contains {
+password: string,
+brandingId: string,
+}</li>
 </ul>
 </div>
 
@@ -377,9 +371,11 @@ clientId: string,
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.Account
-.deleteAccount('1231231')
-.then(data =&gt; console.log(data))</code></pre>
+				<pre class="code prettyprint"><code>InPlayer.Account.deleteAccount({
+ password: "password",
+ brandingId: "43534",
+})
+.then(data =&gt; console.log(data));</code></pre>
 
 			</div>
 		</div>
@@ -391,10 +387,7 @@ clientId: string,
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
 				<li class="arg">
-						<code>token</code>
-				</li>
-				<li class="arg">
-						<code>password</code>
+						<code>data</code>
 				</li>
 			</ul><span class="paren">)</span>
 		</div>
@@ -412,14 +405,14 @@ clientId: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l529"><code>src\Models\Account.js:529</code></a>
+		<a href="../files/src_Models_Account.js.html#l548"><code>src\Models\Account.js:548</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Exports account data to the users' email</p>
+	<div class="description"><p>DExports account data to the users' email</p>
 </div>
 
 		<div class="params">
@@ -427,23 +420,15 @@ clientId: string,
 
 			<ul class="params-list">
 				<li class="param">
-						<code class="param-name">token</code>
-						<span class="type">String</span>
+						<code class="param-name">data</code>
+						<span class="type">Object</span>
 
 
 					<div class="param-description"><ul>
-<li>The authorization token</li>
-</ul>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name">password</code>
-						<span class="type">String</span>
-
-
-					<div class="param-description"><ul>
-<li>The password of the account</li>
+<li>Contains {
+password: string,
+brandingId: string,
+}</li>
 </ul>
 </div>
 
@@ -463,9 +448,11 @@ clientId: string,
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.Account
-.exportData('f1hg1f-1g1hg183-g1ggh-13311','1231231')
-.then(data =&gt; console.log(data))</code></pre>
+				<pre class="code prettyprint"><code>InPlayer.Account.exportData({
+   password: "password",
+   brandingId: "12345",
+})
+.then(data =&gt; console.log(data));</code></pre>
 
 			</div>
 		</div>
@@ -489,7 +476,7 @@ clientId: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l323"><code>src\Models\Account.js:323</code></a>
+		<a href="../files/src_Models_Account.js.html#l331"><code>src\Models\Account.js:331</code></a>
 		</p>
 
 
@@ -544,7 +531,7 @@ clientId: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l462"><code>src\Models\Account.js:462</code></a>
+		<a href="../files/src_Models_Account.js.html#l476"><code>src\Models\Account.js:476</code></a>
 		</p>
 
 
@@ -616,7 +603,7 @@ clientId: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l354"><code>src\Models\Account.js:354</code></a>
+		<a href="../files/src_Models_Account.js.html#l362"><code>src\Models\Account.js:362</code></a>
 		</p>
 
 
@@ -683,7 +670,7 @@ Example: btoa(JSON.stringify({uuid: 'foo', redirect: '<a href="http://example.co
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l172"><code>src\Models\Account.js:172</code></a>
+		<a href="../files/src_Models_Account.js.html#l175"><code>src\Models\Account.js:175</code></a>
 		</p>
 
 
@@ -727,7 +714,7 @@ Example: btoa(JSON.stringify({uuid: 'foo', redirect: '<a href="http://example.co
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l159"><code>src\Models\Account.js:159</code></a>
+		<a href="../files/src_Models_Account.js.html#l162"><code>src\Models\Account.js:162</code></a>
 		</p>
 
 
@@ -780,7 +767,7 @@ Example: btoa(JSON.stringify({uuid: 'foo', redirect: '<a href="http://example.co
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l201"><code>src\Models\Account.js:201</code></a>
+		<a href="../files/src_Models_Account.js.html#l204"><code>src\Models\Account.js:204</code></a>
 		</p>
 
 
@@ -850,7 +837,7 @@ Example: btoa(JSON.stringify({uuid: 'foo', redirect: '<a href="http://example.co
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l246"><code>src\Models\Account.js:246</code></a>
+		<a href="../files/src_Models_Account.js.html#l249"><code>src\Models\Account.js:249</code></a>
 		</p>
 
 
@@ -873,6 +860,7 @@ Example: btoa(JSON.stringify({uuid: 'foo', redirect: '<a href="http://example.co
 <li>Contains {
 email: String,
 merchantUuid: string
+brandingId: string
 }</li>
 </ul>
 </div>
@@ -897,6 +885,7 @@ merchantUuid: string
 .requestNewPassword({
  email: "test32@test.com",
  merchantUuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
+ brandingId: "12345",
 })
 .then(data =&gt; console.log(data));</code></pre>
 
@@ -931,7 +920,7 @@ merchantUuid: string
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l282"><code>src\Models\Account.js:282</code></a>
+		<a href="../files/src_Models_Account.js.html#l288"><code>src\Models\Account.js:288</code></a>
 		</p>
 
 
@@ -954,6 +943,7 @@ merchantUuid: string
 <li>Contains {
 password: string
 passwordConfirmation: string
+brandingId: string
 }</li>
 </ul>
 </div>
@@ -987,8 +977,9 @@ passwordConfirmation: string
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.Account
 .setNewPassword({
- password: "12345",
- passwordConfirmation: "12345",
+ password: "password",
+ passwordConfirmation: "password",
+ brandingId: "12345",
 }, 'afhqi83rji74hjf7e43df')
 .then(data =&gt; console.log(data));</code></pre>
 
@@ -1014,7 +1005,7 @@ passwordConfirmation: string
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l128"><code>src\Models\Account.js:128</code></a>
+		<a href="../files/src_Models_Account.js.html#l131"><code>src\Models\Account.js:131</code></a>
 		</p>
 
 
@@ -1096,6 +1087,7 @@ passwordConfirmation: string,
 clientId: string,
 type: number
 referrer: string,
+brandingId: string,
 }</li>
 </ul>
 </div>
@@ -1124,6 +1116,7 @@ referrer: string,
  clientId: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
  type: "consumer",
  referrer: "http://localhost:3000/",
+ brandingId: "12345",
 })
 .then(data =&gt; console.log(data));</code></pre>
 
@@ -1155,7 +1148,7 @@ referrer: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l375"><code>src\Models\Account.js:375</code></a>
+		<a href="../files/src_Models_Account.js.html#l383"><code>src\Models\Account.js:383</code></a>
 		</p>
 
 
