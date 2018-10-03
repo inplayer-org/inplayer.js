@@ -1,6 +1,6 @@
 {
   "name": "@inplayer-org/inplayer.js",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "author": "InPlayer",
   "license": "MIT",
   "description": "A Javascript SDK for Inplayer's RESTful API",
@@ -8,8 +8,10 @@
     "access": "public"
   },
   "main": "dist/inplayer.umd.js",
-  "cjs:main": "dist/inplayer.cjs.js",
   "browser": "dist/inplayer.umd.js",
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=6"
   },
@@ -20,6 +22,7 @@
     "test": "mocha -r @babel/register -r mock-local-storage -r jsdom-global/register -r isomorphic-fetch -r @babel/polyfill ./test/*.test.js",
     "test:watch": "mocha -watch -r @babel/register -r mock-local-storage -r jsdom-global/register -r isomorphic-fetch -r @babel/polyfill ./test/*.test.js",
     "precommit": "lint-staged",
+    "prepublish": "yarn build",
     "generate:docs": "yarn run yuidoc ."
   },
   "lint-staged": {
@@ -71,9 +74,6 @@
     "yuidoc-lucid-theme": "^0.1.2",
     "yuidocjs": "^0.10.2"
   },
-  "files": [
-    "dist"
-  ],
   "browserslist": [
     ">0.2%",
     "not dead",

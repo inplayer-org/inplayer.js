@@ -2,12 +2,12 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "2.2.3",
+        "version": "2.2.4",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
-        "src/Models/Account.js": {
-            "name": "src/Models/Account.js",
+        "src\\Models\\Account.js": {
+            "name": "src\\Models\\Account.js",
             "modules": {},
             "classes": {
                 "Account": 1
@@ -15,8 +15,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "src/Models/Asset.js": {
-            "name": "src/Models/Asset.js",
+        "src\\Models\\Asset.js": {
+            "name": "src\\Models\\Asset.js",
             "modules": {},
             "classes": {
                 "Asset": 1
@@ -24,8 +24,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "src/Models/Branding.js": {
-            "name": "src/Models/Branding.js",
+        "src\\Models\\Branding.js": {
+            "name": "src\\Models\\Branding.js",
             "modules": {},
             "classes": {
                 "Branding": 1
@@ -33,8 +33,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "src/Models/Dlc.js": {
-            "name": "src/Models/Dlc.js",
+        "src\\Models\\Dlc.js": {
+            "name": "src\\Models\\Dlc.js",
             "modules": {},
             "classes": {
                 "Misc": 1
@@ -42,8 +42,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "src/Models/Payment.js": {
-            "name": "src/Models/Payment.js",
+        "src\\Models\\Payment.js": {
+            "name": "src\\Models\\Payment.js",
             "modules": {},
             "classes": {
                 "Payment": 1
@@ -51,8 +51,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "src/Models/Subscription.js": {
-            "name": "src/Models/Subscription.js",
+        "src\\Models\\Subscription.js": {
+            "name": "src\\Models\\Subscription.js",
             "modules": {},
             "classes": {
                 "Subscription": 1
@@ -60,8 +60,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "src/Models/Voucher.js": {
-            "name": "src/Models/Voucher.js",
+        "src\\Models\\Voucher.js": {
+            "name": "src\\Models\\Voucher.js",
             "modules": {},
             "classes": {
                 "Voucher": 1
@@ -69,8 +69,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "src/index.js": {
-            "name": "src/index.js",
+        "src\\index.js": {
+            "name": "src\\index.js",
             "modules": {},
             "classes": {
                 "InPlayer": 1
@@ -89,7 +89,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "src/Models/Account.js",
+            "file": "src\\Models\\Account.js",
             "line": 4,
             "description": "Contains all Requests regarding user/account and authentication"
         },
@@ -101,7 +101,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "src/Models/Asset.js",
+            "file": "src\\Models\\Asset.js",
             "line": 3,
             "description": "Contains all Requests connected with assets/items"
         },
@@ -113,7 +113,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "src/Models/Branding.js",
+            "file": "src\\Models\\Branding.js",
             "line": 3,
             "description": "Contains all Requests regarding branding."
         },
@@ -125,7 +125,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "src/Models/Dlc.js",
+            "file": "src\\Models\\Dlc.js",
             "line": 3,
             "description": "Contains mixed various types of functiosn for dlcs, discounts, branding, etc."
         },
@@ -137,7 +137,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "src/Models/Payment.js",
+            "file": "src\\Models\\Payment.js",
             "line": 3,
             "description": "Contains all Requests connected with payments"
         },
@@ -149,7 +149,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "src/Models/Subscription.js",
+            "file": "src\\Models\\Subscription.js",
             "line": 3,
             "description": "Contains all Requests connected with subscriptions"
         },
@@ -161,7 +161,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "src/Models/Voucher.js",
+            "file": "src\\Models\\Voucher.js",
             "line": 3,
             "description": "Contains all Requests regarding vouchers."
         },
@@ -173,7 +173,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "src/index.js",
+            "file": "src\\index.js",
             "line": 13,
             "description": "Main class. Contains all others methods and websocket subscription"
         }
@@ -181,7 +181,7 @@
     "elements": {},
     "classitems": [
         {
-            "file": "src/Models/Account.js",
+            "file": "src\\Models\\Account.js",
             "line": 14,
             "description": "Signs in the user",
             "itemtype": "method",
@@ -204,7 +204,7 @@
             "class": "Account"
         },
         {
-            "file": "src/Models/Account.js",
+            "file": "src\\Models\\Account.js",
             "line": 68,
             "description": "Signs up/Registers user",
             "itemtype": "method",
@@ -227,7 +227,7 @@
             "class": "Account"
         },
         {
-            "file": "src/Models/Account.js",
+            "file": "src\\Models\\Account.js",
             "line": 131,
             "description": "Signs out the user and destroys cookies",
             "itemtype": "method",
@@ -243,7 +243,7 @@
             "class": "Account"
         },
         {
-            "file": "src/Models/Account.js",
+            "file": "src\\Models\\Account.js",
             "line": 162,
             "description": "Checks if the user is authenticated",
             "itemtype": "method",
@@ -258,7 +258,7 @@
             "class": "Account"
         },
         {
-            "file": "src/Models/Account.js",
+            "file": "src\\Models\\Account.js",
             "line": 175,
             "itemtype": "method",
             "name": "getToken",
@@ -272,7 +272,7 @@
             "class": "Account"
         },
         {
-            "file": "src/Models/Account.js",
+            "file": "src\\Models\\Account.js",
             "line": 204,
             "description": "Refreshes the token",
             "itemtype": "method",
@@ -294,7 +294,7 @@
             "class": "Account"
         },
         {
-            "file": "src/Models/Account.js",
+            "file": "src\\Models\\Account.js",
             "line": 249,
             "description": "Requests new password for a given user",
             "itemtype": "method",
@@ -317,7 +317,7 @@
             "class": "Account"
         },
         {
-            "file": "src/Models/Account.js",
+            "file": "src\\Models\\Account.js",
             "line": 288,
             "description": "Sets new password for the user",
             "itemtype": "method",
@@ -345,7 +345,7 @@
             "class": "Account"
         },
         {
-            "file": "src/Models/Account.js",
+            "file": "src\\Models\\Account.js",
             "line": 331,
             "description": "Gets the account information for a given auth token",
             "itemtype": "method",
@@ -361,7 +361,7 @@
             "class": "Account"
         },
         {
-            "file": "src/Models/Account.js",
+            "file": "src\\Models\\Account.js",
             "line": 362,
             "description": "Gets the social login urls for fb/twitter/google",
             "itemtype": "method",
@@ -384,7 +384,7 @@
             "class": "Account"
         },
         {
-            "file": "src/Models/Account.js",
+            "file": "src\\Models\\Account.js",
             "line": 383,
             "description": "Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()",
             "itemtype": "method",
@@ -407,7 +407,7 @@
             "class": "Account"
         },
         {
-            "file": "src/Models/Account.js",
+            "file": "src\\Models\\Account.js",
             "line": 425,
             "description": "Changes password for a given user",
             "itemtype": "method",
@@ -435,7 +435,7 @@
             "class": "Account"
         },
         {
-            "file": "src/Models/Account.js",
+            "file": "src\\Models\\Account.js",
             "line": 476,
             "description": "Gets register fields",
             "itemtype": "method",
@@ -458,7 +458,7 @@
             "class": "Account"
         },
         {
-            "file": "src/Models/Account.js",
+            "file": "src\\Models\\Account.js",
             "line": 497,
             "description": "Deletes an account",
             "itemtype": "method",
@@ -481,7 +481,7 @@
             "class": "Account"
         },
         {
-            "file": "src/Models/Account.js",
+            "file": "src\\Models\\Account.js",
             "line": 548,
             "description": "DExports account data to the users' email",
             "itemtype": "method",
@@ -504,7 +504,7 @@
             "class": "Account"
         },
         {
-            "file": "src/Models/Asset.js",
+            "file": "src\\Models\\Asset.js",
             "line": 14,
             "description": "Checks whether a given authenticated user has access for an asset",
             "itemtype": "method",
@@ -527,7 +527,7 @@
             "class": "Asset"
         },
         {
-            "file": "src/Models/Asset.js",
+            "file": "src\\Models\\Asset.js",
             "line": 44,
             "description": "Checks whether Free trial has been used for a given asset",
             "itemtype": "method",
@@ -550,7 +550,7 @@
             "class": "Asset"
         },
         {
-            "file": "src/Models/Asset.js",
+            "file": "src\\Models\\Asset.js",
             "line": 76,
             "description": "Get the asset info for a given asset ID and merchant UUID",
             "itemtype": "method",
@@ -578,7 +578,7 @@
             "class": "Asset"
         },
         {
-            "file": "src/Models/Asset.js",
+            "file": "src\\Models\\Asset.js",
             "line": 98,
             "description": "Get an external assets info",
             "itemtype": "method",
@@ -611,7 +611,7 @@
             "class": "Asset"
         },
         {
-            "file": "src/Models/Asset.js",
+            "file": "src\\Models\\Asset.js",
             "line": 125,
             "description": "Get package info for a given Package ID",
             "itemtype": "method",
@@ -634,7 +634,7 @@
             "class": "Asset"
         },
         {
-            "file": "src/Models/Asset.js",
+            "file": "src\\Models\\Asset.js",
             "line": 144,
             "description": "Get the access fees for a given asset ID",
             "itemtype": "method",
@@ -657,7 +657,7 @@
             "class": "Asset"
         },
         {
-            "file": "src/Models/Asset.js",
+            "file": "src\\Models\\Asset.js",
             "line": 163,
             "description": "Returns purchase history with types",
             "itemtype": "method",
@@ -695,7 +695,7 @@
             "class": "Asset"
         },
         {
-            "file": "src/Models/Asset.js",
+            "file": "src\\Models\\Asset.js",
             "line": 206,
             "description": "Authorize for the freemium asset (login)",
             "itemtype": "method",
@@ -717,7 +717,7 @@
             "class": "Asset"
         },
         {
-            "file": "src/Models/Branding.js",
+            "file": "src\\Models\\Branding.js",
             "line": 13,
             "description": "Gets branding params for given merchant",
             "itemtype": "method",
@@ -745,7 +745,7 @@
             "class": "Branding"
         },
         {
-            "file": "src/Models/Dlc.js",
+            "file": "src\\Models\\Dlc.js",
             "line": 13,
             "description": "Gets all DLC links",
             "itemtype": "method",
@@ -768,7 +768,7 @@
             "class": "Misc"
         },
         {
-            "file": "src/Models/Payment.js",
+            "file": "src\\Models\\Payment.js",
             "line": 13,
             "description": "Get all payment methods for a User",
             "itemtype": "method",
@@ -784,7 +784,7 @@
             "class": "Payment"
         },
         {
-            "file": "src/Models/Payment.js",
+            "file": "src\\Models\\Payment.js",
             "line": 43,
             "description": "Get the payment tools for an aothorization token and payment method ID",
             "itemtype": "method",
@@ -807,7 +807,7 @@
             "class": "Payment"
         },
         {
-            "file": "src/Models/Payment.js",
+            "file": "src\\Models\\Payment.js",
             "line": 77,
             "description": "Makes a Payment for a given Authorization token + asset/payment details.\nUse this method ONLY if the assetFee.type is not 'subscription' or 'freemium'. Otherwise\nplease use InPlayer.Subscription.create()",
             "itemtype": "method",
@@ -830,7 +830,7 @@
             "class": "Payment"
         },
         {
-            "file": "src/Models/Payment.js",
+            "file": "src\\Models\\Payment.js",
             "line": 150,
             "description": "Gets parameters for PayPal",
             "itemtype": "method",
@@ -853,7 +853,7 @@
             "class": "Payment"
         },
         {
-            "file": "src/Models/Payment.js",
+            "file": "src\\Models\\Payment.js",
             "line": 201,
             "description": "Gets the purchase history",
             "itemtype": "method",
@@ -886,7 +886,7 @@
             "class": "Payment"
         },
         {
-            "file": "src/Models/Subscription.js",
+            "file": "src\\Models\\Subscription.js",
             "line": 13,
             "description": "Gets all subscriptions for a given user",
             "itemtype": "method",
@@ -902,7 +902,7 @@
             "class": "Subscription"
         },
         {
-            "file": "src/Models/Subscription.js",
+            "file": "src\\Models\\Subscription.js",
             "line": 46,
             "description": "Get subscription details for a given user by id",
             "itemtype": "method",
@@ -925,7 +925,7 @@
             "class": "Subscription"
         },
         {
-            "file": "src/Models/Subscription.js",
+            "file": "src\\Models\\Subscription.js",
             "line": 79,
             "description": "Cancels a subscription",
             "itemtype": "method",
@@ -948,7 +948,7 @@
             "class": "Subscription"
         },
         {
-            "file": "src/Models/Subscription.js",
+            "file": "src\\Models\\Subscription.js",
             "line": 113,
             "description": "Subscribes to a given asset. Use this method ONLY if the accessFee.type === 'subscription'.\nOtherwise please use InPlayer.Payment.payForAsset()",
             "itemtype": "method",
@@ -971,7 +971,7 @@
             "class": "Subscription"
         },
         {
-            "file": "src/Models/Voucher.js",
+            "file": "src\\Models\\Voucher.js",
             "line": 14,
             "description": "Gets the discount for a given code.",
             "itemtype": "method",
@@ -994,7 +994,7 @@
             "class": "Voucher"
         },
         {
-            "file": "src/index.js",
+            "file": "src\\index.js",
             "line": 29,
             "itemtype": "property",
             "name": "Account",
@@ -1002,7 +1002,7 @@
             "class": "InPlayer"
         },
         {
-            "file": "src/index.js",
+            "file": "src\\index.js",
             "line": 34,
             "itemtype": "property",
             "name": "Asset",
@@ -1010,7 +1010,7 @@
             "class": "InPlayer"
         },
         {
-            "file": "src/index.js",
+            "file": "src\\index.js",
             "line": 39,
             "itemtype": "property",
             "name": "Payment",
@@ -1018,7 +1018,7 @@
             "class": "InPlayer"
         },
         {
-            "file": "src/index.js",
+            "file": "src\\index.js",
             "line": 44,
             "itemtype": "property",
             "name": "Subscription",
@@ -1026,7 +1026,7 @@
             "class": "InPlayer"
         },
         {
-            "file": "src/index.js",
+            "file": "src\\index.js",
             "line": 49,
             "itemtype": "property",
             "name": "Voucher",
@@ -1034,7 +1034,7 @@
             "class": "InPlayer"
         },
         {
-            "file": "src/index.js",
+            "file": "src\\index.js",
             "line": 54,
             "itemtype": "property",
             "name": "Voucher",
@@ -1042,7 +1042,7 @@
             "class": "InPlayer"
         },
         {
-            "file": "src/index.js",
+            "file": "src\\index.js",
             "line": 59,
             "itemtype": "property",
             "name": "Branding",
@@ -1050,7 +1050,7 @@
             "class": "InPlayer"
         },
         {
-            "file": "src/index.js",
+            "file": "src\\index.js",
             "line": 67,
             "description": "Subscribes to websocket events",
             "itemtype": "method",
@@ -1077,7 +1077,7 @@
             "class": "InPlayer"
         },
         {
-            "file": "src/index.js",
+            "file": "src\\index.js",
             "line": 112,
             "description": "Unsubscribes from the websocket and event listeners",
             "itemtype": "method",
@@ -1092,7 +1092,7 @@
             "class": "InPlayer"
         },
         {
-            "file": "src/index.js",
+            "file": "src\\index.js",
             "line": 123,
             "description": "Overrides the default configs",
             "itemtype": "method",
