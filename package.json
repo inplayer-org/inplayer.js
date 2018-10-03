@@ -22,7 +22,6 @@
     "test": "mocha -r @babel/register -r mock-local-storage -r jsdom-global/register -r isomorphic-fetch -r @babel/polyfill ./test/*.test.js",
     "test:watch": "mocha -watch -r @babel/register -r mock-local-storage -r jsdom-global/register -r isomorphic-fetch -r @babel/polyfill ./test/*.test.js",
     "precommit": "lint-staged",
-    "prepublish": "yarn build",
     "generate:docs": "yarn run yuidoc ."
   },
   "lint-staged": {
