@@ -308,7 +308,7 @@ class Account {
     async setNewPassword(data = {}, token = '') {
         const body = `password=${data.password}&password_confirmation=${
             data.passwordConfirmation
-        }&branding_id=${data.brandingId}=`;
+        }&branding_id=${data.brandingId}`;
 
         const response = await fetch(this.config.API.setNewPassword(token), {
             method: 'PUT',
