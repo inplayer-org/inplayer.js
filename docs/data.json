@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "2.2.4",
+        "version": "2.2.5",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -213,12 +213,12 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- Contains {\n fullName: string,\n email: string\n password: string,\n passwordConfirmation: string,\n clientId: string,\n type: number\n referrer: string,\n brandingId: string,\n}",
+                    "description": "- Contains {\n fullName: string,\n email: string\n password: string,\n passwordConfirmation: string,\n clientId: string,\n type: number\n referrer: string,\n brandingId?: number,\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.Account.signUp({\n     fullName: \"test\",\n     email: \"test32@test.com\",\n     password: \"12345678\",\n     passwordConfirmation: \"12345678\",\n     clientId: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n     type: \"consumer\",\n     referrer: \"http://localhost:3000/\",\n     brandingId: \"12345\",\n    })\n    .then(data => console.log(data));"
+                "\n    InPlayer.Account.signUp({\n     fullName: \"test\",\n     email: \"test32@test.com\",\n     password: \"12345678\",\n     passwordConfirmation: \"12345678\",\n     clientId: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n     type: \"consumer\",\n     referrer: \"http://localhost:3000/\",\n     brandingId?: 12345,\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -303,12 +303,12 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- Contains {\n email: String,\n merchantUuid: string\n brandingId: string\n}",
+                    "description": "- Contains {\n email: String,\n merchantUuid: string\n brandingId?: number\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.Account\n    .requestNewPassword({\n     email: \"test32@test.com\",\n     merchantUuid: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n     brandingId: \"12345\",\n    })\n    .then(data => console.log(data));"
+                "\n    InPlayer.Account\n    .requestNewPassword({\n     email: \"test32@test.com\",\n     merchantUuid: \"528b1b80-5868-4abc-a9b6-4d3455d719c8\",\n     brandingId: 12345,\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -326,7 +326,7 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- Contains {\n password: string\n passwordConfirmation: string\n brandingId: string\n}",
+                    "description": "- Contains {\n password: string\n passwordConfirmation: string\n brandingId?: number\n}",
                     "type": "Object"
                 },
                 {
@@ -416,7 +416,7 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- Contains {\n oldPassword: string\n password: string\n passwordConfirmation: string\n brandingId: string\n}",
+                    "description": "- Contains {\n oldPassword: string\n password: string\n passwordConfirmation: string\n brandingId?: number\n}",
                     "type": "Object"
                 },
                 {
@@ -426,7 +426,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.Account\n    .changePassword({\n      oldPassword: 'old123',\n      password: 'test123',\n      passwordConfirmation: 'test123'\n    },'123124-1r-1r13ur1h1')\n    .then(data => console.log(data));"
+                "\n    InPlayer.Account\n    .changePassword({\n      oldPassword: 'old123',\n      password: 'test123',\n      passwordConfirmation: 'test123'\n      brandingId: 1234\n    },'123124-1r-1r13ur1h1')\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -436,7 +436,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 476,
+            "line": 477,
             "description": "Gets register fields",
             "itemtype": "method",
             "name": "getRegisterFields",
@@ -459,7 +459,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 497,
+            "line": 498,
             "description": "Deletes an account",
             "itemtype": "method",
             "name": "deleteAccount",
@@ -467,12 +467,12 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- Contains {\n password: string,\n brandingId: string,\n}",
+                    "description": "- Contains {\n password: string,\n brandingId?: number,\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.Account.deleteAccount({\n     password: \"password\",\n     brandingId: \"43534\",\n    })\n    .then(data => console.log(data));"
+                "\n    InPlayer.Account.deleteAccount({\n     password: \"password\",\n     brandingId: 1234,\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -482,7 +482,7 @@
         },
         {
             "file": "src\\Models\\Account.js",
-            "line": 548,
+            "line": 549,
             "description": "DExports account data to the users' email",
             "itemtype": "method",
             "name": "exportData",
@@ -490,12 +490,12 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- Contains {\n password: string,\n brandingId: string,\n}",
+                    "description": "- Contains {\n password: string,\n brandingId?: number,\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.Account.exportData({\n       password: \"password\",\n       brandingId: \"12345\",\n    })\n    .then(data => console.log(data));"
+                "\n    InPlayer.Account.exportData({\n       password: \"password\",\n       brandingId: 1234,\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -816,12 +816,12 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- Payment data - {\n number: Number || String,\n cardName: String,\n expMonth: Number,\n expYear: Number,\n cvv: Number,\n accessFee: Number,\n paymentMethod: String,\n referrer: String\n voucherCode?: String\n}",
+                    "description": "- Payment data - {\n number: number || string,\n cardName: string,\n expMonth: number,\n expYear: number,\n cvv: number,\n accessFee: number,\n paymentMethod: string,\n referrer: string\n voucherCode?: string\n brandingId?: number\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.Payment\n    .payForAsset({\n      number: 4111111111111111,\n      cardName: 'PayPal',\n      expMonth: 10,\n      expYear: 2030,\n      cvv: 656,\n      accessFee: 2341,\n      paymentMethod: 1,\n      referrer: 'http://google.com',\n      voucherCode: 'fgh1982gff-0f2grfds'\n      brandingId: '1234'\n     })\n    .then(data => console.log(data));"
+                "\n    InPlayer.Payment\n    .payForAsset({\n      number: 4111111111111111,\n      cardName: 'PayPal',\n      expMonth: 10,\n      expYear: 2030,\n      cvv: 656,\n      accessFee: 2341,\n      paymentMethod: 1,\n      referrer: 'http://google.com',\n      voucherCode: 'fgh1982gff-0f2grfds'\n      brandingId: 1234\n     })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -831,7 +831,7 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 150,
+            "line": 151,
             "description": "Gets parameters for PayPal",
             "itemtype": "method",
             "name": "getPayPalParams",
@@ -854,7 +854,7 @@
         },
         {
             "file": "src\\Models\\Payment.js",
-            "line": 201,
+            "line": 202,
             "description": "Gets the purchase history",
             "itemtype": "method",
             "name": "getPurchaseHistory",
@@ -957,12 +957,12 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- {\n number: Number,\n cardName: String,\n expMonth: Number,\n expYear: Number,\n cvv: Number,\n accessFee: Number,\n paymentMethod: String,\n referrer: String\n voucherCode?: String\n}",
+                    "description": "- {\n number: number,\n cardName: string,\n expMonth: number,\n expYear: number,\n cvv: number,\n accessFee: number,\n paymentMethod: string,\n referrer: string\n voucherCode?: string\n brandingId?: number\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.Subscription\n    .create({\n       number: 1,\n       cardName: 'Payoneer',\n       expMonth: 11,\n       expYear: 12,\n       cvv: 546,\n       accessFee: 13.4,\n       paymentMethod: 'card',\n       referrer: 'http://localhost:3000',\n       voucherCode: '123123125914i2erjfg'\n       }\n    )\n    .then(data => console.log(data));"
+                "\n    InPlayer.Subscription\n    .create({\n       number: 1,\n       cardName: 'Payoneer',\n       expMonth: 11,\n       expYear: 12,\n       cvv: 546,\n       accessFee: 13.4,\n       paymentMethod: 'card',\n       referrer: 'http://localhost:3000',\n       voucherCode: '123123125914i2erjfg'\n       brandingId?: '1234'\n       }\n    )\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -980,7 +980,7 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- {\n  voucherCode: String,\n  accessFeeId: Number\n}",
+                    "description": "- {\n  voucherCode: string,\n  accessFeeId: number\n}",
                     "type": "Object"
                 }
             ],
