@@ -16,8 +16,8 @@ class Voucher {
      * @method getDiscount
      * @async
      * @param {Object} data - {
-     *   voucherCode: String,
-     *   accessFeeId: Number
+     *   voucherCode: string,
+     *   accessFeeId: number
      * }
      * @example
      *     InPlayer.Voucher

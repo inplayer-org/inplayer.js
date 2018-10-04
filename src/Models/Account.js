@@ -77,7 +77,7 @@ class Account {
      *  clientId: string,
      *  type: number
      *  referrer: string,
-     *  brandingId: string,
+     *  brandingId?: number,
      * }
      * @example
      *     InPlayer.Account.signUp({
@@ -88,7 +88,7 @@ class Account {
      *      clientId: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
      *      type: "consumer",
      *      referrer: "http://localhost:3000/",
-     *      brandingId: "12345",
+     *      brandingId?: 12345,
      *     })
      *     .then(data => console.log(data));
      * @return {Object}
@@ -253,14 +253,14 @@ class Account {
      * @param {Object} data - Contains {
      *  email: String,
      *  merchantUuid: string
-     *  brandingId: string
+     *  brandingId?: number
      * }
      * @example
      *     InPlayer.Account
      *     .requestNewPassword({
      *      email: "test32@test.com",
      *      merchantUuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
-     *      brandingId: "12345",
+     *      brandingId: 12345,
      *     })
      *     .then(data => console.log(data));
      * @return {Object}
@@ -292,7 +292,7 @@ class Account {
      * @param {Object} data - Contains {
      *  password: string
      *  passwordConfirmation: string
-     *  brandingId: string
+     *  brandingId?: number
      * }
      * @param {String} token - The reset token
      * @example
@@ -430,7 +430,7 @@ class Account {
      *  oldPassword: string
      *  password: string
      *  passwordConfirmation: string
-     *  brandingId: string
+     *  brandingId?: number
      * }
      * @param {String} token - The reset token
      * @example
@@ -439,6 +439,7 @@ class Account {
      *       oldPassword: 'old123',
      *       password: 'test123',
      *       passwordConfirmation: 'test123'
+     *       brandingId: 1234
      *     },'123124-1r-1r13ur1h1')
      *     .then(data => console.log(data));
      * @return {Object}
@@ -500,12 +501,12 @@ class Account {
      * @async
      * @param {Object} data - Contains {
      *  password: string,
-     *  brandingId: string,
+     *  brandingId?: number,
      * }
      * @example
      *     InPlayer.Account.deleteAccount({
      *      password: "password",
-     *      brandingId: "43534",
+     *      brandingId: 1234,
      *     })
      *     .then(data => console.log(data));
      * @return {Object}
@@ -551,12 +552,12 @@ class Account {
      * @async
      * @param {Object} data - Contains {
      *  password: string,
-     *  brandingId: string,
+     *  brandingId?: number,
      * }
      * @example
      *     InPlayer.Account.exportData({
      *        password: "password",
-     *        brandingId: "12345",
+     *        brandingId: 1234,
      *     })
      *     .then(data => console.log(data));
      * @return {Object}
