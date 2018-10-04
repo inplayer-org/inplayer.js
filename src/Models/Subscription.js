@@ -116,15 +116,16 @@ class Subscription {
      * @method assetSubscribe
      * @async
      * @param {Object} data - {
-     *  number: Number,
-     *  cardName: String,
-     *  expMonth: Number,
-     *  expYear: Number,
-     *  cvv: Number,
-     *  accessFee: Number,
-     *  paymentMethod: String,
-     *  referrer: String
-     *  voucherCode?: String
+     *  number: number,
+     *  cardName: string,
+     *  expMonth: number,
+     *  expYear: number,
+     *  cvv: number,
+     *  accessFee: number,
+     *  paymentMethod: string,
+     *  referrer: string
+     *  voucherCode?: string
+     *  brandingId?: number
      * }
      * @example
      *     InPlayer.Subscription
@@ -138,6 +139,7 @@ class Subscription {
      *        paymentMethod: 'card',
      *        referrer: 'http://localhost:3000',
      *        voucherCode: '123123125914i2erjfg'
+     *        brandingId?: 1234
      *        }
      *     )
      *     .then(data => console.log(data));
@@ -162,6 +164,7 @@ class Subscription {
             access_fee: data.accessFee,
             payment_method: data.paymentMethod,
             referrer: data.referrer,
+            branding_id: data.brandingId,
         };
 
         if (data.voucherCode) {

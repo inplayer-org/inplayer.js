@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.2.4</b>
+                    API Docs for Version: <b>2.2.5</b>
                 </p>
             </li>
         </div>
@@ -164,15 +164,16 @@ Otherwise please use InPlayer.Payment.payForAsset()</p>
 
 					<div class="param-description"><ul>
 <li>{
-number: Number,
-cardName: String,
-expMonth: Number,
-expYear: Number,
-cvv: Number,
-accessFee: Number,
-paymentMethod: String,
-referrer: String
-voucherCode?: String
+number: number,
+cardName: string,
+expMonth: number,
+expYear: number,
+cvv: number,
+accessFee: number,
+paymentMethod: string,
+referrer: string
+voucherCode?: string
+brandingId?: number
 }</li>
 </ul>
 </div>
@@ -204,6 +205,7 @@ voucherCode?: String
    paymentMethod: 'card',
    referrer: 'http://localhost:3000',
    voucherCode: '123123125914i2erjfg'
+   brandingId?: 1234
    }
 )
 .then(data =&gt; console.log(data));</code></pre>

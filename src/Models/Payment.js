@@ -81,15 +81,16 @@ class Payment {
      * @method create
      * @async
      * @param {Object} data - Payment data - {
-     *  number: Number || String,
-     *  cardName: String,
-     *  expMonth: Number,
-     *  expYear: Number,
-     *  cvv: Number,
-     *  accessFee: Number,
-     *  paymentMethod: String,
-     *  referrer: String
-     *  voucherCode?: String
+     *  number: number || string,
+     *  cardName: string,
+     *  expMonth: number,
+     *  expYear: number,
+     *  cvv: number,
+     *  accessFee: number,
+     *  paymentMethod: string,
+     *  referrer: string
+     *  voucherCode?: string
+     *  brandingId?: number
      * }
      * @example
      *     InPlayer.Payment
@@ -103,7 +104,7 @@ class Payment {
      *       paymentMethod: 1,
      *       referrer: 'http://google.com',
      *       voucherCode: 'fgh1982gff-0f2grfds'
-     *       brandingId: '1234'
+     *       brandingId: 1234
      *      })
      *     .then(data => console.log(data));
      * @return {Object}

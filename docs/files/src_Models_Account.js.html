@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.2.4</b>
+                    API Docs for Version: <b>2.2.5</b>
                 </p>
             </li>
         </div>
@@ -162,7 +162,7 @@ class Account {
      *  clientId: string,
      *  type: number
      *  referrer: string,
-     *  brandingId: string,
+     *  brandingId?: number,
      * }
      * @example
      *     InPlayer.Account.signUp({
@@ -173,7 +173,7 @@ class Account {
      *      clientId: &quot;528b1b80-5868-4abc-a9b6-4d3455d719c8&quot;,
      *      type: &quot;consumer&quot;,
      *      referrer: &quot;http://localhost:3000/&quot;,
-     *      brandingId: &quot;12345&quot;,
+     *      brandingId?: 12345,
      *     })
      *     .then(data =&gt; console.log(data));
      * @return {Object}
@@ -336,16 +336,16 @@ class Account {
      * @method requestNewPassword
      * @async
      * @param {Object} data - Contains {
-     *  email: String,
+     *  email: string,
      *  merchantUuid: string
-     *  brandingId: string
+     *  brandingId?: number
      * }
      * @example
      *     InPlayer.Account
      *     .requestNewPassword({
      *      email: &quot;test32@test.com&quot;,
      *      merchantUuid: &quot;528b1b80-5868-4abc-a9b6-4d3455d719c8&quot;,
-     *      brandingId: &quot;12345&quot;,
+     *      brandingId: 12345,
      *     })
      *     .then(data =&gt; console.log(data));
      * @return {Object}
@@ -377,7 +377,7 @@ class Account {
      * @param {Object} data - Contains {
      *  password: string
      *  passwordConfirmation: string
-     *  brandingId: string
+     *  brandingId?: number
      * }
      * @param {String} token - The reset token
      * @example
@@ -515,7 +515,7 @@ class Account {
      *  oldPassword: string
      *  password: string
      *  passwordConfirmation: string
-     *  brandingId: string
+     *  brandingId?: number
      * }
      * @param {String} token - The reset token
      * @example
@@ -524,6 +524,7 @@ class Account {
      *       oldPassword: &#x27;old123&#x27;,
      *       password: &#x27;test123&#x27;,
      *       passwordConfirmation: &#x27;test123&#x27;
+     *       brandingId: 1234
      *     },&#x27;123124-1r-1r13ur1h1&#x27;)
      *     .then(data =&gt; console.log(data));
      * @return {Object}
@@ -585,12 +586,12 @@ class Account {
      * @async
      * @param {Object} data - Contains {
      *  password: string,
-     *  brandingId: string,
+     *  brandingId?: number,
      * }
      * @example
      *     InPlayer.Account.deleteAccount({
      *      password: &quot;password&quot;,
-     *      brandingId: &quot;43534&quot;,
+     *      brandingId: 1234,
      *     })
      *     .then(data =&gt; console.log(data));
      * @return {Object}
@@ -636,12 +637,12 @@ class Account {
      * @async
      * @param {Object} data - Contains {
      *  password: string,
-     *  brandingId: string,
+     *  brandingId?: number,
      * }
      * @example
      *     InPlayer.Account.exportData({
      *        password: &quot;password&quot;,
-     *        brandingId: &quot;12345&quot;,
+     *        brandingId: 1234,
      *     })
      *     .then(data =&gt; console.log(data));
      * @return {Object}
