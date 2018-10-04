@@ -251,7 +251,7 @@ class Account {
      * @method requestNewPassword
      * @async
      * @param {Object} data - Contains {
-     *  email: String,
+     *  email: string,
      *  merchantUuid: string
      *  brandingId?: number
      * }

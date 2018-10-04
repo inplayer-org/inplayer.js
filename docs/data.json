@@ -303,7 +303,7 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- Contains {\n email: String,\n merchantUuid: string\n brandingId?: number\n}",
+                    "description": "- Contains {\n email: string,\n merchantUuid: string\n brandingId?: number\n}",
                     "type": "Object"
                 }
             ],
@@ -962,7 +962,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.Subscription\n    .create({\n       number: 1,\n       cardName: 'Payoneer',\n       expMonth: 11,\n       expYear: 12,\n       cvv: 546,\n       accessFee: 13.4,\n       paymentMethod: 'card',\n       referrer: 'http://localhost:3000',\n       voucherCode: '123123125914i2erjfg'\n       brandingId?: '1234'\n       }\n    )\n    .then(data => console.log(data));"
+                "\n    InPlayer.Subscription\n    .create({\n       number: 1,\n       cardName: 'Payoneer',\n       expMonth: 11,\n       expYear: 12,\n       cvv: 546,\n       accessFee: 13.4,\n       paymentMethod: 'card',\n       referrer: 'http://localhost:3000',\n       voucherCode: '123123125914i2erjfg'\n       brandingId?: 1234\n       }\n    )\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
