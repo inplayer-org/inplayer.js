@@ -139,7 +139,7 @@ class Subscription {
      *        paymentMethod: 'card',
      *        referrer: 'http://localhost:3000',
      *        voucherCode: '123123125914i2erjfg'
-     *        brandingId?: '1234'
+     *        brandingId?: 1234
      *        }
      *     )
      *     .then(data => console.log(data));
