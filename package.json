@@ -1,6 +1,6 @@
 {
   "name": "@inplayer-org/inplayer.js",
-  "version": "2.2.1",
+  "version": "2.2.4",
   "author": "InPlayer",
   "license": "MIT",
   "description": "A Javascript SDK for Inplayer's RESTful API",
@@ -8,8 +8,10 @@
     "access": "public"
   },
   "main": "dist/inplayer.umd.js",
-  "cjs:main": "dist/inplayer.cjs.js",
   "browser": "dist/inplayer.umd.js",
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=6"
   },
@@ -71,9 +73,6 @@
     "yuidoc-lucid-theme": "^0.1.2",
     "yuidocjs": "^0.10.2"
   },
-  "files": [
-    "dist"
-  ],
   "browserslist": [
     ">0.2%",
     "not dead",

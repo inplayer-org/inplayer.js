@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.2.1</b>
+                    API Docs for Version: <b>2.2.4</b>
                 </p>
             </li>
         </div>
@@ -393,7 +393,7 @@ class Account {
     async setNewPassword(data = {}, token = &#x27;&#x27;) {
         const body = &#x60;password=${data.password}&amp;password_confirmation=${
             data.passwordConfirmation
-        }&amp;branding_id=${data.brandingId}=&#x60;;
+        }&amp;branding_id=${data.brandingId}&#x60;;
 
         const response = await fetch(this.config.API.setNewPassword(token), {
             method: &#x27;PUT&#x27;,
@@ -541,7 +541,7 @@ class Account {
             old_password: data.oldPassword,
             password: data.password,
             password_confirmation: data.passwordConfirmation,
-            branding_id: data.brandingId
+            branding_id: data.brandingId,
         };
 
         const response = await fetch(this.config.API.changePassword, {
@@ -630,7 +630,7 @@ class Account {
         };
     }
 
-   /**
+    /**
      * DExports account data to the users&#x27; email
      * @method exportData
      * @async
@@ -659,7 +659,7 @@ class Account {
 
         let body = {
             password: data.password,
-            branding_id: data.brandingId
+            branding_id: data.brandingId,
         };
 
         const response = await fetch(this.config.API.exportData, {
