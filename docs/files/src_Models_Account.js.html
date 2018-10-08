@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.2.5</b>
+                    API Docs for Version: <b>2.2.6</b>
                 </p>
             </li>
         </div>
@@ -403,14 +403,12 @@ class Account {
             },
         });
 
-        if (response.status &gt;= 200 &amp;&amp; response.status &lt;= 300) {
-            return {
-                code: response.status,
-                message: &#x27;The password has been successfully changed.&#x27;,
-            };
-        }
+        checkStatus(response);
 
-        return await response.json();
+        return {
+            code: response.status,
+            message: &#x27;The password has been successfully changed.&#x27;,
+        };
     }
 
     /**
