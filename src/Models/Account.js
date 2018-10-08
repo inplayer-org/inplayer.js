@@ -310,14 +310,12 @@ class Account {
             },
         });
 
-        if (response.status >= 200 && response.status <= 300) {
-            return {
-                code: response.status,
-                message: 'The password has been successfully changed.',
-            };
-        }
+        checkStatus(response);
 
-        return await response.json();
+        return {
+            code: response.status,
+            message: 'The password has been successfully changed.',
+        };
     }
 
     /**
