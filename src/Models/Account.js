@@ -312,10 +312,7 @@ class Account {
 
         checkStatus(response);
 
-        return {
-            code: response.status,
-            message: 'The password has been successfully changed.',
-        };
+        // Response is 204: No Content, nothing to return.
     }
 
     /**
