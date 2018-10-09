@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.2.6</b>
+                    API Docs for Version: <b>2.2.7</b>
                 </p>
             </li>
         </div>
@@ -405,10 +405,7 @@ class Account {
 
         checkStatus(response);
 
-        return {
-            code: response.status,
-            message: &#x27;The password has been successfully changed.&#x27;,
-        };
+        // Response is 204: No Content, nothing to return.
     }
 
     /**
