@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.3.1</b>
+                    API Docs for Version: <b>2.3.2</b>
                 </p>
             </li>
         </div>
@@ -367,7 +367,7 @@ class Asset {
             browserFingerprint,
         };
 
-        localStorage.setItem(this.config.INPLAYER_ACCESS_CODE_NAME, accessCode);
+        localStorage.setItem(this.config.INPLAYER_ACCESS_CODE_NAME, JSON.stringify(accessCode));
 
         return await response.json();
     }
