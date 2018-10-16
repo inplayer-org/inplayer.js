@@ -282,7 +282,7 @@ class Asset {
             browserFingerprint,
         };
 
-        localStorage.setItem(this.config.INPLAYER_ACCESS_CODE_NAME, accessCode);
+        localStorage.setItem(this.config.INPLAYER_ACCESS_CODE_NAME, JSON.stringify(accessCode));
 
         return await response.json();
     }
