@@ -76,5 +76,8 @@ export const API = config => {
             `${config.BASE_URL}/branding/paywall/${merchantUuid}/${brandingId}`,
         downloadFile: (assetId, filename) =>
             `${config.BASE_URL}/dlc/${assetId}/${filename}`,
+        requestCodeAccess: `${config.BASE_URL}/items/access/codes`,
+        releaseAccessCode: code =>
+            `${config.BASE_URL}/items/access/codes/${code}`,
     };
 };

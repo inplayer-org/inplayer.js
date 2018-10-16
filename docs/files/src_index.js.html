@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src\index.js - InPlayer SDK</title>
+    <title>src/index.js - InPlayer SDK</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.2.7</b>
+                    API Docs for Version: <b>2.3.1</b>
                 </p>
             </li>
         </div>
@@ -78,7 +78,7 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>src\index.js <small>File</small></h1>
+    <h1>src/index.js <small>File</small></h1>
 </div>
 
 <div class="file">
@@ -108,6 +108,7 @@ class InPlayer {
                 &#x27;https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys&#x27;,
             INPLAYER_TOKEN_NAME: &#x27;inplayer_token&#x27;,
             INPLAYER_IOT_NAME: &#x27;inplayer_iot&#x27;,
+            INPLAYER_ACCESS_CODE_NAME: &#x27;access_code&#x27;,
         };
 
         this.config.API = API(this.config);
@@ -214,27 +215,27 @@ class InPlayer {
      */
     setConfig(config) {
         switch (config) {
-            case &#x27;prod&#x27;: {
-                this.config.BASE_URL = &#x27;https://services.inplayer.com&#x27;;
-                this.config.AWS_IOT_URL =
+        case &#x27;prod&#x27;: {
+            this.config.BASE_URL = &#x27;https://services.inplayer.com&#x27;;
+            this.config.AWS_IOT_URL =
                     &#x27;https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys&#x27;;
-                break;
-            }
-            case &#x27;develop&#x27;: {
-                this.config.BASE_URL = &#x27;https://staging-v2.inplayer.com&#x27;;
-                this.config.AWS_IOT_URL =
+            break;
+        }
+        case &#x27;develop&#x27;: {
+            this.config.BASE_URL = &#x27;https://staging-v2.inplayer.com&#x27;;
+            this.config.AWS_IOT_URL =
                     &#x27;https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys&#x27;;
-                break;
-            }
-            case &#x27;sandbox&#x27;: {
-                // TODO: to be changed in future
-                this.config.BASE_URL = &#x27;https://staging-v2.inplayer.com&#x27;;
-                this.config.AWS_IOT_URL =
+            break;
+        }
+        case &#x27;sandbox&#x27;: {
+            // TODO: to be changed in future
+            this.config.BASE_URL = &#x27;https://staging-v2.inplayer.com&#x27;;
+            this.config.AWS_IOT_URL =
                     &#x27;https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys&#x27;;
-                break;
-            }
-            default:
-                break;
+            break;
+        }
+        default:
+            break;
         }
         this.config.API = API(this.config);
     }
