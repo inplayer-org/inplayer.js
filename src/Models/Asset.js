@@ -304,7 +304,11 @@ class Asset {
             this.config.INPLAYER_ACCESS_CODE_NAME
         );
 
-        return accessCode || null;
+        if (!accessCode) {
+            return null;
+        }
+
+        return JSON.parse(accessCode);
     }
 
     /**
