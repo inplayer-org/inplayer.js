@@ -23,6 +23,7 @@ class InPlayer {
                 'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys',
             INPLAYER_TOKEN_NAME: 'inplayer_token',
             INPLAYER_IOT_NAME: 'inplayer_iot',
+            INPLAYER_ACCESS_CODE_NAME: 'access_code',
         };
 
         this.config.API = API(this.config);
