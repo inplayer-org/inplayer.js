@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src\Models\Asset.js - InPlayer SDK</title>
+    <title>src/Models/Asset.js - InPlayer SDK</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.2.7</b>
+                    API Docs for Version: <b>2.3.1</b>
                 </p>
             </li>
         </div>
@@ -78,11 +78,12 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>src\Models\Asset.js <small>File</small></h1>
+    <h1>src/Models/Asset.js <small>File</small></h1>
 </div>
 
 <div class="file">
     <pre class="prettyprint linenums">
+import Fingerprint2 from &#x27;fingerprintjs2&#x27;;
 import { checkStatus, errorResponse } from &#x27;../Utils&#x27;;
 
 /**
@@ -320,6 +321,112 @@ class Asset {
             },
             body: formData,
         });
+
+        return await response.json();
+    }
+
+    /**
+     * Get access with code for code access grant asset.
+     * @method requestCodeAccess
+     * @async
+     * @param {Object} data = {
+     *  assetId: {Number},
+     *  code: {String}
+     * }
+     * @throws Will throw an HTTP 400 error if the access code is already in use.
+     * @throws Will throw an HTTP 401 error if the code is invalid.
+     * @example
+     *     InPlayer.Asset
+     *     .requestCodeAccess({ assetId: 42599, code: &#x27;access-code&#x27; })
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async requestCodeAccess({ assetId, code }) {
+        const formData = new FormData();
+
+        const browserDetails = await Fingerprint2.getPromise();
+
+        const browserFingerprint = Fingerprint2.x64hash128(
+            Object.values(browserDetails).join(&#x27;&#x27;),
+            31
+        );
+
+        formData.set(&#x27;id&#x27;, assetId);
+        formData.set(&#x27;code&#x27;, code);
+        formData.set(&#x27;browser_fingerprint&#x27;, browserFingerprint);
+
+        const response = await fetch(this.config.API.requestCodeAccess, {
+            method: &#x27;POST&#x27;,
+            body: formData,
+        });
+
+        checkStatus(response);
+
+        const accessCode = {
+            code,
+            browserFingerprint,
+        };
+
+        localStorage.setItem(this.config.INPLAYER_ACCESS_CODE_NAME, accessCode);
+
+        return await response.json();
+    }
+
+    /**
+     * Retrieves the access code and browser fingerprint for the current asset.
+     * Returns null if no access code is present.
+     * @method getAccessCode
+     * @param {Object} data = {
+     *  assetId: {Number},
+     *  code: {String}
+     * }
+     * @example
+     *    const accessCode = InPlayer.Asset.getAccessCode();
+     * @return {Object | null}
+     */
+    getAccessCode() {
+        const accessCode = localStorage.getItem(
+            this.config.INPLAYER_ACCESS_CODE_NAME
+        );
+
+        return accessCode || null;
+    }
+
+    /**
+     * Releases the access code for the current browser.
+     * @method releaseAccessCode
+     * @async
+     * @param {Number} - assetId
+     * @throws Will throw an HTTP 400 error if the code is not in use.
+     * @example
+     *     InPlayer.Asset
+     *     .releaseAccessCode(42599)
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async releaseAccessCode(assetId) {
+        const accessCode = this.getAccessCode();
+
+        if (!accessCode) {
+            return;
+        }
+
+        const formData = new FormData();
+
+        formData.set(&#x27;id&#x27;, assetId);
+        formData.set(&#x27;browser_fingerprint&#x27;, accessCode.browserFingerprint);
+
+        const response = await fetch(
+            this.config.API.releaseAccessCode(accessCode.code),
+            {
+                method: &#x27;DELETE&#x27;,
+                body: formData,
+            }
+        );
+
+        checkStatus(response);
+
+        localStorage.removeItem(this.config.INPLAYER_ACCESS_CODE_NAME);
 
         return await response.json();
     }

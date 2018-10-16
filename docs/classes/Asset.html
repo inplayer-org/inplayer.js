@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.2.7</b>
+                    API Docs for Version: <b>2.3.1</b>
                 </p>
             </li>
         </div>
@@ -103,10 +103,13 @@
 				<li><a href="#method-findAsset"><span class="im">findAsset</span>(<span class="ia">assetId</span><span class="ia">merchantUuid</span>)</a></li>
 				<li><a href="#method-findExternalAsset"><span class="im">findExternalAsset</span>(<span class="ia">assetType</span><span class="ia">externalId</span><span class="ia">merchantUuid</span>)</a></li>
 				<li><a href="#method-findPackage"><span class="im">findPackage</span>(<span class="ia">id</span>)</a></li>
+				<li><a href="#method-getAccessCode"><span class="im">getAccessCode</span>(<span class="ia">data</span>)</a></li>
 				<li><a href="#method-getAssetAccessFees"><span class="im">getAssetAccessFees</span>(<span class="ia">id</span>)</a></li>
 				<li><a href="#method-getAssetsHistory"><span class="im">getAssetsHistory</span>(<span class="ia">size</span><span class="ia">page</span><span class="ia">startDate</span><span class="ia">endDate</span>)</a></li>
 				<li><a href="#method-getFreemiumAsset"><span class="im">getFreemiumAsset</span>(<span class="ia">accessFee</span>)</a></li>
 				<li><a href="#method-isFreeTrialUsed"><span class="im">isFreeTrialUsed</span>(<span class="ia">id</span>)</a></li>
+				<li><a href="#method-releaseAccessCode"><span class="im">releaseAccessCode</span>(<span class="ia">-</span>)</a></li>
+				<li><a href="#method-requestCodeAccess"><span class="im">requestCodeAccess</span>(<span class="ia">data</span>)</a></li>
 			</ul>
 		</li>
 
@@ -146,7 +149,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l14"><code>src\Models\Asset.js:14</code></a>
+		<a href="../files/src_Models_Asset.js.html#l15"><code>src&#x2F;Models&#x2F;Asset.js:15</code></a>
 		</p>
 
 
@@ -220,7 +223,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l76"><code>src\Models\Asset.js:76</code></a>
+		<a href="../files/src_Models_Asset.js.html#l77"><code>src&#x2F;Models&#x2F;Asset.js:77</code></a>
 		</p>
 
 
@@ -309,7 +312,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l98"><code>src\Models\Asset.js:98</code></a>
+		<a href="../files/src_Models_Asset.js.html#l99"><code>src&#x2F;Models&#x2F;Asset.js:99</code></a>
 		</p>
 
 
@@ -403,7 +406,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l125"><code>src\Models\Asset.js:125</code></a>
+		<a href="../files/src_Models_Asset.js.html#l126"><code>src&#x2F;Models&#x2F;Asset.js:126</code></a>
 		</p>
 
 
@@ -450,6 +453,77 @@
 			</div>
 		</div>
 </div>
+<div id="method-getAccessCode" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>getAccessCode</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>data</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object  |  null</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_Asset.js.html#l290"><code>src&#x2F;Models&#x2F;Asset.js:290</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Retrieves the access code and browser fingerprint for the current asset.
+Returns null if no access code is present.</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">data</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><p>= {
+assetId: {Number},
+code: {String}
+}</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object  |  null</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<p>const accessCode = InPlayer.Asset.getAccessCode();</p>
+
+			</div>
+		</div>
+</div>
 <div id="method-getAssetAccessFees" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>getAssetAccessFees</code></span>
@@ -475,7 +549,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l144"><code>src\Models\Asset.js:144</code></a>
+		<a href="../files/src_Models_Asset.js.html#l145"><code>src&#x2F;Models&#x2F;Asset.js:145</code></a>
 		</p>
 
 
@@ -556,7 +630,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l163"><code>src\Models\Asset.js:163</code></a>
+		<a href="../files/src_Models_Asset.js.html#l164"><code>src&#x2F;Models&#x2F;Asset.js:164</code></a>
 		</p>
 
 
@@ -661,7 +735,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l206"><code>src\Models\Asset.js:206</code></a>
+		<a href="../files/src_Models_Asset.js.html#l207"><code>src&#x2F;Models&#x2F;Asset.js:207</code></a>
 		</p>
 
 
@@ -729,7 +803,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Asset.js.html#l44"><code>src\Models\Asset.js:44</code></a>
+		<a href="../files/src_Models_Asset.js.html#l45"><code>src&#x2F;Models&#x2F;Asset.js:45</code></a>
 		</p>
 
 
@@ -771,6 +845,149 @@
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.Asset
 .isFreeTrialUsed(36320)
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-releaseAccessCode" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>releaseAccessCode</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>-</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_Asset.js.html#l310"><code>src&#x2F;Models&#x2F;Asset.js:310</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Releases the access code for the current browser.</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">-</code>
+						<span class="type">Number</span>
+
+
+					<div class="param-description"><p>assetId</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.Asset
+.releaseAccessCode(42599)
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-requestCodeAccess" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>requestCodeAccess</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>data</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_Asset.js.html#l243"><code>src&#x2F;Models&#x2F;Asset.js:243</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Get access with code for code access grant asset.</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">data</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><p>= {
+assetId: {Number},
+code: {String}
+}</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.Asset
+.requestCodeAccess({ assetId: 42599, code: 'access-code' })
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>
