@@ -1,6 +1,6 @@
 {
   "name": "@inplayer-org/inplayer.js",
-  "version": "2.2.13",
+  "version": "2.3.4",
   "author": "InPlayer",
   "license": "MIT",
   "description": "A Javascript SDK for Inplayer's RESTful API",
@@ -21,7 +21,6 @@
     "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js",
     "test": "mocha -r @babel/register -r mock-local-storage -r jsdom-global/register -r isomorphic-fetch -r @babel/polyfill ./test/*.test.js",
     "test:watch": "mocha -watch -r @babel/register -r mock-local-storage -r jsdom-global/register -r isomorphic-fetch -r @babel/polyfill ./test/*.test.js",
-    "precommit": "lint-staged",
     "generate:docs": "yarn run yuidoc ."
   },
   "lint-staged": {
@@ -40,6 +39,7 @@
   ],
   "dependencies": {
     "aws-iot-device-sdk": "^2.2.1",
+    "fingerprintjs2": "^2.0.3",
     "isomorphic-fetch": "^2.2.1"
   },
   "devDependencies": {

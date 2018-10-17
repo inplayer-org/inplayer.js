@@ -23,6 +23,7 @@ class InPlayer {
                 'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys',
             INPLAYER_TOKEN_NAME: 'inplayer_token',
             INPLAYER_IOT_NAME: 'inplayer_iot',
+            INPLAYER_ACCESS_CODE_NAME: 'access_code',
         };
 
         this.config.API = API(this.config);
@@ -129,27 +130,27 @@ class InPlayer {
      */
     setConfig(config) {
         switch (config) {
-            case 'prod': {
-                this.config.BASE_URL = 'https://services.inplayer.com';
-                this.config.AWS_IOT_URL =
+        case 'prod': {
+            this.config.BASE_URL = 'https://services.inplayer.com';
+            this.config.AWS_IOT_URL =
                     'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys';
-                break;
-            }
-            case 'develop': {
-                this.config.BASE_URL = 'https://staging-v2.inplayer.com';
-                this.config.AWS_IOT_URL =
+            break;
+        }
+        case 'develop': {
+            this.config.BASE_URL = 'https://staging-v2.inplayer.com';
+            this.config.AWS_IOT_URL =
                     'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys';
-                break;
-            }
-            case 'sandbox': {
-                // TODO: to be changed in future
-                this.config.BASE_URL = 'https://staging-v2.inplayer.com';
-                this.config.AWS_IOT_URL =
+            break;
+        }
+        case 'sandbox': {
+            // TODO: to be changed in future
+            this.config.BASE_URL = 'https://staging-v2.inplayer.com';
+            this.config.AWS_IOT_URL =
                     'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys';
-                break;
-            }
-            default:
-                break;
+            break;
+        }
+        default:
+            break;
         }
         this.config.API = API(this.config);
     }
