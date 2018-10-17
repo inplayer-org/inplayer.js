@@ -247,7 +247,7 @@ class Asset {
         const browserDetails = await Fingerprint2.getPromise();
 
         const browserFingerprint = Fingerprint2.x64hash128(
-            reduce(browserDetails, (acc, details) => `${acc}${details}`, ''),
+            reduce(browserDetails, (acc, details) => `${acc}${details.value}`, ''),
             31
         );
 
