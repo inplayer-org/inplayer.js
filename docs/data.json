@@ -295,7 +295,30 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 266,
+            "line": 249,
+            "description": "Reports the generated SSO token to the SSO domain.",
+            "params": [
+                {
+                    "name": "ssoDomain",
+                    "description": "- The SSO domain.",
+                    "type": "String"
+                },
+                {
+                    "name": "tokenData",
+                    "description": "- The token data.",
+                    "type": "String"
+                },
+                {
+                    "name": "retire",
+                    "description": "- Should the token be retired or activated.",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Account"
+        },
+        {
+            "file": "src/Models/Account.js",
+            "line": 272,
             "description": "Requests new password for a given user",
             "itemtype": "method",
             "name": "requestNewPassword",
@@ -318,7 +341,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 305,
+            "line": 311,
             "description": "Sets new password for the user",
             "itemtype": "method",
             "name": "setNewPassword",
@@ -346,7 +369,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 343,
+            "line": 349,
             "description": "Gets the account information for a given auth token",
             "itemtype": "method",
             "name": "getAccountInfo",
@@ -362,7 +385,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 374,
+            "line": 380,
             "description": "Gets the social login urls for fb/twitter/google",
             "itemtype": "method",
             "name": "getSocialLoginUrls",
@@ -385,7 +408,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 395,
+            "line": 401,
             "description": "Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()",
             "itemtype": "method",
             "name": "updateAccount",
@@ -408,7 +431,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 437,
+            "line": 443,
             "description": "Changes password for a given user",
             "itemtype": "method",
             "name": "changePassword",
@@ -436,7 +459,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 489,
+            "line": 495,
             "description": "Gets register fields",
             "itemtype": "method",
             "name": "getRegisterFields",
@@ -459,7 +482,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 510,
+            "line": 516,
             "description": "Deletes an account",
             "itemtype": "method",
             "name": "deleteAccount",
@@ -482,7 +505,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 561,
+            "line": 567,
             "description": "DExports account data to the users' email",
             "itemtype": "method",
             "name": "exportData",
@@ -1184,5 +1207,10 @@
             "class": "InPlayer"
         }
     ],
-    "warnings": []
+    "warnings": [
+        {
+            "message": "Missing item type\nReports the generated SSO token to the SSO domain.",
+            "line": " src/Models/Account.js:249"
+        }
+    ]
 }
