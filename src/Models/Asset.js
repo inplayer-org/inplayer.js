@@ -1,4 +1,5 @@
 import Fingerprint2 from 'fingerprintjs2';
+import reduce from 'lodash/reduce';
 import { checkStatus, errorResponse } from '../Utils';
 
 /**
@@ -87,9 +88,7 @@ class Asset {
      * @return {Object}
      */
     async getAsset(assetId, merchantUuid) {
-        const response = await fetch(
-            this.config.API.findAsset(assetId, merchantUuid)
-        );
+        const response = await fetch(this.config.API.findAsset(assetId, merchantUuid));
 
         checkStatus(response);
 
@@ -110,13 +109,7 @@ class Asset {
      * @return {Object}
      */
     async getExternalAsset(assetType, externalId, merchantUuid = '') {
-        const response = await fetch(
-            this.config.API.findExternalAsset(
-                assetType,
-                externalId,
-                merchantUuid
-            )
-        );
+        const response = await fetch(this.config.API.findExternalAsset(assetType, externalId, merchantUuid));
 
         checkStatus(response);
 
@@ -175,12 +168,7 @@ class Asset {
      *     .then(data => console.log(data))
      * @return {Array}
      */
-    async getAssetsHistory(
-        size = 10,
-        page = 0,
-        startDate = null,
-        endDate = null
-    ) {
+    async getAssetsHistory(size = 10, page = 0, startDate = null, endDate = null) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -190,14 +178,11 @@ class Asset {
 
         const t = this.Account.getToken();
 
-        const response = await fetch(
-            this.config.API.assetsHistory(size, page, startDate, endDate),
-            {
-                headers: {
-                    Authorization: 'Bearer ' + t.token,
-                },
-            }
-        );
+        const response = await fetch(this.config.API.assetsHistory(size, page, startDate, endDate), {
+            headers: {
+                Authorization: 'Bearer ' + t.token,
+            },
+        });
 
         checkStatus(response);
 
@@ -262,7 +247,7 @@ class Asset {
         const browserDetails = await Fingerprint2.getPromise();
 
         const browserFingerprint = Fingerprint2.x64hash128(
-            Object.values(browserDetails).join(''),
+            reduce(browserDetails, (acc, details) => `${acc}${details}`, ''),
             31
         );
 
@@ -279,6 +264,7 @@ class Asset {
 
         const accessCode = {
             code,
+            assetId,
             browserFingerprint,
         };
 
@@ -300,9 +286,7 @@ class Asset {
      * @return {Object | null}
      */
     getAccessCode() {
-        const accessCode = localStorage.getItem(
-            this.config.INPLAYER_ACCESS_CODE_NAME
-        );
+        const accessCode = localStorage.getItem(this.config.INPLAYER_ACCESS_CODE_NAME);
 
         if (!accessCode) {
             return null;
@@ -323,7 +307,7 @@ class Asset {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async releaseAccessCode(assetId) {
+    async releaseAccessCode() {
         const accessCode = this.getAccessCode();
 
         if (!accessCode) {
@@ -332,16 +316,13 @@ class Asset {
 
         const formData = new FormData();
 
-        formData.set('id', assetId);
+        formData.set('id', accessCode.assetId);
         formData.set('browser_fingerprint', accessCode.browserFingerprint);
 
-        const response = await fetch(
-            this.config.API.releaseAccessCode(accessCode.code),
-            {
-                method: 'DELETE',
-                body: formData,
-            }
-        );
+        const response = await fetch(this.config.API.releaseAccessCode(accessCode.code), {
+            method: 'DELETE',
+            body: formData,
+        });
 
         checkStatus(response);
 
