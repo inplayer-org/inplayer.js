@@ -254,7 +254,7 @@ class Account {
 
         const response = await fetch(this.config.API.reportSSOtoken(ssoDomain), {
             method: 'POST',
-            body: body,
+            body,
             credentials: 'include',
         });
 
