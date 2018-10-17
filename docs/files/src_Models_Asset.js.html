@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.3.2</b>
+                    API Docs for Version: <b>2.3.4</b>
                 </p>
             </li>
         </div>
@@ -84,6 +84,7 @@
 <div class="file">
     <pre class="prettyprint linenums">
 import Fingerprint2 from &#x27;fingerprintjs2&#x27;;
+import reduce from &#x27;lodash/reduce&#x27;;
 import { checkStatus, errorResponse } from &#x27;../Utils&#x27;;
 
 /**
@@ -172,9 +173,7 @@ class Asset {
      * @return {Object}
      */
     async getAsset(assetId, merchantUuid) {
-        const response = await fetch(
-            this.config.API.findAsset(assetId, merchantUuid)
-        );
+        const response = await fetch(this.config.API.findAsset(assetId, merchantUuid));
 
         checkStatus(response);
 
@@ -195,13 +194,7 @@ class Asset {
      * @return {Object}
      */
     async getExternalAsset(assetType, externalId, merchantUuid = &#x27;&#x27;) {
-        const response = await fetch(
-            this.config.API.findExternalAsset(
-                assetType,
-                externalId,
-                merchantUuid
-            )
-        );
+        const response = await fetch(this.config.API.findExternalAsset(assetType, externalId, merchantUuid));
 
         checkStatus(response);
 
@@ -260,12 +253,7 @@ class Asset {
      *     .then(data =&gt; console.log(data))
      * @return {Array}
      */
-    async getAssetsHistory(
-        size = 10,
-        page = 0,
-        startDate = null,
-        endDate = null
-    ) {
+    async getAssetsHistory(size = 10, page = 0, startDate = null, endDate = null) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -275,14 +263,11 @@ class Asset {
 
         const t = this.Account.getToken();
 
-        const response = await fetch(
-            this.config.API.assetsHistory(size, page, startDate, endDate),
-            {
-                headers: {
-                    Authorization: &#x27;Bearer &#x27; + t.token,
-                },
-            }
-        );
+        const response = await fetch(this.config.API.assetsHistory(size, page, startDate, endDate), {
+            headers: {
+                Authorization: &#x27;Bearer &#x27; + t.token,
+            },
+        });
 
         checkStatus(response);
 
@@ -347,7 +332,7 @@ class Asset {
         const browserDetails = await Fingerprint2.getPromise();
 
         const browserFingerprint = Fingerprint2.x64hash128(
-            Object.values(browserDetails).join(&#x27;&#x27;),
+            reduce(browserDetails, (acc, details) =&gt; &#x60;${acc}${details.value}&#x60;, &#x27;&#x27;),
             31
         );
 
@@ -364,6 +349,7 @@ class Asset {
 
         const accessCode = {
             code,
+            assetId,
             browserFingerprint,
         };
 
@@ -385,11 +371,13 @@ class Asset {
      * @return {Object | null}
      */
     getAccessCode() {
-        const accessCode = localStorage.getItem(
-            this.config.INPLAYER_ACCESS_CODE_NAME
-        );
+        const accessCode = localStorage.getItem(this.config.INPLAYER_ACCESS_CODE_NAME);
 
-        return accessCode || null;
+        if (!accessCode) {
+            return null;
+        }
+
+        return JSON.parse(accessCode);
     }
 
     /**
@@ -404,7 +392,7 @@ class Asset {
      *     .then(data =&gt; console.log(data));
      * @return {Object}
      */
-    async releaseAccessCode(assetId) {
+    async releaseAccessCode() {
         const accessCode = this.getAccessCode();
 
         if (!accessCode) {
@@ -413,16 +401,13 @@ class Asset {
 
         const formData = new FormData();
 
-        formData.set(&#x27;id&#x27;, assetId);
+        formData.set(&#x27;id&#x27;, accessCode.assetId);
         formData.set(&#x27;browser_fingerprint&#x27;, accessCode.browserFingerprint);
 
-        const response = await fetch(
-            this.config.API.releaseAccessCode(accessCode.code),
-            {
-                method: &#x27;DELETE&#x27;,
-                body: formData,
-            }
-        );
+        const response = await fetch(this.config.API.releaseAccessCode(accessCode.code), {
+            method: &#x27;DELETE&#x27;,
+            body: formData,
+        });
 
         checkStatus(response);
 
