@@ -246,6 +246,19 @@ class Account {
         return responseData;
     }
 
+    async reportSSOtoken(ssoDomain, tokenData, retire = false) {
+        const body = new FormData();
+
+        body.append('token', tokenData.token);
+        body.append('delete', retire ? 1 : 0);
+
+        fetch(this.config.API.reportSSOtoken(ssoDomain), {
+            method: 'POST',
+            body: body,
+            credentials: 'include',
+        });
+    }
+
     /**
      * Requests new password for a given user
      * @method requestNewPassword
