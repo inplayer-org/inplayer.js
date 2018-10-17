@@ -252,11 +252,15 @@ class Account {
         body.append('token', tokenData.token);
         body.append('delete', retire ? 1 : 0);
 
-        fetch(this.config.API.reportSSOtoken(ssoDomain), {
+        const response = await fetch(this.config.API.reportSSOtoken(ssoDomain), {
             method: 'POST',
             body: body,
             credentials: 'include',
         });
+
+        checkStatus(response);
+
+        return await response.json();
     }
 
     /**
