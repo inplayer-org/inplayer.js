@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "2.3.2",
+        "version": "2.3.3",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -102,7 +102,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "src/Models/Asset.js",
-            "line": 4,
+            "line": 5,
             "description": "Contains all Requests connected with assets/items"
         },
         "Branding": {
@@ -505,7 +505,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 15,
+            "line": 16,
             "description": "Checks whether a given authenticated user has access for an asset",
             "itemtype": "method",
             "name": "checkAccessForAsset",
@@ -528,7 +528,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 45,
+            "line": 46,
             "description": "Checks whether Free trial has been used for a given asset",
             "itemtype": "method",
             "name": "isFreeTrialUsed",
@@ -551,7 +551,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 77,
+            "line": 78,
             "description": "Get the asset info for a given asset ID and merchant UUID",
             "itemtype": "method",
             "name": "findAsset",
@@ -579,7 +579,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 99,
+            "line": 98,
             "description": "Get an external assets info",
             "itemtype": "method",
             "name": "findExternalAsset",
@@ -612,7 +612,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 126,
+            "line": 119,
             "description": "Get package info for a given Package ID",
             "itemtype": "method",
             "name": "findPackage",
@@ -635,7 +635,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 145,
+            "line": 138,
             "description": "Get the access fees for a given asset ID",
             "itemtype": "method",
             "name": "getAssetAccessFees",
@@ -658,7 +658,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 164,
+            "line": 157,
             "description": "Returns purchase history with types",
             "itemtype": "method",
             "name": "getAssetsHistory",
@@ -696,7 +696,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 207,
+            "line": 192,
             "description": "Authorize for the freemium asset (login)",
             "itemtype": "method",
             "name": "getFreemiumAsset",
@@ -718,7 +718,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 243,
+            "line": 228,
             "description": "Get access with code for code access grant asset.",
             "itemtype": "method",
             "name": "requestCodeAccess",
@@ -744,7 +744,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 290,
+            "line": 276,
             "description": "Retrieves the access code and browser fingerprint for the current asset.\nReturns null if no access code is present.",
             "itemtype": "method",
             "name": "getAccessCode",
@@ -766,7 +766,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 310,
+            "line": 298,
             "description": "Releases the access code for the current browser.",
             "itemtype": "method",
             "name": "releaseAccessCode",
