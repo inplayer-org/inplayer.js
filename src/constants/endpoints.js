@@ -37,6 +37,8 @@ export const API = config => {
         },
         deleteAccount: `${config.BASE_URL}/accounts/erase`,
         exportData: `${config.BASE_URL}/accounts/export`,
+        reportSSOtoken: ssoDomain =>
+            `${ssoDomain}/sso/cookie`,
         // Asset
         checkAccess: id => `${config.BASE_URL}/items/${id}/access`,
         checkFreeTrial: id =>

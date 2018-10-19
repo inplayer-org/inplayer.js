@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.3.4</b>
+                    API Docs for Version: <b>2.4.0</b>
                 </p>
             </li>
         </div>
@@ -329,6 +329,29 @@ class Account {
         );
 
         return responseData;
+    }
+
+    /**
+     * Reports the generated SSO token to the SSO domain.
+     * @param {String} ssoDomain - The SSO domain.
+     * @param {String} tokenData - The token data.
+     * @param {Boolean} retire - Should the token be retired or activated.
+     */
+    async reportSSOtoken(ssoDomain, tokenData, retire = false) {
+        const body = new FormData();
+
+        body.append(&#x27;token&#x27;, tokenData.token);
+        body.append(&#x27;delete&#x27;, retire ? 1 : 0);
+
+        const response = await fetch(this.config.API.reportSSOtoken(ssoDomain), {
+            method: &#x27;POST&#x27;,
+            body,
+            credentials: &#x27;include&#x27;,
+        });
+
+        checkStatus(response);
+
+        return await response.json();
     }
 
     /**
