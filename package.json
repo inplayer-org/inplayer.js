@@ -1,6 +1,6 @@
 {
   "name": "@inplayer-org/inplayer.js",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "author": "InPlayer",
   "license": "MIT",
   "description": "A Javascript SDK for Inplayer's RESTful API",
