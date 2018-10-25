@@ -268,7 +268,7 @@ class Asset {
             browserFingerprint,
         };
 
-        localStorage.setItem(this.config.INPLAYER_ACCESS_CODE_NAME, JSON.stringify(accessCode));
+        localStorage.setItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId), JSON.stringify(accessCode));
 
         return await response.json();
     }
@@ -285,8 +285,8 @@ class Asset {
      *    const accessCode = InPlayer.Asset.getAccessCode();
      * @return {Object | null}
      */
-    getAccessCode() {
-        const accessCode = localStorage.getItem(this.config.INPLAYER_ACCESS_CODE_NAME);
+    getAccessCode(assetId) {
+        const accessCode = localStorage.getItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId));
 
         if (!accessCode) {
             return null;
@@ -307,8 +307,8 @@ class Asset {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async releaseAccessCode() {
-        const accessCode = this.getAccessCode();
+    async releaseAccessCode(assetId) {
+        const accessCode = this.getAccessCode(assetId);
 
         if (!accessCode) {
             return;
@@ -326,7 +326,7 @@ class Asset {
 
         checkStatus(response);
 
-        localStorage.removeItem(this.config.INPLAYER_ACCESS_CODE_NAME);
+        localStorage.removeItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId));
 
         return await response.json();
     }
