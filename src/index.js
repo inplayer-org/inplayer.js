@@ -21,6 +21,7 @@ class InPlayer {
             BASE_URL: 'https://services.inplayer.com',
             AWS_IOT_URL:
                 'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys',
+            IOT_NOTIF_URL: 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com',
             INPLAYER_TOKEN_NAME: 'inplayer_token',
             INPLAYER_IOT_NAME: 'inplayer_iot',
             INPLAYER_ACCESS_CODE_NAME: assetId => `access_code_${assetId}`,
@@ -134,12 +135,15 @@ class InPlayer {
             this.config.BASE_URL = 'https://services.inplayer.com';
             this.config.AWS_IOT_URL =
                     'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys';
+            this.config.IOT_NOTIF_URL = 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com';
             break;
         }
         case 'develop': {
             this.config.BASE_URL = 'https://staging-v2.inplayer.com';
             this.config.AWS_IOT_URL =
                     'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys';
+            this.config.IOT_NOTIF_URL = 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com';
+
             break;
         }
         case 'sandbox': {
@@ -147,6 +151,7 @@ class InPlayer {
             this.config.BASE_URL = 'https://staging-v2.inplayer.com';
             this.config.AWS_IOT_URL =
                     'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys';
+            this.config.IOT_NOTIF_URL = 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com';
             break;
         }
         default:

@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "2.5.0",
+        "version": "2.5.2",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -1092,7 +1092,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 30,
+            "line": 31,
             "itemtype": "property",
             "name": "Account",
             "type": "Account",
@@ -1100,7 +1100,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 35,
+            "line": 36,
             "itemtype": "property",
             "name": "Asset",
             "type": "Asset",
@@ -1108,7 +1108,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 40,
+            "line": 41,
             "itemtype": "property",
             "name": "Payment",
             "type": "Payment",
@@ -1116,7 +1116,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 45,
+            "line": 46,
             "itemtype": "property",
             "name": "Subscription",
             "type": "Subscription",
@@ -1124,7 +1124,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 50,
+            "line": 51,
             "itemtype": "property",
             "name": "Voucher",
             "type": "Voucher",
@@ -1132,7 +1132,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 55,
+            "line": 56,
             "itemtype": "property",
             "name": "Voucher",
             "type": "Voucher",
@@ -1140,7 +1140,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 60,
+            "line": 61,
             "itemtype": "property",
             "name": "Branding",
             "type": "Branding",
@@ -1148,7 +1148,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 68,
+            "line": 69,
             "description": "Subscribes to websocket events",
             "itemtype": "method",
             "name": "subscribe",
@@ -1175,7 +1175,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 113,
+            "line": 114,
             "description": "Unsubscribes from the websocket and event listeners",
             "itemtype": "method",
             "name": "unsubscribe",
@@ -1190,7 +1190,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 124,
+            "line": 125,
             "description": "Overrides the default configs",
             "itemtype": "method",
             "name": "setConfig",
