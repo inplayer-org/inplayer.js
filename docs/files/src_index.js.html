@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.5.1</b>
+                    API Docs for Version: <b>2.5.2</b>
                 </p>
             </li>
         </div>
@@ -106,6 +106,7 @@ class InPlayer {
             BASE_URL: &#x27;https://services.inplayer.com&#x27;,
             AWS_IOT_URL:
                 &#x27;https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys&#x27;,
+            IOT_NOTIF_URL: &#x27;a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com&#x27;,
             INPLAYER_TOKEN_NAME: &#x27;inplayer_token&#x27;,
             INPLAYER_IOT_NAME: &#x27;inplayer_iot&#x27;,
             INPLAYER_ACCESS_CODE_NAME: assetId =&gt; &#x60;access_code_${assetId}&#x60;,
@@ -219,12 +220,15 @@ class InPlayer {
             this.config.BASE_URL = &#x27;https://services.inplayer.com&#x27;;
             this.config.AWS_IOT_URL =
                     &#x27;https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys&#x27;;
+            this.config.IOT_NOTIF_URL = &#x27;a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com&#x27;;
             break;
         }
         case &#x27;develop&#x27;: {
             this.config.BASE_URL = &#x27;https://staging-v2.inplayer.com&#x27;;
             this.config.AWS_IOT_URL =
                     &#x27;https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys&#x27;;
+            this.config.IOT_NOTIF_URL = &#x27;a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com&#x27;;
+
             break;
         }
         case &#x27;sandbox&#x27;: {
@@ -232,6 +236,7 @@ class InPlayer {
             this.config.BASE_URL = &#x27;https://staging-v2.inplayer.com&#x27;;
             this.config.AWS_IOT_URL =
                     &#x27;https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys&#x27;;
+            this.config.IOT_NOTIF_URL = &#x27;a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com&#x27;;
             break;
         }
         default:
