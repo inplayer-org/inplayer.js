@@ -27,7 +27,12 @@ class Notifications {
 
         checkStatus(response);
 
-        return await response.json();
+        const iotResponse = await response.json();
+
+        return {
+            ...iotResponse,
+            iotEndpoint: this.config.IOT_NOTIF_URL,
+        };
     }
 
     /* Subscribes to Websocket notifications */
