@@ -605,6 +605,8 @@ class Account {
             body: params(body),
         });
 
+        checkStatus(response);
+
         return {
             code: response.status,
             message: 'Your data is being exported, please check your email.',
