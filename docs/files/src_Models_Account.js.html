@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.5.2</b>
+                    API Docs for Version: <b>2.5.3</b>
                 </p>
             </li>
         </div>
@@ -689,6 +689,8 @@ class Account {
             },
             body: params(body),
         });
+
+        checkStatus(response);
 
         return {
             code: response.status,
