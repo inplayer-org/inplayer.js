@@ -607,6 +607,10 @@ class Account {
 
         checkStatus(response);
 
+        if (!response.ok) {
+            return await response.json();
+        }
+
         return {
             code: response.status,
             message: 'Your data is being exported, please check your email.',
