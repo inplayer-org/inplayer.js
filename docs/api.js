@@ -4,8 +4,8 @@ YUI.add("yuidoc-meta", function(Y) {
         "Account",
         "Asset",
         "Branding",
+        "DLC",
         "InPlayer",
-        "Misc",
         "Payment",
         "Subscription",
         "Voucher"
