@@ -26,7 +26,7 @@
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Account", "classes/Asset", "classes/Branding", "classes/InPlayer", "classes/Misc", "classes/Payment", "classes/Subscription", "classes/Voucher"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Account", "classes/Asset", "classes/Branding", "classes/DLC", "classes/InPlayer", "classes/Payment", "classes/Subscription", "classes/Voucher"]'>
         </form>
     </div>
 </div>
@@ -40,8 +40,8 @@
                 <li><a href="../classes/Account.html">Account</a></li>
                 <li><a href="../classes/Asset.html">Asset</a></li>
                 <li><a href="../classes/Branding.html">Branding</a></li>
+                <li><a href="../classes/DLC.html">DLC</a></li>
                 <li><a href="../classes/InPlayer.html">InPlayer</a></li>
-                <li><a href="../classes/Misc.html">Misc</a></li>
                 <li><a href="../classes/Payment.html">Payment</a></li>
                 <li><a href="../classes/Subscription.html">Subscription</a></li>
                 <li><a href="../classes/Voucher.html">Voucher</a></li>
@@ -86,9 +86,9 @@
 import { checkStatus, errorResponse } from &#x27;../Utils&#x27;;
 
 /**
- * Contains mixed various types of functiosn for dlcs, discounts, branding, etc.
+ * Contains mixed various types of function for dlcs, discounts, branding, etc.
  *
- * @class Misc
+ * @class DLC
  */
 class DLC {
     constructor(config, Account) {
@@ -96,29 +96,29 @@ class DLC {
         this.Account = Account;
     }
     /**
-     * Gets all DLC links
-     * @method getDlcLinks
-     * @async
-     * @param {Number} assetId - The id of the asset
-     * @example
-     *     InPlayer.DLC
-     *     .getDlcLinks(36320)
-     *     .then(data =&gt; console.log(data));
-     * @return {Object}
-     */
+   * Gets all DLC links
+   * @method getDlcLinks
+   * @async
+   * @param {Number} assetId - The id of the asset
+   * @example
+   *     InPlayer.DLC
+   *     .getDlcLinks(36320)
+   *     .then(data =&gt; console.log(data));
+   * @return {Object}
+   */
     async getDlcLinks(assetId) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: &#x27;User is not authenticated&#x27;,
+                message: &#x27;User is not authenticated&#x27;
             });
         }
         const t = this.Account.getToken();
 
         const response = await fetch(this.config.API.getDlcLinks(assetId), {
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token,
-            },
+                Authorization: &#x27;Bearer &#x27; + t.token
+            }
         });
 
         checkStatus(response);
