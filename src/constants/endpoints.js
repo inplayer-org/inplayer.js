@@ -58,6 +58,8 @@ export const API = config => {
         findPackage: id => `${config.BASE_URL}/items/packages/${id}`,
         findAccessFees: id => `${config.BASE_URL}/items/${id}/access-fees`,
         freemium: `${config.BASE_URL}/items/access/unlimited`,
+        getCloudfrontURL: (assetId, videoUrl) =>
+            `${config.BASE_URL}/items/${assetId}/access/cloudfront?url=${videoUrl}`,
         // Payment
         getPaymentMethods: `${config.BASE_URL}/payments/methods`,
         getPaymentTools: paymentMethodId =>

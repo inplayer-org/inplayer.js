@@ -330,6 +330,30 @@ class Asset {
 
         return await response.json();
     }
+
+    /**
+     * Returns a signed Cloudfront URL with the merchant's signature
+     * @method getCloudfrontURL
+     * @async
+     * @param {Number} assetId
+     * @param {String} videoUrl
+     * @returns {Object} data = {
+     *    video_url: {String}
+     * }
+     */
+    async getCloudfrontURL(assetId, videoUrl) {
+        const t = this.Account.getToken();
+
+        const response = await fetch(this.config.API.getCloudfrontURL(assetId, videoUrl), {
+            headers: {
+                Authorization: 'Bearer ' + t.token,
+            },
+        });
+
+        checkStatus(response);
+
+        return await response.json();
+    }
 }
 
 export default Asset;
