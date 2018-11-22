@@ -1,8 +1,5 @@
 import { expect } from 'chai';
 import InPlayer from '../src';
-import LocalStorageMock from './LocalStorageMock';
-
-global.localStorage = new LocalStorageMock();
 
 describe('Account', function () {
     InPlayer.setConfig('develop');
