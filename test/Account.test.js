@@ -103,11 +103,18 @@ describe('Account', function () {
                 referrer: 'localhost.com',
             });
 
-            const result = await user.updateAccount({
-                fullName: 'Automated Tests Merchant',
-            });
+            try {
+                const result = await user.updateAccount({
+                    fullName: 'Automated Tests Merchant'
+                });
 
-            expect(result).to.have.property('id');
+                expect(result).to.have.property('id');
+            } catch (error) {
+                const result = await error.response.json();
+
+                expect(result).to.have.property('code');
+                expect(result).to.have.property('errors');
+            }
         });
     });
 
