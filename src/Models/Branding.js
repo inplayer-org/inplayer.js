@@ -14,8 +14,8 @@ class Branding {
      * Gets branding params for given merchant
      * @method getBranding
      * @async
-     * @param {String} clientId - The Client id
-     * @param {String} brandingId - The branding id or 'default'
+     * @param {string} clientId - The Client id
+     * @param {string} brandingId - The branding id or 'default'
      * @example
      *     InPlayer.Branding
      *     .getBranding('eyJ0e-XAiOi-JKPEC-ENR5Y', '123')

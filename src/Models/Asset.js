@@ -14,28 +14,28 @@ class Asset {
     }
 
     /**
-     * Checks whether a given authenticated user has access for an asset
-     * @method checkAccessForAsset
-     * @async
-     * @param {Number} id - The id of the asset
-     * @example
-     *     InPlayer.Asset
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Checks whether a given authenticated user has access for an asset
+   * @method checkAccessForAsset
+   * @async
+   * @param {number} id - The id of the asset
+   * @example
+   *     InPlayer.Asset
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
     async checkAccessForAsset(id) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: 'User is not authenticated',
+                message: 'User is not authenticated'
             });
         }
 
         const t = this.Account.getToken();
         const response = await fetch(this.config.API.checkAccess(id), {
             headers: {
-                Authorization: 'Bearer ' + t.token,
-            },
+                Authorization: 'Bearer ' + t.token
+            }
         });
 
         checkStatus(response);
@@ -44,21 +44,21 @@ class Asset {
     }
 
     /**
-     * Checks whether Free trial has been used for a given asset
-     * @method isFreeTrialUsed
-     * @async
-     * @param {Number} id - The ID of the asset
-     * @example
-     *     InPlayer.Asset
-     *     .isFreeTrialUsed(36320)
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Checks whether Free trial has been used for a given asset
+   * @method isFreeTrialUsed
+   * @async
+   * @param {number} id - The ID of the asset
+   * @example
+   *     InPlayer.Asset
+   *     .isFreeTrialUsed(36320)
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
     async isFreeTrialUsed(id) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: 'User is not authenticated',
+                message: 'User is not authenticated'
             });
         }
 
@@ -66,8 +66,8 @@ class Asset {
 
         const response = await fetch(this.config.API.checkFreeTrial(id), {
             headers: {
-                Authorization: 'Bearer ' + t.token,
-            },
+                Authorization: 'Bearer ' + t.token
+            }
         });
 
         checkStatus(response);
@@ -76,19 +76,21 @@ class Asset {
     }
 
     /**
-     * Get the asset info for a given asset ID and merchant UUID
-     * @method findAsset
-     * @async
-     * @param {Number} assetId - The ID of the asset
-     * @param {String} merchantUuid - The merchant UUID string
-     * @example
-     *     InPlayer.Asset
-     *     .getAsset(2,'a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl')
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Get the asset info for a given asset ID and merchant UUID
+   * @method findAsset
+   * @async
+   * @param {number} assetId - The ID of the asset
+   * @param {string} merchantUuid - The merchant UUID string
+   * @example
+   *     InPlayer.Asset
+   *     .getAsset(2,'a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl')
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
     async getAsset(assetId, merchantUuid) {
-        const response = await fetch(this.config.API.findAsset(assetId, merchantUuid));
+        const response = await fetch(
+            this.config.API.findAsset(assetId, merchantUuid)
+        );
 
         checkStatus(response);
 
@@ -96,20 +98,22 @@ class Asset {
     }
 
     /**
-     * Get an external assets info
-     * @method findExternalAsset
-     * @async
-     * @param {String} assetType - The type ID of the asset
-     * @param {String} externalId - The ID of the external asset
-     * @param {String} merchantUuid - OPTIONAL - the merchant uuid
-     * @example
-     *     InPlayer.Asset
-     *     .getExternalAsset('ooyala','44237')
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Get an external assets info
+   * @method findExternalAsset
+   * @async
+   * @param {string} assetType - The type ID of the asset
+   * @param {string} externalId - The ID of the external asset
+   * @param {string} merchantUuid - OPTIONAL - the merchant uuid
+   * @example
+   *     InPlayer.Asset
+   *     .getExternalAsset('ooyala','44237')
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
     async getExternalAsset(assetType, externalId, merchantUuid = '') {
-        const response = await fetch(this.config.API.findExternalAsset(assetType, externalId, merchantUuid));
+        const response = await fetch(
+            this.config.API.findExternalAsset(assetType, externalId, merchantUuid)
+        );
 
         checkStatus(response);
 
@@ -117,16 +121,16 @@ class Asset {
     }
 
     /**
-     * Get package info for a given Package ID
-     * @method findPackage
-     * @async
-     * @param {Number} id - The type ID of the package
-     * @example
-     *     InPlayer.Asset
-     *     .getPackage(4444)
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Get package info for a given Package ID
+   * @method findPackage
+   * @async
+   * @param {number} id - The type ID of the package
+   * @example
+   *     InPlayer.Asset
+   *     .getPackage(4444)
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
     async getPackage(id) {
         const response = await fetch(this.config.API.findPackage(id));
 
@@ -136,16 +140,16 @@ class Asset {
     }
 
     /**
-     * Get the access fees for a given asset ID
-     * @method getAssetAccessFees
-     * @async
-     * @param {Number} id - The ID of the asset
-     * @example
-     *     InPlayer.Asset
-     *     .getAssetAccessFees(555)
-     *     .then(data => console.log(data))
-     * @return {Object}
-     */
+   * Get the access fees for a given asset ID
+   * @method getAssetAccessFees
+   * @async
+   * @param {number} id - The ID of the asset
+   * @example
+   *     InPlayer.Asset
+   *     .getAssetAccessFees(555)
+   *     .then(data => console.log(data))
+   * @return {Object}
+   */
     async getAssetAccessFees(id) {
         const response = await fetch(this.config.API.findAccessFees(id));
 
@@ -155,34 +159,42 @@ class Asset {
     }
 
     /**
-     * Returns purchase history with types
-     * @method getAssetsHistory
-     * @async
-     * @param {Number} size - The page size
-     * @param {Number} page - The current page / starting index = 0
-     * @param {String} startDate - Staring date filter
-     * @param {String} endDate - Ending date filter
-     * @example
-     *     InPlayer.Asset
-     *     .getAssetsHistory()
-     *     .then(data => console.log(data))
-     * @return {Array}
-     */
-    async getAssetsHistory(size = 10, page = 0, startDate = null, endDate = null) {
+   * Returns purchase history with types
+   * @method getAssetsHistory
+   * @async
+   * @param {number} size - The page size
+   * @param {number} page - The current page / starting index = 0
+   * @param {string} startDate - Staring date filter
+   * @param {string} endDate - Ending date filter
+   * @example
+   *     InPlayer.Asset
+   *     .getAssetsHistory()
+   *     .then(data => console.log(data))
+   * @return {Array}
+   */
+    async getAssetsHistory(
+        size = 10,
+        page = 0,
+        startDate = null,
+        endDate = null
+    ) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: 'User is not authenticated',
+                message: 'User is not authenticated'
             });
         }
 
         const t = this.Account.getToken();
 
-        const response = await fetch(this.config.API.assetsHistory(size, page, startDate, endDate), {
-            headers: {
-                Authorization: 'Bearer ' + t.token,
-            },
-        });
+        const response = await fetch(
+            this.config.API.assetsHistory(size, page, startDate, endDate),
+            {
+                headers: {
+                    Authorization: 'Bearer ' + t.token
+                }
+            }
+        );
 
         checkStatus(response);
 
@@ -190,21 +202,21 @@ class Asset {
     }
 
     /**
-     * Authorize for the freemium asset (login)
-     * @method getFreemiumAsset
-     * @async
-     * @param accessFee
-     * @example
-     *     InPlayer.Asset
-     *     .freemiumAsset(2233)
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Authorize for the freemium asset (login)
+   * @method getFreemiumAsset
+   * @async
+   * @param accessFee
+   * @example
+   *     InPlayer.Asset
+   *     .freemiumAsset(2233)
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
     async getFreemiumAsset(accessFeeId) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: 'User is not authenticated',
+                message: 'User is not authenticated'
             });
         }
 
@@ -217,30 +229,30 @@ class Asset {
         const response = await fetch(this.config.API.freemium, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + t.token,
+                Authorization: 'Bearer ' + t.token
             },
-            body: formData,
+            body: formData
         });
 
         return await response.json();
     }
 
     /**
-     * Get access with code for code access grant asset.
-     * @method requestCodeAccess
-     * @async
-     * @param {Object} data = {
-     *  assetId: {Number},
-     *  code: {String}
-     * }
-     * @throws Will throw an HTTP 400 error if the access code is already in use.
-     * @throws Will throw an HTTP 401 error if the code is invalid.
-     * @example
-     *     InPlayer.Asset
-     *     .requestCodeAccess({ assetId: 42599, code: 'access-code' })
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Get access with code for code access grant asset.
+   * @method requestCodeAccess
+   * @async
+   * @param {Object} data = {
+   *  assetId: {number},
+   *  code: {string}
+   * }
+   * @throws Will throw an HTTP 400 error if the access code is already in use.
+   * @throws Will throw an HTTP 401 error if the code is invalid.
+   * @example
+   *     InPlayer.Asset
+   *     .requestCodeAccess({ assetId: 42599, code: 'access-code' })
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
     async requestCodeAccess({ assetId, code }) {
         const formData = new FormData();
 
@@ -257,7 +269,7 @@ class Asset {
 
         const response = await fetch(this.config.API.requestCodeAccess, {
             method: 'POST',
-            body: formData,
+            body: formData
         });
 
         checkStatus(response);
@@ -265,28 +277,33 @@ class Asset {
         const accessCode = {
             code,
             assetId,
-            browserFingerprint,
+            browserFingerprint
         };
 
-        localStorage.setItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId), JSON.stringify(accessCode));
+        localStorage.setItem(
+            this.config.INPLAYER_ACCESS_CODE_NAME(assetId),
+            JSON.stringify(accessCode)
+        );
 
         return await response.json();
     }
 
     /**
-     * Retrieves the access code and browser fingerprint for the current asset.
-     * Returns null if no access code is present.
-     * @method getAccessCode
-     * @param {Object} data = {
-     *  assetId: {Number},
-     *  code: {String}
-     * }
-     * @example
-     *    const accessCode = InPlayer.Asset.getAccessCode();
-     * @return {Object | null}
-     */
+   * Retrieves the access code and browser fingerprint for the current asset.
+   * Returns null if no access code is present.
+   * @method getAccessCode
+   * @param {Object} data = {
+   *  assetId: {number},
+   *  code: {string}
+   * }
+   * @example
+   *    const accessCode = InPlayer.Asset.getAccessCode();
+   * @return {Object | null}
+   */
     getAccessCode(assetId) {
-        const accessCode = localStorage.getItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId));
+        const accessCode = localStorage.getItem(
+            this.config.INPLAYER_ACCESS_CODE_NAME(assetId)
+        );
 
         if (!accessCode) {
             return null;
@@ -296,17 +313,17 @@ class Asset {
     }
 
     /**
-     * Releases the access code for the current browser.
-     * @method releaseAccessCode
-     * @async
-     * @param {Number} - assetId
-     * @throws Will throw an HTTP 400 error if the code is not in use.
-     * @example
-     *     InPlayer.Asset
-     *     .releaseAccessCode(42599)
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Releases the access code for the current browser.
+   * @method releaseAccessCode
+   * @async
+   * @param {number} - assetId
+   * @throws Will throw an HTTP 400 error if the code is not in use.
+   * @example
+   *     InPlayer.Asset
+   *     .releaseAccessCode(42599)
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
     async releaseAccessCode(assetId) {
         const accessCode = this.getAccessCode(assetId);
 
@@ -319,14 +336,44 @@ class Asset {
         formData.set('id', accessCode.assetId);
         formData.set('browser_fingerprint', accessCode.browserFingerprint);
 
-        const response = await fetch(this.config.API.releaseAccessCode(accessCode.code), {
-            method: 'DELETE',
-            body: formData,
-        });
+        const response = await fetch(
+            this.config.API.releaseAccessCode(accessCode.code),
+            {
+                method: 'DELETE',
+                body: formData
+            }
+        );
 
         checkStatus(response);
 
         localStorage.removeItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId));
+
+        return await response.json();
+    }
+
+    /**
+   * Returns a signed Cloudfront URL with the merchant's signature
+   * @method getCloudfrontURL
+   * @async
+   * @param {number} assetId
+   * @param {string} videoUrl
+   * @returns {Object} data = {
+   *    video_url: {string}
+   * }
+   */
+    async getCloudfrontURL(assetId, videoUrl) {
+        const t = this.Account.getToken();
+
+        const response = await fetch(
+            this.config.API.getCloudfrontURL(assetId, videoUrl),
+            {
+                headers: {
+                    Authorization: 'Bearer ' + t.token
+                }
+            }
+        );
+
+        checkStatus(response);
 
         return await response.json();
     }

@@ -14,7 +14,7 @@ class DLC {
    * Gets all DLC links
    * @method getDlcLinks
    * @async
-   * @param {Number} assetId - The id of the asset
+   * @param {number} assetId - The id of the asset
    * @example
    *     InPlayer.DLC
    *     .getDlcLinks(36320)

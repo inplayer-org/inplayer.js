@@ -44,7 +44,7 @@ class Payment {
      * Get the payment tools for an aothorization token and payment method ID
      * @method getPaymentTools
      * @async
-     * @param {Number} paymentMethodId - The Payment Method ID
+     * @param {number} paymentMethodId - The Payment Method ID
      * @example
      *     InPlayer.Payment
      *     .getPaymentTools(2)
@@ -153,9 +153,9 @@ class Payment {
      * @method getPayPalParams
      * @async
      * @param {Object} data - Contains details - {
-     *  origin: {String},
-     *  accessFeeId: {Number},
-     *  paymentMethod: {Number}
+     *  origin: {string},
+     *  accessFeeId: {number},
+     *  paymentMethod: {number}
      * }
      * @example
      *     InPlayer.Payment
@@ -203,9 +203,9 @@ class Payment {
      * Gets the purchase history
      * @method getPurchaseHistory
      * @async
-     * @param {String} status - The status of the purchase - active/inactive
-     * @param {Number} page - The current page
-     * @param {Number} limit - The number of items per page
+     * @param {string} status - The status of the purchase - active/inactive
+     * @param {number} page - The current page
+     * @param {number} limit - The number of items per page
      * @example
      *     InPlayer.Payment
      *     .getPurchaseHistory('active', 0, 5)

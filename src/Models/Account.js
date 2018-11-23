@@ -248,9 +248,9 @@ class Account {
 
     /**
      * Reports the generated SSO token to the SSO domain.
-     * @param {String} ssoDomain - The SSO domain.
-     * @param {String} tokenData - The token data.
-     * @param {Boolean} retire - Should the token be retired or activated.
+     * @param {string} ssoDomain - The SSO domain.
+     * @param {string} tokenData - The token data.
+     * @param {boolean} retire - Should the token be retired or activated.
      */
     async reportSSOtoken(ssoDomain, tokenData, retire = false) {
         const body = new FormData();
@@ -381,7 +381,7 @@ class Account {
      * Gets the social login urls for fb/twitter/google
      * @method getSocialLoginUrls
      * @async
-     * @param {String} state - Social login state.
+     * @param {string} state - Social login state.
      * The state needs to be json and base64 encoded to be sent as a query parameter.
      * Example: btoa(JSON.stringify({uuid: 'foo', redirect: 'http://example.com'}))
      * @example
@@ -450,7 +450,7 @@ class Account {
      *  passwordConfirmation: string
      *  brandingId?: number
      * }
-     * @param {String} token - The reset token
+     * @param {string} token - The reset token
      * @example
      *     InPlayer.Account
      *     .changePassword({
@@ -496,7 +496,7 @@ class Account {
      * Gets register fields
      * @method getRegisterFields
      * @async
-     * @param {String} merchantUuid - The merchant UUID
+     * @param {string} merchantUuid - The merchant UUID
      * @example
      *     InPlayer.Account
      *     .getRegisterFields('123124-1r-1r13ur1h1')
