@@ -49,7 +49,7 @@ class Subscription {
      * @method getSubscription
      * @async
      *
-     * @param {String} id - The subscription id
+     * @param {string} id - The subscription id
      * @example
      *     InPlayer.Subscription
      *     .getSubscription('abcdef')
@@ -80,7 +80,7 @@ class Subscription {
      * Cancels a subscription
      * @method cancelSubscription
      * @async
-     * @param {String} unsubscribeUrl - The url for the subscription which is getting unsubscribed
+     * @param {string} unsubscribeUrl - The url for the subscription which is getting unsubscribed
      * @example
      *     InPlayer.Subscription
      *     .cancelSubscription('abcdef')
