@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "2.5.4",
+        "version": "2.6.0",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -602,7 +602,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 98,
+            "line": 100,
             "description": "Get an external assets info",
             "itemtype": "method",
             "name": "findExternalAsset",
@@ -635,7 +635,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 119,
+            "line": 123,
             "description": "Get package info for a given Package ID",
             "itemtype": "method",
             "name": "findPackage",
@@ -658,7 +658,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 138,
+            "line": 142,
             "description": "Get the access fees for a given asset ID",
             "itemtype": "method",
             "name": "getAssetAccessFees",
@@ -681,7 +681,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 157,
+            "line": 161,
             "description": "Returns purchase history with types",
             "itemtype": "method",
             "name": "getAssetsHistory",
@@ -719,7 +719,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 192,
+            "line": 204,
             "description": "Authorize for the freemium asset (login)",
             "itemtype": "method",
             "name": "getFreemiumAsset",
@@ -741,7 +741,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 228,
+            "line": 240,
             "description": "Get access with code for code access grant asset.",
             "itemtype": "method",
             "name": "requestCodeAccess",
@@ -749,7 +749,7 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "= {\n assetId: {Number},\n code: {String}\n}",
+                    "description": "= {\n assetId: {number},\n code: {string}\n}",
                     "type": "Object"
                 }
             ],
@@ -767,14 +767,14 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 276,
+            "line": 291,
             "description": "Retrieves the access code and browser fingerprint for the current asset.\nReturns null if no access code is present.",
             "itemtype": "method",
             "name": "getAccessCode",
             "params": [
                 {
                     "name": "data",
-                    "description": "= {\n assetId: {Number},\n code: {String}\n}",
+                    "description": "= {\n assetId: {number},\n code: {string}\n}",
                     "type": "Object"
                 }
             ],
@@ -789,7 +789,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 298,
+            "line": 315,
             "description": "Releases the access code for the current browser.",
             "itemtype": "method",
             "name": "releaseAccessCode",
@@ -809,6 +809,31 @@
             ],
             "return": {
                 "description": "",
+                "type": "Object"
+            },
+            "class": "Asset"
+        },
+        {
+            "file": "src/Models/Asset.js",
+            "line": 354,
+            "description": "Returns a signed Cloudfront URL with the merchant's signature",
+            "itemtype": "method",
+            "name": "getCloudfrontURL",
+            "async": 1,
+            "params": [
+                {
+                    "name": "assetId",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "videoUrl",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "data = {\n   video_url: {string}\n}",
                 "type": "Object"
             },
             "class": "Asset"
@@ -936,7 +961,7 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- Contains details - {\n origin: {String},\n accessFeeId: {Number},\n paymentMethod: {Number}\n}",
+                    "description": "- Contains details - {\n origin: {string},\n accessFeeId: {number},\n paymentMethod: {number}\n}",
                     "type": "Object"
                 }
             ],
@@ -1208,6 +1233,10 @@
         }
     ],
     "warnings": [
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/Models/Asset.js:354"
+        },
         {
             "message": "Missing item type\nReports the generated SSO token to the SSO domain.",
             "line": " src/Models/Account.js:249"
