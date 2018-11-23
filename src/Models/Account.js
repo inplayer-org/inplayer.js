@@ -248,9 +248,9 @@ class Account {
 
     /**
      * Reports the generated SSO token to the SSO domain.
-     * @param {String} ssoDomain - The SSO domain.
-     * @param {String} tokenData - The token data.
-     * @param {Boolean} retire - Should the token be retired or activated.
+     * @param {stromg} ssoDomain - The SSO domain.
+     * @param {string} tokenData - The token data.
+     * @param {boolean} retire - Should the token be retired or activated.
      */
     async reportSSOtoken(ssoDomain, tokenData, retire = false) {
         const body = new FormData();
