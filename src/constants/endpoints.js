@@ -49,7 +49,7 @@ export const API = config => {
             if (merchantUuid) {
                 return `${
                     config.BASE_URL
-                }/items/assets/external/${assetType}/${externalId}?merchantUuid=${merchantUuid}`;
+                }/items/assets/external/${assetType}/${externalId}?merchant_uuid=${merchantUuid}`;
             }
             return `${
                 config.BASE_URL

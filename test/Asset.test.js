@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import InPlayer from '../src';
 
-describe('Asset', function() {
+describe('Asset', function () {
     InPlayer.setConfig('develop');
 
     let secret = process.env.CLIENT_SECRET;
@@ -16,7 +16,7 @@ describe('Asset', function() {
             })();
     });
 
-    describe('#checkAccessForAsset()', function() {
+    describe('#checkAccessForAsset()', function () {
         it('should return data with error object - asset not found', async () => {
             try {
                 await asset.checkAccessForAsset(123);
@@ -30,7 +30,7 @@ describe('Asset', function() {
         });
     });
 
-    describe('#getAsset()', function() {
+    describe('#getAsset()', function () {
         it('should return data with asset object', async () => {
             const result = await asset.getAsset(
                 36356,
@@ -44,7 +44,7 @@ describe('Asset', function() {
         });
     });
 
-    describe('#findExternalAsset()', function() {
+    describe('#findExternalAsset()', function () {
         it('should return data with external asset object (not found)', async () => {
             try {
                 await asset.getExternalAsset(
@@ -61,7 +61,7 @@ describe('Asset', function() {
         });
     });
 
-    describe('#getPackage()', function() {
+    describe('#getPackage()', function () {
         it('should return data with package object', async () => {
             try {
                 await asset.getPackage(13);
@@ -74,7 +74,7 @@ describe('Asset', function() {
         });
     });
 
-    describe('#getAssetAccessFees()', function() {
+    describe('#getAssetAccessFees()', function () {
         it('should return array with access fees', async () => {
             const result = await asset.getAssetAccessFees(36356);
 

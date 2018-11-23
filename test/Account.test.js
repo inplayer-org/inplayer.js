@@ -1,17 +1,13 @@
 import { expect } from 'chai';
-import Account from '../src/Models/Account';
 import InPlayer from '../src';
-import LocalStorageMock from './LocalStorageMock';
 
-global.localStorage = new LocalStorageMock();
-
-describe('Account', function() {
+describe('Account', function () {
     InPlayer.setConfig('develop');
 
     let secret = process.env.CLIENT_SECRET;
     let user = InPlayer.Account;
 
-    describe('#authenticate()', function() {
+    describe('#authenticate()', function () {
         it('should authenticate the user', async () => {
             const result = await user.authenticate({
                 clientId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
@@ -26,7 +22,7 @@ describe('Account', function() {
         });
     });
 
-    describe('#signOut()', function() {
+    describe('#signOut()', function () {
         it('should sign out', async () => {
             expect(user.isAuthenticated()).to.equal(true);
             const result = await user.signOut();
@@ -37,7 +33,7 @@ describe('Account', function() {
         });
     });
 
-    describe('#signUp()', function() {
+    describe('#signUp()', function () {
         it('should throw error for invalid data', async () => {
             try {
                 await user.signUp({
@@ -59,7 +55,7 @@ describe('Account', function() {
         });
     });
 
-    describe('#requestNewPassword()', function() {
+    describe('#requestNewPassword()', function () {
         it('should throw missing data error because of FormData', async () => {
             const result = await user.requestNewPassword({
                 email: 'test@test.com',
@@ -70,7 +66,7 @@ describe('Account', function() {
         });
     });
 
-    describe('#getAccount()', function() {
+    describe('#getAccount()', function () {
         it('should fetch the account info', async () => {
             await user.authenticate({
                 clientId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
@@ -84,7 +80,7 @@ describe('Account', function() {
         });
     });
 
-    describe('#getSocialLoginUrls()', function() {
+    describe('#getSocialLoginUrls()', function () {
         it('should fetch social login urls', async () => {
             let state = btoa(
                 JSON.stringify({
@@ -99,7 +95,7 @@ describe('Account', function() {
         });
     });
 
-    describe('#updateAccount()', function() {
+    describe('#updateAccount()', function () {
         it('should throw error for invalid state', async () => {
             await user.authenticate({
                 clientId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
@@ -107,15 +103,22 @@ describe('Account', function() {
                 referrer: 'localhost.com',
             });
 
-            const result = await user.updateAccount({
-                fullName: 'Automated Tests Merchant',
-            });
+            try {
+                const result = await user.updateAccount({
+                    fullName: 'Automated Tests Merchant'
+                });
 
-            expect(result).to.have.property('id');
+                expect(result).to.have.property('id');
+            } catch (error) {
+                const result = await error.response.json();
+
+                expect(result).to.have.property('code');
+                expect(result).to.have.property('errors');
+            }
         });
     });
 
-    describe('#changePassword()', function() {
+    describe('#changePassword()', function () {
         it('should throw error for invalid data', async () => {
             await user.authenticate({
                 clientId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
@@ -138,7 +141,7 @@ describe('Account', function() {
         });
     });
 
-    describe('#getRegisterFields()', function() {
+    describe('#getRegisterFields()', function () {
         it('should return register fields', async () => {
             const result = await user.getRegisterFields(
                 'b0899d7f-66da-40fc-8eeb-36cad735589c'
