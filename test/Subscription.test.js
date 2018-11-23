@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import InPlayer from '../src';
-describe('Subscription', function() {
+
+describe('Subscription', function () {
     InPlayer.setConfig('develop');
 
     let secret = process.env.CLIENT_SECRET;
@@ -15,7 +16,7 @@ describe('Subscription', function() {
             })();
     });
 
-    describe('#getSubscriptions()', function() {
+    describe('#getSubscriptions()', function () {
         it('should return unauthorized request with wrong auth', async () => {
             try {
                 await subscription.getSubscriptions();
@@ -28,7 +29,7 @@ describe('Subscription', function() {
         });
     });
 
-    describe('#cancelSubscription()', function() {
+    describe('#cancelSubscription()', function () {
         it('should return unauthorized request with wrong auth or wrong url', async () => {
             try {
                 await subscription.cancelSubscription(

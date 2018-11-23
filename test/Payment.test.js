@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import InPlayer from '../src';
 
-describe('Payment', function() {
+describe('Payment', function () {
     InPlayer.setConfig('develop');
 
     let secret = process.env.CLIENT_SECRET;
@@ -16,7 +16,7 @@ describe('Payment', function() {
             })();
     });
 
-    describe('#getPaymentMethods()', function() {
+    describe('#getPaymentMethods()', function () {
         it('should return unaothorized request with wrong auth', async () => {
             const result = await payment.getPaymentMethods();
 
@@ -24,7 +24,7 @@ describe('Payment', function() {
         });
     });
 
-    describe('#getPaymentTools()', function() {
+    describe('#getPaymentTools()', function () {
         it('should return unaothorized request with wrong auth', async () => {
             const result = await payment.getPaymentTools(123);
 
@@ -32,7 +32,7 @@ describe('Payment', function() {
         });
     });
 
-    describe('#payForAsset()', function() {
+    describe('#payForAsset()', function () {
         it('should return unaothorized request with wrong auth', async () => {
             try {
                 await payment.create({});
@@ -45,7 +45,7 @@ describe('Payment', function() {
         });
     });
 
-    describe('#getPayPalParams()', function() {
+    describe('#getPayPalParams()', function () {
         it('should return unaothorized request with wrong auth', async () => {
             try {
                 await payment.getPayPalParams({});

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import InPlayer from '../src';
 
-describe('Voucher', function() {
+describe('Voucher', function () {
     InPlayer.setConfig('develop');
 
     let secret = process.env.CLIENT_SECRET;
@@ -16,7 +16,7 @@ describe('Voucher', function() {
             })();
     });
 
-    describe('#getDiscount()', function() {
+    describe('#getDiscount()', function () {
         it('should return discount', async () => {
             try {
                 await voucher.getDiscount(123);
