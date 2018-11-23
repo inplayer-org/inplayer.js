@@ -248,7 +248,7 @@ class Account {
 
     /**
      * Reports the generated SSO token to the SSO domain.
-     * @param {stromg} ssoDomain - The SSO domain.
+     * @param {string} ssoDomain - The SSO domain.
      * @param {string} tokenData - The token data.
      * @param {boolean} retire - Should the token be retired or activated.
      */
