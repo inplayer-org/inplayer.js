@@ -19,7 +19,7 @@ npm install --save @inplayer-org/inplayer.js
 Alternatively you can include the script like so:
 
 ```
-<script src="https://unpkg.com/@inplayer-org/inplayer.js"></script>
+<script src="https://unpkg.com/@inplayer-org/inplayer.js/dist/inplayer.umd.js"></script>
 ```
 
 ## Usage
