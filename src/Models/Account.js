@@ -12,33 +12,43 @@ class Account {
     }
 
     /**
-     * Signs in the user
-     * @method authenticate
-     * @async
-     * @param {Object} data - Contains {
-     *  email: string,
-     *  password: string,
-     *  clientId: string,
-     * }
-     * @example
-     *     InPlayer.Account.authenticate({
-     *      email: 'test@test.com',
-     *      password: 'test123',
-     *      clientId: '123-123-hf1hd1-12dhd1',
-     *      grantType: 'password'
-     *     })
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Signs in the user
+   * @method authenticate
+   * @async
+   * @param {Object} data - Contains {
+   *  email: string,
+   *  password: string,
+   *  clientId: string,
+   *  clientSecret: string,
+   *  referrer: string,
+   *  refreshToken: string,
+   * }
+   * @example
+   *     InPlayer.Account.authenticate({
+   *      email: 'test@test.com',
+   *      password: 'test123',
+   *      clientId: '123-123-hf1hd1-12dhd1',
+   *      referrer: 'http://localhost:3000/',
+   *      refreshToken: '528b1b80-ddd1hj-4abc-gha3j-111111'
+   *     })
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
     async authenticate(data = {}) {
         let body = {
             client_id: data.clientId,
             grant_type: 'password',
+            referrer: data.referrer
         };
 
         if (data.clientSecret) {
             body.client_secret = data.clientSecret;
             body.grant_type = 'client_credentials';
+        }
+
+        if (data.refreshToken) {
+            body.refresh_token = data.refreshToken;
+            body.grant_type = 'refresh_token';
         } else {
             body.username = data.email;
             body.password = data.password;
@@ -48,8 +58,8 @@ class Account {
             method: 'POST',
             body: params(body),
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
         });
 
         checkStatus(response);
@@ -66,33 +76,33 @@ class Account {
     }
 
     /**
-     * Signs up/Registers user
-     * @method signUp
-     * @async
-     * @param {Object} data - Contains {
-     *  fullName: string,
-     *  email: string
-     *  password: string,
-     *  passwordConfirmation: string,
-     *  clientId: string,
-     *  type: number
-     *  referrer: string,
-     *  brandingId?: number,
-     * }
-     * @example
-     *     InPlayer.Account.signUp({
-     *      fullName: "test",
-     *      email: "test32@test.com",
-     *      password: "12345678",
-     *      passwordConfirmation: "12345678",
-     *      clientId: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
-     *      type: "consumer",
-     *      referrer: "http://localhost:3000/",
-     *      brandingId?: 12345,
-     *     })
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Signs up/Registers user
+   * @method signUp
+   * @async
+   * @param {Object} data - Contains {
+   *  fullName: string,
+   *  email: string
+   *  password: string,
+   *  passwordConfirmation: string,
+   *  clientId: string,
+   *  type: number
+   *  referrer: string,
+   *  brandingId?: number,
+   * }
+   * @example
+   *     InPlayer.Account.signUp({
+   *      fullName: "test",
+   *      email: "test32@test.com",
+   *      password: "12345678",
+   *      passwordConfirmation: "12345678",
+   *      clientId: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
+   *      type: "consumer",
+   *      referrer: "http://localhost:3000/",
+   *      brandingId?: 12345,
+   *     })
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
     async signUp(data = {}) {
         let body = {
             full_name: data.fullName,
@@ -104,15 +114,15 @@ class Account {
             referrer: data.referrer,
             grant_type: 'password',
             metadata: data.metadata,
-            branding_id: data.brandingId,
+            branding_id: data.brandingId
         };
 
         const response = await fetch(this.config.API.signUp, {
             method: 'POST',
             body: params(body),
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
         });
 
         checkStatus(response);
@@ -129,27 +139,27 @@ class Account {
     }
 
     /**
-     * Signs out the user and destroys cookies
-     * @method signOut
-     * @async
-     * @example
-     *     InPlayer.Account.signOut()
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Signs out the user and destroys cookies
+   * @method signOut
+   * @async
+   * @example
+   *     InPlayer.Account.signOut()
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
     async signOut() {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: 'User is not authenticated',
+                message: 'User is not authenticated'
             });
         }
         const t = this.getToken();
 
         const response = await fetch(this.config.API.signOut, {
             headers: {
-                Authorization: 'Bearer ' + t.token,
-            },
+                Authorization: 'Bearer ' + t.token
+            }
         });
 
         checkStatus(response);
@@ -160,12 +170,12 @@ class Account {
     }
 
     /**
-     * Checks if the user is authenticated
-     * @method isAuthenticated
-     * @example
-     *    InPlayer.Account.isAuthenticated()
-     * @return {Boolean}
-     */
+   * Checks if the user is authenticated
+   * @method isAuthenticated
+   * @example
+   *    InPlayer.Account.isAuthenticated()
+   * @return {Boolean}
+   */
     isAuthenticated() {
         const t = this.getToken();
 
@@ -173,11 +183,11 @@ class Account {
     }
 
     /** Retruns the OAuth token
-     *  @method getToken
-     *  @example
-     *  InPlayer.Account.getToken()
-     *  @return {Credentials}
-     */
+   *  @method getToken
+   *  @example
+   *  InPlayer.Account.getToken()
+   *  @return {Credentials}
+   */
     getToken() {
         const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
 
@@ -192,7 +202,7 @@ class Account {
         const credentials = new Credentials({
             token: token,
             refreshToken: refreshToken,
-            expires: expiresAt,
+            expires: expiresAt
         });
 
         localStorage.setItem(
@@ -202,36 +212,36 @@ class Account {
     }
 
     /**
-     * Refreshes the token
-     * @method refreshToken
-     * @async
-     * @param clientId - The merchant's clientId
-     * @example
-     *     InPlayer.Account.refreshToken('123123121-d1-t1-1ff').then(data => console.log(data))
-     * @return {Object}
-     */
+   * Refreshes the token
+   * @method refreshToken
+   * @async
+   * @param clientId - The merchant's clientId
+   * @example
+   *     InPlayer.Account.refreshToken('123123121-d1-t1-1ff').then(data => console.log(data))
+   * @return {Object}
+   */
     async refreshToken(clientId) {
         const t = this.getToken();
 
         if (!t.refreshToken) {
             errorResponse(401, {
                 code: 400,
-                message: 'The refresh token is not present',
+                message: 'The refresh token is not present'
             });
         }
 
         let body = {
             refresh_token: t.refreshToken,
             client_id: clientId,
-            grant_type: 'refresh_token',
+            grant_type: 'refresh_token'
         };
 
         const response = await fetch(this.config.API.authenticate, {
             method: 'POST',
             body: params(body),
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
         });
 
         checkStatus(response);
@@ -247,11 +257,11 @@ class Account {
     }
 
     /**
-     * Reports the generated SSO token to the SSO domain.
-     * @param {string} ssoDomain - The SSO domain.
-     * @param {string} tokenData - The token data.
-     * @param {boolean} retire - Should the token be retired or activated.
-     */
+   * Reports the generated SSO token to the SSO domain.
+   * @param {string} ssoDomain - The SSO domain.
+   * @param {string} tokenData - The token data.
+   * @param {boolean} retire - Should the token be retired or activated.
+   */
     async reportSSOtoken(ssoDomain, tokenData, retire = false) {
         const body = new FormData();
 
@@ -261,7 +271,7 @@ class Account {
         const response = await fetch(this.config.API.reportSSOtoken(ssoDomain), {
             method: 'POST',
             body,
-            credentials: 'include',
+            credentials: 'include'
         });
 
         checkStatus(response);
@@ -270,37 +280,37 @@ class Account {
     }
 
     /**
-     * Requests new password for a given user
-     * @method requestNewPassword
-     * @async
-     * @param {Object} data - Contains {
-     *  email: string,
-     *  merchantUuid: string
-     *  brandingId?: number
-     * }
-     * @example
-     *     InPlayer.Account
-     *     .requestNewPassword({
-     *      email: "test32@test.com",
-     *      merchantUuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
-     *      brandingId: 12345,
-     *     })
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Requests new password for a given user
+   * @method requestNewPassword
+   * @async
+   * @param {Object} data - Contains {
+   *  email: string,
+   *  merchantUuid: string
+   *  brandingId?: number
+   * }
+   * @example
+   *     InPlayer.Account
+   *     .requestNewPassword({
+   *      email: "test32@test.com",
+   *      merchantUuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
+   *      brandingId: 12345,
+   *     })
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
     async requestNewPassword(data = {}) {
         let body = {
             email: data.email,
             merchant_uuid: data.merchantUuid,
-            branding_id: data.brandingId,
+            branding_id: data.brandingId
         };
 
         const response = await fetch(this.config.API.requestNewPassword, {
             method: 'POST',
             body: params(body),
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
         });
 
         checkStatus(response);
@@ -309,25 +319,25 @@ class Account {
     }
 
     /**
-     * Sets new password for the user
-     * @method setNewPassword
-     * @async
-     * @param {Object} data - Contains {
-     *  password: string
-     *  passwordConfirmation: string
-     *  brandingId?: number
-     * }
-     * @param {String} token - The reset token
-     * @example
-     *     InPlayer.Account
-     *     .setNewPassword({
-     *      password: "password",
-     *      passwordConfirmation: "password",
-     *      brandingId: "12345",
-     *     }, 'afhqi83rji74hjf7e43df')
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Sets new password for the user
+   * @method setNewPassword
+   * @async
+   * @param {Object} data - Contains {
+   *  password: string
+   *  passwordConfirmation: string
+   *  brandingId?: number
+   * }
+   * @param {String} token - The reset token
+   * @example
+   *     InPlayer.Account
+   *     .setNewPassword({
+   *      password: "password",
+   *      passwordConfirmation: "password",
+   *      brandingId: "12345",
+   *     }, 'afhqi83rji74hjf7e43df')
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
     async setNewPassword(data = {}, token = '') {
         const body = `password=${data.password}&password_confirmation=${
             data.passwordConfirmation
@@ -337,30 +347,30 @@ class Account {
             method: 'PUT',
             body: body,
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
         });
 
         checkStatus(response);
 
-        // Response is 204: No Content, nothing to return.
+    // Response is 204: No Content, nothing to return.
     }
 
     /**
-     * Gets the account information for a given auth token
-     * @method getAccountInfo
-     * @async
-     * @example
-     *     InPlayer.Account
-     *     .getAccount()
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Gets the account information for a given auth token
+   * @method getAccountInfo
+   * @async
+   * @example
+   *     InPlayer.Account
+   *     .getAccount()
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
     async getAccount() {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: 'User is not authenticated',
+                message: 'User is not authenticated'
             });
         }
 
@@ -368,8 +378,8 @@ class Account {
 
         const response = await fetch(this.config.API.getAccountInfo, {
             headers: {
-                Authorization: 'Bearer ' + t.token,
-            },
+                Authorization: 'Bearer ' + t.token
+            }
         });
 
         checkStatus(response);
@@ -378,18 +388,18 @@ class Account {
     }
 
     /**
-     * Gets the social login urls for fb/twitter/google
-     * @method getSocialLoginUrls
-     * @async
-     * @param {string} state - Social login state.
-     * The state needs to be json and base64 encoded to be sent as a query parameter.
-     * Example: btoa(JSON.stringify({uuid: 'foo', redirect: 'http://example.com'}))
-     * @example
-     *     InPlayer.Account
-     *     .getSocialLoginUrls('123124-1r-1r13ur1h1')
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Gets the social login urls for fb/twitter/google
+   * @method getSocialLoginUrls
+   * @async
+   * @param {string} state - Social login state.
+   * The state needs to be json and base64 encoded to be sent as a query parameter.
+   * Example: btoa(JSON.stringify({uuid: 'foo', redirect: 'http://example.com'}))
+   * @example
+   *     InPlayer.Account
+   *     .getSocialLoginUrls('123124-1r-1r13ur1h1')
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
     async getSocialLoginUrls(state) {
         const response = await fetch(this.config.API.social(state));
 
@@ -399,27 +409,27 @@ class Account {
     }
 
     /**
-     * Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()
-     * @method updateAccount
-     * @async
-     * @param {Object} data - The new data for the account
-     * @example
-     *     InPlayer.Account
-     *     .updateAccount({fullName: 'test test', metadata: {country: 'Germany'}})
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()
+   * @method updateAccount
+   * @async
+   * @param {Object} data - The new data for the account
+   * @example
+   *     InPlayer.Account
+   *     .updateAccount({fullName: 'test test', metadata: {country: 'Germany'}})
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
     async updateAccount(data = {}) {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: 'User is not authenticated',
+                message: 'User is not authenticated'
             });
         }
         const t = this.getToken();
 
         let body = {
-            full_name: data.fullName,
+            full_name: data.fullName
         };
 
         if (data.metadata) {
@@ -431,8 +441,8 @@ class Account {
             body: params(body),
             headers: {
                 Authorization: 'Bearer ' + t.token,
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
         });
 
         checkStatus(response);
@@ -441,32 +451,32 @@ class Account {
     }
 
     /**
-     * Changes password for a given user
-     * @method changePassword
-     * @async
-     * @param {Object} data - Contains {
-     *  oldPassword: string
-     *  password: string
-     *  passwordConfirmation: string
-     *  brandingId?: number
-     * }
-     * @param {string} token - The reset token
-     * @example
-     *     InPlayer.Account
-     *     .changePassword({
-     *       oldPassword: 'old123',
-     *       password: 'test123',
-     *       passwordConfirmation: 'test123'
-     *       brandingId: 1234
-     *     },'123124-1r-1r13ur1h1')
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Changes password for a given user
+   * @method changePassword
+   * @async
+   * @param {Object} data - Contains {
+   *  oldPassword: string
+   *  password: string
+   *  passwordConfirmation: string
+   *  brandingId?: number
+   * }
+   * @param {string} token - The reset token
+   * @example
+   *     InPlayer.Account
+   *     .changePassword({
+   *       oldPassword: 'old123',
+   *       password: 'test123',
+   *       passwordConfirmation: 'test123'
+   *       brandingId: 1234
+   *     },'123124-1r-1r13ur1h1')
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
     async changePassword(data = {}) {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: 'User is not authenticated',
+                message: 'User is not authenticated'
             });
         }
         const t = this.getToken();
@@ -475,7 +485,7 @@ class Account {
             old_password: data.oldPassword,
             password: data.password,
             password_confirmation: data.passwordConfirmation,
-            branding_id: data.brandingId,
+            branding_id: data.brandingId
         };
 
         const response = await fetch(this.config.API.changePassword, {
@@ -483,8 +493,8 @@ class Account {
             body: params(body),
             headers: {
                 Authorization: 'Bearer ' + t.token,
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
         });
 
         checkStatus(response);
@@ -493,16 +503,16 @@ class Account {
     }
 
     /**
-     * Gets register fields
-     * @method getRegisterFields
-     * @async
-     * @param {string} merchantUuid - The merchant UUID
-     * @example
-     *     InPlayer.Account
-     *     .getRegisterFields('123124-1r-1r13ur1h1')
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Gets register fields
+   * @method getRegisterFields
+   * @async
+   * @param {string} merchantUuid - The merchant UUID
+   * @example
+   *     InPlayer.Account
+   *     .getRegisterFields('123124-1r-1r13ur1h1')
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
     async getRegisterFields(merchantUuid = '') {
         const response = await fetch(
             this.config.API.getRegisterFields(merchantUuid)
@@ -514,43 +524,43 @@ class Account {
     }
 
     /**
-     * Deletes an account
-     * @method deleteAccount
-     * @async
-     * @param {Object} data - Contains {
-     *  password: string,
-     *  brandingId?: number,
-     * }
-     * @example
-     *     InPlayer.Account.deleteAccount({
-     *      password: "password",
-     *      brandingId: 1234,
-     *     })
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Deletes an account
+   * @method deleteAccount
+   * @async
+   * @param {Object} data - Contains {
+   *  password: string,
+   *  brandingId?: number,
+   * }
+   * @example
+   *     InPlayer.Account.deleteAccount({
+   *      password: "password",
+   *      brandingId: 1234,
+   *     })
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
 
     async deleteAccount(data) {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: 'User is not authenticated',
+                message: 'User is not authenticated'
             });
         }
         const t = this.getToken();
 
         let body = {
             password: data.password,
-            branding_id: data.brandingId,
+            branding_id: data.brandingId
         };
 
         const response = await fetch(this.config.API.deleteAccount, {
             method: 'DELETE',
             headers: {
                 Authorization: 'Bearer ' + t.token,
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: params(body),
+            body: params(body)
         });
 
         checkStatus(response);
@@ -560,32 +570,32 @@ class Account {
 
         return {
             code: response.status,
-            message: 'Account has been successfuly deleted',
+            message: 'Account has been successfuly deleted'
         };
     }
 
     /**
-     * DExports account data to the users' email
-     * @method exportData
-     * @async
-     * @param {Object} data - Contains {
-     *  password: string,
-     *  brandingId?: number,
-     * }
-     * @example
-     *     InPlayer.Account.exportData({
-     *        password: "password",
-     *        brandingId: 1234,
-     *     })
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * DExports account data to the users' email
+   * @method exportData
+   * @async
+   * @param {Object} data - Contains {
+   *  password: string,
+   *  brandingId?: number,
+   * }
+   * @example
+   *     InPlayer.Account.exportData({
+   *        password: "password",
+   *        brandingId: 1234,
+   *     })
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
 
     async exportData(data) {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: 'User is not authenticated',
+                message: 'User is not authenticated'
             });
         }
 
@@ -593,16 +603,16 @@ class Account {
 
         let body = {
             password: data.password,
-            branding_id: data.brandingId,
+            branding_id: data.brandingId
         };
 
         const response = await fetch(this.config.API.exportData, {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + t.token,
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: params(body),
+            body: params(body)
         });
 
         checkStatus(response);
@@ -613,7 +623,7 @@ class Account {
 
         return {
             code: response.status,
-            message: 'Your data is being exported, please check your email.',
+            message: 'Your data is being exported, please check your email.'
         };
     }
 }
