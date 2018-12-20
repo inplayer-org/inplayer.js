@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.6.1</b>
+                    API Docs for Version: <b>2.6.2</b>
                 </p>
             </li>
         </div>
@@ -177,6 +177,9 @@
 email: string,
 password: string,
 clientId: string,
+clientSecret: string,
+referrer: string,
+refreshToken: string,
 }</li>
 </ul>
 </div>
@@ -201,7 +204,8 @@ clientId: string,
  email: 'test@test.com',
  password: 'test123',
  clientId: '123-123-hf1hd1-12dhd1',
- grantType: 'password'
+ referrer: 'http://localhost:3000/',
+ refreshToken: '528b1b80-ddd1hj-4abc-gha3j-111111'
 })
 .then(data =&gt; console.log(data));</code></pre>
 
@@ -236,7 +240,7 @@ clientId: string,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l443"><code>src&#x2F;Models&#x2F;Account.js:443</code></a>
+		<a href="../files/src_Models_Account.js.html#l453"><code>src&#x2F;Models&#x2F;Account.js:453</code></a>
 		</p>
 
 
@@ -329,7 +333,7 @@ brandingId?: number
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l516"><code>src&#x2F;Models&#x2F;Account.js:516</code></a>
+		<a href="../files/src_Models_Account.js.html#l526"><code>src&#x2F;Models&#x2F;Account.js:526</code></a>
 		</p>
 
 
@@ -406,7 +410,7 @@ brandingId?: number,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l567"><code>src&#x2F;Models&#x2F;Account.js:567</code></a>
+		<a href="../files/src_Models_Account.js.html#l577"><code>src&#x2F;Models&#x2F;Account.js:577</code></a>
 		</p>
 
 
@@ -477,7 +481,7 @@ brandingId?: number,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l349"><code>src&#x2F;Models&#x2F;Account.js:349</code></a>
+		<a href="../files/src_Models_Account.js.html#l359"><code>src&#x2F;Models&#x2F;Account.js:359</code></a>
 		</p>
 
 
@@ -532,7 +536,7 @@ brandingId?: number,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l495"><code>src&#x2F;Models&#x2F;Account.js:495</code></a>
+		<a href="../files/src_Models_Account.js.html#l505"><code>src&#x2F;Models&#x2F;Account.js:505</code></a>
 		</p>
 
 
@@ -604,7 +608,7 @@ brandingId?: number,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l380"><code>src&#x2F;Models&#x2F;Account.js:380</code></a>
+		<a href="../files/src_Models_Account.js.html#l390"><code>src&#x2F;Models&#x2F;Account.js:390</code></a>
 		</p>
 
 
@@ -671,7 +675,7 @@ Example: btoa(JSON.stringify({uuid: 'foo', redirect: '<a href="http://example.co
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l175"><code>src&#x2F;Models&#x2F;Account.js:175</code></a>
+		<a href="../files/src_Models_Account.js.html#l185"><code>src&#x2F;Models&#x2F;Account.js:185</code></a>
 		</p>
 
 
@@ -715,7 +719,7 @@ Example: btoa(JSON.stringify({uuid: 'foo', redirect: '<a href="http://example.co
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l162"><code>src&#x2F;Models&#x2F;Account.js:162</code></a>
+		<a href="../files/src_Models_Account.js.html#l172"><code>src&#x2F;Models&#x2F;Account.js:172</code></a>
 		</p>
 
 
@@ -768,7 +772,7 @@ Example: btoa(JSON.stringify({uuid: 'foo', redirect: '<a href="http://example.co
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l204"><code>src&#x2F;Models&#x2F;Account.js:204</code></a>
+		<a href="../files/src_Models_Account.js.html#l214"><code>src&#x2F;Models&#x2F;Account.js:214</code></a>
 		</p>
 
 
@@ -838,7 +842,7 @@ Example: btoa(JSON.stringify({uuid: 'foo', redirect: '<a href="http://example.co
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l272"><code>src&#x2F;Models&#x2F;Account.js:272</code></a>
+		<a href="../files/src_Models_Account.js.html#l282"><code>src&#x2F;Models&#x2F;Account.js:282</code></a>
 		</p>
 
 
@@ -921,7 +925,7 @@ brandingId?: number
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l311"><code>src&#x2F;Models&#x2F;Account.js:311</code></a>
+		<a href="../files/src_Models_Account.js.html#l321"><code>src&#x2F;Models&#x2F;Account.js:321</code></a>
 		</p>
 
 
@@ -1006,7 +1010,7 @@ brandingId?: number
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l131"><code>src&#x2F;Models&#x2F;Account.js:131</code></a>
+		<a href="../files/src_Models_Account.js.html#l141"><code>src&#x2F;Models&#x2F;Account.js:141</code></a>
 		</p>
 
 
@@ -1060,7 +1064,7 @@ brandingId?: number
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l68"><code>src&#x2F;Models&#x2F;Account.js:68</code></a>
+		<a href="../files/src_Models_Account.js.html#l78"><code>src&#x2F;Models&#x2F;Account.js:78</code></a>
 		</p>
 
 
@@ -1149,7 +1153,7 @@ brandingId?: number,
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Account.js.html#l401"><code>src&#x2F;Models&#x2F;Account.js:401</code></a>
+		<a href="../files/src_Models_Account.js.html#l411"><code>src&#x2F;Models&#x2F;Account.js:411</code></a>
 		</p>
 
 
