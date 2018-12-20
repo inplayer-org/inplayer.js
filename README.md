@@ -5,7 +5,7 @@
     <span style="font-size: 1.5rem; color: blue">InPlayer JavaScript SDK</span>
   </a>
 </h1>
-<p align="center" style="font-size: 1.2rem;">InPlayer's JS API client wrapper.</p>
+<p align="center" style="font-size: 1.2rem;">InPlayer's JS API client wrapper</p>
 
 
 [![npm version](https://img.shields.io/npm/v/@inplayer-org/inplayer.js.svg)](https://www.npmjs.com/package/@inplayer-org/inplayer.js)
@@ -48,7 +48,7 @@ InPlayer.Account.authenticate({
 }).then(data => console.log(data));
 ```
 
-### Authenticate using grant type: password
+### Authenticate using grant type: refresh token
 
 ```
 InPlayer.Account.authenticate({
