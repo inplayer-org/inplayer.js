@@ -1,5 +1,12 @@
-InPlayer JavaScript SDK
-=======================
+<h1 align="center">
+  <a target="_blank" href="https://inplayer-org.github.io/inplayer.js/">
+    <img src="https://assets.inplayer.com/images/inplayer-256.png" alt="inplayer-js" title="InPlayer JS SDK" width="300">
+    <br />
+    <span style="font-size: 1.5rem; color: blue">InPlayer JavaScript SDK</span>
+  </a>
+</h1>
+<p align="center" style="font-size: 1.2rem;">InPlayer's JS API client wrapper.</p>
+
 
 [![npm version](https://img.shields.io/npm/v/@inplayer-org/inplayer.js.svg)](https://www.npmjs.com/package/@inplayer-org/inplayer.js)
 [![Build Status](https://travis-ci.org/inplayer-org/inplayer.js.svg?branch=ci)](https://travis-ci.org/inplayer-org/inplayer.js)
