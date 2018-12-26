@@ -213,7 +213,7 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- Contains {\n fullName: string,\n email: string\n password: string,\n passwordConfirmation: string,\n clientId: string,\n type: number\n referrer: string,\n brandingId?: number,\n}",
+                    "description": "- Contains {\n fullName: string,\n email: string\n password: string,\n passwordConfirmation: string,\n clientId: string,\n type: string,\n referrer: string,\n brandingId?: number,\n}",
                     "type": "Object"
                 }
             ],
