@@ -19,11 +19,11 @@ export const API = config => {
         getPurchaseHistory: (status, page = 0, size = 5) =>
             `${
                 config.BASE_URL
-            }/reporting/access/customers?status=${status}&page=${page}&size=${size}`,
+            }/items/access/customers?status=${status}&page=${page}&size=${size}`,
         assetsHistory: (size, page, startDate, endDate) => {
             let url = `${
                 config.BASE_URL
-            }/reporting/transactions?exclude=store-payment&size=${size}&page=${page}`;
+            }/payments/transactions?exclude=store-payment&size=${size}&page=${page}`;
 
             if (startDate) {
                 url += `&startDate=${startDate}`;
@@ -70,7 +70,7 @@ export const API = config => {
         getSubscriptions: (limit, page) =>
             `${config.BASE_URL}/subscriptions?limit=${limit}&page=${page}`,
         getSubscription: id =>
-            `${config.BASE_URL}/reporting/subscriptions/${id}`,
+            `${config.BASE_URL}/subscriptions/reporting/subscriptions/${id}`,
         subscribe: `${config.BASE_URL}/subscriptions`,
         cancelTokenSubscribe: url => `${url}`,
         // Misc
