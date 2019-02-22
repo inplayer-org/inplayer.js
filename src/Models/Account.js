@@ -88,6 +88,7 @@ class Account {
    *  type: string,
    *  referrer: string,
    *  brandingId?: number,
+   *  metadata?: { [key: string]: string }
    * }
    * @example
    *     InPlayer.Account.signUp({
@@ -99,6 +100,7 @@ class Account {
    *      type: "consumer",
    *      referrer: "http://localhost:3000/",
    *      brandingId?: 12345,
+   *      metadata : { country: "Macedonia" },
    *     })
    *     .then(data => console.log(data));
    * @return {Object}
