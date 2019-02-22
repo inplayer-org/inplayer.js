@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.6.3</b>
+                    API Docs for Version: <b>2.6.4</b>
                 </p>
             </li>
         </div>
@@ -173,6 +173,7 @@ class Account {
    *  type: string,
    *  referrer: string,
    *  brandingId?: number,
+   *  metadata?: { [key: string]: string }
    * }
    * @example
    *     InPlayer.Account.signUp({
@@ -184,6 +185,7 @@ class Account {
    *      type: &quot;consumer&quot;,
    *      referrer: &quot;http://localhost:3000/&quot;,
    *      brandingId?: 12345,
+   *      metadata : { country: &quot;Macedonia&quot; },
    *     })
    *     .then(data =&gt; console.log(data));
    * @return {Object}
