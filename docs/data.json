@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "2.6.6",
+        "version": "2.6.7",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -1014,6 +1014,18 @@
             "itemtype": "method",
             "name": "getSubscriptions",
             "async": 1,
+            "params": [
+                {
+                    "name": "page",
+                    "description": "- The current page",
+                    "type": "Number"
+                },
+                {
+                    "name": "limit",
+                    "description": "- The number of items per page",
+                    "type": "Number"
+                }
+            ],
             "example": [
                 "\n    InPlayer.Subscription\n    .getSubscriptions()\n    .then(data => console.log(data));"
             ],
@@ -1025,7 +1037,7 @@
         },
         {
             "file": "src/Models/Subscription.js",
-            "line": 46,
+            "line": 48,
             "description": "Get subscription details for a given user by id",
             "itemtype": "method",
             "name": "getSubscription",
@@ -1048,7 +1060,7 @@
         },
         {
             "file": "src/Models/Subscription.js",
-            "line": 79,
+            "line": 81,
             "description": "Cancels a subscription",
             "itemtype": "method",
             "name": "cancelSubscription",
@@ -1071,7 +1083,7 @@
         },
         {
             "file": "src/Models/Subscription.js",
-            "line": 113,
+            "line": 115,
             "description": "Subscribes to a given asset. Use this method ONLY if the accessFee.type === 'subscription'.\nOtherwise please use InPlayer.Payment.payForAsset()",
             "itemtype": "method",
             "name": "assetSubscribe",

@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.6.6</b>
+                    API Docs for Version: <b>2.6.7</b>
                 </p>
             </li>
         </div>
@@ -102,7 +102,7 @@
 				<li><a href="#method-assetSubscribe"><span class="im">assetSubscribe</span>(<span class="ia">data</span>)</a></li>
 				<li><a href="#method-cancelSubscription"><span class="im">cancelSubscription</span>(<span class="ia">unsubscribeUrl</span>)</a></li>
 				<li><a href="#method-getSubscription"><span class="im">getSubscription</span>(<span class="ia">id</span>)</a></li>
-				<li><a href="#method-getSubscriptions"><span class="im">getSubscriptions</span>()</a></li>
+				<li><a href="#method-getSubscriptions"><span class="im">getSubscriptions</span>(<span class="ia">page</span><span class="ia">limit</span>)</a></li>
 			</ul>
 		</li>
 
@@ -142,7 +142,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Subscription.js.html#l113"><code>src&#x2F;Models&#x2F;Subscription.js:113</code></a>
+		<a href="../files/src_Models_Subscription.js.html#l115"><code>src&#x2F;Models&#x2F;Subscription.js:115</code></a>
 		</p>
 
 
@@ -238,7 +238,7 @@ brandingId?: number
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Subscription.js.html#l79"><code>src&#x2F;Models&#x2F;Subscription.js:79</code></a>
+		<a href="../files/src_Models_Subscription.js.html#l81"><code>src&#x2F;Models&#x2F;Subscription.js:81</code></a>
 		</p>
 
 
@@ -310,7 +310,7 @@ brandingId?: number
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Subscription.js.html#l46"><code>src&#x2F;Models&#x2F;Subscription.js:46</code></a>
+		<a href="../files/src_Models_Subscription.js.html#l48"><code>src&#x2F;Models&#x2F;Subscription.js:48</code></a>
 		</p>
 
 
@@ -361,7 +361,16 @@ brandingId?: number
 	<div class="method-signature">
 	<span class="name"><code>getSubscriptions</code></span>
 
-		<span class="paren">()</span>
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>page</code>
+				</li>
+				<li class="arg">
+						<code>limit</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
 		<span class="returns-inline">
 			<span class="type">Object</span>
 		</span>
@@ -386,6 +395,34 @@ brandingId?: number
 	<div class="description"><p>Gets all subscriptions for a given user</p>
 </div>
 
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">page</code>
+						<span class="type">Number</span>
+
+
+					<div class="param-description"><ul>
+<li>The current page</li>
+</ul>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">limit</code>
+						<span class="type">Number</span>
+
+
+					<div class="param-description"><ul>
+<li>The number of items per page</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
 
 		<div class="returns">
 			<h4>Returns:</h4>
