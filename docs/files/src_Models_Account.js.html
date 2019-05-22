@@ -92,627 +92,635 @@ import Credentials from &#x27;../Credentials&#x27;;
  * @class Account
  */
 class Account {
-    constructor(config) {
-        this.config = config;
+  constructor(config) {
+    this.config = config;
+  }
+
+  /**
+ * Signs in the user
+ * @method authenticate
+ * @async
+ * @param {Object} data - Contains {
+ *  email: string,
+ *  password: string,
+ *  clientId: string,
+ *  clientSecret: string,
+ *  referrer: string,
+ *  refreshToken: string,
+ * }
+ * @example
+ *     InPlayer.Account.authenticate({
+ *      email: &#x27;test@test.com&#x27;,
+ *      password: &#x27;test123&#x27;,
+ *      clientId: &#x27;123-123-hf1hd1-12dhd1&#x27;,
+ *      referrer: &#x27;http://localhost:3000/&#x27;,
+ *      refreshToken: &#x27;528b1b80-ddd1hj-4abc-gha3j-111111&#x27;
+ *     })
+ *     .then(data =&gt; console.log(data));
+ * @return {Object}
+ */
+  async authenticate(data = {}) {
+    let body = {
+      client_id: data.clientId,
+      grant_type: &#x27;password&#x27;,
+      referrer: data.referrer
+    };
+
+    if (data.clientSecret) {
+      body.client_secret = data.clientSecret;
+      body.grant_type = &#x27;client_credentials&#x27;;
     }
 
-    /**
-   * Signs in the user
-   * @method authenticate
-   * @async
-   * @param {Object} data - Contains {
-   *  email: string,
-   *  password: string,
-   *  clientId: string,
-   *  clientSecret: string,
-   *  referrer: string,
-   *  refreshToken: string,
-   * }
-   * @example
-   *     InPlayer.Account.authenticate({
-   *      email: &#x27;test@test.com&#x27;,
-   *      password: &#x27;test123&#x27;,
-   *      clientId: &#x27;123-123-hf1hd1-12dhd1&#x27;,
-   *      referrer: &#x27;http://localhost:3000/&#x27;,
-   *      refreshToken: &#x27;528b1b80-ddd1hj-4abc-gha3j-111111&#x27;
-   *     })
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-   */
-    async authenticate(data = {}) {
-        let body = {
-            client_id: data.clientId,
-            grant_type: &#x27;password&#x27;,
-            referrer: data.referrer
-        };
-
-        if (data.clientSecret) {
-            body.client_secret = data.clientSecret;
-            body.grant_type = &#x27;client_credentials&#x27;;
-        }
-
-        if (data.refreshToken) {
-            body.refresh_token = data.refreshToken;
-            body.grant_type = &#x27;refresh_token&#x27;;
-        } else {
-            body.username = data.email;
-            body.password = data.password;
-        }
-
-        const response = await fetch(this.config.API.authenticate, {
-            method: &#x27;POST&#x27;,
-            body: params(body),
-            headers: {
-                &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
-            }
-        });
-
-        checkStatus(response);
-
-        const respData = await response.json();
-
-        this.setToken(
-            respData.access_token,
-            respData.refresh_token,
-            respData.expires
-        );
-
-        return respData;
+    if (data.refreshToken) {
+      body.refresh_token = data.refreshToken;
+      body.grant_type = &#x27;refresh_token&#x27;;
+    } else {
+      body.username = data.email;
+      body.password = data.password;
     }
 
-    /**
-   * Signs up/Registers user
-   * @method signUp
-   * @async
-   * @param {Object} data - Contains {
-   *  fullName: string,
-   *  email: string
-   *  password: string,
-   *  passwordConfirmation: string,
-   *  clientId: string,
-   *  type: string,
-   *  referrer: string,
-   *  brandingId?: number,
-   *  metadata?: { [key: string]: string }
-   * }
-   * @example
-   *     InPlayer.Account.signUp({
-   *      fullName: &quot;test&quot;,
-   *      email: &quot;test32@test.com&quot;,
-   *      password: &quot;12345678&quot;,
-   *      passwordConfirmation: &quot;12345678&quot;,
-   *      clientId: &quot;528b1b80-5868-4abc-a9b6-4d3455d719c8&quot;,
-   *      type: &quot;consumer&quot;,
-   *      referrer: &quot;http://localhost:3000/&quot;,
-   *      brandingId?: 12345,
-   *      metadata : { country: &quot;Macedonia&quot; },
-   *     })
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-   */
-    async signUp(data = {}) {
-        let body = {
-            full_name: data.fullName,
-            username: data.email,
-            password: data.password,
-            password_confirmation: data.passwordConfirmation,
-            client_id: data.clientId,
-            type: data.type,
-            referrer: data.referrer,
-            grant_type: &#x27;password&#x27;,
-            metadata: data.metadata,
-            branding_id: data.brandingId
-        };
+    const response = await fetch(this.config.API.authenticate, {
+      method: &#x27;POST&#x27;,
+      body: params(body),
+      headers: {
+        &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
+      }
+    });
 
-        const response = await fetch(this.config.API.signUp, {
-            method: &#x27;POST&#x27;,
-            body: params(body),
-            headers: {
-                &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
-            }
-        });
+    checkStatus(response);
 
-        checkStatus(response);
+    const respData = await response.json();
 
-        const respData = await response.json();
+    this.setToken(
+      respData.access_token,
+      respData.refresh_token,
+      respData.expires
+    );
 
-        this.setToken(
-            respData.access_token,
-            respData.refresh_token,
-            respData.expires
-        );
+    return respData;
+  }
 
-        return respData;
+  /**
+ * Signs up/Registers user
+ * @method signUp
+ * @async
+ * @param {Object} data - Contains {
+ *  fullName: string,
+ *  email: string
+ *  password: string,
+ *  passwordConfirmation: string,
+ *  clientId: string,
+ *  type: string,
+ *  referrer: string,
+ *  brandingId?: number,
+ *  metadata?: { [key: string]: string }
+ * }
+ * @example
+ *     InPlayer.Account.signUp({
+ *      fullName: &quot;test&quot;,
+ *      email: &quot;test32@test.com&quot;,
+ *      password: &quot;12345678&quot;,
+ *      passwordConfirmation: &quot;12345678&quot;,
+ *      clientId: &quot;528b1b80-5868-4abc-a9b6-4d3455d719c8&quot;,
+ *      type: &quot;consumer&quot;,
+ *      referrer: &quot;http://localhost:3000/&quot;,
+ *      brandingId?: 12345,
+ *      metadata : { country: &quot;Macedonia&quot; },
+ *     })
+ *     .then(data =&gt; console.log(data));
+ * @return {Object}
+ */
+  async signUp(data = {}) {
+    let body = {
+      full_name: data.fullName,
+      username: data.email,
+      password: data.password,
+      password_confirmation: data.passwordConfirmation,
+      client_id: data.clientId,
+      type: data.type,
+      referrer: data.referrer,
+      grant_type: &#x27;password&#x27;,
+      metadata: data.metadata,
+      branding_id: data.brandingId
+    };
+
+    const response = await fetch(this.config.API.signUp, {
+      method: &#x27;POST&#x27;,
+      body: params(body),
+      headers: {
+        &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
+      }
+    });
+
+    checkStatus(response);
+
+    const respData = await response.json();
+
+    this.setToken(
+      respData.access_token,
+      respData.refresh_token,
+      respData.expires
+    );
+
+    return respData;
+  }
+
+  /**
+ * Signs out the user and destroys cookies
+ * @method signOut
+ * @async
+ * @example
+ *     InPlayer.Account.signOut()
+ *     .then(data =&gt; console.log(data));
+ * @return {Object}
+ */
+  async signOut() {
+    if (!this.isAuthenticated()) {
+      errorResponse(401, {
+        code: 401,
+        message: &#x27;User is not authenticated&#x27;
+      });
+    }
+    const t = this.getToken();
+
+    const response = await fetch(this.config.API.signOut, {
+      headers: {
+        Authorization: &#x27;Bearer &#x27; + t.token
+      }
+    });
+
+    checkStatus(response);
+
+    this.setToken(&#x27;&#x27;, &#x27;&#x27;, 0);
+
+    return await response.json();
+  }
+
+  /**
+ * Checks if the user is authenticated
+ * @method isAuthenticated
+ * @example
+ *    InPlayer.Account.isAuthenticated()
+ * @return {Boolean}
+ */
+  isAuthenticated() {
+    const t = this.getToken();
+
+    return !t.isExpired() &amp;&amp; t.token !== &#x27;&#x27;;
+  }
+
+  /** Retruns the OAuth token
+ *  @method getToken
+ *  @example
+ *  InPlayer.Account.getToken()
+ *  @return {Credentials}
+ */
+  getToken() {
+    const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+
+    if (token === undefined || token === null) {
+      return new Credentials();
     }
 
-    /**
-   * Signs out the user and destroys cookies
-   * @method signOut
-   * @async
-   * @example
-   *     InPlayer.Account.signOut()
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-   */
-    async signOut() {
-        if (!this.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: &#x27;User is not authenticated&#x27;
-            });
-        }
-        const t = this.getToken();
+    return new Credentials(JSON.parse(token));
+  }
 
-        const response = await fetch(this.config.API.signOut, {
-            headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token
-            }
-        });
+  /** Sets the Token
+  *  @method setToken
+  *  @param {string} token
+  *  @param {string} refreshToken
+  *  @param {number} expiresAt
+  *  @example
+  *  InPlayer.Account.setToken(&#x27;344244-242242&#x27;, &#x27;123123121-d1-t1-1ff&#x27;,1558529593297)
+  */
+  setToken(token, refreshToken, expiresAt) {
+    const credentials = new Credentials({
+      token: token,
+      refreshToken: refreshToken,
+      expires: expiresAt
+    });
 
-        checkStatus(response);
+    localStorage.setItem(
+      this.config.INPLAYER_TOKEN_NAME,
+      JSON.stringify(credentials)
+    );
+  }
 
-        this.setToken(&#x27;&#x27;, &#x27;&#x27;, 0);
+  /**
+ * Refreshes the token
+ * @method refreshToken
+ * @async
+ * @param clientId - The merchant&#x27;s clientId
+ * @example
+ *     InPlayer.Account.refreshToken(&#x27;123123121-d1-t1-1ff&#x27;).then(data =&gt; console.log(data))
+ * @return {Object}
+ */
+  async refreshToken(clientId) {
+    const t = this.getToken();
 
-        return await response.json();
+    if (!t.refreshToken) {
+      errorResponse(401, {
+        code: 400,
+        message: &#x27;The refresh token is not present&#x27;
+      });
     }
 
-    /**
-   * Checks if the user is authenticated
-   * @method isAuthenticated
-   * @example
-   *    InPlayer.Account.isAuthenticated()
-   * @return {Boolean}
-   */
-    isAuthenticated() {
-        const t = this.getToken();
+    let body = {
+      refresh_token: t.refreshToken,
+      client_id: clientId,
+      grant_type: &#x27;refresh_token&#x27;
+    };
 
-        return !t.isExpired() &amp;&amp; t.token !== &#x27;&#x27;;
-    }
+    const response = await fetch(this.config.API.authenticate, {
+      method: &#x27;POST&#x27;,
+      body: params(body),
+      headers: {
+        &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
+      }
+    });
 
-    /** Retruns the OAuth token
-   *  @method getToken
-   *  @example
-   *  InPlayer.Account.getToken()
-   *  @return {Credentials}
-   */
-    getToken() {
-        const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+    checkStatus(response);
+    const responseData = await response.json();
 
-        if (token === undefined || token === null) {
-            return new Credentials();
-        }
+    this.setToken(
+      responseData.access_token,
+      responseData.refresh_token,
+      responseData.expires
+    );
 
-        return new Credentials(JSON.parse(token));
-    }
+    return responseData;
+  }
 
-    setToken(token, refreshToken, expiresAt) {
-        const credentials = new Credentials({
-            token: token,
-            refreshToken: refreshToken,
-            expires: expiresAt
-        });
+  /**
+ * Reports the generated SSO token to the SSO domain.
+ * @param {string} ssoDomain - The SSO domain.
+ * @param {string} tokenData - The token data.
+ * @param {boolean} retire - Should the token be retired or activated.
+ */
+  async reportSSOtoken(ssoDomain, tokenData, retire = false) {
+    const body = new FormData();
 
-        localStorage.setItem(
-            this.config.INPLAYER_TOKEN_NAME,
-            JSON.stringify(credentials)
-        );
-    }
+    body.append(&#x27;token&#x27;, tokenData.token);
+    body.append(&#x27;delete&#x27;, retire ? 1 : 0);
 
-    /**
-   * Refreshes the token
-   * @method refreshToken
-   * @async
-   * @param clientId - The merchant&#x27;s clientId
-   * @example
-   *     InPlayer.Account.refreshToken(&#x27;123123121-d1-t1-1ff&#x27;).then(data =&gt; console.log(data))
-   * @return {Object}
-   */
-    async refreshToken(clientId) {
-        const t = this.getToken();
+    const response = await fetch(this.config.API.reportSSOtoken(ssoDomain), {
+      method: &#x27;POST&#x27;,
+      body,
+      credentials: &#x27;include&#x27;
+    });
 
-        if (!t.refreshToken) {
-            errorResponse(401, {
-                code: 400,
-                message: &#x27;The refresh token is not present&#x27;
-            });
-        }
+    checkStatus(response);
 
-        let body = {
-            refresh_token: t.refreshToken,
-            client_id: clientId,
-            grant_type: &#x27;refresh_token&#x27;
-        };
+    return await response.json();
+  }
 
-        const response = await fetch(this.config.API.authenticate, {
-            method: &#x27;POST&#x27;,
-            body: params(body),
-            headers: {
-                &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
-            }
-        });
+  /**
+ * Requests new password for a given user
+ * @method requestNewPassword
+ * @async
+ * @param {Object} data - Contains {
+ *  email: string,
+ *  merchantUuid: string
+ *  brandingId?: number
+ * }
+ * @example
+ *     InPlayer.Account
+ *     .requestNewPassword({
+ *      email: &quot;test32@test.com&quot;,
+ *      merchantUuid: &quot;528b1b80-5868-4abc-a9b6-4d3455d719c8&quot;,
+ *      brandingId: 12345,
+ *     })
+ *     .then(data =&gt; console.log(data));
+ * @return {Object}
+ */
+  async requestNewPassword(data = {}) {
+    let body = {
+      email: data.email,
+      merchant_uuid: data.merchantUuid,
+      branding_id: data.brandingId
+    };
 
-        checkStatus(response);
-        const responseData = await response.json();
+    const response = await fetch(this.config.API.requestNewPassword, {
+      method: &#x27;POST&#x27;,
+      body: params(body),
+      headers: {
+        &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
+      }
+    });
 
-        this.setToken(
-            responseData.access_token,
-            responseData.refresh_token,
-            responseData.expires
-        );
+    checkStatus(response);
 
-        return responseData;
-    }
+    return await response.json();
+  }
 
-    /**
-   * Reports the generated SSO token to the SSO domain.
-   * @param {string} ssoDomain - The SSO domain.
-   * @param {string} tokenData - The token data.
-   * @param {boolean} retire - Should the token be retired or activated.
-   */
-    async reportSSOtoken(ssoDomain, tokenData, retire = false) {
-        const body = new FormData();
+  /**
+ * Sets new password for the user
+ * @method setNewPassword
+ * @async
+ * @param {Object} data - Contains {
+ *  password: string
+ *  passwordConfirmation: string
+ *  brandingId?: number
+ * }
+ * @param {String} token - The reset token
+ * @example
+ *     InPlayer.Account
+ *     .setNewPassword({
+ *      password: &quot;password&quot;,
+ *      passwordConfirmation: &quot;password&quot;,
+ *      brandingId: &quot;12345&quot;,
+ *     }, &#x27;afhqi83rji74hjf7e43df&#x27;)
+ *     .then(data =&gt; console.log(data));
+ * @return {Object}
+ */
+  async setNewPassword(data = {}, token = &#x27;&#x27;) {
+    const body = &#x60;password=${data.password}&amp;password_confirmation=${
+      data.passwordConfirmation
+      }&amp;branding_id=${data.brandingId}&#x60;;
 
-        body.append(&#x27;token&#x27;, tokenData.token);
-        body.append(&#x27;delete&#x27;, retire ? 1 : 0);
+    const response = await fetch(this.config.API.setNewPassword(token), {
+      method: &#x27;PUT&#x27;,
+      body: body,
+      headers: {
+        &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
+      }
+    });
 
-        const response = await fetch(this.config.API.reportSSOtoken(ssoDomain), {
-            method: &#x27;POST&#x27;,
-            body,
-            credentials: &#x27;include&#x27;
-        });
-
-        checkStatus(response);
-
-        return await response.json();
-    }
-
-    /**
-   * Requests new password for a given user
-   * @method requestNewPassword
-   * @async
-   * @param {Object} data - Contains {
-   *  email: string,
-   *  merchantUuid: string
-   *  brandingId?: number
-   * }
-   * @example
-   *     InPlayer.Account
-   *     .requestNewPassword({
-   *      email: &quot;test32@test.com&quot;,
-   *      merchantUuid: &quot;528b1b80-5868-4abc-a9b6-4d3455d719c8&quot;,
-   *      brandingId: 12345,
-   *     })
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-   */
-    async requestNewPassword(data = {}) {
-        let body = {
-            email: data.email,
-            merchant_uuid: data.merchantUuid,
-            branding_id: data.brandingId
-        };
-
-        const response = await fetch(this.config.API.requestNewPassword, {
-            method: &#x27;POST&#x27;,
-            body: params(body),
-            headers: {
-                &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
-            }
-        });
-
-        checkStatus(response);
-
-        return await response.json();
-    }
-
-    /**
-   * Sets new password for the user
-   * @method setNewPassword
-   * @async
-   * @param {Object} data - Contains {
-   *  password: string
-   *  passwordConfirmation: string
-   *  brandingId?: number
-   * }
-   * @param {String} token - The reset token
-   * @example
-   *     InPlayer.Account
-   *     .setNewPassword({
-   *      password: &quot;password&quot;,
-   *      passwordConfirmation: &quot;password&quot;,
-   *      brandingId: &quot;12345&quot;,
-   *     }, &#x27;afhqi83rji74hjf7e43df&#x27;)
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-   */
-    async setNewPassword(data = {}, token = &#x27;&#x27;) {
-        const body = &#x60;password=${data.password}&amp;password_confirmation=${
-            data.passwordConfirmation
-        }&amp;branding_id=${data.brandingId}&#x60;;
-
-        const response = await fetch(this.config.API.setNewPassword(token), {
-            method: &#x27;PUT&#x27;,
-            body: body,
-            headers: {
-                &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
-            }
-        });
-
-        checkStatus(response);
+    checkStatus(response);
 
     // Response is 204: No Content, nothing to return.
+  }
+
+  /**
+ * Gets the account information for a given auth token
+ * @method getAccountInfo
+ * @async
+ * @example
+ *     InPlayer.Account
+ *     .getAccount()
+ *     .then(data =&gt; console.log(data));
+ * @return {Object}
+ */
+  async getAccount() {
+    if (!this.isAuthenticated()) {
+      errorResponse(401, {
+        code: 401,
+        message: &#x27;User is not authenticated&#x27;
+      });
     }
 
-    /**
-   * Gets the account information for a given auth token
-   * @method getAccountInfo
-   * @async
-   * @example
-   *     InPlayer.Account
-   *     .getAccount()
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-   */
-    async getAccount() {
-        if (!this.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: &#x27;User is not authenticated&#x27;
-            });
-        }
+    const t = this.getToken();
 
-        const t = this.getToken();
+    const response = await fetch(this.config.API.getAccountInfo, {
+      headers: {
+        Authorization: &#x27;Bearer &#x27; + t.token
+      }
+    });
 
-        const response = await fetch(this.config.API.getAccountInfo, {
-            headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token
-            }
-        });
+    checkStatus(response);
 
-        checkStatus(response);
+    return await response.json();
+  }
 
-        return await response.json();
+  /**
+ * Gets the social login urls for fb/twitter/google
+ * @method getSocialLoginUrls
+ * @async
+ * @param {string} state - Social login state.
+ * The state needs to be json and base64 encoded to be sent as a query parameter.
+ * Example: btoa(JSON.stringify({uuid: &#x27;foo&#x27;, redirect: &#x27;http://example.com&#x27;}))
+ * @example
+ *     InPlayer.Account
+ *     .getSocialLoginUrls(&#x27;123124-1r-1r13ur1h1&#x27;)
+ *     .then(data =&gt; console.log(data));
+ * @return {Object}
+ */
+  async getSocialLoginUrls(state) {
+    const response = await fetch(this.config.API.social(state));
+
+    checkStatus(response);
+
+    return await response.json();
+  }
+
+  /**
+ * Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()
+ * @method updateAccount
+ * @async
+ * @param {Object} data - The new data for the account
+ * @example
+ *     InPlayer.Account
+ *     .updateAccount({fullName: &#x27;test test&#x27;, metadata: {country: &#x27;Germany&#x27;}})
+ *     .then(data =&gt; console.log(data));
+ * @return {Object}
+ */
+  async updateAccount(data = {}) {
+    if (!this.isAuthenticated()) {
+      errorResponse(401, {
+        code: 401,
+        message: &#x27;User is not authenticated&#x27;
+      });
+    }
+    const t = this.getToken();
+
+    let body = {
+      full_name: data.fullName
+    };
+
+    if (data.metadata) {
+      body.metadata = data.metadata;
     }
 
-    /**
-   * Gets the social login urls for fb/twitter/google
-   * @method getSocialLoginUrls
-   * @async
-   * @param {string} state - Social login state.
-   * The state needs to be json and base64 encoded to be sent as a query parameter.
-   * Example: btoa(JSON.stringify({uuid: &#x27;foo&#x27;, redirect: &#x27;http://example.com&#x27;}))
-   * @example
-   *     InPlayer.Account
-   *     .getSocialLoginUrls(&#x27;123124-1r-1r13ur1h1&#x27;)
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-   */
-    async getSocialLoginUrls(state) {
-        const response = await fetch(this.config.API.social(state));
+    const response = await fetch(this.config.API.updateAccount, {
+      method: &#x27;PUT&#x27;,
+      body: params(body),
+      headers: {
+        Authorization: &#x27;Bearer &#x27; + t.token,
+        &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
+      }
+    });
 
-        checkStatus(response);
+    checkStatus(response);
 
-        return await response.json();
+    return await response.json();
+  }
+
+  /**
+ * Changes password for a given user
+ * @method changePassword
+ * @async
+ * @param {Object} data - Contains {
+ *  oldPassword: string
+ *  password: string
+ *  passwordConfirmation: string
+ *  brandingId?: number
+ * }
+ * @param {string} token - The reset token
+ * @example
+ *     InPlayer.Account
+ *     .changePassword({
+ *       oldPassword: &#x27;old123&#x27;,
+ *       password: &#x27;test123&#x27;,
+ *       passwordConfirmation: &#x27;test123&#x27;
+ *       brandingId: 1234
+ *     },&#x27;123124-1r-1r13ur1h1&#x27;)
+ *     .then(data =&gt; console.log(data));
+ * @return {Object}
+ */
+  async changePassword(data = {}) {
+    if (!this.isAuthenticated()) {
+      errorResponse(401, {
+        code: 401,
+        message: &#x27;User is not authenticated&#x27;
+      });
+    }
+    const t = this.getToken();
+
+    let body = {
+      old_password: data.oldPassword,
+      password: data.password,
+      password_confirmation: data.passwordConfirmation,
+      branding_id: data.brandingId
+    };
+
+    const response = await fetch(this.config.API.changePassword, {
+      method: &#x27;POST&#x27;,
+      body: params(body),
+      headers: {
+        Authorization: &#x27;Bearer &#x27; + t.token,
+        &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
+      }
+    });
+
+    checkStatus(response);
+
+    return await response.json();
+  }
+
+  /**
+ * Gets register fields
+ * @method getRegisterFields
+ * @async
+ * @param {string} merchantUuid - The merchant UUID
+ * @example
+ *     InPlayer.Account
+ *     .getRegisterFields(&#x27;123124-1r-1r13ur1h1&#x27;)
+ *     .then(data =&gt; console.log(data));
+ * @return {Object}
+ */
+  async getRegisterFields(merchantUuid = &#x27;&#x27;) {
+    const response = await fetch(
+      this.config.API.getRegisterFields(merchantUuid)
+    );
+
+    checkStatus(response);
+
+    return await response.json();
+  }
+
+  /**
+ * Deletes an account
+ * @method deleteAccount
+ * @async
+ * @param {Object} data - Contains {
+ *  password: string,
+ *  brandingId?: number,
+ * }
+ * @example
+ *     InPlayer.Account.deleteAccount({
+ *      password: &quot;password&quot;,
+ *      brandingId: 1234,
+ *     })
+ *     .then(data =&gt; console.log(data));
+ * @return {Object}
+ */
+
+  async deleteAccount(data) {
+    if (!this.isAuthenticated()) {
+      errorResponse(401, {
+        code: 401,
+        message: &#x27;User is not authenticated&#x27;
+      });
+    }
+    const t = this.getToken();
+
+    let body = {
+      password: data.password,
+      branding_id: data.brandingId
+    };
+
+    const response = await fetch(this.config.API.deleteAccount, {
+      method: &#x27;DELETE&#x27;,
+      headers: {
+        Authorization: &#x27;Bearer &#x27; + t.token,
+        &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
+      },
+      body: params(body)
+    });
+
+    checkStatus(response);
+
+    localStorage.removeItem(this.config.INPLAYER_TOKEN_NAME);
+    localStorage.removeItem(this.config.INPLAYER_IOT_NAME);
+
+    return {
+      code: response.status,
+      message: &#x27;Account has been successfuly deleted&#x27;
+    };
+  }
+
+  /**
+ * DExports account data to the users&#x27; email
+ * @method exportData
+ * @async
+ * @param {Object} data - Contains {
+ *  password: string,
+ *  brandingId?: number,
+ * }
+ * @example
+ *     InPlayer.Account.exportData({
+ *        password: &quot;password&quot;,
+ *        brandingId: 1234,
+ *     })
+ *     .then(data =&gt; console.log(data));
+ * @return {Object}
+ */
+
+  async exportData(data) {
+    if (!this.isAuthenticated()) {
+      errorResponse(401, {
+        code: 401,
+        message: &#x27;User is not authenticated&#x27;
+      });
     }
 
-    /**
-   * Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()
-   * @method updateAccount
-   * @async
-   * @param {Object} data - The new data for the account
-   * @example
-   *     InPlayer.Account
-   *     .updateAccount({fullName: &#x27;test test&#x27;, metadata: {country: &#x27;Germany&#x27;}})
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-   */
-    async updateAccount(data = {}) {
-        if (!this.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: &#x27;User is not authenticated&#x27;
-            });
-        }
-        const t = this.getToken();
+    const t = this.getToken();
 
-        let body = {
-            full_name: data.fullName
-        };
+    let body = {
+      password: data.password,
+      branding_id: data.brandingId
+    };
 
-        if (data.metadata) {
-            body.metadata = data.metadata;
-        }
+    const response = await fetch(this.config.API.exportData, {
+      method: &#x27;POST&#x27;,
+      headers: {
+        Authorization: &#x27;Bearer &#x27; + t.token,
+        &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
+      },
+      body: params(body)
+    });
 
-        const response = await fetch(this.config.API.updateAccount, {
-            method: &#x27;PUT&#x27;,
-            body: params(body),
-            headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token,
-                &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
-            }
-        });
+    checkStatus(response);
 
-        checkStatus(response);
-
-        return await response.json();
+    if (!response.ok) {
+      return await response.json();
     }
 
-    /**
-   * Changes password for a given user
-   * @method changePassword
-   * @async
-   * @param {Object} data - Contains {
-   *  oldPassword: string
-   *  password: string
-   *  passwordConfirmation: string
-   *  brandingId?: number
-   * }
-   * @param {string} token - The reset token
-   * @example
-   *     InPlayer.Account
-   *     .changePassword({
-   *       oldPassword: &#x27;old123&#x27;,
-   *       password: &#x27;test123&#x27;,
-   *       passwordConfirmation: &#x27;test123&#x27;
-   *       brandingId: 1234
-   *     },&#x27;123124-1r-1r13ur1h1&#x27;)
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-   */
-    async changePassword(data = {}) {
-        if (!this.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: &#x27;User is not authenticated&#x27;
-            });
-        }
-        const t = this.getToken();
-
-        let body = {
-            old_password: data.oldPassword,
-            password: data.password,
-            password_confirmation: data.passwordConfirmation,
-            branding_id: data.brandingId
-        };
-
-        const response = await fetch(this.config.API.changePassword, {
-            method: &#x27;POST&#x27;,
-            body: params(body),
-            headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token,
-                &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
-            }
-        });
-
-        checkStatus(response);
-
-        return await response.json();
-    }
-
-    /**
-   * Gets register fields
-   * @method getRegisterFields
-   * @async
-   * @param {string} merchantUuid - The merchant UUID
-   * @example
-   *     InPlayer.Account
-   *     .getRegisterFields(&#x27;123124-1r-1r13ur1h1&#x27;)
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-   */
-    async getRegisterFields(merchantUuid = &#x27;&#x27;) {
-        const response = await fetch(
-            this.config.API.getRegisterFields(merchantUuid)
-        );
-
-        checkStatus(response);
-
-        return await response.json();
-    }
-
-    /**
-   * Deletes an account
-   * @method deleteAccount
-   * @async
-   * @param {Object} data - Contains {
-   *  password: string,
-   *  brandingId?: number,
-   * }
-   * @example
-   *     InPlayer.Account.deleteAccount({
-   *      password: &quot;password&quot;,
-   *      brandingId: 1234,
-   *     })
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-   */
-
-    async deleteAccount(data) {
-        if (!this.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: &#x27;User is not authenticated&#x27;
-            });
-        }
-        const t = this.getToken();
-
-        let body = {
-            password: data.password,
-            branding_id: data.brandingId
-        };
-
-        const response = await fetch(this.config.API.deleteAccount, {
-            method: &#x27;DELETE&#x27;,
-            headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token,
-                &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
-            },
-            body: params(body)
-        });
-
-        checkStatus(response);
-
-        localStorage.removeItem(this.config.INPLAYER_TOKEN_NAME);
-        localStorage.removeItem(this.config.INPLAYER_IOT_NAME);
-
-        return {
-            code: response.status,
-            message: &#x27;Account has been successfuly deleted&#x27;
-        };
-    }
-
-    /**
-   * DExports account data to the users&#x27; email
-   * @method exportData
-   * @async
-   * @param {Object} data - Contains {
-   *  password: string,
-   *  brandingId?: number,
-   * }
-   * @example
-   *     InPlayer.Account.exportData({
-   *        password: &quot;password&quot;,
-   *        brandingId: 1234,
-   *     })
-   *     .then(data =&gt; console.log(data));
-   * @return {Object}
-   */
-
-    async exportData(data) {
-        if (!this.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: &#x27;User is not authenticated&#x27;
-            });
-        }
-
-        const t = this.getToken();
-
-        let body = {
-            password: data.password,
-            branding_id: data.brandingId
-        };
-
-        const response = await fetch(this.config.API.exportData, {
-            method: &#x27;POST&#x27;,
-            headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token,
-                &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
-            },
-            body: params(body)
-        });
-
-        checkStatus(response);
-
-        if (!response.ok) {
-            return await response.json();
-        }
-
-        return {
-            code: response.status,
-            message: &#x27;Your data is being exported, please check your email.&#x27;
-        };
-    }
+    return {
+      code: response.status,
+      message: &#x27;Your data is being exported, please check your email.&#x27;
+    };
+  }
 }
 
 export default Account;
