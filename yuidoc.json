@@ -1,7 +1,7 @@
 {
   "name": "InPlayer SDK",
   "url": "https://inplayer-org.github.io/inplayer.js/",
-  "version": "2.6.7",
+  "version": "2.6.8",
   "options": {
     "paths": "src",
     "outdir": "docs/",
