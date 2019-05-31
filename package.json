@@ -60,7 +60,7 @@
     "eslint-loader": "^2.1.2",
     "formdata-polyfill": "^3.0.15",
     "husky": "^2.3.0",
-    "jsdom": "13.2.0",
+    "jsdom": "15.1.1",
     "jsdom-global": "3.0.2",
     "json-loader": "^0.5.7",
     "lint-staged": "^8.1.4",
