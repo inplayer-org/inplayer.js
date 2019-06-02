@@ -6,6 +6,7 @@ describe('Subscription', function () {
 
     let secret = process.env.CLIENT_SECRET;
     let subscription = InPlayer.Subscription;
+    let user = InPlayer.Account;
 
     before(() => {
         async () =>

@@ -6,6 +6,7 @@ describe('Payment', function () {
 
     let secret = process.env.CLIENT_SECRET;
     let payment = InPlayer.Payment;
+    let user = InPlayer.Account;
 
     before(() => {
         async () =>
