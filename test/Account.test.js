@@ -127,7 +127,7 @@ describe('Account', function () {
             });
 
             try {
-                const result = await user.changePassword({
+                await user.changePassword({
                     oldPassword: 'test123',
                     password: 'password123',
                     passwordConfirmation: 'password123',

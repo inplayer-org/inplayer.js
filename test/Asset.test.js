@@ -6,6 +6,7 @@ describe('Asset', function () {
 
     let secret = process.env.CLIENT_SECRET;
     let asset = InPlayer.Asset;
+    let user = InPlayer.Account;
 
     before(() => {
         async () =>
