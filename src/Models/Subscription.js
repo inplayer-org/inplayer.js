@@ -99,7 +99,7 @@ class Subscription {
         const t = this.Account.getToken();
 
         const response = await fetch(
-            this.config.API.cancelTokenSubscribe(unsubscribeUrl),
+            this.config.API.cancelSubscription(unsubscribeUrl),
             {
                 headers: {
                     Authorization: 'Bearer ' + t.token

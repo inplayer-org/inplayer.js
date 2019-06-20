@@ -186,7 +186,7 @@ class Payment {
             formData.append('voucher_code', data.voucherCode);
         }
 
-        const response = await fetch(this.config.API.externalPayments, {
+        const response = await fetch(this.config.API.getPayPalParams, {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + t.token,

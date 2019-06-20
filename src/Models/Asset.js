@@ -32,7 +32,7 @@ class Asset {
         }
 
         const t = this.Account.getToken();
-        const response = await fetch(this.config.API.checkAccess(id), {
+        const response = await fetch(this.config.API.checkAccessForAsset(id), {
             headers: {
                 Authorization: 'Bearer ' + t.token
             }
@@ -89,7 +89,7 @@ class Asset {
    */
     async getAsset(assetId, merchantUuid) {
         const response = await fetch(
-            this.config.API.findAsset(assetId, merchantUuid)
+            this.config.API.getAsset(assetId, merchantUuid)
         );
 
         checkStatus(response);
@@ -112,7 +112,7 @@ class Asset {
    */
     async getExternalAsset(assetType, externalId, merchantUuid = '') {
         const response = await fetch(
-            this.config.API.findExternalAsset(assetType, externalId, merchantUuid)
+            this.config.API.getExternalAsset(assetType, externalId, merchantUuid)
         );
 
         checkStatus(response);
@@ -132,7 +132,7 @@ class Asset {
    * @return {Object}
    */
     async getPackage(id) {
-        const response = await fetch(this.config.API.findPackage(id));
+        const response = await fetch(this.config.API.getPackage(id));
 
         checkStatus(response);
 
@@ -151,7 +151,7 @@ class Asset {
    * @return {Object}
    */
     async getAssetAccessFees(id) {
-        const response = await fetch(this.config.API.findAccessFees(id));
+        const response = await fetch(this.config.API.getAssetAccessFees(id));
 
         checkStatus(response);
 
@@ -188,7 +188,7 @@ class Asset {
         const t = this.Account.getToken();
 
         const response = await fetch(
-            this.config.API.assetsHistory(size, page, startDate, endDate),
+            this.config.API.getAssetsHistory(size, page, startDate, endDate),
             {
                 headers: {
                     Authorization: 'Bearer ' + t.token
@@ -226,7 +226,7 @@ class Asset {
 
         formData.append('access_fee', accessFeeId);
 
-        const response = await fetch(this.config.API.freemium, {
+        const response = await fetch(this.config.API.getFreemiumAsset, {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + t.token

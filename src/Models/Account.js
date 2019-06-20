@@ -411,7 +411,7 @@ class Account {
  * @return {Object}
  */
     async getSocialLoginUrls(state) {
-        const response = await fetch(this.config.API.social(state));
+        const response = await fetch(this.config.API.getSocialLoginUrls(state));
 
         checkStatus(response);
 
