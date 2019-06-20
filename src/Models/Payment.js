@@ -94,7 +94,7 @@ class Payment {
      * }
      * @example
      *     InPlayer.Payment
-     *     .payForAsset({
+     *     .create({
      *       number: 4111111111111111,
      *       cardName: 'PayPal',
      *       expMonth: 10,

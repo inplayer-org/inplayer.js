@@ -19,7 +19,7 @@ class Asset {
    * @async
    * @param {number} id - The id of the asset
    * @example
-   *     InPlayer.Asset
+   *     InPlayer.Asset.checkAccessForAsset(42597)
    *     .then(data => console.log(data));
    * @return {Object}
    */
@@ -77,7 +77,7 @@ class Asset {
 
     /**
    * Get the asset info for a given asset ID and merchant UUID
-   * @method findAsset
+   * @method getAsset
    * @async
    * @param {number} assetId - The ID of the asset
    * @param {string} merchantUuid - The merchant UUID string
@@ -99,7 +99,7 @@ class Asset {
 
     /**
    * Get an external assets info
-   * @method findExternalAsset
+   * @method getExternalAsset
    * @async
    * @param {string} assetType - The type ID of the asset
    * @param {string} externalId - The ID of the external asset
@@ -122,7 +122,7 @@ class Asset {
 
     /**
    * Get package info for a given Package ID
-   * @method findPackage
+   * @method getPackage
    * @async
    * @param {number} id - The type ID of the package
    * @example
@@ -208,7 +208,7 @@ class Asset {
    * @param accessFee
    * @example
    *     InPlayer.Asset
-   *     .freemiumAsset(2233)
+   *     .getFreemiumAsset(2233)
    *     .then(data => console.log(data));
    * @return {Object}
    */
@@ -357,6 +357,10 @@ class Asset {
    * @async
    * @param {number} assetId
    * @param {string} videoUrl
+   * @example
+   *     InPlayer.Asset
+   *     .getCloudfrontURL(42599, 'url')
+   *     .then(data => console.log(data));
    * @returns {Object} data = {
    *    video_url: {string}
    * }

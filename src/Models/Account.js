@@ -368,7 +368,7 @@ class Account {
 
     /**
  * Gets the account information for a given auth token
- * @method getAccountInfo
+ * @method getAccount
  * @async
  * @example
  *     InPlayer.Account

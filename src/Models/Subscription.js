@@ -115,7 +115,7 @@ class Subscription {
     /**
    * Subscribes to a given asset. Use this method ONLY if the accessFee.type === 'subscription'.
    * Otherwise please use InPlayer.Payment.payForAsset()
-   * @method assetSubscribe
+   * @method create
    * @async
    * @param {Object} data - {
    *  number: number,
