@@ -399,7 +399,7 @@
             "line": 369,
             "description": "Gets the account information for a given auth token",
             "itemtype": "method",
-            "name": "getAccountInfo",
+            "name": "getAccount",
             "async": 1,
             "example": [
                 "\n    InPlayer.Account\n    .getAccount()\n    .then(data => console.log(data));"
@@ -568,7 +568,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.Asset\n    .then(data => console.log(data));"
+                "\n    InPlayer.Asset.checkAccessForAsset(42597)\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -604,7 +604,7 @@
             "line": 78,
             "description": "Get the asset info for a given asset ID and merchant UUID",
             "itemtype": "method",
-            "name": "findAsset",
+            "name": "getAsset",
             "async": 1,
             "params": [
                 {
@@ -632,7 +632,7 @@
             "line": 100,
             "description": "Get an external assets info",
             "itemtype": "method",
-            "name": "findExternalAsset",
+            "name": "getExternalAsset",
             "async": 1,
             "params": [
                 {
@@ -665,7 +665,7 @@
             "line": 123,
             "description": "Get package info for a given Package ID",
             "itemtype": "method",
-            "name": "findPackage",
+            "name": "getPackage",
             "async": 1,
             "params": [
                 {
@@ -758,7 +758,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.Asset\n    .freemiumAsset(2233)\n    .then(data => console.log(data));"
+                "\n    InPlayer.Asset\n    .getFreemiumAsset(2233)\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -858,6 +858,9 @@
                     "description": "",
                     "type": "String"
                 }
+            ],
+            "example": [
+                "\n    InPlayer.Asset\n    .getCloudfrontURL(42599, 'url')\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "data = {\n   video_url: {string}\n}",
@@ -970,7 +973,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.Payment\n    .payForAsset({\n      number: 4111111111111111,\n      cardName: 'PayPal',\n      expMonth: 10,\n      expYear: 2030,\n      cvv: 656,\n      accessFee: 2341,\n      paymentMethod: 1,\n      referrer: 'http://google.com',\n      voucherCode: 'fgh1982gff-0f2grfds'\n      brandingId: 1234\n     })\n    .then(data => console.log(data));"
+                "\n    InPlayer.Payment\n    .create({\n      number: 4111111111111111,\n      cardName: 'PayPal',\n      expMonth: 10,\n      expYear: 2030,\n      cvv: 656,\n      accessFee: 2341,\n      paymentMethod: 1,\n      referrer: 'http://google.com',\n      voucherCode: 'fgh1982gff-0f2grfds'\n      brandingId: 1234\n     })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -1113,7 +1116,7 @@
             "line": 115,
             "description": "Subscribes to a given asset. Use this method ONLY if the accessFee.type === 'subscription'.\nOtherwise please use InPlayer.Payment.payForAsset()",
             "itemtype": "method",
-            "name": "assetSubscribe",
+            "name": "create",
             "async": 1,
             "params": [
                 {
