@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.6.9</b>
+                    API Docs for Version: <b>2.6.10</b>
                 </p>
             </li>
         </div>
@@ -100,14 +100,14 @@
 			<strong>Methods</strong>
 			<ul>
 				<li><a href="#method-checkAccessForAsset"><span class="im">checkAccessForAsset</span>(<span class="ia">id</span>)</a></li>
-				<li><a href="#method-findAsset"><span class="im">findAsset</span>(<span class="ia">assetId</span><span class="ia">merchantUuid</span>)</a></li>
-				<li><a href="#method-findExternalAsset"><span class="im">findExternalAsset</span>(<span class="ia">assetType</span><span class="ia">externalId</span><span class="ia">merchantUuid</span>)</a></li>
-				<li><a href="#method-findPackage"><span class="im">findPackage</span>(<span class="ia">id</span>)</a></li>
 				<li><a href="#method-getAccessCode"><span class="im">getAccessCode</span>(<span class="ia">data</span>)</a></li>
+				<li><a href="#method-getAsset"><span class="im">getAsset</span>(<span class="ia">assetId</span><span class="ia">merchantUuid</span>)</a></li>
 				<li><a href="#method-getAssetAccessFees"><span class="im">getAssetAccessFees</span>(<span class="ia">id</span>)</a></li>
 				<li><a href="#method-getAssetsHistory"><span class="im">getAssetsHistory</span>(<span class="ia">size</span><span class="ia">page</span><span class="ia">startDate</span><span class="ia">endDate</span>)</a></li>
 				<li><a href="#method-getCloudfrontURL"><span class="im">getCloudfrontURL</span>(<span class="ia">assetId</span><span class="ia">videoUrl</span>)</a></li>
+				<li><a href="#method-getExternalAsset"><span class="im">getExternalAsset</span>(<span class="ia">assetType</span><span class="ia">externalId</span><span class="ia">merchantUuid</span>)</a></li>
 				<li><a href="#method-getFreemiumAsset"><span class="im">getFreemiumAsset</span>(<span class="ia">accessFee</span>)</a></li>
+				<li><a href="#method-getPackage"><span class="im">getPackage</span>(<span class="ia">id</span>)</a></li>
 				<li><a href="#method-isFreeTrialUsed"><span class="im">isFreeTrialUsed</span>(<span class="ia">id</span>)</a></li>
 				<li><a href="#method-releaseAccessCode"><span class="im">releaseAccessCode</span>(<span class="ia">-</span>)</a></li>
 				<li><a href="#method-requestCodeAccess"><span class="im">requestCodeAccess</span>(<span class="ia">data</span>)</a></li>
@@ -190,15 +190,86 @@
 			<h4>Example:</h4>
 
 			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.Asset
+				<pre class="code prettyprint"><code>InPlayer.Asset.checkAccessForAsset(42597)
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>
 		</div>
 </div>
-<div id="method-findAsset" class="method item">
+<div id="method-getAccessCode" class="method item">
 	<div class="method-signature">
-	<span class="name"><code>findAsset</code></span>
+	<span class="name"><code>getAccessCode</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>data</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object  |  null</span>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_Asset.js.html#l291"><code>src&#x2F;Models&#x2F;Asset.js:291</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Retrieves the access code and browser fingerprint for the current asset.
+Returns null if no access code is present.</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">data</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><p>= {
+assetId: {number},
+code: {string}
+}</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object  |  null</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<p>const accessCode = InPlayer.Asset.getAccessCode();</p>
+
+			</div>
+		</div>
+</div>
+<div id="method-getAsset" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>getAsset</code></span>
 
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
@@ -278,249 +349,6 @@
 				<pre class="code prettyprint"><code>InPlayer.Asset
 .getAsset(2,'a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl')
 .then(data =&gt; console.log(data));</code></pre>
-
-			</div>
-		</div>
-</div>
-<div id="method-findExternalAsset" class="method item">
-	<div class="method-signature">
-	<span class="name"><code>findExternalAsset</code></span>
-
-		<div class="args">
-			<span class="paren">(</span><ul class="args-list inline commas">
-				<li class="arg">
-						<code>assetType</code>
-				</li>
-				<li class="arg">
-						<code>externalId</code>
-				</li>
-				<li class="arg">
-						<code>merchantUuid</code>
-				</li>
-			</ul><span class="paren">)</span>
-		</div>
-		<span class="returns-inline">
-			<span class="type">Object</span>
-		</span>
-	</div>
-
-
-
-
-
-		<span class="flag async">async</span>
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/src_Models_Asset.js.html#l100"><code>src&#x2F;Models&#x2F;Asset.js:100</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Get an external assets info</p>
-</div>
-
-		<div class="params">
-			<h4>Parameters:</h4>
-
-			<ul class="params-list">
-				<li class="param">
-						<code class="param-name">assetType</code>
-						<span class="type">String</span>
-
-
-					<div class="param-description"><ul>
-<li>The type ID of the asset</li>
-</ul>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name">externalId</code>
-						<span class="type">String</span>
-
-
-					<div class="param-description"><ul>
-<li>The ID of the external asset</li>
-</ul>
-</div>
-
-				</li>
-				<li class="param">
-						<code class="param-name">merchantUuid</code>
-						<span class="type">String</span>
-
-
-					<div class="param-description"><ul>
-<li>OPTIONAL - the merchant uuid</li>
-</ul>
-</div>
-
-				</li>
-			</ul>
-		</div>
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type">Object</span>
-			</div>
-		</div>
-
-		<div class="example">
-			<h4>Example:</h4>
-
-			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.Asset
-.getExternalAsset('ooyala','44237')
-.then(data =&gt; console.log(data));</code></pre>
-
-			</div>
-		</div>
-</div>
-<div id="method-findPackage" class="method item">
-	<div class="method-signature">
-	<span class="name"><code>findPackage</code></span>
-
-		<div class="args">
-			<span class="paren">(</span><ul class="args-list inline commas">
-				<li class="arg">
-						<code>id</code>
-				</li>
-			</ul><span class="paren">)</span>
-		</div>
-		<span class="returns-inline">
-			<span class="type">Object</span>
-		</span>
-	</div>
-
-
-
-
-
-		<span class="flag async">async</span>
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/src_Models_Asset.js.html#l123"><code>src&#x2F;Models&#x2F;Asset.js:123</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Get package info for a given Package ID</p>
-</div>
-
-		<div class="params">
-			<h4>Parameters:</h4>
-
-			<ul class="params-list">
-				<li class="param">
-						<code class="param-name">id</code>
-						<span class="type">Number</span>
-
-
-					<div class="param-description"><ul>
-<li>The type ID of the package</li>
-</ul>
-</div>
-
-				</li>
-			</ul>
-		</div>
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type">Object</span>
-			</div>
-		</div>
-
-		<div class="example">
-			<h4>Example:</h4>
-
-			<div class="example-content">
-				<pre class="code prettyprint"><code>InPlayer.Asset
-.getPackage(4444)
-.then(data =&gt; console.log(data));</code></pre>
-
-			</div>
-		</div>
-</div>
-<div id="method-getAccessCode" class="method item">
-	<div class="method-signature">
-	<span class="name"><code>getAccessCode</code></span>
-
-		<div class="args">
-			<span class="paren">(</span><ul class="args-list inline commas">
-				<li class="arg">
-						<code>data</code>
-				</li>
-			</ul><span class="paren">)</span>
-		</div>
-		<span class="returns-inline">
-			<span class="type">Object  |  null</span>
-		</span>
-	</div>
-
-
-
-
-
-
-	<div class="meta">
-				<p>
-				Defined in
-		<a href="../files/src_Models_Asset.js.html#l291"><code>src&#x2F;Models&#x2F;Asset.js:291</code></a>
-		</p>
-
-
-
-	</div>
-
-	<div class="description"><p>Retrieves the access code and browser fingerprint for the current asset.
-Returns null if no access code is present.</p>
-</div>
-
-		<div class="params">
-			<h4>Parameters:</h4>
-
-			<ul class="params-list">
-				<li class="param">
-						<code class="param-name">data</code>
-						<span class="type">Object</span>
-
-
-					<div class="param-description"><p>= {
-assetId: {number},
-code: {string}
-}</p>
-</div>
-
-				</li>
-			</ul>
-		</div>
-
-		<div class="returns">
-			<h4>Returns:</h4>
-
-			<div class="returns-description">
-						<span class="type">Object  |  null</span>
-			</div>
-		</div>
-
-		<div class="example">
-			<h4>Example:</h4>
-
-			<div class="example-content">
-				<p>const accessCode = InPlayer.Asset.getAccessCode();</p>
 
 			</div>
 		</div>
@@ -782,6 +610,116 @@ video_url: {string}
 			</div>
 		</div>
 
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.Asset
+.getCloudfrontURL(42599, 'url')
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-getExternalAsset" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>getExternalAsset</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>assetType</code>
+				</li>
+				<li class="arg">
+						<code>externalId</code>
+				</li>
+				<li class="arg">
+						<code>merchantUuid</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_Asset.js.html#l100"><code>src&#x2F;Models&#x2F;Asset.js:100</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Get an external assets info</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">assetType</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><ul>
+<li>The type ID of the asset</li>
+</ul>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">externalId</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><ul>
+<li>The ID of the external asset</li>
+</ul>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">merchantUuid</code>
+						<span class="type">String</span>
+
+
+					<div class="param-description"><ul>
+<li>OPTIONAL - the merchant uuid</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.Asset
+.getExternalAsset('ooyala','44237')
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
 </div>
 <div id="method-getFreemiumAsset" class="method item">
 	<div class="method-signature">
@@ -845,7 +783,79 @@ video_url: {string}
 
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.Asset
-.freemiumAsset(2233)
+.getFreemiumAsset(2233)
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-getPackage" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>getPackage</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>id</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_Asset.js.html#l123"><code>src&#x2F;Models&#x2F;Asset.js:123</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Get package info for a given Package ID</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">id</code>
+						<span class="type">Number</span>
+
+
+					<div class="param-description"><ul>
+<li>The type ID of the package</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.Asset
+.getPackage(4444)
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>

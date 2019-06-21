@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.6.9</b>
+                    API Docs for Version: <b>2.6.10</b>
                 </p>
             </li>
         </div>
@@ -179,7 +179,7 @@ class Payment {
      * }
      * @example
      *     InPlayer.Payment
-     *     .payForAsset({
+     *     .create({
      *       number: 4111111111111111,
      *       cardName: &#x27;PayPal&#x27;,
      *       expMonth: 10,
@@ -271,7 +271,7 @@ class Payment {
             formData.append(&#x27;voucher_code&#x27;, data.voucherCode);
         }
 
-        const response = await fetch(this.config.API.externalPayments, {
+        const response = await fetch(this.config.API.getPayPalParams, {
             method: &#x27;POST&#x27;,
             headers: {
                 Authorization: &#x27;Bearer &#x27; + t.token,

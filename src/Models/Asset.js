@@ -19,7 +19,7 @@ class Asset {
    * @async
    * @param {number} id - The id of the asset
    * @example
-   *     InPlayer.Asset
+   *     InPlayer.Asset.checkAccessForAsset(42597)
    *     .then(data => console.log(data));
    * @return {Object}
    */
@@ -32,7 +32,7 @@ class Asset {
         }
 
         const t = this.Account.getToken();
-        const response = await fetch(this.config.API.checkAccess(id), {
+        const response = await fetch(this.config.API.checkAccessForAsset(id), {
             headers: {
                 Authorization: 'Bearer ' + t.token
             }
@@ -77,7 +77,7 @@ class Asset {
 
     /**
    * Get the asset info for a given asset ID and merchant UUID
-   * @method findAsset
+   * @method getAsset
    * @async
    * @param {number} assetId - The ID of the asset
    * @param {string} merchantUuid - The merchant UUID string
@@ -89,7 +89,7 @@ class Asset {
    */
     async getAsset(assetId, merchantUuid) {
         const response = await fetch(
-            this.config.API.findAsset(assetId, merchantUuid)
+            this.config.API.getAsset(assetId, merchantUuid)
         );
 
         checkStatus(response);
@@ -99,7 +99,7 @@ class Asset {
 
     /**
    * Get an external assets info
-   * @method findExternalAsset
+   * @method getExternalAsset
    * @async
    * @param {string} assetType - The type ID of the asset
    * @param {string} externalId - The ID of the external asset
@@ -112,7 +112,7 @@ class Asset {
    */
     async getExternalAsset(assetType, externalId, merchantUuid = '') {
         const response = await fetch(
-            this.config.API.findExternalAsset(assetType, externalId, merchantUuid)
+            this.config.API.getExternalAsset(assetType, externalId, merchantUuid)
         );
 
         checkStatus(response);
@@ -122,7 +122,7 @@ class Asset {
 
     /**
    * Get package info for a given Package ID
-   * @method findPackage
+   * @method getPackage
    * @async
    * @param {number} id - The type ID of the package
    * @example
@@ -132,7 +132,7 @@ class Asset {
    * @return {Object}
    */
     async getPackage(id) {
-        const response = await fetch(this.config.API.findPackage(id));
+        const response = await fetch(this.config.API.getPackage(id));
 
         checkStatus(response);
 
@@ -151,7 +151,7 @@ class Asset {
    * @return {Object}
    */
     async getAssetAccessFees(id) {
-        const response = await fetch(this.config.API.findAccessFees(id));
+        const response = await fetch(this.config.API.getAssetAccessFees(id));
 
         checkStatus(response);
 
@@ -188,7 +188,7 @@ class Asset {
         const t = this.Account.getToken();
 
         const response = await fetch(
-            this.config.API.assetsHistory(size, page, startDate, endDate),
+            this.config.API.getAssetsHistory(size, page, startDate, endDate),
             {
                 headers: {
                     Authorization: 'Bearer ' + t.token
@@ -208,7 +208,7 @@ class Asset {
    * @param accessFee
    * @example
    *     InPlayer.Asset
-   *     .freemiumAsset(2233)
+   *     .getFreemiumAsset(2233)
    *     .then(data => console.log(data));
    * @return {Object}
    */
@@ -226,7 +226,7 @@ class Asset {
 
         formData.append('access_fee', accessFeeId);
 
-        const response = await fetch(this.config.API.freemium, {
+        const response = await fetch(this.config.API.getFreemiumAsset, {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + t.token
@@ -357,6 +357,10 @@ class Asset {
    * @async
    * @param {number} assetId
    * @param {string} videoUrl
+   * @example
+   *     InPlayer.Asset
+   *     .getCloudfrontURL(42599, 'url')
+   *     .then(data => console.log(data));
    * @returns {Object} data = {
    *    video_url: {string}
    * }

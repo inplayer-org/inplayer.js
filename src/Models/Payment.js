@@ -94,7 +94,7 @@ class Payment {
      * }
      * @example
      *     InPlayer.Payment
-     *     .payForAsset({
+     *     .create({
      *       number: 4111111111111111,
      *       cardName: 'PayPal',
      *       expMonth: 10,
@@ -186,7 +186,7 @@ class Payment {
             formData.append('voucher_code', data.voucherCode);
         }
 
-        const response = await fetch(this.config.API.externalPayments, {
+        const response = await fetch(this.config.API.getPayPalParams, {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + t.token,

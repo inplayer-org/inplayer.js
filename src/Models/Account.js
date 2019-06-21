@@ -368,7 +368,7 @@ class Account {
 
     /**
  * Gets the account information for a given auth token
- * @method getAccountInfo
+ * @method getAccount
  * @async
  * @example
  *     InPlayer.Account
@@ -411,7 +411,7 @@ class Account {
  * @return {Object}
  */
     async getSocialLoginUrls(state) {
-        const response = await fetch(this.config.API.social(state));
+        const response = await fetch(this.config.API.getSocialLoginUrls(state));
 
         checkStatus(response);
 

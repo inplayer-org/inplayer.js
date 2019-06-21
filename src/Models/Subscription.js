@@ -99,7 +99,7 @@ class Subscription {
         const t = this.Account.getToken();
 
         const response = await fetch(
-            this.config.API.cancelTokenSubscribe(unsubscribeUrl),
+            this.config.API.cancelSubscription(unsubscribeUrl),
             {
                 headers: {
                     Authorization: 'Bearer ' + t.token
@@ -115,7 +115,7 @@ class Subscription {
     /**
    * Subscribes to a given asset. Use this method ONLY if the accessFee.type === 'subscription'.
    * Otherwise please use InPlayer.Payment.payForAsset()
-   * @method assetSubscribe
+   * @method create
    * @async
    * @param {Object} data - {
    *  number: number,

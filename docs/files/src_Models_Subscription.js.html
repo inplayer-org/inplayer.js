@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.6.9</b>
+                    API Docs for Version: <b>2.6.10</b>
                 </p>
             </li>
         </div>
@@ -184,7 +184,7 @@ class Subscription {
         const t = this.Account.getToken();
 
         const response = await fetch(
-            this.config.API.cancelTokenSubscribe(unsubscribeUrl),
+            this.config.API.cancelSubscription(unsubscribeUrl),
             {
                 headers: {
                     Authorization: &#x27;Bearer &#x27; + t.token
@@ -200,7 +200,7 @@ class Subscription {
     /**
    * Subscribes to a given asset. Use this method ONLY if the accessFee.type === &#x27;subscription&#x27;.
    * Otherwise please use InPlayer.Payment.payForAsset()
-   * @method assetSubscribe
+   * @method create
    * @async
    * @param {Object} data - {
    *  number: number,

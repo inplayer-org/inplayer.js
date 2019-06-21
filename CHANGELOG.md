@@ -2,7 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-# [2.6.9] - 02-05-2019
+# [2.6.10] - 20-06-2019
+
+### Fix
+
+- Update examples in Docs
+- Rename endpoints in API config to match methods
+
+# [2.6.9] - 02-06-2019
 
 ### Fixes
 
