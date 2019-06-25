@@ -1,5 +1,11 @@
 # Change Log
 
+Add getDefaultCard and setDefaultCard methods.
+
+# [2.7.0] - 25-06-2019
+
+# Change Log
+
 All notable changes to this project will be documented in this file.
 
 # [2.6.10] - 20-06-2019
