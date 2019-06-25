@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "2.6.10",
+        "version": "2.7.0",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -1030,6 +1030,45 @@
             ],
             "example": [
                 "\n    InPlayer.Payment\n    .getPurchaseHistory('active', 0, 5)\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "src/Models/Payment.js",
+            "line": 236,
+            "description": "Gets the default credit card per currency used for subscription rebills",
+            "itemtype": "method",
+            "name": "getDefaultCreditCard",
+            "async": 1,
+            "example": [
+                "\n    InPlayer.Payment\n    .getDefaultCreditCard()\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "src/Models/Payment.js",
+            "line": 267,
+            "description": "Sets card per currency as default card that is to be used for further subscription rebills",
+            "itemtype": "method",
+            "name": "setDefaultCreditCard",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains the data - {\n cardNumber: {string},\n cardName: {string},\n cvc: {number},\n expMonth: {number},\n expYear: {number},\n currency: {string}\n}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Payment\n    .setDefaultCreditCard({\n         cardNumber: '4242424242424242',\n         cardName: 'John Doe',\n         cvc: 123,\n         expMonth: 1,\n         expYear: 2020,\n         currency: 'EUR'\n     })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
