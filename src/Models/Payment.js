@@ -243,7 +243,7 @@ class Payment {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getDefaultCard() {
+    async getDefaultCreditCard() {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -279,7 +279,7 @@ class Payment {
      * @example
      *     InPlayer.Payment
      *     .setDefaultCard({
-     *          cardNumber: 4242424242424242,
+     *          cardNumber: '4242424242424242',
      *          cardName: 'John Doe',
      *          cvc: 123,
      *          expMonth: 1,
@@ -289,7 +289,7 @@ class Payment {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async setDefaultCard(data = {}) {
+    async setDefaultCreditCard(data = {}) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
