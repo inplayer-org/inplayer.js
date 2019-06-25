@@ -66,6 +66,8 @@ export const API = config => {
             `${config.BASE_URL}/payments/method/${paymentMethodId}/tools`,
         payForAsset: `${config.BASE_URL}/payments`,
         getPayPalParams: `${config.BASE_URL}/external-payments`,
+        getDefaultCreditCard: `${config.BASE_URL}/v2/payments/cards/default`,
+        setDefaultCreditCard: `${config.BASE_URL}/v2/payments/cards/default`,
         // Subscriptions
         getSubscriptions: (limit, page) =>
             `${config.BASE_URL}/subscriptions?limit=${limit}&page=${page}`,

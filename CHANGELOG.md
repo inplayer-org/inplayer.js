@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.7.0] - 25-06-2019
+
+### Added
+
+- Add getDefaultCreditCard and setDefaultCreditCard methods
+
 # [2.6.10] - 20-06-2019
 
 ### Fix
