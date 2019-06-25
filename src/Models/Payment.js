@@ -253,7 +253,7 @@ class Payment {
         const t = this.Account.getToken();
 
         const response = await fetch(
-            this.config.API.getDefaultCard,
+            this.config.API.getDefaultCreditCard,
             {
                 headers: {
                     Authorization: 'Bearer ' + t.token,
@@ -308,7 +308,7 @@ class Payment {
         };
 
         const response = await fetch(
-            this.config.API.setefaultCard,
+            this.config.API.setDefaultCreditCard,
             {
                 method: 'PUT',
                 headers: {

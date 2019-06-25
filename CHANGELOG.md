@@ -1,6 +1,6 @@
 # Change Log
 
-Add getDefaultCard and setDefaultCard methods.
+Add getDefaultCreditCard and setDefaultCreditCard methods.
 
 # [2.7.0] - 25-06-2019
 
