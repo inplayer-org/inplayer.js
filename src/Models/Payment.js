@@ -232,6 +232,95 @@ class Payment {
 
         return await response.json();
     }
+
+    /**
+     * Gets the default credit card per currency used for subscription rebills
+     * @method getDefaultCreditCard
+     * @async
+     * @example
+     *     InPlayer.Payment
+     *     .getDefaultCreditCard()
+     *     .then(data => console.log(data));
+     * @return {Object}
+     */
+    async getDefaultCreditCard() {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated',
+            });
+        }
+        const t = this.Account.getToken();
+
+        const response = await fetch(
+            this.config.API.getDefaultCreditCard,
+            {
+                headers: {
+                    Authorization: 'Bearer ' + t.token,
+                },
+            }
+        );
+
+        return await response.json();
+    }
+
+    /**
+     * Sets card per currency as default card that is to be used for further subscription rebills
+     * @method setDefaultCreditCard
+     * @async
+     * @param {Object} data - Contains the data - {
+     *  cardNumber: {string},
+     *  cardName: {string},
+     *  cvc: {number},
+     *  expMonth: {number},
+     *  expYear: {number},
+     *  currency: {string}
+     * }
+     * @example
+     *     InPlayer.Payment
+     *     .setDefaultCreditCard({
+     *          cardNumber: '4242424242424242',
+     *          cardName: 'John Doe',
+     *          cvc: 123,
+     *          expMonth: 1,
+     *          expYear: 2020,
+     *          currency: 'EUR'
+     *      })
+     *     .then(data => console.log(data));
+     * @return {Object}
+     */
+    async setDefaultCreditCard(data = {}) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated',
+            });
+        }
+        const t = this.Account.getToken();
+
+        const body = {
+            number: data.cardNumber,
+            card_name: data.cardName,
+            cvv: data.cvc,
+            exp_month: data.expMonth,
+            exp_year: data.expYear,
+            currency_iso: data.currency,
+        };
+
+        const response = await fetch(
+            this.config.API.setDefaultCreditCard,
+            {
+                method: 'PUT',
+                headers: {
+                    Authorization: 'Bearer ' + t.token,
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: params(body),
+            }
+        );
+
+        return await response.json();
+    }
 }
 
 export default Payment;

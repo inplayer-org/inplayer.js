@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.6.10</b>
+                    API Docs for Version: <b>2.7.0</b>
                 </p>
             </li>
         </div>
@@ -312,6 +312,95 @@ class Payment {
                 headers: {
                     Authorization: &#x27;Bearer &#x27; + t.token,
                 },
+            }
+        );
+
+        return await response.json();
+    }
+
+    /**
+     * Gets the default credit card per currency used for subscription rebills
+     * @method getDefaultCreditCard
+     * @async
+     * @example
+     *     InPlayer.Payment
+     *     .getDefaultCreditCard()
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async getDefaultCreditCard() {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: &#x27;User is not authenticated&#x27;,
+            });
+        }
+        const t = this.Account.getToken();
+
+        const response = await fetch(
+            this.config.API.getDefaultCreditCard,
+            {
+                headers: {
+                    Authorization: &#x27;Bearer &#x27; + t.token,
+                },
+            }
+        );
+
+        return await response.json();
+    }
+
+    /**
+     * Sets card per currency as default card that is to be used for further subscription rebills
+     * @method setDefaultCreditCard
+     * @async
+     * @param {Object} data - Contains the data - {
+     *  cardNumber: {string},
+     *  cardName: {string},
+     *  cvc: {number},
+     *  expMonth: {number},
+     *  expYear: {number},
+     *  currency: {string}
+     * }
+     * @example
+     *     InPlayer.Payment
+     *     .setDefaultCreditCard({
+     *          cardNumber: &#x27;4242424242424242&#x27;,
+     *          cardName: &#x27;John Doe&#x27;,
+     *          cvc: 123,
+     *          expMonth: 1,
+     *          expYear: 2020,
+     *          currency: &#x27;EUR&#x27;
+     *      })
+     *     .then(data =&gt; console.log(data));
+     * @return {Object}
+     */
+    async setDefaultCreditCard(data = {}) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: &#x27;User is not authenticated&#x27;,
+            });
+        }
+        const t = this.Account.getToken();
+
+        const body = {
+            number: data.cardNumber,
+            card_name: data.cardName,
+            cvv: data.cvc,
+            exp_month: data.expMonth,
+            exp_year: data.expYear,
+            currency_iso: data.currency,
+        };
+
+        const response = await fetch(
+            this.config.API.setDefaultCreditCard,
+            {
+                method: &#x27;PUT&#x27;,
+                headers: {
+                    Authorization: &#x27;Bearer &#x27; + t.token,
+                    &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;,
+                },
+                body: params(body),
             }
         );
 
