@@ -278,7 +278,7 @@ class Payment {
      * }
      * @example
      *     InPlayer.Payment
-     *     .setDefaultCard({
+     *     .setDefaultCreditCard({
      *          cardNumber: '4242424242424242',
      *          cardName: 'John Doe',
      *          cvc: 123,
