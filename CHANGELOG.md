@@ -1,12 +1,12 @@
 # Change Log
 
-Add getDefaultCreditCard and setDefaultCreditCard methods.
+All notable changes to this project will be documented in this file.
 
 # [2.7.0] - 25-06-2019
 
-# Change Log
+### Added
 
-All notable changes to this project will be documented in this file.
+- Add getDefaultCreditCard and setDefaultCreditCard methods
 
 # [2.6.10] - 20-06-2019
 
