@@ -235,11 +235,11 @@ class Payment {
 
     /**
      * Gets the default credit card per currency used for subscription rebills
-     * @method getDefaultCard
+     * @method getDefaultCreditCard
      * @async
      * @example
      *     InPlayer.Payment
-     *     .getDefaultCard()
+     *     .getDefaultCreditCard()
      *     .then(data => console.log(data));
      * @return {Object}
      */
@@ -266,7 +266,7 @@ class Payment {
 
     /**
      * Sets card per currency as default card that is to be used for further subscription rebills
-     * @method setDefaultCard
+     * @method setDefaultCreditCard
      * @async
      * @param {Object} data - Contains the data - {
      *  cardNumber: {string},
