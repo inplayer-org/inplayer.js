@@ -2,9 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.7.2] - 27-06-2019
+
+### Fixes
+
+- Throw error if call not successful for getDefaultCreditCard and setDefaultCreditCard
+
 # [2.7.1] - 27-06-2019
 
-### Fix
+### Fixes
 
 - Throw error if call not successful for getDefaultCreditCard and setDefaultCreditCard
 
@@ -16,7 +22,7 @@ All notable changes to this project will be documented in this file.
 
 # [2.6.10] - 20-06-2019
 
-### Fix
+### Fixes
 
 - Update examples in Docs
 - Rename endpoints in API config to match methods
