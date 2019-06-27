@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-# [2.7.1] - 20-06-2019
+# [2.7.1] - 27-06-2019
 
 ### Fix
 
