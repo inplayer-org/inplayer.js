@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "2.7.0",
+        "version": "2.7.2",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -1055,7 +1055,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 267,
+            "line": 269,
             "description": "Sets card per currency as default card that is to be used for further subscription rebills",
             "itemtype": "method",
             "name": "setDefaultCreditCard",
