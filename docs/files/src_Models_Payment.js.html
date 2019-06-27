@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.7.0</b>
+                    API Docs for Version: <b>2.7.1</b>
                 </p>
             </li>
         </div>
@@ -346,6 +346,8 @@ class Payment {
             }
         );
 
+        checkStatus(response);
+
         return await response.json();
     }
 
@@ -403,6 +405,8 @@ class Payment {
                 body: params(body),
             }
         );
+
+        checkStatus(response);
 
         return await response.json();
     }
