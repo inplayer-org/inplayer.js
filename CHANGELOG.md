@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.7.1] - 20-06-2019
+
+### Fix
+
+- Throw error if call not successful for getDefaultCreditCard and setDefaultCreditCard
+
 # [2.7.0] - 25-06-2019
 
 ### Added

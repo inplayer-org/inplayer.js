@@ -261,6 +261,8 @@ class Payment {
             }
         );
 
+        checkStatus(response);
+
         return await response.json();
     }
 
@@ -318,6 +320,8 @@ class Payment {
                 body: params(body),
             }
         );
+
+        checkStatus(response);
 
         return await response.json();
     }
