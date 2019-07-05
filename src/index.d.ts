@@ -9,7 +9,7 @@ export declare class Credentials {
     token = "",
     refreshToken = "",
     expires = 0
-  }: CredentialsConfig = {});
+  }: CredentialsConfig);
 
   isExpired(): boolean;
   toObject(): CredentialsConfig;
@@ -74,7 +74,7 @@ export declare class Account {
   setToken(token: string, refreshToken: string, expiresAt: number): void;
   refreshToken(clientId: string): object;
   reportSSOtoken(ssoDomain: string, tokenData: string, retire: boolean): object;
-  requestNewPassword(data: RequestPasswordData = {}): object;
+  requestNewPassword(data: RequestPasswordData): object;
   setNewPassword(data: SetPasswordData, token: string = ""): object | void;
   getAccount(): object;
   getSocialLoginUrls(state: string): object;
@@ -126,4 +126,167 @@ export declare class DLC {
   constructor(config: object, Account: Account);
 
   getDlcLinks(assetId: number): object;
+}
+
+export interface CreatePaymentData {
+  number: number | string;
+  cardName: string;
+  expMonth: number;
+  expYear: number;
+  cvv: number;
+  accessFee: number;
+  paymentMethod: string;
+  referrer: string;
+  voucherCode?: string;
+  brandingId?: number;
+}
+
+export interface PayPalParamsData {
+  origin: string;
+  accessFeeId: number;
+  paymentMethod: number;
+}
+
+export interface DefaultCreditCardData {
+  cardNumber: string;
+  cardName: string;
+  cvc: number;
+  expMonth: number;
+  expYear: number;
+  currency: string;
+}
+
+export declare class Payment {
+  constructor(config: object, Account: Account);
+
+  getPaymentMethods(): object;
+  getPaymentTools(paymentMethodId: number): object;
+  create(data: CreatePaymentData): object;
+  getPayPalParams(data: PayPalParamsData): object;
+  getPurchaseHistory(
+    status: string = "active",
+    page: number,
+    limit: number
+  ): object;
+  getDefaultCreditCard(): object;
+  setDefaultCreditCard(data: DefaultCreditCardData): object;
+}
+
+export interface CreateSubscriptionData {
+  number: number;
+  cardName: string;
+  expMonth: number;
+  expYear: number;
+  cvv: number;
+  accessFee: number;
+  paymentMethod: string;
+  referrer: string;
+  voucherCode?: string;
+  brandingId?: number;
+}
+
+export declare class Subscription {
+  constructor(config: object, Account: Account);
+
+  getSubscriptions(page: number = 0, limit: number = 15): object;
+  getSubscription(id: string): object;
+  cancelSubscription(unsubscribeUrl: string): object;
+  create(data: CreateSubscriptionData): object;
+}
+
+export interface DiscountData {
+  voucherCode: string;
+  accessFeeId: number;
+}
+
+export declare class Voucher {
+  constructor(config: object, Account: Account);
+
+  getDiscount(data: DiscountData): object;
+}
+
+export interface ApiEndpoints {
+  authenticate: string;
+  signIn: string;
+  signOut: string;
+  signUp: string;
+  requestNewPassword: string;
+  setNewPassword: (token: string) => string;
+  getAccountInfo: string;
+  getSocialLoginUrls: (state: string) => string;
+  updateAccount: string;
+  changePassword: string;
+  getRegisterFields: (merchantUuid: string) => string;
+  getPurchaseHistory: (
+    status: string,
+    page: number = 0,
+    size: number = 5
+  ) => string;
+  getAssetsHistory: (
+    size: number,
+    page: number,
+    startDate: string,
+    endDate: string
+  ) => string;
+  deleteAccount: string;
+  exportData: string;
+  reportSSOtoken: (ssoDomain: string) => string;
+  // Asset
+  checkAccessForAsset: (id: number) => string;
+  checkFreeTrial: (id: number) => string;
+  getAsset: (assetId: number, merchantUuid: string) => string;
+  getExternalAsset: (
+    assetType: string,
+    externalId: string,
+    merchantUuid?: string
+  ) => string;
+  getPackage: (id: number) => string;
+  getAssetAccessFees: (id: number) => string;
+  getFreemiumAsset: string;
+  getCloudfrontURL: (assetId: number, videoUrl: string) => string;
+  // Payment
+  getPaymentMethods: string;
+  getPaymentTools: (paymentMethodId: number) => string;
+  payForAsset: string;
+  getPayPalParams: string;
+  getDefaultCreditCard: string;
+  setDefaultCreditCard: string;
+  // Subscriptions
+  getSubscriptions: (limit: number, page: number) => string;
+  getSubscription: (id: number) => string;
+  subscribe: string;
+  cancelSubscription: (url: string) => string;
+  // Misc
+  getDlcLinks: (id: number) => string;
+  getDiscount: string;
+  getBranding: (merchantUuid: string, brandingId: string) => string;
+  downloadFile: (assetId: number, filename: string) => string;
+  requestCodeAccess: string;
+  releaseAccessCode: (code: number) => string;
+}
+
+export interface ApiConfig {
+  BASE_URL: string;
+}
+
+export declare const API: (config: ApiConfig) => ApiEndpoints;
+
+export declare class Notifications {
+  constructor(config: object, Account: Account);
+
+  getIotToken(): object;
+  subscribe(accountUuid?: string, callbackParams?: any): boolean;
+  handleSubscribe(data: object, callbackParams: any, uuid: string): void;
+  setClient(client: any): void;
+  isSubscribed(): boolean;
+  unsubscribe(): void;
+}
+
+export declare class InPlayer {
+  constructor();
+
+  subscribe(accountUuid: string, callbackParams: any): void;
+  isSubscribed(): boolean;
+  unsubscribe(): void;
+  setConfig(): void;
 }

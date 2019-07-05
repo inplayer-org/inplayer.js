@@ -8,6 +8,7 @@
     "access": "public"
   },
   "main": "dist/inplayer.umd.js",
+  "types": "dist/index.d.ts",
   "browser": "dist/inplayer.umd.js",
   "files": [
     "dist"
