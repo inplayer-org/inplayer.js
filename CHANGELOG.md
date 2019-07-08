@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.8.2] - 08-07-2019
+
+### Added
+
+- Update TypeScript types and definitions
+
 # [2.8.0] - 08-07-2019
 
 ### Added
