@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.7.3] - 05-07-2019
+
+### Added
+
+- Add types and definitions.
+
 # [2.7.2] - 27-06-2019
 
 ### Fixes
