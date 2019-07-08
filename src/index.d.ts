@@ -1,15 +1,11 @@
 export interface CredentialsConfig {
-  token: string;
-  refreshToken: string;
-  expires: number;
+  token?: string;
+  refreshToken?: string;
+  expires?: number;
 }
 
 export declare class Credentials {
-  constructor({
-    token = "",
-    refreshToken = "",
-    expires = 0
-  }: CredentialsConfig);
+  constructor(data: CredentialsConfig);
 
   isExpired(): boolean;
   toObject(): CredentialsConfig;
@@ -67,7 +63,7 @@ export declare class Account {
   constructor(config: object);
 
   authenticate(data: AuthData): object;
-  signUp(data: SignUpData = {}): object;
+  signUp(data: SignUpData): object;
   signOut(): object;
   isAuthenticated(): boolean;
   getToken(): Credentials;
@@ -75,7 +71,7 @@ export declare class Account {
   refreshToken(clientId: string): object;
   reportSSOtoken(ssoDomain: string, tokenData: string, retire: boolean): object;
   requestNewPassword(data: RequestPasswordData): object;
-  setNewPassword(data: SetPasswordData, token: string = ""): object | void;
+  setNewPassword(data: SetPasswordData, token?: string): object | void;
   getAccount(): object;
   getSocialLoginUrls(state: string): object;
   updateAccount(data: UpdateAccountData): object;
@@ -104,10 +100,10 @@ export declare class Asset {
   getPackage(id: number): object;
   getAssetAccessFees(id: number): object;
   getAssetsHistory(
-    size: number = 10,
-    page: number = 0,
-    startDate: string = null,
-    endDate: string = null
+    size?: number,
+    page?: number,
+    startDate?: string,
+    endDate?: string
   ): object;
   getFreemiumAsset(accessFeeId: number): object;
   requestCodeAccess(data: CodeAccessData): object;
@@ -163,11 +159,7 @@ export declare class Payment {
   getPaymentTools(paymentMethodId: number): object;
   create(data: CreatePaymentData): object;
   getPayPalParams(data: PayPalParamsData): object;
-  getPurchaseHistory(
-    status: string = "active",
-    page: number,
-    limit: number
-  ): object;
+  getPurchaseHistory(status: string, page: number, limit: number): object;
   getDefaultCreditCard(): object;
   setDefaultCreditCard(data: DefaultCreditCardData): object;
 }
@@ -188,7 +180,7 @@ export interface CreateSubscriptionData {
 export declare class Subscription {
   constructor(config: object, Account: Account);
 
-  getSubscriptions(page: number = 0, limit: number = 15): object;
+  getSubscriptions(page?: number, limit?: number): object;
   getSubscription(id: string): object;
   cancelSubscription(unsubscribeUrl: string): object;
   create(data: CreateSubscriptionData): object;
@@ -217,11 +209,7 @@ export interface ApiEndpoints {
   updateAccount: string;
   changePassword: string;
   getRegisterFields: (merchantUuid: string) => string;
-  getPurchaseHistory: (
-    status: string,
-    page: number = 0,
-    size: number = 5
-  ) => string;
+  getPurchaseHistory: (status: string, page?: number, size?: number) => string;
   getAssetsHistory: (
     size: number,
     page: number,
@@ -282,11 +270,31 @@ export declare class Notifications {
   unsubscribe(): void;
 }
 
+export interface Config {
+  BASE_URL: string;
+  AWS_IOT_URL: string;
+  IOT_NOTIF_URL: string;
+  INPLAYER_TOKEN_NAME: string;
+  INPLAYER_IOT_NAME: string;
+  INPLAYER_ACCESS_CODE_NAME: (assetId: number) => string;
+  API: ApiEndpoints;
+}
+
 export declare class InPlayer {
   constructor();
+
+  config: Config;
+  Account: Account;
+  Asset: Asset;
+  Payment: Payment;
+  Subscription: Subscription;
+  Voucher: Voucher;
+  DLC: DLC;
+  Branding: Branding;
+  Notifications: Notifications;
 
   subscribe(accountUuid: string, callbackParams: any): void;
   isSubscribed(): boolean;
   unsubscribe(): void;
-  setConfig(): void;
+  setConfig(config: string): void;
 }
