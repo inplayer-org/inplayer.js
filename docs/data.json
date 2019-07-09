@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "2.7.2",
+        "version": "2.8.2",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
