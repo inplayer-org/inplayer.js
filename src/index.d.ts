@@ -298,3 +298,7 @@ export declare class InPlayer {
   unsubscribe(): void;
   setConfig(config: string): void;
 }
+
+const InPlayer: InPlayer;
+
+export default InPlayer;
