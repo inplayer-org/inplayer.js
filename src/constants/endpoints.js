@@ -68,6 +68,7 @@ export const API = config => {
         getPayPalParams: `${config.BASE_URL}/external-payments`,
         getDefaultCreditCard: `${config.BASE_URL}/v2/payments/cards/default`,
         setDefaultCreditCard: `${config.BASE_URL}/v2/payments/cards/default`,
+        getDirectDebitMandate: `${config.BASE_URL}/v2/payments/direct-debit/default`,
         // Subscriptions
         getSubscriptions: (limit, page) =>
             `${config.BASE_URL}/subscriptions?limit=${limit}&page=${page}`,

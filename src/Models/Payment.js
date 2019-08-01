@@ -325,6 +325,43 @@ class Payment {
 
         return await response.json();
     }
+
+    /**
+     * Checks for existing user direct debit mandate
+     * @method getDirectDebitMandate
+     * @async
+     * @example
+     *     InPlayer.Payment
+     *     .getDirectDebitMandate()
+     *     .then(data => console.log(data));
+     * @return {Object} Contains the data - {
+     *  is_approved: {boolean},
+     *  statement_descriptor: {string},
+     * }
+   */
+    async getDirectDebitMandate() {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated',
+            });
+        }
+        const t = this.Account.getToken();
+
+        const response = await fetch(
+            this.config.API.getDirectDebitMandate,
+            {
+                method: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + t.token,
+                },
+            }
+        );
+
+        checkStatus(response);
+
+        return await response.json();
+    }
 }
 
 export default Payment;
