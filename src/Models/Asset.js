@@ -28,7 +28,7 @@ class Asset {
 
         const response = await fetch(this.config.API.checkAccessForAsset(id), {
             headers: {
-                Authorization: 'Bearer ' + this.getToken().token
+                Authorization: `Bearer ${this.getToken().token}`
             }
         });
 
@@ -53,7 +53,7 @@ class Asset {
 
         const response = await fetch(this.config.API.checkFreeTrial(id), {
             headers: {
-                Authorization: 'Bearer ' + this.getToken().token
+                Authorization: `Bearer ${this.getToken().token}`
             }
         });
 
@@ -171,7 +171,7 @@ class Asset {
             this.config.API.getAssetsHistory(size, page, startDate, endDate),
             {
                 headers: {
-                    Authorization: 'Bearer ' + this.getToken().token
+                    Authorization: `Bearer ${this.getToken().token}`
                 }
             }
         );
@@ -202,7 +202,7 @@ class Asset {
         const response = await fetch(this.config.API.getFreemiumAsset, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + this.getToken().token
+                Authorization: `Bearer ${this.getToken().token}`
             },
             body: formData
         });
@@ -343,7 +343,7 @@ class Asset {
             this.config.API.getCloudfrontURL(assetId, videoUrl),
             {
                 headers: {
-                    Authorization: 'Bearer ' + this.getToken().token
+                    Authorization: `Bearer ${this.getToken().token}`
                 }
             }
         );

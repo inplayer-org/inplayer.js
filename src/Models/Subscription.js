@@ -29,7 +29,7 @@ class Subscription {
             this.config.API.getSubscriptions(limit, page),
             {
                 headers: {
-                    Authorization: 'Bearer ' + this.getToken().token
+                    Authorization: `Bearer ${this.getToken().token}`
                 }
             }
         );
@@ -57,7 +57,7 @@ class Subscription {
 
         const response = await fetch(this.config.API.getSubscription(id), {
             headers: {
-                Authorization: 'Bearer ' + this.getToken().token
+                Authorization: `Bearer ${this.getToken().token}`
             }
         });
 
@@ -84,7 +84,7 @@ class Subscription {
             this.config.API.cancelSubscription(unsubscribeUrl),
             {
                 headers: {
-                    Authorization: 'Bearer ' + this.getToken().token
+                    Authorization: `Bearer ${this.getToken().token}`
                 }
             }
         );
@@ -151,7 +151,7 @@ class Subscription {
         const response = await fetch(this.config.API.subscribe, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + this.getToken().token,
+                Authorization: `Bearer ${this.getToken().token}`,
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: params(body)

@@ -25,7 +25,7 @@ class Payment {
 
         const response = await fetch(this.config.API.getPaymentMethods, {
             headers: {
-                Authorization: 'Bearer ' + this.getToken().token,
+                Authorization: `Bearer ${this.getToken().token}`,
             },
         });
 
@@ -52,7 +52,7 @@ class Payment {
             this.config.API.getPaymentTools(paymentMethodId),
             {
                 headers: {
-                    Authorization: 'Bearer ' + this.getToken().token,
+                    Authorization: `Bearer ${this.getToken().token}`,
                 },
             }
         );
@@ -119,7 +119,7 @@ class Payment {
         const response = await fetch(this.config.API.payForAsset, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + this.getToken().token,
+                Authorization: `Bearer ${this.getToken().token}`,
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: params(body),
@@ -165,7 +165,7 @@ class Payment {
         const response = await fetch(this.config.API.getPayPalParams, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + this.getToken().token,
+                Authorization: `Bearer ${this.getToken().token}`,
             },
             body: formData,
         });
@@ -195,7 +195,7 @@ class Payment {
             this.config.API.getPurchaseHistory(status, page, limit),
             {
                 headers: {
-                    Authorization: 'Bearer ' + this.getToken().token,
+                    Authorization: `Bearer ${this.getToken().token}`,
                 },
             }
         );
@@ -220,7 +220,7 @@ class Payment {
             this.config.API.getDefaultCreditCard,
             {
                 headers: {
-                    Authorization: 'Bearer ' + this.getToken().token,
+                    Authorization: `Bearer ${this.getToken().token}`,
                 },
             }
         );
@@ -272,7 +272,7 @@ class Payment {
             {
                 method: 'PUT',
                 headers: {
-                    Authorization: 'Bearer ' + this.getToken().token,
+                    Authorization: `Bearer ${this.getToken().token}`,
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: params(body),
@@ -305,7 +305,7 @@ class Payment {
             {
                 method: 'GET',
                 headers: {
-                    Authorization: 'Bearer ' + this.getToken().token,
+                    Authorization: `Bearer ${this.getToken().token}`,
                 },
             }
         );
@@ -356,7 +356,7 @@ class Payment {
             {
                 method: 'POST',
                 headers: {
-                    Authorization: 'Bearer ' + this.getToken().token,
+                    Authorization: `Bearer ${this.getToken().token}`,
                 },
                 body: params(data),
             }

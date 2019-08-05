@@ -26,7 +26,7 @@ class DLC {
 
         const response = await fetch(this.config.API.getDlcLinks(assetId), {
             headers: {
-                Authorization: 'Bearer ' + this.getToken().token
+                Authorization: `Bearer ${this.getToken().token}`
             }
         });
 

@@ -39,7 +39,7 @@ class Voucher {
         const response = await fetch(this.config.API.getDiscount, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + this.getToken().token,
+                Authorization: `Bearer ${this.getToken().token}`,
             },
             body: formData,
         });
