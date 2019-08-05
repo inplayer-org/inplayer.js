@@ -25,13 +25,11 @@ class Subscription {
     async getSubscriptions(page = 0, limit = 15) {
         checkAuthentication();
 
-        const t = this.Account.getToken();
-
         const response = await fetch(
             this.config.API.getSubscriptions(limit, page),
             {
                 headers: {
-                    Authorization: 'Bearer ' + t.token
+                    Authorization: 'Bearer ' + this.getToken().token
                 }
             }
         );
@@ -57,11 +55,9 @@ class Subscription {
     async getSubscription(id) {
         checkAuthentication();
 
-        const t = this.Account.getToken();
-
         const response = await fetch(this.config.API.getSubscription(id), {
             headers: {
-                Authorization: 'Bearer ' + t.token
+                Authorization: 'Bearer ' + this.getToken().token
             }
         });
 
@@ -84,13 +80,11 @@ class Subscription {
     async cancelSubscription(unsubscribeUrl) {
         checkAuthentication();
 
-        const t = this.Account.getToken();
-
         const response = await fetch(
             this.config.API.cancelSubscription(unsubscribeUrl),
             {
                 headers: {
-                    Authorization: 'Bearer ' + t.token
+                    Authorization: 'Bearer ' + this.getToken().token
                 }
             }
         );
@@ -138,8 +132,6 @@ class Subscription {
     async create(data = {}) {
         checkAuthentication();
 
-        const t = this.Account.getToken();
-
         let body = {
             number: data.number,
             card_name: data.cardName,
@@ -159,7 +151,7 @@ class Subscription {
         const response = await fetch(this.config.API.subscribe, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + t.token,
+                Authorization: 'Bearer ' + this.getToken().token,
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: params(body)

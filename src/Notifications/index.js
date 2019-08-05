@@ -13,11 +13,9 @@ class Notifications {
     async getIotToken() {
         checkAuthentication();
 
-        const t = this.Account.getToken();
-
         const response = await fetch(this.config.AWS_IOT_URL, {
             headers: {
-                Authorization: `Bearer ${t.token}`,
+                Authorization: `Bearer ${this.getToken().token}`,
             },
         });
 

@@ -152,11 +152,9 @@ class Account {
     async signOut() {
         checkAuthentication();
 
-        const t = this.getToken();
-
         const response = await fetch(this.config.API.signOut, {
             headers: {
-                Authorization: 'Bearer ' + t.token
+                Authorization: 'Bearer ' + this.getToken().token,
             }
         });
 
@@ -175,9 +173,7 @@ class Account {
  * @return {Boolean}
  */
     isAuthenticated() {
-        const t = this.getToken();
-
-        return !t.isExpired() && t.token !== '';
+        return !this.getToken().isExpired() && this.getToken().token !== '';
     }
 
     /** Retruns the OAuth token
@@ -375,11 +371,9 @@ class Account {
     async getAccount() {
         checkAuthentication();
 
-        const t = this.getToken();
-
         const response = await fetch(this.config.API.getAccountInfo, {
             headers: {
-                Authorization: 'Bearer ' + t.token
+                Authorization: 'Bearer ' + this.getToken().token,
             }
         });
 
@@ -423,8 +417,6 @@ class Account {
     async updateAccount(data = {}) {
         checkAuthentication();
 
-        const t = this.getToken();
-
         let body = {
             full_name: data.fullName
         };
@@ -437,7 +429,7 @@ class Account {
             method: 'PUT',
             body: params(body),
             headers: {
-                Authorization: 'Bearer ' + t.token,
+                Authorization: 'Bearer ' + this.getToken().token,
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         });
@@ -472,8 +464,6 @@ class Account {
     async changePassword(data = {}) {
         checkAuthentication();
 
-        const t = this.getToken();
-
         let body = {
             old_password: data.oldPassword,
             password: data.password,
@@ -485,7 +475,7 @@ class Account {
             method: 'POST',
             body: params(body),
             headers: {
-                Authorization: 'Bearer ' + t.token,
+                Authorization: 'Bearer ' + this.getToken().token,
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         });
@@ -536,8 +526,6 @@ class Account {
     async deleteAccount(data) {
         checkAuthentication();
 
-        const t = this.getToken();
-
         let body = {
             password: data.password,
             branding_id: data.brandingId
@@ -546,7 +534,7 @@ class Account {
         const response = await fetch(this.config.API.deleteAccount, {
             method: 'DELETE',
             headers: {
-                Authorization: 'Bearer ' + t.token,
+                Authorization: 'Bearer ' + this.getToken().token,
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: params(body)
@@ -583,8 +571,6 @@ class Account {
     async exportData(data) {
         checkAuthentication();
 
-        const t = this.getToken();
-
         let body = {
             password: data.password,
             branding_id: data.brandingId
@@ -593,7 +579,7 @@ class Account {
         const response = await fetch(this.config.API.exportData, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + t.token,
+                Authorization: 'Bearer ' + this.getToken().token,
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: params(body)

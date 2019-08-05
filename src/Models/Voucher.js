@@ -31,8 +31,6 @@ class Voucher {
     async getDiscount(data = {}) {
         checkAuthentication();
 
-        const t = this.Account.getToken();
-
         const formData = new FormData();
 
         formData.append('access_fee_id', data.accessFeeId);
@@ -41,7 +39,7 @@ class Voucher {
         const response = await fetch(this.config.API.getDiscount, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + t.token,
+                Authorization: 'Bearer ' + this.getToken().token,
             },
             body: formData,
         });

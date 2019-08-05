@@ -23,11 +23,9 @@ class Payment {
     async getPaymentMethods() {
         checkAuthentication();
 
-        const t = this.Account.getToken();
-
         const response = await fetch(this.config.API.getPaymentMethods, {
             headers: {
-                Authorization: 'Bearer ' + t.token,
+                Authorization: 'Bearer ' + this.getToken().token,
             },
         });
 
@@ -50,13 +48,11 @@ class Payment {
     async getPaymentTools(paymentMethodId) {
         checkAuthentication();
 
-        const t = this.Account.getToken();
-
         const response = await fetch(
             this.config.API.getPaymentTools(paymentMethodId),
             {
                 headers: {
-                    Authorization: 'Bearer ' + t.token,
+                    Authorization: 'Bearer ' + this.getToken().token,
                 },
             }
         );
@@ -104,8 +100,6 @@ class Payment {
     async create(data = {}) {
         checkAuthentication();
 
-        const t = this.Account.getToken();
-
         let body = {
             number: data.number,
             card_name: data.cardName,
@@ -125,7 +119,7 @@ class Payment {
         const response = await fetch(this.config.API.payForAsset, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + t.token,
+                Authorization: 'Bearer ' + this.getToken().token,
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: params(body),
@@ -159,8 +153,6 @@ class Payment {
     async getPayPalParams(data = {}) {
         checkAuthentication();
 
-        const t = this.Account.getToken();
-
         const formData = new FormData();
 
         formData.append('origin', data.origin);
@@ -173,7 +165,7 @@ class Payment {
         const response = await fetch(this.config.API.getPayPalParams, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + t.token,
+                Authorization: 'Bearer ' + this.getToken().token,
             },
             body: formData,
         });
@@ -199,13 +191,11 @@ class Payment {
     async getPurchaseHistory(status = 'active', page, limit) {
         checkAuthentication();
 
-        const t = this.Account.getToken();
-
         const response = await fetch(
             this.config.API.getPurchaseHistory(status, page, limit),
             {
                 headers: {
-                    Authorization: 'Bearer ' + t.token,
+                    Authorization: 'Bearer ' + this.getToken().token,
                 },
             }
         );
@@ -226,13 +216,11 @@ class Payment {
     async getDefaultCreditCard() {
         checkAuthentication();
 
-        const t = this.Account.getToken();
-
         const response = await fetch(
             this.config.API.getDefaultCreditCard,
             {
                 headers: {
-                    Authorization: 'Bearer ' + t.token,
+                    Authorization: 'Bearer ' + this.getToken().token,
                 },
             }
         );
@@ -270,8 +258,6 @@ class Payment {
     async setDefaultCreditCard(data = {}) {
         checkAuthentication();
 
-        const t = this.Account.getToken();
-
         const body = {
             number: data.cardNumber,
             card_name: data.cardName,
@@ -286,7 +272,7 @@ class Payment {
             {
                 method: 'PUT',
                 headers: {
-                    Authorization: 'Bearer ' + t.token,
+                    Authorization: 'Bearer ' + this.getToken().token,
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: params(body),
@@ -314,14 +300,12 @@ class Payment {
     async getDirectDebitMandate() {
         checkAuthentication();
 
-        const t = this.Account.getToken();
-
         const response = await fetch(
             this.config.API.getDirectDebitMandate,
             {
                 method: 'GET',
                 headers: {
-                    Authorization: 'Bearer ' + t.token,
+                    Authorization: 'Bearer ' + this.getToken().token,
                 },
             }
         );
@@ -367,14 +351,12 @@ class Payment {
     async createDirectDebitMandate(data = {}) {
         checkAuthentication();
 
-        const t = this.Account.getToken();
-
         const response = await fetch(
             this.config.API.createDirectDebitMandate,
             {
                 method: 'POST',
                 headers: {
-                    Authorization: 'Bearer ' + t.token,
+                    Authorization: 'Bearer ' + this.getToken().token,
                 },
                 body: params(data),
             }
