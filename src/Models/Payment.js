@@ -362,6 +362,64 @@ class Payment {
 
         return await response.json();
     }
+
+    /**
+  * Create direct debit mandate for customer
+  * @method createDirectDebitMandate
+  * @async
+  * @param {Object} data - Contains the data - {
+     *  name: {string},
+     *  iban: {string},
+  * }
+  * @example
+  *     InPlayer.Payment
+  *     .createDirectDebitMandate({name, iban})
+  *     .then(data => console.log(data));
+  * @return {Object} Contains the data - {
+   *   "id": "src_1F2GzxJqmvwo8uTaJnRVkgYS",
+   *   "amount": 12,
+   *   "currency": "eur",
+   *   "created": 1564576421,
+   *   "client_secret": "src_client_secret_FXLhLpWGLiupZtUlPStd3jLo",
+   *   "owner": "John",
+   *   "full_name": "Bret Johannes",
+   *   "statement_descriptor": "InPlayer",
+   *   "status": "chargeable",
+   *   type_data: {
+   *    "bank_code": 37040044,
+   *    "branch_code": 111000000,
+   *    "country": "DE",
+   *    "fingerprint": "wGjUgpjH1Rj4NtBf",
+   *    "last4": 3000,
+   *    "mandate_reference": "8OC5CIAXSF2UKON4",
+   *    "mandate_url": "https://hooks.stripe.com/adapter/sepa_debit/file/src_1F2Jqmvwo8DwAwwqraJnRVkgYS"
+   *    }
+   *  }
+*/
+    async createDirectDebitMandate(data = {}) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated',
+            });
+        }
+        const t = this.Account.getToken();
+
+        const response = await fetch(
+            this.config.API.createDirectDebitMandate,
+            {
+                method: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + t.token,
+                },
+                body: params(data),
+            }
+        );
+
+        checkStatus(response);
+
+        return await response.json();
+    }
 }
 
 export default Payment;
