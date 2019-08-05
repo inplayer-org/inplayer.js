@@ -5,7 +5,9 @@ describe('Voucher', function () {
     InPlayer.setConfig('develop');
 
     let secret = process.env.CLIENT_SECRET;
+
     let voucher = InPlayer.Voucher;
+
     let user = InPlayer.Account;
 
     before(() => {

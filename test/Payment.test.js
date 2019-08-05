@@ -4,9 +4,11 @@ import InPlayer from '../src';
 describe('Payment', function () {
     InPlayer.setConfig('develop');
 
-    let secret = process.env.CLIENT_SECRET;
-    let payment = InPlayer.Payment;
-    let user = InPlayer.Account;
+    const secret = process.env.CLIENT_SECRET;
+
+    const payment = InPlayer.Payment;
+
+    const user = InPlayer.Account;
 
     before(() => {
         async () =>
@@ -58,4 +60,15 @@ describe('Payment', function () {
             }
         });
     });
+
+    describe('#getDirectDebitMandate()', function () {
+        it('should return object', async () => {
+            const result = await payment.getDirectDebitMandate();
+
+            console.log(result);
+
+            expect(result).to.be.a('Object');
+        });
+    });
+
 });
