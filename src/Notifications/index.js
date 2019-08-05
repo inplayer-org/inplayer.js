@@ -1,5 +1,5 @@
 import awsIot from 'aws-iot-device-sdk';
-import { checkStatus, errorResponse } from '../Utils';
+import { checkStatus, checkAuthentication } from '../Utils';
 
 const ONE_HOUR = 60 * 60 * 1000;
 
@@ -11,12 +11,8 @@ class Notifications {
     }
 
     async getIotToken() {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated',
-            });
-        }
+        checkAuthentication();
+
         const t = this.Account.getToken();
 
         const response = await fetch(this.config.AWS_IOT_URL, {

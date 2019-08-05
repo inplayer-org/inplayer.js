@@ -1,4 +1,4 @@
-import { checkStatus, errorResponse, params } from '../Utils';
+import { checkAuthentication, checkStatus, params } from '../Utils';
 
 /**
  * Contains all Requests connected with subscriptions
@@ -23,12 +23,8 @@ class Subscription {
    * @return {Object}
    */
     async getSubscriptions(page = 0, limit = 15) {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated'
-            });
-        }
+        checkAuthentication();
+
         const t = this.Account.getToken();
 
         const response = await fetch(
@@ -59,12 +55,8 @@ class Subscription {
    * @return {Object}
    */
     async getSubscription(id) {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated'
-            });
-        }
+        checkAuthentication();
+
         const t = this.Account.getToken();
 
         const response = await fetch(this.config.API.getSubscription(id), {
@@ -90,12 +82,8 @@ class Subscription {
    * @return {Object}
    */
     async cancelSubscription(unsubscribeUrl) {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated'
-            });
-        }
+        checkAuthentication();
+
         const t = this.Account.getToken();
 
         const response = await fetch(
@@ -148,12 +136,7 @@ class Subscription {
    * @return {Object}
    */
     async create(data = {}) {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated'
-            });
-        }
+        checkAuthentication();
 
         const t = this.Account.getToken();
 

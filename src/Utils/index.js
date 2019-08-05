@@ -80,3 +80,12 @@ export const params = a => {
     output = s.join('&').replace(r20, '+');
     return output;
 };
+
+export const checkAuthentication = () => {
+    if (!this.Account.isAuthenticated()) {
+        errorResponse(401, {
+            code: 401,
+            message: 'User is not authenticated',
+        });
+    }
+};

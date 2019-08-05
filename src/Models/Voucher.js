@@ -1,4 +1,4 @@
-import { checkStatus, errorResponse } from '../Utils';
+import { checkAuthentication, checkStatus } from '../Utils';
 
 /**
  * Contains all Requests regarding vouchers.
@@ -29,12 +29,8 @@ class Voucher {
      * @return {Object}
      */
     async getDiscount(data = {}) {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated',
-            });
-        }
+        checkAuthentication();
+
         const t = this.Account.getToken();
 
         const formData = new FormData();

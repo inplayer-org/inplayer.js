@@ -1,4 +1,4 @@
-import { checkStatus, errorResponse, params } from '../Utils';
+import { checkAuthentication, checkStatus, params } from '../Utils';
 
 /**
  * Contains all Requests connected with payments
@@ -21,12 +21,8 @@ class Payment {
      * @return {Object}
      */
     async getPaymentMethods() {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated',
-            });
-        }
+        checkAuthentication();
+
         const t = this.Account.getToken();
 
         const response = await fetch(this.config.API.getPaymentMethods, {
@@ -52,12 +48,8 @@ class Payment {
      * @return {Object}
      */
     async getPaymentTools(paymentMethodId) {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated',
-            });
-        }
+        checkAuthentication();
+
         const t = this.Account.getToken();
 
         const response = await fetch(
@@ -110,12 +102,8 @@ class Payment {
      * @return {Object}
      */
     async create(data = {}) {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated',
-            });
-        }
+        checkAuthentication();
+
         const t = this.Account.getToken();
 
         let body = {
@@ -169,12 +157,8 @@ class Payment {
      * @return {Object}
      */
     async getPayPalParams(data = {}) {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated',
-            });
-        }
+        checkAuthentication();
+
         const t = this.Account.getToken();
 
         const formData = new FormData();
@@ -213,12 +197,8 @@ class Payment {
      * @return {Object}
      */
     async getPurchaseHistory(status = 'active', page, limit) {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated',
-            });
-        }
+        checkAuthentication();
+
         const t = this.Account.getToken();
 
         const response = await fetch(
@@ -244,12 +224,8 @@ class Payment {
      * @return {Object}
      */
     async getDefaultCreditCard() {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated',
-            });
-        }
+        checkAuthentication();
+
         const t = this.Account.getToken();
 
         const response = await fetch(
@@ -292,12 +268,8 @@ class Payment {
      * @return {Object}
      */
     async setDefaultCreditCard(data = {}) {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated',
-            });
-        }
+        checkAuthentication();
+
         const t = this.Account.getToken();
 
         const body = {
@@ -340,12 +312,8 @@ class Payment {
      * }
    */
     async getDirectDebitMandate() {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated',
-            });
-        }
+        checkAuthentication();
+
         const t = this.Account.getToken();
 
         const response = await fetch(
@@ -397,12 +365,8 @@ class Payment {
    *  }
 */
     async createDirectDebitMandate(data = {}) {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated',
-            });
-        }
+        checkAuthentication();
+
         const t = this.Account.getToken();
 
         const response = await fetch(
