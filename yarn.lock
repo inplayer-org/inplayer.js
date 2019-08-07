@@ -3414,9 +3414,9 @@ form-data@~2.3.2:
     mime-types "^2.1.12"
 
 formdata-polyfill@^3.0.15:
-  version "3.0.18"
-  resolved "https://registry.yarnpkg.com/formdata-polyfill/-/formdata-polyfill-3.0.18.tgz#e94916610328db1f6796860a0a78b2e7b937889e"
-  integrity sha512-qydEiPA/DWm1reRCfBJyFHs/wQhjvjoQjN8P/FatoaZJ+Efc/1kVwrHPR7Ek+BuIGINr26mHXT9KpR5WYmWZww==
+  version "3.0.19"
+  resolved "https://registry.yarnpkg.com/formdata-polyfill/-/formdata-polyfill-3.0.19.tgz#72f517db3a646a5dd8c31af0edf111fd8f1e4cee"
+  integrity sha512-nRSp8nniopIOCLZOUE2omwnUvmRH6VEdKm52rLTne8XBsW7hMMBUiOjuxUPoBsiK0CatKmxArh+Svt2s7R66JQ==
 
 forwarded@~0.1.2:
   version "0.1.2"
@@ -4821,7 +4821,7 @@ lodash.sortby@^4.7.0:
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
   integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
 
-lodash@^4.1.0, lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.4:
+lodash@^4.1.0, lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.4:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
