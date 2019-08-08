@@ -1,6 +1,6 @@
 import Fingerprint2 from 'fingerprintjs2';
 import reduce from 'lodash/reduce';
-import { checkStatus, checkAuthentication } from '../Utils';
+import { checkStatus, errorResponse } from '../Utils';
 
 /**
  * Contains all Requests connected with assets/items
@@ -24,7 +24,12 @@ class Asset {
    * @return {Object}
    */
     async checkAccessForAsset(id) {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         const response = await fetch(this.config.API.checkAccessForAsset(id), {
             headers: {
@@ -49,7 +54,12 @@ class Asset {
    * @return {Object}
    */
     async isFreeTrialUsed(id) {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         const response = await fetch(this.config.API.checkFreeTrial(id), {
             headers: {
@@ -165,7 +175,12 @@ class Asset {
         startDate = null,
         endDate = null
     ) {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         const response = await fetch(
             this.config.API.getAssetsHistory(size, page, startDate, endDate),
@@ -193,7 +208,12 @@ class Asset {
    * @return {Object}
    */
     async getFreemiumAsset(accessFeeId) {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         const formData = new FormData();
 

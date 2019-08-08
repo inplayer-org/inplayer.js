@@ -1,4 +1,4 @@
-import { checkAuthentication, checkStatus, params } from '../Utils';
+import { errorResponse, checkStatus, params } from '../Utils';
 
 /**
  * Contains all Requests connected with payments
@@ -21,7 +21,12 @@ class Payment {
      * @return {Object}
      */
     async getPaymentMethods() {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         const response = await fetch(this.config.API.getPaymentMethods, {
             headers: {
@@ -46,7 +51,12 @@ class Payment {
      * @return {Object}
      */
     async getPaymentTools(paymentMethodId) {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         const response = await fetch(
             this.config.API.getPaymentTools(paymentMethodId),
@@ -98,7 +108,12 @@ class Payment {
      * @return {Object}
      */
     async create(data = {}) {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         let body = {
             number: data.number,
@@ -151,7 +166,12 @@ class Payment {
      * @return {Object}
      */
     async getPayPalParams(data = {}) {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         const formData = new FormData();
 
@@ -189,7 +209,12 @@ class Payment {
      * @return {Object}
      */
     async getPurchaseHistory(status = 'active', page, limit) {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         const response = await fetch(
             this.config.API.getPurchaseHistory(status, page, limit),
@@ -214,7 +239,12 @@ class Payment {
      * @return {Object}
      */
     async getDefaultCreditCard() {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         const response = await fetch(
             this.config.API.getDefaultCreditCard,
@@ -256,7 +286,12 @@ class Payment {
      * @return {Object}
      */
     async setDefaultCreditCard(data = {}) {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         const body = {
             number: data.cardNumber,
@@ -307,7 +342,12 @@ class Payment {
      * }
    */
     async getDirectDebitMandate() {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         console.error('Yolooooooo!!!!');
 
@@ -361,7 +401,12 @@ class Payment {
    *  }
 */
     async createDirectDebitMandate(data = {}) {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         const response = await fetch(
             this.config.API.createDirectDebitMandate,
@@ -398,7 +443,12 @@ class Payment {
 *  }
 */
     async directDebitCharge(data = {}) {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         const body = {
             access_fee_id: data.accessFeeId,

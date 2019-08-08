@@ -1,4 +1,4 @@
-import { checkStatus, params, checkAuthentication, errorResponse } from '../Utils';
+import { checkStatus, params, errorResponse } from '../Utils';
 import Credentials from '../Credentials';
 
 /**
@@ -150,7 +150,12 @@ class Account {
  * @return {Object}
  */
     async signOut() {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         const response = await fetch(this.config.API.signOut, {
             headers: {
@@ -369,7 +374,12 @@ class Account {
  * @return {Object}
  */
     async getAccount() {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         const response = await fetch(this.config.API.getAccountInfo, {
             headers: {
@@ -415,7 +425,12 @@ class Account {
  * @return {Object}
  */
     async updateAccount(data = {}) {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         let body = {
             full_name: data.fullName
@@ -462,7 +477,12 @@ class Account {
  * @return {Object}
  */
     async changePassword(data = {}) {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         let body = {
             old_password: data.oldPassword,
@@ -524,7 +544,12 @@ class Account {
  */
 
     async deleteAccount(data) {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         let body = {
             password: data.password,
@@ -569,7 +594,12 @@ class Account {
  */
 
     async exportData(data) {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         let body = {
             password: data.password,

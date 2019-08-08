@@ -1,4 +1,4 @@
-import { checkStatus, checkAuthentication } from '../Utils';
+import { checkStatus, errorResponse } from '../Utils';
 
 /**
  * Contains mixed various types of function for dlcs, discounts, branding, etc.
@@ -22,7 +22,12 @@ class DLC {
    * @return {Object}
    */
     async getDlcLinks(assetId) {
-        checkAuthentication();
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
 
         const response = await fetch(this.config.API.getDlcLinks(assetId), {
             headers: {
