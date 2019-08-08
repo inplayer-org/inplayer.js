@@ -295,10 +295,21 @@ class Payment {
      * @return {Object} Contains the data - {
      *  is_approved: {boolean},
      *  statement_descriptor: {string},
+     *  mandate: {
+     *    "bank_code": 37040044,
+     *    "branch_code": 111000000,
+     *    "country": "DE",
+     *    "fingerprint": "wGjUgpjH1Rj4NtBf",
+     *    "last4": 3000,
+     *    "mandate_reference": "8OC5CIAXSF2UKON4",
+     *    "mandate_url": "https://hooks.stripe.com/adapter/sepa_debit/file/src_1F2Jqmvwo8DwAwwqraJnRVkgYS"
+     *    }
      * }
    */
     async getDirectDebitMandate() {
         checkAuthentication();
+
+        console.error('Yolooooooo!!!!');
 
         const response = await fetch(
             this.config.API.getDirectDebitMandate,
@@ -311,6 +322,8 @@ class Payment {
         );
 
         checkStatus(response);
+
+        console.error(response);
 
         return await response.json();
     }
@@ -329,7 +342,6 @@ class Payment {
   *     .then(data => console.log(data));
   * @return {Object} Contains the data - {
    *   "id": "src_1F2GzxJqmvwo8uTaJnRVkgYS",
-   *   "amount": 12,
    *   "currency": "eur",
    *   "created": 1564576421,
    *   "client_secret": "src_client_secret_FXLhLpWGLiupZtUlPStd3jLo",

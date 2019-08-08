@@ -170,11 +170,19 @@ export interface DirectDebitChargeResponse {
 export interface DirectDebitMandateResponse {
   is_approved: boolean;
   statement_descriptor: string;
+  mandate: {
+    bank_code: number,
+    branch_code: number,
+    country: string,
+    fingerprint: string,
+    last4: number,
+    mandate_reference: string,
+    mandate_url: string
+  }
 }
 
 export interface CreateDirectDebitResponse {
   id: string,
-  amount: number,
   currency: string,
   created: number,
   client_secret: string,
