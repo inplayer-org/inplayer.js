@@ -24,7 +24,7 @@ class Asset {
    * @return {Object}
    */
     async checkAccessForAsset(id) {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -33,7 +33,7 @@ class Asset {
 
         const response = await fetch(this.config.API.checkAccessForAsset(id), {
             headers: {
-                Authorization: `Bearer ${this.getToken().token}`
+                Authorization: `Bearer ${this.Account.getToken().token}`
             }
         });
 
@@ -54,7 +54,7 @@ class Asset {
    * @return {Object}
    */
     async isFreeTrialUsed(id) {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -63,7 +63,7 @@ class Asset {
 
         const response = await fetch(this.config.API.checkFreeTrial(id), {
             headers: {
-                Authorization: `Bearer ${this.getToken().token}`
+                Authorization: `Bearer ${this.Account.getToken().token}`
             }
         });
 
@@ -175,7 +175,7 @@ class Asset {
         startDate = null,
         endDate = null
     ) {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -186,7 +186,7 @@ class Asset {
             this.config.API.getAssetsHistory(size, page, startDate, endDate),
             {
                 headers: {
-                    Authorization: `Bearer ${this.getToken().token}`
+                    Authorization: `Bearer ${this.Account.getToken().token}`
                 }
             }
         );
@@ -208,7 +208,7 @@ class Asset {
    * @return {Object}
    */
     async getFreemiumAsset(accessFeeId) {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -222,7 +222,7 @@ class Asset {
         const response = await fetch(this.config.API.getFreemiumAsset, {
             method: 'POST',
             headers: {
-                Authorization: `Bearer ${this.getToken().token}`
+                Authorization: `Bearer ${this.Account.getToken().token}`
             },
             body: formData
         });
@@ -363,7 +363,7 @@ class Asset {
             this.config.API.getCloudfrontURL(assetId, videoUrl),
             {
                 headers: {
-                    Authorization: `Bearer ${this.getToken().token}`
+                    Authorization: `Bearer ${this.Account.getToken().token}`
                 }
             }
         );

@@ -22,7 +22,7 @@ class DLC {
    * @return {Object}
    */
     async getDlcLinks(assetId) {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -31,7 +31,7 @@ class DLC {
 
         const response = await fetch(this.config.API.getDlcLinks(assetId), {
             headers: {
-                Authorization: `Bearer ${this.getToken().token}`
+                Authorization: `Bearer ${this.Account.getToken().token}`
             }
         });
 

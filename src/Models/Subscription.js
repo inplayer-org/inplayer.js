@@ -23,7 +23,7 @@ class Subscription {
    * @return {Object}
    */
     async getSubscriptions(page = 0, limit = 15) {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -34,7 +34,7 @@ class Subscription {
             this.config.API.getSubscriptions(limit, page),
             {
                 headers: {
-                    Authorization: `Bearer ${this.getToken().token}`
+                    Authorization: `Bearer ${this.Account.getToken().token}`
                 }
             }
         );
@@ -58,7 +58,7 @@ class Subscription {
    * @return {Object}
    */
     async getSubscription(id) {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -67,7 +67,7 @@ class Subscription {
 
         const response = await fetch(this.config.API.getSubscription(id), {
             headers: {
-                Authorization: `Bearer ${this.getToken().token}`
+                Authorization: `Bearer ${this.Account.getToken().token}`
             }
         });
 
@@ -88,7 +88,7 @@ class Subscription {
    * @return {Object}
    */
     async cancelSubscription(unsubscribeUrl) {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -99,7 +99,7 @@ class Subscription {
             this.config.API.cancelSubscription(unsubscribeUrl),
             {
                 headers: {
-                    Authorization: `Bearer ${this.getToken().token}`
+                    Authorization: `Bearer ${this.Account.getToken().token}`
                 }
             }
         );
@@ -145,7 +145,7 @@ class Subscription {
    * @return {Object}
    */
     async create(data = {}) {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -171,7 +171,7 @@ class Subscription {
         const response = await fetch(this.config.API.subscribe, {
             method: 'POST',
             headers: {
-                Authorization: `Bearer ${this.getToken().token}`,
+                Authorization: `Bearer ${this.Account.getToken().token}`,
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: params(body)

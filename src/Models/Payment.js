@@ -21,7 +21,7 @@ class Payment {
      * @return {Object}
      */
     async getPaymentMethods() {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -30,7 +30,7 @@ class Payment {
 
         const response = await fetch(this.config.API.getPaymentMethods, {
             headers: {
-                Authorization: `Bearer ${this.getToken().token}`,
+                Authorization: `Bearer ${this.Account.getToken().token}`,
             },
         });
 
@@ -51,7 +51,7 @@ class Payment {
      * @return {Object}
      */
     async getPaymentTools(paymentMethodId) {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -62,7 +62,7 @@ class Payment {
             this.config.API.getPaymentTools(paymentMethodId),
             {
                 headers: {
-                    Authorization: `Bearer ${this.getToken().token}`,
+                    Authorization: `Bearer ${this.Account.getToken().token}`,
                 },
             }
         );
@@ -108,7 +108,7 @@ class Payment {
      * @return {Object}
      */
     async create(data = {}) {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -134,7 +134,7 @@ class Payment {
         const response = await fetch(this.config.API.payForAsset, {
             method: 'POST',
             headers: {
-                Authorization: `Bearer ${this.getToken().token}`,
+                Authorization: `Bearer ${this.Account.getToken().token}`,
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: params(body),
@@ -166,7 +166,7 @@ class Payment {
      * @return {Object}
      */
     async getPayPalParams(data = {}) {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -185,7 +185,7 @@ class Payment {
         const response = await fetch(this.config.API.getPayPalParams, {
             method: 'POST',
             headers: {
-                Authorization: `Bearer ${this.getToken().token}`,
+                Authorization: `Bearer ${this.Account.getToken().token}`,
             },
             body: formData,
         });
@@ -209,7 +209,7 @@ class Payment {
      * @return {Object}
      */
     async getPurchaseHistory(status = 'active', page, limit) {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -220,7 +220,7 @@ class Payment {
             this.config.API.getPurchaseHistory(status, page, limit),
             {
                 headers: {
-                    Authorization: `Bearer ${this.getToken().token}`,
+                    Authorization: `Bearer ${this.Account.getToken().token}`,
                 },
             }
         );
@@ -239,7 +239,7 @@ class Payment {
      * @return {Object}
      */
     async getDefaultCreditCard() {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -250,7 +250,7 @@ class Payment {
             this.config.API.getDefaultCreditCard,
             {
                 headers: {
-                    Authorization: `Bearer ${this.getToken().token}`,
+                    Authorization: `Bearer ${this.Account.getToken().token}`,
                 },
             }
         );
@@ -286,7 +286,7 @@ class Payment {
      * @return {Object}
      */
     async setDefaultCreditCard(data = {}) {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -307,7 +307,7 @@ class Payment {
             {
                 method: 'PUT',
                 headers: {
-                    Authorization: `Bearer ${this.getToken().token}`,
+                    Authorization: `Bearer ${this.Account.getToken().token}`,
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: params(body),
@@ -342,7 +342,7 @@ class Payment {
      * }
    */
     async getDirectDebitMandate() {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -356,7 +356,7 @@ class Payment {
             {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${this.getToken().token}`,
+                    Authorization: `Bearer ${this.Account.getToken().token}`,
                 },
             }
         );
@@ -401,7 +401,7 @@ class Payment {
    *  }
 */
     async createDirectDebitMandate(data = {}) {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -413,7 +413,7 @@ class Payment {
             {
                 method: 'POST',
                 headers: {
-                    Authorization: `Bearer ${this.getToken().token}`,
+                    Authorization: `Bearer ${this.Account.getToken().token}`,
                 },
                 body: params(data),
             }
@@ -443,7 +443,7 @@ class Payment {
 *  }
 */
     async directDebitCharge(data = {}) {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -460,7 +460,7 @@ class Payment {
             {
                 method: 'POST',
                 headers: {
-                    Authorization: `Bearer ${this.getToken().token}`,
+                    Authorization: `Bearer ${this.Account.getToken().token}`,
                 },
                 body: params(body),
             }

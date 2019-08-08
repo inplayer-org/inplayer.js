@@ -29,7 +29,7 @@ class Voucher {
      * @return {Object}
      */
     async getDiscount(data = {}) {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
@@ -44,7 +44,7 @@ class Voucher {
         const response = await fetch(this.config.API.getDiscount, {
             method: 'POST',
             headers: {
-                Authorization: `Bearer ${this.getToken().token}`,
+                Authorization: `Bearer ${this.Account.getToken().token}`,
             },
             body: formData,
         });

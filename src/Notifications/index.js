@@ -20,7 +20,7 @@ class Notifications {
 
         const response = await fetch(this.config.AWS_IOT_URL, {
             headers: {
-                Authorization: `Bearer ${this.getToken().token}`,
+                Authorization: `Bearer ${this.Account.getToken().token}`,
             },
         });
 

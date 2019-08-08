@@ -159,7 +159,7 @@ class Account {
 
         const response = await fetch(this.config.API.signOut, {
             headers: {
-                Authorization: `Bearer ${this.getToken().token}`
+                Authorization: `Bearer ${this.Account.getToken().token}`
             }
         });
 
@@ -383,7 +383,7 @@ class Account {
 
         const response = await fetch(this.config.API.getAccountInfo, {
             headers: {
-                Authorization: `Bearer ${this.getToken().token}`
+                Authorization: `Bearer ${this.Account.getToken().token}`
             }
         });
 
@@ -444,7 +444,7 @@ class Account {
             method: 'PUT',
             body: params(body),
             headers: {
-                Authorization: `Bearer ${this.getToken().token}`,
+                Authorization: `Bearer ${this.Account.getToken().token}`,
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         });
@@ -495,7 +495,7 @@ class Account {
             method: 'POST',
             body: params(body),
             headers: {
-                Authorization: `Bearer ${this.getToken().token}`,
+                Authorization: `Bearer ${this.Account.getToken().token}`,
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         });
@@ -559,7 +559,7 @@ class Account {
         const response = await fetch(this.config.API.deleteAccount, {
             method: 'DELETE',
             headers: {
-                Authorization: `Bearer ${this.getToken().token}`,
+                Authorization: `Bearer ${this.Account.getToken().token}`,
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: params(body)
@@ -609,7 +609,7 @@ class Account {
         const response = await fetch(this.config.API.exportData, {
             method: 'POST',
             headers: {
-                Authorization: `Bearer ${this.getToken().token}`,
+                Authorization: `Bearer ${this.Account.getToken().token}`,
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: params(body)
