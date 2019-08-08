@@ -366,6 +366,48 @@ class Payment {
 
         return await response.json();
     }
+
+    /**
+* Process a request for direct debit SEPA charge
+* @method directDebitCharge
+* @async
+* @param {Object} data - Contains the data - {
+*  name: {string},
+*  iban: {string},
+* }
+* @example
+*     InPlayer.Payment
+*     .directDebitCharge({name, iban})
+*     .then(data => console.log(data));
+* @return {Object} Contains the data - {
+*       accessFeeId: "1F2GzxJqmvwo8uTaJnRVkgYS",
+*       voucherCode?: 12,
+*    }
+*  }
+*/
+    async directDebitCharge(data = {}) {
+        checkAuthentication();
+
+        const body = {
+            access_fee_id: data.accessFeeId,
+            voucher_code: data.voucherCode,
+        };
+
+        const response = await fetch(
+            this.config.API.directDebitCharge,
+            {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${this.getToken().token}`,
+                },
+                body: params(body),
+            }
+        );
+
+        checkStatus(response);
+
+        return await response.json();
+    }
 }
 
 export default Payment;
