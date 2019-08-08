@@ -70,6 +70,7 @@ export const API = config => {
         setDefaultCreditCard: `${config.BASE_URL}/v2/payments/cards/default`,
         getDirectDebitMandate: `${config.BASE_URL}/v2/payments/direct-debit/mandate`,
         createDirectDebitMandate: `${config.BASE_URL}/v2/payments/direct-debit/mandate`,
+        directDebitCharge: `${config.BASE_URL}/v2/payments/direct-debit`,
         // Subscriptions
         getSubscriptions: (limit, page) =>
             `${config.BASE_URL}/subscriptions?limit=${limit}&page=${page}`,
