@@ -408,6 +408,11 @@ class Payment {
             });
         }
 
+        const formData = new FormData();
+
+        formData.append('name', data.name);
+        formData.append('iban', data.iban);
+
         const response = await fetch(
             this.config.API.createDirectDebitMandate,
             {
@@ -415,7 +420,7 @@ class Payment {
                 headers: {
                     Authorization: `Bearer ${this.Account.getToken().token}`,
                 },
-                body: params(data),
+                body: formData,
             }
         );
 
@@ -442,7 +447,7 @@ class Payment {
 *    }
 *  }
 */
-    async directDebitCharge(data = {}) {
+    async directDebitCharge({ accessFeeId, voucherCode = '' }) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -451,8 +456,8 @@ class Payment {
         }
 
         const body = {
-            access_fee_id: data.accessFeeId,
-            voucher_code: data.voucherCode,
+            access_fee_id: accessFeeId,
+            voucher_code: voucherCode,
         };
 
         const response = await fetch(
