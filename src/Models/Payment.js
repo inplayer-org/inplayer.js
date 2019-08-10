@@ -430,13 +430,13 @@ class Payment {
 * @method directDebitCharge
 * @async
 * @param {Object} data - Contains the data - {
-*  itemId: {string},
+*  assetId: {string},
 *  accessFeeId: {string},
 *  voucherCode: {string},
 * }
 * @example
 *     InPlayer.Payment
-*     .directDebitCharge({ itemId, accessFeeId, voucherCode })
+*     .directDebitCharge({ assetId, accessFeeId, voucherCode })
 *     .then(data => console.log(data));
 * @return {Object} Contains the data - {
 *       code: '200',
@@ -444,7 +444,7 @@ class Payment {
 *    }
 *
 */
-    async directDebitCharge({ itemId: item_id, accessFeeId: access_fee_id, voucherCode: voucher_code = '' }) {
+    async directDebitCharge({ assetIds: item_id, accessFeeId: access_fee_id, voucherCode: voucher_code = '' }) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -479,13 +479,13 @@ class Payment {
 * @method directDebitSubscribe
 * @async
 * @param {Object} data - Contains the data - {
-*  itemId: {string},
+*  assetId: {string},
 *  accessFeeId: {string},
 *  voucherCode: {string},
 * }
 * @example
 *     InPlayer.Payment
-*     .directDebitSubscribe({itemId, accessFeeId, voucherCode})
+*     .directDebitSubscribe({ assetId, accessFeeId, voucherCode })
 *     .then(data => console.log(data));
 * @return {Object} Contains the data - {
 *       code: '200',
@@ -494,7 +494,7 @@ class Payment {
 *  }
 */
 
-    async directDebitSubscribe({ itemId: item_id, accessFeeId: access_fee_id, voucherCode: voucher_code = '' }) {
+    async directDebitSubscribe({ assetId: item_id, accessFeeId: access_fee_id, voucherCode: voucher_code = '' }) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
