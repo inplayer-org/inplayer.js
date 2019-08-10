@@ -444,7 +444,7 @@ class Payment {
 *    }
 *
 */
-    async directDebitCharge({ assetIds: item_id, accessFeeId: access_fee_id, voucherCode: voucher_code = '' }) {
+    async directDebitCharge({ assetId: item_id, accessFeeId: access_fee_id, voucherCode: voucher_code = '' }) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -465,7 +465,7 @@ class Payment {
                     Authorization: `Bearer ${this.Account.getToken().token}`,
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: params({ access_fee_id, voucher_code}),
+                body: params({ item_id, access_fee_id, voucher_code}),
             }
         );
 
