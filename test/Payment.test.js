@@ -60,15 +60,4 @@ describe('Payment', function () {
             }
         });
     });
-
-    describe('#getDirectDebitMandate()', function () {
-        it('should return object', async () => {
-            const result = await payment.getDirectDebitMandate();
-
-            console.log(result);
-
-            expect(result).to.be.a('Object');
-        });
-    });
-
 });
