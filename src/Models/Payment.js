@@ -430,20 +430,21 @@ class Payment {
 * @method directDebitCharge
 * @async
 * @param {Object} data - Contains the data - {
+*  itemId: {string},
 *  accessFeeId: {string},
 *  voucherCode: {string},
 * }
 * @example
 *     InPlayer.Payment
-*     .directDebitCharge({name, iban})
+*     .directDebitCharge({ itemId, accessFeeId, voucherCode })
 *     .then(data => console.log(data));
 * @return {Object} Contains the data - {
 *       code: '200',
 *       message: "Submitted for payment",
 *    }
-*  }
+*
 */
-    async directDebitCharge({ accessFeeId: access_fee_id, voucherCode: voucher_code = '' }) {
+    async directDebitCharge({ itemId: item_id, accessFeeId: access_fee_id, voucherCode: voucher_code = '' }) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,

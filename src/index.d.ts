@@ -158,6 +158,7 @@ export interface DirectDebitMandateData {
 }
 
 export interface DirectDebitChargeData {
+  itemId: string;
   accessFeeId: string;
   voucherCode: string;
 }
