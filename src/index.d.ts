@@ -214,6 +214,7 @@ export declare class Payment {
   getDirectDebitMandate: () => DirectDebitMandateResponse;
   createDirectDebitMandate: (data: DirectDebitMandateData) => CreateDirectDebitResponse;
   directDebitCharge: (data: DirectDebitChargeData) => DirectDebitChargeResponse;
+  directDebitSubscribe: (data: DirectDebitChargeData) => DirectDebitChargeResponse;
 }
 
 export interface CreateSubscriptionData {
