@@ -455,10 +455,10 @@ class Payment {
             });
         }
 
-        const body = {
-            access_fee_id: accessFeeId,
-            voucher_code: voucherCode,
-        };
+        const formData = new FormData();
+
+        formData.append('access_fee_id', accessFeeId);
+        formData.append('voucher_code', voucherCode);
 
         const response = await fetch(
             this.config.API.directDebitCharge,
@@ -467,7 +467,7 @@ class Payment {
                 headers: {
                     Authorization: `Bearer ${this.Account.getToken().token}`,
                 },
-                body: params(body),
+                body: formData,
             }
         );
 
