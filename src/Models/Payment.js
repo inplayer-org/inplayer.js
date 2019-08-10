@@ -400,7 +400,7 @@ class Payment {
    *    }
    *  }
 */
-    async createDirectDebitMandate(data = {}) {
+    async createDirectDebitMandate(data) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -408,19 +408,15 @@ class Payment {
             });
         }
 
-        const formData = new FormData();
-
-        formData.append('name', data.name);
-        formData.append('iban', data.iban);
-
         const response = await fetch(
             this.config.API.createDirectDebitMandate,
             {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${this.Account.getToken().token}`,
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: formData,
+                body: params(data),
             }
         );
 
@@ -434,20 +430,20 @@ class Payment {
 * @method directDebitCharge
 * @async
 * @param {Object} data - Contains the data - {
-*  name: {string},
-*  iban: {string},
+*  accessFeeId: {string},
+*  voucherCode: {string},
 * }
 * @example
 *     InPlayer.Payment
 *     .directDebitCharge({name, iban})
 *     .then(data => console.log(data));
 * @return {Object} Contains the data - {
-*       accessFeeId: "1F2GzxJqmvwo8uTaJnRVkgYS",
-*       voucherCode?: 12,
+*       code: '200',
+*       message: "Submitted for payment",
 *    }
 *  }
 */
-    async directDebitCharge({ accessFeeId, voucherCode = '' }) {
+    async directDebitCharge({ accessFeeId: access_fee_id, voucherCode: voucher_code = '' }) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -455,10 +451,10 @@ class Payment {
             });
         }
 
-        const formData = new FormData();
+        // const formData = new FormData();
 
-        formData.append('access_fee_id', accessFeeId);
-        formData.append('voucher_code', voucherCode);
+        // formData.append('access_fee_id', accessFeeId);
+        // formData.append('voucher_code', voucherCode);
 
         const response = await fetch(
             this.config.API.directDebitCharge,
@@ -466,8 +462,54 @@ class Payment {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${this.Account.getToken().token}`,
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: formData,
+                body: params({ access_fee_id, voucher_code}),
+            }
+        );
+
+        checkStatus(response);
+
+        return await response.json();
+    }
+
+    /**
+* Process a request for direct debit subscribe
+* @method directDebitSubscribe
+* @async
+* @param {Object} data - Contains the data - {
+*  itemId: {string},
+*  accessFeeId: {string},
+*  voucherCode: {string},
+* }
+* @example
+*     InPlayer.Payment
+*     .directDebitSubscribe({itemId, accessFeeId, voucherCode})
+*     .then(data => console.log(data));
+* @return {Object} Contains the data - {
+*       code: '200',
+*       message: "Submitted for payment",
+*    }
+*  }
+*/
+
+    async directDebitSubscribe({ itemId: item_id, accessFeeId: access_fee_id, voucherCode: voucher_code = '' }) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
+
+        const response = await fetch(
+            this.config.API.directDebitSubscribe,
+            {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${this.Account.getToken().token}`,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: params({ item_id, access_fee_id, voucher_code }),
             }
         );
 
