@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.8.3</b>
+                    API Docs for Version: <b>2.9.0</b>
                 </p>
             </li>
         </div>
@@ -116,10 +116,9 @@ class Asset {
             });
         }
 
-        const t = this.Account.getToken();
         const response = await fetch(this.config.API.checkAccessForAsset(id), {
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token
+                Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;
             }
         });
 
@@ -147,11 +146,9 @@ class Asset {
             });
         }
 
-        const t = this.Account.getToken();
-
         const response = await fetch(this.config.API.checkFreeTrial(id), {
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token
+                Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;
             }
         });
 
@@ -270,13 +267,11 @@ class Asset {
             });
         }
 
-        const t = this.Account.getToken();
-
         const response = await fetch(
             this.config.API.getAssetsHistory(size, page, startDate, endDate),
             {
                 headers: {
-                    Authorization: &#x27;Bearer &#x27; + t.token
+                    Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;
                 }
             }
         );
@@ -305,8 +300,6 @@ class Asset {
             });
         }
 
-        const t = this.Account.getToken();
-
         const formData = new FormData();
 
         formData.append(&#x27;access_fee&#x27;, accessFeeId);
@@ -314,7 +307,7 @@ class Asset {
         const response = await fetch(this.config.API.getFreemiumAsset, {
             method: &#x27;POST&#x27;,
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token
+                Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;
             },
             body: formData
         });
@@ -451,13 +444,11 @@ class Asset {
    * }
    */
     async getCloudfrontURL(assetId, videoUrl) {
-        const t = this.Account.getToken();
-
         const response = await fetch(
             this.config.API.getCloudfrontURL(assetId, videoUrl),
             {
                 headers: {
-                    Authorization: &#x27;Bearer &#x27; + t.token
+                    Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;
                 }
             }
         );

@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.8.3</b>
+                    API Docs for Version: <b>2.9.0</b>
                 </p>
             </li>
         </div>
@@ -113,11 +113,10 @@ class DLC {
                 message: &#x27;User is not authenticated&#x27;
             });
         }
-        const t = this.Account.getToken();
 
         const response = await fetch(this.config.API.getDlcLinks(assetId), {
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token
+                Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;
             }
         });
 

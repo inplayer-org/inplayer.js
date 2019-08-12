@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.8.3</b>
+                    API Docs for Version: <b>2.9.0</b>
                 </p>
             </li>
         </div>
@@ -241,11 +241,10 @@ class Account {
                 message: &#x27;User is not authenticated&#x27;
             });
         }
-        const t = this.getToken();
 
         const response = await fetch(this.config.API.signOut, {
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token
+                Authorization: &#x60;Bearer ${this.getToken().token}&#x60;
             }
         });
 
@@ -264,9 +263,7 @@ class Account {
  * @return {Boolean}
  */
     isAuthenticated() {
-        const t = this.getToken();
-
-        return !t.isExpired() &amp;&amp; t.token !== &#x27;&#x27;;
+        return !this.getToken().isExpired() &amp;&amp; this.getToken().token !== &#x27;&#x27;;
     }
 
     /** Retruns the OAuth token
@@ -469,11 +466,9 @@ class Account {
             });
         }
 
-        const t = this.getToken();
-
         const response = await fetch(this.config.API.getAccountInfo, {
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token
+                Authorization: &#x60;Bearer ${this.getToken().token}&#x60;
             }
         });
 
@@ -521,7 +516,6 @@ class Account {
                 message: &#x27;User is not authenticated&#x27;
             });
         }
-        const t = this.getToken();
 
         let body = {
             full_name: data.fullName
@@ -535,7 +529,7 @@ class Account {
             method: &#x27;PUT&#x27;,
             body: params(body),
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token,
+                Authorization: &#x60;Bearer ${this.getToken().token}&#x60;,
                 &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
             }
         });
@@ -574,7 +568,6 @@ class Account {
                 message: &#x27;User is not authenticated&#x27;
             });
         }
-        const t = this.getToken();
 
         let body = {
             old_password: data.oldPassword,
@@ -587,7 +580,7 @@ class Account {
             method: &#x27;POST&#x27;,
             body: params(body),
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token,
+                Authorization: &#x60;Bearer ${this.getToken().token}&#x60;,
                 &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
             }
         });
@@ -642,7 +635,6 @@ class Account {
                 message: &#x27;User is not authenticated&#x27;
             });
         }
-        const t = this.getToken();
 
         let body = {
             password: data.password,
@@ -652,7 +644,7 @@ class Account {
         const response = await fetch(this.config.API.deleteAccount, {
             method: &#x27;DELETE&#x27;,
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token,
+                Authorization: &#x60;Bearer ${this.getToken().token}&#x60;,
                 &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
             },
             body: params(body)
@@ -694,8 +686,6 @@ class Account {
             });
         }
 
-        const t = this.getToken();
-
         let body = {
             password: data.password,
             branding_id: data.brandingId
@@ -704,7 +694,7 @@ class Account {
         const response = await fetch(this.config.API.exportData, {
             method: &#x27;POST&#x27;,
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token,
+                Authorization: &#x60;Bearer ${this.getToken().token}&#x60;,
                 &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
             },
             body: params(body)
