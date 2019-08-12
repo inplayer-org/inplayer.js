@@ -67,15 +67,19 @@ export const API = config => {
         getPaymentTools: paymentMethodId =>
             `${config.BASE_URL}/payments/method/${paymentMethodId}/tools`,
         payForAsset: `${config.BASE_URL}/payments`,
+        payForAssetV2: `${config.BASE_URL}/v2/payments`,
         getPayPalParams: `${config.BASE_URL}/external-payments`,
         getDefaultCreditCard: `${config.BASE_URL}/v2/payments/cards/default`,
         setDefaultCreditCard: `${config.BASE_URL}/v2/payments/cards/default`,
+        getDirectDebitMandate: `${config.BASE_URL}/v2/payments/direct-debit/mandate`,
+        createDirectDebitMandate: `${config.BASE_URL}/v2/payments/direct-debit/mandate`,
         // Subscriptions
         getSubscriptions: (limit, page) =>
             `${config.BASE_URL}/subscriptions?limit=${limit}&page=${page}`,
         getSubscription: id =>
             `${config.BASE_URL}/subscriptions/reporting/subscriptions/${id}`,
         subscribe: `${config.BASE_URL}/subscriptions`,
+        subscribeV2: `${config.BASE_URL}/v2/subscriptions`,
         cancelSubscription: url => `${url}`,
         // Misc
         getDlcLinks: id => `${config.BASE_URL}/dlc/${id}/links`,

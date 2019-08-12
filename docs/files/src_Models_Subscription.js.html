@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.8.3</b>
+                    API Docs for Version: <b>2.9.0</b>
                 </p>
             </li>
         </div>
@@ -83,7 +83,7 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-import { checkStatus, errorResponse, params } from &#x27;../Utils&#x27;;
+import { errorResponse, checkStatus, params } from &#x27;../Utils&#x27;;
 
 /**
  * Contains all Requests connected with subscriptions
@@ -114,13 +114,12 @@ class Subscription {
                 message: &#x27;User is not authenticated&#x27;
             });
         }
-        const t = this.Account.getToken();
 
         const response = await fetch(
             this.config.API.getSubscriptions(limit, page),
             {
                 headers: {
-                    Authorization: &#x27;Bearer &#x27; + t.token
+                    Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;
                 }
             }
         );
@@ -150,11 +149,10 @@ class Subscription {
                 message: &#x27;User is not authenticated&#x27;
             });
         }
-        const t = this.Account.getToken();
 
         const response = await fetch(this.config.API.getSubscription(id), {
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token
+                Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;
             }
         });
 
@@ -181,13 +179,12 @@ class Subscription {
                 message: &#x27;User is not authenticated&#x27;
             });
         }
-        const t = this.Account.getToken();
 
         const response = await fetch(
             this.config.API.cancelSubscription(unsubscribeUrl),
             {
                 headers: {
-                    Authorization: &#x27;Bearer &#x27; + t.token
+                    Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;
                 }
             }
         );
@@ -240,8 +237,6 @@ class Subscription {
             });
         }
 
-        const t = this.Account.getToken();
-
         let body = {
             number: data.number,
             card_name: data.cardName,
@@ -261,7 +256,7 @@ class Subscription {
         const response = await fetch(this.config.API.subscribe, {
             method: &#x27;POST&#x27;,
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token,
+                Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;,
                 &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
             },
             body: params(body)

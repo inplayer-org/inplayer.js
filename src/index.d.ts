@@ -152,6 +152,56 @@ export interface DefaultCreditCardData {
   currency: string;
 }
 
+export interface DirectDebitMandateData {
+  name: string;
+  iban: string;
+}
+
+export interface DirectDebitChargeData {
+  assetId: string;
+  accessFeeId: string;
+  voucherCode: string;
+}
+
+export interface DirectDebitChargeResponse {
+  code: string;
+  message: string;
+}
+
+export interface DirectDebitMandateResponse {
+  is_approved: boolean;
+  statement_descriptor: string;
+  mandate: {
+    bank_code: number,
+    branch_code: number,
+    country: string,
+    fingerprint: string,
+    last4: number,
+    mandate_reference: string,
+    mandate_url: string
+  }
+}
+
+export interface CreateDirectDebitResponse {
+  id: string,
+  currency: string,
+  created: number,
+  client_secret: string,
+  owner: string,
+  full_name: string,
+  statement_descriptor: string,
+  status: string,
+  type_data: {
+    bank_code: number,
+    branch_code: number,
+    country: string,
+    fingerprint: string,
+    last4: number,
+    mandate_reference: string,
+    mandate_url: string
+  }
+}
+
 export declare class Payment {
   constructor(config: object, Account: Account);
 
@@ -162,6 +212,10 @@ export declare class Payment {
   getPurchaseHistory(status: string, page: number, limit: number): object;
   getDefaultCreditCard(): object;
   setDefaultCreditCard(data: DefaultCreditCardData): object;
+  getDirectDebitMandate: () => DirectDebitMandateResponse;
+  createDirectDebitMandate: (data: DirectDebitMandateData) => CreateDirectDebitResponse;
+  directDebitCharge: (data: DirectDebitChargeData) => DirectDebitChargeResponse;
+  directDebitSubscribe: (data: DirectDebitChargeData) => DirectDebitChargeResponse;
 }
 
 export interface CreateSubscriptionData {
@@ -239,6 +293,9 @@ export interface ApiEndpoints {
   getPayPalParams: string;
   getDefaultCreditCard: string;
   setDefaultCreditCard: string;
+  getDirectDebitMandate: string,
+  createDirectDebitMandate: string,
+  directDebitCharge: string,
   // Subscriptions
   getSubscriptions: (limit: number, page: number) => string;
   getSubscription: (id: number) => string;
