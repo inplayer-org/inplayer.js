@@ -5,6 +5,7 @@ describe('Account', function () {
     InPlayer.setConfig('develop');
 
     let secret = process.env.CLIENT_SECRET;
+
     let user = InPlayer.Account;
 
     describe('#authenticate()', function () {

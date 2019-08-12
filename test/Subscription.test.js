@@ -5,7 +5,9 @@ describe('Subscription', function () {
     InPlayer.setConfig('develop');
 
     let secret = process.env.CLIENT_SECRET;
+
     let subscription = InPlayer.Subscription;
+
     let user = InPlayer.Account;
 
     before(() => {
