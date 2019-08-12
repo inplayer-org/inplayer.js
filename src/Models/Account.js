@@ -585,7 +585,7 @@ class Account {
     }
 
     /**
- * DExports account data to the users' email
+ * Exports account data to the users' email
  * @method exportData
  * @async
  * @param {Object} data - Contains {
@@ -634,6 +634,102 @@ class Account {
         return {
             code: response.status,
             message: 'Your data is being exported, please check your email.'
+        };
+    }
+
+    /**
+* Creates pin code and sends it to the users' email
+* @method sendPinCode
+* @async
+* @param {number} brandingId - Optional parametar
+* @example
+*     InPlayer.Account.sendPinCode({
+*        brandingId: 1234,
+*     })
+*     .then(data => console.log(data));
+* @return {Object}
+*/
+
+    async sendPinCode(brandingId) {
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
+
+        const t = this.getToken();
+
+        let body = {
+            branding_id: brandingId
+        };
+
+        const response = await fetch(this.config.API.sendPinCode, {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + t.token,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: params(body)
+        });
+
+        checkStatus(response);
+
+        if (!response.ok) {
+            return await response.json();
+        }
+
+        return {
+            code: response.status,
+            message: response.message,
+        };
+    }
+
+    /**
+* Checks validity of pin code
+* @method validatePinCode
+* @async
+* @param {string} pinCode - Code from received email message
+* @example
+*     InPlayer.Account.validatePinCode({
+*        pinCode: '5566',
+*     })
+*     .then(data => console.log(data));
+* @return {Object}
+*/
+
+    async validatePinCode(pinCode) {
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
+
+        const t = this.getToken();
+
+        let body = {
+            pin_code: pinCode
+        };
+
+        const response = await fetch(this.config.API.validatePinCode, {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + t.token,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: params(body)
+        });
+
+        checkStatus(response);
+
+        if (!response.ok) {
+            return await response.json();
+        }
+
+        return {
+            code: response.status,
+            message: response.message,
         };
     }
 }

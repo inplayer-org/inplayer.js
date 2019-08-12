@@ -39,6 +39,8 @@ export const API = config => {
         exportData: `${config.BASE_URL}/accounts/export`,
         reportSSOtoken: ssoDomain =>
             `${ssoDomain}/sso/cookie`,
+        sendPinCode: `${config.BASE_URL}/v2/accounts/pin-codes/send`,
+        validatePinCode: `${config.BASE_URL}/v2/accounts/pin-codes/validate`,
         // Asset
         checkAccessForAsset: id => `${config.BASE_URL}/items/${id}/access`,
         checkFreeTrial: id =>
