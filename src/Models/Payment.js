@@ -452,20 +452,14 @@ class Payment {
             });
         }
 
-        // const formData = new FormData();
-
-        // formData.append('access_fee_id', accessFeeId);
-        // formData.append('voucher_code', voucherCode);
-
         const response = await fetch(
-            this.config.API.directDebitCharge,
+            this.config.API.payForAssetV2,
             {
                 method: 'POST',
                 headers: {
-                    Authorization: `Bearer ${this.Account.getToken().token}`,
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: params({ item_id, access_fee_id, voucher_code}),
+                body: params({ item_id, access_fee_id, voucher_code, payment_method: 'Direct Debit' }),
             }
         );
 
@@ -503,14 +497,14 @@ class Payment {
         }
 
         const response = await fetch(
-            this.config.API.directDebitSubscribe,
+            this.config.API.subscribeV2,
             {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${this.Account.getToken().token}`,
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: params({ item_id, access_fee_id, voucher_code }),
+                body: params({ item_id, access_fee_id, voucher_code, payment_method: 'Direct Debit' }),
             }
         );
 
