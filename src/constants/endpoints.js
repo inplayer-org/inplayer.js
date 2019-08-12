@@ -65,7 +65,7 @@ export const API = config => {
         getPaymentTools: paymentMethodId =>
             `${config.BASE_URL}/payments/method/${paymentMethodId}/tools`,
         payForAsset: `${config.BASE_URL}/payments`,
-        payForAssetV2: `${config.BASE_URL}/payments`,
+        payForAssetV2: `${config.BASE_URL}/v2/payments`,
         getPayPalParams: `${config.BASE_URL}/external-payments`,
         getDefaultCreditCard: `${config.BASE_URL}/v2/payments/cards/default`,
         setDefaultCreditCard: `${config.BASE_URL}/v2/payments/cards/default`,
