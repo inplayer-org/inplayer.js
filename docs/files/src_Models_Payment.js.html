@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.9.0</b>
+                    API Docs for Version: <b>2.9.1</b>
                 </p>
             </li>
         </div>
@@ -95,6 +95,7 @@ class Payment {
         this.config = config;
         this.Account = Account;
     }
+
     /**
      * Get all payment methods for a User
      * @method getPaymentMethods
@@ -119,7 +120,7 @@ class Payment {
             },
         });
 
-        await checkStatus(response);
+        await await checkStatus(response);
 
         return await response.json();
     }
@@ -152,7 +153,7 @@ class Payment {
             }
         );
 
-        await checkStatus(response);
+        await await checkStatus(response);
 
         return await response.json();
     }
@@ -225,7 +226,7 @@ class Payment {
             body: params(body),
         });
 
-        await checkStatus(response);
+        await await checkStatus(response);
 
         return await response.json();
     }
@@ -275,7 +276,7 @@ class Payment {
             body: formData,
         });
 
-        await checkStatus(response);
+        await await checkStatus(response);
 
         return await response.json();
     }
@@ -310,6 +311,8 @@ class Payment {
             }
         );
 
+        await await checkStatus(response);
+
         return await response.json();
     }
 
@@ -339,6 +342,8 @@ class Payment {
                 },
             }
         );
+
+        await await checkStatus(response);
 
         return await response.json();
     }
@@ -396,6 +401,8 @@ class Payment {
             }
         );
 
+        await await checkStatus(response);
+
         return await response.json();
     }
 
@@ -429,8 +436,6 @@ class Payment {
             });
         }
 
-        console.error(&#x27;Yolooooooo!!!!&#x27;);
-
         const response = await fetch(
             this.config.API.getDirectDebitMandate,
             {
@@ -440,6 +445,8 @@ class Payment {
                 },
             }
         );
+
+        await await checkStatus(response);
 
         return await response.json();
     }
@@ -496,6 +503,8 @@ class Payment {
             }
         );
 
+        await await checkStatus(response);
+
         return await response.json();
     }
 
@@ -537,6 +546,8 @@ class Payment {
                 body: params({ item_id, access_fee_id, voucher_code, payment_method: &#x27;Direct Debit&#x27; }),
             }
         );
+
+        await await checkStatus(response);
 
         return await response.json();
     }
@@ -580,6 +591,8 @@ class Payment {
                 body: params({ item_id, access_fee_id, voucher_code, payment_method: &#x27;Direct Debit&#x27; }),
             }
         );
+
+        await await checkStatus(response);
 
         return await response.json();
     }

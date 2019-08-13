@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "2.9.0",
+        "version": "2.9.1",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -322,7 +322,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 266,
+            "line": 267,
             "description": "Reports the generated SSO token to the SSO domain.",
             "params": [
                 {
@@ -345,7 +345,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 289,
+            "line": 290,
             "description": "Requests new password for a given user",
             "itemtype": "method",
             "name": "requestNewPassword",
@@ -368,7 +368,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 328,
+            "line": 329,
             "description": "Sets new password for the user",
             "itemtype": "method",
             "name": "setNewPassword",
@@ -396,7 +396,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 366,
+            "line": 367,
             "description": "Gets the account information for a given auth token",
             "itemtype": "method",
             "name": "getAccount",
@@ -412,7 +412,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 395,
+            "line": 396,
             "description": "Gets the social login urls for fb/twitter/google",
             "itemtype": "method",
             "name": "getSocialLoginUrls",
@@ -435,7 +435,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 416,
+            "line": 417,
             "description": "Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()",
             "itemtype": "method",
             "name": "updateAccount",
@@ -458,7 +458,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 457,
+            "line": 458,
             "description": "Changes password for a given user",
             "itemtype": "method",
             "name": "changePassword",
@@ -486,7 +486,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 508,
+            "line": 509,
             "description": "Gets register fields",
             "itemtype": "method",
             "name": "getRegisterFields",
@@ -509,7 +509,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 529,
+            "line": 530,
             "description": "Deletes an account",
             "itemtype": "method",
             "name": "deleteAccount",
@@ -532,7 +532,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 579,
+            "line": 580,
             "description": "DExports account data to the users' email",
             "itemtype": "method",
             "name": "exportData",
@@ -921,7 +921,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 13,
+            "line": 14,
             "description": "Get all payment methods for a User",
             "itemtype": "method",
             "name": "getPaymentMethods",
@@ -937,7 +937,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 42,
+            "line": 43,
             "description": "Get the payment tools for an aothorization token and payment method ID",
             "itemtype": "method",
             "name": "getPaymentTools",
@@ -960,7 +960,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 75,
+            "line": 76,
             "description": "Makes a Payment for a given Authorization token + asset/payment details.\nUse this method ONLY if the assetFee.type is not 'subscription' or 'freemium'. Otherwise\nplease use InPlayer.Subscription.create()",
             "itemtype": "method",
             "name": "create",
@@ -983,7 +983,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 148,
+            "line": 149,
             "description": "Gets parameters for PayPal",
             "itemtype": "method",
             "name": "getPayPalParams",
@@ -1006,7 +1006,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 198,
+            "line": 199,
             "description": "Gets the purchase history",
             "itemtype": "method",
             "name": "getPurchaseHistory",
@@ -1039,7 +1039,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 231,
+            "line": 234,
             "description": "Gets the default credit card per currency used for subscription rebills",
             "itemtype": "method",
             "name": "getDefaultCreditCard",
@@ -1055,7 +1055,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 261,
+            "line": 266,
             "description": "Sets card per currency as default card that is to be used for further subscription rebills",
             "itemtype": "method",
             "name": "setDefaultCreditCard",
@@ -1078,7 +1078,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 317,
+            "line": 324,
             "description": "Checks for existing user direct debit mandate",
             "itemtype": "method",
             "name": "getDirectDebitMandate",
@@ -1094,7 +1094,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 362,
+            "line": 369,
             "description": "Create direct debit mandate for customer",
             "itemtype": "method",
             "name": "createDirectDebitMandate",
@@ -1117,7 +1117,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 417,
+            "line": 426,
             "description": "Process a request for direct debit SEPA charge",
             "itemtype": "method",
             "name": "directDebitCharge",
@@ -1140,7 +1140,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 459,
+            "line": 470,
             "description": "Process a request for direct debit subscribe",
             "itemtype": "method",
             "name": "directDebitSubscribe",
@@ -1405,7 +1405,7 @@
         },
         {
             "message": "Missing item type\nReports the generated SSO token to the SSO domain.",
-            "line": " src/Models/Account.js:266"
+            "line": " src/Models/Account.js:267"
         }
     ]
 }
