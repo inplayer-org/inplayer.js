@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.9.1] - 13-08-2019
+
+### Fixes
+
+- Check response status in payment methods
+
 # [2.9.0] - 12-08-2019
 
 ### Added
