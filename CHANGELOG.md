@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.9.3] - 13-08-2019
+
+### Fixes
+
+- Remove double await typo in Payments
+
 # [2.9.2] - 13-08-2019
 
 ### Fixes
