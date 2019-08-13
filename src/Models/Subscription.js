@@ -39,7 +39,7 @@ class Subscription {
             }
         );
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -71,7 +71,7 @@ class Subscription {
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -104,7 +104,7 @@ class Subscription {
             }
         );
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -177,7 +177,7 @@ class Subscription {
             body: params(body)
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }

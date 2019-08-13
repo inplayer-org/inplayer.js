@@ -119,7 +119,7 @@ class Payment {
             },
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -152,7 +152,7 @@ class Payment {
             }
         );
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -225,7 +225,7 @@ class Payment {
             body: params(body),
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -275,7 +275,7 @@ class Payment {
             body: formData,
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }

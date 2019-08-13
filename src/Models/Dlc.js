@@ -35,7 +35,7 @@ class DLC {
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }

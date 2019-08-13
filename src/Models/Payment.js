@@ -10,6 +10,7 @@ class Payment {
         this.config = config;
         this.Account = Account;
     }
+
     /**
      * Get all payment methods for a User
      * @method getPaymentMethods
@@ -34,7 +35,7 @@ class Payment {
             },
         });
 
-        checkStatus(response);
+        await await checkStatus(response);
 
         return await response.json();
     }
@@ -67,7 +68,7 @@ class Payment {
             }
         );
 
-        checkStatus(response);
+        await await checkStatus(response);
 
         return await response.json();
     }
@@ -140,7 +141,7 @@ class Payment {
             body: params(body),
         });
 
-        checkStatus(response);
+        await await checkStatus(response);
 
         return await response.json();
     }
@@ -190,7 +191,7 @@ class Payment {
             body: formData,
         });
 
-        checkStatus(response);
+        await await checkStatus(response);
 
         return await response.json();
     }
@@ -225,7 +226,7 @@ class Payment {
             }
         );
 
-        checkStatus(response);
+        await await checkStatus(response);
 
         return await response.json();
     }
@@ -257,7 +258,7 @@ class Payment {
             }
         );
 
-        checkStatus(response);
+        await await checkStatus(response);
 
         return await response.json();
     }
@@ -315,7 +316,7 @@ class Payment {
             }
         );
 
-        checkStatus(response);
+        await await checkStatus(response);
 
         return await response.json();
     }
@@ -360,7 +361,7 @@ class Payment {
             }
         );
 
-        checkStatus(response);
+        await await checkStatus(response);
 
         return await response.json();
     }
@@ -417,7 +418,7 @@ class Payment {
             }
         );
 
-        checkStatus(response);
+        await await checkStatus(response);
 
         return await response.json();
     }
@@ -461,7 +462,7 @@ class Payment {
             }
         );
 
-        checkStatus(response);
+        await await checkStatus(response);
 
         return await response.json();
     }
@@ -506,7 +507,7 @@ class Payment {
             }
         );
 
-        checkStatus(response);
+        await await checkStatus(response);
 
         return await response.json();
     }
