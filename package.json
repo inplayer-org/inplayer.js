@@ -39,6 +39,8 @@
     "inplayer"
   ],
   "dependencies": {
+    "@types/fingerprintjs2": "^2.0.0",
+    "@types/lodash": "^4.14.136",
     "aws-iot-device-sdk": "^2.2.1",
     "fingerprintjs2": "^2.0.6",
     "isomorphic-fetch": "^2.2.1"
@@ -51,6 +53,7 @@
     "@babel/preset-env": "^7.3.1",
     "@babel/register": "^7.0.0",
     "@babel/runtime": "^7.3.1",
+    "@types/aws-iot-device-sdk": "^2.2.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "babel-minify-webpack-plugin": "^0.3.1",
@@ -70,6 +73,8 @@
     "mocha-jsdom": "^2.0.0",
     "mock-local-storage": "^1.1.8",
     "prettier": "^1.16.4",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.3",
     "webpack": "^4.29.5",
     "webpack-cli": "^3.2.3",
     "yuidoc-lucid-theme": "^0.1.2",

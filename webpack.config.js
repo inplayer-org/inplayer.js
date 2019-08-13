@@ -18,7 +18,7 @@ if (PROD) {
 
 module.exports = {
     mode: PROD ? 'production' : 'development',
-    entry: './src/index.js',
+    entry: './src/index.ts',
     output: {
         path: path.resolve(__dirname, './dist'),
         libraryTarget: 'umd',
@@ -30,16 +30,19 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
-                loader: 'babel-loader',
+                test: /\.(t|j)s$/,
+                loader: 'ts-loader',
                 exclude: /(node_modules|bower_components)/,
             },
             {
-                test: /(\.jsx|\.js)$/,
+                test: /(\.(j|t)sx|\.(j|t)s)$/,
                 loader: 'eslint-loader',
                 exclude: /node_modules/,
             },
         ],
+    },
+    resolve: {
+        extensions: [ '.tsx', '.ts', '.js' ]
     },
     optimization: {
         minimize: true,
