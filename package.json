@@ -41,6 +41,7 @@
     "@types/fingerprintjs2": "^2.0.0",
     "@types/lodash": "^4.14.136",
     "aws-iot-device-sdk": "^2.2.1",
+    "axios": "^0.19.0",
     "fingerprintjs2": "^2.0.6",
     "isomorphic-fetch": "^2.2.1"
   },
