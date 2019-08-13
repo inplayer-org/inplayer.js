@@ -33,14 +33,13 @@ class Asset {
             });
         }
 
-        const t = this.Account.getToken();
         const response = await fetch(this.config.API.checkAccessForAsset(id), {
             headers: {
-                Authorization: 'Bearer ' + t.token
+                Authorization: `Bearer ${this.Account.getToken().token}`
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -64,15 +63,13 @@ class Asset {
             });
         }
 
-        const t = this.Account.getToken();
-
         const response = await fetch(this.config.API.checkFreeTrial(id), {
             headers: {
-                Authorization: 'Bearer ' + t.token
+                Authorization: `Bearer ${this.Account.getToken().token}`
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -94,7 +91,7 @@ class Asset {
             this.config.API.getAsset(assetId, merchantUuid)
         );
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -117,7 +114,7 @@ class Asset {
             this.config.API.getExternalAsset(assetType, externalId, merchantUuid)
         );
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -136,7 +133,7 @@ class Asset {
     async getPackage(id: any) {
         const response = await fetch(this.config.API.getPackage(id));
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -155,7 +152,7 @@ class Asset {
     async getAssetAccessFees(id: any) {
         const response = await fetch(this.config.API.getAssetAccessFees(id));
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -187,18 +184,16 @@ class Asset {
             });
         }
 
-        const t = this.Account.getToken();
-
         const response = await fetch(
             this.config.API.getAssetsHistory(size, page, startDate, endDate),
             {
                 headers: {
-                    Authorization: 'Bearer ' + t.token
+                    Authorization: `Bearer ${this.Account.getToken().token}`
                 }
             }
         );
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -222,8 +217,6 @@ class Asset {
             });
         }
 
-        const t = this.Account.getToken();
-
         const formData = new FormData();
 
         formData.append('access_fee', accessFeeId);
@@ -231,7 +224,7 @@ class Asset {
         const response = await fetch(this.config.API.getFreemiumAsset, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + t.token
+                Authorization: `Bearer ${this.Account.getToken().token}`
             },
             body: formData
         });
@@ -261,7 +254,7 @@ class Asset {
         const browserDetails = await Fingerprint2.getPromise();
 
         const browserFingerprint = Fingerprint2.x64hash128(
-            reduce(browserDetails, (acc, details) => `${acc}${details.value}`, ''),
+            reduce(browserDetails, (acc: any, details: any) => `${acc}${details.value}`, ''),
             31
         );
 
@@ -274,7 +267,7 @@ class Asset {
             body: formData
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         const accessCode = {
             code,
@@ -346,7 +339,7 @@ class Asset {
             }
         );
 
-        checkStatus(response);
+        await checkStatus(response);
 
         localStorage.removeItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId));
 
@@ -368,18 +361,16 @@ class Asset {
    * }
    */
     async getCloudfrontURL(assetId: any, videoUrl: any) {
-        const t = this.Account.getToken();
-
         const response = await fetch(
             this.config.API.getCloudfrontURL(assetId, videoUrl),
             {
                 headers: {
-                    Authorization: 'Bearer ' + t.token
+                    Authorization: `Bearer ${this.Account.getToken().token}`
                 }
             }
         );
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }

@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.8.3</b>
+                    API Docs for Version: <b>2.9.1</b>
                 </p>
             </li>
         </div>
@@ -83,7 +83,7 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-import { checkStatus, errorResponse } from &#x27;../Utils&#x27;;
+import { errorResponse, checkStatus } from &#x27;../Utils&#x27;;
 
 /**
  * Contains all Requests regarding vouchers.
@@ -117,10 +117,9 @@ class Voucher {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: &#x27;User is not authenticated&#x27;,
+                message: &#x27;User is not authenticated&#x27;
             });
         }
-        const t = this.Account.getToken();
 
         const formData = new FormData();
 
@@ -130,12 +129,12 @@ class Voucher {
         const response = await fetch(this.config.API.getDiscount, {
             method: &#x27;POST&#x27;,
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token,
+                Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;,
             },
             body: formData,
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }

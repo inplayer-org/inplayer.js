@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.9.1] - 13-08-2019
+
+### Fixes
+
+- Await checkStatus to include error response
+
+# [2.9.0] - 12-08-2019
+
+### Added
+
+- Direct Debit methods in Payments
+
 # [2.8.3] - 09-07-2019
 
 ### Fixes

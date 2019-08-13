@@ -1,4 +1,4 @@
-import { checkStatus, errorResponse, params } from '../Utils';
+import { errorResponse, checkStatus, params } from '../Utils';
 
 /**
  * Contains all Requests connected with subscriptions
@@ -31,18 +31,17 @@ class Subscription {
                 message: 'User is not authenticated'
             });
         }
-        const t = this.Account.getToken();
 
         const response = await fetch(
             this.config.API.getSubscriptions(limit, page),
             {
                 headers: {
-                    Authorization: 'Bearer ' + t.token
+                    Authorization: `Bearer ${this.Account.getToken().token}`
                 }
             }
         );
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -67,15 +66,14 @@ class Subscription {
                 message: 'User is not authenticated'
             });
         }
-        const t = this.Account.getToken();
 
         const response = await fetch(this.config.API.getSubscription(id), {
             headers: {
-                Authorization: 'Bearer ' + t.token
+                Authorization: `Bearer ${this.Account.getToken().token}`
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -98,18 +96,17 @@ class Subscription {
                 message: 'User is not authenticated'
             });
         }
-        const t = this.Account.getToken();
 
         const response = await fetch(
             this.config.API.cancelSubscription(unsubscribeUrl),
             {
                 headers: {
-                    Authorization: 'Bearer ' + t.token
+                    Authorization: `Bearer ${this.Account.getToken().token}`
                 }
             }
         );
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -157,9 +154,13 @@ class Subscription {
             });
         }
 
+<<<<<<< HEAD:src/Models/Subscription.ts
         const t = this.Account.getToken();
 
         let body: any = {
+=======
+        let body = {
+>>>>>>> v2:src/Models/Subscription.js
             number: data.number,
             card_name: data.cardName,
             exp_month: data.expMonth,
@@ -178,13 +179,13 @@ class Subscription {
         const response = await fetch(this.config.API.subscribe, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + t.token,
+                Authorization: `Bearer ${this.Account.getToken().token}`,
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: params(body)
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }

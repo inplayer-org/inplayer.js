@@ -65,16 +65,24 @@ export const API = (config: any) => {
         getPaymentTools: (paymentMethodId: any) =>
             `${config.BASE_URL}/payments/method/${paymentMethodId}/tools`,
         payForAsset: `${config.BASE_URL}/payments`,
+        payForAssetV2: `${config.BASE_URL}/v2/payments`,
         getPayPalParams: `${config.BASE_URL}/external-payments`,
         getDefaultCreditCard: `${config.BASE_URL}/v2/payments/cards/default`,
         setDefaultCreditCard: `${config.BASE_URL}/v2/payments/cards/default`,
+        getDirectDebitMandate: `${config.BASE_URL}/v2/payments/direct-debit/mandate`,
+        createDirectDebitMandate: `${config.BASE_URL}/v2/payments/direct-debit/mandate`,
         // Subscriptions
         getSubscriptions: (limit: any, page: any) =>
             `${config.BASE_URL}/subscriptions?limit=${limit}&page=${page}`,
         getSubscription: (id: any) =>
             `${config.BASE_URL}/subscriptions/reporting/subscriptions/${id}`,
         subscribe: `${config.BASE_URL}/subscriptions`,
+<<<<<<< HEAD:src/constants/endpoints.ts
         cancelSubscription: (url: any) => `${url}`,
+=======
+        subscribeV2: `${config.BASE_URL}/v2/subscriptions`,
+        cancelSubscription: url => `${url}`,
+>>>>>>> v2:src/constants/endpoints.js
         // Misc
         getDlcLinks: (id: any) => `${config.BASE_URL}/dlc/${id}/links`,
         getDiscount: `${config.BASE_URL}/vouchers/discount`,

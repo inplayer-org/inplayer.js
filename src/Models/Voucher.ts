@@ -1,4 +1,4 @@
-import { checkStatus, errorResponse } from '../Utils';
+import { errorResponse, checkStatus } from '../Utils';
 
 /**
  * Contains all Requests regarding vouchers.
@@ -34,10 +34,9 @@ class Voucher {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: 'User is not authenticated',
+                message: 'User is not authenticated'
             });
         }
-        const t = this.Account.getToken();
 
         const formData = new FormData();
 
@@ -47,12 +46,12 @@ class Voucher {
         const response = await fetch(this.config.API.getDiscount, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + t.token,
+                Authorization: `Bearer ${this.Account.getToken().token}`,
             },
             body: formData,
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
