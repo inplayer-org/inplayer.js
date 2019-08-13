@@ -1,4 +1,7 @@
 export default class Credentials {
+    token: any;
+    refreshToken: any;
+    expires: any;
     constructor({ token = '', refreshToken = '', expires = 0 } = {}) {
         this.token = token;
         this.refreshToken = refreshToken;

@@ -4,7 +4,10 @@ import { checkStatus, errorResponse } from '../Utils';
 const ONE_HOUR = 60 * 60 * 1000;
 
 class Notifications {
-    constructor(config, Account) {
+    subscription: any;
+    config: any;
+    Account: any;
+    constructor(config: any, Account: any) {
         this.subscription = null;
         this.config = config;
         this.Account = Account;
@@ -36,7 +39,7 @@ class Notifications {
     }
 
     /* Subscribes to Websocket notifications */
-    async subscribe(accountUuid = '', callbackParams) {
+    async subscribe(accountUuid = '', callbackParams: any) {
         if (!accountUuid && accountUuid === '') {
             return false;
         }
@@ -47,7 +50,7 @@ class Notifications {
                 return false;
             }
         } else {
-            callbackParams.onMessage = e => console.log('Received message:', e);
+            callbackParams.onMessage = (e: any) => console.log('Received message:', e);
         }
 
         if (callbackParams && callbackParams.onOpen) {
@@ -57,7 +60,7 @@ class Notifications {
             }
         }
 
-        const json = localStorage.getItem(this.config.INPLAYER_IOT_NAME);
+        const json: any = localStorage.getItem(this.config.INPLAYER_IOT_NAME);
 
         if (!json) {
             console.warn(
@@ -70,7 +73,7 @@ class Notifications {
         if (
             iamCreds &&
             iamCreds.expiresAt &&
-            new Date() - iamCreds.expiresAt > ONE_HOUR
+            new Date().getMilliseconds() - iamCreds.expiresAt > ONE_HOUR // TODO: check if should be ms
         ) {
             this.handleSubscribe(iamCreds, callbackParams, accountUuid);
 
@@ -88,8 +91,8 @@ class Notifications {
         return true;
     }
 
-    handleSubscribe(data, callbackParams, uuid) {
-        const credentials = {
+    handleSubscribe(data: any, callbackParams: any, uuid: any) {
+        const credentials: any = {
             region: data.region,
             protocol: 'wss',
             accessKeyId: data.accessKey,
@@ -99,6 +102,7 @@ class Notifications {
             host: data.iotEndpoint,
         };
 
+        // @ts-ignore
         const client = awsIot.device(credentials);
 
         client.on('connect', () => {
@@ -106,7 +110,7 @@ class Notifications {
             callbackParams.onOpen();
         });
 
-        client.on('message', (topic, message) => {
+        client.on('message', (topic: any, message: any) => {
             callbackParams.onMessage(message.toString());
         });
 
@@ -119,7 +123,7 @@ class Notifications {
         this.setClient(client);
     }
 
-    setClient(client) {
+    setClient(client: any) {
         this.subscription = client;
     }
 

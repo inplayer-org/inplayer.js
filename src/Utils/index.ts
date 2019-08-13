@@ -1,9 +1,6 @@
-export const checkStatus = response => {
+export const checkStatus = (response: any) => {
     if (!response.ok) {
-        let error = new Error(response.statusText);
-
-        error.response = response;
-        throw error;
+        throw new Error(response.statusText);
     }
 
     return response;
@@ -14,19 +11,20 @@ export const errorResponse = (statusCode = 400, body = {}) => {
         statusCode = 400;
     }
 
-    const response = new Response(JSON.stringify(body), {
-        status: statusCode,
-        ok: false,
-    });
+    // const response = new Response(JSON.stringify(body), {
+    //     status: statusCode,
+    //     // @ts-ignore
+    //     ok: false,
+    // });
 
-    let err = new Error(statusCode);
+    let err = new Error(String(statusCode));
 
-    err.response = response;
+    // err.response = response;
 
     throw err;
 };
 
-const buildParams = (prefix, obj, add) => {
+const buildParams = (prefix: any, obj: any, add: any) => {
     var name, i, l, rbracket;
 
     rbracket = /\[\]$/;
@@ -53,16 +51,16 @@ const buildParams = (prefix, obj, add) => {
     }
 };
 
-export const parseJSON = response => {
+export const parseJSON = (response: any) => {
     return response.json();
 };
 
-export const params = a => {
-    var prefix, s, add, name, r20, output;
+export const params = (a: any) => {
+    var prefix, s: any[], add, name, r20, output;
 
     s = [];
     r20 = /%20/g;
-    add = (key, value) => {
+    add = (key: any, value: any) => {
         // If value is a function, invoke it and return its value
         value =
             typeof value === 'function' ? value() : value === null ? '' : value;

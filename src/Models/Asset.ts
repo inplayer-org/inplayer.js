@@ -8,7 +8,9 @@ import { checkStatus, errorResponse } from '../Utils';
  * @class Asset
  */
 class Asset {
-    constructor(config, Account) {
+    config: any;
+    Account: any;
+    constructor(config: any, Account: any) {
         this.config = config;
         this.Account = Account;
     }
@@ -23,7 +25,7 @@ class Asset {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-    async checkAccessForAsset(id) {
+    async checkAccessForAsset(id: any) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -54,7 +56,7 @@ class Asset {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-    async isFreeTrialUsed(id) {
+    async isFreeTrialUsed(id: any) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -87,7 +89,7 @@ class Asset {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-    async getAsset(assetId, merchantUuid) {
+    async getAsset(assetId: any, merchantUuid: string) {
         const response = await fetch(
             this.config.API.getAsset(assetId, merchantUuid)
         );
@@ -110,7 +112,7 @@ class Asset {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-    async getExternalAsset(assetType, externalId, merchantUuid = '') {
+    async getExternalAsset(assetType: any, externalId: any, merchantUuid = '') {
         const response = await fetch(
             this.config.API.getExternalAsset(assetType, externalId, merchantUuid)
         );
@@ -131,7 +133,7 @@ class Asset {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-    async getPackage(id) {
+    async getPackage(id: any) {
         const response = await fetch(this.config.API.getPackage(id));
 
         checkStatus(response);
@@ -150,7 +152,7 @@ class Asset {
    *     .then(data => console.log(data))
    * @return {Object}
    */
-    async getAssetAccessFees(id) {
+    async getAssetAccessFees(id: any) {
         const response = await fetch(this.config.API.getAssetAccessFees(id));
 
         checkStatus(response);
@@ -212,7 +214,7 @@ class Asset {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-    async getFreemiumAsset(accessFeeId) {
+    async getFreemiumAsset(accessFeeId: any) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -253,7 +255,7 @@ class Asset {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-    async requestCodeAccess({ assetId, code }) {
+    async requestCodeAccess({ assetId, code }: any) {
         const formData = new FormData();
 
         const browserDetails = await Fingerprint2.getPromise();
@@ -300,7 +302,7 @@ class Asset {
    *    const accessCode = InPlayer.Asset.getAccessCode();
    * @return {Object | null}
    */
-    getAccessCode(assetId) {
+    getAccessCode(assetId: any) {
         const accessCode = localStorage.getItem(
             this.config.INPLAYER_ACCESS_CODE_NAME(assetId)
         );
@@ -324,7 +326,7 @@ class Asset {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-    async releaseAccessCode(assetId) {
+    async releaseAccessCode(assetId: any) {
         const accessCode = this.getAccessCode(assetId);
 
         if (!accessCode) {
@@ -365,7 +367,7 @@ class Asset {
    *    video_url: {string}
    * }
    */
-    async getCloudfrontURL(assetId, videoUrl) {
+    async getCloudfrontURL(assetId: any, videoUrl: any) {
         const t = this.Account.getToken();
 
         const response = await fetch(

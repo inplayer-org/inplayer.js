@@ -6,7 +6,9 @@ import { checkStatus, errorResponse } from '../Utils';
  * @class Voucher
  */
 class Voucher {
-    constructor(config, Account) {
+    config: any;
+    Account: any;
+    constructor(config: any, Account: any) {
         this.config = config;
         this.Account = Account;
     }
@@ -28,7 +30,7 @@ class Voucher {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getDiscount(data = {}) {
+    async getDiscount(data: any) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,

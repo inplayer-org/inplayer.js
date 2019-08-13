@@ -7,7 +7,8 @@ import Credentials from '../Credentials';
  * @class Account
  */
 class Account {
-    constructor(config) {
+    config: any;
+    constructor(config: any) {
         this.config = config;
     }
 
@@ -34,8 +35,8 @@ class Account {
  *     .then(data => console.log(data));
  * @return {Object}
  */
-    async authenticate(data = {}) {
-        let body = {
+    async authenticate(data: any) {
+        let body: any = {
             client_id: data.clientId,
             grant_type: 'password',
             referrer: data.referrer
@@ -105,7 +106,7 @@ class Account {
  *     .then(data => console.log(data));
  * @return {Object}
  */
-    async signUp(data = {}) {
+    async signUp(data: any) {
         let body = {
             full_name: data.fullName,
             username: data.email,
@@ -208,7 +209,7 @@ class Account {
   *  @example
   *  InPlayer.Account.setToken('344244-242242', '123123121-d1-t1-1ff',1558529593297)
   */
-    setToken(token, refreshToken, expiresAt) {
+    setToken(token: any, refreshToken: any, expiresAt: any) {
         const credentials = new Credentials({
             token: token,
             refreshToken: refreshToken,
@@ -230,7 +231,7 @@ class Account {
  *     InPlayer.Account.refreshToken('123123121-d1-t1-1ff').then(data => console.log(data))
  * @return {Object}
  */
-    async refreshToken(clientId) {
+    async refreshToken(clientId: any) {
         const t = this.getToken();
 
         if (!t.refreshToken) {
@@ -272,11 +273,11 @@ class Account {
  * @param {string} tokenData - The token data.
  * @param {boolean} retire - Should the token be retired or activated.
  */
-    async reportSSOtoken(ssoDomain, tokenData, retire = false) {
+    async reportSSOtoken(ssoDomain: any, tokenData: any, retire = false) {
         const body = new FormData();
 
         body.append('token', tokenData.token);
-        body.append('delete', retire ? 1 : 0);
+        body.append('delete', retire ? '1' : '0');
 
         const response = await fetch(this.config.API.reportSSOtoken(ssoDomain), {
             method: 'POST',
@@ -308,7 +309,7 @@ class Account {
  *     .then(data => console.log(data));
  * @return {Object}
  */
-    async requestNewPassword(data = {}) {
+    async requestNewPassword(data: any) {
         let body = {
             email: data.email,
             merchant_uuid: data.merchantUuid,
@@ -348,7 +349,7 @@ class Account {
  *     .then(data => console.log(data));
  * @return {Object}
  */
-    async setNewPassword(data = {}, token = '') {
+    async setNewPassword(data: any, token = '') {
         const body = `password=${data.password}&password_confirmation=${
             data.passwordConfirmation
         }&branding_id=${data.brandingId}`;
@@ -410,7 +411,7 @@ class Account {
  *     .then(data => console.log(data));
  * @return {Object}
  */
-    async getSocialLoginUrls(state) {
+    async getSocialLoginUrls(state: any) {
         const response = await fetch(this.config.API.getSocialLoginUrls(state));
 
         checkStatus(response);
@@ -429,7 +430,7 @@ class Account {
  *     .then(data => console.log(data));
  * @return {Object}
  */
-    async updateAccount(data = {}) {
+    async updateAccount(data: any) {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -438,7 +439,7 @@ class Account {
         }
         const t = this.getToken();
 
-        let body = {
+        let body: any = {
             full_name: data.fullName
         };
 
@@ -482,7 +483,7 @@ class Account {
  *     .then(data => console.log(data));
  * @return {Object}
  */
-    async changePassword(data = {}) {
+    async changePassword(data: any) {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -550,7 +551,7 @@ class Account {
  * @return {Object}
  */
 
-    async deleteAccount(data) {
+    async deleteAccount(data: any) {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -601,7 +602,7 @@ class Account {
  * @return {Object}
  */
 
-    async exportData(data) {
+    async exportData(data: any) {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,

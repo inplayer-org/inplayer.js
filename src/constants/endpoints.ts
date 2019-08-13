@@ -1,4 +1,4 @@
-export const API = config => {
+export const API = (config: any) => {
     return {
         // Account
         authenticate: `${config.BASE_URL}/accounts/authenticate`,
@@ -6,21 +6,21 @@ export const API = config => {
         signOut: `${config.BASE_URL}/accounts/logout`,
         signUp: `${config.BASE_URL}/accounts`,
         requestNewPassword: `${config.BASE_URL}/accounts/forgot-password`,
-        setNewPassword: token =>
+        setNewPassword: (token: any) =>
             `${config.BASE_URL}/accounts/forgot-password/${token}`,
         getAccountInfo: `${config.BASE_URL}/accounts`,
-        getSocialLoginUrls: state => `${config.BASE_URL}/accounts/social?state=${state}`,
+        getSocialLoginUrls: (state: any) => `${config.BASE_URL}/accounts/social?state=${state}`,
         updateAccount: `${config.BASE_URL}/accounts`,
         changePassword: `${config.BASE_URL}/accounts/change-password`,
-        getRegisterFields: merchantUuid =>
+        getRegisterFields: (merchantUuid: any) =>
             `${
                 config.BASE_URL
-            }/accounts/register-fields/${merchantUuid}?rnd=${Math.random(15)}`,
-        getPurchaseHistory: (status, page = 0, size = 5) =>
+            }/accounts/register-fields/${merchantUuid}?rnd=${Math.random() * 15}`,
+        getPurchaseHistory: (status: any, page = 0, size = 5) =>
             `${
                 config.BASE_URL
             }/items/access/customers?status=${status}&page=${page}&size=${size}`,
-        getAssetsHistory: (size, page, startDate, endDate) => {
+        getAssetsHistory: (size: any, page: any, startDate: any, endDate: any) => {
             let url = `${
                 config.BASE_URL
             }/payments/transactions?exclude=store-payment&size=${size}&page=${page}`;
@@ -37,15 +37,15 @@ export const API = config => {
         },
         deleteAccount: `${config.BASE_URL}/accounts/erase`,
         exportData: `${config.BASE_URL}/accounts/export`,
-        reportSSOtoken: ssoDomain =>
+        reportSSOtoken: (ssoDomain: any) =>
             `${ssoDomain}/sso/cookie`,
         // Asset
-        checkAccessForAsset: id => `${config.BASE_URL}/items/${id}/access`,
-        checkFreeTrial: id =>
+        checkAccessForAsset: (id: any) => `${config.BASE_URL}/items/${id}/access`,
+        checkFreeTrial: (id: any) =>
             `${config.BASE_URL}/items/used-trial-period/${id}`,
-        getAsset: (assetId, merchantUuid) =>
+        getAsset: (assetId: any, merchantUuid: any) =>
             `${config.BASE_URL}/items/${merchantUuid}/${assetId}`,
-        getExternalAsset: (assetType, externalId, merchantUuid) => {
+        getExternalAsset: (assetType: any, externalId: any, merchantUuid: any) => {
             if (merchantUuid) {
                 return `${
                     config.BASE_URL
@@ -55,35 +55,35 @@ export const API = config => {
                 config.BASE_URL
             }/items/assets/external/${assetType}/${externalId}`;
         },
-        getPackage: id => `${config.BASE_URL}/items/packages/${id}`,
-        getAssetAccessFees: id => `${config.BASE_URL}/items/${id}/access-fees`,
+        getPackage: (id: any) => `${config.BASE_URL}/items/packages/${id}`,
+        getAssetAccessFees: (id: any) => `${config.BASE_URL}/items/${id}/access-fees`,
         getFreemiumAsset: `${config.BASE_URL}/items/access/unlimited`,
-        getCloudfrontURL: (assetId, videoUrl) =>
+        getCloudfrontURL: (assetId: any, videoUrl: any) =>
             `${config.BASE_URL}/items/${assetId}/access/cloudfront?url=${videoUrl}`,
         // Payment
         getPaymentMethods: `${config.BASE_URL}/payments/methods`,
-        getPaymentTools: paymentMethodId =>
+        getPaymentTools: (paymentMethodId: any) =>
             `${config.BASE_URL}/payments/method/${paymentMethodId}/tools`,
         payForAsset: `${config.BASE_URL}/payments`,
         getPayPalParams: `${config.BASE_URL}/external-payments`,
         getDefaultCreditCard: `${config.BASE_URL}/v2/payments/cards/default`,
         setDefaultCreditCard: `${config.BASE_URL}/v2/payments/cards/default`,
         // Subscriptions
-        getSubscriptions: (limit, page) =>
+        getSubscriptions: (limit: any, page: any) =>
             `${config.BASE_URL}/subscriptions?limit=${limit}&page=${page}`,
-        getSubscription: id =>
+        getSubscription: (id: any) =>
             `${config.BASE_URL}/subscriptions/reporting/subscriptions/${id}`,
         subscribe: `${config.BASE_URL}/subscriptions`,
-        cancelSubscription: url => `${url}`,
+        cancelSubscription: (url: any) => `${url}`,
         // Misc
-        getDlcLinks: id => `${config.BASE_URL}/dlc/${id}/links`,
+        getDlcLinks: (id: any) => `${config.BASE_URL}/dlc/${id}/links`,
         getDiscount: `${config.BASE_URL}/vouchers/discount`,
-        getBranding: (merchantUuid, brandingId) =>
+        getBranding: (merchantUuid: any, brandingId: any) =>
             `${config.BASE_URL}/branding/paywall/${merchantUuid}/${brandingId}`,
-        downloadFile: (assetId, filename) =>
+        downloadFile: (assetId: any, filename: any) =>
             `${config.BASE_URL}/dlc/${assetId}/${filename}`,
         requestCodeAccess: `${config.BASE_URL}/items/access/codes`,
-        releaseAccessCode: code =>
+        releaseAccessCode: (code: any) =>
             `${config.BASE_URL}/items/access/codes/${code}`,
     };
 };

@@ -6,7 +6,9 @@ import { checkStatus, errorResponse } from '../Utils';
  * @class DLC
  */
 class DLC {
-    constructor(config, Account) {
+    config: any;
+    Account: any;
+    constructor(config: any, Account: any) {
         this.config = config;
         this.Account = Account;
     }
@@ -21,7 +23,7 @@ class DLC {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-    async getDlcLinks(assetId) {
+    async getDlcLinks(assetId: any) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,

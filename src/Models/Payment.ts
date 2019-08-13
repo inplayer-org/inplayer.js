@@ -6,7 +6,9 @@ import { checkStatus, errorResponse, params } from '../Utils';
  * @class Payment
  */
 class Payment {
-    constructor(config, Account) {
+    config: any;
+    Account: any;
+    constructor(config: any, Account: any) {
         this.config = config;
         this.Account = Account;
     }
@@ -51,7 +53,7 @@ class Payment {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getPaymentTools(paymentMethodId) {
+    async getPaymentTools(paymentMethodId: any) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -109,7 +111,7 @@ class Payment {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async create(data = {}) {
+    async create(data: any) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -118,7 +120,7 @@ class Payment {
         }
         const t = this.Account.getToken();
 
-        let body = {
+        let body: any = {
             number: data.number,
             card_name: data.cardName,
             exp_month: data.expMonth,
@@ -168,7 +170,7 @@ class Payment {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getPayPalParams(data = {}) {
+    async getPayPalParams(data: any) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -212,7 +214,7 @@ class Payment {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getPurchaseHistory(status = 'active', page, limit) {
+    async getPurchaseHistory(status = 'active', page: any, limit: any) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -291,7 +293,7 @@ class Payment {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async setDefaultCreditCard(data = {}) {
+    async setDefaultCreditCard(data: any) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,

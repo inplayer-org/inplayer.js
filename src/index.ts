@@ -16,15 +16,24 @@ import { API } from './constants/endpoints';
  * @class InPlayer
  */
 class InPlayer {
+    config: any;
+    Account: any;
+    Asset: any;
+    Payment: any;
+    Subscription: any;
+    Voucher: any;
+    DLC: any;
+    Branding: any;
+    Notifications: any;
+
     constructor() {
         this.config = {
             BASE_URL: 'https://services.inplayer.com',
-            AWS_IOT_URL:
-                'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys',
+            AWS_IOT_URL: 'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys',
             IOT_NOTIF_URL: 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com',
             INPLAYER_TOKEN_NAME: 'inplayer_token',
             INPLAYER_IOT_NAME: 'inplayer_iot',
-            INPLAYER_ACCESS_CODE_NAME: assetId => `access_code_${assetId}`,
+            INPLAYER_ACCESS_CODE_NAME: (assetId: any) => `access_code_${assetId}`
         };
 
         this.config.API = API(this.config);
@@ -87,19 +96,17 @@ class InPlayer {
      *    )
      * @return {Boolean}
      */
-    subscribe(accountUid, callbackParams) {
+    subscribe(accountUid: any, callbackParams: any) {
         if (this.Account.isAuthenticated()) {
             this.Notifications.subscribe(accountUid, callbackParams)
-                .then(data => {
+                .then((data: any) => {
                     if (!data) {
-                        console.error(
-                            'An error has occured while subscribing.'
-                        );
+                        console.error('An error has occured while subscribing.');
                     }
                 })
-                .catch(error => {
+                .catch((error: any) => {
                     if (error.response) {
-                        error.response.json().then(data => {
+                        error.response.json().then((data: any) => {
                             console.warn(data);
                         });
                     }
@@ -129,19 +136,17 @@ class InPlayer {
      * @example
      *     InPlayer.setConfig('develop');
      */
-    setConfig(config) {
+    setConfig(config: any) {
         switch (config) {
         case 'prod': {
             this.config.BASE_URL = 'https://services.inplayer.com';
-            this.config.AWS_IOT_URL =
-                    'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys';
+            this.config.AWS_IOT_URL = 'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys';
             this.config.IOT_NOTIF_URL = 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com';
             break;
         }
         case 'develop': {
             this.config.BASE_URL = 'https://staging-v2.inplayer.com';
-            this.config.AWS_IOT_URL =
-                    'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys';
+            this.config.AWS_IOT_URL = 'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys';
             this.config.IOT_NOTIF_URL = 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com';
 
             break;
@@ -149,8 +154,7 @@ class InPlayer {
         case 'sandbox': {
             // TODO: to be changed in future
             this.config.BASE_URL = 'https://staging-v2.inplayer.com';
-            this.config.AWS_IOT_URL =
-                    'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys';
+            this.config.AWS_IOT_URL = 'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys';
             this.config.IOT_NOTIF_URL = 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com';
             break;
         }

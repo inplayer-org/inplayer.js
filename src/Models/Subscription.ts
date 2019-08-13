@@ -6,7 +6,9 @@ import { checkStatus, errorResponse, params } from '../Utils';
  * @class Subscription
  */
 class Subscription {
-    constructor(config, Account) {
+    config: any;
+    Account: any;
+    constructor(config: any, Account: any) {
         this.config = config;
         this.Account = Account;
     }
@@ -58,7 +60,7 @@ class Subscription {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-    async getSubscription(id) {
+    async getSubscription(id: any) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -89,7 +91,7 @@ class Subscription {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-    async cancelSubscription(unsubscribeUrl) {
+    async cancelSubscription(unsubscribeUrl: any) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -147,7 +149,7 @@ class Subscription {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-    async create(data = {}) {
+    async create(data: any) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -157,7 +159,7 @@ class Subscription {
 
         const t = this.Account.getToken();
 
-        let body = {
+        let body: any = {
             number: data.number,
             card_name: data.cardName,
             exp_month: data.expMonth,

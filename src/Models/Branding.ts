@@ -6,7 +6,8 @@ import { checkStatus } from '../Utils';
  * @class Branding
  */
 class Branding {
-    constructor(config) {
+    config: any;
+    constructor(config: any) {
         this.config = config;
     }
 
@@ -22,7 +23,7 @@ class Branding {
      *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getBranding(clientId, brandingId) {
+    async getBranding(clientId: any, brandingId: any) {
         const response = await fetch(
             this.config.API.getBranding(clientId, brandingId)
         );
