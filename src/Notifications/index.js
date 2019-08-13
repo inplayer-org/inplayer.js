@@ -11,12 +11,12 @@ class Notifications {
     }
 
     async getIotToken() {
-        if (!this.isAuthenticated()) {
+        if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
             });
-        };
+        }
 
         const response = await fetch(this.config.AWS_IOT_URL, {
             headers: {
