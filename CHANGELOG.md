@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.9.2] - 13-08-2019
+
+### Fixes
+
+- Fix isAuthenticated check in Notifications getIotToken
+
 # [2.9.1] - 13-08-2019
 
 ### Fixes
