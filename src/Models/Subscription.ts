@@ -154,13 +154,7 @@ class Subscription {
             });
         }
 
-<<<<<<< HEAD:src/Models/Subscription.ts
-        const t = this.Account.getToken();
-
         let body: any = {
-=======
-        let body = {
->>>>>>> v2:src/Models/Subscription.js
             number: data.number,
             card_name: data.cardName,
             exp_month: data.expMonth,

@@ -77,12 +77,8 @@ export const API = (config: any) => {
         getSubscription: (id: any) =>
             `${config.BASE_URL}/subscriptions/reporting/subscriptions/${id}`,
         subscribe: `${config.BASE_URL}/subscriptions`,
-<<<<<<< HEAD:src/constants/endpoints.ts
-        cancelSubscription: (url: any) => `${url}`,
-=======
+        cancelSubscription: (url: string) => `${url}`,
         subscribeV2: `${config.BASE_URL}/v2/subscriptions`,
-        cancelSubscription: url => `${url}`,
->>>>>>> v2:src/constants/endpoints.js
         // Misc
         getDlcLinks: (id: any) => `${config.BASE_URL}/dlc/${id}/links`,
         getDiscount: `${config.BASE_URL}/vouchers/discount`,
