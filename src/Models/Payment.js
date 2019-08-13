@@ -225,6 +225,8 @@ class Payment {
             }
         );
 
+        checkStatus(response);
+
         return await response.json();
     }
 
@@ -254,6 +256,8 @@ class Payment {
                 },
             }
         );
+
+        checkStatus(response);
 
         return await response.json();
     }
@@ -311,6 +315,8 @@ class Payment {
             }
         );
 
+        checkStatus(response);
+
         return await response.json();
     }
 
@@ -344,8 +350,6 @@ class Payment {
             });
         }
 
-        console.error('Yolooooooo!!!!');
-
         const response = await fetch(
             this.config.API.getDirectDebitMandate,
             {
@@ -355,6 +359,8 @@ class Payment {
                 },
             }
         );
+
+        checkStatus(response);
 
         return await response.json();
     }
@@ -411,6 +417,8 @@ class Payment {
             }
         );
 
+        checkStatus(response);
+
         return await response.json();
     }
 
@@ -452,6 +460,8 @@ class Payment {
                 body: params({ item_id, access_fee_id, voucher_code, payment_method: 'Direct Debit' }),
             }
         );
+
+        checkStatus(response);
 
         return await response.json();
     }
@@ -495,6 +505,8 @@ class Payment {
                 body: params({ item_id, access_fee_id, voucher_code, payment_method: 'Direct Debit' }),
             }
         );
+
+        checkStatus(response);
 
         return await response.json();
     }
