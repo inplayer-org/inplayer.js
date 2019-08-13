@@ -1,9 +1,6 @@
 export const checkStatus = response => {
     if (!response.ok) {
-        let error = new Error(response.statusText);
-
-        error.response = response;
-        throw error;
+        throw Error(response.statusText);
     }
 
     return response;
