@@ -5,7 +5,9 @@ describe('Asset', function () {
     InPlayer.setConfig('develop');
 
     let secret = process.env.CLIENT_SECRET;
+
     let asset = InPlayer.Asset;
+
     let user = InPlayer.Account;
 
     before(() => {

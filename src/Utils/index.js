@@ -1,8 +1,8 @@
-export const checkStatus = response => {
+export async function checkStatus(response) {
     if (!response.ok) {
         let error = new Error(response.statusText);
 
-        error.response = response;
+        error.response = await response.json();
         throw error;
     }
 
