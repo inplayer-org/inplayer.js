@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixes
 
-- Check response status in payment methods
+- Await checkStatus to include error response
 
 # [2.9.0] - 12-08-2019
 
