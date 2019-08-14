@@ -28,15 +28,14 @@ class DLC {
                 message: 'User is not authenticated'
             });
         }
-        const t = this.Account.getToken();
 
         const response = await fetch(this.config.API.getDlcLinks(assetId), {
             headers: {
-                Authorization: 'Bearer ' + t.token
+                Authorization: `Bearer ${this.Account.getToken().token}`
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }

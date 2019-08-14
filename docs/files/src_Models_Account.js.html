@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.8.3</b>
+                    API Docs for Version: <b>2.9.3</b>
                 </p>
             </li>
         </div>
@@ -147,7 +147,7 @@ class Account {
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         const respData = await response.json();
 
@@ -212,7 +212,7 @@ class Account {
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         const respData = await response.json();
 
@@ -241,15 +241,14 @@ class Account {
                 message: &#x27;User is not authenticated&#x27;
             });
         }
-        const t = this.getToken();
 
         const response = await fetch(this.config.API.signOut, {
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token
+                Authorization: &#x60;Bearer ${this.getToken().token}&#x60;
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         this.setToken(&#x27;&#x27;, &#x27;&#x27;, 0);
 
@@ -264,9 +263,7 @@ class Account {
  * @return {Boolean}
  */
     isAuthenticated() {
-        const t = this.getToken();
-
-        return !t.isExpired() &amp;&amp; t.token !== &#x27;&#x27;;
+        return !this.getToken().isExpired() &amp;&amp; this.getToken().token !== &#x27;&#x27;;
     }
 
     /** Retruns the OAuth token
@@ -339,7 +336,8 @@ class Account {
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
+
         const responseData = await response.json();
 
         this.setToken(
@@ -369,7 +367,7 @@ class Account {
             credentials: &#x27;include&#x27;
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -408,7 +406,7 @@ class Account {
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -446,7 +444,7 @@ class Account {
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
     // Response is 204: No Content, nothing to return.
     }
@@ -469,15 +467,13 @@ class Account {
             });
         }
 
-        const t = this.getToken();
-
         const response = await fetch(this.config.API.getAccountInfo, {
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token
+                Authorization: &#x60;Bearer ${this.getToken().token}&#x60;
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -498,7 +494,7 @@ class Account {
     async getSocialLoginUrls(state) {
         const response = await fetch(this.config.API.getSocialLoginUrls(state));
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -521,7 +517,6 @@ class Account {
                 message: &#x27;User is not authenticated&#x27;
             });
         }
-        const t = this.getToken();
 
         let body = {
             full_name: data.fullName
@@ -535,12 +530,12 @@ class Account {
             method: &#x27;PUT&#x27;,
             body: params(body),
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token,
+                Authorization: &#x60;Bearer ${this.getToken().token}&#x60;,
                 &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -574,7 +569,6 @@ class Account {
                 message: &#x27;User is not authenticated&#x27;
             });
         }
-        const t = this.getToken();
 
         let body = {
             old_password: data.oldPassword,
@@ -587,12 +581,12 @@ class Account {
             method: &#x27;POST&#x27;,
             body: params(body),
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token,
+                Authorization: &#x60;Bearer ${this.getToken().token}&#x60;,
                 &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -613,7 +607,7 @@ class Account {
             this.config.API.getRegisterFields(merchantUuid)
         );
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -642,7 +636,6 @@ class Account {
                 message: &#x27;User is not authenticated&#x27;
             });
         }
-        const t = this.getToken();
 
         let body = {
             password: data.password,
@@ -652,13 +645,13 @@ class Account {
         const response = await fetch(this.config.API.deleteAccount, {
             method: &#x27;DELETE&#x27;,
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token,
+                Authorization: &#x60;Bearer ${this.getToken().token}&#x60;,
                 &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
             },
             body: params(body)
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         localStorage.removeItem(this.config.INPLAYER_TOKEN_NAME);
         localStorage.removeItem(this.config.INPLAYER_IOT_NAME);
@@ -694,8 +687,6 @@ class Account {
             });
         }
 
-        const t = this.getToken();
-
         let body = {
             password: data.password,
             branding_id: data.brandingId
@@ -704,13 +695,13 @@ class Account {
         const response = await fetch(this.config.API.exportData, {
             method: &#x27;POST&#x27;,
             headers: {
-                Authorization: &#x27;Bearer &#x27; + t.token,
+                Authorization: &#x60;Bearer ${this.getToken().token}&#x60;,
                 &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
             },
             body: params(body)
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         if (!response.ok) {
             return await response.json();

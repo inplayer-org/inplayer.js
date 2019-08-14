@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.8.3</b>
+                    API Docs for Version: <b>2.9.3</b>
                 </p>
             </li>
         </div>
@@ -100,7 +100,11 @@
 			<strong>Methods</strong>
 			<ul>
 				<li><a href="#method-create"><span class="im">create</span>(<span class="ia">data</span>)</a></li>
+				<li><a href="#method-createDirectDebitMandate"><span class="im">createDirectDebitMandate</span>(<span class="ia">data</span>)</a></li>
+				<li><a href="#method-directDebitCharge"><span class="im">directDebitCharge</span>(<span class="ia">data</span>)</a></li>
+				<li><a href="#method-directDebitSubscribe"><span class="im">directDebitSubscribe</span>(<span class="ia">data</span>)</a></li>
 				<li><a href="#method-getDefaultCreditCard"><span class="im">getDefaultCreditCard</span>()</a></li>
+				<li><a href="#method-getDirectDebitMandate"><span class="im">getDirectDebitMandate</span>()</a></li>
 				<li><a href="#method-getPaymentMethods"><span class="im">getPaymentMethods</span>()</a></li>
 				<li><a href="#method-getPaymentTools"><span class="im">getPaymentTools</span>(<span class="ia">paymentMethodId</span>)</a></li>
 				<li><a href="#method-getPayPalParams"><span class="im">getPayPalParams</span>(<span class="ia">data</span>)</a></li>
@@ -145,7 +149,7 @@
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Payment.js.html#l77"><code>src&#x2F;Models&#x2F;Payment.js:77</code></a>
+		<a href="../files/src_Models_Payment.js.html#l76"><code>src&#x2F;Models&#x2F;Payment.js:76</code></a>
 		</p>
 
 
@@ -216,6 +220,264 @@ brandingId?: number
 			</div>
 		</div>
 </div>
+<div id="method-createDirectDebitMandate" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>createDirectDebitMandate</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>data</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_Payment.js.html#l369"><code>src&#x2F;Models&#x2F;Payment.js:369</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Create direct debit mandate for customer</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">data</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><ul>
+<li>Contains the data - {
+name: {string},
+iban: {string},
+}</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>:
+					<p>Contains the data - {
+"id": "src_1F2GzxJqmvwo8uTaJnRVkgYS",
+"currency": "eur",
+"created": 1564576421,
+"client_secret": "src_client_secret_FXLhLpWGLiupZtUlPStd3jLo",
+"owner": "John",
+"full_name": "Bret Johannes",
+"statement_descriptor": "InPlayer",
+"status": "chargeable",
+type_data: {
+"bank_code": 37040044,
+"branch_code": 111000000,
+"country": "DE",
+"fingerprint": "wGjUgpjH1Rj4NtBf",
+"last4": 3000,
+"mandate_reference": "8OC5CIAXSF2UKON4",
+"mandate_url": "<a href="https://hooks.stripe.com/adapter/sepa_debit/file/src_1F2Jqmvwo8DwAwwqraJnRVkgYS">https://hooks.stripe.com/adapter/sepa_debit/file/src_1F2Jqmvwo8DwAwwqraJnRVkgYS</a>"
+}
+}</p>
+
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.Payment
+.createDirectDebitMandate({name, iban})
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-directDebitCharge" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>directDebitCharge</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>data</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_Payment.js.html#l426"><code>src&#x2F;Models&#x2F;Payment.js:426</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Process a request for direct debit SEPA charge</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">data</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><ul>
+<li>Contains the data - {
+assetId: {string},
+accessFeeId: {string},
+voucherCode: {string},
+}</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>:
+					<p>Contains the data - {
+code: '200',
+message: "Submitted for payment",
+}</p>
+
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.Payment
+.directDebitCharge({ assetId, accessFeeId, voucherCode })
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
+<div id="method-directDebitSubscribe" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>directDebitSubscribe</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>data</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_Payment.js.html#l470"><code>src&#x2F;Models&#x2F;Payment.js:470</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Process a request for direct debit subscribe</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">data</code>
+						<span class="type">Object</span>
+
+
+					<div class="param-description"><ul>
+<li>Contains the data - {
+assetId: {string},
+accessFeeId: {string},
+voucherCode: {string},
+}</li>
+</ul>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>:
+					<p>Contains the data - {
+code: '200',
+message: "Submitted for payment",
+}
+}</p>
+
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.Payment
+.directDebitSubscribe({ assetId, accessFeeId, voucherCode })
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
 <div id="method-getDefaultCreditCard" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>getDefaultCreditCard</code></span>
@@ -235,7 +497,7 @@ brandingId?: number
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Payment.js.html#l236"><code>src&#x2F;Models&#x2F;Payment.js:236</code></a>
+		<a href="../files/src_Models_Payment.js.html#l234"><code>src&#x2F;Models&#x2F;Payment.js:234</code></a>
 		</p>
 
 
@@ -265,6 +527,69 @@ brandingId?: number
 			</div>
 		</div>
 </div>
+<div id="method-getDirectDebitMandate" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>getDirectDebitMandate</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type">Object</span>
+		</span>
+	</div>
+
+
+
+
+
+		<span class="flag async">async</span>
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_Models_Payment.js.html#l324"><code>src&#x2F;Models&#x2F;Payment.js:324</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Checks for existing user direct debit mandate</p>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">Object</span>:
+					<p>Contains the data - {
+is_approved: {boolean},
+statement_descriptor: {string},
+mandate: {
+"bank_code": 37040044,
+"branch_code": 111000000,
+"country": "DE",
+"fingerprint": "wGjUgpjH1Rj4NtBf",
+"last4": 3000,
+"mandate_reference": "8OC5CIAXSF2UKON4",
+"mandate_url": "<a href="https://hooks.stripe.com/adapter/sepa_debit/file/src_1F2Jqmvwo8DwAwwqraJnRVkgYS">https://hooks.stripe.com/adapter/sepa_debit/file/src_1F2Jqmvwo8DwAwwqraJnRVkgYS</a>"
+}
+}</p>
+
+			</div>
+		</div>
+
+		<div class="example">
+			<h4>Example:</h4>
+
+			<div class="example-content">
+				<pre class="code prettyprint"><code>InPlayer.Payment
+.getDirectDebitMandate()
+.then(data =&gt; console.log(data));</code></pre>
+
+			</div>
+		</div>
+</div>
 <div id="method-getPaymentMethods" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>getPaymentMethods</code></span>
@@ -284,7 +609,7 @@ brandingId?: number
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Payment.js.html#l13"><code>src&#x2F;Models&#x2F;Payment.js:13</code></a>
+		<a href="../files/src_Models_Payment.js.html#l14"><code>src&#x2F;Models&#x2F;Payment.js:14</code></a>
 		</p>
 
 
@@ -411,7 +736,7 @@ brandingId?: number
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Payment.js.html#l151"><code>src&#x2F;Models&#x2F;Payment.js:151</code></a>
+		<a href="../files/src_Models_Payment.js.html#l149"><code>src&#x2F;Models&#x2F;Payment.js:149</code></a>
 		</p>
 
 
@@ -498,7 +823,7 @@ voucherCode: '1231231'
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Payment.js.html#l202"><code>src&#x2F;Models&#x2F;Payment.js:202</code></a>
+		<a href="../files/src_Models_Payment.js.html#l199"><code>src&#x2F;Models&#x2F;Payment.js:199</code></a>
 		</p>
 
 
@@ -592,7 +917,7 @@ voucherCode: '1231231'
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Payment.js.html#l269"><code>src&#x2F;Models&#x2F;Payment.js:269</code></a>
+		<a href="../files/src_Models_Payment.js.html#l266"><code>src&#x2F;Models&#x2F;Payment.js:266</code></a>
 		</p>
 
 

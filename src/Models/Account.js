@@ -62,7 +62,7 @@ class Account {
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         const respData = await response.json();
 
@@ -127,7 +127,7 @@ class Account {
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         const respData = await response.json();
 
@@ -156,15 +156,14 @@ class Account {
                 message: 'User is not authenticated'
             });
         }
-        const t = this.getToken();
 
         const response = await fetch(this.config.API.signOut, {
             headers: {
-                Authorization: 'Bearer ' + t.token
+                Authorization: `Bearer ${this.getToken().token}`
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         this.setToken('', '', 0);
 
@@ -179,9 +178,7 @@ class Account {
  * @return {Boolean}
  */
     isAuthenticated() {
-        const t = this.getToken();
-
-        return !t.isExpired() && t.token !== '';
+        return !this.getToken().isExpired() && this.getToken().token !== '';
     }
 
     /** Retruns the OAuth token
@@ -254,7 +251,8 @@ class Account {
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
+
         const responseData = await response.json();
 
         this.setToken(
@@ -284,7 +282,7 @@ class Account {
             credentials: 'include'
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -323,7 +321,7 @@ class Account {
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -361,7 +359,7 @@ class Account {
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
     // Response is 204: No Content, nothing to return.
     }
@@ -384,15 +382,13 @@ class Account {
             });
         }
 
-        const t = this.getToken();
-
         const response = await fetch(this.config.API.getAccountInfo, {
             headers: {
-                Authorization: 'Bearer ' + t.token
+                Authorization: `Bearer ${this.getToken().token}`
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -413,7 +409,7 @@ class Account {
     async getSocialLoginUrls(state) {
         const response = await fetch(this.config.API.getSocialLoginUrls(state));
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -436,7 +432,6 @@ class Account {
                 message: 'User is not authenticated'
             });
         }
-        const t = this.getToken();
 
         let body = {
             full_name: data.fullName
@@ -450,12 +445,12 @@ class Account {
             method: 'PUT',
             body: params(body),
             headers: {
-                Authorization: 'Bearer ' + t.token,
+                Authorization: `Bearer ${this.getToken().token}`,
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -489,7 +484,6 @@ class Account {
                 message: 'User is not authenticated'
             });
         }
-        const t = this.getToken();
 
         let body = {
             old_password: data.oldPassword,
@@ -502,12 +496,12 @@ class Account {
             method: 'POST',
             body: params(body),
             headers: {
-                Authorization: 'Bearer ' + t.token,
+                Authorization: `Bearer ${this.getToken().token}`,
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -528,7 +522,7 @@ class Account {
             this.config.API.getRegisterFields(merchantUuid)
         );
 
-        checkStatus(response);
+        await checkStatus(response);
 
         return await response.json();
     }
@@ -557,7 +551,6 @@ class Account {
                 message: 'User is not authenticated'
             });
         }
-        const t = this.getToken();
 
         let body = {
             password: data.password,
@@ -567,13 +560,13 @@ class Account {
         const response = await fetch(this.config.API.deleteAccount, {
             method: 'DELETE',
             headers: {
-                Authorization: 'Bearer ' + t.token,
+                Authorization: `Bearer ${this.getToken().token}`,
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: params(body)
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         localStorage.removeItem(this.config.INPLAYER_TOKEN_NAME);
         localStorage.removeItem(this.config.INPLAYER_IOT_NAME);
@@ -609,8 +602,6 @@ class Account {
             });
         }
 
-        const t = this.getToken();
-
         let body = {
             password: data.password,
             branding_id: data.brandingId
@@ -619,13 +610,13 @@ class Account {
         const response = await fetch(this.config.API.exportData, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + t.token,
+                Authorization: `Bearer ${this.getToken().token}`,
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: params(body)
         });
 
-        checkStatus(response);
+        await checkStatus(response);
 
         if (!response.ok) {
             return await response.json();

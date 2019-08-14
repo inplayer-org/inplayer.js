@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "2.8.3",
+        "version": "2.9.3",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -244,7 +244,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 174,
+            "line": 173,
             "description": "Checks if the user is authenticated",
             "itemtype": "method",
             "name": "isAuthenticated",
@@ -259,7 +259,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 187,
+            "line": 184,
             "itemtype": "method",
             "name": "getToken",
             "example": [
@@ -273,7 +273,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 203,
+            "line": 200,
             "itemtype": "method",
             "name": "setToken",
             "params": [
@@ -300,7 +300,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 224,
+            "line": 221,
             "description": "Refreshes the token",
             "itemtype": "method",
             "name": "refreshToken",
@@ -322,7 +322,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 269,
+            "line": 267,
             "description": "Reports the generated SSO token to the SSO domain.",
             "params": [
                 {
@@ -345,7 +345,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 292,
+            "line": 290,
             "description": "Requests new password for a given user",
             "itemtype": "method",
             "name": "requestNewPassword",
@@ -368,7 +368,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 331,
+            "line": 329,
             "description": "Sets new password for the user",
             "itemtype": "method",
             "name": "setNewPassword",
@@ -396,7 +396,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 369,
+            "line": 367,
             "description": "Gets the account information for a given auth token",
             "itemtype": "method",
             "name": "getAccount",
@@ -412,7 +412,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 400,
+            "line": 396,
             "description": "Gets the social login urls for fb/twitter/google",
             "itemtype": "method",
             "name": "getSocialLoginUrls",
@@ -435,7 +435,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 421,
+            "line": 417,
             "description": "Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()",
             "itemtype": "method",
             "name": "updateAccount",
@@ -458,7 +458,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 463,
+            "line": 458,
             "description": "Changes password for a given user",
             "itemtype": "method",
             "name": "changePassword",
@@ -486,7 +486,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 515,
+            "line": 509,
             "description": "Gets register fields",
             "itemtype": "method",
             "name": "getRegisterFields",
@@ -509,7 +509,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 536,
+            "line": 530,
             "description": "Deletes an account",
             "itemtype": "method",
             "name": "deleteAccount",
@@ -532,7 +532,7 @@
         },
         {
             "file": "src/Models/Account.js",
-            "line": 587,
+            "line": 580,
             "description": "DExports account data to the users' email",
             "itemtype": "method",
             "name": "exportData",
@@ -578,7 +578,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 46,
+            "line": 45,
             "description": "Checks whether Free trial has been used for a given asset",
             "itemtype": "method",
             "name": "isFreeTrialUsed",
@@ -601,7 +601,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 78,
+            "line": 75,
             "description": "Get the asset info for a given asset ID and merchant UUID",
             "itemtype": "method",
             "name": "getAsset",
@@ -629,7 +629,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 100,
+            "line": 97,
             "description": "Get an external assets info",
             "itemtype": "method",
             "name": "getExternalAsset",
@@ -662,7 +662,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 123,
+            "line": 120,
             "description": "Get package info for a given Package ID",
             "itemtype": "method",
             "name": "getPackage",
@@ -685,7 +685,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 142,
+            "line": 139,
             "description": "Get the access fees for a given asset ID",
             "itemtype": "method",
             "name": "getAssetAccessFees",
@@ -708,7 +708,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 161,
+            "line": 158,
             "description": "Returns purchase history with types",
             "itemtype": "method",
             "name": "getAssetsHistory",
@@ -746,7 +746,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 204,
+            "line": 199,
             "description": "Authorize for the freemium asset (login)",
             "itemtype": "method",
             "name": "getFreemiumAsset",
@@ -768,7 +768,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 240,
+            "line": 233,
             "description": "Get access with code for code access grant asset.",
             "itemtype": "method",
             "name": "requestCodeAccess",
@@ -794,7 +794,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 291,
+            "line": 284,
             "description": "Retrieves the access code and browser fingerprint for the current asset.\nReturns null if no access code is present.",
             "itemtype": "method",
             "name": "getAccessCode",
@@ -816,7 +816,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 315,
+            "line": 308,
             "description": "Releases the access code for the current browser.",
             "itemtype": "method",
             "name": "releaseAccessCode",
@@ -842,7 +842,7 @@
         },
         {
             "file": "src/Models/Asset.js",
-            "line": 354,
+            "line": 347,
             "description": "Returns a signed Cloudfront URL with the merchant's signature",
             "itemtype": "method",
             "name": "getCloudfrontURL",
@@ -921,7 +921,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 13,
+            "line": 14,
             "description": "Get all payment methods for a User",
             "itemtype": "method",
             "name": "getPaymentMethods",
@@ -960,7 +960,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 77,
+            "line": 76,
             "description": "Makes a Payment for a given Authorization token + asset/payment details.\nUse this method ONLY if the assetFee.type is not 'subscription' or 'freemium'. Otherwise\nplease use InPlayer.Subscription.create()",
             "itemtype": "method",
             "name": "create",
@@ -983,7 +983,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 151,
+            "line": 149,
             "description": "Gets parameters for PayPal",
             "itemtype": "method",
             "name": "getPayPalParams",
@@ -1006,7 +1006,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 202,
+            "line": 199,
             "description": "Gets the purchase history",
             "itemtype": "method",
             "name": "getPurchaseHistory",
@@ -1039,7 +1039,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 236,
+            "line": 234,
             "description": "Gets the default credit card per currency used for subscription rebills",
             "itemtype": "method",
             "name": "getDefaultCreditCard",
@@ -1055,7 +1055,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 269,
+            "line": 266,
             "description": "Sets card per currency as default card that is to be used for further subscription rebills",
             "itemtype": "method",
             "name": "setDefaultCreditCard",
@@ -1072,6 +1072,91 @@
             ],
             "return": {
                 "description": "",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "src/Models/Payment.js",
+            "line": 324,
+            "description": "Checks for existing user direct debit mandate",
+            "itemtype": "method",
+            "name": "getDirectDebitMandate",
+            "async": 1,
+            "example": [
+                "\n    InPlayer.Payment\n    .getDirectDebitMandate()\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "Contains the data - {\n is_approved: {boolean},\n statement_descriptor: {string},\n mandate: {\n   \"bank_code\": 37040044,\n   \"branch_code\": 111000000,\n   \"country\": \"DE\",\n   \"fingerprint\": \"wGjUgpjH1Rj4NtBf\",\n   \"last4\": 3000,\n   \"mandate_reference\": \"8OC5CIAXSF2UKON4\",\n   \"mandate_url\": \"https://hooks.stripe.com/adapter/sepa_debit/file/src_1F2Jqmvwo8DwAwwqraJnRVkgYS\"\n   }\n}",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "src/Models/Payment.js",
+            "line": 369,
+            "description": "Create direct debit mandate for customer",
+            "itemtype": "method",
+            "name": "createDirectDebitMandate",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains the data - {\n name: {string},\n iban: {string},\n}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Payment\n    .createDirectDebitMandate({name, iban})\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "Contains the data - {\n  \"id\": \"src_1F2GzxJqmvwo8uTaJnRVkgYS\",\n  \"currency\": \"eur\",\n  \"created\": 1564576421,\n  \"client_secret\": \"src_client_secret_FXLhLpWGLiupZtUlPStd3jLo\",\n  \"owner\": \"John\",\n  \"full_name\": \"Bret Johannes\",\n  \"statement_descriptor\": \"InPlayer\",\n  \"status\": \"chargeable\",\n  type_data: {\n   \"bank_code\": 37040044,\n   \"branch_code\": 111000000,\n   \"country\": \"DE\",\n   \"fingerprint\": \"wGjUgpjH1Rj4NtBf\",\n   \"last4\": 3000,\n   \"mandate_reference\": \"8OC5CIAXSF2UKON4\",\n   \"mandate_url\": \"https://hooks.stripe.com/adapter/sepa_debit/file/src_1F2Jqmvwo8DwAwwqraJnRVkgYS\"\n   }\n }",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "src/Models/Payment.js",
+            "line": 426,
+            "description": "Process a request for direct debit SEPA charge",
+            "itemtype": "method",
+            "name": "directDebitCharge",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains the data - {\n assetId: {string},\n accessFeeId: {string},\n voucherCode: {string},\n}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Payment\n    .directDebitCharge({ assetId, accessFeeId, voucherCode })\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "Contains the data - {\n      code: '200',\n      message: \"Submitted for payment\",\n   }",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "src/Models/Payment.js",
+            "line": 470,
+            "description": "Process a request for direct debit subscribe",
+            "itemtype": "method",
+            "name": "directDebitSubscribe",
+            "async": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "- Contains the data - {\n assetId: {string},\n accessFeeId: {string},\n voucherCode: {string},\n}",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Payment\n    .directDebitSubscribe({ assetId, accessFeeId, voucherCode })\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "Contains the data - {\n      code: '200',\n      message: \"Submitted for payment\",\n   }\n }",
                 "type": "Object"
             },
             "class": "Payment"
@@ -1106,7 +1191,7 @@
         },
         {
             "file": "src/Models/Subscription.js",
-            "line": 48,
+            "line": 47,
             "description": "Get subscription details for a given user by id",
             "itemtype": "method",
             "name": "getSubscription",
@@ -1129,7 +1214,7 @@
         },
         {
             "file": "src/Models/Subscription.js",
-            "line": 81,
+            "line": 79,
             "description": "Cancels a subscription",
             "itemtype": "method",
             "name": "cancelSubscription",
@@ -1152,7 +1237,7 @@
         },
         {
             "file": "src/Models/Subscription.js",
-            "line": 115,
+            "line": 112,
             "description": "Subscribes to a given asset. Use this method ONLY if the accessFee.type === 'subscription'.\nOtherwise please use InPlayer.Payment.payForAsset()",
             "itemtype": "method",
             "name": "create",
@@ -1316,11 +1401,11 @@
     "warnings": [
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src/Models/Asset.js:354"
+            "line": " src/Models/Asset.js:347"
         },
         {
             "message": "Missing item type\nReports the generated SSO token to the SSO domain.",
-            "line": " src/Models/Account.js:269"
+            "line": " src/Models/Account.js:267"
         }
     ]
 }
