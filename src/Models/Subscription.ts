@@ -6,13 +6,13 @@ import { errorResponse, checkStatus, params } from '../Utils';
  * @class Subscription
  */
 class Subscription {
-    config: any;
-    Account: any;
-    constructor(config: any, Account: any) {
-        this.config = config;
-        this.Account = Account;
-    }
-    /**
+  config: any;
+  Account: any;
+  constructor(config: any, Account: any) {
+    this.config = config;
+    this.Account = Account;
+  }
+  /**
    * Gets all subscriptions for a given user
    * @method getSubscriptions
    * @async
@@ -24,29 +24,29 @@ class Subscription {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-    async getSubscriptions(page = 0, limit = 15) {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated'
-            });
-        }
-
-        const response = await fetch(
-            this.config.API.getSubscriptions(limit, page),
-            {
-                headers: {
-                    Authorization: `Bearer ${this.Account.getToken().token}`
-                }
-            }
-        );
-
-        await checkStatus(response);
-
-        return await response.json();
+  async getSubscriptions(page = 0, limit = 15) {
+    if (!this.Account.isAuthenticated()) {
+      errorResponse(401, {
+        code: 401,
+        message: 'User is not authenticated',
+      });
     }
 
-    /**
+    const response = await fetch(
+      this.config.API.getSubscriptions(limit, page),
+      {
+        headers: {
+          Authorization: `Bearer ${this.Account.getToken().token}`,
+        },
+      },
+    );
+
+    await checkStatus(response);
+
+    return response.json();
+  }
+
+  /**
    * Get subscription details for a given user by id
    *
    * @method getSubscription
@@ -59,26 +59,26 @@ class Subscription {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-    async getSubscription(id: any) {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated'
-            });
-        }
-
-        const response = await fetch(this.config.API.getSubscription(id), {
-            headers: {
-                Authorization: `Bearer ${this.Account.getToken().token}`
-            }
-        });
-
-        await checkStatus(response);
-
-        return await response.json();
+  async getSubscription(id: any) {
+    if (!this.Account.isAuthenticated()) {
+      errorResponse(401, {
+        code: 401,
+        message: 'User is not authenticated',
+      });
     }
 
-    /**
+    const response = await fetch(this.config.API.getSubscription(id), {
+      headers: {
+        Authorization: `Bearer ${this.Account.getToken().token}`,
+      },
+    });
+
+    await checkStatus(response);
+
+    return response.json();
+  }
+
+  /**
    * Cancels a subscription
    * @method cancelSubscription
    * @async
@@ -89,29 +89,29 @@ class Subscription {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-    async cancelSubscription(unsubscribeUrl: any) {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated'
-            });
-        }
-
-        const response = await fetch(
-            this.config.API.cancelSubscription(unsubscribeUrl),
-            {
-                headers: {
-                    Authorization: `Bearer ${this.Account.getToken().token}`
-                }
-            }
-        );
-
-        await checkStatus(response);
-
-        return await response.json();
+  async cancelSubscription(unsubscribeUrl: any) {
+    if (!this.Account.isAuthenticated()) {
+      errorResponse(401, {
+        code: 401,
+        message: 'User is not authenticated',
+      });
     }
 
-    /**
+    const response = await fetch(
+      this.config.API.cancelSubscription(unsubscribeUrl),
+      {
+        headers: {
+          Authorization: `Bearer ${this.Account.getToken().token}`,
+        },
+      },
+    );
+
+    await checkStatus(response);
+
+    return response.json();
+  }
+
+  /**
    * Subscribes to a given asset. Use this method ONLY if the accessFee.type === 'subscription'.
    * Otherwise please use InPlayer.Payment.payForAsset()
    * @method create
@@ -146,43 +146,43 @@ class Subscription {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-    async create(data: any) {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated'
-            });
-        }
-
-        let body: any = {
-            number: data.number,
-            card_name: data.cardName,
-            exp_month: data.expMonth,
-            exp_year: data.expYear,
-            cvv: data.cvv,
-            access_fee: data.accessFee,
-            payment_method: data.paymentMethod,
-            referrer: data.referrer,
-            branding_id: data.brandingId
-        };
-
-        if (data.voucherCode) {
-            body.voucher_code = data.voucherCode;
-        }
-
-        const response = await fetch(this.config.API.subscribe, {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${this.Account.getToken().token}`,
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: params(body)
-        });
-
-        await checkStatus(response);
-
-        return await response.json();
+  async create(data: any) {
+    if (!this.Account.isAuthenticated()) {
+      errorResponse(401, {
+        code: 401,
+        message: 'User is not authenticated',
+      });
     }
+
+    const body: any = {
+      number: data.number,
+      card_name: data.cardName,
+      exp_month: data.expMonth,
+      exp_year: data.expYear,
+      cvv: data.cvv,
+      access_fee: data.accessFee,
+      payment_method: data.paymentMethod,
+      referrer: data.referrer,
+      branding_id: data.brandingId,
+    };
+
+    if (data.voucherCode) {
+      body.voucher_code = data.voucherCode;
+    }
+
+    const response = await fetch(this.config.API.subscribe, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${this.Account.getToken().token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: params(body),
+    });
+
+    await checkStatus(response);
+
+    return response.json();
+  }
 }
 
 export default Subscription;

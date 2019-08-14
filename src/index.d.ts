@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export interface CredentialsConfig {
   token?: string;
   refreshToken?: string;
@@ -44,13 +45,13 @@ export interface SetPasswordData {
 }
 
 export interface ChangePasswordData
-  extends Omit<SetPasswordData, "brandingId"> {
+  extends Omit<SetPasswordData, 'brandingId'> {
   oldPassword: string;
   brandingId?: number;
 }
 
 export interface DeleteAccountData
-  extends Omit<SetPasswordData, "passwordConfirmation" | "brandingId"> {
+  extends Omit<SetPasswordData, 'passwordConfirmation' | 'brandingId'> {
   brandingId?: number;
 }
 
@@ -356,6 +357,6 @@ export declare class InPlayer {
   setConfig(config: string): void;
 }
 
-const InPlayer: InPlayer;
+// const InPlayer: InPlayer;
 
 export default InPlayer;

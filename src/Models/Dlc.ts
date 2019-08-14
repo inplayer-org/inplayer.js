@@ -6,13 +6,13 @@ import { checkStatus, errorResponse } from '../Utils';
  * @class DLC
  */
 class DLC {
-    config: any;
-    Account: any;
-    constructor(config: any, Account: any) {
-        this.config = config;
-        this.Account = Account;
-    }
-    /**
+  config: any;
+  Account: any;
+  constructor(config: any, Account: any) {
+    this.config = config;
+    this.Account = Account;
+  }
+  /**
    * Gets all DLC links
    * @method getDlcLinks
    * @async
@@ -23,24 +23,24 @@ class DLC {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-    async getDlcLinks(assetId: any) {
-        if (!this.Account.isAuthenticated()) {
-            errorResponse(401, {
-                code: 401,
-                message: 'User is not authenticated'
-            });
-        }
-
-        const response = await fetch(this.config.API.getDlcLinks(assetId), {
-            headers: {
-                Authorization: `Bearer ${this.Account.getToken().token}`
-            }
-        });
-
-        await checkStatus(response);
-
-        return await response.json();
+  async getDlcLinks(assetId: any) {
+    if (!this.Account.isAuthenticated()) {
+      errorResponse(401, {
+        code: 401,
+        message: 'User is not authenticated',
+      });
     }
+
+    const response = await fetch(this.config.API.getDlcLinks(assetId), {
+      headers: {
+        Authorization: `Bearer ${this.Account.getToken().token}`,
+      },
+    });
+
+    await checkStatus(response);
+
+    return response.json();
+  }
 }
 
 export default DLC;
