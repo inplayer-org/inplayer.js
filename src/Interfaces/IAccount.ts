@@ -1,3 +1,5 @@
+import { CommonError, AdvanceError } from '../Interfaces/CommonInterfaces';
+
 export interface AccountInformationReturn {
     id: number;
     email: string;
@@ -251,12 +253,3 @@ export interface ValidatePinCode {
 }
 
 export interface ValidatePinCodeError extends CommonError {}
-
-export interface CommonError {
-    code: number;
-    message: string;
-}
-
-export interface AdvanceError extends CommonError {
-    errors?: Record<string, string>
-}
