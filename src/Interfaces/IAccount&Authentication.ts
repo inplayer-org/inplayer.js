@@ -1,4 +1,4 @@
-import { CommonError, AdvanceError } from '../Interfaces/CommonInterfaces';
+import { CommonError, AdvanceError } from './CommonInterfaces';
 
 export interface AccountInformationReturn {
     id: number;
