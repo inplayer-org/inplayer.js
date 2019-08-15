@@ -24,7 +24,7 @@
       "modules": true
     }
   },
-  "extends": ["prettier/@typescript-eslint", "airbnb-base"],
+  "extends": ["prettier/@typescript-eslint", "airbnb-base", "plugin:@typescript-eslint/recommended"],
   "rules": {
     "import/prefer-default-export": 0,
     "no-useless-constructor": 0,
@@ -35,7 +35,14 @@
     "quotes": [2, "single", { "avoidEscape": true }],
     "camelcase": "off",
     "guard-for-in": "off",
-    "linebreak-style": "off"
+    "linebreak-style": "off",
+    "max-len": ["error", { "code": 120 }],
+    "implicit-arrow-linebreak": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/explicit-member-accessibility": "off",
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/no-empty-interface": "off"
   },
   "settings": {
     "import/resolver": {

@@ -6,8 +6,8 @@ export interface AccountInformationReturn {
     full_name: string;
     referrer: string;
     metadata: object;
-    social_apps_metadata: Array<object>;
-    roles: Array<string>;
+    social_apps_metadata: object[];
+    roles: string[];
     completed: boolean;
     created_at: number;
     updated_at: number;
@@ -61,14 +61,14 @@ export interface Follower {
     active: boolean;
     merchant_id: number;
     is_master: boolean;
-    scopes: Array<string>;
+    scopes: string[];
     created_at: number;
 }
 
 // TODO: All followers
 
 export interface AllFolowers {
-    followers: Array<Follower>
+    followers: Follower[];
 }
 
 
@@ -76,13 +76,13 @@ export interface AllFolowersError extends CommonError {}
 
 export interface AllFolowersError400 {
     code: number;
-    errors?: Record<string, string>
+    errors?: Record<string, string>;
 }
 
 export interface AuthenticateAccount {
     access_token: string;
     refresh_token: string;
-    account: AccountInformationReturn
+    account: AccountInformationReturn;
 }
 
 export interface AuthenticateAccountError extends CommonError {}
@@ -122,7 +122,7 @@ export interface UpdatePasswordError extends AdvanceError {}
 export interface Impersonate {
     master_id: number;
     follower_id: number;
-    scopes: Array<string>;
+    scopes: string[];
     created_at: number;
 }
 
@@ -130,7 +130,7 @@ export interface ImpersonateError400 {
     code: number;
     errors: {
         400: string;
-    }
+    };
 }
 
 export interface ImpersonateError404Or422 extends AdvanceError {}
@@ -143,18 +143,18 @@ export interface CreateFollowerMerchantAccount {
     access_token: string;
     account: {
         master_id: number;
-        scopes: Array<string>;
+        scopes: string[];
         id: number;
         email: string;
         full_name: string;
         referrer: string;
         metadata: object;
-        social_apps_metadata: Array<object>;
-        roles: Array<string>;
+        social_apps_metadata: object[];
+        roles: string[];
         completed: boolean;
         created_at: number;
         updated_at: number;
-    }
+    };
 }
 
 export interface CreateFollowerMerchantAccountError400Or403Or422 extends AdvanceError {}
@@ -166,7 +166,7 @@ export interface CreateFollowerMerchantAccountError401Or409 extends CommonError 
 export interface UpdateMasterFollowerRelation {
     master_id: number;
     follower_id: number;
-    scopes: Array<string>
+    scopes: string[];
     created_at: number;
 }
 
@@ -175,7 +175,7 @@ export interface UpdateMasterFollowerRelationError400Or404Or409 extends AdvanceE
 export interface UpdateMasterFollowerRelationError422 {
     code: number;
     message: string;
-    errors?: Record<string, number>
+    errors?: Record<string, number>;
 }
 
 // Needed individual interface GetRegisterFields property option
@@ -192,7 +192,7 @@ export interface GetRegisterField {
     required: boolean;
     default_value: string;
     placeholder: string;
-    options: Array<GetRegisterFieldOption>;
+    options: GetRegisterFieldOption[];
 }
 
 export interface GetRegisterFieldError extends CommonError {}
@@ -206,7 +206,7 @@ export interface SocialURLs {
 }
 
 export interface ListSocialURLs {
-    social_urls: Array<SocialURLs>
+    social_urls: SocialURLs[];
 }
 
 export interface ListSocialURLsError extends CommonError {}

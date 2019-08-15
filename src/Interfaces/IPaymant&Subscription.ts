@@ -36,12 +36,12 @@ export interface Country {
 
 export interface AssetCountry {
     item_id: number;
-    countries: Array<Country>;
+    countries: Country[];
     total: number;
 }
 
 export interface GetNumberOfPaymentPerAssetPerCountry {
-    collection: Array<AssetCountry>
+    collection: AssetCountry[];
 }
 
 export interface GetNumberOfPaymentPerAssetPerCountryError extends CommonError { }
@@ -53,12 +53,12 @@ export interface AssetValue {
 
 export interface Asset {
     item_id: number;
-    values: Array<AssetValue>;
+    values: AssetValue[];
     total: number;
 }
 
 export interface GetNumberOfPaymentPerAsset {
-    collection: Array<Asset>
+    collection: Asset[];
 }
 
 
@@ -80,7 +80,7 @@ export interface MerchantPaymentMethod {
 }
 
 export interface MerchantPaymentMethods {
-    collection: Array<MerchantPaymentMethod>
+    collection: MerchantPaymentMethod[];
 }
 
 export interface MerchantPaymentMethodsError extends CommonError { }
@@ -102,7 +102,7 @@ export interface Provider {
 export interface PaymentMethods {
     id: number;
     name: string;
-    metadata: Array<any>;
+    metadata: any[];
     providers: Provider;
 }
 
@@ -138,32 +138,32 @@ export interface CountryValue {
 
 export interface RevenueCountryDetails {
     name: string;
-    value: Array<CountryValue>;
+    value: CountryValue[];
 }
 
 export interface RevenuePerAssetPerCountry {
     item_id: number;
-    countries: Array<RevenueCountryDetails>
+    countries: RevenueCountryDetails[];
 }
 
 export interface GetRevenuePerAssetPerCountry {
-    collection: Array<RevenuePerAssetPerCountry>;
+    collection: RevenuePerAssetPerCountry[];
 }
 
 export interface GetRevenuePerAssetPerCountryError extends CommonError { }
 
 export interface RevenueAssetDetails {
     timestamp: number;
-    values: Array<Country>;
+    values: Country[];
 }
 
 export interface RevenuePerAsset {
     item_id: number;
-    values: Array<RevenueAssetDetails>
+    values: RevenueAssetDetails[];
 }
 
 export interface GetRevenuePerAsset {
-    collection: Array<RevenuePerAsset>
+    collection: RevenuePerAsset[];
 }
 
 export interface GetRevenuePerAssetError extends CommonError { }
@@ -204,7 +204,7 @@ export interface GetSubscription {
     page: number;
     offset: number;
     limit: number;
-    collection: Array<SubscriptionDetails>;
+    collection: SubscriptionDetails[];
 }
 
 export interface GetSubscriptionError extends AdvanceError { }
@@ -289,7 +289,7 @@ export interface Card {
 }
 
 export interface GetDefaultCard {
-    cards: Array<Card>
+    cards: Card[];
 }
 
 export interface GetDefaultCardError extends CommonError { }
@@ -339,7 +339,7 @@ export interface CreateMandateError extends CommonError { }
 export interface SetPaymentProviderMetadata {
     code: number;
     message: string;
-    metadata: Array<Record<string, string>>
+    metadata: Record<string, string>[];
 }
 
 export interface SetPaymentProviderMetadataError extends CommonError { }

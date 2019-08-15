@@ -270,7 +270,7 @@ export interface PackageDetail {
     title: string;
     content: string;
     item_type: ItemType;
-    metadata: Record<string, string>
+    metadata: Record<string, string>;
     items: number;
 }
 
