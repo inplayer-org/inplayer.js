@@ -129,7 +129,7 @@ export interface ReturnCountrySetWithCountriesError extends CommonError { }
 
 export interface EditCountrySet extends CountrySet { }
 
-export interface EditCountrySet extends CommonError { }
+export interface EditCountrySetError extends CommonError { }
 
 export interface DeleteCountrySet {
     code: number;

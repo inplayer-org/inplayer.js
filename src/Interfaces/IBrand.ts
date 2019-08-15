@@ -8,13 +8,13 @@ export interface CreateBrandThemeError extends CommonError { }
 
 export interface CreateBrandThemeError422 extends AdvanceError { }
 
-//TODO: No 200 responce for UpdateBrandTheme
+// TODO: No 200 responce for UpdateBrandTheme
 
 export interface UpdateBrandThemeError extends CommonError { }
 
 export interface UpdateBrandThemeError422 extends AdvanceError { }
 
-//TODO: No 200 responce for DeleteBrandTheme
+// TODO: No 200 responce for DeleteBrandTheme
 
 export interface DeleteBrandThemeError extends CommonError { }
 

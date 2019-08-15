@@ -231,7 +231,6 @@ export interface CancelSubscriptionError extends CommonError { }
 export interface CancelSubscriptionError400 extends AdvanceError { }
 
 // --------------------------------------V2--------------------------------------
-
 export interface ValidateAmazonReceipt {
     code: number;
     message: string;
@@ -280,7 +279,7 @@ export interface CreateCharge {
     message: string;
 }
 
-export interface CreateCharge extends CommonError { }
+export interface CreateChargeError extends CommonError { }
 
 export interface Card {
     number: number;
@@ -293,7 +292,7 @@ export interface GetDefaultCard {
     cards: Array<Card>
 }
 
-export interface GetDefaultCard extends CommonError { }
+export interface GetDefaultCardError extends CommonError { }
 
 export interface SetDefaultCardPerCurrency {
     account: Card;

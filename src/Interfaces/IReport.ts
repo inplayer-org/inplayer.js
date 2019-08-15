@@ -1,4 +1,4 @@
-import { CommonError } from "./CommonInterfaces";
+import { CommonError } from './CommonInterfaces';
 
 export interface GetReportByReportType {
     message: string;

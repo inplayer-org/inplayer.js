@@ -4,5 +4,5 @@ export interface CommonError {
 }
 
 export interface AdvanceError extends CommonError {
-    errors?: Record<string, string>
+    errors?: Record<string, string>;
 }

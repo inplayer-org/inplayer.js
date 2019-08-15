@@ -25,13 +25,13 @@ export interface CreateAccountError extends CommonError {}
 
 export interface CreateAccountError422 extends AdvanceError {}
 
-//TODO: No 200 response for deactivate account
+// TODO: No 200 response for deactivate account
 
 export interface DeactivateAccountError extends CommonError {}
 
 export interface DeactivateAccountError400 extends AdvanceError {}
 
-//TODO: No 200 response for update account
+// TODO: No 200 response for update account
 
 export interface UpdateAccountError extends CommonError {}
 
@@ -46,11 +46,11 @@ export interface ActivationAccountRequestError extends CommonError {}
 
 export interface ActivationAccountRequestError422 extends AdvanceError {}
 
-//TODO: No 200 response for activate account
+// TODO: No 200 response for activate account
 
 export interface ActivateAccountError extends CommonError {}
 
-//TODO: One follower
+// TODO: One follower
 
 export interface Follower {
     id: number;
@@ -65,7 +65,7 @@ export interface Follower {
     created_at: number;
 }
 
-//TODO: All followers
+// TODO: All followers
 
 export interface AllFolowers {
     followers: Array<Follower>
@@ -89,13 +89,13 @@ export interface AuthenticateAccountError extends CommonError {}
 
 export interface AuthenticateAccountError422 extends AdvanceError {}
 
-//TODO: No 200 response for ChangePassword
+// TODO: No 200 response for ChangePassword
 
 export interface ChangePasswordError extends CommonError {}
 
 export interface ChangePasswordError422 extends AdvanceError {}
 
-//TODO: No 200 response for Erase account
+// TODO: No 200 response for Erase account
 
 export interface EraseAccountError extends CommonError {}
 
@@ -115,7 +115,7 @@ export interface CreateForgotPasswordToken {
 
 export interface CreateForgotPasswordTokenError extends AdvanceError {}
 
-//TODO: No 200 response for UpdatePassword
+// TODO: No 200 response for UpdatePassword
 
 export interface UpdatePasswordError extends AdvanceError {}
 
@@ -135,7 +135,7 @@ export interface ImpersonateError400 {
 
 export interface ImpersonateError404Or422 extends AdvanceError {}
 
-//TODO: No 200 response for Sign out
+// TODO: No 200 response for Sign out
 
 export interface SignOutError extends CommonError {}
 
@@ -161,7 +161,7 @@ export interface CreateFollowerMerchantAccountError400Or403Or422 extends Advance
 
 export interface CreateFollowerMerchantAccountError401Or409 extends CommonError {}
 
-//TODO: Same values as Impersonate
+// TODO: Same values as Impersonate
 
 export interface UpdateMasterFollowerRelation {
     master_id: number;
@@ -178,7 +178,7 @@ export interface UpdateMasterFollowerRelationError422 {
     errors?: Record<string, number>
 }
 
-//Needed individual interface GetRegisterFields property option
+// Needed individual interface GetRegisterFields property option
 
 export interface GetRegisterFieldOption {
     string: string;
@@ -197,7 +197,7 @@ export interface GetRegisterField {
 
 export interface GetRegisterFieldError extends CommonError {}
 
-//Needed individual interface GetRegisterFields property social_urls
+// Needed individual interface GetRegisterFields property social_urls
 
 export interface SocialURLs {
     facebook: string;
@@ -211,7 +211,7 @@ export interface ListSocialURLs {
 
 export interface ListSocialURLsError extends CommonError {}
 
-// ---------------------------V2---------------------------
+//  ---------------------------V2---------------------------
 
 export interface Account {
     id: number;

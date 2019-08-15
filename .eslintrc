@@ -34,7 +34,8 @@
     "indent": ["error", 2],
     "quotes": [2, "single", { "avoidEscape": true }],
     "camelcase": "off",
-    "guard-for-in": "off"
+    "guard-for-in": "off",
+    "linebreak-style": "off"
   },
   "settings": {
     "import/resolver": {
