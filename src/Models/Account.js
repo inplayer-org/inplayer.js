@@ -89,6 +89,7 @@ class Account {
  *  referrer: string,
  *  brandingId?: number,
  *  metadata?: { [key: string]: string }
+ *  dateOfBirth?: string,
  * }
  * @example
  *     InPlayer.Account.signUp({
@@ -101,6 +102,7 @@ class Account {
  *      referrer: "http://localhost:3000/",
  *      brandingId?: 12345,
  *      metadata : { country: "Macedonia" },
+ *      dateOfBirth: '2019-05-03'
  *     })
  *     .then(data => console.log(data));
  * @return {Object}
@@ -116,7 +118,8 @@ class Account {
             referrer: data.referrer,
             grant_type: 'password',
             metadata: data.metadata,
-            branding_id: data.brandingId
+            branding_id: data.brandingId,
+            date_of_birth: data.dateOfBirth,
         };
 
         const response = await fetch(this.config.API.signUp, {
@@ -421,7 +424,7 @@ class Account {
  * @param {Object} data - The new data for the account
  * @example
  *     InPlayer.Account
- *     .updateAccount({fullName: 'test test', metadata: {country: 'Germany'}})
+ *     .updateAccount({fullName: 'test test', metadata: {country: 'Germany'}, dateOfBirth: '1999-03-05'})
  *     .then(data => console.log(data));
  * @return {Object}
  */
@@ -434,11 +437,14 @@ class Account {
         }
 
         let body = {
-            full_name: data.fullName
+            full_name: data.fullName,
         };
 
         if (data.metadata) {
             body.metadata = data.metadata;
+        }
+        if (data.dateOfBirth) {
+            body.date_of_birth = data.dateOfBirth;
         }
 
         const response = await fetch(this.config.API.updateAccount, {
@@ -722,6 +728,36 @@ class Account {
             code: response.status,
             message: response.message,
         };
+    }
+
+    /**
+* Return restriction settings per Merchant
+* @method loadMerchantRestrictionSettings
+* @async
+* @param {string} merchantUuid - The merchant UUID
+* @example
+*     InPlayer.Account
+*     .loadMerchantRestrictionSettings(merchantUuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8")
+*     .then(data => console.log(data));
+* @return {Object} Contains the data - {
+    "age_verification_type": "pin_code",
+    "age_verification_enabled": true,
+    "merchant_uuid": "3b39b5ab-b5fc-4ba3-b770-73155d20e61f",
+    "created_at": 1532425425,
+    "updated_at": 1532425425
+}
+*/
+    async loadMerchantRestrictionSettings(merchantUuid) {
+        const response = await fetch(this.config.API.merchantRestrictionSettings(merchantUuid), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+
+        await checkStatus(response);
+
+        return await response.json();
     }
 }
 

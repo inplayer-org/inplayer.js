@@ -41,6 +41,8 @@ export const API = config => {
             `${ssoDomain}/sso/cookie`,
         sendPinCode: `${config.BASE_URL}/v2/accounts/pin-codes/send`,
         validatePinCode: `${config.BASE_URL}/v2/accounts/pin-codes/validate`,
+        merchantRestrictionSettings: merchantUuid =>
+            `${config.BASE_URL}/restrictions/settings/${merchantUuid}`,
         // Asset
         checkAccessForAsset: id => `${config.BASE_URL}/items/${id}/access`,
         checkFreeTrial: id =>
