@@ -57,7 +57,7 @@ export interface DomainRestrictionPerMerchant {
 }
 
 export interface ReturnDomainRestrictionsPerMerchant {
-    collection: Array<DomainRestrictionPerMerchant>;
+    collection: DomainRestrictionPerMerchant[];
 }
 
 export interface ReturnDomainRestrictionsPerMerchantError extends CommonError { }
@@ -111,7 +111,7 @@ export interface CountrySet {
     name: string;
     type: string;
     global: boolean;
-    countries: Array<Country>;
+    countries: Country[];
     created_at: number;
 }
 

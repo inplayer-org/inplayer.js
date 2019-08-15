@@ -22,7 +22,7 @@ export interface CreateVoucherCodeError extends CommonError { }
 export interface CreateVoucherCodeError422 extends AdvanceError { }
 
 export interface GetVouchers {
-    collection: Array<Voucher>;
+    collection: Voucher[];
     total: number;
     page: number;
     offset: number;

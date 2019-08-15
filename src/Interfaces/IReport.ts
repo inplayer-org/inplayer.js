@@ -12,7 +12,7 @@ export interface Report {
 }
 
 export interface GetReportsByReportType {
-    reports: Array<Report>;
+    reports: Report[];
 }
 
 export interface GetReportsByReportTypeError extends CommonError { }
