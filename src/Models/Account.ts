@@ -1,5 +1,6 @@
 import { checkStatus, params, errorResponse } from '../Utils';
 import Credentials from '../Credentials';
+import { authenticatedApi } from '../Utils/http';
 
 /**
  * Contains all Requests regarding user/account and authentication
@@ -106,6 +107,7 @@ class Account {
    *     .then(data => console.log(data));
    * @return {Object}
    */
+  // eslint-disable-next-line class-methods-use-this
   async signUp(data: any) {
     const body = {
       full_name: data.fullName,
@@ -120,25 +122,34 @@ class Account {
       branding_id: data.brandingId,
     };
 
-    const response = await fetch(this.config.API.signUp, {
-      method: 'POST',
-      body: params(body),
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
-
-    await checkStatus(response);
-
-    const respData = await response.json();
+    const resp = await authenticatedApi.post('/accounts', body);
 
     this.setToken(
-      respData.access_token,
-      respData.refresh_token,
-      respData.expires,
+      resp.data.access_token,
+      resp.data.refresh_token,
+      resp.data.expires,
     );
 
-    return respData;
+    return resp;
+    // const response = await fetch(this.config.API.signUp, {
+    //   method: 'POST',
+    //   body: params(body),
+    //   headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded',
+    //   },
+    // });
+
+    // await checkStatus(response);
+
+    // const respData = await response.json();
+
+    // this.setToken(
+    //   respData.access_token,
+    //   respData.refresh_token,
+    //   respData.expires,
+    // );
+
+    // return respData;
   }
 
   /**
@@ -348,6 +359,7 @@ class Account {
    * @return {Object}
    */
   async setNewPassword(data: any, token = '') {
+    // eslint-disable-next-line max-len
     const body = `password=${data.password}&password_confirmation=${data.passwordConfirmation}&branding_id=${data.brandingId}`;
 
     const response = await fetch(this.config.API.setNewPassword(token), {

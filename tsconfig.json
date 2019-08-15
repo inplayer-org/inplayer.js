@@ -14,7 +14,7 @@
     "resolveJsonModule": true,
     "jsx": "preserve",
     "lib": ["dom", "es2015", "es2017"],
-    "isolatedModules": true
+    "isolatedModules": true,
   },
   "include": ["src"],
   "exclude": ["node_modules"]

@@ -22,8 +22,8 @@ export interface Item {
 	title: string;
 	access_control_type: AccessControlType;
 	item_type: ItemType;
-	age_restriction: Record<string,number>;
-	metadata: Record<string,string>;
+	age_restriction: Record<string, number>;
+	metadata: Record<string, string>;
 	created_at: number;
 	update_at: number;
 }
@@ -34,7 +34,7 @@ export interface ItemError extends CommonError {}
 
 export interface ItemError422 extends AdvanceError {}
 
-//TODO: No 201 response for DeleteItem
+// TODO: No 201 response for DeleteItem
 
 export interface DeleteItemError extends CommonError {}
 
@@ -48,7 +48,7 @@ export interface PatchItem extends Item {}
 
 export interface PatchItemError extends CommonError {}
 
-export interface PatchItemError422 extends AdvanceError {} 
+export interface PatchItemError422 extends AdvanceError {}
 
 export interface AccessType {
 	id: number;
@@ -161,8 +161,8 @@ export interface ItemV1 {
 	title: string;
 	access_control_type: AccessControlType;
 	item_type: ItemType;
-	age_restriction: Record<string,number>;
-	metadata: Record<string,string>;
+	age_restriction: Record<string, number>;
+	metadata: Record<string, string>;
 	created_at: number;
 	update_at: number;
 }
@@ -181,7 +181,7 @@ export interface GetItemAccessV1 {
 
 export interface GetItemAccessV1Error extends CommonError {}
 
-//TODO: No 204 response for RevokeItemAccess
+// TODO: No 204 response for RevokeItemAccess
 
 export interface RevokeItemAccessError extends CommonError {}
 
@@ -193,11 +193,11 @@ export interface GetItemDetailsV1 {
 	title: string;
 	access_control_type: AccessControlType;
 	item_type: ItemType;
-	age_restriction: Record<string,number>;
-	metadata: Record<string,string>;
+	age_restriction: Record<string, number>;
+	metadata: Record<string, string>;
 	created_at: number;
 	update_at: number;
-} 
+}
 
 export interface GrantItemAccess extends GetItemAccessV1 {}
 
@@ -247,7 +247,7 @@ export interface AddUnlimitedItemAccess extends GetItemAccessV1 {}
 
 export interface AddUnlimitedItemAccessError extends CommonError {}
 
-//TODO: NOT GOOD! NOT GOOD AT ALL!!!
+// TODO: NOT GOOD! NOT GOOD AT ALL!!!
 
 export interface CreateItemWithPrice {
 	id: number;
@@ -270,7 +270,7 @@ export interface PackageDetail {
 	title: string;
 	content: string;
 	item_type: ItemType;
-	metadata: Record<string, string>
+	metadata: Record<string, string>;
 	items: number;
 }
 

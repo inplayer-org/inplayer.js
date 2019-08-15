@@ -173,34 +173,34 @@ export interface DirectDebitMandateResponse {
   is_approved: boolean;
   statement_descriptor: string;
   mandate: {
-    bank_code: number,
-    branch_code: number,
-    country: string,
-    fingerprint: string,
-    last4: number,
-    mandate_reference: string,
-    mandate_url: string
-  }
+    bank_code: number;
+    branch_code: number;
+    country: string;
+    fingerprint: string;
+    last4: number;
+    mandate_reference: string;
+    mandate_url: string;
+  };
 }
 
 export interface CreateDirectDebitResponse {
-  id: string,
-  currency: string,
-  created: number,
-  client_secret: string,
-  owner: string,
-  full_name: string,
-  statement_descriptor: string,
-  status: string,
+  id: string;
+  currency: string;
+  created: number;
+  client_secret: string;
+  owner: string;
+  full_name: string;
+  statement_descriptor: string;
+  status: string;
   type_data: {
-    bank_code: number,
-    branch_code: number,
-    country: string,
-    fingerprint: string,
-    last4: number,
-    mandate_reference: string,
-    mandate_url: string
-  }
+    bank_code: number;
+    branch_code: number;
+    country: string;
+    fingerprint: string;
+    last4: number;
+    mandate_reference: string;
+    mandate_url: string;
+  };
 }
 
 export declare class Payment {
@@ -294,9 +294,9 @@ export interface ApiEndpoints {
   getPayPalParams: string;
   getDefaultCreditCard: string;
   setDefaultCreditCard: string;
-  getDirectDebitMandate: string,
-  createDirectDebitMandate: string,
-  directDebitCharge: string,
+  getDirectDebitMandate: string;
+  createDirectDebitMandate: string;
+  directDebitCharge: string;
   // Subscriptions
   getSubscriptions: (limit: number, page: number) => string;
   getSubscription: (id: number) => string;
