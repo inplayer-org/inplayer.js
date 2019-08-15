@@ -122,7 +122,9 @@ class Account {
       branding_id: data.brandingId,
     };
 
-    const resp = await authenticatedApi.post('/accounts', body);
+    const resp = await authenticatedApi.post('/accounts', body, {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    });
 
     this.setToken(
       resp.data.access_token,
