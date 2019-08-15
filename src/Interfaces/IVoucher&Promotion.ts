@@ -41,7 +41,7 @@ export interface UpdateVoucherError extends CommonError { }
 
 export interface UpdateVoucherError422 extends AdvanceError { }
 
-//TODO: No 200 response for DeleteVoucher
+// TODO: No 200 response for DeleteVoucher
 
 export interface DeleteVoucherError extends CommonError { }
 
