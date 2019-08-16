@@ -78,12 +78,6 @@ export interface AllFolowersError400 {
   errors?: Record<string, string>;
 }
 
-export interface AuthenticateAccount {
-  access_token: string;
-  refresh_token: string;
-  account: AccountInformationReturn;
-}
-
 export interface AuthenticateAccountError extends CommonError {}
 
 export interface AuthenticateAccountError422 extends AdvanceError {}

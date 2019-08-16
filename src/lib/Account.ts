@@ -1,5 +1,4 @@
 import qs from 'qs';
-import { checkStatus, params, errorResponse } from '../Utils';
 import {
   authenticatedApi, basicApi, getToken, setToken,
 } from '../Utils/http';
@@ -31,7 +30,8 @@ class Account {
    * Signs in the user
    * @method authenticate
    * @async
-   * @param {Object} data - Contains {
+   * @typedef {Object} AxiosResponse<CreateAccount>
+   * @param {AuthenticateData} data - Contains {
    *  email: string,
    *  password: string,
    *  clientId: string,
@@ -48,7 +48,7 @@ class Account {
    *      refreshToken: '528b1b80-ddd1hj-4abc-gha3j-111111'
    *     })
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<CreateAccount>}
    */
   async authenticate(data: AuthenticateData) {
     const body: any = {
@@ -93,7 +93,7 @@ class Account {
    * Signs up/Registers user
    * @method signUp
    * @async
-   * @param {Object} data - Contains {
+   * @param {SignUpData} data - Contains {
    *  fullName: string,
    *  email: string
    *  password: string,
@@ -117,7 +117,7 @@ class Account {
    *      metadata : { country: "Macedonia" },
    *     })
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<CreateAccount>}
    */
   async signUp(data: SignUpData) {
     const body = {
@@ -157,7 +157,7 @@ class Account {
    * @example
    *     InPlayer.Account.signOut()
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<undefined>}
    */
   async signOut() {
     const response = await authenticatedApi.get(this.config.API.signOut, {
@@ -176,7 +176,7 @@ class Account {
    * @param clientId - The merchant's clientId
    * @example
    *     InPlayer.Account.refreshToken('123123121-d1-t1-1ff').then(data => console.log(data))
-   * @return {Object}
+   * @return {AxiosResponse<CreateAccount>}
    */
   async refreshToken(clientId: number) {
     const token = getToken();
@@ -256,7 +256,7 @@ class Account {
    *      brandingId: 12345,
    *     })
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<CreateForgotPasswordToken>}
    */
   async requestNewPassword(data: RequestNewPasswordData) {
     const body = {
@@ -292,6 +292,7 @@ class Account {
    *      brandingId: "12345",
    *     }, 'afhqi83rji74hjf7e43df')
    *     .then(data => console.log(data));
+   * @return {AxiosResponse<undefined>}
    */
   async setNewPassword(data: SetNewPasswordData, token = '') {
     // TODO: check logic
@@ -311,7 +312,7 @@ class Account {
    *     InPlayer.Account
    *     .getAccount()
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<AccountInformationReturn>}
    */
   async getAccount() {
     return authenticatedApi.get(this.config.API.getAccountInfo, {
@@ -330,7 +331,7 @@ class Account {
    *     InPlayer.Account
    *     .getSocialLoginUrls('123124-1r-1r13ur1h1')
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<ListSocialURLs>}
    */
   async getSocialLoginUrls(state: string) {
     return basicApi.get(this.config.API.getSocialLoginUrls(state));
@@ -345,7 +346,7 @@ class Account {
    *     InPlayer.Account
    *     .updateAccount({fullName: 'test test', metadata: {country: 'Germany'}})
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<undefined>}
    */
   async updateAccount(data: UpdateAccountData) {
     const body: any = {
@@ -388,7 +389,7 @@ class Account {
    *       brandingId: 1234
    *     },'123124-1r-1r13ur1h1')
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<undefined>}
    */
   async changePassword(data: ChangePasswordData) {
     const body = {
@@ -419,7 +420,7 @@ class Account {
    *     InPlayer.Account
    *     .getRegisterFields('123124-1r-1r13ur1h1')
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<GetRegisterField>}
    */
   async getRegisterFields(merchantUuid = '') {
     return basicApi.get(this.config.API.getRegisterFields(merchantUuid));
@@ -439,7 +440,7 @@ class Account {
    *      brandingId: 1234,
    *     })
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<undefined>}
    */
 
   async deleteAccount(data: DeleteAccountData) {
@@ -482,7 +483,7 @@ class Account {
    *        brandingId: 1234,
    *     })
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<ExportAccountData>}
    */
 
   async exportData(data: ExportData) {
@@ -491,12 +492,16 @@ class Account {
       branding_id: data.brandingId,
     };
 
-    const response = await authenticatedApi.post(this.config.API.exportData, qs.stringify(body), {
-      headers: {
-        Authorization: `Bearer ${getToken().token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
+    const response = await authenticatedApi.post(
+      this.config.API.exportData,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
       },
-    });
+    );
 
     return {
       code: response.status,
