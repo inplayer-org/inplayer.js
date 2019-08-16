@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.9.4] - 16-08-2019
+
+### Fixes
+
+- Remove response await in checkStatus
+
 # [2.9.3] - 13-08-2019
 
 ### Fixes
