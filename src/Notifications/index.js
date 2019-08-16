@@ -24,7 +24,7 @@ class Notifications {
             },
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         const iotResponse = await response.json();
 

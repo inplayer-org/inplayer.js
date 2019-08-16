@@ -35,7 +35,7 @@ class Payment {
             },
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -68,7 +68,7 @@ class Payment {
             }
         );
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -141,7 +141,7 @@ class Payment {
             body: params(body),
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -191,7 +191,7 @@ class Payment {
             body: formData,
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -226,7 +226,7 @@ class Payment {
             }
         );
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -258,7 +258,7 @@ class Payment {
             }
         );
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -316,7 +316,7 @@ class Payment {
             }
         );
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -361,7 +361,7 @@ class Payment {
             }
         );
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -418,7 +418,7 @@ class Payment {
             }
         );
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -462,7 +462,7 @@ class Payment {
             }
         );
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -507,7 +507,7 @@ class Payment {
             }
         );
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
