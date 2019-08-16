@@ -11,7 +11,7 @@ const INPLAYER_TOKEN_NAME = 'inplayer_token';
  *  InPlayer.Account.getToken()
  *  @return {Credentials}
  */
-const getToken = () => {
+export const getToken = () => {
   const token = localStorage.getItem(INPLAYER_TOKEN_NAME);
 
   if (token === undefined || token === null) {
@@ -20,6 +20,28 @@ const getToken = () => {
 
   return new Credentials(JSON.parse(token));
 };
+
+/** Sets the Token
+   *  @method setToken
+   *  @param {string} token
+   *  @param {string} refreshToken
+   *  @param {number} expiresAt
+   *  @example
+   *  InPlayer.Account.setToken('344244-242242', '123123121-d1-t1-1ff',1558529593297)
+   */
+export const setToken = (token: any, refreshToken: any, expiresAt: any) => {
+  const credentials = new Credentials({
+    token,
+    refreshToken,
+    expires: expiresAt,
+  });
+
+  localStorage.setItem(
+    INPLAYER_TOKEN_NAME,
+    JSON.stringify(credentials),
+  );
+};
+
 /**
  * Checks if the user is authenticated
  * @method isAuthenticated
@@ -29,6 +51,8 @@ const getToken = () => {
  */
 const isAuthenticated = () =>
   !getToken().isExpired() && getToken().token !== '';
+
+axios.defaults.withCredentials = true;
 
 const basicInstance = axios.create({
   baseURL: environmentVariables,
@@ -69,47 +93,60 @@ const getHeaders = () => ({
 });
 
 // HTTP GET Request - Returns Resolved or Rejected Promise
-const get = (path: string, headers?: Record<string, string>) => basicInstance.get(path, headers || getHeaders());
+const get = (path: string, headers?: Record<string, object>) =>
+  basicInstance.get(path, headers || getHeaders());
 
 // HTTP PATCH Request - Returns Resolved or Rejected Promise
-const patch = (path: string, data: any, headers?: Record<string, string>) =>
+const patch = (path: string, data: any, headers?: Record<string, object>) =>
   basicInstance.patch(path, data, headers || getHeaders());
 
 // HTTP POST Request - Returns Resolved or Rejected Promise
-const post = (path: string, data: any, headers?: Record<string, string>) =>
+const post = (path: string, data: any, headers?: Record<string, object>) =>
   basicInstance.post(path, data, headers || getHeaders());
 
+// HTTP PUT Request - Returns Resolved or Rejected Promise
+const put = (path: string, data: any, headers?: Record<string, object>) =>
+  basicInstance.put(path, data, headers || getHeaders());
+
 // HTTP DELETE Request - Returns Resolved or Rejected Promise
-const del = (path: string, headers?: Record<string, string>) =>
+const del = (path: string, headers?: Record<string, object>) =>
   basicInstance.delete(path, headers || getHeaders());
 
 // HTTP GET Request - Returns Resolved or Rejected Promise
-const authenticatedGet = (path: string, headers?: Record<string, string>) =>
+const authenticatedGet = (path: string, headers?: Record<string, object>) =>
   authenticatedInstance.get(path, headers || getHeaders());
 
 // HTTP PATCH Request - Returns Resolved or Rejected Promise
 const authenticatedPatch = (
   path: string,
   data: any,
-  headers?: Record<string, string>,
+  headers?: Record<string, object>,
 ) => authenticatedInstance.patch(path, data, headers || getHeaders());
 
 // HTTP POST Request - Returns Resolved or Rejected Promise
 const authenticatedPost = (
   path: string,
   data: any,
-  headers?: Record<string, string>,
+  headers?: Record<string, object>,
 ) => authenticatedInstance.post(path, data, headers || getHeaders());
+
+// HTTP PUT Request - Returns Resolved or Rejected Promise
+const authenticatedPut = (
+  path: string,
+  data: any,
+  headers?: Record<string, object>,
+) => authenticatedInstance.put(path, data, headers || getHeaders());
 
 // HTTP DELETE Request - Returns Resolved or Rejected Promise
 const authenticatedDelelete = (
   path: string,
-  headers?: Record<string, string>,
+  headers?: Record<string, object>,
 ) => authenticatedInstance.delete(path, headers || getHeaders());
 
 const basicApi = {
   get,
   post,
+  put,
   patch,
   delete: del,
 };
@@ -118,6 +155,7 @@ const authenticatedApi = {
   get: authenticatedGet,
   patch: authenticatedPatch,
   post: authenticatedPost,
+  put: authenticatedPut,
   delete: authenticatedDelelete,
 };
 
