@@ -359,3 +359,37 @@ export interface GetPaymentProviderMetadata {
 export interface GetPaymentProviderMetadataError extends CommonError { }
 
 export interface CreateSubscriptionV2Error extends CommonError { }
+
+export interface SubscriptionFromUserData {
+    userId: string;
+}
+
+export interface CancelSubscriptionData {
+    unsubscribeUrl: string;
+}
+
+export interface CreateSubscriptionData {
+    number: number;
+    cardName: string;
+    expMonth: number;
+    expYear: number;
+    cvv: number;
+    accessFee: number;
+    paymentMethod: string;
+    referrer: string;
+    voucherCode?: string;
+    brandingId?: number;
+}
+
+export interface CreateSubscriptionBody {
+    number: number;
+    card_name: string;
+    exp_month: number;
+    exp_year: number;
+    cvv: number;
+    access_fee: number;
+    payment_method: string;
+    referrer: string;
+    voucher_code?: string;
+    branding_id?: number;
+}

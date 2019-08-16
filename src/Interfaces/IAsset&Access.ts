@@ -284,6 +284,6 @@ export interface GetMerchantPackage {
 
 export interface GetMerchantPackageError extends CommonError {}
 
-export interface GetDlcData {
+export interface DlcData {
     assetId: number;
 }

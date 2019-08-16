@@ -1,5 +1,6 @@
+import qs from 'qs';
 import { authenticatedApi } from '../Utils/http';
-import { VoucherDiscountPrice, PostVoucherDiscountPriceData } from '../Interfaces/IVoucher&Promotion';
+import { VoucherDiscountPrice, VoucherDiscountPriceData } from '../Interfaces/IVoucher&Promotion';
 
 const VOUCHER_DISCOUNT_PATH = '/vouchers/discount';
 
@@ -33,13 +34,13 @@ class Voucher {
    *     .then(data => console.log(data));
    * @return {VoucherDiscountPrice}
    */
-  async getDiscount(data: PostVoucherDiscountPriceData) {
+  async getDiscount(data: VoucherDiscountPriceData) {
     const body = {
       access_fee_id: data.accessFeeId,
       voucher_code: data.voucherCode,
     };
 
-    return authenticatedApi.post(`${VOUCHER_DISCOUNT_PATH}`, body, {
+    return authenticatedApi.post(`${VOUCHER_DISCOUNT_PATH}`, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${this.Account.getToken().token}`,
         'Content-Type': 'application/x-www-form-urlencoded',

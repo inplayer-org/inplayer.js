@@ -1,5 +1,5 @@
 import { basicApi } from '../Utils/http';
-import { Brand, GetBrandingData } from '../Interfaces/IBrand';
+import { Brand, BrandingData } from '../Interfaces/IBrand';
 
 const BRANDING_PATH = '/branding/paywall';
 
@@ -29,7 +29,7 @@ class Branding {
          * @return {Brand}
     */
     // eslint-disable-next-line class-methods-use-this
-    async getBranding(data: GetBrandingData) {
+    async getBranding(data: BrandingData) {
       const body = {
         id: data.brandingId,
         merchant_uuid: data.merchantUUID,

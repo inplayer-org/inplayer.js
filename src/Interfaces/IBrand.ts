@@ -42,7 +42,7 @@ export interface GetDefaultBrandDetails extends Brand { }
 
 export interface GetDefaultBrandDetailsError extends CommonError { }
 
-export interface GetBrandingData {
+export interface BrandingData {
     brandingId: number;
     merchantUUID: string;
 }
