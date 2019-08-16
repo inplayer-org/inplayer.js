@@ -93,54 +93,54 @@ const getHeaders = () => ({
 });
 
 // HTTP GET Request - Returns Resolved or Rejected Promise
-const get = (path: string, headers?: Record<string, object>) =>
+const get = (path: string, headers?: Record<string, object | string>) =>
   basicInstance.get(path, headers || getHeaders());
 
 // HTTP PATCH Request - Returns Resolved or Rejected Promise
-const patch = (path: string, data: any, headers?: Record<string, object>) =>
+const patch = (path: string, data: any, headers?: Record<string, object | string>) =>
   basicInstance.patch(path, data, headers || getHeaders());
 
 // HTTP POST Request - Returns Resolved or Rejected Promise
-const post = (path: string, data: any, headers?: Record<string, object>) =>
+const post = (path: string, data: any, headers?: Record<string, object | string>) =>
   basicInstance.post(path, data, headers || getHeaders());
 
 // HTTP PUT Request - Returns Resolved or Rejected Promise
-const put = (path: string, data: any, headers?: Record<string, object>) =>
+const put = (path: string, data: any, headers?: Record<string, object | string>) =>
   basicInstance.put(path, data, headers || getHeaders());
 
 // HTTP DELETE Request - Returns Resolved or Rejected Promise
-const del = (path: string, headers?: Record<string, object>) =>
+const del = (path: string, headers?: Record<string, object | string>) =>
   basicInstance.delete(path, headers || getHeaders());
 
 // HTTP GET Request - Returns Resolved or Rejected Promise
-const authenticatedGet = (path: string, headers?: Record<string, object>) =>
+const authenticatedGet = (path: string, headers?: Record<string, object | string>) =>
   authenticatedInstance.get(path, headers || getHeaders());
 
 // HTTP PATCH Request - Returns Resolved or Rejected Promise
 const authenticatedPatch = (
   path: string,
   data: any,
-  headers?: Record<string, object>,
+  headers?: Record<string, object | string>,
 ) => authenticatedInstance.patch(path, data, headers || getHeaders());
 
 // HTTP POST Request - Returns Resolved or Rejected Promise
 const authenticatedPost = (
   path: string,
   data: any,
-  headers?: Record<string, object>,
+  headers?: Record<string, object | string>,
 ) => authenticatedInstance.post(path, data, headers || getHeaders());
 
 // HTTP PUT Request - Returns Resolved or Rejected Promise
 const authenticatedPut = (
   path: string,
   data: any,
-  headers?: Record<string, object>,
+  headers?: Record<string, object | string>,
 ) => authenticatedInstance.put(path, data, headers || getHeaders());
 
 // HTTP DELETE Request - Returns Resolved or Rejected Promise
 const authenticatedDelelete = (
   path: string,
-  headers?: Record<string, object>,
+  headers?: Record<string, object | string>,
 ) => authenticatedInstance.delete(path, headers || getHeaders());
 
 const basicApi = {

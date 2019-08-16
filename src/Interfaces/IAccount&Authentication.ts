@@ -1,24 +1,24 @@
 import { CommonError, AdvanceError } from './CommonInterfaces';
 
 export interface AccountInformationReturn {
-    id: number;
-    email: string;
-    full_name: string;
-    referrer: string;
-    metadata: object;
-    social_apps_metadata: object[];
-    roles: string[];
-    completed: boolean;
-    created_at: number;
-    updated_at: number;
+  id: number;
+  email: string;
+  full_name: string;
+  referrer: string;
+  metadata: object;
+  social_apps_metadata: object[];
+  roles: string[];
+  completed: boolean;
+  created_at: number;
+  updated_at: number;
 }
 
 export interface AccountInformationReturnError extends CommonError {}
 
 export interface CreateAccount {
-    access_token: string;
-    refresh_token: string;
-    account: AccountInformationReturn;
+  access_token: string;
+  refresh_token: string;
+  account: AccountInformationReturn;
 }
 
 export interface CreateAccountError extends CommonError {}
@@ -38,8 +38,8 @@ export interface UpdateAccountError extends CommonError {}
 export interface UpdateAccountError422 extends AdvanceError {}
 
 export interface ActivationAccountRequest {
-    message: string;
-    code: number;
+  message: string;
+  code: number;
 }
 
 export interface ActivationAccountRequestError extends CommonError {}
@@ -53,36 +53,29 @@ export interface ActivateAccountError extends CommonError {}
 // TODO: One follower
 
 export interface Follower {
-    id: number;
-    email: string;
-    full_name: string;
-    referrer: string;
-    country: string;
-    active: boolean;
-    merchant_id: number;
-    is_master: boolean;
-    scopes: string[];
-    created_at: number;
+  id: number;
+  email: string;
+  full_name: string;
+  referrer: string;
+  country: string;
+  active: boolean;
+  merchant_id: number;
+  is_master: boolean;
+  scopes: string[];
+  created_at: number;
 }
 
 // TODO: All followers
 
 export interface AllFolowers {
-    followers: Follower[];
+  followers: Follower[];
 }
-
 
 export interface AllFolowersError extends CommonError {}
 
 export interface AllFolowersError400 {
-    code: number;
-    errors?: Record<string, string>;
-}
-
-export interface AuthenticateAccount {
-    access_token: string;
-    refresh_token: string;
-    account: AccountInformationReturn;
+  code: number;
+  errors?: Record<string, string>;
 }
 
 export interface AuthenticateAccountError extends CommonError {}
@@ -100,8 +93,8 @@ export interface ChangePasswordError422 extends AdvanceError {}
 export interface EraseAccountError extends CommonError {}
 
 export interface ExportAccountData {
-    message: string;
-    code: number;
+  message: string;
+  code: number;
 }
 
 export interface ExportAccountDataError extends CommonError {}
@@ -109,8 +102,8 @@ export interface ExportAccountDataError extends CommonError {}
 export interface EraseAccountError404 extends AdvanceError {}
 
 export interface CreateForgotPasswordToken {
-    code: number;
-    message: string;
+  code: number;
+  message: string;
 }
 
 export interface CreateForgotPasswordTokenError extends AdvanceError {}
@@ -120,17 +113,17 @@ export interface CreateForgotPasswordTokenError extends AdvanceError {}
 export interface UpdatePasswordError extends AdvanceError {}
 
 export interface Impersonate {
-    master_id: number;
-    follower_id: number;
-    scopes: string[];
-    created_at: number;
+  master_id: number;
+  follower_id: number;
+  scopes: string[];
+  created_at: number;
 }
 
 export interface ImpersonateError400 {
-    code: number;
-    errors: {
-        400: string;
-    };
+  code: number;
+  errors: {
+    400: string;
+  };
 }
 
 export interface ImpersonateError404Or422 extends AdvanceError {}
@@ -140,59 +133,62 @@ export interface ImpersonateError404Or422 extends AdvanceError {}
 export interface SignOutError extends CommonError {}
 
 export interface CreateFollowerMerchantAccount {
-    access_token: string;
-    account: {
-        master_id: number;
-        scopes: string[];
-        id: number;
-        email: string;
-        full_name: string;
-        referrer: string;
-        metadata: object;
-        social_apps_metadata: object[];
-        roles: string[];
-        completed: boolean;
-        created_at: number;
-        updated_at: number;
-    };
+  access_token: string;
+  account: {
+    master_id: number;
+    scopes: string[];
+    id: number;
+    email: string;
+    full_name: string;
+    referrer: string;
+    metadata: object;
+    social_apps_metadata: object[];
+    roles: string[];
+    completed: boolean;
+    created_at: number;
+    updated_at: number;
+  };
 }
 
-export interface CreateFollowerMerchantAccountError400Or403Or422 extends AdvanceError {}
+export interface CreateFollowerMerchantAccountError400Or403Or422
+  extends AdvanceError {}
 
-export interface CreateFollowerMerchantAccountError401Or409 extends CommonError {}
+export interface CreateFollowerMerchantAccountError401Or409
+  extends CommonError {}
 
 // TODO: Same values as Impersonate
 
 export interface UpdateMasterFollowerRelation {
-    master_id: number;
-    follower_id: number;
-    scopes: string[];
-    created_at: number;
+  master_id: number;
+  follower_id: number;
+  scopes: string[];
+  created_at: number;
 }
 
-export interface UpdateMasterFollowerRelationError400Or404Or409 extends AdvanceError {}
+export interface UpdateMasterFollowerRelationError400Or404Or409
+  extends AdvanceError {}
 
 export interface UpdateMasterFollowerRelationError422 {
-    code: number;
-    message: string;
-    errors?: Record<string, number>;
+  code: number;
+  message: string;
+  errors?: Record<string, number>;
 }
 
 // Needed individual interface GetRegisterFields property option
 
 export interface GetRegisterFieldOption {
-    string: string;
+  string: string;
 }
 
 export interface GetRegisterField {
-    id: number;
-    name: string;
-    label: string;
-    type: string;
-    required: boolean;
-    default_value: string;
-    placeholder: string;
-    options: GetRegisterFieldOption[];
+  id: number;
+  name: string;
+  label: string;
+  type: string;
+  required: boolean;
+  default_value: string;
+  placeholder: string;
+  options: GetRegisterFieldOption[];
 }
 
 export interface GetRegisterFieldError extends CommonError {}
@@ -200,13 +196,13 @@ export interface GetRegisterFieldError extends CommonError {}
 // Needed individual interface GetRegisterFields property social_urls
 
 export interface SocialURLs {
-    facebook: string;
-    twitter: string;
-    google: string;
+  facebook: string;
+  twitter: string;
+  google: string;
 }
 
 export interface ListSocialURLs {
-    social_urls: SocialURLs[];
+  social_urls: SocialURLs[];
 }
 
 export interface ListSocialURLsError extends CommonError {}
@@ -214,16 +210,16 @@ export interface ListSocialURLsError extends CommonError {}
 //  ---------------------------V2---------------------------
 
 export interface Account {
-    id: number;
-    email: string;
-    created_at: number;
-    updated_at: number;
+  id: number;
+  email: string;
+  created_at: number;
+  updated_at: number;
 }
 
 export interface CreateAccountV2 {
-    access_token: string;
-    expires: number;
-    account: Account;
+  access_token: string;
+  expires: number;
+  account: Account;
 }
 
 export interface CreateAccountV2Error extends CommonError {}
@@ -231,9 +227,9 @@ export interface CreateAccountV2Error extends CommonError {}
 export interface CreateAccountV2Error422 extends AdvanceError {}
 
 export interface ImpersonateV2 {
-    access_token: string;
-    expires: number;
-    account: AccountInformationReturn;
+  access_token: string;
+  expires: number;
+  account: AccountInformationReturn;
 }
 
 export interface ImpersonateV2Error extends CommonError {}
@@ -241,15 +237,74 @@ export interface ImpersonateV2Error extends CommonError {}
 export interface ImpersonateV2Error422 extends AdvanceError {}
 
 export interface SendPinCode {
-    code: number;
-    message: string;
+  code: number;
+  message: string;
 }
 
 export interface SendPinCodeError extends CommonError {}
 
 export interface ValidatePinCode {
-    code: number;
-    message: string;
+  code: number;
+  message: string;
 }
 
 export interface ValidatePinCodeError extends CommonError {}
+
+export interface AuthenticateData {
+  email: string;
+  grantType: 'password' | 'client_credentials' | 'refresh_token';
+  clientId: string;
+  clientSecret?: string;
+  refreshToken?: string;
+  referrer?: string;
+  username?: string;
+  password?: string;
+}
+
+export interface SignUpData {
+  fullName: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+  type: 'consumer' | 'merchant';
+  grantType: 'password' | 'client_credentials' | 'refresh_token';
+  clientId: string;
+  referrer: string;
+  dateOfBirth?: string;
+  metadata: object[];
+  brandingId: number;
+}
+
+export interface RequestNewPasswordData {
+  merchantUuid: string;
+  email: string;
+  brandingId: number;
+}
+
+export interface SetNewPasswordData {
+  password: string;
+  passwordConfirmation: string;
+  brandingId: number;
+}
+
+export interface UpdateAccountData {
+  fullName: string;
+  metadata: object[];
+}
+
+export interface ChangePasswordData {
+  oldPassword: string;
+  password: string;
+  passwordConfirmation: string;
+  brandingId: number;
+}
+
+export interface DeleteAccountData {
+  password: string;
+  brandingId: number;
+}
+
+export interface ExportData {
+  password: string;
+  brandingId: number;
+}
