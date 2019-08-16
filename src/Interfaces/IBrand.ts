@@ -41,3 +41,8 @@ export interface GetBrandDetailsError extends CommonError { }
 export interface GetDefaultBrandDetails extends Brand { }
 
 export interface GetDefaultBrandDetailsError extends CommonError { }
+
+export interface GetBrandingData {
+    brandingId: number;
+    merchantUUID: string;
+}

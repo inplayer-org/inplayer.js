@@ -50,3 +50,8 @@ export interface VoucherDiscountPrice {
 }
 
 export interface VoucherDiscountPriceError extends CommonError { }
+
+export interface PostVoucherDiscountPriceData {
+    accessFeeId: number;
+    voucherCode: string;
+}

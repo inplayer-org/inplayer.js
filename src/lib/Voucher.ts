@@ -1,4 +1,7 @@
-import { errorResponse, checkStatus } from '../Utils';
+import { authenticatedApi } from '../Utils/http';
+import { VoucherDiscountPrice, PostVoucherDiscountPriceData } from '../Interfaces/IVoucher&Promotion';
+
+const VOUCHER_DISCOUNT_PATH = '/vouchers/discount';
 
 /**
  * Contains all Requests regarding vouchers.
@@ -18,42 +21,30 @@ class Voucher {
    * @method getDiscount
    * @async
    * @param {Object} data - {
-   *   voucherCode: string,
-   *   accessFeeId: number
+   *   accessFeeId: number,
+   *   voucherCode: string
    * }
    * @example
    *     InPlayer.Voucher
-   *     .getDiscount({
-   *        voucherCode: '120fwjhniudh42i7',,
-   *        accessFeeId: 2
+   *     .getDiscount('/vouchers/discount', {
+   *        accessFeeId: 134,
+   *        voucherCode: 'FOOrGmv60pT'
    *     })
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {VoucherDiscountPrice}
    */
-  async getDiscount(data: any) {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
+  async getDiscount(data: PostVoucherDiscountPriceData) {
+    const body = {
+      access_fee_id: data.accessFeeId,
+      voucher_code: data.voucherCode,
+    };
 
-    const formData = new FormData();
-
-    formData.append('access_fee_id', data.accessFeeId);
-    formData.append('voucher_code', data.voucherCode);
-
-    const response = await fetch(this.config.API.getDiscount, {
-      method: 'POST',
+    return authenticatedApi.post(`${VOUCHER_DISCOUNT_PATH}`, body, {
       headers: {
         Authorization: `Bearer ${this.Account.getToken().token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: formData,
     });
-
-    await checkStatus(response);
-
-    return response.json();
   }
 }
 
