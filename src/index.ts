@@ -1,10 +1,10 @@
-import Account from './Models/Account';
-import Asset from './Models/Asset';
-import Payment from './Models/Payment';
-import Subscription from './Models/Subscription';
-import Branding from './Models/Branding';
-import Voucher from './Models/Voucher';
-import DLC from './Models/Dlc';
+import Account from './lib/Account';
+import Asset from './lib/Asset';
+import Payment from './lib/Payment';
+import Subscription from './lib/Subscription';
+import Branding from './lib/Branding';
+import Voucher from './lib/Voucher';
+import DLC from './lib/Dlc';
 import Notifications from './Notifications';
 import { API } from './constants/endpoints';
 
