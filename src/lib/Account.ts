@@ -200,7 +200,10 @@ class Account {
       expires: expiresAt,
     });
 
-    localStorage.setItem(this.config.INPLAYER_TOKEN_NAME, JSON.stringify(credentials));
+    localStorage.setItem(
+      this.config.INPLAYER_TOKEN_NAME,
+      JSON.stringify(credentials),
+    );
   };
 
   /**
@@ -279,6 +282,7 @@ class Account {
     // TODO: Check if global withCredentials works
     return basicApi.post(this.config.API.reportSSOtoken(ssoDomain), body, {
       headers: { 'Content-Type': 'multipart/form-data' },
+      withCredentials: true,
     });
   }
 
