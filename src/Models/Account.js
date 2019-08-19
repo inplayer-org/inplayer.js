@@ -640,9 +640,7 @@ class Account {
 * @async
 * @param {number} brandingId - Optional parametar
 * @example
-*     InPlayer.Account.sendPinCode({
-*        brandingId: 1234,
-*     })
+*     InPlayer.Account.sendPinCode(1234)
 *     .then(data => console.log(data));
 * @return {Object}
 */
@@ -688,9 +686,7 @@ class Account {
 * @async
 * @param {string} pinCode - Code from received email message
 * @example
-*     InPlayer.Account.validatePinCode({
-*        pinCode: '5566',
-*     })
+*     InPlayer.Account.validatePinCode('5566')
 *     .then(data => console.log(data));
 * @return {Object}
 */
@@ -737,7 +733,7 @@ class Account {
 * @param {string} merchantUuid - The merchant UUID
 * @example
 *     InPlayer.Account
-*     .loadMerchantRestrictionSettings(merchantUuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8")
+*     .loadMerchantRestrictionSettings("528b1b80-5868-4abc-a9b6-4d3455d719c8")
 *     .then(data => console.log(data));
 * @return {Object} Contains the data - {
     "age_verification_type": "pin_code",
