@@ -1,4 +1,4 @@
-import { authenticatedApi } from '../Utils/http';
+import { authenticatedApi, getToken } from '../Utils/http';
 import { DlcData } from '../Interfaces/IAsset&Access';
 
 /**
@@ -33,7 +33,7 @@ class DLC {
 
     return authenticatedApi.get(this.config.API.getDlcLinks(body.id), {
       headers: {
-        Authorization: `Bearer ${this.Account.getToken().token}`,
+        Authorization: `Bearer ${getToken().token}`,
       },
     });
   }

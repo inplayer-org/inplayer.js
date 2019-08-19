@@ -1,5 +1,6 @@
 import awsIot from 'aws-iot-device-sdk';
 import { checkStatus, errorResponse } from '../Utils';
+import { getToken } from '../Utils/http';
 
 const ONE_HOUR = 60 * 60 * 1000;
 
@@ -23,7 +24,7 @@ class Notifications {
 
     const response = await fetch(this.config.AWS_IOT_URL, {
       headers: {
-        Authorization: `Bearer ${this.Account.getToken().token}`,
+        Authorization: `Bearer ${getToken().token}`,
       },
     });
 

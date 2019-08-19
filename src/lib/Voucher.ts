@@ -1,5 +1,5 @@
 import qs from 'qs';
-import { authenticatedApi } from '../Utils/http';
+import { authenticatedApi, getToken } from '../Utils/http';
 import { VoucherDiscountPrice, VoucherDiscountPriceData } from '../Interfaces/IVoucher&Promotion';
 
 /**
@@ -40,7 +40,7 @@ class Voucher {
 
     return authenticatedApi.post(`${this.config.API.getDiscount}`, qs.stringify(body), {
       headers: {
-        Authorization: `Bearer ${this.Account.getToken().token}`,
+        Authorization: `Bearer ${getToken().token}`,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     });

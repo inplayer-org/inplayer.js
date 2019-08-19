@@ -1,5 +1,5 @@
 import qs from 'qs';
-import { authenticatedApi } from '../Utils/http';
+import { authenticatedApi, getToken } from '../Utils/http';
 import {
   CreateSubscriptionData, CreateSubscriptionBody, CancelSubscriptionData, SubscriptionFromUserData,
 } from '../Interfaces/IPaymant&Subscription';
@@ -39,7 +39,7 @@ class Subscription {
     return authenticatedApi.get(this.config.API.getSubscriptions(body.limit, body.page),
       {
         headers: {
-          Authorization: `Bearer ${this.Account.getToken().token}`,
+          Authorization: `Bearer ${getToken().token}`,
         },
       });
   }
@@ -65,7 +65,7 @@ class Subscription {
 
     return authenticatedApi.get(this.config.API.getSubscription(body.id), {
       headers: {
-        Authorization: `Bearer ${this.Account.getToken().token}`,
+        Authorization: `Bearer ${getToken().token}`,
       },
     });
   }
@@ -91,7 +91,7 @@ class Subscription {
     return authenticatedApi.get(this.config.API.cancelSubscription(body.unsubscribe_url),
       {
         headers: {
-          Authorization: `Bearer ${this.Account.getToken().token}`,
+          Authorization: `Bearer ${getToken().token}`,
         },
       });
   }
@@ -150,7 +150,7 @@ class Subscription {
 
     return authenticatedApi.post(this.config.API.subscribe, qs.stringify(body), {
       headers: {
-        Authorization: `Bearer ${this.Account.getToken().token}`,
+        Authorization: `Bearer ${getToken().token}`,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     });
