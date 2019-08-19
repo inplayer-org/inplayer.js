@@ -38,7 +38,7 @@ class Voucher {
       voucher_code: data.voucherCode,
     };
 
-    return authenticatedApi.post(`${this.config.API.getDiscount}`, qs.stringify(body), {
+    return authenticatedApi.post(this.config.API.getDiscount, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${this.Account.getToken().token}`,
         'Content-Type': 'application/x-www-form-urlencoded',
