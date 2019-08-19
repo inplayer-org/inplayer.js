@@ -169,6 +169,49 @@ class Account {
     return response;
   }
 
+  /** Retruns the OAuth token
+   *  @method getToken
+   *  @example
+   *  InPlayer.Account.getToken()
+   *  @return {Credentials}
+   */
+  getToken = () => {
+    const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+
+    if (token === undefined || token === null) {
+      return new Credentials();
+    }
+
+    return new Credentials(JSON.parse(token));
+  };
+
+  /** Sets the Token
+   *  @method setToken
+   *  @param {string} token
+   *  @param {string} refreshToken
+   *  @param {number} expiresAt
+   *  @example
+   *  InPlayer.Account.setToken('344244-242242', '123123121-d1-t1-1ff',1558529593297)
+   */
+  setToken = (token: any, refreshToken: any, expiresAt: any) => {
+    const credentials = new Credentials({
+      token,
+      refreshToken,
+      expires: expiresAt,
+    });
+
+    localStorage.setItem(this.config.INPLAYER_TOKEN_NAME, JSON.stringify(credentials));
+  };
+
+  /**
+   * Checks if the user is authenticated
+   * @method isAuthenticated
+   * @example
+   *    InPlayer.Account.isAuthenticated()
+   * @return {Boolean}
+   */
+  isAuthenticated = () => !getToken().isExpired() && getToken().token !== '';
+
   /**
    * Refreshes the token
    * @method refreshToken
