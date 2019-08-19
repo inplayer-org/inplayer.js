@@ -245,11 +245,15 @@ class Payment {
       currency_iso: data.currency,
     };
 
-    return authenticatedApi.put(this.config.API.setDefaultCreditCard, qs.stringify(body), {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+    return authenticatedApi.put(
+      this.config.API.setDefaultCreditCard,
+      qs.stringify(body),
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
       },
-    });
+    );
   }
 
   // TODO: RESUME!!!!!!
@@ -277,7 +281,7 @@ class Payment {
    * }
    */
   async getDirectDebitMandate() {
-    return authenticatedApi.get(DIRECT_DEBIT_MANDATE_V2_PATH, {
+    return authenticatedApi.get(this.config.API.getDirectDebitMandate, {
       headers: {
         Authorization: `Bearer ${getToken().token}`,
       },
@@ -322,12 +326,16 @@ class Payment {
       iban: data.iban,
     };
 
-    return authenticatedApi.post(DIRECT_DEBIT_MANDATE_V2_PATH, body, {
-      headers: {
-        Authorization: `Bearer ${getToken().token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
+    return authenticatedApi.post(
+      this.config.API.createDirectDebitMandate,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
       },
-    });
+    );
   }
 
   /**
@@ -358,12 +366,16 @@ class Payment {
       payment_method: data.paymentMethod,
     };
 
-    return authenticatedApi.post(DIRECT_DEBIT_CHARGE_V2_PATH, body, {
-      headers: {
-        Authorization: `Bearer ${getToken().token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
+    return authenticatedApi.post(
+      this.config.API.payForAssetV2,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
       },
-    });
+    );
   }
 
   /**
@@ -395,12 +407,16 @@ class Payment {
       payment_method: data.paymentMethod,
     };
 
-    return authenticatedApi.post(DIRECT_DEBIT_SUBSCRIBE_V2_PATH, body, {
-      headers: {
-        Authorization: `Bearer ${getToken().token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
+    return authenticatedApi.post(
+      this.config.API.subscribeV2,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
       },
-    });
+    );
   }
 }
 
