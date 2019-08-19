@@ -1,6 +1,7 @@
 import Fingerprint2 from 'fingerprintjs2';
 import reduce from 'lodash/reduce';
 import { checkStatus, errorResponse } from '../Utils';
+import { getToken } from '../Utils/http';
 
 /**
  * Contains all Requests connected with assets/items
@@ -35,7 +36,7 @@ class Asset {
 
     const response = await fetch(this.config.API.checkAccessForAsset(id), {
       headers: {
-        Authorization: `Bearer ${this.Account.getToken().token}`,
+        Authorization: `Bearer ${getToken().token}`,
       },
     });
 
@@ -65,7 +66,7 @@ class Asset {
 
     const response = await fetch(this.config.API.checkFreeTrial(id), {
       headers: {
-        Authorization: `Bearer ${this.Account.getToken().token}`,
+        Authorization: `Bearer ${getToken().token}`,
       },
     });
 
@@ -188,7 +189,7 @@ class Asset {
       this.config.API.getAssetsHistory(size, page, startDate, endDate),
       {
         headers: {
-          Authorization: `Bearer ${this.Account.getToken().token}`,
+          Authorization: `Bearer ${getToken().token}`,
         },
       },
     );
@@ -224,7 +225,7 @@ class Asset {
     const response = await fetch(this.config.API.getFreemiumAsset, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${this.Account.getToken().token}`,
+        Authorization: `Bearer ${getToken().token}`,
       },
       body: formData,
     });
@@ -369,7 +370,7 @@ class Asset {
       this.config.API.getCloudfrontURL(assetId, videoUrl),
       {
         headers: {
-          Authorization: `Bearer ${this.Account.getToken().token}`,
+          Authorization: `Bearer ${getToken().token}`,
         },
       },
     );
