@@ -1,4 +1,5 @@
-import { checkStatus, errorResponse } from '../Utils';
+import { authenticatedApi } from '../Utils/http';
+import { DlcData } from '../Interfaces/IAsset&Access';
 
 /**
  * Contains mixed various types of function for dlcs, discounts, branding, etc.
@@ -16,30 +17,25 @@ class DLC {
    * Gets all DLC links
    * @method getDlcLinks
    * @async
-   * @param {number} assetId - The id of the asset
+   * @param {number} data {
+   *  id: number
+   * }
    * @example
    *     InPlayer.DLC
    *     .getDlcLinks(36320)
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async getDlcLinks(assetId: any) {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
+  async getDlcLinks(data: DlcData) {
+    const body = {
+      id: data.assetId,
+    };
 
-    const response = await fetch(this.config.API.getDlcLinks(assetId), {
+    return authenticatedApi.get(`/dlc/${body.id}/links`, {
       headers: {
         Authorization: `Bearer ${this.Account.getToken().token}`,
       },
     });
-
-    await checkStatus(response);
-
-    return response.json();
   }
 }
 

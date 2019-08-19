@@ -1,4 +1,12 @@
-import { errorResponse, checkStatus, params } from '../Utils';
+import qs from 'qs';
+import { authenticatedApi } from '../Utils/http';
+import {
+  CreateSubscriptionData, CreateSubscriptionBody, CancelSubscriptionData, SubscriptionFromUserData,
+} from '../Interfaces/IPaymant&Subscription';
+
+const SUBSCRIPTIONS_PATH = '/subscriptions';
+const SUBSCRIPTION_PATH = '/subscriptions/reporting/subscriptions/';
+
 
 /**
  * Contains all Requests connected with subscriptions
@@ -16,34 +24,24 @@ class Subscription {
    * Gets all subscriptions for a given user
    * @method getSubscriptions
    * @async
-   * @param {number} page - The current page
-   * @param {number} limit - The number of items per page
    * @example
    *     InPlayer.Subscription
-   *     .getSubscriptions()
+   *     .getSubscriptions('/subscriptions?limit=15&page=0')
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async getSubscriptions(page = 0, limit = 15) {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
+  async getSubscriptions() {
+    const body = {
+      page: 0,
+      limit: 15,
+    };
 
-    const response = await fetch(
-      this.config.API.getSubscriptions(limit, page),
+    return authenticatedApi.get(`${SUBSCRIPTIONS_PATH}?limit=${body.limit}&page=${body.page}`,
       {
         headers: {
           Authorization: `Bearer ${this.Account.getToken().token}`,
         },
-      },
-    );
-
-    await checkStatus(response);
-
-    return response.json();
+      });
   }
 
   /**
@@ -51,64 +49,51 @@ class Subscription {
    *
    * @method getSubscription
    * @async
-   *
-   * @param {string} id - The subscription id
+   * @param {Object} data {
+   *  userId: string
+   * }
    * @example
    *     InPlayer.Subscription
    *     .getSubscription('abcdef')
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async getSubscription(id: any) {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
+  async getSubscription(data: SubscriptionFromUserData) {
+    const body = {
+      id: data.userId,
+    };
 
-    const response = await fetch(this.config.API.getSubscription(id), {
+    return authenticatedApi.get(`${SUBSCRIPTION_PATH}/${body.id}`, {
       headers: {
         Authorization: `Bearer ${this.Account.getToken().token}`,
       },
     });
-
-    await checkStatus(response);
-
-    return response.json();
   }
 
   /**
    * Cancels a subscription
    * @method cancelSubscription
    * @async
-   * @param {string} unsubscribeUrl - The url for the subscription which is getting unsubscribed
+   * @param {Object} data {
+   *  unsubscribeUrl: string
+   * }
    * @example
    *     InPlayer.Subscription
    *     .cancelSubscription('abcdef')
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async cancelSubscription(unsubscribeUrl: any) {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
+  async cancelSubscription(data: CancelSubscriptionData) {
+    const body = {
+      unsubscribe_url: data.unsubscribeUrl,
+    };
 
-    const response = await fetch(
-      this.config.API.cancelSubscription(unsubscribeUrl),
+    return authenticatedApi.get(`${body.unsubscribe_url}`,
       {
         headers: {
           Authorization: `Bearer ${this.Account.getToken().token}`,
         },
-      },
-    );
-
-    await checkStatus(response);
-
-    return response.json();
+      });
   }
 
   /**
@@ -146,15 +131,8 @@ class Subscription {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async create(data: any) {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
-
-    const body: any = {
+  async create(data: CreateSubscriptionData) {
+    const body: CreateSubscriptionBody = {
       number: data.number,
       card_name: data.cardName,
       exp_month: data.expMonth,
@@ -170,18 +148,12 @@ class Subscription {
       body.voucher_code = data.voucherCode;
     }
 
-    const response = await fetch(this.config.API.subscribe, {
-      method: 'POST',
+    return authenticatedApi.post(SUBSCRIPTIONS_PATH, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${this.Account.getToken().token}`,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: params(body),
     });
-
-    await checkStatus(response);
-
-    return response.json();
   }
 }
 
