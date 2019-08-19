@@ -49,7 +49,7 @@ class Voucher {
             body: formData,
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }

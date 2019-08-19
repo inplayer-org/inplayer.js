@@ -37,7 +37,7 @@ class Asset {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -67,7 +67,7 @@ class Asset {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -89,7 +89,7 @@ class Asset {
             this.config.API.getAsset(assetId, merchantUuid)
         );
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -112,7 +112,7 @@ class Asset {
             this.config.API.getExternalAsset(assetType, externalId, merchantUuid)
         );
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -131,7 +131,7 @@ class Asset {
     async getPackage(id) {
         const response = await fetch(this.config.API.getPackage(id));
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -150,7 +150,7 @@ class Asset {
     async getAssetAccessFees(id) {
         const response = await fetch(this.config.API.getAssetAccessFees(id));
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -191,7 +191,7 @@ class Asset {
             }
         );
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -265,7 +265,7 @@ class Asset {
             body: formData
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         const accessCode = {
             code,
@@ -337,7 +337,7 @@ class Asset {
             }
         );
 
-        await checkStatus(response);
+        checkStatus(response);
 
         localStorage.removeItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId));
 
@@ -368,7 +368,7 @@ class Asset {
             }
         );
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }

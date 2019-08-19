@@ -62,7 +62,7 @@ class Account {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         const respData = await response.json();
 
@@ -130,7 +130,7 @@ class Account {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         const respData = await response.json();
 
@@ -166,7 +166,7 @@ class Account {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         this.setToken('', '', 0);
 
@@ -254,7 +254,7 @@ class Account {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         const responseData = await response.json();
 
@@ -285,7 +285,7 @@ class Account {
             credentials: 'include'
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -324,7 +324,7 @@ class Account {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -362,7 +362,7 @@ class Account {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
     // Response is 204: No Content, nothing to return.
     }
@@ -391,7 +391,7 @@ class Account {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -412,7 +412,7 @@ class Account {
     async getSocialLoginUrls(state) {
         const response = await fetch(this.config.API.getSocialLoginUrls(state));
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -456,7 +456,7 @@ class Account {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -507,7 +507,7 @@ class Account {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -528,7 +528,7 @@ class Account {
             this.config.API.getRegisterFields(merchantUuid)
         );
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -572,7 +572,7 @@ class Account {
             body: params(body)
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         localStorage.removeItem(this.config.INPLAYER_TOKEN_NAME);
         localStorage.removeItem(this.config.INPLAYER_IOT_NAME);
@@ -622,7 +622,7 @@ class Account {
             body: params(body)
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         if (!response.ok) {
             return await response.json();

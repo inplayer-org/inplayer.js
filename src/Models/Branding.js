@@ -27,7 +27,7 @@ class Branding {
             this.config.API.getBranding(clientId, brandingId)
         );
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
