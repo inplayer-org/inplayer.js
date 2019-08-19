@@ -10,10 +10,6 @@ import {
   DirectDebitSubscribeData,
 } from '../Interfaces/IPaymant&Subscription';
 
-const DIRECT_DEBIT_MANDATE_V2_PATH = '/v2/payments/direct-debit/mandate';
-const DIRECT_DEBIT_CHARGE_V2_PATH = '/v2/payments';
-const DIRECT_DEBIT_SUBSCRIBE_V2_PATH = '/v2/subscriptions';
-
 /**
  * Contains all Requests connected with payments
  *
