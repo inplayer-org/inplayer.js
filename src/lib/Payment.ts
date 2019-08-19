@@ -1,4 +1,10 @@
+import qs from 'qs';
 import { errorResponse, checkStatus, params } from '../Utils';
+import { authenticatedApi, getToken } from '../Utils/http';
+import {
+  CreatePaymentData,
+  PaypalParamsData,
+} from '../Interfaces/IPaymant&Subscription';
 
 /**
  * Contains all Requests connected with payments
@@ -7,7 +13,7 @@ import { errorResponse, checkStatus, params } from '../Utils';
  */
 class Payment {
   config: any;
-  Account: any;
+  Account: Account;
   constructor(config: any, Account: any) {
     this.config = config;
     this.Account = Account;
@@ -21,25 +27,14 @@ class Payment {
    *     InPlayer.Payment
    *     .getPaymentMethods()
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<Array<MerchantPaymentMethod>>}
    */
   async getPaymentMethods() {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
-
-    const response = await fetch(this.config.API.getPaymentMethods, {
+    return authenticatedApi.get(this.config.API.getPaymentMethods, {
       headers: {
-        Authorization: `Bearer ${this.Account.getToken().token}`,
+        Authorization: `Bearer ${getToken().token}`,
       },
     });
-
-    await await checkStatus(response);
-
-    return response.json();
   }
 
   /**
@@ -51,28 +46,17 @@ class Payment {
    *     InPlayer.Payment
    *     .getPaymentTools(2)
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<any>}
    */
-  async getPaymentTools(paymentMethodId: any) {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
-
-    const response = await fetch(
+  async getPaymentTools(paymentMethodId: number) {
+    return authenticatedApi.get(
       this.config.API.getPaymentTools(paymentMethodId),
       {
         headers: {
-          Authorization: `Bearer ${this.Account.getToken().token}`,
+          Authorization: `Bearer ${getToken().token}`,
         },
       },
     );
-
-    await checkStatus(response);
-
-    return response.json();
   }
 
   /**
@@ -108,16 +92,9 @@ class Payment {
    *       brandingId: 1234
    *      })
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<CreatePayment>}
    */
-  async create(data: any) {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
-
+  async create(data: CreatePaymentData) {
     const body: any = {
       number: data.number,
       card_name: data.cardName,
@@ -134,18 +111,16 @@ class Payment {
       body.voucher_code = data.voucherCode;
     }
 
-    const response = await fetch(this.config.API.payForAsset, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${this.Account.getToken().token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
+    return authenticatedApi.post(
+      this.config.API.payForAsset,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
       },
-      body: params(body),
-    });
-
-    await checkStatus(response);
-
-    return response.json();
+    );
   }
 
   /**
@@ -166,36 +141,23 @@ class Payment {
    *     voucherCode: '1231231'
    *     })
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<GeneratePayPalParameters>}
    */
-  async getPayPalParams(data: any) {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
-
+  async getPayPalParams(data: PaypalParamsData) {
     const formData = new FormData();
 
     formData.append('origin', data.origin);
-    formData.append('access_fee', data.accessFeeId);
-    formData.append('payment_method', data.paymentMethod);
+    formData.append('access_fee', String(data.accessFeeId));
+    formData.append('payment_method', String(data.paymentMethod));
     if (data.voucherCode) {
       formData.append('voucher_code', data.voucherCode);
     }
 
-    const response = await fetch(this.config.API.getPayPalParams, {
-      method: 'POST',
+    return authenticatedApi.post(this.config.API.getPayPalParams, formData, {
       headers: {
-        Authorization: `Bearer ${this.Account.getToken().token}`,
+        Authorization: `Bearer ${getToken().token}`,
       },
-      body: formData,
     });
-
-    await checkStatus(response);
-
-    return response.json();
   }
 
   /**
@@ -211,26 +173,15 @@ class Payment {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async getPurchaseHistory(status = 'active', page: any, limit: any) {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
-
-    const response = await fetch(
+  async getPurchaseHistory(status = 'active', page: number, limit: number) {
+    return authenticatedApi.get(
       this.config.API.getPurchaseHistory(status, page, limit),
       {
         headers: {
-          Authorization: `Bearer ${this.Account.getToken().token}`,
+          Authorization: `Bearer ${getToken().token}`,
         },
       },
     );
-
-    await checkStatus(response);
-
-    return response.json();
   }
 
   /**
@@ -241,25 +192,14 @@ class Payment {
    *     InPlayer.Payment
    *     .getDefaultCreditCard()
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<GetDefaultCard>}
    */
   async getDefaultCreditCard() {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
-
-    const response = await fetch(this.config.API.getDefaultCreditCard, {
+    return authenticatedApi.get(this.config.API.getDefaultCreditCard, {
       headers: {
-        Authorization: `Bearer ${this.Account.getToken().token}`,
+        Authorization: `Bearer ${getToken().token}`,
       },
     });
-
-    await checkStatus(response);
-
-    return response.json();
   }
 
   /**
