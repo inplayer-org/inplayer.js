@@ -2,8 +2,6 @@ import qs from 'qs';
 import { authenticatedApi } from '../Utils/http';
 import { VoucherDiscountPrice, VoucherDiscountPriceData } from '../Interfaces/IVoucher&Promotion';
 
-const VOUCHER_DISCOUNT_PATH = '/vouchers/discount';
-
 /**
  * Contains all Requests regarding vouchers.
  *
@@ -40,7 +38,7 @@ class Voucher {
       voucher_code: data.voucherCode,
     };
 
-    return authenticatedApi.post(`${VOUCHER_DISCOUNT_PATH}`, qs.stringify(body), {
+    return authenticatedApi.post(`${this.config.API.getDiscount}`, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${this.Account.getToken().token}`,
         'Content-Type': 'application/x-www-form-urlencoded',

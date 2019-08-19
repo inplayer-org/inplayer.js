@@ -35,7 +35,7 @@ class Branding {
         merchant_uuid: data.merchantUUID,
       };
 
-      return basicApi.get(`${BRANDING_PATH}/${body.merchant_uuid}/${body.id}`);
+      return basicApi.get(this.config.API.getBranding(body.merchant_uuid, body.id));
     }
 }
 

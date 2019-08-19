@@ -31,7 +31,7 @@ class DLC {
       id: data.assetId,
     };
 
-    return authenticatedApi.get(`/dlc/${body.id}/links`, {
+    return authenticatedApi.get(this.config.API.getDlcLinks(body.id), {
       headers: {
         Authorization: `Bearer ${this.Account.getToken().token}`,
       },

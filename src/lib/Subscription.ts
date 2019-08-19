@@ -36,7 +36,7 @@ class Subscription {
       limit: 15,
     };
 
-    return authenticatedApi.get(`${SUBSCRIPTIONS_PATH}?limit=${body.limit}&page=${body.page}`,
+    return authenticatedApi.get(this.config.API.getSubscriptions(body.limit, body.page),
       {
         headers: {
           Authorization: `Bearer ${this.Account.getToken().token}`,
@@ -63,7 +63,7 @@ class Subscription {
       id: data.userId,
     };
 
-    return authenticatedApi.get(`${SUBSCRIPTION_PATH}/${body.id}`, {
+    return authenticatedApi.get(this.config.API.getSubscription(body.id), {
       headers: {
         Authorization: `Bearer ${this.Account.getToken().token}`,
       },
@@ -88,7 +88,7 @@ class Subscription {
       unsubscribe_url: data.unsubscribeUrl,
     };
 
-    return authenticatedApi.get(`${body.unsubscribe_url}`,
+    return authenticatedApi.get(this.config.API.cancelSubscription(body.unsubscribe_url),
       {
         headers: {
           Authorization: `Bearer ${this.Account.getToken().token}`,
@@ -148,7 +148,7 @@ class Subscription {
       body.voucher_code = data.voucherCode;
     }
 
-    return authenticatedApi.post(SUBSCRIPTIONS_PATH, qs.stringify(body), {
+    return authenticatedApi.post(this.config.API.subscribe, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${this.Account.getToken().token}`,
         'Content-Type': 'application/x-www-form-urlencoded',
