@@ -35,23 +35,25 @@ class Account {
  * @return {Object}
  */
     async authenticate(data = {}) {
+        const { clientId, referrer, clientSecret, refreshToken, email, password } = data;
+
         let body = {
-            client_id: data.clientId,
+            client_id: clientId,
             grant_type: 'password',
-            referrer: data.referrer
+            referrer: referrer
         };
 
-        if (data.clientSecret) {
-            body.client_secret = data.clientSecret;
+        if (clientSecret) {
+            body.client_secret = clientSecret;
             body.grant_type = 'client_credentials';
         }
 
-        if (data.refreshToken) {
-            body.refresh_token = data.refreshToken;
+        if (refreshToken) {
+            body.refresh_token = refreshToken;
             body.grant_type = 'refresh_token';
         } else {
-            body.username = data.email;
-            body.password = data.password;
+            body.username = email;
+            body.password = password;
         }
 
         const response = await fetch(this.config.API.authenticate, {
@@ -65,11 +67,12 @@ class Account {
         checkStatus(response);
 
         const respData = await response.json();
+        const { access_token, refresh_token, expires } = respData;
 
         this.setToken(
-            respData.access_token,
-            respData.refresh_token,
-            respData.expires
+            access_token,
+            refresh_token,
+            expires
         );
 
         return respData;
@@ -108,18 +111,20 @@ class Account {
  * @return {Object}
  */
     async signUp(data = {}) {
+        const { fullName, email, password, passwordConfirmation, clientId, type, referrer, metadata, brandingId, dateOfBirth } = data;
+
         let body = {
-            full_name: data.fullName,
-            username: data.email,
-            password: data.password,
-            password_confirmation: data.passwordConfirmation,
-            client_id: data.clientId,
-            type: data.type,
-            referrer: data.referrer,
+            full_name: fullName,
+            username: email,
+            password,
+            password_confirmation: passwordConfirmation,
+            client_id: clientId,
+            type,
+            referrer,
             grant_type: 'password',
-            metadata: data.metadata,
-            branding_id: data.brandingId,
-            date_of_birth: data.dateOfBirth,
+            metadata,
+            branding_id: brandingId,
+            date_of_birth: dateOfBirth,
         };
 
         const response = await fetch(this.config.API.signUp, {
@@ -133,11 +138,12 @@ class Account {
         checkStatus(response);
 
         const respData = await response.json();
+        const { access_token, refresh_token, expires } = respData;
 
         this.setToken(
-            respData.access_token,
-            respData.refresh_token,
-            respData.expires
+            access_token,
+            refresh_token,
+            expires
         );
 
         return respData;
@@ -257,11 +263,12 @@ class Account {
         checkStatus(response);
 
         const responseData = await response.json();
+        const { access_token, refresh_token, expires } = responseData;
 
         this.setToken(
-            responseData.access_token,
-            responseData.refresh_token,
-            responseData.expires
+            access_token,
+            refresh_token,
+            expires
         );
 
         return responseData;
@@ -310,10 +317,12 @@ class Account {
  * @return {Object}
  */
     async requestNewPassword(data = {}) {
+        const { email, merchantUuid, brandingId } = data;
+
         let body = {
-            email: data.email,
-            merchant_uuid: data.merchantUuid,
-            branding_id: data.brandingId
+            email,
+            merchant_uuid: merchantUuid,
+            branding_id: brandingId
         };
 
         const response = await fetch(this.config.API.requestNewPassword, {
@@ -350,9 +359,10 @@ class Account {
  * @return {Object}
  */
     async setNewPassword(data = {}, token = '') {
-        const body = `password=${data.password}&password_confirmation=${
-            data.passwordConfirmation
-        }&branding_id=${data.brandingId}`;
+        const { password, passwordConfirmation, brandingId } = data;
+        const body = `password=${password}&password_confirmation=${
+            passwordConfirmation
+        }&branding_id=${brandingId}`;
 
         const response = await fetch(this.config.API.setNewPassword(token), {
             method: 'PUT',
@@ -436,15 +446,17 @@ class Account {
             });
         }
 
+        const { fullName, metadata, dateOfBirth } = data;
+
         let body = {
-            full_name: data.fullName,
+            full_name: fullName,
         };
 
         if (data.metadata) {
-            body.metadata = data.metadata;
+            body.metadata = metadata;
         }
         if (data.dateOfBirth) {
-            body.date_of_birth = data.dateOfBirth;
+            body.date_of_birth = dateOfBirth;
         }
 
         const response = await fetch(this.config.API.updateAccount, {
@@ -491,11 +503,13 @@ class Account {
             });
         }
 
+        const { oldPassword, password, passwordConfirmation, brandingId } = data;
+
         let body = {
-            old_password: data.oldPassword,
-            password: data.password,
-            password_confirmation: data.passwordConfirmation,
-            branding_id: data.brandingId
+            old_password: oldPassword,
+            password,
+            password_confirmation: passwordConfirmation,
+            branding_id: brandingId
         };
 
         const response = await fetch(this.config.API.changePassword, {
@@ -558,9 +572,11 @@ class Account {
             });
         }
 
+        const { password, brandingId } = data;
+
         let body = {
-            password: data.password,
-            branding_id: data.brandingId
+            password,
+            branding_id: brandingId
         };
 
         const response = await fetch(this.config.API.deleteAccount, {
@@ -608,9 +624,11 @@ class Account {
             });
         }
 
+        const { password, brandingId } = data;
+
         let body = {
-            password: data.password,
-            branding_id: data.brandingId
+            password,
+            branding_id: brandingId
         };
 
         const response = await fetch(this.config.API.exportData, {
@@ -653,8 +671,6 @@ class Account {
             });
         }
 
-        const t = this.getToken();
-
         let body = {
             branding_id: brandingId
         };
@@ -662,7 +678,7 @@ class Account {
         const response = await fetch(this.config.API.sendPinCode, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + t.token,
+                Authorization: `Bearer ${this.getToken().token}`,
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: params(body)
@@ -699,8 +715,6 @@ class Account {
             });
         }
 
-        const t = this.getToken();
-
         let body = {
             pin_code: pinCode
         };
@@ -708,7 +722,7 @@ class Account {
         const response = await fetch(this.config.API.validatePinCode, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + t.token,
+                Authorization: `Bearer ${this.getToken().token}`,
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: params(body)
@@ -744,12 +758,7 @@ class Account {
 }
 */
     async loadMerchantRestrictionSettings(merchantUuid) {
-        const response = await fetch(this.config.API.merchantRestrictionSettings(merchantUuid), {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        });
+        const response = await fetch(this.config.API.merchantRestrictionSettings(merchantUuid));
 
         await checkStatus(response);
 
