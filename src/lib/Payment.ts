@@ -1,4 +1,13 @@
+import qs from 'qs';
 import { errorResponse, checkStatus, params } from '../Utils';
+import { authenticatedApi } from '../Utils/http';
+import {
+  SetDefaultCardPerCurrencyData, CreateDirectDebitMandateData, DirectDebitChargeData, DirectDebitSubscribeData,
+} from '../Interfaces/IPaymant&Subscription';
+
+const DIRECT_DEBIT_MANDATE_V2_PATH = '/v2/payments/direct-debit/mandate';
+const DIRECT_DEBIT_CHARGE_V2_PATH = '/v2/payments';
+const DIRECT_DEBIT_SUBSCRIBE_V2_PATH = '/v2/subscriptions';
 
 /**
  * Contains all Requests connected with payments
@@ -287,14 +296,7 @@ class Payment {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async setDefaultCreditCard(data: any) {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
-
+  async setDefaultCreditCard(data: SetDefaultCardPerCurrencyData) {
     const body = {
       number: data.cardNumber,
       card_name: data.cardName,
@@ -304,18 +306,14 @@ class Payment {
       currency_iso: data.currency,
     };
 
-    const response = await fetch(this.config.API.setDefaultCreditCard, {
-      method: 'PUT',
+    return authenticatedApi.put(this.config.API.setDefaultCreditCard, qs.stringify(body), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: params(body),
     });
-
-    await checkStatus(response);
-
-    return response.json();
   }
+
+  // TODO: RESUME!!!!!!
 
   /**
    * Checks for existing user direct debit mandate
@@ -323,7 +321,7 @@ class Payment {
    * @async
    * @example
    *     InPlayer.Payment
-   *     .getDirectDebitMandate()
+   *     .getDirectDebitMandate('/v2/payments/direct-debit/mandate')
    *     .then(data => console.log(data));
    * @return {Object} Contains the data - {
    *  is_approved: {boolean},
@@ -340,23 +338,11 @@ class Payment {
    * }
    */
   async getDirectDebitMandate() {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
-
-    const response = await fetch(this.config.API.getDirectDebitMandate, {
-      method: 'GET',
+    return authenticatedApi.get(DIRECT_DEBIT_MANDATE_V2_PATH, {
       headers: {
         Authorization: `Bearer ${this.Account.getToken().token}`,
       },
     });
-
-    await checkStatus(response);
-
-    return response.json();
   }
 
   /**
@@ -364,12 +350,12 @@ class Payment {
    * @method createDirectDebitMandate
    * @async
    * @param {Object} data - Contains the data - {
-   *  name: {string},
-   *  iban: {string},
+   *  name: string,
+   *  iban: string
    * }
    * @example
    *     InPlayer.Payment
-   *     .createDirectDebitMandate({name, iban})
+   *     .createDirectDebitMandate('/v2/payments/direct-debit/mandate', body)
    *     .then(data => console.log(data));
    * @return {Object} Contains the data - {
    *   "id": "src_1F2GzxJqmvwo8uTaJnRVkgYS",
@@ -391,26 +377,18 @@ class Payment {
    *    }
    *  }
    */
-  async createDirectDebitMandate(data: any) {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
+  async createDirectDebitMandate(data: CreateDirectDebitMandateData) {
+    const body = {
+      name: data.name,
+      iban: data.iban,
+    };
 
-    const response = await fetch(this.config.API.createDirectDebitMandate, {
-      method: 'POST',
+    return authenticatedApi.post(DIRECT_DEBIT_MANDATE_V2_PATH, body, {
       headers: {
         Authorization: `Bearer ${this.Account.getToken().token}`,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: params(data),
     });
-
-    await checkStatus(response);
-
-    return response.json();
   }
 
   /**
@@ -418,13 +396,14 @@ class Payment {
    * @method directDebitCharge
    * @async
    * @param {Object} data - Contains the data - {
-   *  assetId: {string},
-   *  accessFeeId: {string},
-   *  voucherCode: {string},
+   *  accessFeeId: number,
+   *  assetId: number,
+   *  voucherCode: string,
+   *  paymentMethod: 'Direct Debit'
    * }
    * @example
    *     InPlayer.Payment
-   *     .directDebitCharge({ assetId, accessFeeId, voucherCode })
+   *     .directDebitCharge('/v2/payments', body)
    *     .then(data => console.log(data));
    * @return {Object} Contains the data - {
    *       code: '200',
@@ -432,35 +411,20 @@ class Payment {
    *    }
    *
    */
-  async directDebitCharge({
-    assetId: item_id,
-    accessFeeId: access_fee_id,
-    voucherCode: voucher_code = '',
-  }: any) {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
+  async directDebitCharge(data: DirectDebitChargeData) {
+    const body = {
+      access_fee_id: data.accessFeeId,
+      item_id: data.assetId,
+      voucher_code: data.voucherCode,
+      payment_method: data.paymentMethod,
+    };
 
-    const response = await fetch(this.config.API.payForAssetV2, {
-      method: 'POST',
+    return authenticatedApi.post(DIRECT_DEBIT_CHARGE_V2_PATH, body, {
       headers: {
         Authorization: `Bearer ${this.Account.getToken().token}`,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: params({
-        item_id,
-        access_fee_id,
-        voucher_code,
-        payment_method: 'Direct Debit',
-      }),
     });
-
-    await checkStatus(response);
-
-    return response.json();
   }
 
   /**
@@ -468,13 +432,14 @@ class Payment {
    * @method directDebitSubscribe
    * @async
    * @param {Object} data - Contains the data - {
-   *  assetId: {string},
-   *  accessFeeId: {string},
-   *  voucherCode: {string},
+   *  assetId: number,
+   *  accessFeeId: number,
+   *  voucherCode: string,
+   *  paymentMethod: 'Direct Debit'
    * }
    * @example
    *     InPlayer.Payment
-   *     .directDebitSubscribe({ assetId, accessFeeId, voucherCode })
+   *     .directDebitSubscribe('/v2/subscriptions', body)
    *     .then(data => console.log(data));
    * @return {Object} Contains the data - {
    *       code: '200',
@@ -483,35 +448,20 @@ class Payment {
    *  }
    */
 
-  async directDebitSubscribe({
-    assetId: item_id,
-    accessFeeId: access_fee_id,
-    voucherCode: voucher_code = '',
-  }: any) {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
+  async directDebitSubscribe(data: DirectDebitSubscribeData) {
+    const body = {
+      item_id: data.assetId,
+      access_fee_id: data.accessFeeId,
+      voucher_code: data.voucherCode,
+      payment_method: data.paymentMethod,
+    };
 
-    const response = await fetch(this.config.API.subscribeV2, {
-      method: 'POST',
+    return authenticatedApi.post(DIRECT_DEBIT_SUBSCRIBE_V2_PATH, body, {
       headers: {
         Authorization: `Bearer ${this.Account.getToken().token}`,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: params({
-        item_id,
-        access_fee_id,
-        voucher_code,
-        payment_method: 'Direct Debit',
-      }),
     });
-
-    await checkStatus(response);
-
-    return response.json();
   }
 }
 

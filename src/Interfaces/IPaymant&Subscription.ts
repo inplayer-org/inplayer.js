@@ -393,3 +393,31 @@ export interface CreateSubscriptionBody {
     voucher_code?: string;
     branding_id?: number;
 }
+
+export interface SetDefaultCardPerCurrencyData {
+    cardNumber: string;
+    cardName: string;
+    cvc: number;
+    expMonth: number;
+    expYear: number;
+    currency: string;
+}
+
+export interface CreateDirectDebitMandateData {
+    name: string;
+    iban: string;
+}
+
+export interface DirectDebitChargeData {
+    accessFeeId: number;
+    assetId: number;
+    voucherCode: string;
+    paymentMethod: 'Direct Debit';
+}
+
+export interface DirectDebitSubscribeData {
+    accessFeeId: number;
+    assetId: number;
+    voucherCode: string;
+    paymentMethod: 'Direct Debit';
+}
