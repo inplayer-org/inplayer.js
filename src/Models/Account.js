@@ -111,7 +111,18 @@ class Account {
  * @return {Object}
  */
     async signUp(data = {}) {
-        const { fullName, email, password, passwordConfirmation, clientId, type, referrer, metadata, brandingId, dateOfBirth } = data;
+        const {
+            fullName,
+            email,
+            password,
+            passwordConfirmation,
+            clientId,
+            type,
+            referrer,
+            metadata,
+            brandingId,
+            dateOfBirth
+        } = data;
 
         let body = {
             full_name: fullName,
