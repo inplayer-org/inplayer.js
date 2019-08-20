@@ -20,7 +20,9 @@
     "dev": "webpack --progress --colors --watch",
     "prebuild": "rimraf dist",
     "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js",
-    "generate:docs": "yarn run yuidoc ."
+    "generate:docs": "yarn run yuidoc .",
+    "lint": "eslint ./src --ext .js",
+    "lint:js:fix": "eslint src/** --fix"
   },
   "lint-staged": {
     "*.js": [
