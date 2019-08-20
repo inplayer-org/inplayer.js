@@ -34,9 +34,14 @@ class Account {
  *     .then(data => console.log(data));
  * @return {Object}
  */
-    async authenticate(data = {}) {
-        const { clientId, referrer, clientSecret, refreshToken, email, password } = data;
-
+    async authenticate({
+        clientId,
+        referrer,
+        clientSecret,
+        refreshToken,
+        email,
+        password
+    }) {
         let body = {
             client_id: clientId,
             grant_type: 'password',
@@ -110,20 +115,18 @@ class Account {
  *     .then(data => console.log(data));
  * @return {Object}
  */
-    async signUp(data = {}) {
-        const {
-            fullName,
-            email,
-            password,
-            passwordConfirmation,
-            clientId,
-            type,
-            referrer,
-            metadata,
-            brandingId,
-            dateOfBirth
-        } = data;
-
+    async signUp({
+        fullName,
+        email,
+        password,
+        passwordConfirmation,
+        clientId,
+        type,
+        referrer,
+        metadata,
+        brandingId,
+        dateOfBirth
+    }) {
         let body = {
             full_name: fullName,
             username: email,
@@ -327,9 +330,7 @@ class Account {
  *     .then(data => console.log(data));
  * @return {Object}
  */
-    async requestNewPassword(data = {}) {
-        const { email, merchantUuid, brandingId } = data;
-
+    async requestNewPassword({ email, merchantUuid, brandingId }) {
         let body = {
             email,
             merchant_uuid: merchantUuid,
@@ -369,8 +370,7 @@ class Account {
  *     .then(data => console.log(data));
  * @return {Object}
  */
-    async setNewPassword(data = {}, token = '') {
-        const { password, passwordConfirmation, brandingId } = data;
+    async setNewPassword({ password, passwordConfirmation, brandingId }, token = '') {
         const body = `password=${password}&password_confirmation=${
             passwordConfirmation
         }&branding_id=${brandingId}`;
@@ -449,7 +449,7 @@ class Account {
  *     .then(data => console.log(data));
  * @return {Object}
  */
-    async updateAccount(data = {}) {
+    async updateAccount({ fullName, metadata, dateOfBirth }) {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -457,16 +457,14 @@ class Account {
             });
         }
 
-        const { fullName, metadata, dateOfBirth } = data;
-
         let body = {
             full_name: fullName,
         };
 
-        if (data.metadata) {
+        if (metadata) {
             body.metadata = metadata;
         }
-        if (data.dateOfBirth) {
+        if (dateOfBirth) {
             body.date_of_birth = dateOfBirth;
         }
 
@@ -506,15 +504,18 @@ class Account {
  *     .then(data => console.log(data));
  * @return {Object}
  */
-    async changePassword(data = {}) {
+    async changePassword({
+        oldPassword,
+        password,
+        passwordConfirmation,
+        brandingId
+    }) {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
             });
         }
-
-        const { oldPassword, password, passwordConfirmation, brandingId } = data;
 
         let body = {
             old_password: oldPassword,
@@ -575,15 +576,13 @@ class Account {
  * @return {Object}
  */
 
-    async deleteAccount(data) {
+    async deleteAccount({ password, brandingId }) {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
             });
         }
-
-        const { password, brandingId } = data;
 
         let body = {
             password,
@@ -627,15 +626,13 @@ class Account {
  * @return {Object}
  */
 
-    async exportData(data) {
+    async exportData({ password, brandingId }) {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
                 message: 'User is not authenticated'
             });
         }
-
-        const { password, brandingId } = data;
 
         let body = {
             password,
