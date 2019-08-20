@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.10.0] - 19-08-2019
+
+### Added
+
+- Age verification methods in Account
+
+### Changes
+
+- Add optional dateOfBirth parameter in signUp and updateAccount methods
+
 # [2.9.4] - 16-08-2019
 
 ### Fixes
