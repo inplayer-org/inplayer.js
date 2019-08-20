@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.10.0] - 20-08-2019
+
+### Added
+
+- Age verification methods in Account
+
+### Changes
+
+- Add optional dateOfBirth parameter in signUp and updateAccount methods
+
+# [2.9.4] - 16-08-2019
+
+### Fixes
+
+- Remove response await in checkStatus
+
+# [2.9.3] - 13-08-2019
+
+### Fixes
+
+- Remove double await typo in Payments
+
+# [2.9.2] - 13-08-2019
+
+### Fixes
+
+- Fix isAuthenticated check in Notifications getIotToken
+
 # [2.9.1] - 13-08-2019
 
 ### Fixes

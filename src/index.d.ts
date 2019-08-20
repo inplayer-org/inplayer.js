@@ -29,6 +29,7 @@ export interface SignUpData {
   referrer: string;
   brandingId?: number;
   metadata?: { [key: string]: string };
+  dateOfBirth?: string,
 }
 
 export interface RequestPasswordData {
@@ -57,6 +58,7 @@ export interface DeleteAccountData
 export interface UpdateAccountData {
   fullName: string;
   metadata?: { [key: string]: string };
+  dateOfBirth?: string;
 }
 
 export declare class Account {
@@ -79,6 +81,9 @@ export declare class Account {
   getRegisterFields(merchantUuid: string): object;
   deleteAccount(data: DeleteAccountData): object;
   exportData(data: DeleteAccountData): object;
+  sendPinCode(brandingId?: number): Object;
+  validatePinCode(pinCode: string): Object;
+  loadMerchantRestrictionSettings(merchantUuid: string): Object;
 }
 
 export interface CodeAccessData {

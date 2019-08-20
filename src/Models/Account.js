@@ -34,24 +34,31 @@ class Account {
  *     .then(data => console.log(data));
  * @return {Object}
  */
-    async authenticate(data = {}) {
+    async authenticate({
+        clientId,
+        referrer,
+        clientSecret,
+        refreshToken,
+        email,
+        password
+    }) {
         let body = {
-            client_id: data.clientId,
+            client_id: clientId,
             grant_type: 'password',
-            referrer: data.referrer
+            referrer: referrer
         };
 
-        if (data.clientSecret) {
-            body.client_secret = data.clientSecret;
+        if (clientSecret) {
+            body.client_secret = clientSecret;
             body.grant_type = 'client_credentials';
         }
 
-        if (data.refreshToken) {
-            body.refresh_token = data.refreshToken;
+        if (refreshToken) {
+            body.refresh_token = refreshToken;
             body.grant_type = 'refresh_token';
         } else {
-            body.username = data.email;
-            body.password = data.password;
+            body.username = email;
+            body.password = password;
         }
 
         const response = await fetch(this.config.API.authenticate, {
@@ -62,14 +69,15 @@ class Account {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         const respData = await response.json();
+        const { access_token, refresh_token, expires } = respData;
 
         this.setToken(
-            respData.access_token,
-            respData.refresh_token,
-            respData.expires
+            access_token,
+            refresh_token,
+            expires
         );
 
         return respData;
@@ -89,6 +97,7 @@ class Account {
  *  referrer: string,
  *  brandingId?: number,
  *  metadata?: { [key: string]: string }
+ *  dateOfBirth?: string,
  * }
  * @example
  *     InPlayer.Account.signUp({
@@ -101,22 +110,35 @@ class Account {
  *      referrer: "http://localhost:3000/",
  *      brandingId?: 12345,
  *      metadata : { country: "Macedonia" },
+ *      dateOfBirth: '2019-05-03'
  *     })
  *     .then(data => console.log(data));
  * @return {Object}
  */
-    async signUp(data = {}) {
+    async signUp({
+        fullName,
+        email,
+        password,
+        passwordConfirmation,
+        clientId,
+        type,
+        referrer,
+        metadata,
+        brandingId,
+        dateOfBirth
+    }) {
         let body = {
-            full_name: data.fullName,
-            username: data.email,
-            password: data.password,
-            password_confirmation: data.passwordConfirmation,
-            client_id: data.clientId,
-            type: data.type,
-            referrer: data.referrer,
+            full_name: fullName,
+            username: email,
+            password,
+            password_confirmation: passwordConfirmation,
+            client_id: clientId,
+            type,
+            referrer,
             grant_type: 'password',
-            metadata: data.metadata,
-            branding_id: data.brandingId
+            metadata,
+            branding_id: brandingId,
+            date_of_birth: dateOfBirth,
         };
 
         const response = await fetch(this.config.API.signUp, {
@@ -127,14 +149,15 @@ class Account {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         const respData = await response.json();
+        const { access_token, refresh_token, expires } = respData;
 
         this.setToken(
-            respData.access_token,
-            respData.refresh_token,
-            respData.expires
+            access_token,
+            refresh_token,
+            expires
         );
 
         return respData;
@@ -163,7 +186,7 @@ class Account {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         this.setToken('', '', 0);
 
@@ -251,14 +274,15 @@ class Account {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         const responseData = await response.json();
+        const { access_token, refresh_token, expires } = responseData;
 
         this.setToken(
-            responseData.access_token,
-            responseData.refresh_token,
-            responseData.expires
+            access_token,
+            refresh_token,
+            expires
         );
 
         return responseData;
@@ -282,7 +306,7 @@ class Account {
             credentials: 'include'
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -306,11 +330,11 @@ class Account {
  *     .then(data => console.log(data));
  * @return {Object}
  */
-    async requestNewPassword(data = {}) {
+    async requestNewPassword({ email, merchantUuid, brandingId }) {
         let body = {
-            email: data.email,
-            merchant_uuid: data.merchantUuid,
-            branding_id: data.brandingId
+            email,
+            merchant_uuid: merchantUuid,
+            branding_id: brandingId
         };
 
         const response = await fetch(this.config.API.requestNewPassword, {
@@ -321,7 +345,7 @@ class Account {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -346,10 +370,10 @@ class Account {
  *     .then(data => console.log(data));
  * @return {Object}
  */
-    async setNewPassword(data = {}, token = '') {
-        const body = `password=${data.password}&password_confirmation=${
-            data.passwordConfirmation
-        }&branding_id=${data.brandingId}`;
+    async setNewPassword({ password, passwordConfirmation, brandingId }, token = '') {
+        const body = `password=${password}&password_confirmation=${
+            passwordConfirmation
+        }&branding_id=${brandingId}`;
 
         const response = await fetch(this.config.API.setNewPassword(token), {
             method: 'PUT',
@@ -359,7 +383,7 @@ class Account {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
     // Response is 204: No Content, nothing to return.
     }
@@ -388,7 +412,7 @@ class Account {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -409,7 +433,7 @@ class Account {
     async getSocialLoginUrls(state) {
         const response = await fetch(this.config.API.getSocialLoginUrls(state));
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -421,11 +445,11 @@ class Account {
  * @param {Object} data - The new data for the account
  * @example
  *     InPlayer.Account
- *     .updateAccount({fullName: 'test test', metadata: {country: 'Germany'}})
+ *     .updateAccount({fullName: 'test test', metadata: {country: 'Germany'}, dateOfBirth: '1999-03-05'})
  *     .then(data => console.log(data));
  * @return {Object}
  */
-    async updateAccount(data = {}) {
+    async updateAccount({ fullName, metadata, dateOfBirth }) {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -434,11 +458,14 @@ class Account {
         }
 
         let body = {
-            full_name: data.fullName
+            full_name: fullName,
         };
 
-        if (data.metadata) {
-            body.metadata = data.metadata;
+        if (metadata) {
+            body.metadata = metadata;
+        }
+        if (dateOfBirth) {
+            body.date_of_birth = dateOfBirth;
         }
 
         const response = await fetch(this.config.API.updateAccount, {
@@ -450,7 +477,7 @@ class Account {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -477,7 +504,12 @@ class Account {
  *     .then(data => console.log(data));
  * @return {Object}
  */
-    async changePassword(data = {}) {
+    async changePassword({
+        oldPassword,
+        password,
+        passwordConfirmation,
+        brandingId
+    }) {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -486,10 +518,10 @@ class Account {
         }
 
         let body = {
-            old_password: data.oldPassword,
-            password: data.password,
-            password_confirmation: data.passwordConfirmation,
-            branding_id: data.brandingId
+            old_password: oldPassword,
+            password,
+            password_confirmation: passwordConfirmation,
+            branding_id: brandingId
         };
 
         const response = await fetch(this.config.API.changePassword, {
@@ -501,7 +533,7 @@ class Account {
             }
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -522,7 +554,7 @@ class Account {
             this.config.API.getRegisterFields(merchantUuid)
         );
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
@@ -544,7 +576,7 @@ class Account {
  * @return {Object}
  */
 
-    async deleteAccount(data) {
+    async deleteAccount({ password, brandingId }) {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -553,8 +585,8 @@ class Account {
         }
 
         let body = {
-            password: data.password,
-            branding_id: data.brandingId
+            password,
+            branding_id: brandingId
         };
 
         const response = await fetch(this.config.API.deleteAccount, {
@@ -566,7 +598,7 @@ class Account {
             body: params(body)
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         localStorage.removeItem(this.config.INPLAYER_TOKEN_NAME);
         localStorage.removeItem(this.config.INPLAYER_IOT_NAME);
@@ -578,7 +610,7 @@ class Account {
     }
 
     /**
- * DExports account data to the users' email
+ * Exports account data to the users' email
  * @method exportData
  * @async
  * @param {Object} data - Contains {
@@ -594,7 +626,7 @@ class Account {
  * @return {Object}
  */
 
-    async exportData(data) {
+    async exportData({ password, brandingId }) {
         if (!this.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -603,8 +635,8 @@ class Account {
         }
 
         let body = {
-            password: data.password,
-            branding_id: data.brandingId
+            password,
+            branding_id: brandingId
         };
 
         const response = await fetch(this.config.API.exportData, {
@@ -616,7 +648,7 @@ class Account {
             body: params(body)
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         if (!response.ok) {
             return await response.json();
@@ -626,6 +658,119 @@ class Account {
             code: response.status,
             message: 'Your data is being exported, please check your email.'
         };
+    }
+
+    /**
+* Creates pin code and sends it to the users' email
+* @method sendPinCode
+* @async
+* @param {number} brandingId - Optional parametar
+* @example
+*     InPlayer.Account.sendPinCode(1234)
+*     .then(data => console.log(data));
+* @return {Object}
+*/
+
+    async sendPinCode(brandingId) {
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
+
+        let body = {
+            branding_id: brandingId
+        };
+
+        const response = await fetch(this.config.API.sendPinCode, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${this.getToken().token}`,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: params(body)
+        });
+
+        checkStatus(response);
+
+        if (!response.ok) {
+            return await response.json();
+        }
+
+        return {
+            code: response.status,
+            message: response.message,
+        };
+    }
+
+    /**
+* Checks validity of pin code
+* @method validatePinCode
+* @async
+* @param {string} pinCode - Code from received email message
+* @example
+*     InPlayer.Account.validatePinCode('5566')
+*     .then(data => console.log(data));
+* @return {Object}
+*/
+
+    async validatePinCode(pinCode) {
+        if (!this.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
+
+        let body = {
+            pin_code: pinCode
+        };
+
+        const response = await fetch(this.config.API.validatePinCode, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${this.getToken().token}`,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: params(body)
+        });
+
+        checkStatus(response);
+
+        if (!response.ok) {
+            return await response.json();
+        }
+
+        return {
+            code: response.status,
+            message: response.message,
+        };
+    }
+
+    /**
+* Return restriction settings per Merchant
+* @method loadMerchantRestrictionSettings
+* @async
+* @param {string} merchantUuid - The merchant UUID
+* @example
+*     InPlayer.Account
+*     .loadMerchantRestrictionSettings("528b1b80-5868-4abc-a9b6-4d3455d719c8")
+*     .then(data => console.log(data));
+* @return {Object} Contains the data - {
+    "age_verification_type": "pin_code",
+    "age_verification_enabled": true,
+    "merchant_uuid": "3b39b5ab-b5fc-4ba3-b770-73155d20e61f",
+    "created_at": 1532425425,
+    "updated_at": 1532425425
+}
+*/
+    async loadMerchantRestrictionSettings(merchantUuid) {
+        const response = await fetch(this.config.API.merchantRestrictionSettings(merchantUuid));
+
+        await checkStatus(response);
+
+        return await response.json();
     }
 }
 

@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.9.1</b>
+                    API Docs for Version: <b>2.10.0</b>
                 </p>
             </li>
         </div>
@@ -134,7 +134,7 @@ class Voucher {
             body: formData,
         });
 
-        await checkStatus(response);
+        checkStatus(response);
 
         return await response.json();
     }
