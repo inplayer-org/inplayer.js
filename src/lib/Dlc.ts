@@ -1,5 +1,4 @@
 import { authenticatedApi, getToken } from '../Utils/http';
-import { DlcData } from '../Interfaces/IAsset&Access';
 
 /**
  * Contains mixed various types of function for dlcs, discounts, branding, etc.
@@ -8,8 +7,8 @@ import { DlcData } from '../Interfaces/IAsset&Access';
  */
 class DLC {
   config: any;
-  Account: any;
-  constructor(config: any, Account: any) {
+  Account: Account;
+  constructor(config: any, Account: Account) {
     this.config = config;
     this.Account = Account;
   }
