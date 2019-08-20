@@ -1,7 +1,8 @@
 import Fingerprint2 from 'fingerprintjs2';
 import reduce from 'lodash/reduce';
 import { checkStatus, errorResponse } from '../Utils';
-import { getToken } from '../Utils/http';
+import { getToken, authenticatedApi, basicApi } from '../Utils/http';
+import { RequestCodeAccess } from '../Interfaces/IAsset&Access';
 
 /**
  * Contains all Requests connected with assets/items
@@ -10,8 +11,8 @@ import { getToken } from '../Utils/http';
  */
 class Asset {
   config: any;
-  Account: any;
-  constructor(config: any, Account: any) {
+  Account: Account;
+  constructor(config: any, Account: Account) {
     this.config = config;
     this.Account = Account;
   }
@@ -26,23 +27,12 @@ class Asset {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async checkAccessForAsset(id: any) {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
-
-    const response = await fetch(this.config.API.checkAccessForAsset(id), {
+  async checkAccessForAsset(id: number) {
+    return authenticatedApi.get(this.config.API.checkAccessForAsset(id), {
       headers: {
         Authorization: `Bearer ${getToken().token}`,
       },
     });
-
-    await checkStatus(response);
-
-    return response.json();
   }
 
   /**
@@ -56,23 +46,12 @@ class Asset {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async isFreeTrialUsed(id: any) {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
-
-    const response = await fetch(this.config.API.checkFreeTrial(id), {
+  async isFreeTrialUsed(id: number) {
+    return authenticatedApi.get(this.config.API.checkFreeTrial(id), {
       headers: {
         Authorization: `Bearer ${getToken().token}`,
       },
     });
-
-    await checkStatus(response);
-
-    return response.json();
   }
 
   /**
@@ -87,14 +66,8 @@ class Asset {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async getAsset(assetId: any, merchantUuid: string) {
-    const response = await fetch(
-      this.config.API.getAsset(assetId, merchantUuid),
-    );
-
-    await checkStatus(response);
-
-    return response.json();
+  async getAsset(assetId: number, merchantUuid: string) {
+    return basicApi.get(this.config.API.getAsset(assetId, merchantUuid));
   }
 
   /**
@@ -110,14 +83,14 @@ class Asset {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async getExternalAsset(assetType: any, externalId: any, merchantUuid = '') {
-    const response = await fetch(
+  async getExternalAsset(
+    assetType: string,
+    externalId: string,
+    merchantUuid = '',
+  ) {
+    return basicApi.get(
       this.config.API.getExternalAsset(assetType, externalId, merchantUuid),
     );
-
-    await checkStatus(response);
-
-    return response.json();
   }
 
   /**
@@ -131,12 +104,8 @@ class Asset {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async getPackage(id: any) {
-    const response = await fetch(this.config.API.getPackage(id));
-
-    await checkStatus(response);
-
-    return response.json();
+  async getPackage(id: number) {
+    return basicApi.get(this.config.API.getPackage(id));
   }
 
   /**
@@ -150,12 +119,8 @@ class Asset {
    *     .then(data => console.log(data))
    * @return {Object}
    */
-  async getAssetAccessFees(id: any) {
-    const response = await fetch(this.config.API.getAssetAccessFees(id));
-
-    await checkStatus(response);
-
-    return response.json();
+  async getAssetAccessFees(id: number) {
+    return basicApi.get(this.config.API.getAssetAccessFees(id));
   }
 
   /**
@@ -175,17 +140,10 @@ class Asset {
   async getAssetsHistory(
     size = 10,
     page = 0,
-    startDate = null,
-    endDate = null,
+    startDate?: string,
+    endDate?: string,
   ) {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
-
-    const response = await fetch(
+    return authenticatedApi.get(
       this.config.API.getAssetsHistory(size, page, startDate, endDate),
       {
         headers: {
@@ -193,10 +151,6 @@ class Asset {
         },
       },
     );
-
-    await checkStatus(response);
-
-    return response.json();
   }
 
   /**
@@ -210,27 +164,17 @@ class Asset {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async getFreemiumAsset(accessFeeId: any) {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
-
+  async getFreemiumAsset(accessFeeId: number) {
     const formData = new FormData();
 
-    formData.append('access_fee', accessFeeId);
+    formData.append('access_fee', String(accessFeeId));
 
-    const response = await fetch(this.config.API.getFreemiumAsset, {
-      method: 'POST',
+    return authenticatedApi.post(this.config.API.getFreemiumAsset, formData, {
       headers: {
         Authorization: `Bearer ${getToken().token}`,
+        'Content-Type': 'multipart/form-data',
       },
-      body: formData,
     });
-
-    return response.json();
   }
 
   /**
@@ -249,7 +193,7 @@ class Asset {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async requestCodeAccess({ assetId, code }: any) {
+  async requestCodeAccess({ assetId, code }: RequestCodeAccess) {
     const formData = new FormData();
 
     const browserDetails = await Fingerprint2.getPromise();
@@ -257,22 +201,20 @@ class Asset {
     const browserFingerprint = Fingerprint2.x64hash128(
       reduce(
         browserDetails,
-        (acc: any, details: any) => `${acc}${details.value}`,
+        (acc: string, details: any) => `${acc}${details.value}`,
         '',
       ),
       31,
     );
 
-    formData.set('id', assetId);
+    formData.set('id', String(assetId));
     formData.set('code', code);
     formData.set('browser_fingerprint', browserFingerprint);
 
-    const response = await fetch(this.config.API.requestCodeAccess, {
-      method: 'POST',
-      body: formData,
-    });
-
-    await checkStatus(response);
+    const response = await basicApi.post(
+      this.config.API.requestCodeAccess,
+      formData,
+    );
 
     const accessCode = {
       code,
@@ -285,7 +227,7 @@ class Asset {
       JSON.stringify(accessCode),
     );
 
-    return response.json();
+    return response;
   }
 
   /**
@@ -300,7 +242,7 @@ class Asset {
    *    const accessCode = InPlayer.Asset.getAccessCode();
    * @return {Object | null}
    */
-  getAccessCode(assetId: any) {
+  getAccessCode(assetId: number) {
     const accessCode = localStorage.getItem(
       this.config.INPLAYER_ACCESS_CODE_NAME(assetId),
     );
@@ -324,7 +266,7 @@ class Asset {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async releaseAccessCode(assetId: any) {
+  async releaseAccessCode(assetId: number) {
     const accessCode = this.getAccessCode(assetId);
 
     if (!accessCode) {
@@ -336,19 +278,14 @@ class Asset {
     formData.set('id', accessCode.assetId);
     formData.set('browser_fingerprint', accessCode.browserFingerprint);
 
-    const response = await fetch(
+    const response = await basicApi.delete(
       this.config.API.releaseAccessCode(accessCode.code),
-      {
-        method: 'DELETE',
-        body: formData,
-      },
+      { data: formData },
     );
-
-    await checkStatus(response);
 
     localStorage.removeItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId));
 
-    return response.json();
+    return response;
   }
 
   /**
@@ -365,19 +302,12 @@ class Asset {
    *    video_url: {string}
    * }
    */
-  async getCloudfrontURL(assetId: any, videoUrl: any) {
-    const response = await fetch(
-      this.config.API.getCloudfrontURL(assetId, videoUrl),
-      {
-        headers: {
-          Authorization: `Bearer ${getToken().token}`,
-        },
+  async getCloudfrontURL(assetId: number, videoUrl: string) {
+    return basicApi.get(this.config.API.getCloudfrontURL(assetId, videoUrl), {
+      headers: {
+        Authorization: `Bearer ${getToken().token}`,
       },
-    );
-
-    await checkStatus(response);
-
-    return response.json();
+    });
   }
 }
 

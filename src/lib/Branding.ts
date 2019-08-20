@@ -1,7 +1,4 @@
 import { basicApi } from '../Utils/http';
-import { Brand, BrandingData } from '../Interfaces/IBrand';
-
-const BRANDING_PATH = '/branding/paywall';
 
 /**
  * Contains all Requests regarding branding.
@@ -9,34 +6,26 @@ const BRANDING_PATH = '/branding/paywall';
  * @class Branding
  */
 class Branding {
-    config: any;
-    constructor(config: any) {
-      this.config = config;
-    }
+  config: any;
+  constructor(config: any) {
+    this.config = config;
+  }
 
-    /**
-         * Gets branding params for given merchant
-         * @method getBranding
-         * @async
-         * @param {Object} data - Contains {
-         *  brandingId: number,
-         *  merchantUUID: string
-         * }
-         * @example
-         *     InPlayer.Branding
-         *     .getBranding('/branding/paywall', 'eyJ0e-XAiOi-JKPEC-ENR5Y', '123')
-         *     .then(data => console.log(data));
-         * @return {Brand}
-    */
-    // eslint-disable-next-line class-methods-use-this
-    async getBranding(data: BrandingData) {
-      const body = {
-        id: data.brandingId,
-        merchant_uuid: data.merchantUUID,
-      };
-
-      return basicApi.get(this.config.API.getBranding(body.merchant_uuid, body.id));
-    }
+  /**
+   * Gets branding params for given merchant
+   * @method getBranding
+   * @async
+   * @param {string} clientId - The Client id
+   * @param {string} brandingId - The branding id or 'default'
+   * @example
+   *     InPlayer.Branding
+   *     .getBranding('eyJ0e-XAiOi-JKPEC-ENR5Y', '123')
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
+  async getBranding(clientId: string, brandingId: string) {
+    return basicApi.get(this.config.API.getBranding(clientId, brandingId));
+  }
 }
 
 export default Branding;
