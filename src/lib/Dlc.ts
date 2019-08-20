@@ -14,24 +14,18 @@ class DLC {
     this.Account = Account;
   }
   /**
-   * Gets all DLC links
-   * @method getDlcLinks
-   * @async
-   * @param {number} data {
-   *  id: number
-   * }
-   * @example
-   *     InPlayer.DLC
-   *     .getDlcLinks(36320)
-   *     .then(data => console.log(data));
-   * @return {Object}
-   */
-  async getDlcLinks(data: DlcData) {
-    const body = {
-      id: data.assetId,
-    };
-
-    return authenticatedApi.get(this.config.API.getDlcLinks(body.id), {
+     * Gets all DLC links
+     * @method getDlcLinks
+     * @async
+     * @param {number} assetId - The id of the asset
+     * @example
+     *     InPlayer.DLC
+     *     .getDlcLinks(36320)
+     *     .then(data => console.log(data));
+     * @return {Object}
+     */
+  async getDlcLinks(assetId: number) {
+    return authenticatedApi.get(this.config.API.getDlcLinks(assetId), {
       headers: {
         Authorization: `Bearer ${getToken().token}`,
       },
