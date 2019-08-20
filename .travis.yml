@@ -6,6 +6,26 @@ cache:
  directories:
    - "node_modules"
 
+stages:
+  - lint
+  - build
+  - docs
+
+jobs:
+  include
+    - stage: lint
+      script:
+        - yarn lint
+
+    - stage: build
+      script:
+        - yarn build
+
+    - stage: docs
+      if: branch = master
+      script:
+        - yarn generate:docs
+
 before_deploy: yarn build
 
 deploy:
