@@ -1,12 +1,6 @@
 import qs from 'qs';
 import { authenticatedApi, getToken } from '../Utils/http';
-import {
-  CreateSubscriptionData, CreateSubscriptionBody, CancelSubscriptionData, SubscriptionFromUserData,
-} from '../Interfaces/IPaymant&Subscription';
-
-const SUBSCRIPTIONS_PATH = '/subscriptions';
-const SUBSCRIPTION_PATH = '/subscriptions/reporting/subscriptions/';
-
+import { CreateSubscriptionData, CreateSubscriptionBody } from '../Interfaces/IPaymant&Subscription';
 
 /**
  * Contains all Requests connected with subscriptions
@@ -21,22 +15,19 @@ class Subscription {
     this.Account = Account;
   }
   /**
-   * Gets all subscriptions for a given user
-   * @method getSubscriptions
-   * @async
-   * @example
-   *     InPlayer.Subscription
-   *     .getSubscriptions('/subscriptions?limit=15&page=0')
-   *     .then(data => console.log(data));
-   * @return {Object}
-   */
-  async getSubscriptions() {
-    const body = {
-      page: 0,
-      limit: 15,
-    };
-
-    return authenticatedApi.get(this.config.API.getSubscriptions(body.limit, body.page),
+     * Gets all subscriptions for a given user
+     * @method getSubscriptions
+     * @async
+     * @param {number} page - The current page
+     * @param {number} limit - The number of items per page
+     * @example
+     *     InPlayer.Subscription
+     *     .getSubscriptions()
+     *     .then(data => console.log(data));
+     * @return {Object}
+     */
+  async getSubscriptions(page = 0, limit = 15) {
+    return authenticatedApi.get(this.config.API.getSubscriptions(limit, page),
       {
         headers: {
           Authorization: `Bearer ${getToken().token}`,
@@ -49,21 +40,16 @@ class Subscription {
    *
    * @method getSubscription
    * @async
-   * @param {Object} data {
-   *  userId: string
-   * }
+   *
+   * @param {string} id - The subscription id
    * @example
    *     InPlayer.Subscription
    *     .getSubscription('abcdef')
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async getSubscription(data: SubscriptionFromUserData) {
-    const body = {
-      id: data.userId,
-    };
-
-    return authenticatedApi.get(this.config.API.getSubscription(body.id), {
+  async getSubscription(id: string) {
+    return authenticatedApi.get(this.config.API.getSubscription(id), {
       headers: {
         Authorization: `Bearer ${getToken().token}`,
       },
@@ -74,21 +60,15 @@ class Subscription {
    * Cancels a subscription
    * @method cancelSubscription
    * @async
-   * @param {Object} data {
-   *  unsubscribeUrl: string
-   * }
+   * @param {string} unsubscribeUrl - The url for the subscription which is getting unsubscribed
    * @example
    *     InPlayer.Subscription
    *     .cancelSubscription('abcdef')
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async cancelSubscription(data: CancelSubscriptionData) {
-    const body = {
-      unsubscribe_url: data.unsubscribeUrl,
-    };
-
-    return authenticatedApi.get(this.config.API.cancelSubscription(body.unsubscribe_url),
+  async cancelSubscription(unsubscribeUrl: string) {
+    return authenticatedApi.get(this.config.API.cancelSubscription(unsubscribeUrl),
       {
         headers: {
           Authorization: `Bearer ${getToken().token}`,

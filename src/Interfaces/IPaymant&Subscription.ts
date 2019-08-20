@@ -376,14 +376,6 @@ export interface PaypalParamsData {
   voucherCode: string;
 }
 
-export interface SubscriptionFromUserData {
-    userId: string;
-}
-
-export interface CancelSubscriptionData {
-    unsubscribeUrl: string;
-}
-
 export interface CreateSubscriptionData {
     number: number;
     cardName: string;

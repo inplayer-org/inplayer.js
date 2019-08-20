@@ -258,7 +258,7 @@ class Payment {
    * @async
    * @example
    *     InPlayer.Payment
-   *     .getDirectDebitMandate('/v2/payments/direct-debit/mandate')
+   *     .getDirectDebitMandate()
    *     .then(data => console.log(data));
    * @return {Object} Contains the data - {
    *  is_approved: {boolean},
