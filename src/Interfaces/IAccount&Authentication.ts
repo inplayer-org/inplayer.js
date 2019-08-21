@@ -290,6 +290,7 @@ export interface SetNewPasswordData {
 export interface UpdateAccountData {
   fullName: string;
   metadata: object[];
+  dateOfBirth: string;
 }
 
 export interface ChangePasswordData {

@@ -102,7 +102,8 @@ class Account {
    *  type: string,
    *  referrer: string,
    *  brandingId?: number,
-   *  metadata?: { [key: string]: string }
+   *  metadata?: { [key: string]: string }\
+   *  dateOfBirth?: string,
    * }
    * @example
    *     InPlayer.Account.signUp({
@@ -115,6 +116,7 @@ class Account {
    *      referrer: "http://localhost:3000/",
    *      brandingId?: 12345,
    *      metadata : { country: "Macedonia" },
+   *      dateOfBirth: '2019-05-03'
    *     })
    *     .then(data => console.log(data));
    * @return {AxiosResponse<CreateAccount>}
@@ -131,6 +133,7 @@ class Account {
       grant_type: 'password',
       metadata: data.metadata,
       branding_id: data.brandingId,
+      date_of_birth: data.dateOfBirth,
     };
 
     const resp = await basicApi.post(
@@ -391,7 +394,7 @@ class Account {
    * @param {Object} data - The new data for the account
    * @example
    *     InPlayer.Account
-   *     .updateAccount({fullName: 'test test', metadata: {country: 'Germany'}})
+   *     .updateAccount({fullName: 'test test', metadata: {country: 'Germany'},  dateOfBirth: '1999-03-05'})
    *     .then(data => console.log(data));
    * @return {AxiosResponse<undefined>}
    */
@@ -402,6 +405,9 @@ class Account {
 
     if (data.metadata) {
       body.metadata = data.metadata;
+    }
+    if (data.dateOfBirth) {
+      body.date_of_birth = data.dateOfBirth;
     }
 
     return authenticatedApi.put(
@@ -517,7 +523,7 @@ class Account {
   }
 
   /**
-   * DExports account data to the users' email
+   * Exports account data to the users' email
    * @method exportData
    * @async
    * @param {Object} data - Contains {
@@ -554,6 +560,89 @@ class Account {
       code: response.status,
       message: 'Your data is being exported, please check your email.',
     };
+  }
+
+  /**
+* Creates pin code and sends it to the users' email
+* @method sendPinCode
+* @async
+* @param {number} brandingId - Optional parametar
+* @example
+*     InPlayer.Account.sendPinCode(1234)
+*     .then(data => console.log(data));
+* @return {AxiosResponse<SendPinCode>}
+*/
+
+  async sendPinCode(brandingId: number) {
+    const body = {
+      branding_id: brandingId,
+    };
+
+    const response = await authenticatedApi.post(this.config.API.sendPinCode,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${this.getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+
+    return {
+      code: response.status,
+      message: response.data.message,
+    };
+  }
+
+  /**
+* Checks validity of pin code
+* @method validatePinCode
+* @async
+* @param {string} pinCode - Code from received email message
+* @example
+*     InPlayer.Account.validatePinCode('5566')
+*     .then(data => console.log(data));
+* @return {AxiosResponse<SendPinCode>}
+*/
+
+  async validatePinCode(pinCode: string) {
+    const body = {
+      pin_code: pinCode,
+    };
+
+    const response = await authenticatedApi.post(this.config.API.validatePinCode,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${this.getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+
+    return {
+      code: response.status,
+      message: response.data.message,
+    };
+  }
+
+  /**
+* Return restriction settings per Merchant
+* @method loadMerchantRestrictionSettings
+* @async
+* @param {string} merchantUuid - The merchant UUID
+* @example
+*     InPlayer.Account
+*     .loadMerchantRestrictionSettings("528b1b80-5868-4abc-a9b6-4d3455d719c8")
+*     .then(data => console.log(data));
+* @return {Object} Contains the data - {
+  "age_verification_type": "pin_code",
+  "age_verification_enabled": true,
+  "merchant_uuid": "3b39b5ab-b5fc-4ba3-b770-73155d20e61f",
+  "created_at": 1532425425,
+  "updated_at": 1532425425
+}
+*/
+  async loadMerchantRestrictionSettings(merchantUuid: string) {
+    return basicApi.get(this.config.API.merchantRestrictionSettings(merchantUuid));
   }
 }
 
