@@ -31,6 +31,10 @@ export const API = (config: any) => ({
   deleteAccount: `${config.BASE_URL}/accounts/erase`,
   exportData: `${config.BASE_URL}/accounts/export`,
   reportSSOtoken: (ssoDomain: any) => `${ssoDomain}/sso/cookie`,
+  sendPinCode: `${config.BASE_URL}/v2/accounts/pin-codes/send`,
+  validatePinCode: `${config.BASE_URL}/v2/accounts/pin-codes/validate`,
+  merchantRestrictionSettings: (merchantUuid: string) =>
+    `${config.BASE_URL}/restrictions/settings/${merchantUuid}`,
   // Asset
   checkAccessForAsset: (id: any) => `${config.BASE_URL}/items/${id}/access`,
   checkFreeTrial: (id: any) => `${config.BASE_URL}/items/used-trial-period/${id}`,
