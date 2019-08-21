@@ -1,6 +1,6 @@
 {
   "name": "@inplayer-org/inplayer.js",
-  "version": "2.9.1",
+  "version": "2.10.0",
   "author": "InPlayer",
   "license": "MIT",
   "description": "A Javascript SDK for Inplayer's RESTful API",
@@ -21,7 +21,9 @@
     "prebuild": "rimraf dist",
     "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js",
     "test": "jest --watchAll",
-    "generate:docs": "yarn run yuidoc ."
+    "generate:docs": "yarn run yuidoc .",
+    "lint": "eslint ./src --ext .js",
+    "lint:js:fix": "eslint src/** --fix"
   },
   "lint-staged": {
     "*.js": [
