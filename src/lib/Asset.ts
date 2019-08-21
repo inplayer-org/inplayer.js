@@ -1,6 +1,5 @@
 import Fingerprint2 from 'fingerprintjs2';
 import reduce from 'lodash/reduce';
-import { checkStatus, errorResponse } from '../Utils';
 import { getToken, authenticatedApi, basicApi } from '../Utils/http';
 import { RequestCodeAccess } from '../Interfaces/IAsset&Access';
 

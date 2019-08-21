@@ -1,6 +1,6 @@
 import qs from 'qs';
 import { authenticatedApi, getToken } from '../Utils/http';
-import { VoucherDiscountPrice, VoucherDiscountPriceData } from '../Interfaces/IVoucher&Promotion';
+import { VoucherDiscountPriceData } from '../Interfaces/IVoucher&Promotion';
 
 /**
  * Contains all Requests regarding vouchers.
@@ -9,8 +9,8 @@ import { VoucherDiscountPrice, VoucherDiscountPriceData } from '../Interfaces/IV
  */
 class Voucher {
   config: any;
-  Account: any;
-  constructor(config: any, Account: any) {
+  Account: Account;
+  constructor(config: any, Account: Account) {
     this.config = config;
     this.Account = Account;
   }
