@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-# [2.10.1] - 26-08-2019
+# [2.11.0] - 26-08-2019
 
 ### Changes
 
