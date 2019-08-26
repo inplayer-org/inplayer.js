@@ -22,7 +22,7 @@ class InPlayer {
   Voucher: any;
   DLC: any;
   Branding: any;
-  Notifications: any;
+  Notifications: Notifications;
 
   constructor() {
     this.config = {

@@ -1,39 +1,27 @@
 import awsIot from 'aws-iot-device-sdk';
-import { checkStatus, errorResponse } from '../Utils';
-import { getToken } from '../Utils/http';
+import { getToken, authenticatedApi } from '../Utils/http';
 
 const ONE_HOUR = 60 * 60 * 1000;
 
 class Notifications {
   subscription: any;
   config: any;
-  Account: any;
-  constructor(config: any, Account: any) {
+  Account: Account;
+  constructor(config: any, Account: Account) {
     this.subscription = null;
     this.config = config;
     this.Account = Account;
   }
 
   async getIotToken() {
-    if (!this.Account.isAuthenticated()) {
-      errorResponse(401, {
-        code: 401,
-        message: 'User is not authenticated',
-      });
-    }
-
-    const response = await fetch(this.config.AWS_IOT_URL, {
+    const iotResponse = await authenticatedApi.get(this.config.AWS_IOT_URL, {
       headers: {
         Authorization: `Bearer ${getToken().token}`,
       },
     });
 
-    await checkStatus(response);
-
-    const iotResponse = await response.json();
-
     return {
-      ...iotResponse,
+      ...iotResponse.data,
       iotEndpoint: this.config.IOT_NOTIF_URL,
     };
   }
