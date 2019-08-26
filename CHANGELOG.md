@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.10.1] - 26-08-2019
+
+### Changes
+
+- Add optional brandingId parameter in directDebitCharge and directDebitSubscribe methods
+
 # [2.10.0] - 20-08-2019
 
 ### Added
