@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.10.0</b>
+                    API Docs for Version: <b>2.11.0</b>
                 </p>
             </li>
         </div>
@@ -364,6 +364,7 @@ type_data: {
 assetId: {string},
 accessFeeId: {string},
 voucherCode: {string},
+brandingId?: number
 }</li>
 </ul>
 </div>
@@ -390,7 +391,7 @@ message: "Submitted for payment",
 
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.Payment
-.directDebitCharge({ assetId, accessFeeId, voucherCode })
+.directDebitCharge({ assetId, accessFeeId, voucherCode, brandingId })
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>
@@ -421,7 +422,7 @@ message: "Submitted for payment",
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="../files/src_Models_Payment.js.html#l470"><code>src&#x2F;Models&#x2F;Payment.js:470</code></a>
+		<a href="../files/src_Models_Payment.js.html#l482"><code>src&#x2F;Models&#x2F;Payment.js:482</code></a>
 		</p>
 
 
@@ -445,6 +446,7 @@ message: "Submitted for payment",
 assetId: {string},
 accessFeeId: {string},
 voucherCode: {string},
+brandingId?: number
 }</li>
 </ul>
 </div>
@@ -472,7 +474,7 @@ message: "Submitted for payment",
 
 			<div class="example-content">
 				<pre class="code prettyprint"><code>InPlayer.Payment
-.directDebitSubscribe({ assetId, accessFeeId, voucherCode })
+.directDebitSubscribe({ assetId, accessFeeId, voucherCode, brandingId })
 .then(data =&gt; console.log(data));</code></pre>
 
 			</div>
