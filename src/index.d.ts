@@ -166,6 +166,7 @@ export interface DirectDebitChargeData {
   assetId: string;
   accessFeeId: string;
   voucherCode: string;
+  brandingId?: number;
 }
 
 export interface DirectDebitChargeResponse {
