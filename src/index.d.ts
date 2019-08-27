@@ -29,7 +29,6 @@ export interface SignUpData {
   referrer: string;
   brandingId?: number;
   metadata?: { [key: string]: string };
-  dateOfBirth?: string,
 }
 
 export interface RequestPasswordData {
