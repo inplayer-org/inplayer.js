@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.11.1] - 27-08-2019
+
+### Changes
+
+- Remove optional dateOfBirth parameter from signUp method
+
 # [2.11.0] - 26-08-2019
 
 ### Changes

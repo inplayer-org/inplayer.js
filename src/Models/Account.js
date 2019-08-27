@@ -97,7 +97,6 @@ class Account {
  *  referrer: string,
  *  brandingId?: number,
  *  metadata?: { [key: string]: string }
- *  dateOfBirth?: string,
  * }
  * @example
  *     InPlayer.Account.signUp({
@@ -110,7 +109,6 @@ class Account {
  *      referrer: "http://localhost:3000/",
  *      brandingId?: 12345,
  *      metadata : { country: "Macedonia" },
- *      dateOfBirth: '2019-05-03'
  *     })
  *     .then(data => console.log(data));
  * @return {Object}
@@ -125,7 +123,6 @@ class Account {
         referrer,
         metadata,
         brandingId,
-        dateOfBirth
     }) {
         let body = {
             full_name: fullName,
@@ -138,7 +135,6 @@ class Account {
             grant_type: 'password',
             metadata,
             branding_id: brandingId,
-            date_of_birth: dateOfBirth,
         };
 
         const response = await fetch(this.config.API.signUp, {
