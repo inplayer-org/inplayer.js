@@ -121,22 +121,27 @@ class Payment {
             });
         }
 
-        let body = {
-            number: data.number,
-            card_name: data.cardName,
-            exp_month: data.expMonth,
-            exp_year: data.expYear,
-            cvv: data.cvv,
-            access_fee: data.accessFee,
-            payment_method: data.paymentMethod,
-            referrer: data.referrer,
-            branding_id: data.brandingId,
-            return_url: data.returnUrl,
-            pi_id: data.paymentIntentId
-        };
+        const body = {};
 
-        if (data.voucherCode) {
-            body.voucher_code = data.voucherCode;
+        if (data.paymentIntentId) {
+            body.pi_id = data.paymentIntentId;
+        } else {
+            body = {
+                number: data.number,
+                card_name: data.cardName,
+                exp_month: data.expMonth,
+                exp_year: data.expYear,
+                cvv: data.cvv,
+                access_fee: data.accessFee,
+                payment_method: data.paymentMethod,
+                referrer: data.referrer,
+                branding_id: data.brandingId,
+                return_url: data.returnUrl,
+            };
+
+            if (data.voucherCode) {
+                body.voucher_code = data.voucherCode;
+            }
         }
 
         const response = await fetch(this.config.API.payForAsset, {
