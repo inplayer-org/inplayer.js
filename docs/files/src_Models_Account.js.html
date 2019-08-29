@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.10.0</b>
+                    API Docs for Version: <b>2.11.1</b>
                 </p>
             </li>
         </div>
@@ -182,7 +182,6 @@ class Account {
  *  referrer: string,
  *  brandingId?: number,
  *  metadata?: { [key: string]: string }
- *  dateOfBirth?: string,
  * }
  * @example
  *     InPlayer.Account.signUp({
@@ -195,7 +194,6 @@ class Account {
  *      referrer: &quot;http://localhost:3000/&quot;,
  *      brandingId?: 12345,
  *      metadata : { country: &quot;Macedonia&quot; },
- *      dateOfBirth: &#x27;2019-05-03&#x27;
  *     })
  *     .then(data =&gt; console.log(data));
  * @return {Object}
@@ -210,7 +208,6 @@ class Account {
         referrer,
         metadata,
         brandingId,
-        dateOfBirth
     }) {
         let body = {
             full_name: fullName,
@@ -223,7 +220,6 @@ class Account {
             grant_type: &#x27;password&#x27;,
             metadata,
             branding_id: brandingId,
-            date_of_birth: dateOfBirth,
         };
 
         const response = await fetch(this.config.API.signUp, {

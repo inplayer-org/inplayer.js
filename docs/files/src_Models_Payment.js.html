@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.10.0</b>
+                    API Docs for Version: <b>2.11.1</b>
                 </p>
             </li>
         </div>
@@ -516,10 +516,11 @@ class Payment {
 *  assetId: {string},
 *  accessFeeId: {string},
 *  voucherCode: {string},
+*  brandingId?: number
 * }
 * @example
 *     InPlayer.Payment
-*     .directDebitCharge({ assetId, accessFeeId, voucherCode })
+*     .directDebitCharge({ assetId, accessFeeId, voucherCode, brandingId })
 *     .then(data =&gt; console.log(data));
 * @return {Object} Contains the data - {
 *       code: &#x27;200&#x27;,
@@ -527,7 +528,12 @@ class Payment {
 *    }
 *
 */
-    async directDebitCharge({ assetId: item_id, accessFeeId: access_fee_id, voucherCode: voucher_code = &#x27;&#x27; }) {
+    async directDebitCharge({
+        assetId: item_id,
+        accessFeeId: access_fee_id,
+        voucherCode: voucher_code = &#x27;&#x27;,
+        brandingId: branding_id,
+    }) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -543,7 +549,13 @@ class Payment {
                     Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;,
                     &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
                 },
-                body: params({ item_id, access_fee_id, voucher_code, payment_method: &#x27;Direct Debit&#x27; }),
+                body: params({
+                    item_id,
+                    access_fee_id,
+                    voucher_code,
+                    payment_method: &#x27;Direct Debit&#x27;,
+                    branding_id
+                }),
             }
         );
 
@@ -560,10 +572,11 @@ class Payment {
 *  assetId: {string},
 *  accessFeeId: {string},
 *  voucherCode: {string},
+*  brandingId?: number
 * }
 * @example
 *     InPlayer.Payment
-*     .directDebitSubscribe({ assetId, accessFeeId, voucherCode })
+*     .directDebitSubscribe({ assetId, accessFeeId, voucherCode, brandingId })
 *     .then(data =&gt; console.log(data));
 * @return {Object} Contains the data - {
 *       code: &#x27;200&#x27;,
@@ -572,7 +585,12 @@ class Payment {
 *  }
 */
 
-    async directDebitSubscribe({ assetId: item_id, accessFeeId: access_fee_id, voucherCode: voucher_code = &#x27;&#x27; }) {
+    async directDebitSubscribe({
+        assetId: item_id,
+        accessFeeId: access_fee_id,
+        voucherCode: voucher_code = &#x27;&#x27;,
+        brandingId: branding_id
+    }) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -588,7 +606,13 @@ class Payment {
                     Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;,
                     &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
                 },
-                body: params({ item_id, access_fee_id, voucher_code, payment_method: &#x27;Direct Debit&#x27; }),
+                body: params({
+                    item_id,
+                    access_fee_id,
+                    voucher_code,
+                    payment_method: &#x27;Direct Debit&#x27;,
+                    branding_id
+                }),
             }
         );
 

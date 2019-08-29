@@ -29,7 +29,6 @@ export interface SignUpData {
   referrer: string;
   brandingId?: number;
   metadata?: { [key: string]: string };
-  dateOfBirth?: string,
 }
 
 export interface RequestPasswordData {
@@ -166,6 +165,7 @@ export interface DirectDebitChargeData {
   assetId: string;
   accessFeeId: string;
   voucherCode: string;
+  brandingId?: number;
 }
 
 export interface DirectDebitChargeResponse {
