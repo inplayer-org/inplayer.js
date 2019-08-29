@@ -1,5 +1,58 @@
 import { CommonError, AdvanceError } from './CommonInterfaces';
 
+export interface CredentialsConfig {
+  token?: string;
+  refreshToken?: string;
+  expires?: number;
+}
+
+export declare class Credentials {
+  isExpired(): boolean;
+  toObject(): CredentialsConfig;
+}
+export interface AuthData {
+  email: string;
+  password: string;
+  clientId: string;
+  referrer: string;
+  refreshToken: string;
+}
+
+export interface RequestPasswordData {
+  email: string;
+  merchantUuid: string;
+  brandingId: number;
+}
+
+export interface SetPasswordData {
+  password: string;
+  passwordConfirmation: string;
+  brandingId: number;
+}
+
+export interface Account {
+  authenticate(data: AuthenticateData): object;
+  signUp(data: SignUpData): object;
+  signOut(): object;
+  isAuthenticated(): boolean;
+  getToken(): Credentials;
+  setToken(token: string, refreshToken: string, expiresAt: number): void;
+  refreshToken(clientId: number): object;
+  reportSSOtoken(ssoDomain: string, tokenData: Credentials, retire: boolean): object;
+  requestNewPassword(data: RequestPasswordData): object;
+  setNewPassword(data: SetPasswordData, token?: string): object | void;
+  getAccount(): object;
+  getSocialLoginUrls(state: string): object;
+  updateAccount(data: UpdateAccountData): object;
+  changePassword(data: ChangePasswordData): object;
+  getRegisterFields(merchantUuid: string): object;
+  deleteAccount(data: DeleteAccountData): object;
+  exportData(data: DeleteAccountData): object;
+  sendPinCode(brandingId?: number): object;
+  validatePinCode(pinCode: string): object;
+  loadMerchantRestrictionSettings(merchantUuid: string): object;
+}
+
 export interface AccountInformationReturn {
   id: number;
   email: string;
@@ -209,7 +262,7 @@ export interface ListSocialURLsError extends CommonError {}
 
 //  ---------------------------V2---------------------------
 
-export interface Account {
+export interface AccountData {
   id: number;
   email: string;
   created_at: number;
@@ -219,7 +272,7 @@ export interface Account {
 export interface CreateAccountV2 {
   access_token: string;
   expires: number;
-  account: Account;
+  account: AccountData;
 }
 
 export interface CreateAccountV2Error extends CommonError {}

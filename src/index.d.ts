@@ -219,9 +219,13 @@ export declare class Payment {
   getDefaultCreditCard(): object;
   setDefaultCreditCard(data: DefaultCreditCardData): object;
   getDirectDebitMandate: () => DirectDebitMandateResponse;
-  createDirectDebitMandate: (data: DirectDebitMandateData) => CreateDirectDebitResponse;
+  createDirectDebitMandate: (
+    data: DirectDebitMandateData
+  ) => CreateDirectDebitResponse;
   directDebitCharge: (data: DirectDebitChargeData) => DirectDebitChargeResponse;
-  directDebitSubscribe: (data: DirectDebitChargeData) => DirectDebitChargeResponse;
+  directDebitSubscribe: (
+    data: DirectDebitChargeData
+  ) => DirectDebitChargeResponse;
 }
 
 export interface CreateSubscriptionData {
@@ -301,7 +305,6 @@ export interface ApiEndpoints {
   setDefaultCreditCard: string;
   getDirectDebitMandate: string;
   createDirectDebitMandate: string;
-  directDebitCharge: string;
   // Subscriptions
   getSubscriptions: (limit: number, page: number) => string;
   getSubscription: (id: number) => string;
@@ -318,6 +321,11 @@ export interface ApiEndpoints {
 
 export interface ApiConfig {
   BASE_URL: string;
+  AWS_IOT_URL: string;
+  IOT_NOTIF_URL: string;
+  INPLAYER_TOKEN_NAME: string;
+  INPLAYER_IOT_NAME: string;
+  INPLAYER_ACCESS_CODE_NAME: (assetId: any) => string;
 }
 
 export declare const API: (config: ApiConfig) => ApiEndpoints;

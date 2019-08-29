@@ -12,7 +12,7 @@ import {
   DeleteAccountData,
   ExportData,
 } from '../Interfaces/IAccount&Authentication';
-import { CustomErrorResponse } from '../Interfaces/CommonInterfaces';
+import { CustomErrorResponse, ApiConfig } from '../Interfaces/CommonInterfaces';
 import Credentials from '../Credentials';
 
 /**
@@ -21,8 +21,8 @@ import Credentials from '../Credentials';
  * @class Account
  */
 class Account {
-  config: any;
-  constructor(config: any) {
+  config: ApiConfig;
+  constructor(config: ApiConfig) {
     this.config = config;
   }
 

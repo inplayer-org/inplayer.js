@@ -2,6 +2,8 @@ import Fingerprint2 from 'fingerprintjs2';
 import reduce from 'lodash/reduce';
 import { getToken, authenticatedApi, basicApi } from '../Utils/http';
 import { RequestCodeAccess } from '../Interfaces/IAsset&Access';
+import { ApiConfig } from '../Interfaces/CommonInterfaces';
+import { Account } from '../Interfaces/IAccount&Authentication';
 
 /**
  * Contains all Requests connected with assets/items
@@ -9,11 +11,11 @@ import { RequestCodeAccess } from '../Interfaces/IAsset&Access';
  * @class Asset
  */
 class Asset {
-  config: any;
+  config: ApiConfig;
   Account: Account;
-  constructor(config: any, Account: Account) {
+  constructor(config: ApiConfig, account: Account) {
     this.config = config;
-    this.Account = Account;
+    this.Account = account;
   }
 
   /**

@@ -1,22 +1,22 @@
-export const API = (config: any) => ({
+export const API = (baseUrl: string) => ({
   // Account
-  authenticate: `${config.BASE_URL}/accounts/authenticate`,
-  signIn: `${config.BASE_URL}/accounts/login`,
-  signOut: `${config.BASE_URL}/accounts/logout`,
-  signUp: `${config.BASE_URL}/accounts`,
-  requestNewPassword: `${config.BASE_URL}/accounts/forgot-password`,
-  setNewPassword: (token: any) => `${config.BASE_URL}/accounts/forgot-password/${token}`,
-  getAccountInfo: `${config.BASE_URL}/accounts`,
-  getSocialLoginUrls: (state: any) => `${config.BASE_URL}/accounts/social?state=${state}`,
-  updateAccount: `${config.BASE_URL}/accounts`,
-  changePassword: `${config.BASE_URL}/accounts/change-password`,
+  authenticate: `${baseUrl}/accounts/authenticate`,
+  signIn: `${baseUrl}/accounts/login`,
+  signOut: `${baseUrl}/accounts/logout`,
+  signUp: `${baseUrl}/accounts`,
+  requestNewPassword: `${baseUrl}/accounts/forgot-password`,
+  setNewPassword: (token: any) => `${baseUrl}/accounts/forgot-password/${token}`,
+  getAccountInfo: `${baseUrl}/accounts`,
+  getSocialLoginUrls: (state: any) => `${baseUrl}/accounts/social?state=${state}`,
+  updateAccount: `${baseUrl}/accounts`,
+  changePassword: `${baseUrl}/accounts/change-password`,
   getRegisterFields: (merchantUuid: any) => `${
-    config.BASE_URL
+    baseUrl
   }/accounts/register-fields/${merchantUuid}?rnd=${Math.random() * 15}`,
   getPurchaseHistory: (status: any, page = 0, size = 5) =>
-    `${config.BASE_URL}/items/access/customers?status=${status}&page=${page}&size=${size}`,
+    `${baseUrl}/items/access/customers?status=${status}&page=${page}&size=${size}`,
   getAssetsHistory: (size: any, page: any, startDate: any, endDate: any) => {
-    let url = `${config.BASE_URL}/payments/transactions?exclude=store-payment&size=${size}&page=${page}`;
+    let url = `${baseUrl}/payments/transactions?exclude=store-payment&size=${size}&page=${page}`;
 
     if (startDate) {
       url += `&startDate=${startDate}`;
@@ -28,50 +28,50 @@ export const API = (config: any) => ({
 
     return url;
   },
-  deleteAccount: `${config.BASE_URL}/accounts/erase`,
-  exportData: `${config.BASE_URL}/accounts/export`,
+  deleteAccount: `${baseUrl}/accounts/erase`,
+  exportData: `${baseUrl}/accounts/export`,
   reportSSOtoken: (ssoDomain: any) => `${ssoDomain}/sso/cookie`,
-  sendPinCode: `${config.BASE_URL}/v2/accounts/pin-codes/send`,
-  validatePinCode: `${config.BASE_URL}/v2/accounts/pin-codes/validate`,
+  sendPinCode: `${baseUrl}/v2/accounts/pin-codes/send`,
+  validatePinCode: `${baseUrl}/v2/accounts/pin-codes/validate`,
   merchantRestrictionSettings: (merchantUuid: string) =>
-    `${config.BASE_URL}/restrictions/settings/${merchantUuid}`,
+    `${baseUrl}/restrictions/settings/${merchantUuid}`,
   // Asset
-  checkAccessForAsset: (id: any) => `${config.BASE_URL}/items/${id}/access`,
-  checkFreeTrial: (id: any) => `${config.BASE_URL}/items/used-trial-period/${id}`,
-  getAsset: (assetId: any, merchantUuid: any) => `${config.BASE_URL}/items/${merchantUuid}/${assetId}`,
+  checkAccessForAsset: (id: any) => `${baseUrl}/items/${id}/access`,
+  checkFreeTrial: (id: any) => `${baseUrl}/items/used-trial-period/${id}`,
+  getAsset: (assetId: any, merchantUuid: any) => `${baseUrl}/items/${merchantUuid}/${assetId}`,
   getExternalAsset: (assetType: any, externalId: any, merchantUuid: any) => {
     if (merchantUuid) {
-      return `${config.BASE_URL}/items/assets/external/${assetType}/${externalId}?merchant_uuid=${merchantUuid}`;
+      return `${baseUrl}/items/assets/external/${assetType}/${externalId}?merchant_uuid=${merchantUuid}`;
     }
-    return `${config.BASE_URL}/items/assets/external/${assetType}/${externalId}`;
+    return `${baseUrl}/items/assets/external/${assetType}/${externalId}`;
   },
-  getPackage: (id: any) => `${config.BASE_URL}/items/packages/${id}`,
-  getAssetAccessFees: (id: any) => `${config.BASE_URL}/items/${id}/access-fees`,
-  getFreemiumAsset: `${config.BASE_URL}/items/access/unlimited`,
+  getPackage: (id: any) => `${baseUrl}/items/packages/${id}`,
+  getAssetAccessFees: (id: any) => `${baseUrl}/items/${id}/access-fees`,
+  getFreemiumAsset: `${baseUrl}/items/access/unlimited`,
   getCloudfrontURL: (assetId: any, videoUrl: any) =>
-    `${config.BASE_URL}/items/${assetId}/access/cloudfront?url=${videoUrl}`,
+    `${baseUrl}/items/${assetId}/access/cloudfront?url=${videoUrl}`,
   // Payment
-  getPaymentMethods: `${config.BASE_URL}/payments/methods`,
-  getPaymentTools: (paymentMethodId: any) => `${config.BASE_URL}/payments/method/${paymentMethodId}/tools`,
-  payForAsset: `${config.BASE_URL}/payments`,
-  payForAssetV2: `${config.BASE_URL}/v2/payments`,
-  getPayPalParams: `${config.BASE_URL}/external-payments`,
-  getDefaultCreditCard: `${config.BASE_URL}/v2/payments/cards/default`,
-  setDefaultCreditCard: `${config.BASE_URL}/v2/payments/cards/default`,
-  getDirectDebitMandate: `${config.BASE_URL}/v2/payments/direct-debit/mandate`,
-  createDirectDebitMandate: `${config.BASE_URL}/v2/payments/direct-debit/mandate`,
+  getPaymentMethods: `${baseUrl}/payments/methods`,
+  getPaymentTools: (paymentMethodId: any) => `${baseUrl}/payments/method/${paymentMethodId}/tools`,
+  payForAsset: `${baseUrl}/payments`,
+  payForAssetV2: `${baseUrl}/v2/payments`,
+  getPayPalParams: `${baseUrl}/external-payments`,
+  getDefaultCreditCard: `${baseUrl}/v2/payments/cards/default`,
+  setDefaultCreditCard: `${baseUrl}/v2/payments/cards/default`,
+  getDirectDebitMandate: `${baseUrl}/v2/payments/direct-debit/mandate`,
+  createDirectDebitMandate: `${baseUrl}/v2/payments/direct-debit/mandate`,
   // Subscriptions
-  getSubscriptions: (limit: any, page: any) => `${config.BASE_URL}/subscriptions?limit=${limit}&page=${page}`,
-  getSubscription: (id: any) => `${config.BASE_URL}/subscriptions/reporting/subscriptions/${id}`,
-  subscribe: `${config.BASE_URL}/subscriptions`,
+  getSubscriptions: (limit: any, page: any) => `${baseUrl}/subscriptions?limit=${limit}&page=${page}`,
+  getSubscription: (id: any) => `${baseUrl}/subscriptions/reporting/subscriptions/${id}`,
+  subscribe: `${baseUrl}/subscriptions`,
   cancelSubscription: (url: string) => `${url}`,
-  subscribeV2: `${config.BASE_URL}/v2/subscriptions`,
+  subscribeV2: `${baseUrl}/v2/subscriptions`,
   // Misc
-  getDlcLinks: (id: any) => `${config.BASE_URL}/dlc/${id}/links`,
-  getDiscount: `${config.BASE_URL}/vouchers/discount`,
+  getDlcLinks: (id: any) => `${baseUrl}/dlc/${id}/links`,
+  getDiscount: `${baseUrl}/vouchers/discount`,
   getBranding: (merchantUuid: any, brandingId: any) =>
-    `${config.BASE_URL}/branding/paywall/${merchantUuid}/${brandingId}`,
-  downloadFile: (assetId: any, filename: any) => `${config.BASE_URL}/dlc/${assetId}/${filename}`,
-  requestCodeAccess: `${config.BASE_URL}/items/access/codes`,
-  releaseAccessCode: (code: any) => `${config.BASE_URL}/items/access/codes/${code}`,
+    `${baseUrl}/branding/paywall/${merchantUuid}/${brandingId}`,
+  downloadFile: (assetId: any, filename: any) => `${baseUrl}/dlc/${assetId}/${filename}`,
+  requestCodeAccess: `${baseUrl}/items/access/codes`,
+  releaseAccessCode: (code: any) => `${baseUrl}/items/access/codes/${code}`,
 });

@@ -1,5 +1,6 @@
 import awsIot from 'aws-iot-device-sdk';
 import { getToken, authenticatedApi } from '../Utils/http';
+import { Account } from '../Interfaces/IAccount&Authentication';
 
 const ONE_HOUR = 60 * 60 * 1000;
 
@@ -7,10 +8,10 @@ class Notifications {
   subscription: any;
   config: any;
   Account: Account;
-  constructor(config: any, Account: Account) {
+  constructor(config: any, account: Account) {
     this.subscription = null;
     this.config = config;
-    this.Account = Account;
+    this.Account = account;
   }
 
   async getIotToken() {
