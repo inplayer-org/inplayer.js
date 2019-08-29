@@ -90,6 +90,7 @@ class Payment {
      *  referrer: string
      *  voucherCode?: string
      *  brandingId?: number
+     *  returnUrl?: string
      * }
      * @example
      *     InPlayer.Payment
@@ -102,11 +103,14 @@ class Payment {
      *       accessFee: 2341,
      *       paymentMethod: 1,
      *       referrer: 'http://google.com',
-     *       voucherCode: 'fgh1982gff-0f2grfds'
-     *       brandingId: 1234
+     *       voucherCode: 'fgh1982gff-0f2grfds',
+     *       brandingId: 1234,
+     *       returnUrl: 'https://event.inplayer.com/staging'
      *      })
      *     .then(data => console.log(data));
-     * @return {Object}
+     * @return {Object} Contains the data - {
+     *       message: "Submitted for payment",
+     *  }
      */
     async create(data = {}) {
         if (!this.Account.isAuthenticated()) {
@@ -126,6 +130,7 @@ class Payment {
             payment_method: data.paymentMethod,
             referrer: data.referrer,
             branding_id: data.brandingId,
+            return_url: data.returnUrl,
         };
 
         if (data.voucherCode) {

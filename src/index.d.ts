@@ -139,6 +139,7 @@ export interface CreatePaymentData {
   referrer: string;
   voucherCode?: string;
   brandingId?: number;
+  returnUrl?: string;
 }
 
 export interface PayPalParamsData {
