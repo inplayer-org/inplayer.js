@@ -1,6 +1,6 @@
 import { CommonError, AdvanceError } from './CommonInterfaces';
 
-export interface Voucher {
+export interface VoucherData {
     id: number;
     name: string;
     discount: number;
@@ -15,14 +15,14 @@ export interface Voucher {
     discount_duration: number;
 }
 
-export interface CreateVoucherCode extends Voucher { }
+export interface CreateVoucherCode extends VoucherData { }
 
 export interface CreateVoucherCodeError extends CommonError { }
 
 export interface CreateVoucherCodeError422 extends AdvanceError { }
 
 export interface GetVouchers {
-    collection: Voucher[];
+    collection: VoucherData[];
     total: number;
     page: number;
     offset: number;
@@ -31,11 +31,11 @@ export interface GetVouchers {
 
 export interface GetVouchersError extends CommonError { }
 
-export interface GetVoucherDetails extends Voucher { }
+export interface GetVoucherDetails extends VoucherData { }
 
 export interface GetVoucherDetailsError extends CommonError { }
 
-export interface UpdateVoucher extends Voucher { }
+export interface UpdateVoucher extends VoucherData { }
 
 export interface UpdateVoucherError extends CommonError { }
 
@@ -54,4 +54,13 @@ export interface VoucherDiscountPriceError extends CommonError { }
 export interface VoucherDiscountPriceData {
     accessFeeId: number;
     voucherCode: string;
+}
+
+export interface DiscountData {
+  voucherCode: string;
+  accessFeeId: number;
+}
+
+export interface Voucher {
+  getDiscount(data: DiscountData): object;
 }

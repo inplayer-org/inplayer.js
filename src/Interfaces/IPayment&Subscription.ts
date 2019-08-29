@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import { CommonError, AdvanceError } from './CommonInterfaces';
 
 export interface GeneratePayPalParameters {
@@ -428,4 +429,89 @@ export interface DirectDebitSubscribeData {
     assetId: number;
     voucherCode: string;
     paymentMethod: 'Direct Debit';
+}
+
+export interface PayPalParamsData {
+  origin: string;
+  accessFeeId: number;
+  paymentMethod: number;
+}
+
+export interface DefaultCreditCardData {
+  cardNumber: string;
+  cardName: string;
+  cvc: number;
+  expMonth: number;
+  expYear: number;
+  currency: string;
+}
+
+export interface DirectDebitMandateResponse {
+  is_approved: boolean;
+  statement_descriptor: string;
+  mandate: {
+    bank_code: number;
+    branch_code: number;
+    country: string;
+    fingerprint: string;
+    last4: number;
+    mandate_reference: string;
+    mandate_url: string;
+  };
+}
+
+export interface CreateDirectDebitResponse {
+  id: string;
+  currency: string;
+  created: number;
+  client_secret: string;
+  owner: string;
+  full_name: string;
+  statement_descriptor: string;
+  status: string;
+  type_data: {
+    bank_code: number;
+    branch_code: number;
+    country: string;
+    fingerprint: string;
+    last4: number;
+    mandate_reference: string;
+    mandate_url: string;
+  };
+}
+
+export interface DirectDebitMandateData {
+  name: string;
+  iban: string;
+}
+
+
+export interface DirectDebitChargeResponse {
+  code: string;
+  message: string;
+}
+
+export interface Payment {
+  getPaymentMethods(): object;
+  getPaymentTools(paymentMethodId: number): object;
+  create(data: CreatePaymentData): object;
+  getPayPalParams(data: PayPalParamsData): object;
+  getPurchaseHistory(status: string, page: number, limit: number): object;
+  getDefaultCreditCard(): object;
+  setDefaultCreditCard(data: DefaultCreditCardData): object;
+  getDirectDebitMandate: () => Promise<AxiosResponse<DirectDebitMandateResponse>>;
+  createDirectDebitMandate: (
+    data: DirectDebitMandateData
+  ) => Promise<AxiosResponse<CreateDirectDebitResponse>>;
+  directDebitCharge: (data: DirectDebitChargeData) => Promise<AxiosResponse<DirectDebitChargeResponse>>;
+  directDebitSubscribe: (
+    data: DirectDebitChargeData
+  ) => Promise<AxiosResponse<DirectDebitChargeResponse>>;
+}
+
+export interface Subscription {
+  getSubscriptions(page?: number, limit?: number): object;
+  getSubscription(id: string): object;
+  cancelSubscription(unsubscribeUrl: string): object;
+  create(data: CreateSubscriptionData): object;
 }

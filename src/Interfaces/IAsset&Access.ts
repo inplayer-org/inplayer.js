@@ -288,3 +288,32 @@ export interface RequestCodeAccess {
   assetId: number;
   code: string;
 }
+
+export interface CodeAccessData {
+  assetId: number;
+  code: string;
+}
+
+export interface Asset {
+  checkAccessForAsset(id: number): object;
+  isFreeTrialUsed(id: number): object;
+  getAsset(assetId: number, merchantUuid: string): object;
+  getExternalAsset(
+    assetType: string,
+    externalId: string,
+    merchantUuid: string
+  ): object;
+  getPackage(id: number): object;
+  getAssetAccessFees(id: number): object;
+  getAssetsHistory(
+    size?: number,
+    page?: number,
+    startDate?: string,
+    endDate?: string
+  ): object;
+  getFreemiumAsset(accessFeeId: number): object;
+  requestCodeAccess(data: CodeAccessData): object;
+  getAccessCode(assetId: number): object;
+  releaseAccessCode(assetId: number): object;
+  getCloudfrontURL(assetId: number, videoUrl: string): object;
+}

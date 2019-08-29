@@ -1,4 +1,5 @@
 import qs from 'qs';
+import { AxiosResponse } from 'axios';
 import { authenticatedApi, getToken } from '../Utils/http';
 
 import {
@@ -8,7 +9,8 @@ import {
   CreateDirectDebitMandateData,
   DirectDebitChargeData,
   DirectDebitSubscribeData,
-} from '../Interfaces/IPaymant&Subscription';
+  DirectDebitMandateResponse,
+} from '../Interfaces/IPayment&Subscription';
 
 /**
  * Contains all Requests connected with payments
@@ -274,7 +276,7 @@ class Payment {
    *    }
    * }
    */
-  async getDirectDebitMandate() {
+  async getDirectDebitMandate(): Promise<AxiosResponse<DirectDebitMandateResponse>> {
     return authenticatedApi.get(this.config.API.getDirectDebitMandate, {
       headers: {
         Authorization: `Bearer ${getToken().token}`,

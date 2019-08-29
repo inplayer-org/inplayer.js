@@ -1,6 +1,6 @@
 import qs from 'qs';
 import { authenticatedApi, getToken } from '../Utils/http';
-import { CreateSubscriptionData, CreateSubscriptionBody } from '../Interfaces/IPaymant&Subscription';
+import { CreateSubscriptionData, CreateSubscriptionBody } from '../Interfaces/IPayment&Subscription';
 
 /**
  * Contains all Requests connected with subscriptions

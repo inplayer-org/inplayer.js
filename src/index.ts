@@ -7,7 +7,14 @@ import Voucher from './lib/Voucher';
 import DLC from './lib/Dlc';
 import Notifications from './Notifications';
 import { API } from './constants/endpoints';
-import { ApiConfig } from './Interfaces/CommonInterfaces';
+
+// types
+import { ApiConfig, DLC as DLCType, Notifications as NotificationsType } from './Interfaces/CommonInterfaces';
+import { Account as AccountType } from './Interfaces/IAccount&Authentication';
+import { Asset as AssetType } from './Interfaces/IAsset&Access';
+import { Payment as PaymentType, Subscription as SubscriptionType } from './Interfaces/IPayment&Subscription';
+import { Voucher as VoucherType } from './Interfaces/IVoucher&Promotion';
+import { Branding as BrandingType } from './Interfaces/IBrand';
 
 /**
  * Main class. Contains all others methods and websocket subscription
@@ -16,14 +23,14 @@ import { ApiConfig } from './Interfaces/CommonInterfaces';
  */
 class InPlayer {
   config: ApiConfig;
-  Account: Account;
-  Asset: Asset;
-  Payment: any;
-  Subscription: any;
-  Voucher: any;
-  DLC: any;
-  Branding: any;
-  Notifications: Notifications;
+  Account: AccountType;
+  Asset: AssetType;
+  Payment: PaymentType;
+  Subscription: SubscriptionType;
+  Voucher: VoucherType;
+  DLC: DLCType;
+  Branding: BrandingType;
+  Notifications: NotificationsType;
 
   constructor() {
     this.config = {
@@ -33,7 +40,7 @@ class InPlayer {
       IOT_NOTIF_URL: 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com',
       INPLAYER_TOKEN_NAME: 'inplayer_token',
       INPLAYER_IOT_NAME: 'inplayer_iot',
-      INPLAYER_ACCESS_CODE_NAME: (assetId: any) => `access_code_${assetId}`,
+      INPLAYER_ACCESS_CODE_NAME: (assetId: number) => `access_code_${assetId}`,
       API: API('https://services.inplayer.com'),
     };
 

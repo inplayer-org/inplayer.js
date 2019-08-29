@@ -46,3 +46,7 @@ export interface BrandingData {
     brandingId: number;
     merchantUUID: string;
 }
+
+export interface Branding {
+  getBranding(clientId: string, brandingId: string): object;
+}

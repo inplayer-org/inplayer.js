@@ -96,3 +96,16 @@ export interface Credentials {
   isExpired(): boolean;
   toObject(): CredentialsConfig;
 }
+
+export interface DLC {
+  getDlcLinks(assetId: number): object;
+}
+
+export interface Notifications {
+  getIotToken(): object;
+  subscribe(accountUuid: string, callbackParams: any): Promise<boolean>;
+  handleSubscribe(data: object, callbackParams: any, uuid: string): void;
+  setClient(client: any): void;
+  isSubscribed(): boolean;
+  unsubscribe(): void;
+}
