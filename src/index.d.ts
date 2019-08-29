@@ -140,7 +140,7 @@ export interface CreatePaymentData {
   voucherCode?: string;
   brandingId?: number;
   returnUrl?: string;
-  pi_id?: string;
+  paymentIntentId?: string;
 }
 
 export interface PayPalParamsData {
