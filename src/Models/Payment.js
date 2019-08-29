@@ -105,7 +105,8 @@ class Payment {
      *       referrer: 'http://google.com',
      *       voucherCode: 'fgh1982gff-0f2grfds',
      *       brandingId: 1234,
-     *       returnUrl: 'https://event.inplayer.com/staging'
+     *       returnUrl: 'https://event.inplayer.com/staging',
+     *       paymentIntentId: '332242'
      *      })
      *     .then(data => console.log(data));
      * @return {Object} Contains the data - {
@@ -131,6 +132,7 @@ class Payment {
             referrer: data.referrer,
             branding_id: data.brandingId,
             return_url: data.returnUrl,
+            pi_id: data.paymentIntentId
         };
 
         if (data.voucherCode) {
