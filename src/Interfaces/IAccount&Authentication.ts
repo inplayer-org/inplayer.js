@@ -323,7 +323,6 @@ export interface SignUpData {
   grantType: 'password' | 'client_credentials' | 'refresh_token';
   clientId: string;
   referrer: string;
-  dateOfBirth?: string;
   metadata: object[];
   brandingId: number;
 }

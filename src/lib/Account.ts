@@ -116,7 +116,6 @@ class Account {
    *      referrer: "http://localhost:3000/",
    *      brandingId?: 12345,
    *      metadata : { country: "Macedonia" },
-   *      dateOfBirth: '2019-05-03'
    *     })
    *     .then(data => console.log(data));
    * @return {AxiosResponse<CreateAccount>}
@@ -133,7 +132,6 @@ class Account {
       grant_type: 'password',
       metadata: data.metadata,
       branding_id: data.brandingId,
-      date_of_birth: data.dateOfBirth,
     };
 
     const resp = await basicApi.post(

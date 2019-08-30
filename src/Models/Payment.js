@@ -1,89 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>src/Models/Payment.js - InPlayer SDK</title>
-    <link rel="stylesheet" href="">
-    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
-    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
-    <link rel="stylesheet" href="../assets/css/custom.css">
-    <link rel="stylesheet" href="../assets/css/lucid.css">
-    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
-    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
-</head>
-<body class="yui3-skin-sam">
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
-            InPlayer SDK
-        </h1>
-	<div class="nav">
-            <li class="divider-vertical"></li>
-            <li>
-                <p class="navbar-text">
-                    API Docs for Version: <b>2.11.1</b>
-                </p>
-            </li>
-        </div>
-        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Account", "classes/Asset", "classes/Branding", "classes/DLC", "classes/InPlayer", "classes/Payment", "classes/Subscription", "classes/Voucher"]'>
-        </form>
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="span3">
-<div>
-    <div id="sidebar">
-    <div id="classes">
-        <ul id="api-classes" class="nav nav-list">
-                <li><a href="../classes/Account.html">Account</a></li>
-                <li><a href="../classes/Asset.html">Asset</a></li>
-                <li><a href="../classes/Branding.html">Branding</a></li>
-                <li><a href="../classes/DLC.html">DLC</a></li>
-                <li><a href="../classes/InPlayer.html">InPlayer</a></li>
-                <li><a href="../classes/Payment.html">Payment</a></li>
-                <li><a href="../classes/Subscription.html">Subscription</a></li>
-                <li><a href="../classes/Voucher.html">Voucher</a></li>
-        </ul>
-    </div>
-    </div>
-</div>
-        </div>
-        <div class="span9">
-    <form id="options-form" class="form-inline pull-right">
-        Show:
-        <label for="api-show-inherited" class="checkbox">
-            <input type="checkbox" id="api-show-inherited" checked>
-            Inherited
-        </label>
-
-        <label for="api-show-protected" class="checkbox">
-            <input type="checkbox" id="api-show-protected">
-            Protected
-        </label>
-
-        <label for="api-show-private" class="checkbox">
-            <input type="checkbox" id="api-show-private">
-            Private
-        </label>
-        <label for="api-show-deprecated" class="checkbox">
-            <input type="checkbox" id="api-show-deprecated">
-            Deprecated
-        </label>
-
-    </form>
-
-            <div class="apidocs">
-                <div id="docs-main">
-                    <div class="content">
-<div class="page-header">
-    <h1>src/Models/Payment.js <small>File</small></h1>
-</div>
-
-<div class="file">
-    <pre class="prettyprint linenums">
-import { errorResponse, checkStatus, params } from &#x27;../Utils&#x27;;
+import { errorResponse, checkStatus, params } from '../Utils';
 
 /**
  * Contains all Requests connected with payments
@@ -103,20 +18,20 @@ class Payment {
      * @example
      *     InPlayer.Payment
      *     .getPaymentMethods()
-     *     .then(data =&gt; console.log(data));
+     *     .then(data => console.log(data));
      * @return {Object}
      */
     async getPaymentMethods() {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: &#x27;User is not authenticated&#x27;
+                message: 'User is not authenticated'
             });
         }
 
         const response = await fetch(this.config.API.getPaymentMethods, {
             headers: {
-                Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;,
+                Authorization: `Bearer ${this.Account.getToken().token}`,
             },
         });
 
@@ -133,14 +48,14 @@ class Payment {
      * @example
      *     InPlayer.Payment
      *     .getPaymentTools(2)
-     *     .then(data =&gt; console.log(data));
+     *     .then(data => console.log(data));
      * @return {Object}
      */
     async getPaymentTools(paymentMethodId) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: &#x27;User is not authenticated&#x27;
+                message: 'User is not authenticated'
             });
         }
 
@@ -148,7 +63,7 @@ class Payment {
             this.config.API.getPaymentTools(paymentMethodId),
             {
                 headers: {
-                    Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;,
+                    Authorization: `Bearer ${this.Account.getToken().token}`,
                 },
             }
         );
@@ -160,7 +75,7 @@ class Payment {
 
     /**
      * Makes a Payment for a given Authorization token + asset/payment details.
-     * Use this method ONLY if the assetFee.type is not &#x27;subscription&#x27; or &#x27;freemium&#x27;. Otherwise
+     * Use this method ONLY if the assetFee.type is not 'subscription' or 'freemium'. Otherwise
      * please use InPlayer.Subscription.create()
      * @method create
      * @async
@@ -180,24 +95,24 @@ class Payment {
      *     InPlayer.Payment
      *     .create({
      *       number: 4111111111111111,
-     *       cardName: &#x27;PayPal&#x27;,
+     *       cardName: 'PayPal',
      *       expMonth: 10,
      *       expYear: 2030,
      *       cvv: 656,
      *       accessFee: 2341,
      *       paymentMethod: 1,
-     *       referrer: &#x27;http://google.com&#x27;,
-     *       voucherCode: &#x27;fgh1982gff-0f2grfds&#x27;
+     *       referrer: 'http://google.com',
+     *       voucherCode: 'fgh1982gff-0f2grfds'
      *       brandingId: 1234
      *      })
-     *     .then(data =&gt; console.log(data));
+     *     .then(data => console.log(data));
      * @return {Object}
      */
     async create(data = {}) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: &#x27;User is not authenticated&#x27;
+                message: 'User is not authenticated'
             });
         }
 
@@ -218,10 +133,10 @@ class Payment {
         }
 
         const response = await fetch(this.config.API.payForAsset, {
-            method: &#x27;POST&#x27;,
+            method: 'POST',
             headers: {
-                Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;,
-                &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;,
+                Authorization: `Bearer ${this.Account.getToken().token}`,
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: params(body),
         });
@@ -246,32 +161,32 @@ class Payment {
      *     origin: location.href,
      *     accessFeeId: 34,
      *     paymentMethod: 2
-     *     voucherCode: &#x27;1231231&#x27;
+     *     voucherCode: '1231231'
      *     })
-     *     .then(data =&gt; console.log(data));
+     *     .then(data => console.log(data));
      * @return {Object}
      */
     async getPayPalParams(data = {}) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: &#x27;User is not authenticated&#x27;
+                message: 'User is not authenticated'
             });
         }
 
         const formData = new FormData();
 
-        formData.append(&#x27;origin&#x27;, data.origin);
-        formData.append(&#x27;access_fee&#x27;, data.accessFeeId);
-        formData.append(&#x27;payment_method&#x27;, data.paymentMethod);
+        formData.append('origin', data.origin);
+        formData.append('access_fee', data.accessFeeId);
+        formData.append('payment_method', data.paymentMethod);
         if (data.voucherCode) {
-            formData.append(&#x27;voucher_code&#x27;, data.voucherCode);
+            formData.append('voucher_code', data.voucherCode);
         }
 
         const response = await fetch(this.config.API.getPayPalParams, {
-            method: &#x27;POST&#x27;,
+            method: 'POST',
             headers: {
-                Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;,
+                Authorization: `Bearer ${this.Account.getToken().token}`,
             },
             body: formData,
         });
@@ -290,15 +205,15 @@ class Payment {
      * @param {number} limit - The number of items per page
      * @example
      *     InPlayer.Payment
-     *     .getPurchaseHistory(&#x27;active&#x27;, 0, 5)
-     *     .then(data =&gt; console.log(data));
+     *     .getPurchaseHistory('active', 0, 5)
+     *     .then(data => console.log(data));
      * @return {Object}
      */
-    async getPurchaseHistory(status = &#x27;active&#x27;, page, limit) {
+    async getPurchaseHistory(status = 'active', page, limit) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: &#x27;User is not authenticated&#x27;
+                message: 'User is not authenticated'
             });
         }
 
@@ -306,7 +221,7 @@ class Payment {
             this.config.API.getPurchaseHistory(status, page, limit),
             {
                 headers: {
-                    Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;,
+                    Authorization: `Bearer ${this.Account.getToken().token}`,
                 },
             }
         );
@@ -323,14 +238,14 @@ class Payment {
      * @example
      *     InPlayer.Payment
      *     .getDefaultCreditCard()
-     *     .then(data =&gt; console.log(data));
+     *     .then(data => console.log(data));
      * @return {Object}
      */
     async getDefaultCreditCard() {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: &#x27;User is not authenticated&#x27;
+                message: 'User is not authenticated'
             });
         }
 
@@ -338,7 +253,7 @@ class Payment {
             this.config.API.getDefaultCreditCard,
             {
                 headers: {
-                    Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;,
+                    Authorization: `Bearer ${this.Account.getToken().token}`,
                 },
             }
         );
@@ -363,21 +278,21 @@ class Payment {
      * @example
      *     InPlayer.Payment
      *     .setDefaultCreditCard({
-     *          cardNumber: &#x27;4242424242424242&#x27;,
-     *          cardName: &#x27;John Doe&#x27;,
+     *          cardNumber: '4242424242424242',
+     *          cardName: 'John Doe',
      *          cvc: 123,
      *          expMonth: 1,
      *          expYear: 2020,
-     *          currency: &#x27;EUR&#x27;
+     *          currency: 'EUR'
      *      })
-     *     .then(data =&gt; console.log(data));
+     *     .then(data => console.log(data));
      * @return {Object}
      */
     async setDefaultCreditCard(data = {}) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: &#x27;User is not authenticated&#x27;
+                message: 'User is not authenticated'
             });
         }
 
@@ -393,9 +308,9 @@ class Payment {
         const response = await fetch(
             this.config.API.setDefaultCreditCard,
             {
-                method: &#x27;PUT&#x27;,
+                method: 'PUT',
                 headers: {
-                    &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;,
+                    'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: params(body),
             }
@@ -413,18 +328,18 @@ class Payment {
      * @example
      *     InPlayer.Payment
      *     .getDirectDebitMandate()
-     *     .then(data =&gt; console.log(data));
+     *     .then(data => console.log(data));
      * @return {Object} Contains the data - {
      *  is_approved: {boolean},
      *  statement_descriptor: {string},
      *  mandate: {
-     *    &quot;bank_code&quot;: 37040044,
-     *    &quot;branch_code&quot;: 111000000,
-     *    &quot;country&quot;: &quot;DE&quot;,
-     *    &quot;fingerprint&quot;: &quot;wGjUgpjH1Rj4NtBf&quot;,
-     *    &quot;last4&quot;: 3000,
-     *    &quot;mandate_reference&quot;: &quot;8OC5CIAXSF2UKON4&quot;,
-     *    &quot;mandate_url&quot;: &quot;https://hooks.stripe.com/adapter/sepa_debit/file/src_1F2Jqmvwo8DwAwwqraJnRVkgYS&quot;
+     *    "bank_code": 37040044,
+     *    "branch_code": 111000000,
+     *    "country": "DE",
+     *    "fingerprint": "wGjUgpjH1Rj4NtBf",
+     *    "last4": 3000,
+     *    "mandate_reference": "8OC5CIAXSF2UKON4",
+     *    "mandate_url": "https://hooks.stripe.com/adapter/sepa_debit/file/src_1F2Jqmvwo8DwAwwqraJnRVkgYS"
      *    }
      * }
    */
@@ -432,16 +347,16 @@ class Payment {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: &#x27;User is not authenticated&#x27;
+                message: 'User is not authenticated'
             });
         }
 
         const response = await fetch(
             this.config.API.getDirectDebitMandate,
             {
-                method: &#x27;GET&#x27;,
+                method: 'GET',
                 headers: {
-                    Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;,
+                    Authorization: `Bearer ${this.Account.getToken().token}`,
                 },
             }
         );
@@ -462,24 +377,24 @@ class Payment {
   * @example
   *     InPlayer.Payment
   *     .createDirectDebitMandate({name, iban})
-  *     .then(data =&gt; console.log(data));
+  *     .then(data => console.log(data));
   * @return {Object} Contains the data - {
-   *   &quot;id&quot;: &quot;src_1F2GzxJqmvwo8uTaJnRVkgYS&quot;,
-   *   &quot;currency&quot;: &quot;eur&quot;,
-   *   &quot;created&quot;: 1564576421,
-   *   &quot;client_secret&quot;: &quot;src_client_secret_FXLhLpWGLiupZtUlPStd3jLo&quot;,
-   *   &quot;owner&quot;: &quot;John&quot;,
-   *   &quot;full_name&quot;: &quot;Bret Johannes&quot;,
-   *   &quot;statement_descriptor&quot;: &quot;InPlayer&quot;,
-   *   &quot;status&quot;: &quot;chargeable&quot;,
+   *   "id": "src_1F2GzxJqmvwo8uTaJnRVkgYS",
+   *   "currency": "eur",
+   *   "created": 1564576421,
+   *   "client_secret": "src_client_secret_FXLhLpWGLiupZtUlPStd3jLo",
+   *   "owner": "John",
+   *   "full_name": "Bret Johannes",
+   *   "statement_descriptor": "InPlayer",
+   *   "status": "chargeable",
    *   type_data: {
-   *    &quot;bank_code&quot;: 37040044,
-   *    &quot;branch_code&quot;: 111000000,
-   *    &quot;country&quot;: &quot;DE&quot;,
-   *    &quot;fingerprint&quot;: &quot;wGjUgpjH1Rj4NtBf&quot;,
-   *    &quot;last4&quot;: 3000,
-   *    &quot;mandate_reference&quot;: &quot;8OC5CIAXSF2UKON4&quot;,
-   *    &quot;mandate_url&quot;: &quot;https://hooks.stripe.com/adapter/sepa_debit/file/src_1F2Jqmvwo8DwAwwqraJnRVkgYS&quot;
+   *    "bank_code": 37040044,
+   *    "branch_code": 111000000,
+   *    "country": "DE",
+   *    "fingerprint": "wGjUgpjH1Rj4NtBf",
+   *    "last4": 3000,
+   *    "mandate_reference": "8OC5CIAXSF2UKON4",
+   *    "mandate_url": "https://hooks.stripe.com/adapter/sepa_debit/file/src_1F2Jqmvwo8DwAwwqraJnRVkgYS"
    *    }
    *  }
 */
@@ -487,17 +402,17 @@ class Payment {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: &#x27;User is not authenticated&#x27;
+                message: 'User is not authenticated'
             });
         }
 
         const response = await fetch(
             this.config.API.createDirectDebitMandate,
             {
-                method: &#x27;POST&#x27;,
+                method: 'POST',
                 headers: {
-                    Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;,
-                    &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
+                    Authorization: `Bearer ${this.Account.getToken().token}`,
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: params(data),
             }
@@ -521,39 +436,39 @@ class Payment {
 * @example
 *     InPlayer.Payment
 *     .directDebitCharge({ assetId, accessFeeId, voucherCode, brandingId })
-*     .then(data =&gt; console.log(data));
+*     .then(data => console.log(data));
 * @return {Object} Contains the data - {
-*       code: &#x27;200&#x27;,
-*       message: &quot;Submitted for payment&quot;,
+*       code: '200',
+*       message: "Submitted for payment",
 *    }
 *
 */
     async directDebitCharge({
         assetId: item_id,
         accessFeeId: access_fee_id,
-        voucherCode: voucher_code = &#x27;&#x27;,
+        voucherCode: voucher_code = '',
         brandingId: branding_id,
     }) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: &#x27;User is not authenticated&#x27;
+                message: 'User is not authenticated'
             });
         }
 
         const response = await fetch(
             this.config.API.payForAssetV2,
             {
-                method: &#x27;POST&#x27;,
+                method: 'POST',
                 headers: {
-                    Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;,
-                    &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
+                    Authorization: `Bearer ${this.Account.getToken().token}`,
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: params({
                     item_id,
                     access_fee_id,
                     voucher_code,
-                    payment_method: &#x27;Direct Debit&#x27;,
+                    payment_method: 'Direct Debit',
                     branding_id
                 }),
             }
@@ -577,10 +492,10 @@ class Payment {
 * @example
 *     InPlayer.Payment
 *     .directDebitSubscribe({ assetId, accessFeeId, voucherCode, brandingId })
-*     .then(data =&gt; console.log(data));
+*     .then(data => console.log(data));
 * @return {Object} Contains the data - {
-*       code: &#x27;200&#x27;,
-*       message: &quot;Submitted for payment&quot;,
+*       code: '200',
+*       message: "Submitted for payment",
 *    }
 *  }
 */
@@ -588,29 +503,29 @@ class Payment {
     async directDebitSubscribe({
         assetId: item_id,
         accessFeeId: access_fee_id,
-        voucherCode: voucher_code = &#x27;&#x27;,
+        voucherCode: voucher_code = '',
         brandingId: branding_id
     }) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
-                message: &#x27;User is not authenticated&#x27;
+                message: 'User is not authenticated'
             });
         }
 
         const response = await fetch(
             this.config.API.subscribeV2,
             {
-                method: &#x27;POST&#x27;,
+                method: 'POST',
                 headers: {
-                    Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;,
-                    &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;
+                    Authorization: `Bearer ${this.Account.getToken().token}`,
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: params({
                     item_id,
                     access_fee_id,
                     voucher_code,
-                    payment_method: &#x27;Direct Debit&#x27;,
+                    payment_method: 'Direct Debit',
                     branding_id
                 }),
             }
@@ -623,19 +538,3 @@ class Payment {
 }
 
 export default Payment;
-
-    </pre>
-</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
-<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
-<script src="../assets/vendor/prettify/prettify-min.js"></script>
-<script src="../assets/js/yuidoc-bootstrap.js"></script>
-<script>prettyPrint();</script>
-</body>
-</html>

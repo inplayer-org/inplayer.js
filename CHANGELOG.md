@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.11.1] - 27-08-2019
+
+### Changes
+
+- Remove optional dateOfBirth parameter from signUp method
+
+# [2.11.0] - 26-08-2019
+
+### Changes
+
+- Add optional brandingId parameter in directDebitCharge and directDebitSubscribe methods
+
 # [2.10.0] - 20-08-2019
 
 ### Added

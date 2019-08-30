@@ -54,6 +54,7 @@ export interface ApiEndpoints {
   getPaymentMethods: string;
   getPaymentTools: (paymentMethodId: number) => string;
   payForAsset: string;
+  payForAssetV2: string;
   getPayPalParams: string;
   getDefaultCreditCard: string;
   setDefaultCreditCard: string;
@@ -63,6 +64,7 @@ export interface ApiEndpoints {
   getSubscriptions: (limit: number, page: number) => string;
   getSubscription: (id: number) => string;
   subscribe: string;
+  subscribeV2: string;
   cancelSubscription: (url: string) => string;
   // Misc
   getDlcLinks: (id: number) => string;

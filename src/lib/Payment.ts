@@ -7,10 +7,11 @@ import {
   PaypalParamsData,
   SetDefaultCardPerCurrencyData,
   CreateDirectDebitMandateData,
-  DirectDebitChargeData,
-  DirectDebitSubscribeData,
+  DirectDebitData,
   DirectDebitMandateResponse,
 } from '../Interfaces/IPayment&Subscription';
+import { ApiConfig } from '../Interfaces/CommonInterfaces';
+import { Account } from '../Interfaces/IAccount&Authentication';
 
 /**
  * Contains all Requests connected with payments
@@ -18,11 +19,11 @@ import {
  * @class Payment
  */
 class Payment {
-  config: any;
+  config: ApiConfig;
   Account: Account;
-  constructor(config: any, Account: any) {
+  constructor(config: ApiConfig, account: Account) {
     this.config = config;
-    this.Account = Account;
+    this.Account = account;
   }
 
   /**
@@ -276,7 +277,9 @@ class Payment {
    *    }
    * }
    */
-  async getDirectDebitMandate(): Promise<AxiosResponse<DirectDebitMandateResponse>> {
+  async getDirectDebitMandate(): Promise<
+    AxiosResponse<DirectDebitMandateResponse>
+    > {
     return authenticatedApi.get(this.config.API.getDirectDebitMandate, {
       headers: {
         Authorization: `Bearer ${getToken().token}`,
@@ -339,14 +342,14 @@ class Payment {
    * @method directDebitCharge
    * @async
    * @param {Object} data - Contains the data - {
-   *  accessFeeId: number,
-   *  assetId: number,
-   *  voucherCode: string,
-   *  paymentMethod: 'Direct Debit'
+   *  assetId: {string},
+   *  accessFeeId: {string},
+   *  voucherCode: {string},
+   *  brandingId?: number
    * }
    * @example
    *     InPlayer.Payment
-   *     .directDebitCharge('/v2/payments', body)
+   *     .directDebitCharge({ assetId, accessFeeId, voucherCode, brandingId })
    *     .then(data => console.log(data));
    * @return {Object} Contains the data - {
    *       code: '200',
@@ -354,12 +357,13 @@ class Payment {
    *    }
    *
    */
-  async directDebitCharge(data: DirectDebitChargeData) {
+  async directDebitCharge(data: DirectDebitData) {
     const body = {
       access_fee_id: data.accessFeeId,
       item_id: data.assetId,
       voucher_code: data.voucherCode,
       payment_method: data.paymentMethod,
+      branding_id: data.brandingId,
     };
 
     return authenticatedApi.post(
@@ -379,14 +383,14 @@ class Payment {
    * @method directDebitSubscribe
    * @async
    * @param {Object} data - Contains the data - {
-   *  assetId: number,
-   *  accessFeeId: number,
-   *  voucherCode: string,
-   *  paymentMethod: 'Direct Debit'
+   *  assetId: {string},
+   *  accessFeeId: {string},
+   *  voucherCode: {string},
+   *  brandingId?: number
    * }
    * @example
    *     InPlayer.Payment
-   *     .directDebitSubscribe('/v2/subscriptions', body)
+   *     .directDebitSubscribe({ assetId, accessFeeId, voucherCode, brandingId })
    *     .then(data => console.log(data));
    * @return {Object} Contains the data - {
    *       code: '200',
@@ -394,13 +398,13 @@ class Payment {
    *    }
    *  }
    */
-
-  async directDebitSubscribe(data: DirectDebitSubscribeData) {
+  async directDebitSubscribe(data: DirectDebitData) {
     const body = {
       item_id: data.assetId,
       access_fee_id: data.accessFeeId,
       voucher_code: data.voucherCode,
       payment_method: data.paymentMethod,
+      branding_id: data.brandingId,
     };
 
     return authenticatedApi.post(

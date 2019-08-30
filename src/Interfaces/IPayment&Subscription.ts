@@ -417,18 +417,12 @@ export interface CreateDirectDebitMandateData {
     iban: string;
 }
 
-export interface DirectDebitChargeData {
-    accessFeeId: number;
-    assetId: number;
-    voucherCode: string;
-    paymentMethod: 'Direct Debit';
-}
-
-export interface DirectDebitSubscribeData {
-    accessFeeId: number;
-    assetId: number;
-    voucherCode: string;
-    paymentMethod: 'Direct Debit';
+export interface DirectDebitData {
+  accessFeeId: number;
+  assetId: number;
+  voucherCode: string;
+  paymentMethod: 'Direct Debit';
+  brandingId?: number;
 }
 
 export interface PayPalParamsData {
@@ -503,9 +497,9 @@ export interface Payment {
   createDirectDebitMandate: (
     data: DirectDebitMandateData
   ) => Promise<AxiosResponse<CreateDirectDebitResponse>>;
-  directDebitCharge: (data: DirectDebitChargeData) => Promise<AxiosResponse<DirectDebitChargeResponse>>;
+  directDebitCharge: (data: DirectDebitData) => Promise<AxiosResponse<DirectDebitChargeResponse>>;
   directDebitSubscribe: (
-    data: DirectDebitChargeData
+    data: DirectDebitData
   ) => Promise<AxiosResponse<DirectDebitChargeResponse>>;
 }
 
