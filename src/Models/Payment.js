@@ -90,6 +90,7 @@ class Payment {
      *  referrer: string
      *  voucherCode?: string
      *  brandingId?: number
+     *  returnUrl?: string
      * }
      * @example
      *     InPlayer.Payment
@@ -102,11 +103,15 @@ class Payment {
      *       accessFee: 2341,
      *       paymentMethod: 1,
      *       referrer: 'http://google.com',
-     *       voucherCode: 'fgh1982gff-0f2grfds'
-     *       brandingId: 1234
+     *       voucherCode: 'fgh1982gff-0f2grfds',
+     *       brandingId: 1234,
+     *       returnUrl: 'https://event.inplayer.com/staging',
+     *       paymentIntentId: '332242'
      *      })
      *     .then(data => console.log(data));
-     * @return {Object}
+     * @return {Object} Contains the data - {
+     *       message: "Submitted for payment",
+     *  }
      */
     async create(data = {}) {
         if (!this.Account.isAuthenticated()) {
@@ -116,20 +121,27 @@ class Payment {
             });
         }
 
-        let body = {
-            number: data.number,
-            card_name: data.cardName,
-            exp_month: data.expMonth,
-            exp_year: data.expYear,
-            cvv: data.cvv,
-            access_fee: data.accessFee,
-            payment_method: data.paymentMethod,
-            referrer: data.referrer,
-            branding_id: data.brandingId,
-        };
+        const body = {};
 
-        if (data.voucherCode) {
-            body.voucher_code = data.voucherCode;
+        if (data.paymentIntentId) {
+            body.pi_id = data.paymentIntentId;
+        } else {
+            body = {
+                number: data.number,
+                card_name: data.cardName,
+                exp_month: data.expMonth,
+                exp_year: data.expYear,
+                cvv: data.cvv,
+                access_fee: data.accessFee,
+                payment_method: data.paymentMethod,
+                referrer: data.referrer,
+                branding_id: data.brandingId,
+                return_url: data.returnUrl,
+            };
+
+            if (data.voucherCode) {
+                body.voucher_code = data.voucherCode;
+            }
         }
 
         const response = await fetch(this.config.API.payForAsset, {
