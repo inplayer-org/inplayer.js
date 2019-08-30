@@ -121,7 +121,7 @@ class Payment {
             });
         }
 
-        const body = {};
+        let body = {};
 
         if (data.paymentIntentId) {
             body.pi_id = data.paymentIntentId;
