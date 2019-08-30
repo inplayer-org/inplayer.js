@@ -368,6 +368,8 @@ export interface CreatePaymentData {
   referrer: string;
   voucherCode: string;
   brandingId: number;
+  returnUrl: string;
+  paymentIntentId: string;
 }
 
 export interface PaypalParamsData {
@@ -378,43 +380,43 @@ export interface PaypalParamsData {
 }
 
 export interface CreateSubscriptionData {
-    number: number;
-    cardName: string;
-    expMonth: number;
-    expYear: number;
-    cvv: number;
-    accessFee: number;
-    paymentMethod: string;
-    referrer: string;
-    voucherCode?: string;
-    brandingId?: number;
+  number: number;
+  cardName: string;
+  expMonth: number;
+  expYear: number;
+  cvv: number;
+  accessFee: number;
+  paymentMethod: string;
+  referrer: string;
+  voucherCode?: string;
+  brandingId?: number;
 }
 
 export interface CreateSubscriptionBody {
-    number: number;
-    card_name: string;
-    exp_month: number;
-    exp_year: number;
-    cvv: number;
-    access_fee: number;
-    payment_method: string;
-    referrer: string;
-    voucher_code?: string;
-    branding_id?: number;
+  number: number;
+  card_name: string;
+  exp_month: number;
+  exp_year: number;
+  cvv: number;
+  access_fee: number;
+  payment_method: string;
+  referrer: string;
+  voucher_code?: string;
+  branding_id?: number;
 }
 
 export interface SetDefaultCardPerCurrencyData {
-    cardNumber: string;
-    cardName: string;
-    cvc: number;
-    expMonth: number;
-    expYear: number;
-    currency: string;
+  cardNumber: string;
+  cardName: string;
+  cvc: number;
+  expMonth: number;
+  expYear: number;
+  currency: string;
 }
 
 export interface CreateDirectDebitMandateData {
-    name: string;
-    iban: string;
+  name: string;
+  iban: string;
 }
 
 export interface DirectDebitData {
@@ -479,7 +481,6 @@ export interface DirectDebitMandateData {
   iban: string;
 }
 
-
 export interface DirectDebitChargeResponse {
   code: string;
   message: string;
@@ -493,11 +494,15 @@ export interface Payment {
   getPurchaseHistory(status: string, page: number, limit: number): object;
   getDefaultCreditCard(): object;
   setDefaultCreditCard(data: DefaultCreditCardData): object;
-  getDirectDebitMandate: () => Promise<AxiosResponse<DirectDebitMandateResponse>>;
+  getDirectDebitMandate: () => Promise<
+    AxiosResponse<DirectDebitMandateResponse>
+  >;
   createDirectDebitMandate: (
     data: DirectDebitMandateData
   ) => Promise<AxiosResponse<CreateDirectDebitResponse>>;
-  directDebitCharge: (data: DirectDebitData) => Promise<AxiosResponse<DirectDebitChargeResponse>>;
+  directDebitCharge: (
+    data: DirectDebitData
+  ) => Promise<AxiosResponse<DirectDebitChargeResponse>>;
   directDebitSubscribe: (
     data: DirectDebitData
   ) => Promise<AxiosResponse<DirectDebitChargeResponse>>;

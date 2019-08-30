@@ -80,9 +80,10 @@ class Payment {
    *  cvv: number,
    *  accessFee: number,
    *  paymentMethod: string,
-   *  referrer: string
-   *  voucherCode?: string
-   *  brandingId?: number
+   *  referrer: string,
+   *  voucherCode?: string,
+   *  brandingId?: number,
+   *  paymentIntentId?: string,
    * }
    * @example
    *     InPlayer.Payment
@@ -96,26 +97,35 @@ class Payment {
    *       paymentMethod: 1,
    *       referrer: 'http://google.com',
    *       voucherCode: 'fgh1982gff-0f2grfds'
-   *       brandingId: 1234
+   *       brandingId: 1234,
+   *       returnUrl: 'https://event.inplayer.com/staging',
+   *       paymentIntentId: '332242'
    *      })
    *     .then(data => console.log(data));
    * @return {AxiosResponse<CreatePayment>}
    */
   async create(data: CreatePaymentData) {
-    const body: any = {
-      number: data.number,
-      card_name: data.cardName,
-      exp_month: data.expMonth,
-      exp_year: data.expYear,
-      cvv: data.cvv,
-      access_fee: data.accessFee,
-      payment_method: data.paymentMethod,
-      referrer: data.referrer,
-      branding_id: data.brandingId,
-    };
+    let body: any = {};
 
-    if (data.voucherCode) {
-      body.voucher_code = data.voucherCode;
+    if (data.paymentIntentId) {
+      body.pi_id = data.paymentIntentId;
+    } else {
+      body = {
+        number: data.number,
+        card_name: data.cardName,
+        exp_month: data.expMonth,
+        exp_year: data.expYear,
+        cvv: data.cvv,
+        access_fee: data.accessFee,
+        payment_method: data.paymentMethod,
+        referrer: data.referrer,
+        branding_id: data.brandingId,
+        return_url: data.returnUrl,
+      };
+
+      if (data.voucherCode) {
+        body.voucher_code = data.voucherCode;
+      }
     }
 
     return authenticatedApi.post(
