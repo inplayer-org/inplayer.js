@@ -87,10 +87,11 @@ class Payment {
      *  cvv: number,
      *  accessFee: number,
      *  paymentMethod: string,
-     *  referrer: string
-     *  voucherCode?: string
-     *  brandingId?: number
-     *  returnUrl?: string
+     *  referrer: string,
+     *  voucherCode?: string,
+     *  brandingId?: number,
+     *  returnUrl?: string,
+     *  paymentIntentId?: string
      * }
      * @example
      *     InPlayer.Payment
