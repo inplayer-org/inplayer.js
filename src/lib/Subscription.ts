@@ -1,6 +1,8 @@
 import qs from 'qs';
 import { authenticatedApi, getToken } from '../Utils/http';
 import { CreateSubscriptionData, CreateSubscriptionBody } from '../Interfaces/IPayment&Subscription';
+import { ApiConfig } from '../Interfaces/CommonInterfaces';
+import { Account } from '../Interfaces/IAccount&Authentication';
 
 /**
  * Contains all Requests connected with subscriptions
@@ -8,11 +10,11 @@ import { CreateSubscriptionData, CreateSubscriptionBody } from '../Interfaces/IP
  * @class Subscription
  */
 class Subscription {
-  config: any;
-  Account: any;
-  constructor(config: any, Account: any) {
+  config: ApiConfig;
+  Account: Account;
+  constructor(config: any, account: Account) {
     this.config = config;
-    this.Account = Account;
+    this.Account = account;
   }
   /**
      * Gets all subscriptions for a given user
@@ -41,14 +43,14 @@ class Subscription {
    * @method getSubscription
    * @async
    *
-   * @param {string} id - The subscription id
+   * @param {number} id - The subscription id
    * @example
    *     InPlayer.Subscription
    *     .getSubscription('abcdef')
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async getSubscription(id: string) {
+  async getSubscription(id: number) {
     return authenticatedApi.get(this.config.API.getSubscription(id), {
       headers: {
         Authorization: `Bearer ${getToken().token}`,

@@ -1,5 +1,6 @@
 import { authenticatedApi, getToken } from '../Utils/http';
 import { Account } from '../Interfaces/IAccount&Authentication';
+import { ApiConfig } from '../Interfaces/CommonInterfaces';
 
 /**
  * Contains mixed various types of function for dlcs, discounts, branding, etc.
@@ -7,9 +8,9 @@ import { Account } from '../Interfaces/IAccount&Authentication';
  * @class DLC
  */
 class DLC {
-  config: any;
+  config: ApiConfig;
   Account: Account;
-  constructor(config: any, account: Account) {
+  constructor(config: ApiConfig, account: Account) {
     this.config = config;
     this.Account = account;
   }

@@ -202,7 +202,7 @@ class Asset {
     const browserFingerprint = Fingerprint2.x64hash128(
       reduce(
         browserDetails,
-        (acc: string, details: any) => `${acc}${details.value}`,
+        (acc: string, details: Record<string, any>) => `${acc}${details.value}`,
         '',
       ),
       31,

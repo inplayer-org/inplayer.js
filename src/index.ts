@@ -9,10 +9,17 @@ import Notifications from './Notifications';
 import { API } from './constants/endpoints';
 
 // types
-import { ApiConfig, DLC as DLCType, Notifications as NotificationsType } from './Interfaces/CommonInterfaces';
+import {
+  ApiConfig,
+  DLC as DLCType,
+  Notifications as NotificationsType,
+} from './Interfaces/CommonInterfaces';
 import { Account as AccountType } from './Interfaces/IAccount&Authentication';
 import { Asset as AssetType } from './Interfaces/IAsset&Access';
-import { Payment as PaymentType, Subscription as SubscriptionType } from './Interfaces/IPayment&Subscription';
+import {
+  Payment as PaymentType,
+  Subscription as SubscriptionType,
+} from './Interfaces/IPayment&Subscription';
 import { Voucher as VoucherType } from './Interfaces/IVoucher&Promotion';
 import { Branding as BrandingType } from './Interfaces/IBrand';
 
@@ -85,12 +92,12 @@ class InPlayer {
   /**
    * Subscribes to websocket events
    * @method subscribe
-   * @param {String} accountUid - The users account UUID
-   * @param {Object} callbackParams - Methods regarding websocket
+   * @param {string} accountUuid - The users account UUID
+   * @param {Record<string, (...params) => void>} callbackParams - Methods regarding websocket
    * {
-   *  onmessage: function,
-   *  onopen: function,
-   *  onclose: function
+   *  onMessage: function,
+   *  onOpen: function,
+   *  onClose: function
    * }
    * @example
    *     InPlayer.subscribe(
@@ -102,11 +109,13 @@ class InPlayer {
    *       onClose: (e) => console.log('close', e)
    *      }
    *    )
-   * @return {Boolean}
    */
-  subscribe(accountUid: any, callbackParams: any) {
+  subscribe(
+    accountUuid: string,
+    callbackParams: Record<string, (...params) => void>,
+  ) {
     if (this.Account.isAuthenticated()) {
-      this.Notifications.subscribe(accountUid, callbackParams)
+      this.Notifications.subscribe(accountUuid, callbackParams)
         .then((data: any) => {
           if (!data) {
             console.error('An error has occured while subscribing.');
@@ -114,14 +123,19 @@ class InPlayer {
         })
         .catch((error: any) => {
           if (error.response) {
-            error.response.json().then((data: any) => {
-              console.warn(data);
-            });
+            console.warn(error.response);
           }
         });
     }
   }
 
+  /**
+   * Checks if user is subscribed
+   * @method isSubscribed
+   * @example
+   *        InPlayer.isSubscribed()
+   * @returns {boolean}
+   */
   isSubscribed() {
     return this.Notifications.isSubscribed();
   }

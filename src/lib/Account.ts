@@ -194,7 +194,7 @@ class Account {
    *  @example
    *  InPlayer.Account.setToken('344244-242242', '123123121-d1-t1-1ff',1558529593297)
    */
-  setToken = (token: any, refreshToken: any, expiresAt: any) => {
+  setToken = (token: string, refreshToken: string, expiresAt: number) => {
     const credentials = new Credentials({
       token,
       refreshToken,

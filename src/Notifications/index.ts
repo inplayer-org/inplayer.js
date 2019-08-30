@@ -1,14 +1,15 @@
 import awsIot from 'aws-iot-device-sdk';
 import { getToken, authenticatedApi } from '../Utils/http';
 import { Account } from '../Interfaces/IAccount&Authentication';
+import { ApiConfig } from '../Interfaces/CommonInterfaces';
 
 const ONE_HOUR = 60 * 60 * 1000;
 
 class Notifications {
   subscription: any;
-  config: any;
+  config: ApiConfig;
   Account: Account;
-  constructor(config: any, account: Account) {
+  constructor(config: ApiConfig, account: Account) {
     this.subscription = null;
     this.config = config;
     this.Account = account;
@@ -28,7 +29,7 @@ class Notifications {
   }
 
   /* Subscribes to Websocket notifications */
-  async subscribe(accountUuid = '', callbackParams: any) {
+  async subscribe(accountUuid = '', callbackParams: Record<string, (...params) => void>) {
     if (!accountUuid && accountUuid === '') {
       return false;
     }
@@ -76,7 +77,7 @@ class Notifications {
     return true;
   }
 
-  handleSubscribe(data: any, callbackParams: any, uuid: any) {
+  handleSubscribe(data: any, callbackParams: Record<string, any>, uuid: string) {
     const credentials: any = {
       region: data.region,
       protocol: 'wss',

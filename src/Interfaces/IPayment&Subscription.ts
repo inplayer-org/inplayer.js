@@ -510,7 +510,7 @@ export interface Payment {
 
 export interface Subscription {
   getSubscriptions(page?: number, limit?: number): object;
-  getSubscription(id: string): object;
+  getSubscription(id: number): object;
   cancelSubscription(unsubscribeUrl: string): object;
   create(data: CreateSubscriptionData): object;
 }

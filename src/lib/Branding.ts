@@ -1,4 +1,5 @@
 import { basicApi } from '../Utils/http';
+import { ApiConfig } from '../Interfaces/CommonInterfaces';
 
 /**
  * Contains all Requests regarding branding.
@@ -6,8 +7,8 @@ import { basicApi } from '../Utils/http';
  * @class Branding
  */
 class Branding {
-  config: any;
-  constructor(config: any) {
+  config: ApiConfig;
+  constructor(config: ApiConfig) {
     this.config = config;
   }
 
