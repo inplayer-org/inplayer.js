@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.12.0] - 30-08-2019
+
+### Added
+
+- SCA Charge Migration
+
 # [2.11.1] - 27-08-2019
 
 ### Changes
