@@ -136,9 +136,12 @@ class Payment {
                 access_fee: data.accessFee,
                 payment_method: data.paymentMethod,
                 referrer: data.referrer,
-                branding_id: data.brandingId,
                 return_url: data.returnUrl,
             };
+
+            if (data.brandingId) {
+                body.branding_id = data.brandingId;
+            }
 
             if (data.voucherCode) {
                 body.voucher_code = data.voucherCode;
