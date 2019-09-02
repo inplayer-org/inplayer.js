@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { CommonError, AdvanceError } from './CommonInterfaces';
+import { CommonResponse, AdvanceError } from './CommonInterfaces';
 
 export interface GeneratePayPalParameters {
   endpoint: string;
@@ -10,7 +10,7 @@ export interface GeneratePayPalParameters {
   cancel_return: string;
 }
 
-export interface GeneratePayPalParametersError extends CommonError {}
+export interface GeneratePayPalParametersError extends CommonResponse {}
 
 export interface GeneratePayPalParametersError422 extends AdvanceError {}
 
@@ -20,13 +20,13 @@ export interface CancelPayPalSubscription {
   message: string;
 }
 
-export interface CancelPayPalSubscriptionError extends CommonError {}
+export interface CancelPayPalSubscriptionError extends CommonResponse {}
 
 export interface CreatePayment {
   message: string;
 }
 
-export interface CreatePaymentError extends CommonError {}
+export interface CreatePaymentError extends CommonResponse {}
 
 export interface CreatePaymentError422 extends AdvanceError {}
 
@@ -46,7 +46,7 @@ export interface GetNumberOfPaymentPerAssetPerCountry {
 }
 
 export interface GetNumberOfPaymentPerAssetPerCountryError
-  extends CommonError {}
+  extends CommonResponse {}
 
 export interface AssetValue {
   timestamp: number;
@@ -72,7 +72,7 @@ export interface MerchantActivePaymentMethod {
   provider_name: string;
 }
 
-export interface MerchantActivePaymentMethodError extends CommonError {}
+export interface MerchantActivePaymentMethodError extends CommonResponse {}
 
 export interface MerchantPaymentMethod {
   id: number;
@@ -80,7 +80,7 @@ export interface MerchantPaymentMethod {
   is_external: boolean;
 }
 
-export interface MerchantPaymentMethodsError extends CommonError {}
+export interface MerchantPaymentMethodsError extends CommonResponse {}
 
 export interface PaymentMethod {
   id: number;
@@ -109,21 +109,21 @@ export interface MerchantPaymentProviders {
   string_connect: boolean;
 }
 
-export interface MerchantPaymentProvidersError extends CommonError {}
+export interface MerchantPaymentProvidersError extends CommonResponse {}
 
 export interface CreateBankStatementDescriptor {
   id: number;
   message: string;
 }
 
-export interface CreateBankStatementDescriptorError extends CommonError {}
+export interface CreateBankStatementDescriptorError extends CommonResponse {}
 
 export interface DeleteBankStatementDescriptor {
   id: number;
   message: string;
 }
 
-export interface DeleteBankStatementDescriptorError extends CommonError {}
+export interface DeleteBankStatementDescriptorError extends CommonResponse {}
 
 export interface DeleteBankStatementDescriptorError400 extends AdvanceError {}
 
@@ -147,7 +147,7 @@ export interface GetRevenuePerAssetPerCountry {
   collection: RevenuePerAssetPerCountry[];
 }
 
-export interface GetRevenuePerAssetPerCountryError extends CommonError {}
+export interface GetRevenuePerAssetPerCountryError extends CommonResponse {}
 
 export interface RevenueAssetDetails {
   timestamp: number;
@@ -163,20 +163,20 @@ export interface GetRevenuePerAsset {
   collection: RevenuePerAsset[];
 }
 
-export interface GetRevenuePerAssetError extends CommonError {}
+export interface GetRevenuePerAssetError extends CommonResponse {}
 
 export interface StripeConnectRequest {
   code: number;
   message: string;
 }
 
-export interface StripeConnectRequestError extends CommonError {}
+export interface StripeConnectRequestError extends CommonResponse {}
 
 export interface StripeConnect {
   code: number;
 }
 
-export interface StripeConnectError extends CommonError {}
+export interface StripeConnectError extends CommonResponse {}
 
 export interface StripeConnectError400 extends AdvanceError {}
 
@@ -210,7 +210,7 @@ export interface CreateSubscription {
   message: string;
 }
 
-export interface CreateSubscriptionError extends CommonError {}
+export interface CreateSubscriptionError extends CommonResponse {}
 
 export interface CreateSubscriptionError422 extends AdvanceError {}
 
@@ -223,7 +223,7 @@ export interface CancelSubscription {
   timestamp: number;
 }
 
-export interface CancelSubscriptionError extends CommonError {}
+export interface CancelSubscriptionError extends CommonResponse {}
 
 export interface CancelSubscriptionError400 extends AdvanceError {}
 
@@ -233,7 +233,7 @@ export interface ValidateAmazonReceipt {
   message: string;
 }
 
-export interface ValidateAmazonReceiptError extends CommonError {}
+export interface ValidateAmazonReceiptError extends CommonResponse {}
 
 export interface ValidateAmazonReceiptError422 extends AdvanceError {}
 
@@ -242,7 +242,7 @@ export interface ValidateAppleReceipt {
   message: string;
 }
 
-export interface ValidateAppleReceiptError extends CommonError {}
+export interface ValidateAppleReceiptError extends CommonResponse {}
 
 export interface ValidateAppleReceiptError422 extends AdvanceError {}
 
@@ -251,7 +251,7 @@ export interface ValidateGooglePlayReceipt {
   message: string;
 }
 
-export interface ValidateGooglePlayReceiptError extends CommonError {}
+export interface ValidateGooglePlayReceiptError extends CommonResponse {}
 
 export interface ValidateGooglePlayReceiptError422 extends AdvanceError {}
 
@@ -260,14 +260,14 @@ export interface CancelGooglePlaySubscription {
   message: string;
 }
 
-export interface CancelGooglePlaySubscriptionError extends CommonError {}
+export interface CancelGooglePlaySubscriptionError extends CommonResponse {}
 
 export interface ValidateRokuReceipt {
   code: number;
   message: string;
 }
 
-export interface ValidateRokuReceiptError extends CommonError {}
+export interface ValidateRokuReceiptError extends CommonResponse {}
 
 export interface ValidateRokuReceiptError422 extends AdvanceError {}
 
@@ -276,7 +276,7 @@ export interface CreateCharge {
   message: string;
 }
 
-export interface CreateChargeError extends CommonError {}
+export interface CreateChargeError extends CommonResponse {}
 
 export interface Card {
   number: number;
@@ -289,13 +289,13 @@ export interface GetDefaultCard {
   cards: Card[];
 }
 
-export interface GetDefaultCardError extends CommonError {}
+export interface GetDefaultCardError extends CommonResponse {}
 
 export interface SetDefaultCardPerCurrency {
   account: Card;
 }
 
-export interface SetDefaultCardPerCurrencyError extends CommonError {}
+export interface SetDefaultCardPerCurrencyError extends CommonResponse {}
 
 export interface SetDefaultCardPerCurrencyError400 extends AdvanceError {}
 
@@ -327,11 +327,11 @@ export interface GetMandate {
   mandate: Mandate;
 }
 
-export interface GetMandateError extends CommonError {}
+export interface GetMandateError extends CommonResponse {}
 
 export interface CreateMandate extends Mandate {}
 
-export interface CreateMandateError extends CommonError {}
+export interface CreateMandateError extends CommonResponse {}
 
 export interface SetPaymentProviderMetadata {
   code: number;
@@ -339,7 +339,7 @@ export interface SetPaymentProviderMetadata {
   metadata: Record<string, string>[];
 }
 
-export interface SetPaymentProviderMetadataError extends CommonError {}
+export interface SetPaymentProviderMetadataError extends CommonResponse {}
 
 export interface Metadata {
   id: number;
@@ -353,9 +353,9 @@ export interface GetPaymentProviderMetadata {
   metadata: Metadata;
 }
 
-export interface GetPaymentProviderMetadataError extends CommonError {}
+export interface GetPaymentProviderMetadataError extends CommonResponse {}
 
-export interface CreateSubscriptionV2Error extends CommonError {}
+export interface CreateSubscriptionV2Error extends CommonResponse {}
 
 export interface CreatePaymentData {
   number: number;

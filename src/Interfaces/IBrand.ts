@@ -1,22 +1,22 @@
-import { CommonError, AdvanceError } from './CommonInterfaces';
+import { CommonResponse, AdvanceError } from './CommonInterfaces';
 
 export interface CreateBrandTheme {
     id: number;
 }
 
-export interface CreateBrandThemeError extends CommonError { }
+export interface CreateBrandThemeError extends CommonResponse { }
 
 export interface CreateBrandThemeError422 extends AdvanceError { }
 
 // TODO: No 200 responce for UpdateBrandTheme
 
-export interface UpdateBrandThemeError extends CommonError { }
+export interface UpdateBrandThemeError extends CommonResponse { }
 
 export interface UpdateBrandThemeError422 extends AdvanceError { }
 
 // TODO: No 200 responce for DeleteBrandTheme
 
-export interface DeleteBrandThemeError extends CommonError { }
+export interface DeleteBrandThemeError extends CommonResponse { }
 
 export interface Brand {
     id: number;
@@ -36,11 +36,11 @@ export interface Brand {
 
 export interface GetBrandDetails extends Brand { }
 
-export interface GetBrandDetailsError extends CommonError { }
+export interface GetBrandDetailsError extends CommonResponse { }
 
 export interface GetDefaultBrandDetails extends Brand { }
 
-export interface GetDefaultBrandDetailsError extends CommonError { }
+export interface GetDefaultBrandDetailsError extends CommonResponse { }
 
 export interface BrandingData {
     brandingId: number;

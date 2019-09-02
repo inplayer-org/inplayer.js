@@ -9,8 +9,7 @@ import {
   SetNewPasswordData,
   UpdateAccountData,
   ChangePasswordData,
-  DeleteAccountData,
-  ExportData,
+  AccountAuthData,
 } from '../Interfaces/IAccount&Authentication';
 import { CustomErrorResponse, ApiConfig } from '../Interfaces/CommonInterfaces';
 import Credentials from '../Credentials';
@@ -173,8 +172,9 @@ class Account {
   /** Retruns the OAuth token
    *  @method getToken
    *  @example
-   *  InPlayer.Account.getToken()
-   *  @return {Credentials}
+   *    InPlayer.Account.getToken()
+   *
+   * @return {Credentials}
    */
   getToken = () => {
     const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
@@ -494,7 +494,7 @@ class Account {
    * @return {AxiosResponse<undefined>}
    */
 
-  async deleteAccount(data: DeleteAccountData) {
+  async deleteAccount(data: AccountAuthData) {
     const body = {
       password: data.password,
       branding_id: data.brandingId,
@@ -537,7 +537,7 @@ class Account {
    * @return {AxiosResponse<ExportAccountData>}
    */
 
-  async exportData(data: ExportData) {
+  async exportData(data: AccountAuthData) {
     const body = {
       password: data.password,
       branding_id: data.brandingId,
@@ -561,29 +561,31 @@ class Account {
   }
 
   /**
-* Creates pin code and sends it to the users' email
-* @method sendPinCode
-* @async
-* @param {number} brandingId - Optional parametar
-* @example
-*     InPlayer.Account.sendPinCode(1234)
-*     .then(data => console.log(data));
-* @return {AxiosResponse<SendPinCode>}
-*/
+   * Creates pin code and sends it to the users' email
+   * @method sendPinCode
+   * @async
+   * @param {number} brandingId - Optional parametar
+   * @example
+   *     InPlayer.Account.sendPinCode(1234)
+   *     .then(data => console.log(data));
+   * @return {AxiosResponse<SendPinCode>}
+   */
 
   async sendPinCode(brandingId: number) {
     const body = {
       branding_id: brandingId,
     };
 
-    const response = await authenticatedApi.post(this.config.API.sendPinCode,
+    const response = await authenticatedApi.post(
+      this.config.API.sendPinCode,
       qs.stringify(body),
       {
         headers: {
           Authorization: `Bearer ${this.getToken().token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      });
+      },
+    );
 
     return {
       code: response.status,
@@ -592,29 +594,31 @@ class Account {
   }
 
   /**
-* Checks validity of pin code
-* @method validatePinCode
-* @async
-* @param {string} pinCode - Code from received email message
-* @example
-*     InPlayer.Account.validatePinCode('5566')
-*     .then(data => console.log(data));
-* @return {AxiosResponse<SendPinCode>}
-*/
+   * Checks validity of pin code
+   * @method validatePinCode
+   * @async
+   * @param {string} pinCode - Code from received email message
+   * @example
+   *     InPlayer.Account.validatePinCode('5566')
+   *     .then(data => console.log(data));
+   * @return {AxiosResponse<PinCodeData>}
+   */
 
   async validatePinCode(pinCode: string) {
     const body = {
       pin_code: pinCode,
     };
 
-    const response = await authenticatedApi.post(this.config.API.validatePinCode,
+    const response = await authenticatedApi.post(
+      this.config.API.validatePinCode,
       qs.stringify(body),
       {
         headers: {
           Authorization: `Bearer ${this.getToken().token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      });
+      },
+    );
 
     return {
       code: response.status,
@@ -631,7 +635,7 @@ class Account {
 *     InPlayer.Account
 *     .loadMerchantRestrictionSettings("528b1b80-5868-4abc-a9b6-4d3455d719c8")
 *     .then(data => console.log(data));
-* @return {Object} Contains the data - {
+* @return {AxiosResponse<RestrictionSettingsData>} Contains the data - {
   "age_verification_type": "pin_code",
   "age_verification_enabled": true,
   "merchant_uuid": "3b39b5ab-b5fc-4ba3-b770-73155d20e61f",
@@ -640,7 +644,9 @@ class Account {
 }
 */
   async loadMerchantRestrictionSettings(merchantUuid: string) {
-    return basicApi.get(this.config.API.merchantRestrictionSettings(merchantUuid));
+    return basicApi.get(
+      this.config.API.merchantRestrictionSettings(merchantUuid),
+    );
   }
 }
 

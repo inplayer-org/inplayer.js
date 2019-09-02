@@ -1,4 +1,4 @@
-import { CommonError, AdvanceError } from './CommonInterfaces';
+import { CommonResponse, AdvanceError } from './CommonInterfaces';
 
 export interface AccessControlType {
   id: number;
@@ -30,23 +30,23 @@ export interface Item {
 
 export interface CreateItem extends Item {}
 
-export interface ItemError extends CommonError {}
+export interface ItemError extends CommonResponse {}
 
 export interface ItemError422 extends AdvanceError {}
 
 // TODO: No 201 response for DeleteItem
 
-export interface DeleteItemError extends CommonError {}
+export interface DeleteItemError extends CommonResponse {}
 
 export interface UpdateItem extends Item {}
 
-export interface UpdateItemError extends CommonError {}
+export interface UpdateItemError extends CommonResponse {}
 
 export interface UpdateItemError422 extends AdvanceError {}
 
 export interface PatchItem extends Item {}
 
-export interface PatchItemError extends CommonError {}
+export interface PatchItemError extends CommonResponse {}
 
 export interface PatchItemError422 extends AdvanceError {}
 
@@ -77,7 +77,7 @@ export interface GeoRestriction {
 
 export interface GetAccessFees extends GetAccessFee {}
 
-export interface GetAccessFeesError extends CommonError {}
+export interface GetAccessFeesError extends CommonResponse {}
 
 export interface PostFee {
   id: number;
@@ -93,7 +93,7 @@ export interface PostFee {
   expires_at: number;
 }
 
-export interface PostFeeError extends CommonError {}
+export interface PostFeeError extends CommonResponse {}
 
 export interface PostFeeError422 extends AdvanceError {}
 
@@ -111,11 +111,11 @@ export interface GetAccessFee {
   expires_at: number;
 }
 
-export interface GetAccessFeeError extends CommonError {}
+export interface GetAccessFeeError extends CommonResponse {}
 
 //  No 204 response for DeleteAccessFee
 
-export interface DeleteAccessFee extends CommonError {}
+export interface DeleteAccessFee extends CommonResponse {}
 
 export interface PutAccessFee {
   id: number;
@@ -131,25 +131,25 @@ export interface PutAccessFee {
   expires_at: number;
 }
 
-export interface PutAccessFeeError extends CommonError {}
+export interface PutAccessFeeError extends CommonResponse {}
 
 export interface PutAccessFeeError422 extends AdvanceError {}
 
 export interface PatchAccessFee extends GetAccessFee {}
 
-export interface PatchAccessFeeError extends CommonError {}
+export interface PatchAccessFeeError extends CommonResponse {}
 
 export interface PatchAccessFeeError422 extends AdvanceError {}
 
 export interface GetItemDetails extends Item {}
 
-export interface GetItemDetailsError extends CommonError {}
+export interface GetItemDetailsError extends CommonResponse {}
 
 //  ---------------------------------V1-----------------------------
 
 export interface GetAccessFeesV1 extends GetAccessFee {}
 
-export interface GetAccessFeesV1Error extends CommonError {}
+export interface GetAccessFeesV1Error extends CommonResponse {}
 
 export interface ItemV1 {
   content: string;
@@ -178,11 +178,11 @@ export interface GetItemAccessV1 {
   item: ItemV1;
 }
 
-export interface GetItemAccessV1Error extends CommonError {}
+export interface GetItemAccessV1Error extends CommonResponse {}
 
 // TODO: No 204 response for RevokeItemAccess
 
-export interface RevokeItemAccessError extends CommonError {}
+export interface RevokeItemAccessError extends CommonResponse {}
 
 export interface GetItemDetailsV1 {
   id: number;
@@ -200,7 +200,7 @@ export interface GetItemDetailsV1 {
 
 export interface GrantItemAccess extends GetItemAccessV1 {}
 
-export interface GrantItemAccessError extends CommonError {}
+export interface GrantItemAccessError extends CommonResponse {}
 
 export interface GrantItemAccessError422 extends AdvanceError {}
 
@@ -241,11 +241,11 @@ export interface GetCustomerAccessListPurcased {
 export interface GetCustomerAccessListGranted
   extends GetCustomerAccessListRevoked {}
 
-export interface GetCustomerAccessListError extends CommonError {}
+export interface GetCustomerAccessListError extends CommonResponse {}
 
 export interface AddUnlimitedItemAccess extends GetItemAccessV1 {}
 
-export interface AddUnlimitedItemAccessError extends CommonError {}
+export interface AddUnlimitedItemAccessError extends CommonResponse {}
 
 // TODO: NOT GOOD! NOT GOOD AT ALL!!!
 
@@ -253,13 +253,13 @@ export interface CreateItemWithPrice {
   id: number;
 }
 
-export interface CreateItemWithPriceError extends CommonError {}
+export interface CreateItemWithPriceError extends CommonResponse {}
 
 export interface CreateItemWithPriceError422 extends AdvanceError {}
 
 export interface ExtendItemAccess extends GetItemAccessV1 {}
 
-export interface ExtendItemAccessError extends CommonError {}
+export interface ExtendItemAccessError extends CommonResponse {}
 
 export interface ExtendItemAccessError422 extends AdvanceError {}
 
@@ -282,7 +282,7 @@ export interface GetMerchantPackage {
   collection: PackageDetail;
 }
 
-export interface GetMerchantPackageError extends CommonError {}
+export interface GetMerchantPackageError extends CommonResponse {}
 
 export interface RequestCodeAccess {
   assetId: number;

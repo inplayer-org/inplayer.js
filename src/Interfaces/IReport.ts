@@ -1,10 +1,10 @@
-import { CommonError } from './CommonInterfaces';
+import { CommonResponse } from './CommonInterfaces';
 
 export interface GetReportByReportType {
     message: string;
 }
 
-export interface GetReportByReportTypeError extends CommonError { }
+export interface GetReportByReportTypeError extends CommonResponse { }
 
 export interface Report {
     created_at: number;
@@ -15,4 +15,4 @@ export interface GetReportsByReportType {
     reports: Report[];
 }
 
-export interface GetReportsByReportTypeError extends CommonError { }
+export interface GetReportsByReportTypeError extends CommonResponse { }

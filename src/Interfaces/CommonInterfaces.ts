@@ -1,15 +1,15 @@
-export interface CommonError {
+export interface CommonResponse {
   code: number;
   message: string;
 }
 
-export interface AdvanceError extends CommonError {
+export interface AdvanceError extends CommonResponse {
   errors?: Record<string, string>;
 }
 
 export interface CustomErrorResponse {
   status: number;
-  data: CommonError;
+  data: CommonResponse;
 }
 
 export interface ApiEndpoints {

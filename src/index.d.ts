@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios';
+
 /* eslint-disable camelcase */
 export interface CredentialsConfig {
   token?: string;
@@ -61,29 +63,114 @@ export interface UpdateAccountData {
   dateOfBirth?: string;
 }
 
+export declare interface AuthenticateData {
+  email: string;
+  grantType: 'password' | 'client_credentials' | 'refresh_token';
+  clientId: string;
+  clientSecret?: string;
+  refreshToken?: string;
+  referrer?: string;
+  username?: string;
+  password?: string;
+}
+
+export declare interface AccountInformationReturn {
+  id: number;
+  email: string;
+  full_name: string;
+  referrer: string;
+  metadata: object;
+  social_apps_metadata: object[];
+  roles: string[];
+  completed: boolean;
+  created_at: number;
+  updated_at: number;
+}
+
+export declare interface CreateAccount {
+  access_token: string;
+  refresh_token: string;
+  account: AccountInformationReturn;
+}
+
+export declare interface CommonResponse {
+  code: number;
+  message: string;
+}
+
+export declare interface SocialURLs {
+  facebook: string;
+  twitter: string;
+  google: string;
+}
+
+
+export declare interface ListSocialURLs {
+  social_urls: SocialURLs[];
+}
+
+export declare interface GetRegisterFieldOption {
+  string: string;
+}
+
+export declare interface GetRegisterField {
+  id: number;
+  name: string;
+  label: string;
+  type: string;
+  required: boolean;
+  default_value: string;
+  placeholder: string;
+  options: GetRegisterFieldOption[];
+}
+
+export declare interface RestrictionSettingsData {
+  age_verification_type: string;
+  age_verification_enabled: boolean;
+  merchant_uuid: string;
+  created_at: number;
+  updated_at: number;
+}
+
+
 export declare class Account {
   constructor(config: object);
 
-  authenticate(data: AuthData): object;
-  signUp(data: SignUpData): object;
-  signOut(): object;
+  authenticate(data: AuthenticateData): Promise<AxiosResponse<CreateAccount>>;
+  signUp(data: SignUpData): Promise<AxiosResponse<CreateAccount>>;
+  signOut(): Promise<AxiosResponse<undefined>>;
   isAuthenticated(): boolean;
   getToken(): Credentials;
   setToken(token: string, refreshToken: string, expiresAt: number): void;
-  refreshToken(clientId: string): object;
-  reportSSOtoken(ssoDomain: string, tokenData: string, retire: boolean): object;
-  requestNewPassword(data: RequestPasswordData): object;
-  setNewPassword(data: SetPasswordData, token?: string): object | void;
-  getAccount(): object;
-  getSocialLoginUrls(state: string): object;
-  updateAccount(data: UpdateAccountData): object;
-  changePassword(data: ChangePasswordData): object;
-  getRegisterFields(merchantUuid: string): object;
-  deleteAccount(data: DeleteAccountData): object;
-  exportData(data: DeleteAccountData): object;
-  sendPinCode(brandingId?: number): object;
-  validatePinCode(pinCode: string): object;
-  loadMerchantRestrictionSettings(merchantUuid: string): object;
+  refreshToken(clientId: number): Promise<AxiosResponse<CreateAccount>>;
+  reportSSOtoken(
+    ssoDomain: string,
+    tokenData: Credentials,
+    retire: boolean
+  ): Promise<AxiosResponse<any>>;
+  requestNewPassword(
+    data: RequestPasswordData
+  ): Promise<AxiosResponse<CommonResponse>>;
+  setNewPassword(
+    data: SetPasswordData,
+    token?: string
+  ): Promise<AxiosResponse<void>>;
+  getAccount(): Promise<AxiosResponse<AccountInformationReturn>>;
+  getSocialLoginUrls(state: string): Promise<AxiosResponse<ListSocialURLs>>;
+  updateAccount(data: UpdateAccountData): Promise<AxiosResponse<void>>;
+  changePassword(data: ChangePasswordData): Promise<AxiosResponse<void>>;
+  getRegisterFields(
+    merchantUuid: string
+  ): Promise<AxiosResponse<GetRegisterField>>;
+  deleteAccount(data: DeleteAccountData): Promise<AxiosResponse<void>>;
+  exportData(
+    data: DeleteAccountData
+  ): Promise<AxiosResponse<CommonResponse>>;
+  sendPinCode(brandingId: number): Promise<AxiosResponse<CommonResponse>>;
+  validatePinCode(pinCode: string): Promise<AxiosResponse<CommonResponse>>;
+  loadMerchantRestrictionSettings(
+    merchantUuid: string
+  ): Promise<AxiosResponse<RestrictionSettingsData>>;
 }
 
 export interface CodeAccessData {

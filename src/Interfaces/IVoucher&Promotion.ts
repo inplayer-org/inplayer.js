@@ -1,4 +1,4 @@
-import { CommonError, AdvanceError } from './CommonInterfaces';
+import { CommonResponse, AdvanceError } from './CommonInterfaces';
 
 export interface VoucherData {
     id: number;
@@ -17,7 +17,7 @@ export interface VoucherData {
 
 export interface CreateVoucherCode extends VoucherData { }
 
-export interface CreateVoucherCodeError extends CommonError { }
+export interface CreateVoucherCodeError extends CommonResponse { }
 
 export interface CreateVoucherCodeError422 extends AdvanceError { }
 
@@ -29,27 +29,27 @@ export interface GetVouchers {
     limit: number;
 }
 
-export interface GetVouchersError extends CommonError { }
+export interface GetVouchersError extends CommonResponse { }
 
 export interface GetVoucherDetails extends VoucherData { }
 
-export interface GetVoucherDetailsError extends CommonError { }
+export interface GetVoucherDetailsError extends CommonResponse { }
 
 export interface UpdateVoucher extends VoucherData { }
 
-export interface UpdateVoucherError extends CommonError { }
+export interface UpdateVoucherError extends CommonResponse { }
 
 export interface UpdateVoucherError422 extends AdvanceError { }
 
 // TODO: No 200 response for DeleteVoucher
 
-export interface DeleteVoucherError extends CommonError { }
+export interface DeleteVoucherError extends CommonResponse { }
 
 export interface VoucherDiscountPrice {
     amount: number;
 }
 
-export interface VoucherDiscountPriceError extends CommonError { }
+export interface VoucherDiscountPriceError extends CommonResponse { }
 
 export interface VoucherDiscountPriceData {
     accessFeeId: number;
