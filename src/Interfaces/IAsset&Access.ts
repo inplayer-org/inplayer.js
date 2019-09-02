@@ -29,28 +29,6 @@ export interface Item {
   update_at: number;
 }
 
-export interface CreateItem extends Item {}
-
-export interface ItemError extends CommonResponse {}
-
-export interface ItemError422 extends AdvanceError {}
-
-// TODO: No 201 response for DeleteItem
-
-export interface DeleteItemError extends CommonResponse {}
-
-export interface UpdateItem extends Item {}
-
-export interface UpdateItemError extends CommonResponse {}
-
-export interface UpdateItemError422 extends AdvanceError {}
-
-export interface PatchItem extends Item {}
-
-export interface PatchItemError extends CommonResponse {}
-
-export interface PatchItemError422 extends AdvanceError {}
-
 export interface AccessType {
   id: number;
   name: string;
@@ -76,10 +54,6 @@ export interface GeoRestriction {
   type: string;
 }
 
-export interface GetAccessFees extends GetAccessFee {}
-
-export interface GetAccessFeesError extends CommonResponse {}
-
 export interface PostFee {
   id: number;
   merchant_id: number;
@@ -93,10 +67,6 @@ export interface PostFee {
   geo_restriction: GeoRestriction;
   expires_at: number;
 }
-
-export interface PostFeeError extends CommonResponse {}
-
-export interface PostFeeError422 extends AdvanceError {}
 
 export interface GetAccessFee {
   id: number;
@@ -112,12 +82,6 @@ export interface GetAccessFee {
   expires_at: number;
 }
 
-export interface GetAccessFeeError extends CommonResponse {}
-
-//  No 204 response for DeleteAccessFee
-
-export interface DeleteAccessFee extends CommonResponse {}
-
 export interface PutAccessFee {
   id: number;
   merchant_id: number;
@@ -132,25 +96,7 @@ export interface PutAccessFee {
   expires_at: number;
 }
 
-export interface PutAccessFeeError extends CommonResponse {}
-
-export interface PutAccessFeeError422 extends AdvanceError {}
-
-export interface PatchAccessFee extends GetAccessFee {}
-
-export interface PatchAccessFeeError extends CommonResponse {}
-
-export interface PatchAccessFeeError422 extends AdvanceError {}
-
-export interface GetItemDetails extends Item {}
-
-export interface GetItemDetailsError extends CommonResponse {}
-
 //  ---------------------------------V1-----------------------------
-
-export interface GetAccessFeesV1 extends GetAccessFee {}
-
-export interface GetAccessFeesV1Error extends CommonResponse {}
 
 export interface ItemDetailsV1 {
   id: number;
@@ -221,31 +167,6 @@ export interface GetCustomerAccessListPurcased {
   created_at: number;
 }
 
-export interface GetCustomerAccessListGranted
-  extends GetCustomerAccessListRevoked {}
-
-export interface GetCustomerAccessListError extends CommonResponse {}
-
-export interface AddUnlimitedItemAccess extends GetItemAccessV1 {}
-
-export interface AddUnlimitedItemAccessError extends CommonResponse {}
-
-// TODO: NOT GOOD! NOT GOOD AT ALL!!!
-
-export interface CreateItemWithPrice {
-  id: number;
-}
-
-export interface CreateItemWithPriceError extends CommonResponse {}
-
-export interface CreateItemWithPriceError422 extends AdvanceError {}
-
-export interface ExtendItemAccess extends GetItemAccessV1 {}
-
-export interface ExtendItemAccessError extends CommonResponse {}
-
-export interface ExtendItemAccessError422 extends AdvanceError {}
-
 export interface PackageDetails {
   id: number;
   merchant_id: number;
@@ -264,8 +185,6 @@ export interface GetMerchantPackage {
   limit: number;
   collection: PackageDetails;
 }
-
-export interface GetMerchantPackageError extends CommonResponse {}
 
 export interface RequestCodeAccess {
   assetId: number;
