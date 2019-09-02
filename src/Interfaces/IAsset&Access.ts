@@ -300,7 +300,7 @@ export interface Asset {
     page?: number,
     startDate?: string,
     endDate?: string
-  ): object[];
+  ): Promise<AxiosResponse<object[]>>;
   requestCodeAccess(data: CodeAccessData): object;
   getAccessCode(assetId: number): object | null;
   releaseAccessCode(assetId: number): object;

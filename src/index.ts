@@ -112,7 +112,7 @@ class InPlayer {
    */
   subscribe(
     accountUuid: string,
-    callbackParams: Record<string, (...params) => void>,
+    callbackParams: Record<string, (...params: any) => void>,
   ) {
     if (this.Account.isAuthenticated()) {
       this.Notifications.subscribe(accountUuid, callbackParams)

@@ -514,10 +514,7 @@ class Account {
     localStorage.removeItem(this.config.INPLAYER_TOKEN_NAME);
     localStorage.removeItem(this.config.INPLAYER_IOT_NAME);
 
-    return {
-      code: response.status,
-      message: 'Account has been successfuly deleted',
-    };
+    return response;
   }
 
   /**
@@ -543,7 +540,7 @@ class Account {
       branding_id: data.brandingId,
     };
 
-    const response = await authenticatedApi.post(
+    return authenticatedApi.post(
       this.config.API.exportData,
       qs.stringify(body),
       {
@@ -553,11 +550,6 @@ class Account {
         },
       },
     );
-
-    return {
-      code: response.status,
-      message: 'Your data is being exported, please check your email.',
-    };
   }
 
   /**
@@ -576,7 +568,7 @@ class Account {
       branding_id: brandingId,
     };
 
-    const response = await authenticatedApi.post(
+    return authenticatedApi.post(
       this.config.API.sendPinCode,
       qs.stringify(body),
       {
@@ -586,11 +578,6 @@ class Account {
         },
       },
     );
-
-    return {
-      code: response.status,
-      message: response.data.message,
-    };
   }
 
   /**
@@ -609,7 +596,7 @@ class Account {
       pin_code: pinCode,
     };
 
-    const response = await authenticatedApi.post(
+    return authenticatedApi.post(
       this.config.API.validatePinCode,
       qs.stringify(body),
       {
@@ -619,11 +606,6 @@ class Account {
         },
       },
     );
-
-    return {
-      code: response.status,
-      message: response.data.message,
-    };
   }
 
   /**

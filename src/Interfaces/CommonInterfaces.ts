@@ -48,7 +48,6 @@ export interface ApiEndpoints {
   ) => string;
   getPackage: (id: number) => string;
   getAssetAccessFees: (id: number) => string;
-  setFreemiumAsset: string;
   getCloudfrontURL: (assetId: number, videoUrl: string) => string;
   // Payment
   getPaymentMethods: string;

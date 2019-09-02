@@ -51,7 +51,7 @@ export interface Account {
   getRegisterFields(
     merchantUuid: string
   ): Promise<AxiosResponse<GetRegisterField>>;
-  deleteAccount(data: AccountAuthData): Promise<AxiosResponse<void>>;
+  deleteAccount(data: AccountAuthData): Promise<AxiosResponse<CommonResponse>>;
   exportData(
     data: AccountAuthData
   ): Promise<AxiosResponse<CommonResponse>>;
