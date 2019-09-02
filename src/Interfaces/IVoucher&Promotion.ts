@@ -1,5 +1,4 @@
 import { AxiosResponse } from 'axios';
-import { CommonResponse, AdvanceError } from './CommonInterfaces';
 
 export interface VoucherInfo {
   id: number;
@@ -16,12 +15,6 @@ export interface VoucherInfo {
   discount_duration: number;
 }
 
-export interface CreateVoucherCode extends VoucherInfo {}
-
-export interface CreateVoucherCodeError extends CommonResponse {}
-
-export interface CreateVoucherCodeError422 extends AdvanceError {}
-
 export interface GetVouchers {
   collection: VoucherInfo[];
   total: number;
@@ -30,27 +23,9 @@ export interface GetVouchers {
   limit: number;
 }
 
-export interface GetVouchersError extends CommonResponse {}
-
-export interface GetVoucherDetails extends VoucherInfo {}
-
-export interface GetVoucherDetailsError extends CommonResponse {}
-
-export interface UpdateVoucher extends VoucherInfo {}
-
-export interface UpdateVoucherError extends CommonResponse {}
-
-export interface UpdateVoucherError422 extends AdvanceError {}
-
-// TODO: No 200 response for DeleteVoucher
-
-export interface DeleteVoucherError extends CommonResponse {}
-
 export interface VoucherDiscountPrice {
   amount: number;
 }
-
-export interface VoucherDiscountPriceError extends CommonResponse {}
 
 export interface VoucherDiscountPriceData {
   accessFeeId: number;

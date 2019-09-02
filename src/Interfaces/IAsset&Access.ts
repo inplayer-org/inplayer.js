@@ -222,7 +222,7 @@ export interface Asset {
   ): Promise<AxiosResponse<object[]>>;
   requestCodeAccess(data: CodeAccessData): Promise<AxiosResponse<any>>;
   getAccessCode(assetId: number): object | null;
-  releaseAccessCode(assetId: number): Promise<AxiosResponse<any>>;
+  releaseAccessCode(assetId: number): Promise<AxiosResponse<any> | null>;
   getCloudfrontURL(
     assetId: number,
     videoUrl: string
