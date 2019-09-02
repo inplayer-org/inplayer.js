@@ -114,7 +114,7 @@ class Payment {
      *       message: "Submitted for payment",
      *  }
      */
-    async create(data = {}) {
+    async create(data) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
