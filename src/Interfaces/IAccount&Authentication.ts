@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { CommonResponse, AdvanceError } from './CommonInterfaces';
+import { CommonResponse } from './CommonInterfaces';
 
 export interface CredentialsConfig {
   token?: string;

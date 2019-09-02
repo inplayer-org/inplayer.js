@@ -1,7 +1,8 @@
 import Fingerprint2 from 'fingerprintjs2';
 import reduce from 'lodash/reduce';
+import { AxiosResponse } from 'axios';
 import { getToken, authenticatedApi, basicApi } from '../Utils/http';
-import { RequestCodeAccess } from '../Interfaces/IAsset&Access';
+import { RequestCodeAccess, ExternalItemDetails } from '../Interfaces/IAsset&Access';
 import { ApiConfig } from '../Interfaces/CommonInterfaces';
 import { Account } from '../Interfaces/IAccount&Authentication';
 
@@ -26,7 +27,7 @@ class Asset {
    * @example
    *     InPlayer.Asset.checkAccessForAsset(42597)
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<GetItemAccessV1>}
    */
   async checkAccessForAsset(id: number) {
     return authenticatedApi.get(this.config.API.checkAccessForAsset(id), {
@@ -65,7 +66,7 @@ class Asset {
    *     InPlayer.Asset
    *     .getAsset(2,'a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl')
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<ItemDetailsV1>}
    */
   async getAsset(assetId: number, merchantUuid: string) {
     return basicApi.get(this.config.API.getAsset(assetId, merchantUuid));
@@ -82,7 +83,7 @@ class Asset {
    *     InPlayer.Asset
    *     .getExternalAsset('ooyala','44237')
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<ExternalItemDetails>}
    */
   async getExternalAsset(
     assetType: string,
@@ -103,7 +104,7 @@ class Asset {
    *     InPlayer.Asset
    *     .getPackage(4444)
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<GetMerchantPackage>}
    */
   async getPackage(id: number) {
     return basicApi.get(this.config.API.getPackage(id));
@@ -118,7 +119,7 @@ class Asset {
    *     InPlayer.Asset
    *     .getAssetAccessFees(555)
    *     .then(data => console.log(data))
-   * @return {Object}
+   * @return {AxiosResponse<GetAccessFee>}
    */
   async getAssetAccessFees(id: number) {
     return basicApi.get(this.config.API.getAssetAccessFees(id));
@@ -152,30 +153,6 @@ class Asset {
         },
       },
     );
-  }
-
-  /**
-   * Authorize for the freemium asset (login)
-   * @method getFreemiumAsset
-   * @async
-   * @param accessFee
-   * @example
-   *     InPlayer.Asset
-   *     .getFreemiumAsset(2233)
-   *     .then(data => console.log(data));
-   * @return {Object}
-   */
-  async getFreemiumAsset(accessFeeId: number) {
-    const formData = new FormData();
-
-    formData.append('access_fee', String(accessFeeId));
-
-    return authenticatedApi.post(this.config.API.getFreemiumAsset, formData, {
-      headers: {
-        Authorization: `Bearer ${getToken().token}`,
-        'Content-Type': 'multipart/form-data',
-      },
-    });
   }
 
   /**

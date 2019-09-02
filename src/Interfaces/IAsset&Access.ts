@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import { CommonResponse, AdvanceError } from './CommonInterfaces';
 
 export interface AccessControlType {
@@ -151,8 +152,7 @@ export interface GetAccessFeesV1 extends GetAccessFee {}
 
 export interface GetAccessFeesV1Error extends CommonResponse {}
 
-export interface ItemV1 {
-  content: string;
+export interface ItemDetailsV1 {
   id: number;
   merchant_id: number;
   merchant_uuid: string;
@@ -161,9 +161,18 @@ export interface ItemV1 {
   access_control_type: AccessControlType;
   item_type: ItemType;
   age_restriction: Record<string, number>;
-  metadata: Record<string, string>;
+  metadata: Record<string, string>[];
   created_at: number;
-  update_at: number;
+  updated_at: number;
+}
+
+export interface ItemDetailsAccess extends ItemDetailsV1 {
+  content: string;
+}
+
+export interface ExternalItemDetails extends ItemDetailsV1 {
+  access_fees: GetAccessFee[];
+  metahash: Record<string, string>;
 }
 
 export interface GetItemAccessV1 {
@@ -175,34 +184,8 @@ export interface GetItemAccessV1 {
   country_code: string;
   created_at: number;
   expires_at: number;
-  item: ItemV1;
+  item: ItemDetailsAccess;
 }
-
-export interface GetItemAccessV1Error extends CommonResponse {}
-
-// TODO: No 204 response for RevokeItemAccess
-
-export interface RevokeItemAccessError extends CommonResponse {}
-
-export interface GetItemDetailsV1 {
-  id: number;
-  merchant_id: number;
-  merchant_uuid: string;
-  is_active: boolean;
-  title: string;
-  access_control_type: AccessControlType;
-  item_type: ItemType;
-  age_restriction: Record<string, number>;
-  metadata: Record<string, string>;
-  created_at: number;
-  update_at: number;
-}
-
-export interface GrantItemAccess extends GetItemAccessV1 {}
-
-export interface GrantItemAccessError extends CommonResponse {}
-
-export interface GrantItemAccessError422 extends AdvanceError {}
 
 export interface GetCustomerAccessListRevoked {
   type: string;
@@ -263,7 +246,7 @@ export interface ExtendItemAccessError extends CommonResponse {}
 
 export interface ExtendItemAccessError422 extends AdvanceError {}
 
-export interface PackageDetail {
+export interface PackageDetails {
   id: number;
   merchant_id: number;
   is_active: boolean;
@@ -279,7 +262,7 @@ export interface GetMerchantPackage {
   page: number;
   offset: number;
   limit: number;
-  collection: PackageDetail;
+  collection: PackageDetails;
 }
 
 export interface GetMerchantPackageError extends CommonResponse {}
@@ -294,26 +277,35 @@ export interface CodeAccessData {
   code: string;
 }
 
+export interface CloudfrontUrl {
+  video_url: string;
+}
+
 export interface Asset {
   checkAccessForAsset(id: number): object;
   isFreeTrialUsed(id: number): object;
-  getAsset(assetId: number, merchantUuid: string): object;
+  getAsset(
+    assetId: number,
+    merchantUuid: string
+  ): Promise<AxiosResponse<ItemDetailsV1>>;
   getExternalAsset(
     assetType: string,
     externalId: string,
     merchantUuid: string
-  ): object;
-  getPackage(id: number): object;
-  getAssetAccessFees(id: number): object;
+  ): Promise<AxiosResponse<ExternalItemDetails>>;
+  getPackage(id: number): Promise<AxiosResponse<GetMerchantPackage>>;
+  getAssetAccessFees(id: number): Promise<AxiosResponse<GetAccessFee>>;
   getAssetsHistory(
     size?: number,
     page?: number,
     startDate?: string,
     endDate?: string
-  ): object;
-  getFreemiumAsset(accessFeeId: number): object;
+  ): object[];
   requestCodeAccess(data: CodeAccessData): object;
-  getAccessCode(assetId: number): object;
+  getAccessCode(assetId: number): object | null;
   releaseAccessCode(assetId: number): object;
-  getCloudfrontURL(assetId: number, videoUrl: string): object;
+  getCloudfrontURL(
+    assetId: number,
+    videoUrl: string
+  ): Promise<AxiosResponse<CloudfrontUrl>>;
 }

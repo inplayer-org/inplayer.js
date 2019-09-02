@@ -487,7 +487,7 @@ export interface DirectDebitChargeResponse {
 }
 
 export interface Payment {
-  getPaymentMethods(): object;
+  getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
   getPaymentTools(paymentMethodId: number): object;
   create(data: CreatePaymentData): object;
   getPayPalParams(data: PayPalParamsData): object;

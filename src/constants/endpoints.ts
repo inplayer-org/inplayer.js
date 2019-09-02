@@ -47,7 +47,6 @@ export const API = (baseUrl: string) => ({
   },
   getPackage: (id: any) => `${baseUrl}/items/packages/${id}`,
   getAssetAccessFees: (id: any) => `${baseUrl}/items/${id}/access-fees`,
-  getFreemiumAsset: `${baseUrl}/items/access/unlimited`,
   getCloudfrontURL: (assetId: any, videoUrl: any) =>
     `${baseUrl}/items/${assetId}/access/cloudfront?url=${videoUrl}`,
   // Payment
