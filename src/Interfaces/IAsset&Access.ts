@@ -282,8 +282,8 @@ export interface CloudfrontUrl {
 }
 
 export interface Asset {
-  checkAccessForAsset(id: number): object;
-  isFreeTrialUsed(id: number): object;
+  checkAccessForAsset(id: number): Promise<AxiosResponse<GetItemAccessV1>>;
+  isFreeTrialUsed(id: number): Promise<AxiosResponse<any>>;
   getAsset(
     assetId: number,
     merchantUuid: string
@@ -301,9 +301,9 @@ export interface Asset {
     startDate?: string,
     endDate?: string
   ): Promise<AxiosResponse<object[]>>;
-  requestCodeAccess(data: CodeAccessData): object;
+  requestCodeAccess(data: CodeAccessData): Promise<AxiosResponse<any>>;
   getAccessCode(assetId: number): object | null;
-  releaseAccessCode(assetId: number): object;
+  releaseAccessCode(assetId: number): Promise<AxiosResponse<any>>;
   getCloudfrontURL(
     assetId: number,
     videoUrl: string
