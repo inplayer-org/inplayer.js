@@ -68,7 +68,7 @@ export interface ApiEndpoints {
   // Misc
   getDlcLinks: (id: number) => string;
   getDiscount: string;
-  getBranding: (merchantUuid: string, brandingId: string) => string;
+  getBranding: (merchantUuid: string, brandingId: string | number) => string;
   downloadFile: (assetId: number, filename: string) => string;
   requestCodeAccess: string;
   releaseAccessCode: (code: number) => string;
