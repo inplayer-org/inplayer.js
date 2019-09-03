@@ -387,11 +387,6 @@ export interface DirectDebitChargeData {
   brandingId?: number;
 }
 
-export interface DirectDebitChargeResponse {
-  code: string;
-  message: string;
-}
-
 export interface DirectDebitMandateResponse {
   is_approved: boolean;
   statement_descriptor: string;
@@ -440,10 +435,8 @@ export declare class Payment {
   createDirectDebitMandate: (
     data: DirectDebitMandateData
   ) => CreateDirectDebitResponse;
-  directDebitCharge: (data: DirectDebitChargeData) => DirectDebitChargeResponse;
-  directDebitSubscribe: (
-    data: DirectDebitChargeData
-  ) => DirectDebitChargeResponse;
+  directDebitCharge: (data: DirectDebitChargeData) => CommonResponse;
+  directDebitSubscribe: (data: DirectDebitChargeData) => CommonResponse;
 }
 
 export interface CreateSubscriptionData {
@@ -459,13 +452,57 @@ export interface CreateSubscriptionData {
   brandingId?: number;
 }
 
+export declare interface SubscriptionDetails {
+  cancel_token: string;
+  status: string;
+  description: string;
+  asset_title: string;
+  asset_id: number;
+  formatted_amount: string;
+  amount: number;
+  currency: string;
+  merchant_id: number;
+  created_at: number;
+  updated_at: number;
+  next_billing_date: number;
+  unsubscribe_url: string;
+}
+
+export declare interface GetSubscription {
+  total: number;
+  page: number;
+  offset: number;
+  limit: number;
+  collection: SubscriptionDetails[];
+}
+
+export declare interface CancelSubscription {
+  code: number;
+  subscription: string;
+  operation: string;
+  description: string;
+  status: string;
+  timestamp: number;
+}
+
+export declare interface CreateSubscription {
+  message: string;
+}
+
 export declare class Subscription {
   constructor(config: object, Account: Account);
 
-  getSubscriptions(page?: number, limit?: number): object;
-  getSubscription(id: string): object;
-  cancelSubscription(unsubscribeUrl: string): object;
-  create(data: CreateSubscriptionData): object;
+  getSubscriptions(
+    page?: number,
+    limit?: number
+  ): Promise<AxiosResponse<GetSubscription>>;
+  getSubscription(id: string): Promise<AxiosResponse<SubscriptionDetails>>;
+  cancelSubscription(
+    unsubscribeUrl: string
+  ): Promise<AxiosResponse<CancelSubscription>>;
+  create(
+    data: CreateSubscriptionData
+  ): Promise<AxiosResponse<CreateSubscription>>;
 }
 
 export interface DiscountData {
