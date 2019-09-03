@@ -74,46 +74,44 @@ class Payment {
     }
 
     /**
-     * Makes a Payment for a given Authorization token + asset/payment details.
-     * Use this method ONLY if the assetFee.type is not 'subscription' or 'freemium'. Otherwise
-     * please use InPlayer.Subscription.create()
-     * @method create
-     * @async
-     * @param {Object} data - Payment data - {
-     *  number: number || string,
-     *  cardName: string,
-     *  expMonth: number,
-     *  expYear: number,
-     *  cvv: number,
-     *  accessFee: number,
-     *  paymentMethod: string,
-     *  referrer: string,
-     *  voucherCode?: string,
-     *  brandingId?: number,
-     *  returnUrl?: string,
-     *  paymentIntentId?: string
-     * }
-     * @example
-     *     InPlayer.Payment
-     *     .create({
-     *       number: 4111111111111111,
-     *       cardName: 'PayPal',
-     *       expMonth: 10,
-     *       expYear: 2030,
-     *       cvv: 656,
-     *       accessFee: 2341,
-     *       paymentMethod: 1,
-     *       referrer: 'http://google.com',
-     *       voucherCode: 'fgh1982gff-0f2grfds',
-     *       brandingId: 1234,
-     *       returnUrl: 'https://event.inplayer.com/staging',
-     *       paymentIntentId: '332242'
-     *      })
-     *     .then(data => console.log(data));
-     * @return {Object} Contains the data - {
-     *       message: "Submitted for payment",
-     *  }
-     */
+  * Makes a Payment for a given Authorization token + asset/payment details.
+  * Use this method ONLY if the assetFee.type is not 'subscription' or 'freemium'. Otherwise
+  * please use InPlayer.Subscription.create()
+  * @method create
+  * @async
+  * @param {Object} data - Payment data - {
+  *  number: number || string,
+  *  cardName: string,
+  *  expMonth: number,
+  *  expYear: number,
+  *  cvv: number,
+  *  accessFee: number,
+  *  paymentMethod: string,
+  *  referrer: string
+  *  voucherCode?: string
+  *  brandingId?: number
+  *  returnUrl?: string
+  * }
+  * @example
+  *     InPlayer.Payment
+  *     .create({
+  *       number: 4111111111111111,
+  *       cardName: 'PayPal',
+  *       expMonth: 10,
+  *       expYear: 2030,
+  *       cvv: 656,
+  *       accessFee: 2341,
+  *       paymentMethod: 1,
+  *       referrer: 'http://google.com',
+  *       voucherCode: 'fgh1982gff-0f2grfds',
+  *       brandingId: 1234,
+  *       returnUrl: 'https://event.inplayer.com/staging'
+  *      })
+  *     .then(data => console.log(data));
+  * @return {Object} Contains the data - {
+  *       message: "Submitted for payment",
+  *  }
+  */
     async create(data) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
@@ -122,30 +120,21 @@ class Payment {
             });
         }
 
-        let body = {};
+        let body = {
+            number: data.number,
+            card_name: data.cardName,
+            exp_month: data.expMonth,
+            exp_year: data.expYear,
+            cvv: data.cvv,
+            access_fee: data.accessFee,
+            payment_method: data.paymentMethod,
+            referrer: data.referrer,
+            branding_id: data.brandingId,
+            return_url: data.returnUrl,
+        };
 
-        if (data.paymentIntentId) {
-            body.pi_id = data.paymentIntentId;
-        } else {
-            body = {
-                number: data.number,
-                card_name: data.cardName,
-                exp_month: data.expMonth,
-                exp_year: data.expYear,
-                cvv: data.cvv,
-                access_fee: data.accessFee,
-                payment_method: data.paymentMethod,
-                referrer: data.referrer,
-                return_url: data.returnUrl,
-            };
-
-            if (data.brandingId) {
-                body.branding_id = data.brandingId;
-            }
-
-            if (data.voucherCode) {
-                body.voucher_code = data.voucherCode;
-            }
+        if (data.voucherCode) {
+            body.voucher_code = data.voucherCode;
         }
 
         const response = await fetch(this.config.API.payForAsset, {
