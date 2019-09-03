@@ -1,10 +1,9 @@
 import Fingerprint2 from 'fingerprintjs2';
 import reduce from 'lodash/reduce';
-import { AxiosResponse } from 'axios';
 import { getToken, authenticatedApi, basicApi } from '../Utils/http';
-import { RequestCodeAccess, ExternalItemDetails } from '../Interfaces/IAsset&Access';
 import { ApiConfig } from '../Interfaces/CommonInterfaces';
 import { Account } from '../Interfaces/IAccount&Authentication';
+import { CodeAccessData } from '../Interfaces/IAsset&Access';
 
 /**
  * Contains all Requests connected with assets/items
@@ -171,7 +170,7 @@ class Asset {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async requestCodeAccess({ assetId, code }: RequestCodeAccess) {
+  async requestCodeAccess({ assetId, code }: CodeAccessData) {
     const formData = new FormData();
 
     const browserDetails = await Fingerprint2.getPromise();

@@ -186,11 +186,6 @@ export interface GetMerchantPackage {
   collection: PackageDetails;
 }
 
-export interface RequestCodeAccess {
-  assetId: number;
-  code: string;
-}
-
 export interface CodeAccessData {
   assetId: number;
   code: string;
