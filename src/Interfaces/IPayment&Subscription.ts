@@ -434,7 +434,7 @@ export interface Subscription {
     page?: number,
     limit?: number
   ): Promise<AxiosResponse<GetSubscription>>;
-  getSubscription(id: string): Promise<AxiosResponse<SubscriptionDetails>>;
+  getSubscription(id: number): Promise<AxiosResponse<SubscriptionDetails>>;
   cancelSubscription(
     unsubscribeUrl: string
   ): Promise<AxiosResponse<CancelSubscription>>;
