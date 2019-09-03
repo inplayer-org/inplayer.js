@@ -22,9 +22,9 @@ class Branding {
    *     InPlayer.Branding
    *     .getBranding('eyJ0e-XAiOi-JKPEC-ENR5Y', '123')
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<Brand>}
    */
-  async getBranding(clientId: string, brandingId: string) {
+  async getBranding(clientId: string, brandingId: string | number) {
     return basicApi.get(this.config.API.getBranding(clientId, brandingId));
   }
 }

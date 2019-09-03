@@ -1,6 +1,10 @@
 import qs from 'qs';
+import { AxiosResponse } from 'axios';
 import { authenticatedApi, getToken } from '../Utils/http';
-import { CreateSubscriptionData, CreateSubscriptionBody } from '../Interfaces/IPayment&Subscription';
+import {
+  CreateSubscriptionData,
+  CreateSubscriptionBody,
+} from '../Interfaces/IPayment&Subscription';
 import { ApiConfig } from '../Interfaces/CommonInterfaces';
 import { Account } from '../Interfaces/IAccount&Authentication';
 
@@ -12,29 +16,28 @@ import { Account } from '../Interfaces/IAccount&Authentication';
 class Subscription {
   config: ApiConfig;
   Account: Account;
-  constructor(config: any, account: Account) {
+  constructor(config: ApiConfig, account: Account) {
     this.config = config;
     this.Account = account;
   }
   /**
-     * Gets all subscriptions for a given user
-     * @method getSubscriptions
-     * @async
-     * @param {number} page - The current page
-     * @param {number} limit - The number of items per page
-     * @example
-     *     InPlayer.Subscription
-     *     .getSubscriptions()
-     *     .then(data => console.log(data));
-     * @return {Object}
-     */
+   * Gets all subscriptions for a given user
+   * @method getSubscriptions
+   * @async
+   * @param {number} page - The current page
+   * @param {number} limit - The number of items per page
+   * @example
+   *     InPlayer.Subscription
+   *     .getSubscriptions()
+   *     .then(data => console.log(data));
+   * @return {AxiosResponse<GetSubscription>}
+   */
   async getSubscriptions(page = 0, limit = 15) {
-    return authenticatedApi.get(this.config.API.getSubscriptions(limit, page),
-      {
-        headers: {
-          Authorization: `Bearer ${getToken().token}`,
-        },
-      });
+    return authenticatedApi.get(this.config.API.getSubscriptions(limit, page), {
+      headers: {
+        Authorization: `Bearer ${getToken().token}`,
+      },
+    });
   }
 
   /**
@@ -48,7 +51,7 @@ class Subscription {
    *     InPlayer.Subscription
    *     .getSubscription('abcdef')
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<SubscriptionDetails>}
    */
   async getSubscription(id: number) {
     return authenticatedApi.get(this.config.API.getSubscription(id), {
@@ -67,15 +70,17 @@ class Subscription {
    *     InPlayer.Subscription
    *     .cancelSubscription('abcdef')
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<CancelSubscription>}
    */
   async cancelSubscription(unsubscribeUrl: string) {
-    return authenticatedApi.get(this.config.API.cancelSubscription(unsubscribeUrl),
+    return authenticatedApi.get(
+      this.config.API.cancelSubscription(unsubscribeUrl),
       {
         headers: {
           Authorization: `Bearer ${getToken().token}`,
         },
-      });
+      },
+    );
   }
 
   /**
@@ -111,7 +116,7 @@ class Subscription {
    *        }
    *     )
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<CreateSubscription>}
    */
   async create(data: CreateSubscriptionData) {
     const body: CreateSubscriptionBody = {
@@ -130,12 +135,16 @@ class Subscription {
       body.voucher_code = data.voucherCode;
     }
 
-    return authenticatedApi.post(this.config.API.subscribe, qs.stringify(body), {
-      headers: {
-        Authorization: `Bearer ${getToken().token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
+    return authenticatedApi.post(
+      this.config.API.subscribe,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
       },
-    });
+    );
   }
 }
 

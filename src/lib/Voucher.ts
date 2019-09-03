@@ -32,7 +32,7 @@ class Voucher {
    *        voucherCode: 'FOOrGmv60pT'
    *     })
    *     .then(data => console.log(data));
-   * @return {VoucherDiscountPrice}
+   * @return {AxiosResponse<VoucherDiscountPrice>}
    */
   async getDiscount(data: VoucherDiscountPriceData) {
     const body = {

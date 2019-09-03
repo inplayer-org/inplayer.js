@@ -10,25 +10,15 @@ export interface GeneratePayPalParameters {
   cancel_return: string;
 }
 
-export interface GeneratePayPalParametersError extends CommonResponse {}
-
-export interface GeneratePayPalParametersError422 extends AdvanceError {}
-
 export interface CancelPayPalSubscription {
   code: number;
   subscription_id: string;
   message: string;
 }
 
-export interface CancelPayPalSubscriptionError extends CommonResponse {}
-
 export interface CreatePayment {
   message: string;
 }
-
-export interface CreatePaymentError extends CommonResponse {}
-
-export interface CreatePaymentError422 extends AdvanceError {}
 
 export interface Country {
   name: string;
@@ -72,15 +62,11 @@ export interface MerchantActivePaymentMethod {
   provider_name: string;
 }
 
-export interface MerchantActivePaymentMethodError extends CommonResponse {}
-
 export interface MerchantPaymentMethod {
   id: number;
   method_name: string;
   is_external: boolean;
 }
-
-export interface MerchantPaymentMethodsError extends CommonResponse {}
 
 export interface PaymentMethod {
   id: number;
@@ -109,23 +95,15 @@ export interface MerchantPaymentProviders {
   string_connect: boolean;
 }
 
-export interface MerchantPaymentProvidersError extends CommonResponse {}
-
 export interface CreateBankStatementDescriptor {
   id: number;
   message: string;
 }
 
-export interface CreateBankStatementDescriptorError extends CommonResponse {}
-
 export interface DeleteBankStatementDescriptor {
   id: number;
   message: string;
 }
-
-export interface DeleteBankStatementDescriptorError extends CommonResponse {}
-
-export interface DeleteBankStatementDescriptorError400 extends AdvanceError {}
 
 export interface CountryValue {
   amount: number;
@@ -147,8 +125,6 @@ export interface GetRevenuePerAssetPerCountry {
   collection: RevenuePerAssetPerCountry[];
 }
 
-export interface GetRevenuePerAssetPerCountryError extends CommonResponse {}
-
 export interface RevenueAssetDetails {
   timestamp: number;
   values: Country[];
@@ -163,22 +139,14 @@ export interface GetRevenuePerAsset {
   collection: RevenuePerAsset[];
 }
 
-export interface GetRevenuePerAssetError extends CommonResponse {}
-
 export interface StripeConnectRequest {
   code: number;
   message: string;
 }
 
-export interface StripeConnectRequestError extends CommonResponse {}
-
 export interface StripeConnect {
   code: number;
 }
-
-export interface StripeConnectError extends CommonResponse {}
-
-export interface StripeConnectError400 extends AdvanceError {}
 
 export interface SubscriptionDetails {
   cancel_token: string;
@@ -204,15 +172,9 @@ export interface GetSubscription {
   collection: SubscriptionDetails[];
 }
 
-export interface GetSubscriptionError extends AdvanceError {}
-
 export interface CreateSubscription {
   message: string;
 }
-
-export interface CreateSubscriptionError extends CommonResponse {}
-
-export interface CreateSubscriptionError422 extends AdvanceError {}
 
 export interface CancelSubscription {
   code: number;
@@ -223,60 +185,37 @@ export interface CancelSubscription {
   timestamp: number;
 }
 
-export interface CancelSubscriptionError extends CommonResponse {}
-
-export interface CancelSubscriptionError400 extends AdvanceError {}
-
 // --------------------------------------V2--------------------------------------
+
 export interface ValidateAmazonReceipt {
   code: number;
   message: string;
 }
-
-export interface ValidateAmazonReceiptError extends CommonResponse {}
-
-export interface ValidateAmazonReceiptError422 extends AdvanceError {}
 
 export interface ValidateAppleReceipt {
   code: number;
   message: string;
 }
 
-export interface ValidateAppleReceiptError extends CommonResponse {}
-
-export interface ValidateAppleReceiptError422 extends AdvanceError {}
-
 export interface ValidateGooglePlayReceipt {
   code: number;
   message: string;
 }
-
-export interface ValidateGooglePlayReceiptError extends CommonResponse {}
-
-export interface ValidateGooglePlayReceiptError422 extends AdvanceError {}
 
 export interface CancelGooglePlaySubscription {
   code: number;
   message: string;
 }
 
-export interface CancelGooglePlaySubscriptionError extends CommonResponse {}
-
 export interface ValidateRokuReceipt {
   code: number;
   message: string;
 }
 
-export interface ValidateRokuReceiptError extends CommonResponse {}
-
-export interface ValidateRokuReceiptError422 extends AdvanceError {}
-
 export interface CreateCharge {
   code: number;
   message: string;
 }
-
-export interface CreateChargeError extends CommonResponse {}
 
 export interface Card {
   number: number;
@@ -289,15 +228,9 @@ export interface GetDefaultCard {
   cards: Card[];
 }
 
-export interface GetDefaultCardError extends CommonResponse {}
-
 export interface SetDefaultCardPerCurrency {
   account: Card;
 }
-
-export interface SetDefaultCardPerCurrencyError extends CommonResponse {}
-
-export interface SetDefaultCardPerCurrencyError400 extends AdvanceError {}
 
 export interface TypeData {
   bank_code: number;
@@ -327,19 +260,11 @@ export interface GetMandate {
   mandate: Mandate;
 }
 
-export interface GetMandateError extends CommonResponse {}
-
-export interface CreateMandate extends Mandate {}
-
-export interface CreateMandateError extends CommonResponse {}
-
 export interface SetPaymentProviderMetadata {
   code: number;
   message: string;
   metadata: Record<string, string>[];
 }
-
-export interface SetPaymentProviderMetadataError extends CommonResponse {}
 
 export interface Metadata {
   id: number;
@@ -352,10 +277,6 @@ export interface GetPaymentProviderMetadata {
   message: string;
   metadata: Metadata;
 }
-
-export interface GetPaymentProviderMetadataError extends CommonResponse {}
-
-export interface CreateSubscriptionV2Error extends CommonResponse {}
 
 export interface CreatePaymentData {
   number: number;
@@ -544,8 +465,15 @@ export interface Payment {
 }
 
 export interface Subscription {
-  getSubscriptions(page?: number, limit?: number): object;
-  getSubscription(id: number): object;
-  cancelSubscription(unsubscribeUrl: string): object;
-  create(data: CreateSubscriptionData): object;
+  getSubscriptions(
+    page?: number,
+    limit?: number
+  ): Promise<AxiosResponse<GetSubscription>>;
+  getSubscription(id: number): Promise<AxiosResponse<SubscriptionDetails>>;
+  cancelSubscription(
+    unsubscribeUrl: string
+  ): Promise<AxiosResponse<CancelSubscription>>;
+  create(
+    data: CreateSubscriptionData
+  ): Promise<AxiosResponse<CreateSubscription>>;
 }

@@ -29,7 +29,7 @@ class Notifications {
   }
 
   /* Subscribes to Websocket notifications */
-  async subscribe(accountUuid = '', callbackParams: Record<string, (...params) => void>) {
+  async subscribe(accountUuid = '', callbackParams: Record<string, (...params: any) => void>) {
     if (!accountUuid && accountUuid === '') {
       return false;
     }
