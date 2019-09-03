@@ -163,6 +163,46 @@ class Payment {
     }
 
     /**
+    * As part of new bank regulations, we need to provide options for
+    * additional authentication during the payment flow for customers
+    * @method confirmPayment
+    * @async
+    * @param {string}
+    * @example
+    *     InPlayer.Payment
+    *     .confirmPayment('332242')
+    *     .then(data => console.log(data));
+    * @return {Object} Contains the data - {
+    *       message: "Submitted for payment",
+    *  }
+    */
+    async confirmPayment(paymentIntentId) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: 'User is not authenticated'
+            });
+        }
+
+        let body = {
+            pi_id: paymentIntentId,
+        };
+
+        const response = await fetch(this.config.API.payForAsset, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${this.Account.getToken().token}`,
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: params(body),
+        });
+
+        checkStatus(response);
+
+        return await response.json();
+    }
+
+    /**
      * Gets parameters for PayPal
      * @method getPayPalParams
      * @async
