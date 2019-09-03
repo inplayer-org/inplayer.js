@@ -486,22 +486,44 @@ export interface SetDefaultCard {
   exp_year: number;
 }
 
+export declare interface DirectDebitData {
+  accessFeeId: number;
+  assetId: number;
+  voucherCode: string;
+  paymentMethod: 'Direct Debit';
+  brandingId?: number;
+}
+
 export declare class Payment {
   constructor(config: object, Account: Account);
 
   getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
-  getPaymentTools(paymentMethodId: number): Promise<AxiosResponse<object>>;
+  getPaymentTools(paymentMethodId: number): Promise<AxiosResponse<any>>;
   create(data: CreatePaymentData): Promise<AxiosResponse<CreatePayment>>;
-  getPayPalParams(data: PayPalParamsData): Promise<AxiosResponse<GeneratePayPalParameters>>;
-  getPurchaseHistory(status: string, page: number, limit: number): Promise<AxiosResponse<PurchaseHistoryCollection[]>>;
-  getDefaultCreditCard(): Promise<AxiosResponse<GetDefaultCard>>;;
-  setDefaultCreditCard(data: DefaultCreditCardData): Promise<AxiosResponse<SetDefaultCard>>;
-  getDirectDebitMandate: () => DirectDebitMandateResponse;
+  getPayPalParams(
+    data: PayPalParamsData
+  ): Promise<AxiosResponse<GeneratePayPalParameters>>;
+  getPurchaseHistory(
+    status: string,
+    page: number,
+    limit: number
+  ): Promise<AxiosResponse<PurchaseHistoryCollection[]>>;
+  getDefaultCreditCard(): Promise<AxiosResponse<GetDefaultCard>>;
+  setDefaultCreditCard(
+    data: DefaultCreditCardData
+  ): Promise<AxiosResponse<SetDefaultCard>>;
+  getDirectDebitMandate: () => Promise<
+    AxiosResponse<DirectDebitMandateResponse>
+  >;
   createDirectDebitMandate: (
     data: DirectDebitMandateData
-  ) => CreateDirectDebitResponse;
-  directDebitCharge: (data: DirectDebitChargeData) => CommonResponse;
-  directDebitSubscribe: (data: DirectDebitChargeData) => CommonResponse;
+  ) => Promise<AxiosResponse<CreateDirectDebitResponse>>;
+  directDebitCharge: (
+    data: DirectDebitData
+  ) => Promise<AxiosResponse<CommonResponse>>;
+  directDebitSubscribe: (
+    data: DirectDebitData
+  ) => Promise<AxiosResponse<CommonResponse>>;
 }
 
 export interface CreateSubscriptionData {

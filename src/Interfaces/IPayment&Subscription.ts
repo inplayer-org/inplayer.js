@@ -402,11 +402,6 @@ export interface DirectDebitMandateData {
   iban: string;
 }
 
-export interface DirectDebitChargeResponse {
-  code: string;
-  message: string;
-}
-
 export interface PurchaseDetails {
   consumer_email: string;
   created_at: number;
@@ -444,12 +439,20 @@ export interface SetDefaultCard {
 
 export interface Payment {
   getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
-  getPaymentTools(paymentMethodId: number): Promise<AxiosResponse<object>>;
+  getPaymentTools(paymentMethodId: number): Promise<AxiosResponse<any>>;
   create(data: CreatePaymentData): Promise<AxiosResponse<CreatePayment>>;
-  getPayPalParams(data: PayPalParamsData): Promise<AxiosResponse<GeneratePayPalParameters>>;
-  getPurchaseHistory(status: string, page: number, limit: number): Promise<AxiosResponse<PurchaseHistoryCollection[]>>;
+  getPayPalParams(
+    data: PayPalParamsData
+  ): Promise<AxiosResponse<GeneratePayPalParameters>>;
+  getPurchaseHistory(
+    status: string,
+    page: number,
+    limit: number
+  ): Promise<AxiosResponse<PurchaseHistoryCollection[]>>;
   getDefaultCreditCard(): Promise<AxiosResponse<GetDefaultCard>>;
-  setDefaultCreditCard(data: DefaultCreditCardData): Promise<AxiosResponse<SetDefaultCard>>;
+  setDefaultCreditCard(
+    data: DefaultCreditCardData
+  ): Promise<AxiosResponse<SetDefaultCard>>;
   getDirectDebitMandate: () => Promise<
     AxiosResponse<DirectDebitMandateResponse>
   >;
@@ -458,10 +461,10 @@ export interface Payment {
   ) => Promise<AxiosResponse<CreateDirectDebitResponse>>;
   directDebitCharge: (
     data: DirectDebitData
-  ) => Promise<AxiosResponse<DirectDebitChargeResponse>>;
+  ) => Promise<AxiosResponse<CommonResponse>>;
   directDebitSubscribe: (
     data: DirectDebitData
-  ) => Promise<AxiosResponse<DirectDebitChargeResponse>>;
+  ) => Promise<AxiosResponse<CommonResponse>>;
 }
 
 export interface Subscription {

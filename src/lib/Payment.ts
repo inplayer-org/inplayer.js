@@ -273,7 +273,7 @@ class Payment {
    *     InPlayer.Payment
    *     .getDirectDebitMandate()
    *     .then(data => console.log(data));
-   * @return {Object} Contains the data - {
+   * @return {AxiosResponse<DirectDebitMandateResponse>} Contains the data - {
    *  is_approved: {boolean},
    *  statement_descriptor: {string},
    *  mandate: {
@@ -287,9 +287,7 @@ class Payment {
    *    }
    * }
    */
-  async getDirectDebitMandate(): Promise<
-    AxiosResponse<DirectDebitMandateResponse>
-    > {
+  async getDirectDebitMandate() {
     return authenticatedApi.get(this.config.API.getDirectDebitMandate, {
       headers: {
         Authorization: `Bearer ${getToken().token}`,
@@ -309,7 +307,7 @@ class Payment {
    *     InPlayer.Payment
    *     .createDirectDebitMandate('/v2/payments/direct-debit/mandate', body)
    *     .then(data => console.log(data));
-   * @return {Object} Contains the data - {
+   * @return {AxiosResponse<CreateDirectDebitResponse>} Contains the data - {
    *   "id": "src_1F2GzxJqmvwo8uTaJnRVkgYS",
    *   "currency": "eur",
    *   "created": 1564576421,
@@ -361,7 +359,7 @@ class Payment {
    *     InPlayer.Payment
    *     .directDebitCharge({ assetId, accessFeeId, voucherCode, brandingId })
    *     .then(data => console.log(data));
-   * @return {Object} Contains the data - {
+   * @return {AxiosResponse<CommonResponse>} Contains the data - {
    *       code: '200',
    *       message: "Submitted for payment",
    *    }
@@ -402,7 +400,7 @@ class Payment {
    *     InPlayer.Payment
    *     .directDebitSubscribe({ assetId, accessFeeId, voucherCode, brandingId })
    *     .then(data => console.log(data));
-   * @return {Object} Contains the data - {
+   * @return {AxiosResponse<CommonResponse>} Contains the data - {
    *       code: '200',
    *       message: "Submitted for payment",
    *    }
