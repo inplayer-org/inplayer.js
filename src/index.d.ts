@@ -407,16 +407,81 @@ export interface CreateDirectDebitResponse {
   };
 }
 
+export interface MerchantPaymentMethod {
+  id: number;
+  method_name: string;
+  is_external: boolean;
+}
+
+export interface CreatePayment {
+  message: string;
+}
+
+export interface GeneratePayPalParameters {
+  endpoint: string;
+  business: string;
+  item_name: string;
+  currency_code: string;
+  return: string;
+  cancel_return: string;
+}
+
+export interface Card {
+  number: number;
+  card_name: string;
+  exp_month: number;
+  exp_year: number;
+}
+
+export interface GetDefaultCard {
+  cards: Card[];
+}
+
+export interface PurchaseDetails {
+  consumer_email: string;
+  created_at: number;
+  customer_id: number;
+  expires_at: number;
+  is_trial: boolean;
+  item_access_id: number;
+  item_id: number;
+  item_title: string;
+  merchant_id: number;
+  parent_resource_id: string;
+  payment_method: string;
+  payment_tool: string;
+  purchase_access_fee_description: string;
+  purchased_access_fee_id: number;
+  purchased_access_fee_type: string;
+  purchased_amount: number;
+  purchased_currency: string;
+  revoked: number;
+  starts_at: number;
+  type: string;
+}
+
+export interface PurchaseHistoryCollection {
+  purchaseDetails: PurchaseDetails;
+  total: number;
+}
+
+export interface SetDefaultCard {
+  number: number;
+  card_name: string;
+  exp_month: number;
+  exp_year: number;
+}
+
 export declare class Payment {
   constructor(config: object, Account: Account);
 
-  getPaymentMethods(): object;
-  getPaymentTools(paymentMethodId: number): object;
-  create(data: CreatePaymentData): object;
-  getPayPalParams(data: PayPalParamsData): object;
-  getPurchaseHistory(status: string, page: number, limit: number): object;
-  getDefaultCreditCard(): object;
-  setDefaultCreditCard(data: DefaultCreditCardData): object;
+  getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
+  getPaymentTools(paymentMethodId: number): Promise<AxiosResponse<object>>;
+  create(data: CreatePaymentData): Promise<AxiosResponse<CreatePayment>>;
+  getPayPalParams(data: PayPalParamsData): Promise<AxiosResponse<GeneratePayPalParameters>>;
+  getPurchaseHistory(status: string, page: number, limit: number): Promise<AxiosResponse<PurchaseHistoryCollection[]>>;
+  getDefaultCreditCard(): Promise<AxiosResponse<GetDefaultCard>>;;
+  setDefaultCreditCard(data: DefaultCreditCardData): Promise<AxiosResponse<SetDefaultCard>>;
   getDirectDebitMandate: () => DirectDebitMandateResponse;
   createDirectDebitMandate: (
     data: DirectDebitMandateData

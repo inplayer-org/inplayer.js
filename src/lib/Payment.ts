@@ -188,7 +188,7 @@ class Payment {
    *     InPlayer.Payment
    *     .getPurchaseHistory('active', 0, 5)
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<PurchaseHistoryCollection[]>}
    */
   async getPurchaseHistory(status = 'active', page: number, limit: number) {
     return authenticatedApi.get(
@@ -242,7 +242,7 @@ class Payment {
    *          currency: 'EUR'
    *      })
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {<AxiosResponse<SetDefaultCard>}
    */
   async setDefaultCreditCard(data: SetDefaultCardPerCurrencyData) {
     const body = {
