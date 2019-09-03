@@ -173,6 +173,10 @@ class Payment {
             });
         }
 
+        if (!paymentIntentId) {
+            throw new Error('Payment Intend Id is a required parameter!');
+        }
+
         let body = {
             pi_id: paymentIntentId,
         };
