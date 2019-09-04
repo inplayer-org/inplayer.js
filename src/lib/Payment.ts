@@ -143,7 +143,7 @@ class Payment {
    *     InPlayer.Payment
    *     .confirmPayment('332242')
    *     .then(data => console.log(data));
-   * @return {Object} Contains the data - {
+   * @return {AxiosResponse<CreatePayment>} Contains the data - {
    *       message: "Submitted for payment",
    *  }
    */
