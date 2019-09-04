@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Optional returnUrl param to Payment.create
+- Required returnUrl param to Payment.create
+- Required returnUrl param to Subscription.create
 - New confirmPayment method that accepts paymentIntentId for payment confirmation
 
 # [2.11.1] - 27-08-2019
