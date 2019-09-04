@@ -129,17 +129,17 @@ export declare class DLC {
 }
 
 export interface CreatePaymentData {
-  number?: number | string;
-  cardName?: string;
-  expMonth?: number;
-  expYear?: number;
-  cvv?: number;
-  accessFee?: number;
-  paymentMethod?: string;
-  referrer?: string;
+  number: number | string;
+  cardName: string;
+  expMonth: number;
+  expYear: number;
+  cvv: number;
+  accessFee: number;
+  paymentMethod: string;
+  referrer: string;
+  returnUrl: string;
   voucherCode?: string;
   brandingId?: number;
-  returnUrl?: string;
 }
 
 export interface PayPalParamsData {
@@ -234,6 +234,7 @@ export interface CreateSubscriptionData {
   accessFee: number;
   paymentMethod: string;
   referrer: string;
+  returnUrl: string;
   voucherCode?: string;
   brandingId?: number;
 }
