@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.11.1</b>
+                    API Docs for Version: <b>2.12.0</b>
                 </p>
             </li>
         </div>
@@ -83,7 +83,7 @@
 
 <div class="file">
     <pre class="prettyprint linenums">
-import { errorResponse, checkStatus, params } from &#x27;../Utils&#x27;;
+import { errorResponse, checkStatus, params, buildURLwithQueryParams } from &#x27;../Utils&#x27;;
 
 /**
  * Contains all Requests connected with payments
@@ -159,41 +159,45 @@ class Payment {
     }
 
     /**
-     * Makes a Payment for a given Authorization token + asset/payment details.
-     * Use this method ONLY if the assetFee.type is not &#x27;subscription&#x27; or &#x27;freemium&#x27;. Otherwise
-     * please use InPlayer.Subscription.create()
-     * @method create
-     * @async
-     * @param {Object} data - Payment data - {
-     *  number: number || string,
-     *  cardName: string,
-     *  expMonth: number,
-     *  expYear: number,
-     *  cvv: number,
-     *  accessFee: number,
-     *  paymentMethod: string,
-     *  referrer: string
-     *  voucherCode?: string
-     *  brandingId?: number
-     * }
-     * @example
-     *     InPlayer.Payment
-     *     .create({
-     *       number: 4111111111111111,
-     *       cardName: &#x27;PayPal&#x27;,
-     *       expMonth: 10,
-     *       expYear: 2030,
-     *       cvv: 656,
-     *       accessFee: 2341,
-     *       paymentMethod: 1,
-     *       referrer: &#x27;http://google.com&#x27;,
-     *       voucherCode: &#x27;fgh1982gff-0f2grfds&#x27;
-     *       brandingId: 1234
-     *      })
-     *     .then(data =&gt; console.log(data));
-     * @return {Object}
-     */
-    async create(data = {}) {
+  * Makes a Payment for a given Authorization token + asset/payment details.
+  * Use this method ONLY if the assetFee.type is not &#x27;subscription&#x27; or &#x27;freemium&#x27;. Otherwise
+  * please use InPlayer.Subscription.create()
+  * @method create
+  * @async
+  * @param {Object} data - Payment data - {
+  *  number: number || string,
+  *  cardName: string,
+  *  expMonth: number,
+  *  expYear: number,
+  *  cvv: number,
+  *  accessFee: number,
+  *  paymentMethod: string,
+  *  referrer: string
+  *  voucherCode?: string
+  *  brandingId?: number
+  *  returnUrl?: string
+  * }
+  * @example
+  *     InPlayer.Payment
+  *     .create({
+  *       number: 4111111111111111,
+  *       cardName: &#x27;PayPal&#x27;,
+  *       expMonth: 10,
+  *       expYear: 2030,
+  *       cvv: 656,
+  *       accessFee: 2341,
+  *       paymentMethod: 1,
+  *       referrer: &#x27;http://google.com&#x27;,
+  *       voucherCode: &#x27;fgh1982gff-0f2grfds&#x27;,
+  *       brandingId: 1234,
+  *       returnUrl: &#x27;https://event.inplayer.com/staging&#x27;
+  *      })
+  *     .then(data =&gt; console.log(data));
+  * @return {Object} Contains the data - {
+  *       message: &quot;Submitted for payment&quot;,
+  *  }
+  */
+    async create(data) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -211,11 +215,56 @@ class Payment {
             payment_method: data.paymentMethod,
             referrer: data.referrer,
             branding_id: data.brandingId,
+            return_url: buildURLwithQueryParams(data.returnUrl, { ippwat: &#x27;ppv&#x27; }),
         };
 
         if (data.voucherCode) {
             body.voucher_code = data.voucherCode;
         }
+
+        const response = await fetch(this.config.API.payForAsset, {
+            method: &#x27;POST&#x27;,
+            headers: {
+                Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;,
+                &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;,
+            },
+            body: params(body),
+        });
+
+        checkStatus(response);
+
+        return await response.json();
+    }
+
+    /**
+    * As part of new bank regulations, we need to provide options for
+    * additional authentication during the payment flow for customers
+    * @method confirmPayment
+    * @async
+    * @param {string}
+    * @example
+    *     InPlayer.Payment
+    *     .confirmPayment(&#x27;332242&#x27;)
+    *     .then(data =&gt; console.log(data));
+    * @return {Object} Contains the data - {
+    *       message: &quot;Submitted for payment&quot;,
+    *  }
+    */
+    async confirmPayment(paymentIntentId) {
+        if (!this.Account.isAuthenticated()) {
+            errorResponse(401, {
+                code: 401,
+                message: &#x27;User is not authenticated&#x27;
+            });
+        }
+
+        if (!paymentIntentId) {
+            throw new Error(&#x27;Payment Intend Id is a required parameter!&#x27;);
+        }
+
+        let body = {
+            pi_id: paymentIntentId,
+        };
 
         const response = await fetch(this.config.API.payForAsset, {
             method: &#x27;POST&#x27;,

@@ -122,23 +122,25 @@ class Subscription {
    *  cvv: number,
    *  accessFee: number,
    *  paymentMethod: string,
-   *  referrer: string
-   *  voucherCode?: string
-   *  brandingId?: number
+   *  referrer: string,
+   *  voucherCode?: string,
+   *  brandingId?: number,
+   *  returnUrl?: string
    * }
    * @example
    *     InPlayer.Subscription
    *     .create({
-   *        number: 1,
-   *        cardName: 'Payoneer',
-   *        expMonth: 11,
-   *        expYear: 12,
-   *        cvv: 546,
-   *        accessFee: 13.4,
-   *        paymentMethod: 'card',
-   *        referrer: 'http://localhost:3000',
-   *        voucherCode: '123123125914i2erjfg'
-   *        brandingId?: 1234
+   *          number: 1,
+   *          cardName: 'Payoneer',
+   *          expMonth: 11,
+   *          expYear: 12,
+   *          cvv: 546,
+   *          accessFee: 13.4,
+   *          paymentMethod: 'card',
+   *          referrer: 'http://localhost:3000',
+   *          voucherCode: '123123125914i2erjfg',
+   *          brandingId?: 1234,
+   *          returnUrl?: 'https://event.inplayer.com/staging',
    *        }
    *     )
    *     .then(data => console.log(data));
@@ -161,7 +163,8 @@ class Subscription {
             access_fee: data.accessFee,
             payment_method: data.paymentMethod,
             referrer: data.referrer,
-            branding_id: data.brandingId
+            branding_id: data.brandingId,
+            returnUrl: data.returnUrl,
         };
 
         if (data.voucherCode) {
