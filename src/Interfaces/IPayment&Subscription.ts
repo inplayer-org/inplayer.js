@@ -290,7 +290,6 @@ export interface CreatePaymentData {
   voucherCode: string;
   brandingId: number;
   returnUrl: string;
-  paymentIntentId: string;
 }
 
 export interface PaypalParamsData {
@@ -441,6 +440,9 @@ export interface Payment {
   getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
   getPaymentTools(paymentMethodId: number): Promise<AxiosResponse<any>>;
   create(data: CreatePaymentData): Promise<AxiosResponse<CreatePayment>>;
+  confirmPayment(
+    paymentIntentId: string
+  ): Promise<AxiosResponse<CreatePayment>>;
   getPayPalParams(
     data: PayPalParamsData
   ): Promise<AxiosResponse<GeneratePayPalParameters>>;

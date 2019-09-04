@@ -357,7 +357,6 @@ export interface CreatePaymentData {
   voucherCode?: string;
   brandingId?: number;
   returnUrl?: string;
-  paymentIntentId?: string;
 }
 
 export interface PayPalParamsData {
@@ -524,6 +523,9 @@ export declare class Payment {
   directDebitSubscribe: (
     data: DirectDebitData
   ) => Promise<AxiosResponse<CommonResponse>>;
+  confirmPayment(
+    paymentIntentId: string
+  ): Promise<AxiosResponse<CreatePayment>>;
 }
 
 export interface CreateSubscriptionData {

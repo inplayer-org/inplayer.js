@@ -43,7 +43,8 @@
     "@typescript-eslint/explicit-member-accessibility": "off",
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/no-empty-interface": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "no-throw-literal": "off"
   },
   "settings": {
     "import/resolver": {

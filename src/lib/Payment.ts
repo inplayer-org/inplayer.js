@@ -1,5 +1,4 @@
 import qs from 'qs';
-import { AxiosResponse } from 'axios';
 import { authenticatedApi, getToken } from '../Utils/http';
 
 import {
@@ -8,9 +7,8 @@ import {
   SetDefaultCardPerCurrencyData,
   CreateDirectDebitMandateData,
   DirectDebitData,
-  DirectDebitMandateResponse,
 } from '../Interfaces/IPayment&Subscription';
-import { ApiConfig } from '../Interfaces/CommonInterfaces';
+import { ApiConfig, CustomErrorResponse } from '../Interfaces/CommonInterfaces';
 import { Account } from '../Interfaces/IAccount&Authentication';
 
 /**
@@ -99,7 +97,6 @@ class Payment {
    *       voucherCode: 'fgh1982gff-0f2grfds'
    *       brandingId: 1234,
    *       returnUrl: 'https://event.inplayer.com/staging',
-   *       paymentIntentId: '332242'
    *      })
    *     .then(data => console.log(data));
    * @return {AxiosResponse<CreatePayment>}
@@ -107,26 +104,65 @@ class Payment {
   async create(data: CreatePaymentData) {
     let body: any = {};
 
-    if (data.paymentIntentId) {
-      body.pi_id = data.paymentIntentId;
-    } else {
-      body = {
-        number: data.number,
-        card_name: data.cardName,
-        exp_month: data.expMonth,
-        exp_year: data.expYear,
-        cvv: data.cvv,
-        access_fee: data.accessFee,
-        payment_method: data.paymentMethod,
-        referrer: data.referrer,
-        branding_id: data.brandingId,
-        return_url: data.returnUrl,
+    body = {
+      number: data.number,
+      card_name: data.cardName,
+      exp_month: data.expMonth,
+      exp_year: data.expYear,
+      cvv: data.cvv,
+      access_fee: data.accessFee,
+      payment_method: data.paymentMethod,
+      referrer: data.referrer,
+      branding_id: data.brandingId,
+      return_url: data.returnUrl,
+    };
+
+    if (data.voucherCode) {
+      body.voucher_code = data.voucherCode;
+    }
+
+    return authenticatedApi.post(
+      this.config.API.payForAsset,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
+  }
+
+  /**
+   * As part of new bank regulations, we need to provide options for
+   * additional authentication during the payment flow for customers
+   * @method confirmPayment
+   * @async
+   * @param {string}
+   * @example
+   *     InPlayer.Payment
+   *     .confirmPayment('332242')
+   *     .then(data => console.log(data));
+   * @return {Object} Contains the data - {
+   *       message: "Submitted for payment",
+   *  }
+   */
+  async confirmPayment(paymentIntentId: string) {
+    if (!paymentIntentId) {
+      const response: CustomErrorResponse = {
+        status: 400,
+        data: {
+          code: 400,
+          message: 'Payment Intend Id is a required parameter!',
+        },
       };
 
-      if (data.voucherCode) {
-        body.voucher_code = data.voucherCode;
-      }
+      throw { response };
     }
+
+    const body = {
+      pi_id: paymentIntentId,
+    };
 
     return authenticatedApi.post(
       this.config.API.payForAsset,

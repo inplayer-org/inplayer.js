@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.12.0] - 03-09-2019
+
+### Added
+
+- Optional returnUrl param to Payment.create
+- New confirmPayment method that accepts paymentIntentId for payment confirmation
+
 # [2.11.1] - 27-08-2019
 
 ### Changes

@@ -74,7 +74,6 @@ authenticatedInstance.interceptors.request.use(
         },
       };
 
-      // eslint-disable-next-line no-throw-literal
       throw { response };
     }
 
