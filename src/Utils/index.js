@@ -81,3 +81,17 @@ export const params = a => {
     output = s.join('&').replace(r20, '+');
     return output;
 };
+
+export const buildURLwithQueryParams = (urlString, params) => {
+    const {
+        url,
+        url: { searchParams }
+    } = { url: new URL(urlString) };
+
+    Object.keys(params).forEach(key => {
+        searchParams.set(key, params[key]);
+    });
+
+    return url.href;
+};
+

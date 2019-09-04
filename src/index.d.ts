@@ -29,7 +29,6 @@ export interface SignUpData {
   referrer: string;
   brandingId?: number;
   metadata?: { [key: string]: string };
-  dateOfBirth?: string,
 }
 
 export interface RequestPasswordData {
@@ -138,6 +137,7 @@ export interface CreatePaymentData {
   accessFee: number;
   paymentMethod: string;
   referrer: string;
+  returnUrl: string;
   voucherCode?: string;
   brandingId?: number;
 }
@@ -166,6 +166,7 @@ export interface DirectDebitChargeData {
   assetId: string;
   accessFeeId: string;
   voucherCode: string;
+  brandingId?: number;
 }
 
 export interface DirectDebitChargeResponse {
@@ -213,6 +214,7 @@ export declare class Payment {
   getPaymentMethods(): object;
   getPaymentTools(paymentMethodId: number): object;
   create(data: CreatePaymentData): object;
+  confirmPayment(paymentIntentId: string): object;
   getPayPalParams(data: PayPalParamsData): object;
   getPurchaseHistory(status: string, page: number, limit: number): object;
   getDefaultCreditCard(): object;
@@ -232,6 +234,7 @@ export interface CreateSubscriptionData {
   accessFee: number;
   paymentMethod: string;
   referrer: string;
+  returnUrl: string;
   voucherCode?: string;
   brandingId?: number;
 }
