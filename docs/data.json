@@ -1037,22 +1037,45 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- Payment data - {\n number: number || string,\n cardName: string,\n expMonth: number,\n expYear: number,\n cvv: number,\n accessFee: number,\n paymentMethod: string,\n referrer: string\n voucherCode?: string\n brandingId?: number\n}",
+                    "description": "- Payment data - {\n number: number || string,\n cardName: string,\n expMonth: number,\n expYear: number,\n cvv: number,\n accessFee: number,\n paymentMethod: string,\n referrer: string\n voucherCode?: string\n brandingId?: number\n returnUrl?: string\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.Payment\n    .create({\n      number: 4111111111111111,\n      cardName: 'PayPal',\n      expMonth: 10,\n      expYear: 2030,\n      cvv: 656,\n      accessFee: 2341,\n      paymentMethod: 1,\n      referrer: 'http://google.com',\n      voucherCode: 'fgh1982gff-0f2grfds'\n      brandingId: 1234\n     })\n    .then(data => console.log(data));"
+                "\n    InPlayer.Payment\n    .create({\n      number: 4111111111111111,\n      cardName: 'PayPal',\n      expMonth: 10,\n      expYear: 2030,\n      cvv: 656,\n      accessFee: 2341,\n      paymentMethod: 1,\n      referrer: 'http://google.com',\n      voucherCode: 'fgh1982gff-0f2grfds',\n      brandingId: 1234,\n      returnUrl: 'https://event.inplayer.com/staging'\n     })\n    .then(data => console.log(data));"
             ],
             "return": {
-                "description": "",
+                "description": "Contains the data - {\n      message: \"Submitted for payment\",\n }",
                 "type": "Object"
             },
             "class": "Payment"
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 149,
+            "line": 154,
+            "description": "As part of new bank regulations, we need to provide options for\nadditional authentication during the payment flow for customers",
+            "itemtype": "method",
+            "name": "confirmPayment",
+            "async": 1,
+            "params": [
+                {
+                    "name": "UNKNOWN",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n    InPlayer.Payment\n    .confirmPayment('332242')\n    .then(data => console.log(data));"
+            ],
+            "return": {
+                "description": "Contains the data - {\n      message: \"Submitted for payment\",\n }",
+                "type": "Object"
+            },
+            "class": "Payment"
+        },
+        {
+            "file": "src/Models/Payment.js",
+            "line": 198,
             "description": "Gets parameters for PayPal",
             "itemtype": "method",
             "name": "getPayPalParams",
@@ -1075,7 +1098,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 199,
+            "line": 248,
             "description": "Gets the purchase history",
             "itemtype": "method",
             "name": "getPurchaseHistory",
@@ -1108,7 +1131,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 234,
+            "line": 283,
             "description": "Gets the default credit card per currency used for subscription rebills",
             "itemtype": "method",
             "name": "getDefaultCreditCard",
@@ -1124,7 +1147,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 266,
+            "line": 315,
             "description": "Sets card per currency as default card that is to be used for further subscription rebills",
             "itemtype": "method",
             "name": "setDefaultCreditCard",
@@ -1147,7 +1170,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 324,
+            "line": 373,
             "description": "Checks for existing user direct debit mandate",
             "itemtype": "method",
             "name": "getDirectDebitMandate",
@@ -1163,7 +1186,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 369,
+            "line": 418,
             "description": "Create direct debit mandate for customer",
             "itemtype": "method",
             "name": "createDirectDebitMandate",
@@ -1186,7 +1209,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 426,
+            "line": 475,
             "description": "Process a request for direct debit SEPA charge",
             "itemtype": "method",
             "name": "directDebitCharge",
@@ -1209,7 +1232,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 482,
+            "line": 531,
             "description": "Process a request for direct debit subscribe",
             "itemtype": "method",
             "name": "directDebitSubscribe",
@@ -1314,12 +1337,12 @@
             "params": [
                 {
                     "name": "data",
-                    "description": "- {\n number: number,\n cardName: string,\n expMonth: number,\n expYear: number,\n cvv: number,\n accessFee: number,\n paymentMethod: string,\n referrer: string\n voucherCode?: string\n brandingId?: number\n}",
+                    "description": "- {\n number: number,\n cardName: string,\n expMonth: number,\n expYear: number,\n cvv: number,\n accessFee: number,\n paymentMethod: string,\n referrer: string,\n voucherCode?: string,\n brandingId?: number,\n returnUrl?: string\n}",
                     "type": "Object"
                 }
             ],
             "example": [
-                "\n    InPlayer.Subscription\n    .create({\n       number: 1,\n       cardName: 'Payoneer',\n       expMonth: 11,\n       expYear: 12,\n       cvv: 546,\n       accessFee: 13.4,\n       paymentMethod: 'card',\n       referrer: 'http://localhost:3000',\n       voucherCode: '123123125914i2erjfg'\n       brandingId?: 1234\n       }\n    )\n    .then(data => console.log(data));"
+                "\n    InPlayer.Subscription\n    .create({\n         number: 1,\n         cardName: 'Payoneer',\n         expMonth: 11,\n         expYear: 12,\n         cvv: 546,\n         accessFee: 13.4,\n         paymentMethod: 'card',\n         referrer: 'http://localhost:3000',\n         voucherCode: '123123125914i2erjfg',\n         brandingId?: 1234,\n         returnUrl?: 'https://event.inplayer.com/staging',\n       }\n    )\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -1471,6 +1494,10 @@
         {
             "message": "replacing incorrect tag: returns with return",
             "line": " src/Models/Asset.js:347"
+        },
+        {
+            "message": "param name missing: {string}",
+            "line": " src/Models/Payment.js:154"
         },
         {
             "message": "Missing item type\nReports the generated SSO token to the SSO domain.",
