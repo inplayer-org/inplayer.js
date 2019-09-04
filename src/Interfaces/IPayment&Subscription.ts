@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { CommonResponse, AdvanceError } from './CommonInterfaces';
+import { CommonResponse } from './CommonInterfaces';
 
 export interface GeneratePayPalParameters {
   endpoint: string;
@@ -310,6 +310,7 @@ export interface CreateSubscriptionData {
   referrer: string;
   voucherCode?: string;
   brandingId?: number;
+  returnUrl: string;
 }
 
 export interface CreateSubscriptionBody {
@@ -323,6 +324,7 @@ export interface CreateSubscriptionBody {
   referrer: string;
   voucher_code?: string;
   branding_id?: number;
+  returnUrl: string;
 }
 
 export interface SetDefaultCardPerCurrencyData {

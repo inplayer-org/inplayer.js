@@ -10,6 +10,7 @@ import {
 } from '../Interfaces/IPayment&Subscription';
 import { ApiConfig, CustomErrorResponse } from '../Interfaces/CommonInterfaces';
 import { Account } from '../Interfaces/IAccount&Authentication';
+import { buildURLwithQueryParams } from '../Utils';
 
 /**
  * Contains all Requests connected with payments
@@ -114,7 +115,7 @@ class Payment {
       payment_method: data.paymentMethod,
       referrer: data.referrer,
       branding_id: data.brandingId,
-      return_url: data.returnUrl,
+      return_url: buildURLwithQueryParams(data.returnUrl, { ippwat: 'ppv' }),
     };
 
     if (data.voucherCode) {
