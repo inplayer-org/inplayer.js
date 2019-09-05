@@ -241,16 +241,16 @@ class Payment {
     * additional authentication during the payment flow for customers
     * @method confirmPayment
     * @async
-    * @param {string}
+    * @param {string} paymentIntent
     * @example
     *     InPlayer.Payment
     *     .confirmPayment(&#x27;332242&#x27;)
     *     .then(data =&gt; console.log(data));
     * @return {Object} Contains the data - {
-    *       message: &quot;Submitted for payment&quot;,
+    *    message: &quot;Submitted for payment&quot;,
     *  }
     */
-    async confirmPayment(paymentIntentId) {
+    async confirmPayment(paymentIntent) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -258,12 +258,12 @@ class Payment {
             });
         }
 
-        if (!paymentIntentId) {
+        if (!paymentIntent) {
             throw new Error(&#x27;Payment Intend Id is a required parameter!&#x27;);
         }
 
         let body = {
-            pi_id: paymentIntentId,
+            pi_id: paymentIntent,
         };
 
         const response = await fetch(this.config.API.payForAsset, {
