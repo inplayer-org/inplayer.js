@@ -1059,7 +1059,7 @@
             "async": 1,
             "params": [
                 {
-                    "name": "UNKNOWN",
+                    "name": "paymentIntent",
                     "description": "",
                     "type": "String"
                 }
@@ -1068,7 +1068,7 @@
                 "\n    InPlayer.Payment\n    .confirmPayment('332242')\n    .then(data => console.log(data));"
             ],
             "return": {
-                "description": "Contains the data - {\n      message: \"Submitted for payment\",\n }",
+                "description": "Contains the data - {\n   message: \"Submitted for payment\",\n }",
                 "type": "Object"
             },
             "class": "Payment"
@@ -1494,10 +1494,6 @@
         {
             "message": "replacing incorrect tag: returns with return",
             "line": " src/Models/Asset.js:347"
-        },
-        {
-            "message": "param name missing: {string}",
-            "line": " src/Models/Payment.js:154"
         },
         {
             "message": "Missing item type\nReports the generated SSO token to the SSO domain.",
