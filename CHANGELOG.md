@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.12.1] - 06-09-2019
+
+### Fixes
+
+- Rename returnUrl to return_url in Subscription.create
+
 # [2.12.0] - 04-09-2019
 
 ### Added
