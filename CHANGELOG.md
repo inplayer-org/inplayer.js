@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.12.2] - 10-09-2019
+
+### Fixes
+
+- Send authorization header in setDefaultCreditCard
+
 # [2.12.1] - 06-09-2019
 
 ### Fixes
