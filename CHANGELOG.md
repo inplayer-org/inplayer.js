@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 # [2.12.3] - 11-09-2019
 
-### Fix
+### Fixes
 
 - v2.12.2 fixes published unsuccessfully
 
