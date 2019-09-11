@@ -359,6 +359,7 @@ class Payment {
             {
                 method: 'PUT',
                 headers: {
+                    Authorization: `Bearer ${this.Account.getToken().token}`,
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: params(body),
