@@ -324,7 +324,7 @@ export interface CreateSubscriptionBody {
   referrer: string;
   voucher_code?: string;
   branding_id?: number;
-  returnUrl: string;
+  return_url: string;
 }
 
 export interface SetDefaultCardPerCurrencyData {

@@ -1,5 +1,4 @@
 import qs from 'qs';
-import { AxiosResponse } from 'axios';
 import { authenticatedApi, getToken } from '../Utils/http';
 import {
   CreateSubscriptionData,
@@ -131,7 +130,7 @@ class Subscription {
       payment_method: data.paymentMethod,
       referrer: data.referrer,
       branding_id: data.brandingId,
-      returnUrl: data.returnUrl,
+      return_url: data.returnUrl,
     };
 
     if (data.voucherCode) {
