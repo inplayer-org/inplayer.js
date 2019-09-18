@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.12.0</b>
+                    API Docs for Version: <b>2.12.2</b>
                 </p>
             </li>
         </div>
@@ -444,6 +444,7 @@ class Payment {
             {
                 method: &#x27;PUT&#x27;,
                 headers: {
+                    Authorization: &#x60;Bearer ${this.Account.getToken().token}&#x60;,
                     &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27;,
                 },
                 body: params(body),

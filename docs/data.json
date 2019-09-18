@@ -2,7 +2,7 @@
     "project": {
         "name": "InPlayer SDK",
         "url": "https://inplayer-org.github.io/inplayer.js/",
-        "version": "2.12.0",
+        "version": "2.12.2",
         "description": "A Javascript SDK for Inplayer's RESTful API"
     },
     "files": {
@@ -1170,7 +1170,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 373,
+            "line": 374,
             "description": "Checks for existing user direct debit mandate",
             "itemtype": "method",
             "name": "getDirectDebitMandate",
@@ -1186,7 +1186,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 418,
+            "line": 419,
             "description": "Create direct debit mandate for customer",
             "itemtype": "method",
             "name": "createDirectDebitMandate",
@@ -1209,7 +1209,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 475,
+            "line": 476,
             "description": "Process a request for direct debit SEPA charge",
             "itemtype": "method",
             "name": "directDebitCharge",
@@ -1232,7 +1232,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 531,
+            "line": 532,
             "description": "Process a request for direct debit subscribe",
             "itemtype": "method",
             "name": "directDebitSubscribe",

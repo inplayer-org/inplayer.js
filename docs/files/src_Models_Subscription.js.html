@@ -21,7 +21,7 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>2.12.0</b>
+                    API Docs for Version: <b>2.12.2</b>
                 </p>
             </li>
         </div>
@@ -231,7 +231,7 @@ class Subscription {
    *     .then(data =&gt; console.log(data));
    * @return {Object}
    */
-    async create(data = {}) {
+    async create(data) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -249,7 +249,7 @@ class Subscription {
             payment_method: data.paymentMethod,
             referrer: data.referrer,
             branding_id: data.brandingId,
-            returnUrl: data.returnUrl,
+            return_url: data.returnUrl,
         };
 
         if (data.voucherCode) {

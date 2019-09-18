@@ -146,7 +146,7 @@ class Subscription {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-    async create(data = {}) {
+    async create(data) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -164,7 +164,7 @@ class Subscription {
             payment_method: data.paymentMethod,
             referrer: data.referrer,
             branding_id: data.brandingId,
-            returnUrl: data.returnUrl,
+            return_url: data.returnUrl,
         };
 
         if (data.voucherCode) {
