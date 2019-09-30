@@ -88,6 +88,7 @@ class Notifications {
       host: data.iotEndpoint,
     };
 
+    /* eslint-disable new-cap */
     const client = new awsIot.device(credentials);
 
     client.on('connect', () => {
