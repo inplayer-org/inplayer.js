@@ -188,18 +188,20 @@ export declare interface ItemType {
   description: string;
 }
 
-export declare interface ItemDetailsV1 {
+interface ItemDetailsAccess extends ItemDetailsV1 {
+  content: string;
+}
+
+export declare interface GetItemAccessV1 {
   id: number;
-  merchant_id: number;
-  merchant_uuid: string;
-  is_active: boolean;
-  title: string;
-  access_control_type: AccessControlType;
-  item_type: ItemType;
-  age_restriction: Record<string, number>;
-  metadata: Record<string, string>[];
+  account_id: number;
+  customer_id: number;
+  customer_uuid: string;
+  ip_address: string;
+  country_code: string;
   created_at: number;
-  updated_at: number;
+  expires_at: number;
+  item: ItemDetailsAccess;
 }
 
 export declare interface Item {
@@ -214,6 +216,20 @@ export declare interface Item {
   metadata: Record<string, string>;
   created_at: number;
   update_at: number;
+}
+
+export declare interface ItemDetailsV1 {
+  id: number;
+  merchant_id: number;
+  merchant_uuid: string;
+  is_active: boolean;
+  title: string;
+  access_control_type: AccessControlType;
+  item_type: ItemType;
+  age_restriction: Record<string, number>;
+  metadata: Record<string, string>[];
+  created_at: number;
+  updated_at: number;
 }
 
 export declare interface AccessType {
@@ -286,7 +302,7 @@ export declare interface CloudfrontUrl {
 export declare class Asset {
   constructor(config: object, Account: Account);
 
-  checkAccessForAsset(id: number): object;
+  checkAccessForAsset(id: number): Promise<AxiosResponse<GetItemAccessV1>>;
   isFreeTrialUsed(id: number): object;
   getAsset(
     assetId: number,
@@ -339,10 +355,19 @@ export declare class Branding {
   ): Promise<AxiosResponse<Brand>>;
 }
 
+declare interface DlcLink {
+  token: string;
+  filesize: string;
+  thumbnail: string;
+  title: string;
+  file_description: string;
+}
+
+
 export declare class DLC {
   constructor(config: object, Account: Account);
 
-  getDlcLinks(assetId: number): object;
+  getDlcLinks(assetId: number): DlcLink;
 }
 
 export interface CreatePaymentData {

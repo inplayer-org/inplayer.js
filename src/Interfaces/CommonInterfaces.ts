@@ -98,8 +98,17 @@ export interface Credentials {
   toObject(): CredentialsConfig;
 }
 
+interface DlcLink {
+  token: string;
+  filesize: string;
+  thumbnail: string;
+  title: string;
+  file_description: string;
+}
+
+
 export interface DLC {
-  getDlcLinks(assetId: number): object;
+  getDlcLinks(assetId: number): DlcLink;
 }
 
 export interface Notifications {
