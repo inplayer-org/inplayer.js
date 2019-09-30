@@ -88,7 +88,7 @@ class Notifications {
       host: data.iotEndpoint,
     };
 
-    const client = awsIot.device(credentials);
+    const client = new awsIot.device(credentials);
 
     client.on('connect', () => {
       client.subscribe(uuid);
