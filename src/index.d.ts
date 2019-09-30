@@ -700,9 +700,7 @@ export interface Config {
   API: ApiEndpoints;
 }
 
-export declare class InPlayer {
-  constructor();
-
+declare const InPlayer: {
   config: Config;
   Account: Account;
   Asset: Asset;
@@ -717,8 +715,6 @@ export declare class InPlayer {
   isSubscribed(): boolean;
   unsubscribe(): void;
   setConfig(config: string): void;
-}
-
-// const InPlayer: InPlayer;
+};
 
 export default InPlayer;
