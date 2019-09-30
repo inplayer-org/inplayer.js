@@ -88,7 +88,6 @@ class Notifications {
       host: data.iotEndpoint,
     };
 
-    // @ts-ignore
     const client = awsIot.device(credentials);
 
     client.on('connect', () => {

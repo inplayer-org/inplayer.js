@@ -15,15 +15,7 @@ export const errorResponse = (statusCode = 400, body = {}) => {
     statusCode = 400;
   }
 
-  // const response = new Response(JSON.stringify(body), {
-  //     status: statusCode,
-  //     // @ts-ignore
-  //     ok: false,
-  // });
-
   const err = new Error(String(statusCode));
-
-  // err.response = response;
 
   throw err;
 };
