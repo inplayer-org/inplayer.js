@@ -367,7 +367,7 @@ declare interface DlcLink {
 export declare class DLC {
   constructor(config: object, Account: Account);
 
-  getDlcLinks(assetId: number): DlcLink;
+  getDlcLinks(assetId: number): AxiosResponse<DlcLink>;
 }
 
 export interface CreatePaymentData {

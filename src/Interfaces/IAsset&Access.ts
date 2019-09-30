@@ -1,5 +1,4 @@
 import { AxiosResponse } from 'axios';
-import { CommonResponse, AdvanceError } from './CommonInterfaces';
 
 export interface AccessControlType {
   id: number;

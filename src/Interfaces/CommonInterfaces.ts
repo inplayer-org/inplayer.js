@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios';
+
 export interface CommonResponse {
   code: number;
   message: string;
@@ -108,7 +110,7 @@ interface DlcLink {
 
 
 export interface DLC {
-  getDlcLinks(assetId: number): DlcLink;
+  getDlcLinks(assetId: number): Promise<AxiosResponse<DlcLink>>;
 }
 
 export interface Notifications {

@@ -23,7 +23,7 @@ class DLC {
      *     InPlayer.DLC
      *     .getDlcLinks(36320)
      *     .then(data => console.log(data));
-     * @return {Object}
+     * @return {AxiosResponse<DlcLink>}
      */
   async getDlcLinks(assetId: number) {
     return authenticatedApi.get(this.config.API.getDlcLinks(assetId), {
