@@ -20,6 +20,7 @@ const plugins = [
 
 module.exports = {
   mode: PROD ? 'production' : 'development',
+  devtool: PROD ? false : 'source-map',
   optimization: {
     minimize: true,
     minimizer: [new TerserPlugin()],
@@ -53,12 +54,5 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js']
   },
-  devtool: PROD ? false : 'source-map',
   plugins,
-  node: {
-    net: 'empty',
-    tls: 'empty',
-    dns: 'empty',
-    fs: 'empty',
-  },
 };
