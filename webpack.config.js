@@ -54,5 +54,11 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js']
   },
+  node: {
+    net: 'empty',
+    tls: 'empty',
+    dns: 'empty',
+    fs: 'empty',
+  },
   plugins,
 };
