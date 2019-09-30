@@ -1,9 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
-const MinifyPlugin = require('babel-minify-webpack-plugin');
-
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const PROD = process.env.NODE_ENV === 'production';
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const plugins = [
   new webpack.optimize.OccurrenceOrderPlugin(),
@@ -11,19 +11,24 @@ const plugins = [
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
   }),
   new CopyWebpackPlugin([{ from: './src/index.d.ts', to: './index.d.ts' }]),
+  new LodashModuleReplacementPlugin({
+    caching: true,
+    cloning: true,
+    memoizing: true,
+  }),
 ];
-
-if (PROD) {
-  plugins.push(new MinifyPlugin());
-}
 
 module.exports = {
   mode: PROD ? 'production' : 'development',
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
+  },
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, './dist'),
     libraryTarget: 'umd',
-    filename: 'inplayer.umd.js',
+    filename: 'inplayer.min.js',
     library: 'InPlayer', // the name exported to window
     libraryExport: 'default',
     umdNamedDefine: true,
@@ -32,21 +37,21 @@ module.exports = {
     rules: [
       {
         test: /\.(t|j)s$/,
-        loader: 'ts-loader',
-        exclude: /(node_modules|bower_components)/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
       },
       {
         test: /(\.(j|t)sx|\.(j|t)s)$/,
         loader: 'eslint-loader',
         exclude: /node_modules/,
+        options: {
+          emitWarning: process.env.NODE_ENV !== 'production',
+        },
       },
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
-  },
-  optimization: {
-    minimize: true,
+    extensions: ['.ts', '.js']
   },
   devtool: PROD ? false : 'source-map',
   plugins,
