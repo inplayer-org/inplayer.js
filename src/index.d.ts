@@ -169,11 +169,6 @@ export declare class Account {
   ): Promise<AxiosResponse<RestrictionSettingsData>>;
 }
 
-export interface CodeAccessData {
-  assetId: number;
-  code: string;
-}
-
 export declare interface AccessControlType {
   id: number;
   name: string;
@@ -299,12 +294,12 @@ export declare interface CloudfrontUrl {
   video_url: string;
 }
 
-export declare interface CodeAccess {
-  item_id: string;
+export interface CodeAccessData {
+  item_id: number;
   content: any;
   in_use: boolean;
   browser_fingerprint: any;
-  code: string;
+  code: number;
 }
 
 export declare class Asset {
@@ -329,9 +324,9 @@ export declare class Asset {
     startDate?: string,
     endDate?: string
   ): object[];
-  requestCodeAccess(data: CodeAccessData): Promise<AxiosResponse<CodeAccess>>;
-  getAccessCode(assetId: number): object | null;
-  releaseAccessCode(assetId: number): object;
+  getAccessCode(assetId: number | string): CodeAccessData;
+  requestCodeAccess(data: CodeAccessData): Promise<AxiosResponse<CodeAccessData>>;
+  releaseAccessCode(assetId: number | string): Promise<AxiosResponse<CodeAccessData>>;
   getCloudfrontURL(
     assetId: number,
     videoUrl: string
@@ -707,7 +702,7 @@ export interface ApiConfig {
   IOT_NOTIF_URL: string;
   INPLAYER_TOKEN_NAME: string;
   INPLAYER_IOT_NAME: string;
-  INPLAYER_ACCESS_CODE_NAME: (assetId: any) => string;
+  INPLAYER_ACCESS_CODE_NAME: (assetId: number) => string;
 }
 
 export declare const API: (config: ApiConfig) => ApiEndpoints;

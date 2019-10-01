@@ -72,5 +72,5 @@ export const API = (baseUrl: string) => ({
     `${baseUrl}/branding/paywall/${merchantUuid}/${brandingId}`,
   downloadFile: (assetId: any, filename: any) => `${baseUrl}/dlc/${assetId}/${filename}`,
   requestCodeAccess: `${baseUrl}/items/access/codes`,
-  releaseAccessCode: (code: any) => `${baseUrl}/items/access/codes/${code}`,
+  releaseAccessCode: (code: string | number) => `${baseUrl}/items/access/codes/${code}`,
 });

@@ -170,7 +170,7 @@ class Asset {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-  async requestCodeAccess({ assetId, code }: CodeAccessData) {
+  async requestCodeAccess(codeAccessData: CodeAccessData) {
     const formData = new FormData();
 
     const browserDetails = await Fingerprint2.getPromise();
@@ -184,8 +184,8 @@ class Asset {
       31,
     );
 
-    formData.set('id', String(assetId));
-    formData.set('code', code);
+    formData.set('id', String(codeAccessData.item_id));
+    formData.set('code', String(codeAccessData.code));
     formData.set('browser_fingerprint', browserFingerprint);
 
     const response = await basicApi.post(
@@ -193,14 +193,13 @@ class Asset {
       formData,
     );
 
-    const accessCode = {
-      code,
-      assetId,
-      browserFingerprint,
+    const accessCode: CodeAccessData = {
+      ...codeAccessData,
+      browser_fingerprint: browserFingerprint,
     };
 
     localStorage.setItem(
-      this.config.INPLAYER_ACCESS_CODE_NAME(assetId),
+      this.config.INPLAYER_ACCESS_CODE_NAME(codeAccessData.item_id),
       JSON.stringify(accessCode),
     );
 
@@ -208,12 +207,11 @@ class Asset {
   }
 
   /**
-   * Retrieves the access code and browser fingerprint for the current asset.
+   * Retrieves the access code and browser fingerprint for the current asset from localStorage
    * Returns null if no access code is present.
    * @method getAccessCode
    * @param {Object} data = {
    *  assetId: {number},
-   *  code: {string}
    * }
    * @example
    *    const accessCode = InPlayer.Asset.getAccessCode();
@@ -244,7 +242,7 @@ class Asset {
    * @return {Object}
    */
   async releaseAccessCode(assetId: number) {
-    const accessCode = this.getAccessCode(assetId);
+    const accessCode: CodeAccessData = this.getAccessCode(assetId);
 
     if (!accessCode) {
       return null;
@@ -252,8 +250,8 @@ class Asset {
 
     const formData = new FormData();
 
-    formData.set('id', accessCode.assetId);
-    formData.set('browser_fingerprint', accessCode.browserFingerprint);
+    formData.set('id', String(accessCode.item_id));
+    formData.set('browser_fingerprint', accessCode.browser_fingerprint);
 
     const response = await basicApi.delete(
       this.config.API.releaseAccessCode(accessCode.code),
