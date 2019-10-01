@@ -299,6 +299,14 @@ export declare interface CloudfrontUrl {
   video_url: string;
 }
 
+export declare interface CodeAccess {
+  item_id: string;
+  content: any;
+  in_use: boolean;
+  browser_fingerprint: any;
+  code: string;
+}
+
 export declare class Asset {
   constructor(config: object, Account: Account);
 
@@ -321,7 +329,7 @@ export declare class Asset {
     startDate?: string,
     endDate?: string
   ): object[];
-  requestCodeAccess(data: CodeAccessData): object;
+  requestCodeAccess(data: CodeAccessData): Promise<AxiosResponse<CodeAccess>>;
   getAccessCode(assetId: number): object | null;
   releaseAccessCode(assetId: number): object;
   getCloudfrontURL(
