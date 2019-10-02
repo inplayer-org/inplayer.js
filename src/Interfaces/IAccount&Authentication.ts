@@ -144,7 +144,7 @@ export interface ImpersonateV2 {
 
 export interface AuthenticateData {
   email: string;
-  grantType: 'password' | 'client_credentials' | 'refresh_token';
+  grantType?: 'password' | 'client_credentials' | 'refresh_token';
   clientId: string;
   clientSecret?: string;
   refreshToken?: string;
@@ -159,7 +159,7 @@ export interface SignUpData {
   password: string;
   passwordConfirmation: string;
   type: 'consumer' | 'merchant';
-  grantType: 'password' | 'client_credentials' | 'refresh_token';
+  grantType?: 'password' | 'client_credentials' | 'refresh_token';
   clientId: string;
   referrer: string;
   metadata: object[];

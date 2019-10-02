@@ -65,7 +65,7 @@ export interface UpdateAccountData {
 
 export declare interface AuthenticateData {
   email: string;
-  grantType: 'password' | 'client_credentials' | 'refresh_token';
+  grantType?: 'password' | 'client_credentials' | 'refresh_token';
   clientId: string;
   clientSecret?: string;
   refreshToken?: string;
@@ -376,8 +376,8 @@ export declare class DLC {
 export interface CreatePaymentData {
   number: number | string;
   cardName: string;
-  expMonth: number;
-  expYear: number;
+  expMonth: string;
+  expYear: string;
   cvv: number;
   accessFee: number;
   paymentMethod: string;
@@ -559,8 +559,8 @@ export declare class Payment {
 export interface CreateSubscriptionData {
   number: number;
   cardName: string;
-  expMonth: number;
-  expYear: number;
+  expMonth: string;
+  expYear: string;
   cvv: number;
   accessFee: number;
   paymentMethod: string;

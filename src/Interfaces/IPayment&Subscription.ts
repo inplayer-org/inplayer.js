@@ -281,7 +281,7 @@ export interface GetPaymentProviderMetadata {
 export interface CreatePaymentData {
   number: number;
   cardName: string;
-  expMonth: number;
+  expMonth: string;
   expYear: number;
   cvv: number;
   accessFee: number;
@@ -302,8 +302,8 @@ export interface PaypalParamsData {
 export interface CreateSubscriptionData {
   number: number;
   cardName: string;
-  expMonth: number;
-  expYear: number;
+  expMonth: string;
+  expYear: string;
   cvv: number;
   accessFee: number;
   paymentMethod: string;
