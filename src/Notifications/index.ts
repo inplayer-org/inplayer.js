@@ -51,7 +51,7 @@ class Notifications {
       }
     }
 
-    const json: any = localStorage.getItem(this.config.INPLAYER_IOT_NAME);
+    const json: any = sessionStorage.getItem(this.config.INPLAYER_IOT_NAME);
 
     if (!json) {
       console.warn('[InPlayer Notifications] Unable to fetch iot credentials');
@@ -71,7 +71,7 @@ class Notifications {
 
     const resp = await this.getIotToken();
 
-    localStorage.setItem(this.config.INPLAYER_IOT_NAME, JSON.stringify(resp));
+    sessionStorage.setItem(this.config.INPLAYER_IOT_NAME, JSON.stringify(resp));
 
     this.handleSubscribe(resp, callbackParams, accountUuid);
     return true;

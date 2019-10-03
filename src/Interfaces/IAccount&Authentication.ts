@@ -29,8 +29,6 @@ export interface Account {
   signUp(data: SignUpData): Promise<AxiosResponse<CreateAccount>>;
   signOut(): Promise<AxiosResponse<undefined>>;
   isAuthenticated(): boolean;
-  getToken(): Credentials;
-  setToken(token: string, refreshToken: string, expiresAt: number): void;
   refreshToken(clientId: number): Promise<AxiosResponse<CreateAccount>>;
   reportSSOtoken(
     ssoDomain: string,
