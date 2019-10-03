@@ -80,8 +80,8 @@ export interface ApiConfig {
   BASE_URL: string;
   AWS_IOT_URL: string;
   IOT_NOTIF_URL: string;
-  INPLAYER_TOKEN_NAME: string;
-  INPLAYER_IOT_NAME: string;
+  INPLAYER_TOKEN_KEY: string;
+  INPLAYER_IOT_KEY: string;
   INPLAYER_ACCESS_CODE_NAME: (assetId: number) => string;
   API: ApiEndpoints;
 }

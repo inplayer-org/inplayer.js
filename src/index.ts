@@ -45,8 +45,8 @@ class InPlayer {
       AWS_IOT_URL:
         'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys',
       IOT_NOTIF_URL: 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com',
-      INPLAYER_TOKEN_NAME: 'inplayer_token',
-      INPLAYER_IOT_NAME: 'inplayer_iot',
+      INPLAYER_TOKEN_KEY: 'inplayer_token',
+      INPLAYER_IOT_KEY: 'inplayer_iot',
       INPLAYER_ACCESS_CODE_NAME: (assetId: number) => `access_code_${assetId}`,
       API: API('https://services.inplayer.com'),
     };

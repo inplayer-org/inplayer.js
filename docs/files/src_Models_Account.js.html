@@ -292,7 +292,7 @@ class Account {
  *  @return {Credentials}
  */
     getToken() {
-        const token = localStorage.getItem(this.config.INPLAYER_TOKEN_NAME);
+        const token = localStorage.getItem(this.config.INPLAYER_TOKEN_KEY);
 
         if (token === undefined || token === null) {
             return new Credentials();
@@ -317,7 +317,7 @@ class Account {
         });
 
         localStorage.setItem(
-            this.config.INPLAYER_TOKEN_NAME,
+            this.config.INPLAYER_TOKEN_KEY,
             JSON.stringify(credentials)
         );
     }
@@ -681,8 +681,8 @@ class Account {
 
         checkStatus(response);
 
-        localStorage.removeItem(this.config.INPLAYER_TOKEN_NAME);
-        localStorage.removeItem(this.config.INPLAYER_IOT_NAME);
+        localStorage.removeItem(this.config.INPLAYER_TOKEN_KEY);
+        localStorage.removeItem(this.config.INPLAYER_IOT_KEY);
 
         return {
             code: response.status,

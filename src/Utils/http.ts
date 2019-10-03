@@ -3,7 +3,7 @@ import { environmentVariables } from '../constants/api';
 import Credentials from '../Credentials';
 import { CustomErrorResponse } from '../Interfaces/CommonInterfaces';
 
-const INPLAYER_TOKEN_NAME = 'inplayer_token';
+const INPLAYER_TOKEN_KEY = 'inplayer_token';
 
 /** Retruns the OAuth token
  *  @method getToken
@@ -12,7 +12,7 @@ const INPLAYER_TOKEN_NAME = 'inplayer_token';
  *  @return {Credentials}
  */
 export const getToken = () => {
-  const token = sessionStorage.getItem(INPLAYER_TOKEN_NAME);
+  const token = sessionStorage.getItem(INPLAYER_TOKEN_KEY);
 
   if (token === undefined || token === null) {
     return new Credentials();
@@ -37,7 +37,7 @@ export const setToken = (token: string, refreshToken: string, expiresAt: number)
   });
 
   sessionStorage.setItem(
-    INPLAYER_TOKEN_NAME,
+    INPLAYER_TOKEN_KEY,
     JSON.stringify(credentials),
   );
 };
