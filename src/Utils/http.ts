@@ -12,7 +12,7 @@ const INPLAYER_TOKEN_KEY = 'inplayer_token';
  *  @return {Credentials}
  */
 export const getToken = () => {
-  const token = sessionStorage.getItem(INPLAYER_TOKEN_KEY);
+  const token = localStorage.getItem(INPLAYER_TOKEN_KEY);
 
   if (token === undefined || token === null) {
     return new Credentials();
@@ -36,7 +36,7 @@ export const setToken = (token: string, refreshToken: string, expiresAt: number)
     expires: expiresAt,
   });
 
-  sessionStorage.setItem(
+  localStorage.setItem(
     INPLAYER_TOKEN_KEY,
     JSON.stringify(credentials),
   );

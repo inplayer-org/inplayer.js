@@ -465,8 +465,8 @@ class Account {
       },
     );
 
-    sessionStorage.removeItem(this.config.INPLAYER_TOKEN_KEY);
-    sessionStorage.removeItem(this.config.INPLAYER_IOT_KEY);
+    localStorage.removeItem(this.config.INPLAYER_TOKEN_KEY);
+    localStorage.removeItem(this.config.INPLAYER_IOT_KEY);
 
     return response;
   }

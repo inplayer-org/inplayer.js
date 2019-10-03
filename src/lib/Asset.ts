@@ -198,7 +198,7 @@ class Asset {
       browser_fingerprint: browserFingerprint,
     };
 
-    sessionStorage.setItem(
+    localStorage.setItem(
       this.config.INPLAYER_ACCESS_CODE_NAME(codeAccessData.item_id),
       JSON.stringify(accessCode),
     );
@@ -207,7 +207,7 @@ class Asset {
   }
 
   /**
-   * Retrieves the access code and browser fingerprint for the current asset from sessionStorage
+   * Retrieves the access code and browser fingerprint for the current asset from localStorage
    * Returns null if no access code is present.
    * @method getAccessCode
    * @param {Object} data = {
@@ -218,7 +218,7 @@ class Asset {
    * @return {Object | null}
    */
   getAccessCode(assetId: number) {
-    const accessCode = sessionStorage.getItem(
+    const accessCode = localStorage.getItem(
       this.config.INPLAYER_ACCESS_CODE_NAME(assetId),
     );
 
@@ -258,7 +258,7 @@ class Asset {
       { data: formData },
     );
 
-    sessionStorage.removeItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId));
+    localStorage.removeItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId));
 
     return response;
   }
