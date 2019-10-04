@@ -1,4 +1,4 @@
-export const buildURLwithQueryParams = (urlString: string, params: string[]) => {
+export const buildURLwithQueryParams = (urlString: string, params: Record<string, string>) => {
   const {
     url,
     url: { searchParams },
