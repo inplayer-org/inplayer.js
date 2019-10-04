@@ -1,7 +1,6 @@
 export const API = (baseUrl: string) => ({
   // Account
-  authenticate: `${baseUrl}/accounts/authenticate`,
-  signIn: `${baseUrl}/accounts/login`,
+  signIn: `${baseUrl}/accounts/authenticate`,
   signOut: `${baseUrl}/accounts/logout`,
   signUp: `${baseUrl}/accounts`,
   requestNewPassword: `${baseUrl}/accounts/forgot-password`,

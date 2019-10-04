@@ -27,7 +27,7 @@ class Account {
 
   /**
    * Signs in the user
-   * @method authenticate
+   * @method signIn
    * @async
    * @typedef {Object} AxiosResponse<CreateAccount>
    * @param {AuthenticateData} data - Contains {
@@ -39,7 +39,7 @@ class Account {
    *  refreshToken: string,
    * }
    * @example
-   *     InPlayer.Account.authenticate({
+   *     InPlayer.Account.signIn({
    *      email: 'test@test.com',
    *      password: 'test123',
    *      clientId: '123-123-hf1hd1-12dhd1',
@@ -49,7 +49,7 @@ class Account {
    *     .then(data => console.log(data));
    * @return {AxiosResponse<CreateAccount>}
    */
-  async authenticate(data: AuthenticateData) {
+  async signIn(data: AuthenticateData) {
     const body: any = {
       client_id: data.clientId,
       grant_type: 'password',
@@ -70,7 +70,7 @@ class Account {
     }
 
     const respData = await basicApi.post(
-      this.config.API.authenticate,
+      this.config.API.signIn,
       qs.stringify(body),
       {
         headers: {
@@ -208,7 +208,7 @@ class Account {
     };
 
     const responseData = await basicApi.post(
-      this.config.API.authenticate,
+      this.config.API.signIn,
       qs.stringify(body),
       {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

@@ -25,7 +25,7 @@ export interface SetPasswordData {
 }
 
 export interface Account {
-  authenticate(data: AuthenticateData): Promise<AxiosResponse<CreateAccount>>;
+  signIn(data: AuthenticateData): Promise<AxiosResponse<CreateAccount>>;
   signUp(data: SignUpData): Promise<AxiosResponse<CreateAccount>>;
   signOut(): Promise<AxiosResponse<undefined>>;
   isAuthenticated(): boolean;

@@ -37,10 +37,10 @@ Alternatively you can include the script like so:
 InPlayer.setConfig('develop');
 ```
 
-### Authenticate using grant type: password
+### Sign in using grant type: password
 
 ```
-InPlayer.Account.authenticate({
+InPlayer.Account.signIn({
     email: 'test@test.com',
     password: '12345678',
     cliendId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
@@ -48,19 +48,19 @@ InPlayer.Account.authenticate({
 }).then(data => console.log(data));
 ```
 
-### Authenticate using grant type: refresh token
+### Sign in using grant type: refresh token
 
 ```
-InPlayer.Account.authenticate({
+InPlayer.Account.signIn({
     clientId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
     refreshToken: '528b1b80-ddd1hj-4abc-gha3j-111111',
     referrer: 'http://localhost:3000/'
 }).then(data => console.log(data));
 ```
 
-###  Authenticate using grant type: client secret
+###  Sign in using grant type: client secret
 ```
-InPlayer.Account.authenticate({
+InPlayer.Account.signIn({
     clientId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
     clientSecret: '528b1b80-ddd1hj-4abc-gha3j-111111',
     referrer: 'http://localhost:3000/'

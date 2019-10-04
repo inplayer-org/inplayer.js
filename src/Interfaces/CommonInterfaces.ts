@@ -15,7 +15,6 @@ export interface CustomErrorResponse {
 }
 
 export interface ApiEndpoints {
-  authenticate: string;
   signIn: string;
   signOut: string;
   signUp: string;

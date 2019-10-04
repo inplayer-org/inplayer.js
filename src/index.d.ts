@@ -134,7 +134,7 @@ export declare interface RestrictionSettingsData {
 export declare class Account {
   constructor(config: object);
 
-  authenticate(data: AuthenticateData): Promise<AxiosResponse<CreateAccount>>;
+  signIn(data: AuthenticateData): Promise<AxiosResponse<CreateAccount>>;
   signUp(data: SignUpData): Promise<AxiosResponse<CreateAccount>>;
   signOut(): Promise<AxiosResponse<undefined>>;
   isAuthenticated(): boolean;
@@ -637,7 +637,6 @@ export declare class Voucher {
 }
 
 export interface ApiEndpoints {
-  authenticate: string;
   signIn: string;
   signOut: string;
   signUp: string;
