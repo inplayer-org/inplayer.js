@@ -84,8 +84,8 @@ class Subscription {
 
   /**
    * Subscribes to a given asset. Use this method ONLY if the accessFee.type === 'subscription'.
-   * Otherwise please use InPlayer.Payment.payForAsset()
-   * @method create
+   * Otherwise please use InPlayer.Payment.createPayment()
+   * @method createSubscription
    * @async
    * @param {Object} data - {
    *  number: number,
@@ -102,7 +102,7 @@ class Subscription {
    * }
    * @example
    *     InPlayer.Subscription
-   *     .create({
+   *     .createSubscription({
    *          number: 1,
    *          cardName: 'Payoneer',
    *          expMonth: 11,

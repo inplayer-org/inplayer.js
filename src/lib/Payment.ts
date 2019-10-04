@@ -69,8 +69,8 @@ class Payment {
   /**
    * Makes a Payment for a given Authorization token + asset/payment details.
    * Use this method ONLY if the assetFee.type is not 'subscription' or 'freemium'. Otherwise
-   * please use InPlayer.Subscription.create()
-   * @method create
+   * please use InPlayer.Subscription.createPayment()
+   * @method createPayment
    * @async
    * @param {Object} data - Payment data - {
    *  number: number || string,
@@ -87,7 +87,7 @@ class Payment {
    * }
    * @example
    *     InPlayer.Payment
-   *     .create({
+   *     .createPayment({
    *       number: 4111111111111111,
    *       cardName: 'PayPal',
    *       expMonth: 10,

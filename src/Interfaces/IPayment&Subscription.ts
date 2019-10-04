@@ -455,7 +455,7 @@ export interface SetDefaultCard {
 export interface Payment {
   getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
   getPaymentTools(paymentMethodId: number): Promise<AxiosResponse<any>>;
-  create(data: CreatePaymentData): Promise<AxiosResponse<CreatePayment>>;
+  createPayment(data: CreatePaymentData): Promise<AxiosResponse<CreatePayment>>;
   confirmPayment(
     paymentIntentId: string
   ): Promise<AxiosResponse<CreatePayment>>;
@@ -494,7 +494,7 @@ export interface Subscription {
   cancelSubscription(
     unsubscribeUrl: string
   ): Promise<AxiosResponse<CancelSubscription>>;
-  create(
+  createSubscription(
     data: CreateSubscriptionData
   ): Promise<AxiosResponse<CreateSubscription>>;
 }
