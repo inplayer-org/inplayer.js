@@ -7,6 +7,7 @@ import {
   SetDefaultCardPerCurrencyData,
   CreateDirectDebitMandateData,
   DirectDebitData,
+  CreatePaymentRequestBody,
 } from '../Interfaces/IPayment&Subscription';
 import { ApiConfig, CustomErrorResponse } from '../Interfaces/CommonInterfaces';
 import { Account } from '../Interfaces/IAccount&Authentication';
@@ -103,9 +104,7 @@ class Payment {
    * @return {AxiosResponse<CreatePayment>}
    */
   async createPayment(data: CreatePaymentData) {
-    let body: any = {};
-
-    body = {
+    const body: CreatePaymentRequestBody = {
       number: data.number,
       card_name: data.cardName,
       exp_month: data.expMonth,

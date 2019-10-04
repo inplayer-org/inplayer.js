@@ -2,7 +2,7 @@ import qs from 'qs';
 import { authenticatedApi, getToken } from '../Utils/http';
 import {
   CreateSubscriptionData,
-  CreateSubscriptionBody,
+  CreateSubscriptionRequestBody,
 } from '../Interfaces/IPayment&Subscription';
 import { ApiConfig } from '../Interfaces/CommonInterfaces';
 import { Account } from '../Interfaces/IAccount&Authentication';
@@ -120,7 +120,7 @@ class Subscription {
    * @return {AxiosResponse<CreateSubscription>}
    */
   async createSubscription(data: CreateSubscriptionData) {
-    const body: CreateSubscriptionBody = {
+    const body: CreateSubscriptionRequestBody = {
       number: data.number,
       card_name: data.cardName,
       exp_month: data.expMonth,

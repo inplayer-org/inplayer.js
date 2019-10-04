@@ -292,6 +292,20 @@ export interface CreatePaymentData {
   returnUrl: string;
 }
 
+export interface CreatePaymentRequestBody {
+  number: number;
+  card_name: string;
+  exp_month: string;
+  exp_year: number;
+  cvv: number;
+  access_fee: number;
+  payment_method: number;
+  referrer: string;
+  voucher_code?: string;
+  branding_id: number;
+  return_url: string;
+}
+
 export interface PaypalParamsData {
   origin: string;
   accessFeeId: number;
@@ -313,7 +327,7 @@ export interface CreateSubscriptionData {
   returnUrl: string;
 }
 
-export interface CreateSubscriptionBody {
+export interface CreateSubscriptionRequestBody {
   number: number;
   card_name: string;
   exp_month: string;
