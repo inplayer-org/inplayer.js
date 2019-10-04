@@ -7,7 +7,7 @@ import Voucher from './lib/Voucher';
 import DLC from './lib/Dlc';
 import Notifications from './Notifications';
 import { isAuthenticated } from './Utils/http';
-import { stagingConfig, prodConfig } from './config';
+import config from './config';
 
 // types
 import {
@@ -41,11 +41,8 @@ class InPlayer {
   Notifications: NotificationsType;
 
   constructor() {
-    if (process.env.NODE_ENV !== 'production') {
-      this.config = stagingConfig;
-    } else {
-      this.config = prodConfig;
-    }
+    // set default config to be production
+    this.config = config.production;
 
     /**
      * @property Account
@@ -145,6 +142,24 @@ class InPlayer {
    */
   unsubscribe() {
     this.Notifications.unsubscribe();
+  }
+
+  /**
+   * Overrides the default configs
+   * @method setConfig
+   * @param {String} config 'production', 'development'
+   * @example
+   *     InPlayer.setConfig('development');
+   */
+  setConfig(env: string) {
+    enum Env {
+      'development',
+      'production',
+    }
+
+    if (env in Env) {
+      this.config = config[env];
+    }
   }
 }
 

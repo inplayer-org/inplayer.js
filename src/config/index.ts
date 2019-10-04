@@ -8,7 +8,7 @@ const commonConfig = {
   IOT_NOTIF_URL: 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com',
 };
 
-const stagingConfig = {
+const devConfig = {
   ...commonConfig,
   BASE_URL: 'https://staging-v2.inplayer.com',
   AWS_IOT_URL: 'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys',
@@ -22,4 +22,11 @@ const prodConfig = {
   API: API('https://services.inplayer.com'),
 };
 
-export { stagingConfig, prodConfig };
+
+const config = {
+  development: devConfig,
+  production: prodConfig,
+};
+
+
+export default config;
