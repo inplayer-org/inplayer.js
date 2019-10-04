@@ -738,7 +738,6 @@ declare const InPlayer: {
   subscribe(accountUuid: string, callbackParams: any): void;
   isSubscribed(): boolean;
   unsubscribe(): void;
-  setConfig(config: string): void;
 };
 
 export default InPlayer;

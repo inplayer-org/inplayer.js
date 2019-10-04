@@ -29,14 +29,6 @@ Alternatively you can include the script like so:
 <script src="https://unpkg.com/@inplayer-org/inplayer.js/dist/inplayer.umd.js"></script>
 ```
 
-## Usage
-
-```
-// Change default config example
-
-InPlayer.setConfig('develop');
-```
-
 ### Sign in using grant type: password
 
 ```
