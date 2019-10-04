@@ -6,8 +6,8 @@ import Branding from './lib/Branding';
 import Voucher from './lib/Voucher';
 import DLC from './lib/Dlc';
 import Notifications from './Notifications';
-import { API } from './constants/endpoints';
 import { isAuthenticated } from './Utils/http';
+import { stagingConfig, prodConfig } from './config';
 
 // types
 import {
@@ -41,16 +41,11 @@ class InPlayer {
   Notifications: NotificationsType;
 
   constructor() {
-    this.config = {
-      BASE_URL: 'https://services.inplayer.com',
-      AWS_IOT_URL:
-        'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys',
-      IOT_NOTIF_URL: 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com',
-      INPLAYER_TOKEN_KEY: 'inplayer_token',
-      INPLAYER_IOT_KEY: 'inplayer_iot',
-      INPLAYER_ACCESS_CODE_NAME: (assetId: number) => `access_code_${assetId}`,
-      API: API('https://services.inplayer.com'),
-    };
+    if (process.env.NODE_ENV !== 'production') {
+      this.config = stagingConfig;
+    } else {
+      this.config = prodConfig;
+    }
 
     /**
      * @property Account
@@ -150,42 +145,6 @@ class InPlayer {
    */
   unsubscribe() {
     this.Notifications.unsubscribe();
-  }
-
-  /**
-   * Overrides the default configs
-   * @method setConfig
-   * @param {String} config 'prod', 'develop' or 'sandbox'
-   * @example
-   *     InPlayer.setConfig('develop');
-   */
-  setConfig(config: string) {
-    switch (config) {
-    case 'prod': {
-      this.config.BASE_URL = 'https://services.inplayer.com';
-      this.config.AWS_IOT_URL = 'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys';
-      this.config.IOT_NOTIF_URL = 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com';
-      this.config.API = API('https://services.inplayer.com');
-      break;
-    }
-    case 'develop': {
-      this.config.BASE_URL = 'https://staging-v2.inplayer.com';
-      this.config.AWS_IOT_URL = 'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys';
-      this.config.IOT_NOTIF_URL = 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com';
-      this.config.API = API('https://staging-v2.inplayer.com');
-      break;
-    }
-    case 'sandbox': {
-      // TODO: to be changed in future
-      this.config.BASE_URL = 'https://staging-v2.inplayer.com';
-      this.config.AWS_IOT_URL = 'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys';
-      this.config.IOT_NOTIF_URL = 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com';
-      this.config.API = API('https://staging-v2.inplayer.com');
-      break;
-    }
-    default:
-      break;
-    }
   }
 }
 
