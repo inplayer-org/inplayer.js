@@ -49,7 +49,7 @@ export const setToken = (token: string, refreshToken: string, expiresAt: number)
  *    InPlayer.Account.isAuthenticated()
  * @return {Boolean}
  */
-const isAuthenticated = () =>
+export const isAuthenticated = () =>
   !getToken().isExpired() && getToken().token !== '';
 
 const basicInstance = axios.create({

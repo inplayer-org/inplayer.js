@@ -168,15 +168,6 @@ class Account {
   }
 
   /**
-   * Checks if the user is authenticated
-   * @method isAuthenticated
-   * @example
-   *    InPlayer.Account.isAuthenticated()
-   * @return {Boolean}
-   */
-  isAuthenticated = () => !getToken().isExpired() && getToken().token !== '';
-
-  /**
    * Refreshes the token
    * @method refreshToken
    * @async

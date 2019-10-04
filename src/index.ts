@@ -7,6 +7,7 @@ import Voucher from './lib/Voucher';
 import DLC from './lib/Dlc';
 import Notifications from './Notifications';
 import { API } from './constants/endpoints';
+import { isAuthenticated } from './Utils/http';
 
 // types
 import {
@@ -114,7 +115,7 @@ class InPlayer {
     accountUuid: string,
     callbackParams: Record<string, (...params: any) => void>,
   ) {
-    if (this.Account.isAuthenticated()) {
+    if (isAuthenticated()) {
       this.Notifications.subscribe(accountUuid, callbackParams)
         .then((data: any) => {
           if (!data) {
