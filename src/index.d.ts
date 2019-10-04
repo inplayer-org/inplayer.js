@@ -153,7 +153,7 @@ export declare class Account {
     data: SetPasswordData,
     token?: string
   ): Promise<AxiosResponse<void>>;
-  getAccountDetails(): Promise<AxiosResponse<AccountInformationReturn>>;
+  getAccountInfo(): Promise<AxiosResponse<AccountInformationReturn>>;
   getSocialLoginUrls(state: string): Promise<AxiosResponse<ListSocialURLs>>;
   updateAccount(data: UpdateAccountData): Promise<AxiosResponse<void>>;
   changePassword(data: ChangePasswordData): Promise<AxiosResponse<void>>;
