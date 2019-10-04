@@ -102,7 +102,7 @@ class Payment {
    *     .then(data => console.log(data));
    * @return {AxiosResponse<CreatePayment>}
    */
-  async create(data: CreatePaymentData) {
+  async createPayment(data: CreatePaymentData) {
     let body: any = {};
 
     body = {

@@ -316,8 +316,8 @@ export interface CreateSubscriptionData {
 export interface CreateSubscriptionBody {
   number: number;
   card_name: string;
-  exp_month: number;
-  exp_year: number;
+  exp_month: string;
+  exp_year: string;
   cvv: number;
   access_fee: number;
   payment_method: string;

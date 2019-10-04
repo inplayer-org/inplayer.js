@@ -119,7 +119,7 @@ class Subscription {
    *     .then(data => console.log(data));
    * @return {AxiosResponse<CreateSubscription>}
    */
-  async create(data: CreateSubscriptionData) {
+  async createSubscription(data: CreateSubscriptionData) {
     const body: CreateSubscriptionBody = {
       number: data.number,
       card_name: data.cardName,
