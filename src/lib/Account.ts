@@ -308,15 +308,15 @@ class Account {
 
   /**
    * Gets the account information for a given auth token
-   * @method getAccount
+   * @method getAccountDetails
    * @async
    * @example
    *     InPlayer.Account
-   *     .getAccount()
+   *     .getAccountDetails()
    *     .then(data => console.log(data));
    * @return {AxiosResponse<AccountInformationReturn>}
    */
-  async getAccount() {
+  async getAccountDetails() {
     return authenticatedApi.get(this.config.API.getAccountInfo, {
       headers: { Authorization: `Bearer ${getToken().token}` },
     });

@@ -42,7 +42,7 @@ export interface Account {
     data: SetPasswordData,
     token?: string
   ): Promise<AxiosResponse<void>>;
-  getAccount(): Promise<AxiosResponse<AccountInformationReturn>>;
+  getAccountDetails(): Promise<AxiosResponse<AccountInformationReturn>>;
   getSocialLoginUrls(state: string): Promise<AxiosResponse<ListSocialURLs>>;
   updateAccount(data: UpdateAccountData): Promise<AxiosResponse<void>>;
   changePassword(data: ChangePasswordData): Promise<AxiosResponse<void>>;
