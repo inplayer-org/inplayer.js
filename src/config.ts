@@ -1,5 +1,5 @@
 
-import { API } from '../constants/endpoints';
+import { API } from './constants/endpoints';
 
 const commonConfig = {
   INPLAYER_TOKEN_KEY: 'inplayer_token',
