@@ -20,12 +20,14 @@
     "preinstall": "node tools/nodeVersionCheck.js",
     "dev": "webpack --progress --colors --watch",
     "prebuild": "rimraf dist",
-    "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js",
+    "build:dev": "cross-env NODE_ENV=development webpack --config ./webpack.config.js",
+    "build:prod": "cross-env NODE_ENV=production webpack --config ./webpack.config.js",
     "test": "jest --watchAll",
     "generate:docs": "yarn run yuidoc .",
     "lint": "eslint ./src --ext .js",
     "lint:js:fix": "eslint src/** --fix",
-    "analyze-bundle": "babel-node ./tools/analyzeBundle.js"
+    "analyze-bundle": "babel-node ./tools/analyzeBundle.js",
+    "prepublishOnly": "yarn build:prod"
   },
   "lint-staged": {
     "*.js": [
@@ -59,10 +61,10 @@
     "@babel/register": "^7.6.2",
     "@babel/runtime": "^7.6.2",
     "@types/aws-iot-device-sdk": "^2.2.0",
+    "@types/fingerprintjs2": "^2.0.0",
     "@types/jest": "^24.0.18",
     "@types/lodash": "^4.14.141",
     "@types/qs": "^6.5.3",
-    "@types/fingerprintjs2": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^2.3.1",
     "@typescript-eslint/parser": "^2.3.1",
     "babel-eslint": "^10.0.3",
