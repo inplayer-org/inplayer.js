@@ -42,12 +42,40 @@ class InPlayer {
 
   constructor() {
     this.config = config.production;
+    /**
+     * @property Account
+     * @type Account
+     */
     this.Account = new Account(this.config);
+    /**
+     * @property Asset
+     * @type Asset
+     */
     this.Asset = new Asset(this.config);
+    /**
+     * @property Payment
+     * @type Payment
+     */
     this.Payment = new Payment(this.config);
+    /**
+     * @property Subscription
+     * @type Subscription
+     */
     this.Subscription = new Subscription(this.config);
+    /**
+     * @property Voucher
+     * @type Voucher
+     */
     this.Voucher = new Voucher(this.config);
+    /**
+     * @property Voucher
+     * @type Voucher
+     */
     this.DLC = new DLC(this.config);
+    /**
+     * @property Branding
+     * @type Branding
+     */
     this.Branding = new Branding(this.config);
     this.Notifications = new Notifications(this.config);
   }
