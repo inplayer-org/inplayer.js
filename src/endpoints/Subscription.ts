@@ -5,7 +5,6 @@ import {
   CreateSubscriptionRequestBody,
 } from '../Interfaces/IPayment&Subscription';
 import { ApiConfig } from '../Interfaces/CommonInterfaces';
-import { Account } from '../Interfaces/IAccount&Authentication';
 
 /**
  * Contains all Requests connected with subscriptions
@@ -14,10 +13,8 @@ import { Account } from '../Interfaces/IAccount&Authentication';
  */
 class Subscription {
   config: ApiConfig;
-  Account: Account;
-  constructor(config: ApiConfig, account: Account) {
+  constructor(config: ApiConfig) {
     this.config = config;
-    this.Account = account;
   }
   /**
    * Gets all subscriptions for a given user

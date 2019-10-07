@@ -1,10 +1,10 @@
-import Account from './lib/Account';
-import Asset from './lib/Asset';
-import Payment from './lib/Payment';
-import Subscription from './lib/Subscription';
-import Branding from './lib/Branding';
-import Voucher from './lib/Voucher';
-import DLC from './lib/Dlc';
+import Account from './endpoints/Account';
+import Asset from './endpoints/Asset';
+import Payment from './endpoints/Payment';
+import Subscription from './endpoints/Subscription';
+import Branding from './endpoints/Branding';
+import Voucher from './endpoints/Voucher';
+import DLC from './endpoints/Dlc';
 import Notifications from './Notifications';
 import { isAuthenticated } from './Utils/http';
 import config from './config';
@@ -42,14 +42,14 @@ class InPlayer {
 
   constructor() {
     this.config = config.production;
-    this.Account = new Account();
-    this.Asset = new Asset();
-    this.Payment = new Payment();
-    this.Subscription = new Subscription();
-    this.Voucher = new Voucher();
-    this.DLC = new DLC();
-    this.Branding = new Branding();
-    this.Notifications = new Notifications();
+    this.Account = new Account(this.config);
+    this.Asset = new Asset(this.config);
+    this.Payment = new Payment(this.config);
+    this.Subscription = new Subscription(this.config);
+    this.Voucher = new Voucher(this.config);
+    this.DLC = new DLC(this.config);
+    this.Branding = new Branding(this.config);
+    this.Notifications = new Notifications(this.config);
   }
 
   /**

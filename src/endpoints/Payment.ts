@@ -10,7 +10,6 @@ import {
   CreatePaymentRequestBody,
 } from '../Interfaces/IPayment&Subscription';
 import { ApiConfig, CustomErrorResponse } from '../Interfaces/CommonInterfaces';
-import { Account } from '../Interfaces/IAccount&Authentication';
 import { buildURLwithQueryParams } from '../Utils';
 
 /**
@@ -20,10 +19,8 @@ import { buildURLwithQueryParams } from '../Utils';
  */
 class Payment {
   config: ApiConfig;
-  Account: Account;
-  constructor(config: ApiConfig, account: Account) {
+  constructor(config: ApiConfig) {
     this.config = config;
-    this.Account = account;
   }
 
   /**

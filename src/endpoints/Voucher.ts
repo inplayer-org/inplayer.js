@@ -1,7 +1,6 @@
 import qs from 'qs';
 import { authenticatedApi, getToken } from '../Utils/http';
 import { VoucherDiscountPriceData } from '../Interfaces/IVoucher&Promotion';
-import { Account } from '../Interfaces/IAccount&Authentication';
 import { ApiConfig } from '../Interfaces/CommonInterfaces';
 
 /**
@@ -11,10 +10,8 @@ import { ApiConfig } from '../Interfaces/CommonInterfaces';
  */
 class Voucher {
   config: ApiConfig;
-  Account: Account;
-  constructor(config: ApiConfig, account: Account) {
+  constructor(config: ApiConfig) {
     this.config = config;
-    this.Account = account;
   }
 
   /**

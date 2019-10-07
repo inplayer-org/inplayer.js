@@ -1,5 +1,4 @@
 import { authenticatedApi, getToken } from '../Utils/http';
-import { Account } from '../Interfaces/IAccount&Authentication';
 import { ApiConfig } from '../Interfaces/CommonInterfaces';
 
 /**
@@ -9,10 +8,8 @@ import { ApiConfig } from '../Interfaces/CommonInterfaces';
  */
 class DLC {
   config: ApiConfig;
-  Account: Account;
-  constructor(config: ApiConfig, account: Account) {
+  constructor(config: ApiConfig) {
     this.config = config;
-    this.Account = account;
   }
   /**
      * Gets all DLC links
