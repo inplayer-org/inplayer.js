@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { environmentVariables } from '../constants/api';
 import Credentials from '../Credentials';
 import { CustomErrorResponse } from '../Interfaces/CommonInterfaces';
+import InPlayer from '../index';
 
 const INPLAYER_TOKEN_KEY = 'inplayer_token';
 
@@ -53,11 +53,11 @@ export const isAuthenticated = () =>
   !getToken().isExpired() && getToken().token !== '';
 
 const basicInstance = axios.create({
-  baseURL: environmentVariables,
+  baseURL: InPlayer.config.BASE_URL,
 });
 
 const authenticatedInstance = axios.create({
-  baseURL: environmentVariables,
+  baseURL: InPlayer.config.BASE_URL,
 });
 
 authenticatedInstance.interceptors.request.use(

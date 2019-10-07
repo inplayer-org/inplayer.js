@@ -41,45 +41,15 @@ class InPlayer {
   Notifications: NotificationsType;
 
   constructor() {
-    // set default config to be production
     this.config = config.production;
-
-    /**
-     * @property Account
-     * @type Account
-     */
-    this.Account = new Account(this.config);
-    /**
-     * @property Asset
-     * @type Asset
-     */
-    this.Asset = new Asset(this.config, this.Account);
-    /**
-     * @property Payment
-     * @type Payment
-     */
-    this.Payment = new Payment(this.config, this.Account);
-    /**
-     * @property Subscription
-     * @type Subscription
-     */
-    this.Subscription = new Subscription(this.config, this.Account);
-    /**
-     * @property Voucher
-     * @type Voucher
-     */
-    this.Voucher = new Voucher(this.config, this.Account);
-    /**
-     * @property Voucher
-     * @type Voucher
-     */
-    this.DLC = new DLC(this.config, this.Account);
-    /**
-     * @property Branding
-     * @type Branding
-     */
-    this.Branding = new Branding(this.config);
-    this.Notifications = new Notifications(this.config, this.Account);
+    this.Account = new Account();
+    this.Asset = new Asset();
+    this.Payment = new Payment();
+    this.Subscription = new Subscription();
+    this.Voucher = new Voucher();
+    this.DLC = new DLC();
+    this.Branding = new Branding();
+    this.Notifications = new Notifications();
   }
 
   /**
