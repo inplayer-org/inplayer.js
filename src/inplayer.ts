@@ -14,6 +14,7 @@ import {
   ApiConfig,
   DLC as DLCType,
   Notifications as NotificationsType,
+  Request as RequestType,
 } from './models/CommonInterfaces';
 import { Account as AccountType } from './models/IAccount&Authentication';
 import { Asset as AssetType } from './models/IAsset&Access';
@@ -39,7 +40,7 @@ class InPlayer {
   DLC: DLCType;
   Branding: BrandingType;
   Notifications: NotificationsType;
-  request: any;
+  request: RequestType;
 
   constructor() {
     this.config = config.production;

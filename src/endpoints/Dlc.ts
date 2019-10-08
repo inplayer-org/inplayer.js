@@ -22,7 +22,7 @@ class DLC extends BaseExtend {
      * @return {AxiosResponse<DlcLink>}
      */
   async getDlcLinks(assetId: number) {
-    return this.request.authenticatedApi.get(this.config.API.getDlcLinks(assetId), {
+    return this.request.authenticatedGet(this.config.API.getDlcLinks(assetId), {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },

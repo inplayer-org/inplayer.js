@@ -14,8 +14,6 @@ export default class Request {
   config: ApiConfig;
   basicInstance: AxiosInstance;
   authenticatedInstance: AxiosInstance;
-  basicApi: any;
-  authenticatedApi: any;
 
   constructor(config: ApiConfig) {
     this.config = config;
@@ -45,20 +43,6 @@ export default class Request {
         return axiosConfig;
       },
     );
-    this.basicApi = {
-      get: this.get,
-      post: this.post,
-      put: this.put,
-      patch: this.patch,
-      delete: this.del,
-    };
-    this.authenticatedApi = {
-      get: this.authenticatedGet,
-      patch: this.authenticatedPatch,
-      post: this.authenticatedPost,
-      put: this.authenticatedPut,
-      delete: this.authenticatedDelete,
-    };
   }
 
   /** Retruns the OAuth token
@@ -125,7 +109,7 @@ export default class Request {
     this.basicInstance.put(path, data, headers || getHeaders());
 
   // HTTP DELETE Request - Returns Resolved or Rejected Promise
-  del = (path: string, headers?: Record<string, object | string | boolean>) =>
+  delete = (path: string, headers?: Record<string, object | string | boolean>) =>
     this.basicInstance.delete(path, headers || getHeaders());
 
   // HTTP GET Request - Returns Resolved or Rejected Promise

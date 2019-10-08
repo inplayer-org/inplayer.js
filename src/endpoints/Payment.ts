@@ -32,7 +32,7 @@ class Payment extends BaseExtend {
    * @return {AxiosResponse<Array<MerchantPaymentMethod>>}
    */
   async getPaymentMethods() {
-    return this.request.authenticatedApi.get(this.config.API.getPaymentMethods, {
+    return this.request.authenticatedGet(this.config.API.getPaymentMethods, {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },
@@ -51,7 +51,7 @@ class Payment extends BaseExtend {
    * @return {AxiosResponse<any>}
    */
   async getPaymentTools(paymentMethodId: number) {
-    return this.request.authenticatedApi.get(
+    return this.request.authenticatedGet(
       this.config.API.getPaymentTools(paymentMethodId),
       {
         headers: {
@@ -116,7 +116,7 @@ class Payment extends BaseExtend {
       body.voucher_code = data.voucherCode;
     }
 
-    return this.request.authenticatedApi.post(
+    return this.request.authenticatedPost(
       this.config.API.payForAsset,
       qs.stringify(body),
       {
@@ -159,7 +159,7 @@ class Payment extends BaseExtend {
       pi_id: paymentIntentId,
     };
 
-    return this.request.authenticatedApi.post(
+    return this.request.authenticatedPost(
       this.config.API.payForAsset,
       qs.stringify(body),
       {
@@ -201,7 +201,7 @@ class Payment extends BaseExtend {
       formData.append('voucher_code', data.voucherCode);
     }
 
-    return this.request.authenticatedApi.post(this.config.API.getPayPalParams, formData, {
+    return this.request.authenticatedPost(this.config.API.getPayPalParams, formData, {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },
@@ -222,7 +222,7 @@ class Payment extends BaseExtend {
    * @return {AxiosResponse<PurchaseHistoryCollection[]>}
    */
   async getPurchaseHistory(status = 'active', page: number, limit: number) {
-    return this.request.authenticatedApi.get(
+    return this.request.authenticatedGet(
       this.config.API.getPurchaseHistory(status, page, limit),
       {
         headers: {
@@ -243,7 +243,7 @@ class Payment extends BaseExtend {
    * @return {AxiosResponse<GetDefaultCard>}
    */
   async getDefaultCreditCard() {
-    return this.request.authenticatedApi.get(this.config.API.getDefaultCreditCard, {
+    return this.request.authenticatedGet(this.config.API.getDefaultCreditCard, {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },
@@ -285,7 +285,7 @@ class Payment extends BaseExtend {
       currency_iso: data.currency,
     };
 
-    return this.request.authenticatedApi.put(
+    return this.request.authenticatedPut(
       this.config.API.setDefaultCreditCard,
       qs.stringify(body),
       {
@@ -320,7 +320,7 @@ class Payment extends BaseExtend {
    * }
    */
   async getDirectDebitMandate() {
-    return this.request.authenticatedApi.get(this.config.API.getDirectDebitMandate, {
+    return this.request.authenticatedGet(this.config.API.getDirectDebitMandate, {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },
@@ -365,7 +365,7 @@ class Payment extends BaseExtend {
       iban: data.iban,
     };
 
-    return this.request.authenticatedApi.post(
+    return this.request.authenticatedPost(
       this.config.API.createDirectDebitMandate,
       qs.stringify(body),
       {
@@ -406,7 +406,7 @@ class Payment extends BaseExtend {
       branding_id: data.brandingId,
     };
 
-    return this.request.authenticatedApi.post(
+    return this.request.authenticatedPost(
       this.config.API.payForAssetV2,
       qs.stringify(body),
       {
@@ -447,7 +447,7 @@ class Payment extends BaseExtend {
       branding_id: data.brandingId,
     };
 
-    return this.request.authenticatedApi.post(
+    return this.request.authenticatedPost(
       this.config.API.subscribeV2,
       qs.stringify(body),
       {

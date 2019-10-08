@@ -36,7 +36,7 @@ class Voucher extends BaseExtend {
       voucher_code: data.voucherCode,
     };
 
-    return this.request.authenticatedApi.post(this.config.API.getDiscount, qs.stringify(body), {
+    return this.request.authenticatedPost(this.config.API.getDiscount, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
         'Content-Type': 'application/x-www-form-urlencoded',

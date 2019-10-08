@@ -25,7 +25,7 @@ class Branding extends BaseExtend {
    * @return {AxiosResponse<Brand>}
    */
   async getBranding(clientId: string, brandingId: string | number) {
-    return this.request.basicApi.get(this.config.API.getBranding(clientId, brandingId));
+    return this.request.get(this.config.API.getBranding(clientId, brandingId));
   }
 }
 

@@ -306,7 +306,7 @@ class Account extends BaseExtend {
    */
   async getAccountInfo() {
     return this.request.get(this.config.API.getAccountInfo, {
-      headers: { Authorization: `Bearer ${this.request.this.request.getToken().token}` },
+      headers: { Authorization: `Bearer ${this.request.getToken().token}` },
     });
   }
 

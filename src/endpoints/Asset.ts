@@ -25,7 +25,7 @@ class Asset extends BaseExtend {
    * @return {AxiosResponse<GetItemAccessV1>}
    */
   async checkAccessForAsset(id: number) {
-    return this.request.authenticatedApi.get(this.config.API.checkAccessForAsset(id), {
+    return this.request.authenticatedGet(this.config.API.checkAccessForAsset(id), {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },
@@ -44,7 +44,7 @@ class Asset extends BaseExtend {
    * @return {Object}
    */
   async isFreeTrialUsed(id: number) {
-    return this.request.authenticatedApi.get(this.config.API.checkFreeTrial(id), {
+    return this.request.authenticatedGet(this.config.API.checkFreeTrial(id), {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },
@@ -64,7 +64,7 @@ class Asset extends BaseExtend {
    * @return {AxiosResponse<ItemDetailsV1>}
    */
   async getAsset(assetId: number, merchantUuid: string) {
-    return this.request.basicApi.get(this.config.API.getAsset(assetId, merchantUuid));
+    return this.request.get(this.config.API.getAsset(assetId, merchantUuid));
   }
 
   /**
@@ -85,7 +85,7 @@ class Asset extends BaseExtend {
     externalId: string,
     merchantUuid = '',
   ) {
-    return this.request.basicApi.get(
+    return this.request.get(
       this.config.API.getExternalAsset(assetType, externalId, merchantUuid),
     );
   }
@@ -102,7 +102,7 @@ class Asset extends BaseExtend {
    * @return {AxiosResponse<GetMerchantPackage>}
    */
   async getPackage(id: number) {
-    return this.request.basicApi.get(this.config.API.getPackage(id));
+    return this.request.get(this.config.API.getPackage(id));
   }
 
   /**
@@ -117,7 +117,7 @@ class Asset extends BaseExtend {
    * @return {AxiosResponse<GetAccessFee>}
    */
   async getAssetAccessFees(id: number) {
-    return this.request.basicApi.get(this.config.API.getAssetAccessFees(id));
+    return this.request.get(this.config.API.getAssetAccessFees(id));
   }
 
   /**
@@ -140,7 +140,7 @@ class Asset extends BaseExtend {
     startDate?: string,
     endDate?: string,
   ) {
-    return this.request.authenticatedApi.get(
+    return this.request.authenticatedGet(
       this.config.API.getAssetsHistory(size, page, startDate, endDate),
       {
         headers: {
@@ -184,7 +184,7 @@ class Asset extends BaseExtend {
     formData.set('code', String(codeAccessData.code));
     formData.set('browser_fingerprint', browserFingerprint);
 
-    const response = await this.request.basicApi.post(
+    const response = await this.request.post(
       this.config.API.requestCodeAccess,
       formData,
     );
@@ -249,7 +249,7 @@ class Asset extends BaseExtend {
     formData.set('id', String(accessCode.item_id));
     formData.set('browser_fingerprint', accessCode.browser_fingerprint);
 
-    const response = await this.request.basicApi.delete(
+    const response = await this.request.delete(
       this.config.API.releaseAccessCode(accessCode.code),
       { data: formData },
     );
@@ -274,7 +274,7 @@ class Asset extends BaseExtend {
    * }
    */
   async getCloudfrontURL(assetId: number, videoUrl: string) {
-    return this.request.basicApi.get(this.config.API.getCloudfrontURL(assetId, videoUrl), {
+    return this.request.get(this.config.API.getCloudfrontURL(assetId, videoUrl), {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },

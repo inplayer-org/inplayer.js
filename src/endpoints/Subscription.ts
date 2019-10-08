@@ -28,7 +28,7 @@ class Subscription extends BaseExtend {
    * @return {AxiosResponse<GetSubscription>}
    */
   async getSubscriptions(page = 0, limit = 15) {
-    return this.request.authenticatedApi.get(this.config.API.getSubscriptions(limit, page), {
+    return this.request.authenticatedGet(this.config.API.getSubscriptions(limit, page), {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },
@@ -49,7 +49,7 @@ class Subscription extends BaseExtend {
    * @return {AxiosResponse<SubscriptionDetails>}
    */
   async getSubscription(id: number) {
-    return this.request.authenticatedApi.get(this.config.API.getSubscription(id), {
+    return this.request.authenticatedGet(this.config.API.getSubscription(id), {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },
@@ -68,7 +68,7 @@ class Subscription extends BaseExtend {
    * @return {AxiosResponse<CancelSubscription>}
    */
   async cancelSubscription(unsubscribeUrl: string) {
-    return this.request.authenticatedApi.get(
+    return this.request.authenticatedGet(
       this.config.API.cancelSubscription(unsubscribeUrl),
       {
         headers: {
@@ -133,7 +133,7 @@ class Subscription extends BaseExtend {
       body.voucher_code = data.voucherCode;
     }
 
-    return this.request.authenticatedApi.post(
+    return this.request.authenticatedPost(
       this.config.API.subscribe,
       qs.stringify(body),
       {
