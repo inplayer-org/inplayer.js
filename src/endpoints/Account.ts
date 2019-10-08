@@ -7,8 +7,8 @@ import {
   UpdateAccountData,
   ChangePasswordData,
   AccountAuthData,
-} from '../Interfaces/IAccount&Authentication';
-import { CustomErrorResponse, ApiConfig } from '../Interfaces/CommonInterfaces';
+} from '../models/IAccount&Authentication';
+import { CustomErrorResponse, ApiConfig } from '../models/CommonInterfaces';
 import Credentials from '../Credentials';
 import BaseExtend from '../extends/base';
 

@@ -2,8 +2,8 @@ import qs from 'qs';
 import {
   CreateSubscriptionData,
   CreateSubscriptionRequestBody,
-} from '../Interfaces/IPayment&Subscription';
-import { ApiConfig } from '../Interfaces/CommonInterfaces';
+} from '../models/IPayment&Subscription';
+import { ApiConfig } from '../models/CommonInterfaces';
 import BaseExtend from '../extends/base';
 
 /**

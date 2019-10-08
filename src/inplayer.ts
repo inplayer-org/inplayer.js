@@ -5,7 +5,7 @@ import Subscription from './endpoints/subscription';
 import Branding from './endpoints/branding';
 import Voucher from './endpoints/voucher';
 import DLC from './endpoints/dlc';
-import Notifications from './Notifications';
+import Notifications from './notifications';
 import RequestFactory from './factories/request';
 import config from './config';
 
@@ -14,15 +14,15 @@ import {
   ApiConfig,
   DLC as DLCType,
   Notifications as NotificationsType,
-} from './Interfaces/CommonInterfaces';
-import { Account as AccountType } from './Interfaces/IAccount&Authentication';
-import { Asset as AssetType } from './Interfaces/IAsset&Access';
+} from './models/CommonInterfaces';
+import { Account as AccountType } from './models/IAccount&Authentication';
+import { Asset as AssetType } from './models/IAsset&Access';
 import {
   Payment as PaymentType,
   Subscription as SubscriptionType,
-} from './Interfaces/IPayment&Subscription';
-import { Voucher as VoucherType } from './Interfaces/IVoucher&Promotion';
-import { Branding as BrandingType } from './Interfaces/IBrand';
+} from './models/IPayment&Subscription';
+import { Voucher as VoucherType } from './models/IVoucher&Promotion';
+import { Branding as BrandingType } from './models/IBrand';
 
 /**
  * Main class. Contains all others methods and websocket subscription

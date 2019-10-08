@@ -1,7 +1,7 @@
 import Fingerprint2 from 'fingerprintjs2';
 import reduce from 'lodash/reduce';
-import { ApiConfig } from '../Interfaces/CommonInterfaces';
-import { CodeAccessData } from '../Interfaces/IAsset&Access';
+import { ApiConfig } from '../models/CommonInterfaces';
+import { CodeAccessData } from '../models/IAsset&Access';
 import BaseExtend from '../extends/base';
 
 /**

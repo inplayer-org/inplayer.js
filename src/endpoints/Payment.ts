@@ -6,9 +6,9 @@ import {
   CreateDirectDebitMandateData,
   DirectDebitData,
   CreatePaymentRequestBody,
-} from '../Interfaces/IPayment&Subscription';
-import { ApiConfig, CustomErrorResponse } from '../Interfaces/CommonInterfaces';
-import { buildURLwithQueryParams } from '../Utils';
+} from '../models/IPayment&Subscription';
+import { ApiConfig, CustomErrorResponse } from '../models/CommonInterfaces';
+import { buildURLwithQueryParams } from '../utils';
 import BaseExtend from '../extends/base';
 
 /**

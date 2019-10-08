@@ -1,4 +1,4 @@
-import { ApiConfig } from '../Interfaces/CommonInterfaces';
+import { ApiConfig } from '../models/CommonInterfaces';
 import BaseExtend from '../extends/base';
 
 /**

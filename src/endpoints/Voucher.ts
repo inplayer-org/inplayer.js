@@ -1,6 +1,6 @@
 import qs from 'qs';
-import { VoucherDiscountPriceData } from '../Interfaces/IVoucher&Promotion';
-import { ApiConfig } from '../Interfaces/CommonInterfaces';
+import { VoucherDiscountPriceData } from '../models/IVoucher&Promotion';
+import { ApiConfig } from '../models/CommonInterfaces';
 import BaseExtend from '../extends/base';
 
 /**

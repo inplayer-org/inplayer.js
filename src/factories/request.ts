@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import Credentials from '../Credentials';
-import { CustomErrorResponse, ApiConfig } from '../Interfaces/CommonInterfaces';
+import { CustomErrorResponse, ApiConfig } from '../models/CommonInterfaces';
 
 // Make maybe to get headers as params
 const getHeaders = () => ({

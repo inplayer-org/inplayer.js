@@ -1,4 +1,4 @@
-import { ApiConfig } from '../Interfaces/CommonInterfaces';
+import { ApiConfig } from '../models/CommonInterfaces';
 import RequestFactory from '../factories/request';
 
 class BaseExtend {
