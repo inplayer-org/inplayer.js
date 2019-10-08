@@ -5,7 +5,7 @@ import Subscription from './endpoints/subscription';
 import Branding from './endpoints/branding';
 import Voucher from './endpoints/voucher';
 import DLC from './endpoints/dlc';
-import Notifications from './notifications';
+import Notifications from './factories/notifications';
 import RequestFactory from './factories/request';
 import config from './config';
 
