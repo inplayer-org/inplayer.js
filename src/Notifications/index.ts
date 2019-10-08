@@ -12,7 +12,7 @@ class Notifications extends BaseExtend {
   }
 
   async getIotToken() {
-    const iotResponse = await this.request.authenticatedApi.get(this.config.AWS_IOT_URL, {
+    const iotResponse = await this.request.authenticatedGet(this.config.AWS_IOT_URL, {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },
@@ -47,13 +47,13 @@ class Notifications extends BaseExtend {
       }
     }
 
-    const json: any = localStorage.getItem(this.config.INPLAYER_IOT_KEY);
+    const inplayerIotCreds: any = localStorage.getItem(this.config.INPLAYER_IOT_KEY);
 
-    if (!json) {
+    if (!inplayerIotCreds) {
       console.warn('[InPlayer Notifications] Unable to fetch iot credentials');
     }
 
-    const iamCreds = JSON.parse(json);
+    const iamCreds = JSON.parse(inplayerIotCreds);
 
     if (
       iamCreds
