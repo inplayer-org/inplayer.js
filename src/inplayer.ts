@@ -149,7 +149,7 @@ class InPlayer {
    * @example
    *     InPlayer.setConfig('development');
    */
-  setConfig(env: string) {
+  public set setConfig(env: string) {
     enum Env {
       'development',
       'production',
@@ -158,6 +158,10 @@ class InPlayer {
     if (env in Env) {
       this.config = config[env];
     }
+  }
+
+  public get getConfig() {
+    return this.config;
   }
 }
 
