@@ -1,4 +1,4 @@
-import { createTimestamp } from '../utils';
+import { createTimestamp } from '../helpers';
 
 class Credentials {
   token: string;
