@@ -10,3 +10,5 @@ export const buildURLwithQueryParams = (urlString: string, params: Record<string
 
   return url.href;
 };
+
+export const createTimestamp = () => Math.floor(Date.now() / 1000);

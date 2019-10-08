@@ -1,4 +1,6 @@
-export default class Credentials {
+import { createTimestamp } from '../utils';
+
+class Credentials {
   token: string;
   refreshToken: string;
   expires: number;
@@ -9,10 +11,7 @@ export default class Credentials {
   }
 
   isExpired() {
-    const dateTime = Date.now();
-    const timestamp = Math.floor(dateTime / 1000);
-
-    return timestamp > this.expires;
+    return createTimestamp() > this.expires;
   }
 
   toObject() {
@@ -23,3 +22,5 @@ export default class Credentials {
     };
   }
 }
+
+export default Credentials;

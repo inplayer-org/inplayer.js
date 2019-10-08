@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import Credentials from '../Credentials';
+import Credentials from './credentials';
 import { CustomErrorResponse, ApiConfig } from '../models/CommonInterfaces';
 
 // Make maybe to get headers as params

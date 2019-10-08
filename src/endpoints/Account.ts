@@ -9,7 +9,7 @@ import {
   AccountAuthData,
 } from '../models/IAccount&Authentication';
 import { CustomErrorResponse, ApiConfig } from '../models/CommonInterfaces';
-import Credentials from '../Credentials';
+import Credentials from '../factories/credentials';
 import BaseExtend from '../extends/base';
 
 /**
