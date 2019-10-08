@@ -6,7 +6,7 @@ import Branding from './endpoints/Branding';
 import Voucher from './endpoints/Voucher';
 import DLC from './endpoints/Dlc';
 import Notifications from './Notifications';
-import { isAuthenticated } from './Utils/http';
+import RequestFactory from './factories/request';
 import config from './config';
 
 // types
@@ -39,6 +39,7 @@ class InPlayer {
   DLC: DLCType;
   Branding: BrandingType;
   Notifications: NotificationsType;
+  request: any;
 
   constructor() {
     this.config = config.production;
@@ -78,6 +79,7 @@ class InPlayer {
      */
     this.Branding = new Branding(this.config);
     this.Notifications = new Notifications(this.config);
+    this.request = new RequestFactory(this.config);
   }
 
   /**
@@ -105,7 +107,7 @@ class InPlayer {
     accountUuid: string,
     callbackParams: Record<string, (...params: any) => void>,
   ) {
-    if (isAuthenticated()) {
+    if (this.request.isAuthenticated()) {
       this.Notifications.subscribe(accountUuid, callbackParams)
         .then((data: any) => {
           if (!data) {
@@ -149,7 +151,7 @@ class InPlayer {
    * @example
    *     InPlayer.setConfig('development');
    */
-  public set setConfig(env: string) {
+  setConfig(env: string) {
     enum Env {
       'development',
       'production',
@@ -158,10 +160,6 @@ class InPlayer {
     if (env in Env) {
       this.config = config[env];
     }
-  }
-
-  public get getConfig() {
-    return this.config;
   }
 }
 

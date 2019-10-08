@@ -1,20 +1,19 @@
 import qs from 'qs';
-import { authenticatedApi, getToken } from '../Utils/http';
 import {
   CreateSubscriptionData,
   CreateSubscriptionRequestBody,
 } from '../Interfaces/IPayment&Subscription';
 import { ApiConfig } from '../Interfaces/CommonInterfaces';
+import BaseExtend from '../extends/base';
 
 /**
  * Contains all Requests connected with subscriptions
  *
  * @class Subscription
  */
-class Subscription {
-  config: ApiConfig;
+class Subscription extends BaseExtend {
   constructor(config: ApiConfig) {
-    this.config = config;
+    super(config);
   }
   /**
    * Gets all subscriptions for a given user
@@ -29,9 +28,9 @@ class Subscription {
    * @return {AxiosResponse<GetSubscription>}
    */
   async getSubscriptions(page = 0, limit = 15) {
-    return authenticatedApi.get(this.config.API.getSubscriptions(limit, page), {
+    return this.request.authenticatedApi.get(this.config.API.getSubscriptions(limit, page), {
       headers: {
-        Authorization: `Bearer ${getToken().token}`,
+        Authorization: `Bearer ${this.request.getToken().token}`,
       },
     });
   }
@@ -50,9 +49,9 @@ class Subscription {
    * @return {AxiosResponse<SubscriptionDetails>}
    */
   async getSubscription(id: number) {
-    return authenticatedApi.get(this.config.API.getSubscription(id), {
+    return this.request.authenticatedApi.get(this.config.API.getSubscription(id), {
       headers: {
-        Authorization: `Bearer ${getToken().token}`,
+        Authorization: `Bearer ${this.request.getToken().token}`,
       },
     });
   }
@@ -69,11 +68,11 @@ class Subscription {
    * @return {AxiosResponse<CancelSubscription>}
    */
   async cancelSubscription(unsubscribeUrl: string) {
-    return authenticatedApi.get(
+    return this.request.authenticatedApi.get(
       this.config.API.cancelSubscription(unsubscribeUrl),
       {
         headers: {
-          Authorization: `Bearer ${getToken().token}`,
+          Authorization: `Bearer ${this.request.getToken().token}`,
         },
       },
     );
@@ -134,12 +133,12 @@ class Subscription {
       body.voucher_code = data.voucherCode;
     }
 
-    return authenticatedApi.post(
+    return this.request.authenticatedApi.post(
       this.config.API.subscribe,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${getToken().token}`,
+          Authorization: `Bearer ${this.request.getToken().token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },

@@ -1,17 +1,16 @@
 import qs from 'qs';
-import { authenticatedApi, getToken } from '../Utils/http';
 import { VoucherDiscountPriceData } from '../Interfaces/IVoucher&Promotion';
 import { ApiConfig } from '../Interfaces/CommonInterfaces';
+import BaseExtend from '../extends/base';
 
 /**
  * Contains all Requests regarding vouchers.
  *
  * @class Voucher
  */
-class Voucher {
-  config: ApiConfig;
+class Voucher extends BaseExtend {
   constructor(config: ApiConfig) {
-    this.config = config;
+    super(config);
   }
 
   /**
@@ -37,9 +36,9 @@ class Voucher {
       voucher_code: data.voucherCode,
     };
 
-    return authenticatedApi.post(this.config.API.getDiscount, qs.stringify(body), {
+    return this.request.authenticatedApi.post(this.config.API.getDiscount, qs.stringify(body), {
       headers: {
-        Authorization: `Bearer ${getToken().token}`,
+        Authorization: `Bearer ${this.request.getToken().token}`,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     });

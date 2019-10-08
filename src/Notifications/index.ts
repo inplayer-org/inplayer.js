@@ -1,21 +1,20 @@
 import awsIot from 'aws-iot-device-sdk';
-import { getToken, authenticatedApi } from '../Utils/http';
 import { ApiConfig } from '../Interfaces/CommonInterfaces';
+import BaseExtend from '../extends/base';
 
 const ONE_HOUR = 60 * 60 * 1000;
 
-class Notifications {
+class Notifications extends BaseExtend {
   subscription: any;
-  config: ApiConfig;
   constructor(config: ApiConfig) {
+    super(config);
     this.subscription = null;
-    this.config = config;
   }
 
   async getIotToken() {
-    const iotResponse = await authenticatedApi.get(this.config.AWS_IOT_URL, {
+    const iotResponse = await this.request.authenticatedApi.get(this.config.AWS_IOT_URL, {
       headers: {
-        Authorization: `Bearer ${getToken().token}`,
+        Authorization: `Bearer ${this.request.getToken().token}`,
       },
     });
 

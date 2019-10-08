@@ -1,18 +1,17 @@
 import Fingerprint2 from 'fingerprintjs2';
 import reduce from 'lodash/reduce';
-import { getToken, authenticatedApi, basicApi } from '../Utils/http';
 import { ApiConfig } from '../Interfaces/CommonInterfaces';
 import { CodeAccessData } from '../Interfaces/IAsset&Access';
+import BaseExtend from '../extends/base';
 
 /**
  * Contains all Requests connected with assets/items
  *
  * @class Asset
  */
-class Asset {
-  config: ApiConfig;
+class Asset extends BaseExtend {
   constructor(config: ApiConfig) {
-    this.config = config;
+    super(config);
   }
 
   /**
@@ -26,9 +25,9 @@ class Asset {
    * @return {AxiosResponse<GetItemAccessV1>}
    */
   async checkAccessForAsset(id: number) {
-    return authenticatedApi.get(this.config.API.checkAccessForAsset(id), {
+    return this.request.authenticatedApi.get(this.config.API.checkAccessForAsset(id), {
       headers: {
-        Authorization: `Bearer ${getToken().token}`,
+        Authorization: `Bearer ${this.request.getToken().token}`,
       },
     });
   }
@@ -45,9 +44,9 @@ class Asset {
    * @return {Object}
    */
   async isFreeTrialUsed(id: number) {
-    return authenticatedApi.get(this.config.API.checkFreeTrial(id), {
+    return this.request.authenticatedApi.get(this.config.API.checkFreeTrial(id), {
       headers: {
-        Authorization: `Bearer ${getToken().token}`,
+        Authorization: `Bearer ${this.request.getToken().token}`,
       },
     });
   }
@@ -65,7 +64,7 @@ class Asset {
    * @return {AxiosResponse<ItemDetailsV1>}
    */
   async getAsset(assetId: number, merchantUuid: string) {
-    return basicApi.get(this.config.API.getAsset(assetId, merchantUuid));
+    return this.request.basicApi.get(this.config.API.getAsset(assetId, merchantUuid));
   }
 
   /**
@@ -86,7 +85,7 @@ class Asset {
     externalId: string,
     merchantUuid = '',
   ) {
-    return basicApi.get(
+    return this.request.basicApi.get(
       this.config.API.getExternalAsset(assetType, externalId, merchantUuid),
     );
   }
@@ -103,7 +102,7 @@ class Asset {
    * @return {AxiosResponse<GetMerchantPackage>}
    */
   async getPackage(id: number) {
-    return basicApi.get(this.config.API.getPackage(id));
+    return this.request.basicApi.get(this.config.API.getPackage(id));
   }
 
   /**
@@ -118,7 +117,7 @@ class Asset {
    * @return {AxiosResponse<GetAccessFee>}
    */
   async getAssetAccessFees(id: number) {
-    return basicApi.get(this.config.API.getAssetAccessFees(id));
+    return this.request.basicApi.get(this.config.API.getAssetAccessFees(id));
   }
 
   /**
@@ -141,11 +140,11 @@ class Asset {
     startDate?: string,
     endDate?: string,
   ) {
-    return authenticatedApi.get(
+    return this.request.authenticatedApi.get(
       this.config.API.getAssetsHistory(size, page, startDate, endDate),
       {
         headers: {
-          Authorization: `Bearer ${getToken().token}`,
+          Authorization: `Bearer ${this.request.getToken().token}`,
         },
       },
     );
@@ -185,7 +184,7 @@ class Asset {
     formData.set('code', String(codeAccessData.code));
     formData.set('browser_fingerprint', browserFingerprint);
 
-    const response = await basicApi.post(
+    const response = await this.request.basicApi.post(
       this.config.API.requestCodeAccess,
       formData,
     );
@@ -250,7 +249,7 @@ class Asset {
     formData.set('id', String(accessCode.item_id));
     formData.set('browser_fingerprint', accessCode.browser_fingerprint);
 
-    const response = await basicApi.delete(
+    const response = await this.request.basicApi.delete(
       this.config.API.releaseAccessCode(accessCode.code),
       { data: formData },
     );
@@ -275,9 +274,9 @@ class Asset {
    * }
    */
   async getCloudfrontURL(assetId: number, videoUrl: string) {
-    return basicApi.get(this.config.API.getCloudfrontURL(assetId, videoUrl), {
+    return this.request.basicApi.get(this.config.API.getCloudfrontURL(assetId, videoUrl), {
       headers: {
-        Authorization: `Bearer ${getToken().token}`,
+        Authorization: `Bearer ${this.request.getToken().token}`,
       },
     });
   }

@@ -1,8 +1,5 @@
 import qs from 'qs';
 import {
-  authenticatedApi, basicApi, getToken, setToken,
-} from '../Utils/http';
-import {
   AuthenticateData,
   SignUpData,
   RequestNewPasswordData,
@@ -13,16 +10,16 @@ import {
 } from '../Interfaces/IAccount&Authentication';
 import { CustomErrorResponse, ApiConfig } from '../Interfaces/CommonInterfaces';
 import Credentials from '../Credentials';
+import BaseExtend from '../extends/base';
 
 /**
  * Contains all Requests regarding user/account and authentication
  *
  * @class Account
  */
-class Account {
-  config: ApiConfig;
+class Account extends BaseExtend {
   constructor(config: ApiConfig) {
-    this.config = config;
+    super(config);
   }
 
   /**
@@ -69,7 +66,7 @@ class Account {
       body.password = data.password;
     }
 
-    const respData = await basicApi.post(
+    const respData = await this.request.post(
       this.config.API.signIn,
       qs.stringify(body),
       {
@@ -79,7 +76,7 @@ class Account {
       },
     );
 
-    setToken(
+    this.request.setToken(
       respData.data.access_token,
       respData.data.refresh_token,
       respData.data.expires,
@@ -133,7 +130,7 @@ class Account {
       branding_id: data.brandingId,
     };
 
-    const resp = await basicApi.post(
+    const resp = await this.request.post(
       this.config.API.signUp,
       qs.stringify(body),
       {
@@ -141,7 +138,7 @@ class Account {
       },
     );
 
-    setToken(
+    this.request.setToken(
       resp.data.access_token,
       resp.data.refresh_token,
       resp.data.expires,
@@ -160,8 +157,8 @@ class Account {
    * @return {AxiosResponse<undefined>}
    */
   async signOut() {
-    const response = await authenticatedApi.get(this.config.API.signOut, {
-      headers: { Authorization: `Bearer ${getToken().token}` },
+    const response = await this.request.get(this.config.API.signOut, {
+      headers: { Authorization: `Bearer ${this.request.getToken().token}` },
     });
 
     return response;
@@ -177,7 +174,7 @@ class Account {
    * @return {AxiosResponse<CreateAccount>}
    */
   async refreshToken(clientId: number) {
-    const token = getToken();
+    const token = this.request.getToken();
 
     if (!token.refreshToken) {
       const response: CustomErrorResponse = {
@@ -198,7 +195,7 @@ class Account {
       grant_type: 'refresh_token',
     };
 
-    const responseData = await basicApi.post(
+    const responseData = await this.request.post(
       this.config.API.signIn,
       qs.stringify(body),
       {
@@ -226,7 +223,7 @@ class Account {
     body.append('delete', retire ? '1' : '0');
 
     // TODO: Check if global withCredentials works
-    return basicApi.post(this.config.API.reportSSOtoken(ssoDomain), body, {
+    return this.request.post(this.config.API.reportSSOtoken(ssoDomain), body, {
       headers: { 'Content-Type': 'multipart/form-data' },
       withCredentials: true,
     });
@@ -258,7 +255,7 @@ class Account {
       branding_id: data.brandingId,
     };
 
-    return basicApi.post(
+    return this.request.post(
       this.config.API.requestNewPassword,
       qs.stringify(body),
       {
@@ -292,7 +289,7 @@ class Account {
     // eslint-disable-next-line max-len
     const body = `password=${data.password}&password_confirmation=${data.passwordConfirmation}&branding_id=${data.brandingId}`;
 
-    return basicApi.put(this.config.API.setNewPassword(token), body, {
+    return this.request.put(this.config.API.setNewPassword(token), body, {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     });
   }
@@ -308,8 +305,8 @@ class Account {
    * @return {AxiosResponse<AccountInformationReturn>}
    */
   async getAccountInfo() {
-    return authenticatedApi.get(this.config.API.getAccountInfo, {
-      headers: { Authorization: `Bearer ${getToken().token}` },
+    return this.request.get(this.config.API.getAccountInfo, {
+      headers: { Authorization: `Bearer ${this.request.this.request.getToken().token}` },
     });
   }
 
@@ -327,7 +324,7 @@ class Account {
    * @return {AxiosResponse<ListSocialURLs>}
    */
   async getSocialLoginUrls(state: string) {
-    return basicApi.get(this.config.API.getSocialLoginUrls(state));
+    return this.request.get(this.config.API.getSocialLoginUrls(state));
   }
 
   /**
@@ -353,12 +350,12 @@ class Account {
       body.date_of_birth = data.dateOfBirth;
     }
 
-    return authenticatedApi.put(
+    return this.request.put(
       this.config.API.updateAccount,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${getToken().token}`,
+          Authorization: `Bearer ${this.request.getToken().token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
@@ -395,12 +392,12 @@ class Account {
       branding_id: data.brandingId,
     };
 
-    return authenticatedApi.post(
+    return this.request.post(
       this.config.API.changePassword,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${getToken().token}`,
+          Authorization: `Bearer ${this.request.getToken().token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
@@ -419,7 +416,7 @@ class Account {
    * @return {AxiosResponse<GetRegisterField>}
    */
   async getRegisterFields(merchantUuid = '') {
-    return basicApi.get(this.config.API.getRegisterFields(merchantUuid));
+    return this.request.get(this.config.API.getRegisterFields(merchantUuid));
   }
 
   /**
@@ -445,11 +442,11 @@ class Account {
       branding_id: data.brandingId,
     };
 
-    const response = await authenticatedApi.delete(
+    const response = await this.request.delete(
       this.config.API.deleteAccount,
       {
         headers: {
-          Authorization: `Bearer ${getToken().token}`,
+          Authorization: `Bearer ${this.request.getToken().token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: qs.stringify(body),
@@ -485,12 +482,12 @@ class Account {
       branding_id: data.brandingId,
     };
 
-    return authenticatedApi.post(
+    return this.request.post(
       this.config.API.exportData,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${getToken().token}`,
+          Authorization: `Bearer ${this.request.getToken().token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
@@ -513,12 +510,12 @@ class Account {
       branding_id: brandingId,
     };
 
-    return authenticatedApi.post(
+    return this.request.post(
       this.config.API.sendPinCode,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${getToken().token}`,
+          Authorization: `Bearer ${this.request.getToken().token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
@@ -541,12 +538,12 @@ class Account {
       pin_code: pinCode,
     };
 
-    return authenticatedApi.post(
+    return this.request.post(
       this.config.API.validatePinCode,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${getToken().token}`,
+          Authorization: `Bearer ${this.request.getToken().token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
@@ -571,7 +568,7 @@ class Account {
 }
 */
   async loadMerchantRestrictionSettings(merchantUuid: string) {
-    return basicApi.get(
+    return this.request.get(
       this.config.API.merchantRestrictionSettings(merchantUuid),
     );
   }

@@ -1,6 +1,4 @@
 import qs from 'qs';
-import { authenticatedApi, getToken } from '../Utils/http';
-
 import {
   CreatePaymentData,
   PaypalParamsData,
@@ -11,16 +9,16 @@ import {
 } from '../Interfaces/IPayment&Subscription';
 import { ApiConfig, CustomErrorResponse } from '../Interfaces/CommonInterfaces';
 import { buildURLwithQueryParams } from '../Utils';
+import BaseExtend from '../extends/base';
 
 /**
  * Contains all Requests connected with payments
  *
  * @class Payment
  */
-class Payment {
-  config: ApiConfig;
+class Payment extends BaseExtend {
   constructor(config: ApiConfig) {
-    this.config = config;
+    super(config);
   }
 
   /**
@@ -34,9 +32,9 @@ class Payment {
    * @return {AxiosResponse<Array<MerchantPaymentMethod>>}
    */
   async getPaymentMethods() {
-    return authenticatedApi.get(this.config.API.getPaymentMethods, {
+    return this.request.authenticatedApi.get(this.config.API.getPaymentMethods, {
       headers: {
-        Authorization: `Bearer ${getToken().token}`,
+        Authorization: `Bearer ${this.request.getToken().token}`,
       },
     });
   }
@@ -53,11 +51,11 @@ class Payment {
    * @return {AxiosResponse<any>}
    */
   async getPaymentTools(paymentMethodId: number) {
-    return authenticatedApi.get(
+    return this.request.authenticatedApi.get(
       this.config.API.getPaymentTools(paymentMethodId),
       {
         headers: {
-          Authorization: `Bearer ${getToken().token}`,
+          Authorization: `Bearer ${this.request.getToken().token}`,
         },
       },
     );
@@ -118,12 +116,12 @@ class Payment {
       body.voucher_code = data.voucherCode;
     }
 
-    return authenticatedApi.post(
+    return this.request.authenticatedApi.post(
       this.config.API.payForAsset,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${getToken().token}`,
+          Authorization: `Bearer ${this.request.getToken().token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
@@ -161,12 +159,12 @@ class Payment {
       pi_id: paymentIntentId,
     };
 
-    return authenticatedApi.post(
+    return this.request.authenticatedApi.post(
       this.config.API.payForAsset,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${getToken().token}`,
+          Authorization: `Bearer ${this.request.getToken().token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
@@ -203,9 +201,9 @@ class Payment {
       formData.append('voucher_code', data.voucherCode);
     }
 
-    return authenticatedApi.post(this.config.API.getPayPalParams, formData, {
+    return this.request.authenticatedApi.post(this.config.API.getPayPalParams, formData, {
       headers: {
-        Authorization: `Bearer ${getToken().token}`,
+        Authorization: `Bearer ${this.request.getToken().token}`,
       },
     });
   }
@@ -224,11 +222,11 @@ class Payment {
    * @return {AxiosResponse<PurchaseHistoryCollection[]>}
    */
   async getPurchaseHistory(status = 'active', page: number, limit: number) {
-    return authenticatedApi.get(
+    return this.request.authenticatedApi.get(
       this.config.API.getPurchaseHistory(status, page, limit),
       {
         headers: {
-          Authorization: `Bearer ${getToken().token}`,
+          Authorization: `Bearer ${this.request.getToken().token}`,
         },
       },
     );
@@ -245,9 +243,9 @@ class Payment {
    * @return {AxiosResponse<GetDefaultCard>}
    */
   async getDefaultCreditCard() {
-    return authenticatedApi.get(this.config.API.getDefaultCreditCard, {
+    return this.request.authenticatedApi.get(this.config.API.getDefaultCreditCard, {
       headers: {
-        Authorization: `Bearer ${getToken().token}`,
+        Authorization: `Bearer ${this.request.getToken().token}`,
       },
     });
   }
@@ -287,12 +285,12 @@ class Payment {
       currency_iso: data.currency,
     };
 
-    return authenticatedApi.put(
+    return this.request.authenticatedApi.put(
       this.config.API.setDefaultCreditCard,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${getToken().token}`,
+          Authorization: `Bearer ${this.request.getToken().token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
@@ -322,9 +320,9 @@ class Payment {
    * }
    */
   async getDirectDebitMandate() {
-    return authenticatedApi.get(this.config.API.getDirectDebitMandate, {
+    return this.request.authenticatedApi.get(this.config.API.getDirectDebitMandate, {
       headers: {
-        Authorization: `Bearer ${getToken().token}`,
+        Authorization: `Bearer ${this.request.getToken().token}`,
       },
     });
   }
@@ -367,12 +365,12 @@ class Payment {
       iban: data.iban,
     };
 
-    return authenticatedApi.post(
+    return this.request.authenticatedApi.post(
       this.config.API.createDirectDebitMandate,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${getToken().token}`,
+          Authorization: `Bearer ${this.request.getToken().token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
@@ -408,12 +406,12 @@ class Payment {
       branding_id: data.brandingId,
     };
 
-    return authenticatedApi.post(
+    return this.request.authenticatedApi.post(
       this.config.API.payForAssetV2,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${getToken().token}`,
+          Authorization: `Bearer ${this.request.getToken().token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
@@ -449,12 +447,12 @@ class Payment {
       branding_id: data.brandingId,
     };
 
-    return authenticatedApi.post(
+    return this.request.authenticatedApi.post(
       this.config.API.subscribeV2,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${getToken().token}`,
+          Authorization: `Bearer ${this.request.getToken().token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
