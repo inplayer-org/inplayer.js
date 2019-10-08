@@ -8,7 +8,7 @@ import {
   CreatePaymentRequestBody,
 } from '../models/IPayment&Subscription';
 import { ApiConfig, CustomErrorResponse } from '../models/CommonInterfaces';
-import { buildURLwithQueryParams } from '../utils';
+import { buildURLwithQueryParams } from '../helpers';
 import BaseExtend from '../extends/base';
 
 /**
