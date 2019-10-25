@@ -1,6 +1,6 @@
 {
   "name": "@inplayer-org/inplayer.js",
-  "version": "2.12.2",
+  "version": "2.12.3",
   "author": "InPlayer",
   "license": "MIT",
   "description": "A Javascript SDK for Inplayer's RESTful API",
@@ -54,7 +54,7 @@
     "babel-loader": "^8.0.5",
     "babel-minify-webpack-plugin": "^0.3.1",
     "copy-webpack-plugin": "^5.0.3",
-    "cross-env": "^5.2.0",
+    "cross-env": "^6.0.0",
     "eslint": "^6.0.1",
     "eslint-loader": "^3.0.0",
     "formdata-polyfill": "^3.0.15",
