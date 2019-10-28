@@ -60,7 +60,7 @@ export const API = (baseUrl: string) => ({
   createDirectDebitMandate: `${baseUrl}/v2/payments/direct-debit/mandate`,
   // Subscriptions
   getSubscriptions: (limit: number, page: number) => `${baseUrl}/subscriptions?limit=${limit}&page=${page}`,
-  getSubscription: (id: number) => `${baseUrl}/subscriptions/reporting/subscriptions/${id}`,
+  getSubscription: (id: number) => `${baseUrl}/subscriptions/${id}`,
   subscribe: `${baseUrl}/subscriptions`,
   cancelSubscription: (url: string) => `${url}`,
   subscribeV2: `${baseUrl}/v2/subscriptions`,
