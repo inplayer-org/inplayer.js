@@ -160,6 +160,7 @@ class InPlayer {
 
     if (env in Env) {
       this.config = config[env];
+      // this.request.setInstanceConfig(env);
     }
   }
 }

@@ -1,6 +1,7 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import Credentials from './credentials';
 import { CustomErrorResponse, ApiConfig } from '../models/CommonInterfaces';
+import configOptions from '../config';
 
 // Make maybe to get headers as params
 const getHeaders = () => ({
@@ -24,25 +25,19 @@ export default class Request {
       baseURL: this.config.BASE_URL,
     });
     this.authenticatedInstance.interceptors.request.use(
-      (axiosConfig) => {
-        const auth = this.isAuthenticated();
-
-        // Build and object similar to an Axios error response
-        if (!auth) {
-          const response: CustomErrorResponse = {
-            status: 401,
-            data: {
-              code: 401,
-              message: 'The user is not authenticated.',
-            },
-          };
-
-          throw { response };
-        }
-
-        return axiosConfig;
-      },
+      this.createAuthInterceptor,
     );
+  }
+
+  setInstanceConfig = (configEnv: string) => {
+    this.config = configOptions[configEnv];
+    this.basicInstance = axios.create({
+      baseURL: this.config.BASE_URL,
+    });
+    this.authenticatedInstance = axios.create({
+      baseURL: this.config.BASE_URL,
+    });
+    this.authenticatedInstance.interceptors.request.use(this.createAuthInterceptor);
   }
 
   /** Retruns the OAuth token
@@ -142,4 +137,20 @@ export default class Request {
     path: string,
     headers?: Record<string, object | string | boolean>,
   ) => this.authenticatedInstance.delete(path, headers || getHeaders());
+
+  createAuthInterceptor = (axiosConfig: AxiosRequestConfig) => {
+    const auth = this.isAuthenticated();
+    // Build and object similar to an Axios error response
+    if (!auth) {
+      const response: CustomErrorResponse = {
+        status: 401,
+        data: {
+          code: 401,
+          message: 'The user is not authenticated.',
+        },
+      };
+      throw { response };
+    }
+    return axiosConfig;
+  };
 }
