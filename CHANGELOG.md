@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.0.0-beta.1] - 29-10-2019
+
+### Changes
+
+- Remove preinstall script
+
 # [3.0.0-beta.0] - 29-10-2019
 
 ### Changes
