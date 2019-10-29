@@ -17,7 +17,6 @@
     "node": ">=8"
   },
   "scripts": {
-    "preinstall": "node tools/nodeVersionCheck.js",
     "dev": "webpack --progress --colors --watch",
     "prebuild": "rimraf dist",
     "build:dev": "cross-env NODE_ENV=development webpack --config ./webpack.config.js",
