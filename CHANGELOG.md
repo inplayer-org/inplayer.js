@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.0.0-beta.0] - 29-10-2019
+
+### Changes
+- Rewrite to TypeScript
+- Add axios as HTTP client
+
+### Breaking Changes
+- InPlayer.Account.authenticate rename to InPlayer.Account.signIn
+- InPlayer.Subscription.create rename to InPlayer.Subscription.createSubscription
+
 # [2.12.3] - 11-09-2019
 
 ### Fixes
