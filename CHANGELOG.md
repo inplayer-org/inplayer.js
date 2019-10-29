@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 ### Breaking Changes
 
 - InPlayer.Account.authenticate rename to InPlayer.Account.signIn
+- InPlayer.Payment.create rename to InPlayer.Payment.createPayment
 - InPlayer.Subscription.create rename to InPlayer.Subscription.createSubscription
 
 # [2.12.3] - 11-09-2019
