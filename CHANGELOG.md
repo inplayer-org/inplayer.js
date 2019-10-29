@@ -10,9 +10,9 @@ All notable changes to this project will be documented in this file.
 
 # [3.0.0-beta.0] - 29-10-2019
 
-### Changes
+### Added
 
-- Rewrite to TypeScript
+- Complete rewrite to TypeScript
 - Add axios as HTTP client
 
 ### Breaking Changes
