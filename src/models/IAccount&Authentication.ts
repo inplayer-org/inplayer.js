@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { CommonResponse } from './CommonInterfaces';
+import { CommonResponse, BaseExtend } from './CommonInterfaces';
 
 export interface CredentialsConfig {
   token?: string;
@@ -24,7 +24,7 @@ export interface SetPasswordData {
   brandingId: number;
 }
 
-export interface Account {
+export interface Account extends BaseExtend {
   signIn(data: AuthenticateData): Promise<AxiosResponse<CreateAccount>>;
   signUp(data: SignUpData): Promise<AxiosResponse<CreateAccount>>;
   signOut(): Promise<AxiosResponse<undefined>>;
@@ -77,8 +77,6 @@ export interface CreateAccount {
   refresh_token: string;
   account: AccountInformationReturn;
 }
-
-// TODO: One follower
 
 export interface Follower {
   id: number;

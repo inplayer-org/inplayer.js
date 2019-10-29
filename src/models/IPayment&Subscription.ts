@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { CommonResponse } from './CommonInterfaces';
+import { CommonResponse, BaseExtend } from './CommonInterfaces';
 
 export interface GeneratePayPalParameters {
   endpoint: string;
@@ -452,7 +452,7 @@ export interface SetDefaultCard {
   exp_year: number;
 }
 
-export interface Payment {
+export interface Payment extends BaseExtend {
   getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
   getPaymentTools(paymentMethodId: number): Promise<AxiosResponse<any>>;
   createPayment(data: CreatePaymentData): Promise<AxiosResponse<CreatePayment>>;
@@ -485,7 +485,7 @@ export interface Payment {
   ) => Promise<AxiosResponse<CommonResponse>>;
 }
 
-export interface Subscription {
+export interface Subscription extends BaseExtend {
   getSubscriptions(
     page?: number,
     limit?: number

@@ -1,5 +1,6 @@
-import { ApiConfig } from '../models/CommonInterfaces';
+import { ApiConfig, Request as RequestType } from '../models/CommonInterfaces';
 import BaseExtend from '../extends/base';
+import { API } from '../constants/endpoints';
 
 /**
  * Contains all Requests regarding branding.
@@ -8,8 +9,8 @@ import BaseExtend from '../extends/base';
  */
 
 class Branding extends BaseExtend {
-  constructor(config: ApiConfig) {
-    super(config);
+  constructor(config: ApiConfig, request: RequestType) {
+    super(config, request);
   }
 
   /**
@@ -25,7 +26,7 @@ class Branding extends BaseExtend {
    * @return {AxiosResponse<Brand>}
    */
   async getBranding(clientId: string, brandingId: string | number) {
-    return this.request.get(this.config.API.getBranding(clientId, brandingId));
+    return this.request.get(API.getBranding(clientId, brandingId));
   }
 }
 

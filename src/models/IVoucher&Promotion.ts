@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { BaseExtend } from './CommonInterfaces';
 
 export interface VoucherInfo {
   id: number;
@@ -37,6 +38,6 @@ export interface DiscountData {
   accessFeeId: number;
 }
 
-export interface Voucher {
+export interface Voucher extends BaseExtend {
   getDiscount(data: DiscountData): Promise<AxiosResponse<VoucherDiscountPrice>>;
 }

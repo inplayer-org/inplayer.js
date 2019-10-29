@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { BaseExtend } from './CommonInterfaces';
 
 export interface AccessControlType {
   id: number;
@@ -197,7 +198,7 @@ export interface CloudfrontUrl {
   video_url: string;
 }
 
-export interface Asset {
+export interface Asset extends BaseExtend {
   checkAccessForAsset(id: number): Promise<AxiosResponse<GetItemAccessV1>>;
   isFreeTrialUsed(id: number): Promise<AxiosResponse<any>>;
   getAsset(

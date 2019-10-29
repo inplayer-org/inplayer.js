@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { BaseExtend } from './CommonInterfaces';
 
 export interface Brand {
   id: number;
@@ -21,7 +22,7 @@ export interface BrandingData {
   merchantUUID: string;
 }
 
-export interface Branding {
+export interface Branding extends BaseExtend {
   getBranding(
     clientId: string,
     brandingId: string | number

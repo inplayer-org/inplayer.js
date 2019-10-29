@@ -1,17 +1,17 @@
 import Fingerprint2 from 'fingerprintjs2';
 import reduce from 'lodash/reduce';
-import { ApiConfig } from '../models/CommonInterfaces';
+import { ApiConfig, Request } from '../models/CommonInterfaces';
 import { CodeAccessData } from '../models/IAsset&Access';
 import BaseExtend from '../extends/base';
-
+import { API } from '../constants/endpoints';
 /**
  * Contains all Requests connected with assets/items
  *
  * @class Asset
  */
 class Asset extends BaseExtend {
-  constructor(config: ApiConfig) {
-    super(config);
+  constructor(config: ApiConfig, request: Request) {
+    super(config, request);
   }
 
   /**
@@ -25,7 +25,7 @@ class Asset extends BaseExtend {
    * @return {AxiosResponse<GetItemAccessV1>}
    */
   async checkAccessForAsset(id: number) {
-    return this.request.authenticatedGet(this.config.API.checkAccessForAsset(id), {
+    return this.request.authenticatedGet(API.checkAccessForAsset(id), {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },
@@ -41,10 +41,10 @@ class Asset extends BaseExtend {
    *     InPlayer.Asset
    *     .isFreeTrialUsed(36320)
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @return {AxiosResponse<boolean>}
    */
   async isFreeTrialUsed(id: number) {
-    return this.request.authenticatedGet(this.config.API.checkFreeTrial(id), {
+    return this.request.authenticatedGet(API.checkFreeTrial(id), {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },
@@ -64,7 +64,7 @@ class Asset extends BaseExtend {
    * @return {AxiosResponse<ItemDetailsV1>}
    */
   async getAsset(assetId: number, merchantUuid: string) {
-    return this.request.get(this.config.API.getAsset(assetId, merchantUuid));
+    return this.request.get(API.getAsset(assetId, merchantUuid));
   }
 
   /**
@@ -86,7 +86,7 @@ class Asset extends BaseExtend {
     merchantUuid = '',
   ) {
     return this.request.get(
-      this.config.API.getExternalAsset(assetType, externalId, merchantUuid),
+      API.getExternalAsset(assetType, externalId, merchantUuid),
     );
   }
 
@@ -102,7 +102,7 @@ class Asset extends BaseExtend {
    * @return {AxiosResponse<GetMerchantPackage>}
    */
   async getPackage(id: number) {
-    return this.request.get(this.config.API.getPackage(id));
+    return this.request.get(API.getPackage(id));
   }
 
   /**
@@ -117,7 +117,7 @@ class Asset extends BaseExtend {
    * @return {AxiosResponse<GetAccessFee>}
    */
   async getAssetAccessFees(id: number) {
-    return this.request.get(this.config.API.getAssetAccessFees(id));
+    return this.request.get(API.getAssetAccessFees(id));
   }
 
   /**
@@ -132,7 +132,7 @@ class Asset extends BaseExtend {
    *     InPlayer.Asset
    *     .getAssetsHistory()
    *     .then(data => console.log(data))
-   * @return {Array}
+   * @return {AxiosResponse<Array>}
    */
   async getAssetsHistory(
     size = 10,
@@ -141,7 +141,7 @@ class Asset extends BaseExtend {
     endDate?: string,
   ) {
     return this.request.authenticatedGet(
-      this.config.API.getAssetsHistory(size, page, startDate, endDate),
+      API.getAssetsHistory(size, page, startDate, endDate),
       {
         headers: {
           Authorization: `Bearer ${this.request.getToken().token}`,
@@ -185,7 +185,7 @@ class Asset extends BaseExtend {
     formData.set('browser_fingerprint', browserFingerprint);
 
     const response = await this.request.post(
-      this.config.API.requestCodeAccess,
+      API.requestCodeAccess,
       formData,
     );
 
@@ -211,7 +211,7 @@ class Asset extends BaseExtend {
    * }
    * @example
    *    const accessCode = InPlayer.Asset.getAccessCode();
-   * @return {Object | null}
+   * @return {CodeAccessData | null}
    */
   getAccessCode(assetId: number) {
     const accessCode = localStorage.getItem(
@@ -250,7 +250,7 @@ class Asset extends BaseExtend {
     formData.set('browser_fingerprint', accessCode.browser_fingerprint);
 
     const response = await this.request.delete(
-      this.config.API.releaseAccessCode(accessCode.code),
+      API.releaseAccessCode(accessCode.code),
       { data: formData },
     );
 
@@ -274,7 +274,7 @@ class Asset extends BaseExtend {
    * }
    */
   async getCloudfrontURL(assetId: number, videoUrl: string) {
-    return this.request.get(this.config.API.getCloudfrontURL(assetId, videoUrl), {
+    return this.request.get(API.getCloudfrontURL(assetId, videoUrl), {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },

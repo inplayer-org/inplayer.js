@@ -1,12 +1,11 @@
 import { ApiConfig, Request } from '../models/CommonInterfaces';
-import RequestFactory from '../factories/request';
 
 class BaseExtend {
   config: ApiConfig;
   request: Request;
-  constructor(config: ApiConfig) {
+  constructor(config: ApiConfig, request: Request) {
     this.config = config;
-    this.request = new RequestFactory(config);
+    this.request = request;
   }
 }
 

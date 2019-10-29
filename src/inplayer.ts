@@ -44,43 +44,43 @@ class InPlayer {
 
   constructor() {
     this.config = config.production;
+    this.request = new RequestFactory(this.config);
     /**
      * @property Account
      * @type Account
      */
-    this.Account = new Account(this.config);
+    this.Account = new Account(this.config, this.request);
     /**
      * @property Asset
      * @type Asset
      */
-    this.Asset = new Asset(this.config);
+    this.Asset = new Asset(this.config, this.request);
     /**
      * @property Payment
      * @type Payment
      */
-    this.Payment = new Payment(this.config);
+    this.Payment = new Payment(this.config, this.request);
     /**
      * @property Subscription
      * @type Subscription
      */
-    this.Subscription = new Subscription(this.config);
+    this.Subscription = new Subscription(this.config, this.request);
     /**
      * @property Voucher
      * @type Voucher
      */
-    this.Voucher = new Voucher(this.config);
+    this.Voucher = new Voucher(this.config, this.request);
     /**
      * @property Voucher
      * @type Voucher
      */
-    this.DLC = new DLC(this.config);
+    this.DLC = new DLC(this.config, this.request);
     /**
      * @property Branding
      * @type Branding
      */
-    this.Branding = new Branding(this.config);
-    this.Notifications = new Notifications(this.config);
-    this.request = new RequestFactory(this.config);
+    this.Branding = new Branding(this.config, this.request);
+    this.Notifications = new Notifications(this.config, this.request);
   }
 
   /**
@@ -159,8 +159,7 @@ class InPlayer {
     }
 
     if (env in Env) {
-      this.config = config[env];
-      // this.request.setInstanceConfig(env);
+      this.request.setInstanceConfig(env);
     }
   }
 }

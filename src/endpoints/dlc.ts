@@ -1,5 +1,6 @@
-import { ApiConfig } from '../models/CommonInterfaces';
+import { ApiConfig, Request } from '../models/CommonInterfaces';
 import BaseExtend from '../extends/base';
+import { API } from '../constants/endpoints';
 
 /**
  * Contains mixed various types of function for dlcs, discounts, branding, etc.
@@ -7,8 +8,8 @@ import BaseExtend from '../extends/base';
  * @class DLC
  */
 class DLC extends BaseExtend {
-  constructor(config: ApiConfig) {
-    super(config);
+  constructor(config: ApiConfig, request: Request) {
+    super(config, request);
   }
   /**
      * Gets all DLC links
@@ -22,7 +23,7 @@ class DLC extends BaseExtend {
      * @return {AxiosResponse<DlcLink>}
      */
   async getDlcLinks(assetId: number) {
-    return this.request.authenticatedGet(this.config.API.getDlcLinks(assetId), {
+    return this.request.authenticatedGet(API.getDlcLinks(assetId), {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },

@@ -8,9 +8,10 @@ import {
   ChangePasswordData,
   AccountAuthData,
 } from '../models/IAccount&Authentication';
-import { CustomErrorResponse, ApiConfig } from '../models/CommonInterfaces';
+import { CustomErrorResponse, ApiConfig, Request } from '../models/CommonInterfaces';
 import Credentials from '../factories/credentials';
 import BaseExtend from '../extends/base';
+import { API } from '../constants/endpoints';
 
 /**
  * Contains all Requests regarding user/account and authentication
@@ -18,8 +19,8 @@ import BaseExtend from '../extends/base';
  * @class Account
  */
 class Account extends BaseExtend {
-  constructor(config: ApiConfig) {
-    super(config);
+  constructor(config: ApiConfig, request: Request) {
+    super(config, request);
   }
 
   /**
@@ -67,7 +68,7 @@ class Account extends BaseExtend {
     }
 
     const respData = await this.request.post(
-      this.config.API.signIn,
+      API.signIn,
       qs.stringify(body),
       {
         headers: {
@@ -131,7 +132,7 @@ class Account extends BaseExtend {
     };
 
     const resp = await this.request.post(
-      this.config.API.signUp,
+      API.signUp,
       qs.stringify(body),
       {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -157,7 +158,7 @@ class Account extends BaseExtend {
    * @return {AxiosResponse<undefined>}
    */
   async signOut() {
-    const response = await this.request.get(this.config.API.signOut, {
+    const response = await this.request.get(API.signOut, {
       headers: { Authorization: `Bearer ${this.request.getToken().token}` },
     });
 
@@ -196,7 +197,7 @@ class Account extends BaseExtend {
     };
 
     const responseData = await this.request.post(
-      this.config.API.signIn,
+      API.signIn,
       qs.stringify(body),
       {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -223,7 +224,7 @@ class Account extends BaseExtend {
     body.append('delete', retire ? '1' : '0');
 
     // TODO: Check if global withCredentials works
-    return this.request.post(this.config.API.reportSSOtoken(ssoDomain), body, {
+    return this.request.post(API.reportSSOtoken(ssoDomain), body, {
       headers: { 'Content-Type': 'multipart/form-data' },
       withCredentials: true,
     });
@@ -256,7 +257,7 @@ class Account extends BaseExtend {
     };
 
     return this.request.post(
-      this.config.API.requestNewPassword,
+      API.requestNewPassword,
       qs.stringify(body),
       {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -289,7 +290,7 @@ class Account extends BaseExtend {
     // eslint-disable-next-line max-len
     const body = `password=${data.password}&password_confirmation=${data.passwordConfirmation}&branding_id=${data.brandingId}`;
 
-    return this.request.put(this.config.API.setNewPassword(token), body, {
+    return this.request.put(API.setNewPassword(token), body, {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     });
   }
@@ -305,7 +306,7 @@ class Account extends BaseExtend {
    * @return {AxiosResponse<AccountInformationReturn>}
    */
   async getAccountInfo() {
-    return this.request.get(this.config.API.getAccountInfo, {
+    return this.request.get(API.getAccountInfo, {
       headers: { Authorization: `Bearer ${this.request.getToken().token}` },
     });
   }
@@ -324,7 +325,7 @@ class Account extends BaseExtend {
    * @return {AxiosResponse<ListSocialURLs>}
    */
   async getSocialLoginUrls(state: string) {
-    return this.request.get(this.config.API.getSocialLoginUrls(state));
+    return this.request.get(API.getSocialLoginUrls(state));
   }
 
   /**
@@ -351,7 +352,7 @@ class Account extends BaseExtend {
     }
 
     return this.request.put(
-      this.config.API.updateAccount,
+      API.updateAccount,
       qs.stringify(body),
       {
         headers: {
@@ -393,7 +394,7 @@ class Account extends BaseExtend {
     };
 
     return this.request.post(
-      this.config.API.changePassword,
+      API.changePassword,
       qs.stringify(body),
       {
         headers: {
@@ -416,7 +417,7 @@ class Account extends BaseExtend {
    * @return {AxiosResponse<GetRegisterField>}
    */
   async getRegisterFields(merchantUuid = '') {
-    return this.request.get(this.config.API.getRegisterFields(merchantUuid));
+    return this.request.get(API.getRegisterFields(merchantUuid));
   }
 
   /**
@@ -443,7 +444,7 @@ class Account extends BaseExtend {
     };
 
     const response = await this.request.delete(
-      this.config.API.deleteAccount,
+      API.deleteAccount,
       {
         headers: {
           Authorization: `Bearer ${this.request.getToken().token}`,
@@ -483,7 +484,7 @@ class Account extends BaseExtend {
     };
 
     return this.request.post(
-      this.config.API.exportData,
+      API.exportData,
       qs.stringify(body),
       {
         headers: {
@@ -511,7 +512,7 @@ class Account extends BaseExtend {
     };
 
     return this.request.post(
-      this.config.API.sendPinCode,
+      API.sendPinCode,
       qs.stringify(body),
       {
         headers: {
@@ -539,7 +540,7 @@ class Account extends BaseExtend {
     };
 
     return this.request.post(
-      this.config.API.validatePinCode,
+      API.validatePinCode,
       qs.stringify(body),
       {
         headers: {
@@ -569,7 +570,7 @@ class Account extends BaseExtend {
 */
   async loadMerchantRestrictionSettings(merchantUuid: string) {
     return this.request.get(
-      this.config.API.merchantRestrictionSettings(merchantUuid),
+      API.merchantRestrictionSettings(merchantUuid),
     );
   }
 }

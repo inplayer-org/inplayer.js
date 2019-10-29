@@ -1,21 +1,19 @@
-export const API = (baseUrl: string) => ({
+export const API = {
   // Account
-  signIn: `${baseUrl}/accounts/authenticate`,
-  signOut: `${baseUrl}/accounts/logout`,
-  signUp: `${baseUrl}/accounts`,
-  requestNewPassword: `${baseUrl}/accounts/forgot-password`,
-  setNewPassword: (token: any) => `${baseUrl}/accounts/forgot-password/${token}`,
-  getAccountInfo: `${baseUrl}/accounts`,
-  getSocialLoginUrls: (state: any) => `${baseUrl}/accounts/social?state=${state}`,
-  updateAccount: `${baseUrl}/accounts`,
-  changePassword: `${baseUrl}/accounts/change-password`,
-  getRegisterFields: (merchantUuid: any) => `${
-    baseUrl
-  }/accounts/register-fields/${merchantUuid}?rnd=${Math.random() * 15}`,
+  signIn: '/accounts/authenticate',
+  signOut: '/accounts/logout',
+  signUp: '/accounts',
+  requestNewPassword: '/accounts/forgot-password',
+  setNewPassword: (token: any) => `/accounts/forgot-password/${token}`,
+  getAccountInfo: '/accounts',
+  getSocialLoginUrls: (state: any) => `/accounts/social?state=${state}`,
+  updateAccount: '/accounts',
+  changePassword: '/accounts/change-password',
+  getRegisterFields: (merchantUuid: any) => `/accounts/register-fields/${merchantUuid}?rnd=${Math.random() * 15}`,
   getPurchaseHistory: (status: any, page = 0, size = 5) =>
-    `${baseUrl}/items/access/customers?status=${status}&page=${page}&size=${size}`,
+    `/items/access/customers?status=${status}&page=${page}&size=${size}`,
   getAssetsHistory: (size: any, page: any, startDate: any, endDate: any) => {
-    let url = `${baseUrl}/payments/transactions?exclude=store-payment&size=${size}&page=${page}`;
+    let url = `/payments/transactions?exclude=store-payment&size=${size}&page=${page}`;
 
     if (startDate) {
       url += `&startDate=${startDate}`;
@@ -27,49 +25,49 @@ export const API = (baseUrl: string) => ({
 
     return url;
   },
-  deleteAccount: `${baseUrl}/accounts/erase`,
-  exportData: `${baseUrl}/accounts/export`,
+  deleteAccount: '/accounts/erase',
+  exportData: '/accounts/export',
   reportSSOtoken: (ssoDomain: any) => `${ssoDomain}/sso/cookie`,
-  sendPinCode: `${baseUrl}/v2/accounts/pin-codes/send`,
-  validatePinCode: `${baseUrl}/v2/accounts/pin-codes/validate`,
+  sendPinCode: '/v2/accounts/pin-codes/send',
+  validatePinCode: '/v2/accounts/pin-codes/validate',
   merchantRestrictionSettings: (merchantUuid: string) =>
-    `${baseUrl}/restrictions/settings/${merchantUuid}`,
+    `/restrictions/settings/${merchantUuid}`,
   // Asset
-  checkAccessForAsset: (id: any) => `${baseUrl}/items/${id}/access`,
-  checkFreeTrial: (id: any) => `${baseUrl}/items/used-trial-period/${id}`,
-  getAsset: (assetId: any, merchantUuid: any) => `${baseUrl}/items/${merchantUuid}/${assetId}`,
+  checkAccessForAsset: (id: any) => `/items/${id}/access`,
+  checkFreeTrial: (id: any) => `/items/used-trial-period/${id}`,
+  getAsset: (assetId: any, merchantUuid: any) => `/items/${merchantUuid}/${assetId}`,
   getExternalAsset: (assetType: any, externalId: any, merchantUuid: any) => {
     if (merchantUuid) {
-      return `${baseUrl}/items/assets/external/${assetType}/${externalId}?merchant_uuid=${merchantUuid}`;
+      return `/items/assets/external/${assetType}/${externalId}?merchant_uuid=${merchantUuid}`;
     }
-    return `${baseUrl}/items/assets/external/${assetType}/${externalId}`;
+    return `/items/assets/external/${assetType}/${externalId}`;
   },
-  getPackage: (id: any) => `${baseUrl}/items/packages/${id}`,
-  getAssetAccessFees: (id: any) => `${baseUrl}/items/${id}/access-fees`,
+  getPackage: (id: any) => `/items/packages/${id}`,
+  getAssetAccessFees: (id: any) => `/items/${id}/access-fees`,
   getCloudfrontURL: (assetId: any, videoUrl: any) =>
-    `${baseUrl}/items/${assetId}/access/cloudfront?url=${videoUrl}`,
+    `/items/${assetId}/access/cloudfront?url=${videoUrl}`,
   // Payment
-  getPaymentMethods: `${baseUrl}/payments/methods`,
-  getPaymentTools: (paymentMethodId: any) => `${baseUrl}/payments/method/${paymentMethodId}/tools`,
-  payForAsset: `${baseUrl}/payments`,
-  payForAssetV2: `${baseUrl}/v2/payments`,
-  getPayPalParams: `${baseUrl}/external-payments`,
-  getDefaultCreditCard: `${baseUrl}/v2/payments/cards/default`,
-  setDefaultCreditCard: `${baseUrl}/v2/payments/cards/default`,
-  getDirectDebitMandate: `${baseUrl}/v2/payments/direct-debit/mandate`,
-  createDirectDebitMandate: `${baseUrl}/v2/payments/direct-debit/mandate`,
+  getPaymentMethods: '/payments/methods',
+  getPaymentTools: (paymentMethodId: any) => `/payments/method/${paymentMethodId}/tools`,
+  payForAsset: '/payments',
+  payForAssetV2: '/v2/payments',
+  getPayPalParams: '/external-payments',
+  getDefaultCreditCard: '/v2/payments/cards/default',
+  setDefaultCreditCard: '/v2/payments/cards/default',
+  getDirectDebitMandate: '/v2/payments/direct-debit/mandate',
+  createDirectDebitMandate: '/v2/payments/direct-debit/mandate',
   // Subscriptions
-  getSubscriptions: (limit: number, page: number) => `${baseUrl}/subscriptions?limit=${limit}&page=${page}`,
-  getSubscription: (id: number) => `${baseUrl}/subscriptions/${id}`,
-  subscribe: `${baseUrl}/subscriptions`,
+  getSubscriptions: (limit: number, page: number) => `/subscriptions?limit=${limit}&page=${page}`,
+  getSubscription: (id: number) => `/subscriptions/${id}`,
+  subscribe: '/subscriptions',
   cancelSubscription: (url: string) => `${url}`,
-  subscribeV2: `${baseUrl}/v2/subscriptions`,
+  subscribeV2: '/v2/subscriptions',
   // Misc
-  getDlcLinks: (id: any) => `${baseUrl}/dlc/${id}/links`,
-  getDiscount: `${baseUrl}/vouchers/discount`,
+  getDlcLinks: (id: any) => `/dlc/${id}/links`,
+  getDiscount: '/vouchers/discount',
   getBranding: (merchantUuid: any, brandingId: any) =>
-    `${baseUrl}/branding/paywall/${merchantUuid}/${brandingId}`,
-  downloadFile: (assetId: any, filename: any) => `${baseUrl}/dlc/${assetId}/${filename}`,
-  requestCodeAccess: `${baseUrl}/items/access/codes`,
-  releaseAccessCode: (code: string | number) => `${baseUrl}/items/access/codes/${code}`,
-});
+    `/branding/paywall/${merchantUuid}/${brandingId}`,
+  downloadFile: (assetId: any, filename: any) => `/dlc/${assetId}/${filename}`,
+  requestCodeAccess: '/items/access/codes',
+  releaseAccessCode: (code: string | number) => `/items/access/codes/${code}`,
+};

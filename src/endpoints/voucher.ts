@@ -1,7 +1,8 @@
 import qs from 'qs';
 import { VoucherDiscountPriceData } from '../models/IVoucher&Promotion';
-import { ApiConfig } from '../models/CommonInterfaces';
+import { ApiConfig, Request } from '../models/CommonInterfaces';
 import BaseExtend from '../extends/base';
+import { API } from '../constants/endpoints';
 
 /**
  * Contains all Requests regarding vouchers.
@@ -9,8 +10,8 @@ import BaseExtend from '../extends/base';
  * @class Voucher
  */
 class Voucher extends BaseExtend {
-  constructor(config: ApiConfig) {
-    super(config);
+  constructor(config: ApiConfig, request: Request) {
+    super(config, request);
   }
 
   /**
@@ -36,7 +37,7 @@ class Voucher extends BaseExtend {
       voucher_code: data.voucherCode,
     };
 
-    return this.request.authenticatedPost(this.config.API.getDiscount, qs.stringify(body), {
+    return this.request.authenticatedPost(API.getDiscount, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
         'Content-Type': 'application/x-www-form-urlencoded',

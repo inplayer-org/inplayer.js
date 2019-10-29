@@ -7,9 +7,10 @@ import {
   DirectDebitData,
   CreatePaymentRequestBody,
 } from '../models/IPayment&Subscription';
-import { ApiConfig, CustomErrorResponse } from '../models/CommonInterfaces';
+import { ApiConfig, CustomErrorResponse, Request } from '../models/CommonInterfaces';
 import { buildURLwithQueryParams } from '../helpers';
 import BaseExtend from '../extends/base';
+import { API } from '../constants/endpoints';
 
 /**
  * Contains all Requests connected with payments
@@ -17,8 +18,8 @@ import BaseExtend from '../extends/base';
  * @class Payment
  */
 class Payment extends BaseExtend {
-  constructor(config: ApiConfig) {
-    super(config);
+  constructor(config: ApiConfig, request: Request) {
+    super(config, request);
   }
 
   /**
@@ -32,7 +33,7 @@ class Payment extends BaseExtend {
    * @return {AxiosResponse<Array<MerchantPaymentMethod>>}
    */
   async getPaymentMethods() {
-    return this.request.authenticatedGet(this.config.API.getPaymentMethods, {
+    return this.request.authenticatedGet(API.getPaymentMethods, {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },
@@ -52,7 +53,7 @@ class Payment extends BaseExtend {
    */
   async getPaymentTools(paymentMethodId: number) {
     return this.request.authenticatedGet(
-      this.config.API.getPaymentTools(paymentMethodId),
+      API.getPaymentTools(paymentMethodId),
       {
         headers: {
           Authorization: `Bearer ${this.request.getToken().token}`,
@@ -117,7 +118,7 @@ class Payment extends BaseExtend {
     }
 
     return this.request.authenticatedPost(
-      this.config.API.payForAsset,
+      API.payForAsset,
       qs.stringify(body),
       {
         headers: {
@@ -160,7 +161,7 @@ class Payment extends BaseExtend {
     };
 
     return this.request.authenticatedPost(
-      this.config.API.payForAsset,
+      API.payForAsset,
       qs.stringify(body),
       {
         headers: {
@@ -201,7 +202,7 @@ class Payment extends BaseExtend {
       formData.append('voucher_code', data.voucherCode);
     }
 
-    return this.request.authenticatedPost(this.config.API.getPayPalParams, formData, {
+    return this.request.authenticatedPost(API.getPayPalParams, formData, {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },
@@ -223,7 +224,7 @@ class Payment extends BaseExtend {
    */
   async getPurchaseHistory(status = 'active', page: number, limit: number) {
     return this.request.authenticatedGet(
-      this.config.API.getPurchaseHistory(status, page, limit),
+      API.getPurchaseHistory(status, page, limit),
       {
         headers: {
           Authorization: `Bearer ${this.request.getToken().token}`,
@@ -243,7 +244,7 @@ class Payment extends BaseExtend {
    * @return {AxiosResponse<GetDefaultCard>}
    */
   async getDefaultCreditCard() {
-    return this.request.authenticatedGet(this.config.API.getDefaultCreditCard, {
+    return this.request.authenticatedGet(API.getDefaultCreditCard, {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },
@@ -286,7 +287,7 @@ class Payment extends BaseExtend {
     };
 
     return this.request.authenticatedPut(
-      this.config.API.setDefaultCreditCard,
+      API.setDefaultCreditCard,
       qs.stringify(body),
       {
         headers: {
@@ -320,7 +321,7 @@ class Payment extends BaseExtend {
    * }
    */
   async getDirectDebitMandate() {
-    return this.request.authenticatedGet(this.config.API.getDirectDebitMandate, {
+    return this.request.authenticatedGet(API.getDirectDebitMandate, {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },
@@ -366,7 +367,7 @@ class Payment extends BaseExtend {
     };
 
     return this.request.authenticatedPost(
-      this.config.API.createDirectDebitMandate,
+      API.createDirectDebitMandate,
       qs.stringify(body),
       {
         headers: {
@@ -407,7 +408,7 @@ class Payment extends BaseExtend {
     };
 
     return this.request.authenticatedPost(
-      this.config.API.payForAssetV2,
+      API.payForAssetV2,
       qs.stringify(body),
       {
         headers: {
@@ -448,7 +449,7 @@ class Payment extends BaseExtend {
     };
 
     return this.request.authenticatedPost(
-      this.config.API.subscribeV2,
+      API.subscribeV2,
       qs.stringify(body),
       {
         headers: {

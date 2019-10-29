@@ -3,8 +3,9 @@ import {
   CreateSubscriptionData,
   CreateSubscriptionRequestBody,
 } from '../models/IPayment&Subscription';
-import { ApiConfig } from '../models/CommonInterfaces';
+import { ApiConfig, Request } from '../models/CommonInterfaces';
 import BaseExtend from '../extends/base';
+import { API } from '../constants/endpoints';
 
 /**
  * Contains all Requests connected with subscriptions
@@ -12,8 +13,8 @@ import BaseExtend from '../extends/base';
  * @class Subscription
  */
 class Subscription extends BaseExtend {
-  constructor(config: ApiConfig) {
-    super(config);
+  constructor(config: ApiConfig, request: Request) {
+    super(config, request);
   }
   /**
    * Gets all subscriptions for a given user
@@ -28,7 +29,7 @@ class Subscription extends BaseExtend {
    * @return {AxiosResponse<GetSubscription>}
    */
   async getSubscriptions(page = 0, limit = 15) {
-    return this.request.authenticatedGet(this.config.API.getSubscriptions(limit, page), {
+    return this.request.authenticatedGet(API.getSubscriptions(limit, page), {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },
@@ -49,7 +50,7 @@ class Subscription extends BaseExtend {
    * @return {AxiosResponse<SubscriptionDetails>}
    */
   async getSubscription(id: number) {
-    return this.request.authenticatedGet(this.config.API.getSubscription(id), {
+    return this.request.authenticatedGet(API.getSubscription(id), {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },
@@ -69,7 +70,7 @@ class Subscription extends BaseExtend {
    */
   async cancelSubscription(unsubscribeUrl: string) {
     return this.request.authenticatedGet(
-      this.config.API.cancelSubscription(unsubscribeUrl),
+      API.cancelSubscription(unsubscribeUrl),
       {
         headers: {
           Authorization: `Bearer ${this.request.getToken().token}`,
@@ -134,7 +135,7 @@ class Subscription extends BaseExtend {
     }
 
     return this.request.authenticatedPost(
-      this.config.API.subscribe,
+      API.subscribe,
       qs.stringify(body),
       {
         headers: {

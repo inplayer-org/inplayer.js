@@ -303,7 +303,7 @@ export declare class Asset {
   constructor(config: object, Account: Account);
 
   checkAccessForAsset(id: number): Promise<AxiosResponse<GetItemAccessV1>>;
-  isFreeTrialUsed(id: number): object;
+  isFreeTrialUsed(id: number): Promise<AxiosResponse<boolean>>;
   getAsset(
     assetId: number,
     merchantUuid: string
@@ -320,10 +320,14 @@ export declare class Asset {
     page?: number,
     startDate?: string,
     endDate?: string
-  ): object[];
+  ): Promise<AxiosResponse<object[]>>;
   getAccessCode(assetId: number | string): CodeAccessData;
-  requestCodeAccess(data: CodeAccessData): Promise<AxiosResponse<CodeAccessData>>;
-  releaseAccessCode(assetId: number | string): Promise<AxiosResponse<CodeAccessData>>;
+  requestCodeAccess(
+    data: CodeAccessData
+  ): Promise<AxiosResponse<CodeAccessData>>;
+  releaseAccessCode(
+    assetId: number | string
+  ): Promise<AxiosResponse<CodeAccessData>>;
   getCloudfrontURL(
     assetId: number,
     videoUrl: string
@@ -363,11 +367,10 @@ declare interface DlcLink {
   file_description: string;
 }
 
-
 export declare class DLC {
   constructor(config: object, Account: Account);
 
-  getDlcLinks(assetId: number): AxiosResponse<DlcLink>;
+  getDlcLinks(assetId: number): Promise<AxiosResponse<DlcLink>>;
 }
 
 export interface CreatePaymentData {
@@ -701,13 +704,13 @@ export interface ApiConfig {
   INPLAYER_ACCESS_CODE_NAME: (assetId: number) => string;
 }
 
-export declare const API: (config: ApiConfig) => ApiEndpoints;
+export declare const API: ApiEndpoints;
 
 export declare class Notifications {
   constructor(config: object, Account: Account);
 
-  getIotToken(): object;
-  subscribe(accountUuid?: string, callbackParams?: any): boolean;
+  getIotToken(): Promise<object>;
+  subscribe(accountUuid?: string, callbackParams?: any): Promise<boolean>;
   handleSubscribe(data: object, callbackParams: any, uuid: string): void;
   setClient(client: any): void;
   isSubscribed(): boolean;
@@ -721,7 +724,6 @@ export interface Config {
   INPLAYER_TOKEN_KEY: string;
   INPLAYER_IOT_KEY: string;
   INPLAYER_ACCESS_CODE_NAME: (assetId: number) => string;
-  API: ApiEndpoints;
 }
 
 declare const InPlayer: {
@@ -735,10 +737,13 @@ declare const InPlayer: {
   Branding: Branding;
   Notifications: Notifications;
 
-  subscribe(accountUuid: string, callbackParams: any): void;
+  subscribe(
+    accountUuid: string,
+    callbackParams: Record<string, (...params: any) => void>
+  ): void;
   isSubscribed(): boolean;
   unsubscribe(): void;
-  setConfig(config: string): void;
+  setConfig(env: string): void;
 };
 
 export default InPlayer;

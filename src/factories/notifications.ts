@@ -1,13 +1,13 @@
 import awsIot from 'aws-iot-device-sdk';
-import { ApiConfig } from '../models/CommonInterfaces';
+import { ApiConfig, Request } from '../models/CommonInterfaces';
 import BaseExtend from '../extends/base';
 
 const ONE_HOUR = 60 * 60 * 1000;
 
 class Notifications extends BaseExtend {
   subscription: any;
-  constructor(config: ApiConfig) {
-    super(config);
+  constructor(config: ApiConfig, request: Request) {
+    super(config, request);
     this.subscription = null;
   }
 

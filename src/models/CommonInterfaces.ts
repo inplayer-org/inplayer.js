@@ -82,7 +82,6 @@ export interface ApiConfig {
   INPLAYER_TOKEN_KEY: string;
   INPLAYER_IOT_KEY: string;
   INPLAYER_ACCESS_CODE_NAME: (assetId: number) => string;
-  API: ApiEndpoints;
 }
 
 export interface CredentialsConfig {
@@ -136,4 +135,9 @@ export interface Request {
   authenticatedPut(path: string, data: any, headers?: Record<string, object | string | boolean>): any;
   authenticatedDelete(path: string, headers?: Record<string, object | string | boolean>): any;
   setInstanceConfig(configEnv: string): void;
+}
+
+export interface BaseExtend {
+  config: ApiConfig;
+  request: Request;
 }
