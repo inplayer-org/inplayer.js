@@ -1,1 +1,6 @@
 /dist/**
+webpack.config.js
+node_modules
+coverage
+*.lock
+*.log

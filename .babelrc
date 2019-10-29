@@ -1,16 +1,21 @@
 {
   "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "useBuiltIns": "entry",
-        "forceAllTransforms": true
-      }
-    ]
+      [
+        "@babel/preset-env",
+        {
+          "modules": false,
+          "targets": {
+            "node": "current",
+            "browsers": [
+              "last 2 versions"
+            ]
+          }
+        }
+      ],
+      "@babel/preset-typescript"
   ],
   "plugins": [
-    [
-      "@babel/plugin-transform-runtime"
-    ]
+      "@babel/plugin-transform-runtime",
+      "@babel/plugin-proposal-class-properties"
   ]
 }
