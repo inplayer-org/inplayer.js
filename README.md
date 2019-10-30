@@ -13,7 +13,9 @@
 
 [inplayer.com](https://inplayer.com)
 
-SDK Documentation can be found [here](https://inplayer-org.github.io/inplayer.js/)
+SDK Documentation can be found:
+- [v2](https://inplayer-org.github.io/inplayer.js/)
+- [v3](https://inplayer-org.github.io/inplayer.js/)
 
 ## Installation
 
