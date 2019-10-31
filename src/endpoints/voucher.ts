@@ -29,7 +29,7 @@ class Voucher extends BaseExtend {
    *        voucherCode: 'FOOrGmv60pT'
    *     })
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<VoucherDiscountPrice>}
+   * @returns {AxiosResponse<VoucherDiscountPrice>}
    */
   async getDiscount(data: VoucherDiscountPriceData) {
     const body = {
