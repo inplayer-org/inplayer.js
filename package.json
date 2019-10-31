@@ -22,11 +22,11 @@
     "build:dev": "cross-env NODE_ENV=development webpack --config ./webpack.config.js",
     "build:prod": "cross-env NODE_ENV=production webpack --config ./webpack.config.js",
     "test": "jest --watchAll",
-    "generate:docs": "yarn run yuidoc .",
     "lint": "eslint ./src --ext .js",
     "lint:js:fix": "eslint src/** --fix",
     "analyze-bundle": "babel-node ./tools/analyzeBundle.js",
-    "prepublishOnly": "yarn build:prod"
+    "prepublishOnly": "yarn build:prod",
+    "generate:docs": "typedoc"
   },
   "lint-staged": {
     "*.js": [
@@ -85,6 +85,7 @@
     "prettier": "^1.18.2",
     "terser-webpack-plugin": "^2.2.1",
     "ts-jest": "^24.1.0",
+    "typedoc": "^0.15.0",
     "typescript": "^3.6.4",
     "webpack": "^4.41.2",
     "webpack-bundle-analyzer": "^3.6.0",

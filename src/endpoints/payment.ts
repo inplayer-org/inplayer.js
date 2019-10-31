@@ -10,7 +10,7 @@ import {
 import { ApiConfig, CustomErrorResponse, Request } from '../models/CommonInterfaces';
 import { buildURLwithQueryParams } from '../helpers';
 import BaseExtend from '../extends/base';
-import { API } from '../constants/endpoints';
+import { API } from '../constants';
 
 /**
  * Contains all Requests connected with payments

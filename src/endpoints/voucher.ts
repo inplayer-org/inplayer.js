@@ -2,7 +2,7 @@ import qs from 'qs';
 import { VoucherDiscountPriceData } from '../models/IVoucher&Promotion';
 import { ApiConfig, Request } from '../models/CommonInterfaces';
 import BaseExtend from '../extends/base';
-import { API } from '../constants/endpoints';
+import { API } from '../constants';
 
 /**
  * Contains all Requests regarding vouchers.

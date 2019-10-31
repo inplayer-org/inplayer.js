@@ -3,7 +3,7 @@
   "url": "https://inplayer-org.github.io/inplayer.js/",
   "version": "3.0.0",
   "options": {
-    "paths": "src",
+    "paths": "src/*/ts",
     "outdir": "docs/",
     "exclude": "lib,docs,dist,examples,tests,constants",
     "themedir": "node_modules/yuidoc-lucid-theme",

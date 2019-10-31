@@ -11,7 +11,7 @@ import {
 import { CustomErrorResponse, ApiConfig, Request } from '../models/CommonInterfaces';
 import Credentials from '../factories/credentials';
 import BaseExtend from '../extends/base';
-import { API } from '../constants/endpoints';
+import { API } from '../constants';
 
 /**
  * Contains all Requests regarding user/account and authentication

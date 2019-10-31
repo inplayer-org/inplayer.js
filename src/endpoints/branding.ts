@@ -1,6 +1,6 @@
 import { ApiConfig, Request as RequestType } from '../models/CommonInterfaces';
 import BaseExtend from '../extends/base';
-import { API } from '../constants/endpoints';
+import { API } from '../constants';
 
 /**
  * Contains all Requests regarding branding.

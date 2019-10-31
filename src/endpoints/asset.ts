@@ -3,7 +3,7 @@ import reduce from 'lodash/reduce';
 import { ApiConfig, Request } from '../models/CommonInterfaces';
 import { CodeAccessData } from '../models/IAsset&Access';
 import BaseExtend from '../extends/base';
-import { API } from '../constants/endpoints';
+import { API } from '../constants';
 /**
  * Contains all Requests connected with assets/items
  *

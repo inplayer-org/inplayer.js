@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "incremental": true,
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -16,6 +15,6 @@
     "lib": ["dom", "es2015", "es2017"],
     "isolatedModules": true
   },
-  "include": ["src"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }

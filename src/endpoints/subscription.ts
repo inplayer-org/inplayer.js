@@ -5,7 +5,7 @@ import {
 } from '../models/IPayment&Subscription';
 import { ApiConfig, Request } from '../models/CommonInterfaces';
 import BaseExtend from '../extends/base';
-import { API } from '../constants/endpoints';
+import { API } from '../constants';
 
 /**
  * Contains all Requests connected with subscriptions
