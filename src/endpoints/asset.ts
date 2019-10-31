@@ -22,7 +22,7 @@ class Asset extends BaseExtend {
    * @example
    *     InPlayer.Asset.checkAccessForAsset(42597)
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<GetItemAccessV1>}
+   * @returns  {AxiosResponse<GetItemAccessV1>}
    */
   async checkAccessForAsset(id: number) {
     return this.request.authenticatedGet(API.checkAccessForAsset(id), {
@@ -41,7 +41,7 @@ class Asset extends BaseExtend {
    *     InPlayer.Asset
    *     .isFreeTrialUsed(36320)
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<boolean>}
+   * @returns  {AxiosResponse<boolean>}
    */
   async isFreeTrialUsed(id: number) {
     return this.request.authenticatedGet(API.checkFreeTrial(id), {
@@ -61,7 +61,7 @@ class Asset extends BaseExtend {
    *     InPlayer.Asset
    *     .getAsset(2,'a1f13-dd1dfh-rfh123-dhd1hd-fahh1dl')
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<ItemDetailsV1>}
+   * @returns  {AxiosResponse<ItemDetailsV1>}
    */
   async getAsset(assetId: number, merchantUuid: string) {
     return this.request.get(API.getAsset(assetId, merchantUuid));
@@ -78,7 +78,7 @@ class Asset extends BaseExtend {
    *     InPlayer.Asset
    *     .getExternalAsset('ooyala','44237')
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<ExternalItemDetails>}
+   * @returns  {AxiosResponse<ExternalItemDetails>}
    */
   async getExternalAsset(
     assetType: string,
@@ -99,7 +99,7 @@ class Asset extends BaseExtend {
    *     InPlayer.Asset
    *     .getPackage(4444)
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<GetMerchantPackage>}
+   * @returns  {AxiosResponse<GetMerchantPackage>}
    */
   async getPackage(id: number) {
     return this.request.get(API.getPackage(id));
@@ -114,7 +114,7 @@ class Asset extends BaseExtend {
    *     InPlayer.Asset
    *     .getAssetAccessFees(555)
    *     .then(data => console.log(data))
-   * @return {AxiosResponse<GetAccessFee>}
+   * @returns  {AxiosResponse<GetAccessFee>}
    */
   async getAssetAccessFees(id: number) {
     return this.request.get(API.getAssetAccessFees(id));
@@ -132,7 +132,7 @@ class Asset extends BaseExtend {
    *     InPlayer.Asset
    *     .getAssetsHistory()
    *     .then(data => console.log(data))
-   * @return {AxiosResponse<Array>}
+   * @returns  {AxiosResponse<Array>}
    */
   async getAssetsHistory(
     size = 10,
@@ -164,7 +164,7 @@ class Asset extends BaseExtend {
    *     InPlayer.Asset
    *     .requestCodeAccess({ assetId: 42599, code: 'access-code' })
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @returns  {Object}
    */
   async requestCodeAccess(codeAccessData: CodeAccessData) {
     const formData = new FormData();
@@ -211,7 +211,7 @@ class Asset extends BaseExtend {
    * }
    * @example
    *    const accessCode = InPlayer.Asset.getAccessCode();
-   * @return {CodeAccessData | null}
+   * @returns  {CodeAccessData | null}
    */
   getAccessCode(assetId: number) {
     const accessCode = localStorage.getItem(
@@ -235,7 +235,7 @@ class Asset extends BaseExtend {
    *     InPlayer.Asset
    *     .releaseAccessCode(42599)
    *     .then(data => console.log(data));
-   * @return {Object}
+   * @returns  {Object}
    */
   async releaseAccessCode(assetId: number) {
     const accessCode: CodeAccessData = this.getAccessCode(assetId);
@@ -269,7 +269,7 @@ class Asset extends BaseExtend {
    *     InPlayer.Asset
    *     .getCloudfrontURL(42599, 'url')
    *     .then(data => console.log(data));
-   * @returns {Object} data = {
+   * @returns s {Object} data = {
    *    video_url: {string}
    * }
    */

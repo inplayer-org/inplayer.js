@@ -20,7 +20,7 @@ class DLC extends BaseExtend {
      *     InPlayer.DLC
      *     .getDlcLinks(36320)
      *     .then(data => console.log(data));
-     * @return {AxiosResponse<DlcLink>}
+     * @returns  {AxiosResponse<DlcLink>}
      */
   async getDlcLinks(assetId: number) {
     return this.request.authenticatedGet(API.getDlcLinks(assetId), {

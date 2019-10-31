@@ -26,7 +26,7 @@ class Subscription extends BaseExtend {
    *     InPlayer.Subscription
    *     .getSubscriptions()
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<GetSubscription>}
+   * @returns  {AxiosResponse<GetSubscription>}
    */
   async getSubscriptions(page = 0, limit = 15) {
     return this.request.authenticatedGet(API.getSubscriptions(limit, page), {
@@ -47,7 +47,7 @@ class Subscription extends BaseExtend {
    *     InPlayer.Subscription
    *     .getSubscription('abcdef')
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<SubscriptionDetails>}
+   * @returns  {AxiosResponse<SubscriptionDetails>}
    */
   async getSubscription(id: number) {
     return this.request.authenticatedGet(API.getSubscription(id), {
@@ -66,7 +66,7 @@ class Subscription extends BaseExtend {
    *     InPlayer.Subscription
    *     .cancelSubscription('abcdef')
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<CancelSubscription>}
+   * @returns  {AxiosResponse<CancelSubscription>}
    */
   async cancelSubscription(unsubscribeUrl: string) {
     return this.request.authenticatedGet(
@@ -114,7 +114,7 @@ class Subscription extends BaseExtend {
    *        }
    *     )
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<CreateSubscription>}
+   * @returns  {AxiosResponse<CreateSubscription>}
    */
   async createSubscription(data: CreateSubscriptionData) {
     const body: CreateSubscriptionRequestBody = {

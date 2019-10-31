@@ -30,7 +30,7 @@ class Payment extends BaseExtend {
    *     InPlayer.Payment
    *     .getPaymentMethods()
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<Array<MerchantPaymentMethod>>}
+   * @returns  {AxiosResponse<Array<MerchantPaymentMethod>>}
    */
   async getPaymentMethods() {
     return this.request.authenticatedGet(API.getPaymentMethods, {
@@ -49,7 +49,7 @@ class Payment extends BaseExtend {
    *     InPlayer.Payment
    *     .getPaymentTools(2)
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<any>}
+   * @returns  {AxiosResponse<any>}
    */
   async getPaymentTools(paymentMethodId: number) {
     return this.request.authenticatedGet(
@@ -97,7 +97,7 @@ class Payment extends BaseExtend {
    *       returnUrl: 'https://event.inplayer.com/staging',
    *      })
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<CreatePayment>}
+   * @returns  {AxiosResponse<CreatePayment>}
    */
   async createPayment(data: CreatePaymentData) {
     const body: CreatePaymentRequestBody = {
@@ -139,7 +139,7 @@ class Payment extends BaseExtend {
    *     InPlayer.Payment
    *     .confirmPayment('332242')
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<CreatePayment>} Contains the data - {
+   * @returns  {AxiosResponse<CreatePayment>} Contains the data - {
    *       message: "Submitted for payment",
    *  }
    */
@@ -190,7 +190,7 @@ class Payment extends BaseExtend {
    *     voucherCode: '1231231'
    *     })
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<GeneratePayPalParameters>}
+   * @returns  {AxiosResponse<GeneratePayPalParameters>}
    */
   async getPayPalParams(data: PaypalParamsData) {
     const formData = new FormData();
@@ -220,7 +220,7 @@ class Payment extends BaseExtend {
    *     InPlayer.Payment
    *     .getPurchaseHistory('active', 0, 5)
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<PurchaseHistoryCollection[]>}
+   * @returns  {AxiosResponse<PurchaseHistoryCollection[]>}
    */
   async getPurchaseHistory(status = 'active', page: number, limit: number) {
     return this.request.authenticatedGet(
@@ -241,7 +241,7 @@ class Payment extends BaseExtend {
    *     InPlayer.Payment
    *     .getDefaultCreditCard()
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<GetDefaultCard>}
+   * @returns  {AxiosResponse<GetDefaultCard>}
    */
   async getDefaultCreditCard() {
     return this.request.authenticatedGet(API.getDefaultCreditCard, {
@@ -274,7 +274,7 @@ class Payment extends BaseExtend {
    *          currency: 'EUR'
    *      })
    *     .then(data => console.log(data));
-   * @return {<AxiosResponse<SetDefaultCard>}
+   * @returns  {<AxiosResponse<SetDefaultCard>}
    */
   async setDefaultCreditCard(data: SetDefaultCardPerCurrencyData) {
     const body = {
@@ -306,7 +306,7 @@ class Payment extends BaseExtend {
    *     InPlayer.Payment
    *     .getDirectDebitMandate()
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<DirectDebitMandateResponse>} Contains the data - {
+   * @returns  {AxiosResponse<DirectDebitMandateResponse>} Contains the data - {
    *  is_approved: {boolean},
    *  statement_descriptor: {string},
    *  mandate: {
@@ -340,7 +340,7 @@ class Payment extends BaseExtend {
    *     InPlayer.Payment
    *     .createDirectDebitMandate('/v2/payments/direct-debit/mandate', body)
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<CreateDirectDebitResponse>} Contains the data - {
+   * @returns  {AxiosResponse<CreateDirectDebitResponse>} Contains the data - {
    *   "id": "src_1F2GzxJqmvwo8uTaJnRVkgYS",
    *   "currency": "eur",
    *   "created": 1564576421,
@@ -392,7 +392,7 @@ class Payment extends BaseExtend {
    *     InPlayer.Payment
    *     .directDebitCharge({ assetId, accessFeeId, voucherCode, brandingId })
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<CommonResponse>} Contains the data - {
+   * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
    *       code: '200',
    *       message: "Submitted for payment",
    *    }
@@ -433,7 +433,7 @@ class Payment extends BaseExtend {
    *     InPlayer.Payment
    *     .directDebitSubscribe({ assetId, accessFeeId, voucherCode, brandingId })
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<CommonResponse>} Contains the data - {
+   * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
    *       code: '200',
    *       message: "Submitted for payment",
    *    }

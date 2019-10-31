@@ -45,7 +45,7 @@ class Account extends BaseExtend {
    *      refreshToken: '528b1b80-ddd1hj-4abc-gha3j-111111'
    *     })
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<CreateAccount>}
+   * @returns  {AxiosResponse<CreateAccount>}
    */
   async signIn(data: AuthenticateData) {
     const body: any = {
@@ -115,7 +115,7 @@ class Account extends BaseExtend {
    *      metadata : { country: "Macedonia" },
    *     })
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<CreateAccount>}
+   * @returns  {AxiosResponse<CreateAccount>}
    */
   async signUp(data: SignUpData) {
     const body = {
@@ -155,7 +155,7 @@ class Account extends BaseExtend {
    * @example
    *     InPlayer.Account.signOut()
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<undefined>}
+   * @returns  {AxiosResponse<undefined>}
    */
   async signOut() {
     const response = await this.request.get(API.signOut, {
@@ -172,7 +172,7 @@ class Account extends BaseExtend {
    * @param clientId - The merchant's clientId
    * @example
    *     InPlayer.Account.refreshToken('123123121-d1-t1-1ff').then(data => console.log(data))
-   * @return {AxiosResponse<CreateAccount>}
+   * @returns  {AxiosResponse<CreateAccount>}
    */
   async refreshToken(clientId: number) {
     const token = this.request.getToken();
@@ -247,7 +247,7 @@ class Account extends BaseExtend {
    *      brandingId: 12345,
    *     })
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<CreateForgotPasswordToken>}
+   * @returns  {AxiosResponse<CreateForgotPasswordToken>}
    */
   async requestNewPassword(data: RequestNewPasswordData) {
     const body = {
@@ -283,7 +283,7 @@ class Account extends BaseExtend {
    *      brandingId: "12345",
    *     }, 'afhqi83rji74hjf7e43df')
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<undefined>}
+   * @returns  {AxiosResponse<undefined>}
    */
   async setNewPassword(data: SetNewPasswordData, token = '') {
     // TODO: check logic
@@ -303,7 +303,7 @@ class Account extends BaseExtend {
    *     InPlayer.Account
    *     .getAccountInfo()
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<AccountInformationReturn>}
+   * @returns  {AxiosResponse<AccountInformationReturn>}
    */
   async getAccountInfo() {
     return this.request.get(API.getAccountInfo, {
@@ -322,7 +322,7 @@ class Account extends BaseExtend {
    *     InPlayer.Account
    *     .getSocialLoginUrls('123124-1r-1r13ur1h1')
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<ListSocialURLs>}
+   * @returns  {AxiosResponse<ListSocialURLs>}
    */
   async getSocialLoginUrls(state: string) {
     return this.request.get(API.getSocialLoginUrls(state));
@@ -337,7 +337,7 @@ class Account extends BaseExtend {
    *     InPlayer.Account
    *     .updateAccount({fullName: 'test test', metadata: {country: 'Germany'},  dateOfBirth: '1999-03-05'})
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<undefined>}
+   * @returns  {AxiosResponse<undefined>}
    */
   async updateAccount(data: UpdateAccountData) {
     const body: any = {
@@ -383,7 +383,7 @@ class Account extends BaseExtend {
    *       brandingId: 1234
    *     },'123124-1r-1r13ur1h1')
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<undefined>}
+   * @returns  {AxiosResponse<undefined>}
    */
   async changePassword(data: ChangePasswordData) {
     const body = {
@@ -414,7 +414,7 @@ class Account extends BaseExtend {
    *     InPlayer.Account
    *     .getRegisterFields('123124-1r-1r13ur1h1')
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<GetRegisterField>}
+   * @returns  {AxiosResponse<GetRegisterField>}
    */
   async getRegisterFields(merchantUuid = '') {
     return this.request.get(API.getRegisterFields(merchantUuid));
@@ -434,7 +434,7 @@ class Account extends BaseExtend {
    *      brandingId: 1234,
    *     })
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<undefined>}
+   * @returns  {AxiosResponse<undefined>}
    */
 
   async deleteAccount(data: AccountAuthData) {
@@ -474,7 +474,7 @@ class Account extends BaseExtend {
    *        brandingId: 1234,
    *     })
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<ExportAccountData>}
+   * @returns  {AxiosResponse<ExportAccountData>}
    */
 
   async exportData(data: AccountAuthData) {
@@ -503,7 +503,7 @@ class Account extends BaseExtend {
    * @example
    *     InPlayer.Account.sendPinCode(1234)
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<SendPinCode>}
+   * @returns  {AxiosResponse<SendPinCode>}
    */
 
   async sendPinCode(brandingId: number) {
@@ -531,7 +531,7 @@ class Account extends BaseExtend {
    * @example
    *     InPlayer.Account.validatePinCode('5566')
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<PinCodeData>}
+   * @returns  {AxiosResponse<PinCodeData>}
    */
 
   async validatePinCode(pinCode: string) {
@@ -560,7 +560,7 @@ class Account extends BaseExtend {
 *     InPlayer.Account
 *     .loadMerchantRestrictionSettings("528b1b80-5868-4abc-a9b6-4d3455d719c8")
 *     .then(data => console.log(data));
-* @return {AxiosResponse<RestrictionSettingsData>} Contains the data - {
+* @returns  {AxiosResponse<RestrictionSettingsData>} Contains the data - {
   "age_verification_type": "pin_code",
   "age_verification_enabled": true,
   "merchant_uuid": "3b39b5ab-b5fc-4ba3-b770-73155d20e61f",

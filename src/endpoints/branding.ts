@@ -23,7 +23,7 @@ class Branding extends BaseExtend {
    *     InPlayer.Branding
    *     .getBranding('eyJ0e-XAiOi-JKPEC-ENR5Y', '123')
    *     .then(data => console.log(data));
-   * @return {AxiosResponse<Brand>}
+   * @returns  {AxiosResponse<Brand>}
    */
   async getBranding(clientId: string, brandingId: string | number) {
     return this.request.get(API.getBranding(clientId, brandingId));
