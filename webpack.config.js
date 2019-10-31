@@ -25,7 +25,7 @@ module.exports = {
     minimize: true,
     minimizer: [new TerserPlugin()],
   },
-  entry: './src/inplayer.ts',
+  entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, './dist'),
     libraryTarget: 'umd',
