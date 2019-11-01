@@ -27,8 +27,16 @@ npm install --save @inplayer-org/inplayer.js
 
 Alternatively you can include the script like so:
 
+### v2
+
 ```
 <script src="https://unpkg.com/@inplayer-org/inplayer.js/dist/inplayer.umd.js"></script>
+```
+
+### v3
+
+```
+<script src="https://unpkg.com/@inplayer-org/inplayer.js/dist/inplayer.min.js"></script>
 ```
 
 ### Sign in using grant type: password
