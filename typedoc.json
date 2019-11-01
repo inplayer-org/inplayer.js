@@ -5,6 +5,6 @@
   "mode": "file",
   "readme": "README.md",
   "theme": "minimal",
-  "exclude": "**/*+(e2e|spec|index|config|base|credentials|notifications|request|Config).ts",
+  "exclude": "**/*+(e2e|spec|index|config|base|credentials|notifications|request|Config|IBase).ts",
   "hideGenerator": true
 }
