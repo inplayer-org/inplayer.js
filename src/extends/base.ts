@@ -1,4 +1,4 @@
-import { ApiConfig, Request } from '../models/CommonInterfaces';
+import { ApiConfig, Request } from '../models/Config';
 
 class BaseExtend {
   config: ApiConfig;

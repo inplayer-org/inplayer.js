@@ -3,7 +3,7 @@ import {
   CreateSubscriptionData,
   CreateSubscriptionRequestBody,
 } from '../models/IPayment&Subscription';
-import { ApiConfig, Request } from '../models/CommonInterfaces';
+import { ApiConfig, Request } from '../models/Config';
 import BaseExtend from '../extends/base';
 import { API } from '../constants';
 

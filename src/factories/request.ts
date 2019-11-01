@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import Credentials from './credentials';
-import { CustomErrorResponse, ApiConfig } from '../models/CommonInterfaces';
+import { CustomErrorResponse } from '../models/CommonInterfaces';
+import { ApiConfig } from '../models/Config';
 import configOptions from '../config';
 
 // Make maybe to get headers as params

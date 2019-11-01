@@ -8,7 +8,8 @@ import {
   ChangePasswordData,
   AccountAuthData,
 } from '../models/IAccount&Authentication';
-import { CustomErrorResponse, ApiConfig, Request } from '../models/CommonInterfaces';
+import { CustomErrorResponse } from '../models/CommonInterfaces';
+import { ApiConfig, Request } from '../models/Config';
 import Credentials from '../factories/credentials';
 import BaseExtend from '../extends/base';
 import { API } from '../constants';

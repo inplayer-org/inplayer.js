@@ -11,11 +11,13 @@ import config from './config';
 
 // types
 import {
-  ApiConfig,
   DLC as DLCType,
   Notifications as NotificationsType,
-  Request as RequestType,
 } from './models/CommonInterfaces';
+import {
+  ApiConfig,
+  Request as RequestType,
+} from './models/Config';
 import { Account as AccountType } from './models/IAccount&Authentication';
 import { Asset as AssetType } from './models/IAsset&Access';
 import {

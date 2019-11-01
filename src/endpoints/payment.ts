@@ -7,7 +7,8 @@ import {
   DirectDebitData,
   CreatePaymentRequestBody,
 } from '../models/IPayment&Subscription';
-import { ApiConfig, CustomErrorResponse, Request } from '../models/CommonInterfaces';
+import { CustomErrorResponse } from '../models/CommonInterfaces';
+import { ApiConfig, Request } from '../models/Config';
 import { buildURLwithQueryParams } from '../helpers';
 import BaseExtend from '../extends/base';
 import { API } from '../constants';

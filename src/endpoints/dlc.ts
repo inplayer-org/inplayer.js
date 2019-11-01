@@ -1,4 +1,4 @@
-import { ApiConfig, Request } from '../models/CommonInterfaces';
+import { ApiConfig, Request } from '../models/Config';
 import BaseExtend from '../extends/base';
 import { API } from '../constants';
 

@@ -1,10 +1,10 @@
 {
   "name": "InPlayer JS SDK",
-  "entryPoint": "src",
+  "entryPoint": "InPlayer",
   "out": "docs",
   "mode": "file",
   "readme": "README.md",
   "theme": "minimal",
-  "exclude": "**/*+(e2e|spec|index|config|base|credentials|notifications|request).ts",
+  "exclude": "**/*+(e2e|spec|index|config|base|credentials|notifications|request|Config).ts",
   "hideGenerator": true
 }

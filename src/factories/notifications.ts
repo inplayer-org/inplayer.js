@@ -1,5 +1,5 @@
 import awsIot from 'aws-iot-device-sdk';
-import { ApiConfig, Request } from '../models/CommonInterfaces';
+import { ApiConfig, Request } from '../models/Config';
 import BaseExtend from '../extends/base';
 
 const ONE_HOUR = 60 * 60 * 1000;
