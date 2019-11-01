@@ -26,7 +26,8 @@
     "lint:js:fix": "eslint src/** --fix",
     "analyze-bundle": "babel-node ./tools/analyzeBundle.js",
     "prepublishOnly": "yarn build:prod",
-    "generate:docs": "typedoc"
+    "generate:docs": "typedoc",
+    "postgenerate:docs": "surge ./docs --domain inplayer-js.v3.surge.sh"
   },
   "lint-staged": {
     "*.js": [
@@ -83,6 +84,7 @@
     "lint-staged": "^9.4.2",
     "lodash-webpack-plugin": "^0.11.5",
     "prettier": "^1.18.2",
+    "surge": "^0.21.3",
     "terser-webpack-plugin": "^2.2.1",
     "ts-jest": "^24.1.0",
     "typedoc": "^0.15.0",
