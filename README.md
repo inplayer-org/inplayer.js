@@ -15,7 +15,7 @@
 
 SDK Documentation can be found:
 - [v2](https://inplayer-org.github.io/inplayer.js/)
-- [v3](https://inplayer-org.github.io/inplayer.js/)
+- [v3](http://inplayer-js.v3.surge.sh)
 
 ## Installation
 
