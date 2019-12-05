@@ -140,7 +140,7 @@ export declare class Account {
   refreshToken(clientId: number): Promise<AxiosResponse<CreateAccount>>;
   reportSSOtoken(
     ssoDomain: string,
-    tokenData: Credentials,
+    token: string,
     retire: boolean
   ): Promise<AxiosResponse<any>>;
   requestNewPassword(
@@ -296,7 +296,7 @@ export interface CodeAccessData {
   content: any;
   in_use: boolean;
   browser_fingerprint: any;
-  code: number;
+  code: string;
 }
 
 export declare class Asset {

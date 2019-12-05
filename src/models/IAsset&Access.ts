@@ -191,7 +191,7 @@ export interface CodeAccessData {
   content: any;
   in_use: boolean;
   browser_fingerprint: any;
-  code: number;
+  code: string;
 }
 
 export interface CloudfrontUrl {
