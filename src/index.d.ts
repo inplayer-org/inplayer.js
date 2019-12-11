@@ -85,6 +85,7 @@ export declare interface AccountInformationReturn {
   completed: boolean;
   created_at: number;
   updated_at: number;
+  uuid: string;
 }
 
 export declare interface CreateAccount {
@@ -106,6 +107,7 @@ export declare interface SocialURLs {
 
 export declare interface ListSocialURLs {
   social_urls: SocialURLs[];
+  code: number;
 }
 
 export declare interface GetRegisterFieldOption {
@@ -194,6 +196,7 @@ export declare interface GetItemAccessV1 {
   created_at: number;
   expires_at: number;
   item: ItemDetailsAccess;
+  starts_at: number;
 }
 
 export declare interface Item {
@@ -291,6 +294,11 @@ export declare interface CloudfrontUrl {
   video_url: string;
 }
 
+export interface RequestCodeAccessData {
+  item_id: number;
+  code: string;
+}
+
 export interface CodeAccessData {
   item_id: number;
   content: any;
@@ -323,7 +331,7 @@ export declare class Asset {
   ): Promise<AxiosResponse<object[]>>;
   getAccessCode(assetId: number | string): CodeAccessData;
   requestCodeAccess(
-    data: CodeAccessData
+    data: RequestCodeAccessData
   ): Promise<AxiosResponse<CodeAccessData>>;
   releaseAccessCode(
     assetId: number | string
