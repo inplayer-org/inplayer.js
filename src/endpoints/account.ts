@@ -211,17 +211,17 @@ class Account extends BaseExtend {
   /**
    * Reports the generated SSO token to the SSO domain.
    * @param {string} ssoDomain - The SSO domain.
-   * @param {Credentials} tokenData - The token data.
+   * @param {string} token - The token string.
    * @param {boolean} retire - Should the token be retired or activated.
    */
   async reportSSOtoken(
     ssoDomain: string,
-    tokenData: Credentials,
+    token: string,
     retire = false,
   ) {
     const body = new FormData();
 
-    body.append('token', tokenData.token);
+    body.append('token', token);
     body.append('delete', retire ? '1' : '0');
 
     // TODO: Check if global withCredentials works

@@ -186,12 +186,17 @@ export interface GetMerchantPackage {
   collection: PackageDetails;
 }
 
+export interface RequestCodeAccessData {
+  item_id: number;
+  code: string;
+}
+
 export interface CodeAccessData {
   item_id: number;
   content: any;
   in_use: boolean;
   browser_fingerprint: any;
-  code: number;
+  code: string;
 }
 
 export interface CloudfrontUrl {
@@ -219,7 +224,7 @@ export interface Asset extends BaseExtend {
     endDate?: string
   ): Promise<AxiosResponse<object[]>>;
   getAccessCode(assetId: number): CodeAccessData | null;
-  requestCodeAccess(data: CodeAccessData): Promise<AxiosResponse<CodeAccessData>>;
+  requestCodeAccess(data: RequestCodeAccessData): Promise<AxiosResponse<CodeAccessData>>;
   releaseAccessCode(assetId: number): Promise<AxiosResponse<CodeAccessData> | null>;
   getCloudfrontURL(
     assetId: number,

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.0.0-beta.2] - 11-12-2019
+
+### Changes
+
+- Update the existing or add new types and interfaces
+
 # [3.0.0-beta.1] - 29-10-2019
 
 ### Changes
