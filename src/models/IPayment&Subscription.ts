@@ -311,6 +311,7 @@ export interface PaypalParamsData {
   accessFeeId: number;
   paymentMethod: number;
   voucherCode: string;
+  brandingId?: number;
 }
 
 export interface CreateSubscriptionData {

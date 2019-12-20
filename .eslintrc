@@ -12,9 +12,14 @@
       "modules": true
     }
   },
-  "extends": ["prettier/@typescript-eslint", "airbnb-base", "plugin:@typescript-eslint/recommended"],
+  "extends": [
+    "prettier/@typescript-eslint",
+    "airbnb-base",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "rules": {
     "import/prefer-default-export": 0,
+    "import/extensions": 0,
     "no-useless-constructor": 0,
     "max-classes-per-file": 0,
     "lines-between-class-members": 0,
