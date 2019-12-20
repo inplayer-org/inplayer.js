@@ -185,10 +185,11 @@ class Payment extends BaseExtend {
    * @example
    *     InPlayer.Payment
    *     .getPayPalParams({
-   *     origin: location.href,
-   *     accessFeeId: 34,
-   *     paymentMethod: 2
-   *     voucherCode: '1231231'
+   *      origin: location.href,
+   *      accessFeeId: 34,
+   *      paymentMethod: 2
+   *      voucherCode: '1231231'
+   *      branding_id: 1133,
    *     })
    *     .then(data => console.log(data));
    * @returns  {AxiosResponse<GeneratePayPalParameters>}
@@ -199,6 +200,8 @@ class Payment extends BaseExtend {
     formData.append('origin', data.origin);
     formData.append('access_fee', String(data.accessFeeId));
     formData.append('payment_method', String(data.paymentMethod));
+    formData.append('branding_id', String(data.brandingId));
+
     if (data.voucherCode) {
       formData.append('voucher_code', data.voucherCode);
     }
