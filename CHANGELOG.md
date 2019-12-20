@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.13.1] - 20-12-2019
+
+### Fixes
+
+- Re-publish unsuccesfully published 2.13.0 version
+
 # [2.13.0] - 20-12-2019
 
 ### Added
