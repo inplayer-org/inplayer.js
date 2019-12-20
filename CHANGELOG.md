@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.0.0-beta.3] - 20-12-2019
+
+### Changes
+
+- Add branding id param to paypal payment
+
 # [3.0.0-beta.2] - 11-12-2019
 
 ### Changes
