@@ -292,10 +292,11 @@ class Payment {
      * @example
      *     InPlayer.Payment
      *     .getPayPalParams({
-     *     origin: location.href,
-     *     accessFeeId: 34,
-     *     paymentMethod: 2
-     *     voucherCode: &#x27;1231231&#x27;
+     *      origin: location.href,
+     *      accessFeeId: 34,
+     *      paymentMethod: 2
+     *      voucherCode: &#x27;1231231&#x27;
+     *      brandingId: 1221
      *     })
      *     .then(data =&gt; console.log(data));
      * @return {Object}
@@ -313,6 +314,8 @@ class Payment {
         formData.append(&#x27;origin&#x27;, data.origin);
         formData.append(&#x27;access_fee&#x27;, data.accessFeeId);
         formData.append(&#x27;payment_method&#x27;, data.paymentMethod);
+        formData.append(&#x27;branding_id&#x27;, data.brandingId);
+
         if (data.voucherCode) {
             formData.append(&#x27;voucher_code&#x27;, data.voucherCode);
         }
