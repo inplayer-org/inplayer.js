@@ -92,6 +92,7 @@ export declare interface CreateAccount {
   access_token: string;
   refresh_token: string;
   account: AccountInformationReturn;
+  expires: string;
 }
 
 export declare interface CommonResponse {
@@ -139,7 +140,7 @@ export declare class Account {
   signIn(data: AuthenticateData): Promise<AxiosResponse<CreateAccount>>;
   signUp(data: SignUpData): Promise<AxiosResponse<CreateAccount>>;
   signOut(): Promise<AxiosResponse<undefined>>;
-  refreshToken(clientId: number): Promise<AxiosResponse<CreateAccount>>;
+  refreshToken(clientId: number | string): Promise<AxiosResponse<CreateAccount>>;
   reportSSOtoken(
     ssoDomain: string,
     token: string,
