@@ -28,7 +28,7 @@ export interface Account extends BaseExtend {
   signIn(data: AuthenticateData): Promise<AxiosResponse<CreateAccount>>;
   signUp(data: SignUpData): Promise<AxiosResponse<CreateAccount>>;
   signOut(): Promise<AxiosResponse<undefined>>;
-  refreshToken(clientId: number | string): Promise<AxiosResponse<CreateAccount>>;
+  refreshToken(clientId: string): Promise<AxiosResponse<CreateAccount>>;
   reportSSOtoken(
     ssoDomain: string,
     tokenData: Credentials,

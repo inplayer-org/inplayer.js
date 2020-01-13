@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
-- Add missing type string to clientId parameter in refreshToken function
+- Add string type to clientId parameter in refreshToken function
 - Add missing express property to the CreateAccout interface
 
 # [3.0.0-beta.3] - 20-12-2019

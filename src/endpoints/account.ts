@@ -175,7 +175,7 @@ class Account extends BaseExtend {
    *     InPlayer.Account.refreshToken('123123121-d1-t1-1ff').then(data => console.log(data))
    * @returns  {AxiosResponse<CreateAccount>}
    */
-  async refreshToken(clientId: number | string) {
+  async refreshToken(clientId: string) {
     const token = this.request.getToken();
 
     if (!token.refreshToken) {
