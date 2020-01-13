@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 # [3.0.0-beta.4] - 13-01-2020
 
-### Add
+### Changes
 
 - Add missing type string to clientId parameter in refreshToken function
 - Add missing express property to the CreateAccout interface
