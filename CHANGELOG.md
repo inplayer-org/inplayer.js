@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.0.0-beta.4] - 13-01-2020
+
+### Changes
+
+- Add string type to clientId parameter in refreshToken function
+- Add missing expires property to the CreateAccout interface
+
 # [3.0.0-beta.3] - 20-12-2019
 
 ### Add
