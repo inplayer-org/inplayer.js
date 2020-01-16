@@ -132,24 +132,25 @@ class InPlayer {
         case 'prod': {
             this.config.BASE_URL = 'https://services.inplayer.com';
             this.config.AWS_IOT_URL =
-                    'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys';
-            this.config.IOT_NOTIF_URL = 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com';
+              'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys';
+            this.config.IOT_NOTIF_URL =
+              'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com';
             break;
         }
         case 'develop': {
             this.config.BASE_URL = 'https://staging-v2.inplayer.com';
             this.config.AWS_IOT_URL =
-                    'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys';
-            this.config.IOT_NOTIF_URL = 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com';
-
+              'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys';
+            this.config.IOT_NOTIF_URL =
+              'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com';
             break;
         }
-        case 'sandbox': {
-            // TODO: to be changed in future
-            this.config.BASE_URL = 'https://staging-v2.inplayer.com';
+        case 'test': {
+            this.config.BASE_URL = 'https://test-services.inplayer.com';
             this.config.AWS_IOT_URL =
-                    'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys';
-            this.config.IOT_NOTIF_URL = 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com';
+              'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys';
+            this.config.IOT_NOTIF_URL =
+              'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com';
             break;
         }
         default:
