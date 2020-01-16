@@ -1088,7 +1088,7 @@
                 }
             ],
             "example": [
-                "\n    InPlayer.Payment\n    .getPayPalParams({\n    origin: location.href,\n    accessFeeId: 34,\n    paymentMethod: 2\n    voucherCode: '1231231'\n    })\n    .then(data => console.log(data));"
+                "\n    InPlayer.Payment\n    .getPayPalParams({\n     origin: location.href,\n     accessFeeId: 34,\n     paymentMethod: 2\n     voucherCode: '1231231'\n     brandingId: 1221\n    })\n    .then(data => console.log(data));"
             ],
             "return": {
                 "description": "",
@@ -1098,7 +1098,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 248,
+            "line": 251,
             "description": "Gets the purchase history",
             "itemtype": "method",
             "name": "getPurchaseHistory",
@@ -1131,7 +1131,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 283,
+            "line": 286,
             "description": "Gets the default credit card per currency used for subscription rebills",
             "itemtype": "method",
             "name": "getDefaultCreditCard",
@@ -1147,7 +1147,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 315,
+            "line": 318,
             "description": "Sets card per currency as default card that is to be used for further subscription rebills",
             "itemtype": "method",
             "name": "setDefaultCreditCard",
@@ -1170,7 +1170,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 374,
+            "line": 377,
             "description": "Checks for existing user direct debit mandate",
             "itemtype": "method",
             "name": "getDirectDebitMandate",
@@ -1186,7 +1186,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 419,
+            "line": 422,
             "description": "Create direct debit mandate for customer",
             "itemtype": "method",
             "name": "createDirectDebitMandate",
@@ -1209,7 +1209,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 476,
+            "line": 479,
             "description": "Process a request for direct debit SEPA charge",
             "itemtype": "method",
             "name": "directDebitCharge",
@@ -1232,7 +1232,7 @@
         },
         {
             "file": "src/Models/Payment.js",
-            "line": 532,
+            "line": 535,
             "description": "Process a request for direct debit subscribe",
             "itemtype": "method",
             "name": "directDebitSubscribe",

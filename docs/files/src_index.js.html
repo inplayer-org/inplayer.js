@@ -217,24 +217,25 @@ class InPlayer {
         case &#x27;prod&#x27;: {
             this.config.BASE_URL = &#x27;https://services.inplayer.com&#x27;;
             this.config.AWS_IOT_URL =
-                    &#x27;https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys&#x27;;
-            this.config.IOT_NOTIF_URL = &#x27;a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com&#x27;;
+              &#x27;https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys&#x27;;
+            this.config.IOT_NOTIF_URL =
+              &#x27;a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com&#x27;;
             break;
         }
         case &#x27;develop&#x27;: {
             this.config.BASE_URL = &#x27;https://staging-v2.inplayer.com&#x27;;
             this.config.AWS_IOT_URL =
-                    &#x27;https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys&#x27;;
-            this.config.IOT_NOTIF_URL = &#x27;a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com&#x27;;
-
+              &#x27;https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys&#x27;;
+            this.config.IOT_NOTIF_URL =
+              &#x27;a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com&#x27;;
             break;
         }
-        case &#x27;sandbox&#x27;: {
-            // TODO: to be changed in future
-            this.config.BASE_URL = &#x27;https://staging-v2.inplayer.com&#x27;;
+        case &#x27;test&#x27;: {
+            this.config.BASE_URL = &#x27;https://test-services.inplayer.com&#x27;;
             this.config.AWS_IOT_URL =
-                    &#x27;https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys&#x27;;
-            this.config.IOT_NOTIF_URL = &#x27;a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com&#x27;;
+              &#x27;https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys&#x27;;
+            this.config.IOT_NOTIF_URL =
+              &#x27;a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com&#x27;;
             break;
         }
         default:

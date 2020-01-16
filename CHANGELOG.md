@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.13.3] - 16-01-2020
+
+### Added
+
+- Test config
+
+# [2.13.2] - 16-01-2020
+
+- Unpublished version/deprecated
+
+# [2.13.1] - 20-12-2019
+
+### Fixes
+
+- Re-publish unsuccesfully published 2.13.0 version
+
+# [2.13.0] - 20-12-2019
+
+### Added
+
+- Add brandingId param to paypal payment
+
 # [2.12.3] - 11-09-2019
 
 ### Fixes
