@@ -31,8 +31,8 @@ export interface Account extends BaseExtend {
   refreshToken(clientId: string): Promise<AxiosResponse<CreateAccount>>;
   reportSSOtoken(
     ssoDomain: string,
-    tokenData: Credentials,
-    retire: boolean
+    token: string,
+    deactivate: boolean
   ): Promise<AxiosResponse<any>>;
   requestNewPassword(
     data: RequestPasswordData
