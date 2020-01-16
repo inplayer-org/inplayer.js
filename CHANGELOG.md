@@ -2,11 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
-# [2.13.2] - 16-01-2020
+# [2.13.3] - 16-01-2020
 
 ### Added
 
 - Test config
+
+# [2.13.2] - 16-01-2020
+
+- Unpublished version/deprecated
 
 # [2.13.1] - 20-12-2019
 
