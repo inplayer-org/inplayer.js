@@ -158,6 +158,7 @@ class InPlayer {
     enum Env {
       'development',
       'production',
+      'test'
     }
 
     if (env in Env) {
