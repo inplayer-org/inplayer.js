@@ -34,6 +34,37 @@ class Notifications {
         };
     }
 
+    handleSubscribe(data, callbackParams, uuid) {
+        const credentials = {
+            region: data.region,
+            protocol: 'wss',
+            accessKeyId: data.accessKey,
+            secretKey: data.secretKey,
+            sessionToken: data.sessionToken,
+            port: 443,
+            host: data.iotEndpoint,
+        };
+
+        const client = awsIot.device(credentials);
+
+        client.on('connect', () => {
+            client.subscribe(uuid);
+            callbackParams.onOpen();
+        });
+
+        client.on('message', (topic, message) => {
+            callbackParams.onMessage(message.toString());
+        });
+
+        client.on('close', () => {
+            if (callbackParams.onClose === 'function') {
+                callbackParams.onClose();
+            }
+        });
+
+        this.subscription = client;
+    }
+
     /* Subscribes to Websocket notifications */
     async subscribe(accountUuid = '', callbackParams) {
         if (!accountUuid && accountUuid === '') {
@@ -85,41 +116,6 @@ class Notifications {
 
         this.handleSubscribe(resp, callbackParams, accountUuid);
         return true;
-    }
-
-    handleSubscribe(data, callbackParams, uuid) {
-        const credentials = {
-            region: data.region,
-            protocol: 'wss',
-            accessKeyId: data.accessKey,
-            secretKey: data.secretKey,
-            sessionToken: data.sessionToken,
-            port: 443,
-            host: data.iotEndpoint,
-        };
-
-        const client = awsIot.device(credentials);
-
-        client.on('connect', () => {
-            client.subscribe(uuid);
-            callbackParams.onOpen();
-        });
-
-        client.on('message', (topic, message) => {
-            callbackParams.onMessage(message.toString());
-        });
-
-        client.on('close', () => {
-            if (callbackParams.onClose === 'function') {
-                callbackParams.onClose();
-            }
-        });
-
-        this.setClient(client);
-    }
-
-    setClient(client) {
-        this.subscription = client;
     }
 
     isSubscribed() {

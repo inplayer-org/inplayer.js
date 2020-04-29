@@ -330,7 +330,6 @@ export declare class Notifications {
   getIotToken(): object;
   subscribe(accountUuid?: string, callbackParams?: any): boolean;
   handleSubscribe(data: object, callbackParams: any, uuid: string): void;
-  setClient(client: any): void;
   isSubscribed(): boolean;
   unsubscribe(): void;
 }
