@@ -4,6 +4,7 @@ import { ApiConfig, Request } from './Config';
 export interface BaseExtend {
   config: ApiConfig;
   request: Request;
+  setConfig: (env: Env) => void;
 }
 
 export interface CommonResponse {
@@ -43,15 +44,21 @@ interface DlcLink {
 }
 
 
-export interface DLC {
+export interface DLC extends BaseExtend {
   getDlcLinks(assetId: number): Promise<AxiosResponse<DlcLink>>;
 }
 
-export interface Notifications {
+export interface Notifications extends BaseExtend {
   getIotToken(): object;
   subscribe(accountUuid: string, callbackParams: any): Promise<boolean>;
   handleSubscribe(data: object, callbackParams: any, uuid: string): void;
   setClient(client: any): void;
   isSubscribed(): boolean;
   unsubscribe(): void;
+}
+
+export enum Env {
+  'development',
+  'production',
+  'test'
 }
