@@ -9,10 +9,17 @@ export const API = {
   getSocialLoginUrls: (state: any) => `/accounts/social?state=${state}`,
   updateAccount: '/accounts',
   changePassword: '/accounts/change-password',
-  getRegisterFields: (merchantUuid: any) => `/accounts/register-fields/${merchantUuid}?rnd=${Math.random() * 15}`,
+  getRegisterFields: (merchantUuid: any) =>
+    `/accounts/register-fields/${merchantUuid}?rnd=${Math.random()
+             * 15}`,
   getPurchaseHistory: (status: any, page = 0, size = 5) =>
     `/items/access/customers?status=${status}&page=${page}&size=${size}`,
-  getAssetsHistory: (size: any, page: any, startDate: any, endDate: any) => {
+  getAssetsHistory: (
+    size: any,
+    page: any,
+    startDate: any,
+    endDate: any,
+  ) => {
     let url = `/payments/transactions?exclude=store-payment&size=${size}&page=${page}`;
 
     if (startDate) {
@@ -35,20 +42,26 @@ export const API = {
   // Asset
   checkAccessForAsset: (id: any) => `/items/${id}/access`,
   checkFreeTrial: (id: any) => `/items/used-trial-period/${id}`,
-  getAsset: (assetId: any, merchantUuid: any) => `/items/${merchantUuid}/${assetId}`,
-  getExternalAsset: (assetType: any, externalId: any, merchantUuid: any) => {
+  getAsset: (assetId: any, merchantUuid: any) =>
+    `/items/${merchantUuid}/${assetId}`,
+  getExternalAsset: (
+    assetType: any,
+    externalId: any,
+    merchantUuid: any,
+  ) => {
     if (merchantUuid) {
       return `/items/assets/external/${assetType}/${externalId}?merchant_uuid=${merchantUuid}`;
     }
     return `/items/assets/external/${assetType}/${externalId}`;
   },
   getPackage: (id: any) => `/items/packages/${id}`,
-  getAssetAccessFees: (id: any) => `/items/${id}/access-fees`,
+  getAssetAccessFees: (id: number) => `v2/items/${id}/access-fees`,
   getCloudfrontURL: (assetId: any, videoUrl: any) =>
     `/items/${assetId}/access/cloudfront?url=${videoUrl}`,
   // Payment
   getPaymentMethods: '/payments/methods',
-  getPaymentTools: (paymentMethodId: any) => `/payments/method/${paymentMethodId}/tools`,
+  getPaymentTools: (paymentMethodId: any) =>
+    `/payments/method/${paymentMethodId}/tools`,
   payForAsset: '/payments',
   payForAssetV2: '/v2/payments',
   getPayPalParams: '/external-payments',
@@ -57,7 +70,8 @@ export const API = {
   getDirectDebitMandate: '/v2/payments/direct-debit/mandate',
   createDirectDebitMandate: '/v2/payments/direct-debit/mandate',
   // Subscriptions
-  getSubscriptions: (limit: number, page: number) => `/subscriptions?limit=${limit}&page=${page}`,
+  getSubscriptions: (limit: number, page: number) =>
+    `/subscriptions?limit=${limit}&page=${page}`,
   getSubscription: (id: number) => `/subscriptions/${id}`,
   subscribe: '/subscriptions',
   cancelSubscription: (url: string) => `${url}`,
@@ -67,7 +81,9 @@ export const API = {
   getDiscount: '/vouchers/discount',
   getBranding: (merchantUuid: any, brandingId: any) =>
     `/branding/paywall/${merchantUuid}/${brandingId}`,
-  downloadFile: (assetId: any, filename: any) => `/dlc/${assetId}/${filename}`,
+  downloadFile: (assetId: any, filename: any) =>
+    `/dlc/${assetId}/${filename}`,
   requestCodeAccess: '/items/access/codes',
-  releaseAccessCode: (code: string | number) => `/items/access/codes/${code}`,
+  releaseAccessCode: (code: string | number) =>
+    `/items/access/codes/${code}`,
 };
