@@ -3,7 +3,6 @@ import { AxiosResponse } from 'axios';
 export declare enum Env {
   'development',
   'production',
-  'test'
 }
 
 
