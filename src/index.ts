@@ -13,6 +13,7 @@ import config from './config';
 import {
   DLC as DLCType,
   Notifications as NotificationsType,
+  Env,
 } from './models/CommonInterfaces';
 import {
   ApiConfig,
@@ -154,16 +155,17 @@ class InPlayer {
    * @example
    *     InPlayer.setConfig('development');
    */
-  setConfig(env: string) {
-    enum Env {
-      'development',
-      'production',
-      'test'
-    }
-
-    if (env in Env) {
-      this.request.setInstanceConfig(env);
-    }
+  setConfig(env: Env) {
+    this.config = config[env];
+    this.request.setInstanceConfig(env);
+    this.Account.setConfig(env);
+    this.Asset.setConfig(env);
+    this.Branding.setConfig(env);
+    this.DLC.setConfig(env);
+    this.Notifications.setConfig(env);
+    this.Payment.setConfig(env);
+    this.Subscription.setConfig(env);
+    this.Voucher.setConfig(env);
   }
 }
 
