@@ -9,7 +9,6 @@
 
 
 [![npm version](https://img.shields.io/npm/v/@inplayer-org/inplayer.js.svg)](https://www.npmjs.com/package/@inplayer-org/inplayer.js)
-[![Build Status](https://travis-ci.org/inplayer-org/inplayer.js.svg?branch=ci)](https://travis-ci.org/inplayer-org/inplayer.js)
 
 [inplayer.com](https://inplayer.com)
 
