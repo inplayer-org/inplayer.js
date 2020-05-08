@@ -7,7 +7,7 @@
 </h1>
 <p align="center" style="font-size: 1.2rem;">InPlayer's JS API client wrapper</p>
 
-
+![CI](https://github.com/inplayer-org/inplayer.js/workflows/CI/badge.svg)
 [![npm version](https://img.shields.io/npm/v/@inplayer-org/inplayer.js.svg)](https://www.npmjs.com/package/@inplayer-org/inplayer.js)
 
 [inplayer.com](https://inplayer.com)
