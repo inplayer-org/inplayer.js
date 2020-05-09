@@ -1060,9 +1060,9 @@
     any-observable "^0.3.0"
 
 "@types/aws-iot-device-sdk@^2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@types/aws-iot-device-sdk/-/aws-iot-device-sdk-2.2.0.tgz#2e3e7e834b0ac3cf7214b0db23a08070c4092f3a"
-  integrity sha512-T4lhTji8s46XRTrrcMDHQfgUpKGMF+VTACcEsrgSpKmJjHE8XTqhv8RfwRvPD6prdDhSzQVW8F7TKzOGbTK+jA==
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@types/aws-iot-device-sdk/-/aws-iot-device-sdk-2.2.1.tgz#e7faa3df41f8ca1412f44770ef1a921f7c8de223"
+  integrity sha512-x4VtKWlezA+r158EAqbwkBaaP93HHWyAgxAb6rBobwPaYdT/kSp/DDL/E+nKIHXtXquKEAgp8zwSi+P73m32Jg==
   dependencies:
     "@types/node" "*"
     "@types/ws" "*"
