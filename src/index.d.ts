@@ -1,11 +1,5 @@
 import { AxiosResponse } from 'axios';
 
-export declare enum Env {
-  'development',
-  'production',
-}
-
-
 /* eslint-disable camelcase */
 export interface CredentialsConfig {
   token?: string;
@@ -766,6 +760,8 @@ export declare class Notifications {
   isSubscribed(): boolean;
   unsubscribe(): void;
 }
+
+type Env = 'development' | 'production';
 
 declare const InPlayer: {
   config: ApiConfig;
