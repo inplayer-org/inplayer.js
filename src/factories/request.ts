@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import Credentials from './credentials';
-import { CustomErrorResponse } from '../models/CommonInterfaces';
+import { CustomErrorResponse, Env } from '../models/CommonInterfaces';
 import { ApiConfig } from '../models/Config';
 import configOptions from '../config';
 
@@ -30,7 +30,7 @@ export default class Request {
     );
   }
 
-  setInstanceConfig = (configEnv: string) => {
+  setInstanceConfig = (configEnv: Env) => {
     this.config = configOptions[configEnv];
     this.basicInstance = axios.create({
       baseURL: this.config.BASE_URL,
