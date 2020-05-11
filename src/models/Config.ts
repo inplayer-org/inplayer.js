@@ -1,4 +1,4 @@
-import { CredentialsConfig } from './CommonInterfaces';
+import { CredentialsConfig, Env } from './CommonInterfaces';
 
 export interface ApiConfig {
   BASE_URL: string;
@@ -84,5 +84,5 @@ export interface Request {
   authenticatedPost(path: string, data: any, headers?: Record<string, object | string | boolean>): any;
   authenticatedPut(path: string, data: any, headers?: Record<string, object | string | boolean>): any;
   authenticatedDelete(path: string, headers?: Record<string, object | string | boolean>): any;
-  setInstanceConfig(configEnv: string): void;
+  setInstanceConfig(configEnv: Env): void;
 }

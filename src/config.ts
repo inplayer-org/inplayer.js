@@ -17,17 +17,9 @@ const prodConfig = {
   AWS_IOT_URL: 'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys',
 };
 
-const testConfig = {
-  ...commonConfig,
-  BASE_URL: 'https://test-services.inplayer.com',
-  AWS_IOT_URL: devConfig.AWS_IOT_URL,
-};
-
-
 const config = {
   development: devConfig,
   production: prodConfig,
-  test: testConfig,
 };
 
 

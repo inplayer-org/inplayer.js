@@ -1,5 +1,11 @@
 import { AxiosResponse } from 'axios';
 
+export declare enum Env {
+  'development',
+  'production',
+}
+
+
 /* eslint-disable camelcase */
 export interface CredentialsConfig {
   token?: string;
@@ -761,17 +767,8 @@ export declare class Notifications {
   unsubscribe(): void;
 }
 
-export interface Config {
-  BASE_URL: string;
-  AWS_IOT_URL: string;
-  IOT_NOTIF_URL: string;
-  INPLAYER_TOKEN_KEY: string;
-  INPLAYER_IOT_KEY: string;
-  INPLAYER_ACCESS_CODE_NAME: (assetId: number) => string;
-}
-
 declare const InPlayer: {
-  config: Config;
+  config: ApiConfig;
   Account: Account;
   Asset: Asset;
   Payment: Payment;
@@ -787,7 +784,7 @@ declare const InPlayer: {
   ): void;
   isSubscribed(): boolean;
   unsubscribe(): void;
-  setConfig(env: string): void;
+  setConfig(env: Env): void;
 };
 
 export default InPlayer;
