@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.0.0-beta.6] - 11-05-2020
+
+### Changes
+
+- Use v2 endpoint for fetching access fees
+
 # [3.0.0-beta.5] - 16-01-2020
 
 ### Added

@@ -58,6 +58,6 @@ export interface Notifications extends BaseExtend {
 }
 
 export enum Env {
-  'development',
-  'production',
+  Development = 'development',
+  Production = 'production',
 }

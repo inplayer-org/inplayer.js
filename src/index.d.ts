@@ -1,11 +1,5 @@
 import { AxiosResponse } from 'axios';
 
-export declare enum Env {
-  'development',
-  'production',
-}
-
-
 /* eslint-disable camelcase */
 export interface CredentialsConfig {
   token?: string;
@@ -206,16 +200,23 @@ export declare interface GetItemAccessV1 {
   starts_at: number;
 }
 
+export declare interface AgeRestriction {
+  min_age: number;
+}
+
 export declare interface Item {
   id: number;
   merchant_id: number;
   merchant_uuid: string;
-  is_active: boolean;
+  active: boolean;
   title: string;
   access_control_type: AccessControlType;
   item_type: ItemType;
-  age_restriction: Record<string, number>;
-  metadata: Record<string, string>;
+  age_restriction: AgeRestriction | null;
+  metadata?: Array<Record<string, string>>;
+  metahash?: Record<string, string>;
+  content?: string;
+  template_id: number | null;
   created_at: number;
   update_at: number;
 }
@@ -236,9 +237,12 @@ export declare interface ItemDetailsV1 {
 
 export declare interface AccessType {
   id: number;
+  account_id: number;
   name: string;
   quantity: number;
   period: string;
+  updated_at: number;
+  created_at: number;
 }
 
 export declare interface TrialPeriod {
@@ -248,8 +252,28 @@ export declare interface TrialPeriod {
 }
 
 export declare interface SetupFee {
+  id: number;
   fee_amount: number;
   description: string;
+}
+
+export declare interface SeasonalFee {
+  id: number;
+  access_fee_id: number;
+  merchant_id: number;
+  current_price_amount: number;
+  off_season_access: boolean;
+  anchor_date: number;
+  created_at: number;
+  updated_at: number;
+}
+
+export declare interface ExternalFee {
+  id: number;
+  payment_provider_id: number;
+  access_fee_id: number;
+  external_id: string;
+  merchant_id: number;
 }
 
 export declare interface GeoRestriction {
@@ -265,12 +289,17 @@ export declare interface GetAccessFee {
   amount: number;
   currency: string;
   description: string;
-  item: Item;
-  access_type: AccessType;
-  trial_period: TrialPeriod;
-  setup_fee: SetupFee;
-  geo_restriction: GeoRestriction;
   expires_at: number;
+  starts_at: number;
+  updated_at: number;
+  created_at: number;
+  access_type: AccessType;
+  item: Item;
+  trial_period: TrialPeriod;
+  setup_fee: SetupFee | null;
+  seasonal_fee: SeasonalFee | null;
+  external_fees: Array<ExternalFee> | null;
+  geo_restriction: GeoRestriction | null;
 }
 
 export declare interface ExternalItemDetails extends ItemDetailsV1 {
@@ -731,6 +760,8 @@ export declare class Notifications {
   isSubscribed(): boolean;
   unsubscribe(): void;
 }
+
+type Env = 'development' | 'production';
 
 declare const InPlayer: {
   config: ApiConfig;
