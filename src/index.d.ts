@@ -242,7 +242,7 @@ export interface CreateSubscriptionData {
 export declare class Subscription {
   constructor(config: object, Account: Account);
 
-  getSubscriptions(page?: number, limit?: number): object;
+  getSubscriptions(page?: number, limit?: number, status?: string): object;
   getSubscription(id: string): object;
   cancelSubscription(unsubscribeUrl: string): object;
   create(data: CreateSubscriptionData): object;

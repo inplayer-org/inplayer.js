@@ -22,7 +22,7 @@ class Subscription {
    *     .then(data => console.log(data));
    * @return {Object}
    */
-    async getSubscriptions(page = 0, limit = 15) {
+    async getSubscriptions(page = 0, limit = 15, status = '') {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
                 code: 401,
@@ -31,7 +31,7 @@ class Subscription {
         }
 
         const response = await fetch(
-            this.config.API.getSubscriptions(limit, page),
+            this.config.API.getSubscriptions(limit, page, status),
             {
                 headers: {
                     Authorization: `Bearer ${this.Account.getToken().token}`

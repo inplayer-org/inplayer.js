@@ -76,8 +76,9 @@ export const API = config => {
         getDirectDebitMandate: `${config.BASE_URL}/v2/payments/direct-debit/mandate`,
         createDirectDebitMandate: `${config.BASE_URL}/v2/payments/direct-debit/mandate`,
         // Subscriptions
-        getSubscriptions: (limit, page) =>
-            `${config.BASE_URL}/subscriptions?limit=${limit}&page=${page}`,
+        getSubscriptions: (limit, page, status) =>
+            status ? `${config.BASE_URL}/subscriptions?limit=${limit}&page=${page}&status=${status}` :
+                `${config.BASE_URL}/subscriptions?limit=${limit}&page=${page}`,
         getSubscription: id =>
             `${config.BASE_URL}/subscriptions/reporting/subscriptions/${id}`,
         subscribe: `${config.BASE_URL}/subscriptions`,
