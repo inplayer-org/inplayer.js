@@ -635,6 +635,7 @@ export declare interface GetSubscription {
   page: number;
   offset: number;
   limit: number;
+  status?: string;
   collection: SubscriptionDetails[];
 }
 
@@ -656,7 +657,8 @@ export declare class Subscription {
 
   getSubscriptions(
     page?: number,
-    limit?: number
+    limit?: number,
+    status?: string,
   ): Promise<AxiosResponse<GetSubscription>>;
   getSubscription(id: number): Promise<AxiosResponse<SubscriptionDetails>>;
   cancelSubscription(
