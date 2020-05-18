@@ -30,7 +30,7 @@ class Subscription extends BaseExtend {
    *     .then(data => console.log(data));
    * @returns  {AxiosResponse<GetSubscription>}
    */
-  async getSubscriptions(page = 0, limit = 15, status?: string) {
+  async getSubscriptions(page = 0, limit = 15, status = '') {
     return this.request.authenticatedGet(API.getSubscriptions(limit, page, status), {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
