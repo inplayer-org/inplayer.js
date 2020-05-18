@@ -70,8 +70,12 @@ export const API = {
   getDirectDebitMandate: '/v2/payments/direct-debit/mandate',
   createDirectDebitMandate: '/v2/payments/direct-debit/mandate',
   // Subscriptions
-  getSubscriptions: (limit: number, page: number) =>
-    `/subscriptions?limit=${limit}&page=${page}`,
+  getSubscriptions: (limit: number, page: number, status: string) => {
+    if (status) {
+      return `/subscriptions?limit=${limit}&page=${page}&status=${status}`;
+    }
+    return `/subscriptions?limit=${limit}&page=${page}`;
+  },
   getSubscription: (id: number) => `/subscriptions/${id}`,
   subscribe: '/subscriptions',
   cancelSubscription: (url: string) => `${url}`,

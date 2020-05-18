@@ -22,14 +22,16 @@ class Subscription extends BaseExtend {
    * @async
    * @param {number} page - The current page
    * @param {number} limit - The number of items per page
+   * @param {string} status - The subscription status
+
    * @example
    *     InPlayer.Subscription
    *     .getSubscriptions()
    *     .then(data => console.log(data));
    * @returns  {AxiosResponse<GetSubscription>}
    */
-  async getSubscriptions(page = 0, limit = 15) {
-    return this.request.authenticatedGet(API.getSubscriptions(limit, page), {
+  async getSubscriptions(page = 0, limit = 15, status = '') {
+    return this.request.authenticatedGet(API.getSubscriptions(limit, page, status), {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },
