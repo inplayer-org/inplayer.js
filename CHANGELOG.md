@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.0.0-beta.7] - 18-05-2020
+
+### Changes
+
+- Add status query param for getSubscriptions endpoint
+
 # [3.0.0-beta.6] - 11-05-2020
 
 ### Changes
