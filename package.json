@@ -26,8 +26,7 @@
     "lint:js:fix": "eslint src/** --fix",
     "analyze-bundle": "babel-node ./tools/analyzeBundle.js",
     "prepublishOnly": "yarn build:prod",
-    "generate:docs": "typedoc",
-    "postgenerate:docs": "surge ./docs --domain inplayer-js.v3.surge.sh"
+    "generate:docs": "typedoc"
   },
   "lint-staged": {
     "*.js": [
