@@ -26,4 +26,4 @@ jobs:
         run: yarn lint
 
       - name: Build
-        run: yarn build:prod
+        run: yarn build
