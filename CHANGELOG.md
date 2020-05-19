@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+
+# [2.13.4] - 19-05-2020
+
+### Changes
+
+- Add status query param for getSubscriptions endpoint
+
 # [2.13.3] - 16-01-2020
 
 ### Added
