@@ -7,14 +7,16 @@
 </h1>
 <p align="center" style="font-size: 1.2rem;">InPlayer's JS API client wrapper</p>
 
-![CI](https://github.com/inplayer-org/inplayer.js/workflows/CI/badge.svg)
 [![npm version](https://img.shields.io/npm/v/@inplayer-org/inplayer.js.svg)](https://www.npmjs.com/package/@inplayer-org/inplayer.js)
+![CI](https://github.com/inplayer-org/inplayer.js/workflows/CI/badge.svg)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a6f99b76-a75a-48d4-ab3e-d0ad387cbc41/deploy-status)](https://app.netlify.com/sites/inplayer-js/deploys)
 
 [inplayer.com](https://inplayer.com)
 
 SDK Documentation can be found:
+
 - [v2](https://inplayer-org.github.io/inplayer.js/)
-- [v3](http://inplayer-js.v3.surge.sh)
+- [v3](https://inplayer-js.netlify.app/)
 
 ## Installation
 
@@ -59,7 +61,8 @@ InPlayer.Account.signIn({
 }).then(data => console.log(data));
 ```
 
-###  Sign in using grant type: client secret
+### Sign in using grant type: client secret
+
 ```
 InPlayer.Account.signIn({
     clientId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
