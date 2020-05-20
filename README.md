@@ -7,13 +7,16 @@
 </h1>
 <p align="center" style="font-size: 1.2rem;">InPlayer's JS API client wrapper</p>
 
-
 [![npm version](https://img.shields.io/npm/v/@inplayer-org/inplayer.js.svg)](https://www.npmjs.com/package/@inplayer-org/inplayer.js)
-[![Build Status](https://travis-ci.org/inplayer-org/inplayer.js.svg?branch=ci)](https://travis-ci.org/inplayer-org/inplayer.js)
+![CI](https://github.com/inplayer-org/inplayer.js/workflows/CI/badge.svg)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a6f99b76-a75a-48d4-ab3e-d0ad387cbc41/deploy-status)](https://app.netlify.com/sites/inplayer-js/deploys)
 
 [inplayer.com](https://inplayer.com)
 
-SDK Documentation can be found [here](https://inplayer-org.github.io/inplayer.js/)
+SDK Documentation can be found:
+
+- [v2](https://inplayer-org.github.io/inplayer.js/)
+- [v3](https://inplayer-js.netlify.app/)
 
 ## Installation
 
@@ -25,22 +28,22 @@ npm install --save @inplayer-org/inplayer.js
 
 Alternatively you can include the script like so:
 
+### v2
+
 ```
 <script src="https://unpkg.com/@inplayer-org/inplayer.js/dist/inplayer.umd.js"></script>
 ```
 
-## Usage
+### v3
 
 ```
-// Change default config example
-
-InPlayer.setConfig('develop');
+<script src="https://unpkg.com/@inplayer-org/inplayer.js/dist/inplayer.min.js"></script>
 ```
 
-### Authenticate using grant type: password
+### Sign in using grant type: password
 
 ```
-InPlayer.Account.authenticate({
+InPlayer.Account.signIn({
     email: 'test@test.com',
     password: '12345678',
     cliendId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
@@ -48,19 +51,20 @@ InPlayer.Account.authenticate({
 }).then(data => console.log(data));
 ```
 
-### Authenticate using grant type: refresh token
+### Sign in using grant type: refresh token
 
 ```
-InPlayer.Account.authenticate({
+InPlayer.Account.signIn({
     clientId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
     refreshToken: '528b1b80-ddd1hj-4abc-gha3j-111111',
     referrer: 'http://localhost:3000/'
 }).then(data => console.log(data));
 ```
 
-###  Authenticate using grant type: client secret
+### Sign in using grant type: client secret
+
 ```
-InPlayer.Account.authenticate({
+InPlayer.Account.signIn({
     clientId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
     clientSecret: '528b1b80-ddd1hj-4abc-gha3j-111111',
     referrer: 'http://localhost:3000/'
