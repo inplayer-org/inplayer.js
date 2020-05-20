@@ -1720,9 +1720,9 @@ atob@^2.1.1:
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
 aws-iot-device-sdk@^2.2.1:
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/aws-iot-device-sdk/-/aws-iot-device-sdk-2.2.4.tgz#ce21632833e72ee1d6051c425ce8b4822069bf05"
-  integrity sha512-DgNVTPQMVHxC1o6SENWDjio2Ku8gz70XPi5CoS31Q4ndWpx3zwq3QKBvGdRm02SF4Xb4ft5cd9tXQCeIjgkqlQ==
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/aws-iot-device-sdk/-/aws-iot-device-sdk-2.2.6.tgz#e8ff9d75b46795828d8258a0aa25b9de976e7373"
+  integrity sha512-W481pAghXqF2PDrsFwQ6o0ngQfp0TOq78z8JuEHSrI2jhOynvsQzT2uTSl3lc2/rB8nLxJh6Ev7L/Xs+QD8NFQ==
   dependencies:
     crypto-js "3.1.6"
     minimist "1.2.5"
