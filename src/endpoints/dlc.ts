@@ -32,3 +32,26 @@ class DLC extends BaseExtend {
 }
 
 export default DLC;
+
+
+export const dlc = (config: ApiConfig, request: Request) => {
+  /**
+   * Gets all DLC links
+   * @method getDlcLinks
+   * @async
+   * @param {number} assetId - The id of the asset
+   * @example
+   *     InPlayer.DLC
+   *     .getDlcLinks(36320)
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<DlcLink>}
+   */
+  const getDlcLinks = async (assetId: number) => {
+    return request.authenticatedGet(API.getDlcLinks(assetId), {
+      headers: {
+        Authorization: `Bearer ${request.getToken().token}`,
+      },
+    })
+  }
+  return{getDlcLinks};
+}

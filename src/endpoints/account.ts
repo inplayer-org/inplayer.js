@@ -577,3 +577,559 @@ class Account extends BaseExtend {
 }
 
 export default Account;
+
+export const account = (config: ApiConfig, request: Request) => {
+
+    /**
+   * Signs in the user
+   * @method signIn
+   * @async
+   * @typedef {Object} AxiosResponse<CreateAccount>
+   * @param {AuthenticateData} data - Contains {
+   *  email: string,
+   *  password: string,
+   *  clientId: string,
+   *  clientSecret: string,
+   *  referrer: string,
+   *  refreshToken: string,
+   * }
+   * @example
+   *     InPlayer.Account.signIn({
+   *      email: 'test@test.com',
+   *      password: 'test123',
+   *      clientId: '123-123-hf1hd1-12dhd1',
+   *      referrer: 'http://localhost:3000/',
+   *      refreshToken: '528b1b80-ddd1hj-4abc-gha3j-111111'
+   *     })
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<CreateAccount>}
+   */
+  const signIn = async(data: AuthenticateData) => {
+    const body: any = {
+      client_id: data.clientId,
+      grant_type: 'password',
+      referrer: data.referrer,
+    };
+
+    if (data.clientSecret) {
+      body.client_secret = data.clientSecret;
+      body.grant_type = 'client_credentials';
+    }
+
+    if (data.refreshToken) {
+      body.refresh_token = data.refreshToken;
+      body.grant_type = 'refresh_token';
+    } else {
+      body.username = data.email;
+      body.password = data.password;
+    }
+
+    const respData = await request.post(
+      API.signIn,
+      qs.stringify(body),
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
+
+    request.setToken(
+      respData.data.access_token,
+      respData.data.refresh_token,
+      respData.data.expires,
+    );
+
+    return respData;
+  }
+
+  /**
+   * Signs up/Registers user
+   * @method signUp
+   * @async
+   * @param {SignUpData} data - Contains {
+   *  fullName: string,
+   *  email: string
+   *  password: string,
+   *  passwordConfirmation: string,
+   *  clientId: string,
+   *  type: string,
+   *  referrer: string,
+   *  brandingId?: number,
+   *  metadata?: { [key: string]: string }\
+   *  dateOfBirth?: string,
+   * }
+   * @example
+   *     InPlayer.Account.signUp({
+   *      fullName: "test",
+   *      email: "test32@test.com",
+   *      password: "12345678",
+   *      passwordConfirmation: "12345678",
+   *      clientId: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
+   *      type: "consumer",
+   *      referrer: "http://localhost:3000/",
+   *      brandingId?: 12345,
+   *      metadata : { country: "Macedonia" },
+   *     })
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<CreateAccount>}
+   */
+  const signUp = async(data: SignUpData) => {
+    const body = {
+      full_name: data.fullName,
+      username: data.email,
+      password: data.password,
+      password_confirmation: data.passwordConfirmation,
+      client_id: data.clientId,
+      type: data.type,
+      referrer: data.referrer,
+      grant_type: 'password',
+      metadata: data.metadata,
+      branding_id: data.brandingId,
+    };
+
+    const resp = await request.post(
+      API.signUp,
+      qs.stringify(body),
+      {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      },
+    );
+
+    request.setToken(
+      resp.data.access_token,
+      resp.data.refresh_token,
+      resp.data.expires,
+    );
+
+    return resp;
+  }
+
+  /**
+   * Signs out the user and destroys cookies
+   * @method signOut
+   * @async
+   * @example
+   *     InPlayer.Account.signOut()
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<undefined>}
+   */
+  const signOut = async () => {
+    const response = await request.get(API.signOut, {
+      headers: { Authorization: `Bearer ${request.getToken().token}` },
+    });
+
+    return response;
+  }
+
+  /**
+   * Refreshes the token
+   * @method refreshToken
+   * @async
+   * @param clientId - The merchant's clientId
+   * @example
+   *     InPlayer.Account.refreshToken('123123121-d1-t1-1ff').then(data => console.log(data))
+   * @returns  {AxiosResponse<CreateAccount>}
+   */
+  const refreshToken = async (clientId: string) => {
+    const token = request.getToken();
+
+    if (!token.refreshToken) {
+      const response: CustomErrorResponse = {
+        status: 401,
+        data: {
+          code: 401,
+          message: 'The refresh token is not present',
+        },
+      };
+
+      // eslint-disable-next-line no-throw-literal
+      throw { response };
+    }
+
+    const body = {
+      refresh_token: token.refreshToken,
+      client_id: clientId,
+      grant_type: 'refresh_token',
+    };
+
+    const responseData = await request.post(
+      API.signIn,
+      qs.stringify(body),
+      {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      },
+    );
+
+    return responseData;
+  }
+
+  /**
+   * Reports the generated SSO token to the SSO domain.
+   * @param {string} ssoDomain - The SSO domain.
+   * @param {string} token - The token string.
+   * @param {boolean} deactivate - Should the token be deactivated or activated.
+   */
+  const reportSSOtoken = async(
+    ssoDomain: string,
+    token: string,
+    deactivate = false,
+  ) => {
+    const body = new FormData();
+
+    body.append('token', token);
+    body.append('delete', deactivate ? '1' : '0');
+
+    // TODO: Check if global withCredentials works
+    return request.post(API.reportSSOtoken(ssoDomain), body, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      withCredentials: true,
+    });
+  }
+
+  /**
+   * Requests new password for a given user
+   * @method requestNewPassword
+   * @async
+   * @param {Object} data - Contains {
+   *  email: string,
+   *  merchantUuid: string
+   *  brandingId?: number
+   * }
+   * @example
+   *     InPlayer.Account
+   *     .requestNewPassword({
+   *      email: "test32@test.com",
+   *      merchantUuid: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
+   *      brandingId: 12345,
+   *     })
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<CreateForgotPasswordToken>}
+   */
+  const requestNewPassword = async (data: RequestNewPasswordData) => {
+    const body = {
+      email: data.email,
+      merchant_uuid: data.merchantUuid,
+      branding_id: data.brandingId,
+    };
+
+    return request.post(
+      API.requestNewPassword,
+      qs.stringify(body),
+      {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      },
+    );
+  }
+
+  /**
+   * Sets new password for the user
+   * @method setNewPassword
+   * @async
+   * @param {Object} data - Contains {
+   *  password: string
+   *  passwordConfirmation: string
+   *  brandingId?: number
+   * }
+   * @param {String} token - The reset token
+   * @example
+   *     InPlayer.Account
+   *     .setNewPassword({
+   *      password: "password",
+   *      passwordConfirmation: "password",
+   *      brandingId: "12345",
+   *     }, 'afhqi83rji74hjf7e43df')
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<undefined>}
+   */
+  const setNewPassword = async (data: SetNewPasswordData, token = '') => {
+    // TODO: check logic
+    // eslint-disable-next-line max-len
+    const body = `password=${data.password}&password_confirmation=${data.passwordConfirmation}&branding_id=${data.brandingId}`;
+
+    return request.put(API.setNewPassword(token), body, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    });
+  }
+
+  /**
+   * Gets the account information for a given auth token
+   * @method getAccountInfo
+   * @async
+   * @example
+   *     InPlayer.Account
+   *     .getAccountInfo()
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<AccountInformationReturn>}
+   */
+  const getAccountInfo = async () => {
+    return request.get(API.getAccountInfo, {
+      headers: { Authorization: `Bearer ${request.getToken().token}` },
+    });
+  }
+
+  /**
+   * Gets the social login urls for fb/twitter/google
+   * @method getSocialLoginUrls
+   * @async
+   * @param {string} state - Social login state.
+   * The state needs to be json and base64 encoded to be sent as a query parameter.
+   * Example: btoa(JSON.stringify({uuid: 'foo', redirect: 'http://example.com'}))
+   * @example
+   *     InPlayer.Account
+   *     .getSocialLoginUrls('123124-1r-1r13ur1h1')
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<ListSocialURLs>}
+   */
+  const getSocialLoginUrls = async (state: string) => {
+    return request.get(API.getSocialLoginUrls(state));
+  }
+
+  /**
+   * Updates the account info. Metadata fields must be from the Inplayer.getRegisterFields()
+   * @method updateAccount
+   * @async
+   * @param {Object} data - The new data for the account
+   * @example
+   *     InPlayer.Account
+   *     .updateAccount({fullName: 'test test', metadata: {country: 'Germany'},  dateOfBirth: '1999-03-05'})
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<undefined>}
+   */
+  const updateAccount = async (data: UpdateAccountData) => {
+    const body: any = {
+      full_name: data.fullName,
+    };
+
+    if (data.metadata) {
+      body.metadata = data.metadata;
+    }
+    if (data.dateOfBirth) {
+      body.date_of_birth = data.dateOfBirth;
+    }
+
+    return request.put(
+      API.updateAccount,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${request.getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
+  }
+
+  /**
+   * Changes password for a given user
+   * @method changePassword
+   * @async
+   * @param {Object} data - Contains {
+   *  oldPassword: string
+   *  password: string
+   *  passwordConfirmation: string
+   *  brandingId?: number
+   * }
+   * @param {string} token - The reset token
+   * @example
+   *     InPlayer.Account
+   *     .changePassword({
+   *       oldPassword: 'old123',
+   *       password: 'test123',
+   *       passwordConfirmation: 'test123'
+   *       brandingId: 1234
+   *     },'123124-1r-1r13ur1h1')
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<undefined>}
+   */
+  const changePassword = async (data: ChangePasswordData) => {
+    const body = {
+      old_password: data.oldPassword,
+      password: data.password,
+      password_confirmation: data.passwordConfirmation,
+      branding_id: data.brandingId,
+    };
+
+    return request.post(
+      API.changePassword,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${request.getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
+  }
+
+  /**
+   * Gets register fields
+   * @method getRegisterFields
+   * @async
+   * @param {string} merchantUuid - The merchant UUID
+   * @example
+   *     InPlayer.Account
+   *     .getRegisterFields('123124-1r-1r13ur1h1')
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<GetRegisterField>}
+   */
+  const getRegisterFields = async (merchantUuid = '') => {
+    return request.get(API.getRegisterFields(merchantUuid));
+  }
+
+  /**
+   * Deletes an account
+   * @method deleteAccount
+   * @async
+   * @param {Object} data - Contains {
+   *  password: string,
+   *  brandingId?: number,
+   * }
+   * @example
+   *     InPlayer.Account.deleteAccount({
+   *      password: "password",
+   *      brandingId: 1234,
+   *     })
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<undefined>}
+   */
+
+  const deleteAccount = async (data: AccountAuthData) => {
+    const body = {
+      password: data.password,
+      branding_id: data.brandingId,
+    };
+
+    const response = await request.delete(
+      API.deleteAccount,
+      {
+        headers: {
+          Authorization: `Bearer ${request.getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: qs.stringify(body),
+      },
+    );
+
+    localStorage.removeItem(config.INPLAYER_TOKEN_KEY);
+    localStorage.removeItem(config.INPLAYER_IOT_KEY);
+
+    return response;
+  }
+
+  /**
+   * Exports account data to the users' email
+   * @method exportData
+   * @async
+   * @param {Object} data - Contains {
+   *  password: string,
+   *  brandingId?: number,
+   * }
+   * @example
+   *     InPlayer.Account.exportData({
+   *        password: "password",
+   *        brandingId: 1234,
+   *     })
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<ExportAccountData>}
+   */
+
+  const exportData = async (data: AccountAuthData) => {
+    const body = {
+      password: data.password,
+      branding_id: data.brandingId,
+    };
+
+    return request.post(
+      API.exportData,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${request.getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
+  }
+
+  /**
+   * Creates pin code and sends it to the users' email
+   * @method sendPinCode
+   * @async
+   * @param {number} brandingId - Optional parametar
+   * @example
+   *     InPlayer.Account.sendPinCode(1234)
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<SendPinCode>}
+   */
+
+  const sendPinCode = async (brandingId: number) => {
+    const body = {
+      branding_id: brandingId,
+    };
+
+    return request.post(
+      API.sendPinCode,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${request.getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
+  }
+
+  /**
+   * Checks validity of pin code
+   * @method validatePinCode
+   * @async
+   * @param {string} pinCode - Code from received email message
+   * @example
+   *     InPlayer.Account.validatePinCode('5566')
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<PinCodeData>}
+   */
+
+  const validatePinCode = async (pinCode: string) => {
+    const body = {
+      pin_code: pinCode,
+    };
+
+    return request.post(
+      API.validatePinCode,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${request.getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
+  }
+
+  /**
+* Return restriction settings per Merchant
+* @method loadMerchantRestrictionSettings
+* @async
+* @param {string} merchantUuid - The merchant UUID
+* @example
+*     InPlayer.Account
+*     .loadMerchantRestrictionSettings("528b1b80-5868-4abc-a9b6-4d3455d719c8")
+*     .then(data => console.log(data));
+* @returns  {AxiosResponse<RestrictionSettingsData>} Contains the data - {
+  "age_verification_type": "pin_code",
+  "age_verification_enabled": true,
+  "merchant_uuid": "3b39b5ab-b5fc-4ba3-b770-73155d20e61f",
+  "created_at": 1532425425,
+  "updated_at": 1532425425
+}
+*/
+  const loadMerchantRestrictionSettings= async (merchantUuid: string) => {
+    return request.get(
+      API.merchantRestrictionSettings(merchantUuid),
+    );
+  }
+
+  return {signIn, signUp, signOut, refreshToken, reportSSOtoken, requestNewPassword, setNewPassword, getAccountInfo, getSocialLoginUrls, updateAccount, changePassword, getRegisterFields, deleteAccount, exportData, sendPinCode, validatePinCode, loadMerchantRestrictionSettings};
+}

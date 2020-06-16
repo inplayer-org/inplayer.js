@@ -47,3 +47,38 @@ class Voucher extends BaseExtend {
 }
 
 export default Voucher;
+
+export const voucher = (config: ApiConfig, request: Request) => {
+  /**
+   * Gets the discount for a given code.
+   * @method getDiscount
+   * @async
+   * @param {Object} data - {
+   *   accessFeeId: number,
+   *   voucherCode: string
+   * }
+   * @example
+   *     InPlayer.Voucher
+   *     .getDiscount('/vouchers/discount', {
+   *        accessFeeId: 134,
+   *        voucherCode: 'FOOrGmv60pT'
+   *     })
+   *     .then(data => console.log(data));
+   * @returns {AxiosResponse<VoucherDiscountPrice>}
+   */
+  const getDiscount = async (data: VoucherDiscountPriceData) => {
+    const body = {
+      access_fee_id: data.accessFeeId,
+      voucher_code: data.voucherCode,
+    };
+
+    return request.authenticatedPost(API.getDiscount, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${request.getToken().token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+  }
+
+  return {getDiscount};
+}
