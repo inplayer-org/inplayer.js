@@ -70,6 +70,8 @@ export interface AccountInformationReturn {
   completed: boolean;
   created_at: number;
   updated_at: number;
+  uuid: string;
+  merchant_uuid: string;
 }
 
 export interface CreateAccount {

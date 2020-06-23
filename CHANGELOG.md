@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.0.0-beta.8] - 23-05-2020
+
+### Added
+
+- Add missing props `uuid` and `merchant_uuid` in interface `AccountInformationReturn`
+
 # [3.0.0-beta.7] - 18-05-2020
 
 ### Changes
