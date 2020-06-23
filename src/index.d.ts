@@ -86,6 +86,7 @@ export declare interface AccountInformationReturn {
   created_at: number;
   updated_at: number;
   uuid: string;
+  merchant_uuid: string;
 }
 
 export declare interface CreateAccount {
