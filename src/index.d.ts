@@ -617,7 +617,7 @@ export declare class Payment {
     data: IdealPaymentData
   ) => Promise<AxiosResponse<CommonResponse>>;
   confirmIdealPayment: (
-    sourceId: string
+    data: IdealData
   ) => Promise<AxiosResponse<CommonResponse>>;
 }
 
