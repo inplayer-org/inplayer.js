@@ -6,6 +6,9 @@ import {
   CreateDirectDebitMandateData,
   DirectDebitData,
   CreatePaymentRequestBody,
+  IdealPaymentData,
+  IdealPaymentRequestBody,
+  IdealData,
 } from '../models/IPayment&Subscription';
 import { CustomErrorResponse } from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
@@ -454,6 +457,89 @@ class Payment extends BaseExtend {
 
     return this.request.authenticatedPost(
       API.subscribeV2,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${this.request.getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
+  }
+
+  /**
+   * Process a request for start ideal payment
+   * @method idealPayment
+   * @async
+   * @param {Object} data - Contains the data - {
+   *  accessFeeId: number,
+   *  bank: string,
+   *  returnUrl: {string};
+   *  brandingId?: number
+   *  voucherCode?: {string},
+   * }
+   * @example
+   *     InPlayer.Payment
+   *     .idealPayment({ accessFeeId, bank, returnUrl, brandingId, voucherCode })
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
+   *    code: '200',
+   *    message: "Submitted for payment",
+   *  }
+   */
+  async idealPayment(data: IdealPaymentData) {
+    const body: IdealPaymentRequestBody = {
+      payment_method: data.paymentMethod,
+      access_fee_id: data.accessFeeId,
+      bank: data.bank,
+      return_url: buildURLwithQueryParams(data.returnUrl, { ippwat: 'ppv' }),
+    };
+
+    if (data.brandingId) {
+      body.branding_id = data.brandingId;
+    }
+
+    if (data.voucherCode) {
+      body.voucher_code = data.voucherCode;
+    }
+
+    return this.request.authenticatedPost(
+      API.payForAssetV2,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${this.request.getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
+  }
+
+  /**
+   * Process a request for ideal payment confirmation
+   * @method confirmIdealPayment
+   * @async
+   * @param {Object} data - Contains the data - {
+   *  sourceId: {string},
+   * }
+   * @example
+   *     InPlayer.Payment
+   *     .confirmIdealPayment({ sourceId })
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
+   *       code: '200',
+   *       message: "Submitted for payment",
+   *    }
+   *
+   */
+  async confirmIdealPayment(data: IdealData) {
+    const body = {
+      payment_method: data.paymentMethod,
+      src_id: data.sourceId,
+    };
+
+    return this.request.authenticatedPost(
+      API.payForAssetV2,
       qs.stringify(body),
       {
         headers: {
