@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.0.0-beta.9] - 25-06-2020
+
+### Added
+
+- Ideal payment actions (idealPayment and confirmIdealPayment) added
+
 # [3.0.0-beta.8] - 23-05-2020
 
 ### Added
