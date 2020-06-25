@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Ideal payment actions (idealPayment and confirmIdealPayment) added
+- Ideal payment actions (idealPayment and confirmIdealPayment)
 
 # [3.0.0-beta.8] - 23-05-2020
 
