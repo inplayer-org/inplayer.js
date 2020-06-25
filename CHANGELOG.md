@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-# [3.0.0-beta.9] - 25-06-2020
+# [3.0.0-beta.10] - 26-06-2020
 
 ### Fixes
 
