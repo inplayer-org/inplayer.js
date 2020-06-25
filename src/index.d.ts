@@ -566,6 +566,20 @@ export declare interface DirectDebitData {
   brandingId?: number;
 }
 
+export declare interface IdealPaymentData {
+  paymentMethod: string;
+  returnUrl: string;
+  accessFeeId: number;
+  bank: string;
+  brandingId: number;
+  voucherCode?: string;
+}
+
+export declare interface IdealData {
+  paymentMethod: string;
+  sourceId: string;
+}
+
 export declare class Payment {
   constructor(config: object, Account: Account);
 
@@ -599,6 +613,12 @@ export declare class Payment {
   confirmPayment(
     paymentIntentId: string
   ): Promise<AxiosResponse<CreatePayment>>;
+  idealPayment: (
+    data: IdealPaymentData
+  ) => Promise<AxiosResponse<CommonResponse>>;
+  confirmIdealPayment: (
+    sourceId: string
+  ) => Promise<AxiosResponse<CommonResponse>>;
 }
 
 export interface CreateSubscriptionData {
