@@ -410,7 +410,7 @@ class Payment extends BaseExtend {
       access_fee_id: data.accessFeeId,
       item_id: data.assetId,
       voucher_code: data.voucherCode,
-      payment_method: data.paymentMethod,
+      payment_method: 'Direct Debit',
       branding_id: data.brandingId,
     };
 
@@ -451,7 +451,7 @@ class Payment extends BaseExtend {
       item_id: data.assetId,
       access_fee_id: data.accessFeeId,
       voucher_code: data.voucherCode,
-      payment_method: data.paymentMethod,
+      payment_method: 'Direct Debit',
       branding_id: data.brandingId,
     };
 

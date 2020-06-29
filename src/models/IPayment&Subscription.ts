@@ -360,7 +360,6 @@ export interface DirectDebitData {
   accessFeeId: number;
   assetId: number;
   voucherCode: string;
-  paymentMethod: 'Direct Debit';
   brandingId?: number;
 }
 
