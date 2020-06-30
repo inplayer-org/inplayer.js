@@ -472,15 +472,17 @@ class Payment extends BaseExtend {
    * @method idealPayment
    * @async
    * @param {Object} data - Contains the data - {
+   *  paymentMethod: {string},
    *  accessFeeId: number,
-   *  bank: string,
+   *  bank: {string},
    *  returnUrl: {string};
+   *  referrer: string,
    *  brandingId?: number
    *  voucherCode?: {string},
    * }
    * @example
    *     InPlayer.Payment
-   *     .idealPayment({ accessFeeId, bank, returnUrl, brandingId, voucherCode })
+   *     .idealPayment({ paymentMethod, accessFeeId, bank, returnUrl, referrer, brandingId, voucherCode })
    *     .then(data => console.log(data));
    * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
    *    code: '200',
@@ -493,6 +495,7 @@ class Payment extends BaseExtend {
       access_fee_id: data.accessFeeId,
       bank: data.bank,
       return_url: buildURLwithQueryParams(data.returnUrl, { ippwat: 'ppv' }),
+      referrer: data.referrer,
     };
 
     if (data.brandingId) {
@@ -521,10 +524,11 @@ class Payment extends BaseExtend {
    * @async
    * @param {Object} data - Contains the data - {
    *  sourceId: {string},
+   *  paymentMethod: {string},
    * }
    * @example
    *     InPlayer.Payment
-   *     .confirmIdealPayment({ sourceId })
+   *     .confirmIdealPayment({ sourceId, paymentMethod })
    *     .then(data => console.log(data));
    * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
    *       code: '200',
@@ -533,6 +537,18 @@ class Payment extends BaseExtend {
    *
    */
   async confirmIdealPayment(data: IdealData) {
+    if (!data.sourceId) {
+      const response: CustomErrorResponse = {
+        status: 400,
+        data: {
+          code: 400,
+          message: 'Source Id is a required parameter!',
+        },
+      };
+
+      throw { response };
+    }
+
     const body = {
       payment_method: data.paymentMethod,
       src_id: data.sourceId,
