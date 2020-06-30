@@ -453,7 +453,6 @@ export interface SetDefaultCard {
 }
 
 export interface IdealPaymentData {
-  paymentMethod: 'ideal';
   accessFeeId: number;
   bank: string;
   returnUrl: string;
@@ -512,7 +511,7 @@ export interface Payment extends BaseExtend {
     data: IdealPaymentData
   ) => Promise<AxiosResponse<CommonResponse>>;
   confirmIdealPayment: (
-    data: IdealData
+    sourceId: string
   ) => Promise<AxiosResponse<CommonResponse>>;
 }
 

@@ -8,7 +8,6 @@ import {
   CreatePaymentRequestBody,
   IdealPaymentData,
   IdealPaymentRequestBody,
-  IdealData,
 } from '../models/IPayment&Subscription';
 import { CustomErrorResponse } from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
@@ -472,7 +471,6 @@ class Payment extends BaseExtend {
    * @method idealPayment
    * @async
    * @param {Object} data - Contains the data - {
-   *  paymentMethod: {string},
    *  accessFeeId: number,
    *  bank: {string},
    *  returnUrl: {string};
@@ -482,7 +480,13 @@ class Payment extends BaseExtend {
    * }
    * @example
    *     InPlayer.Payment
-   *     .idealPayment({ paymentMethod, accessFeeId, bank, returnUrl, referrer, brandingId, voucherCode })
+   *     .idealPayment({
+   *        1243,
+   *        'handelsbanken',
+   *        'https://event.inplayer.com/staging',
+   *        'http://google.com',
+   *        143,
+   *        '123qwerty987' })
    *     .then(data => console.log(data));
    * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
    *    code: '200',
@@ -491,7 +495,7 @@ class Payment extends BaseExtend {
    */
   async idealPayment(data: IdealPaymentData) {
     const body: IdealPaymentRequestBody = {
-      payment_method: data.paymentMethod,
+      payment_method: 'ideal',
       access_fee_id: data.accessFeeId,
       bank: data.bank,
       return_url: buildURLwithQueryParams(data.returnUrl, { ippwat: 'ppv' }),
@@ -522,13 +526,10 @@ class Payment extends BaseExtend {
    * Process a request for ideal payment confirmation
    * @method confirmIdealPayment
    * @async
-   * @param {Object} data - Contains the data - {
-   *  sourceId: {string},
-   *  paymentMethod: {string},
-   * }
+   * @param {string},
    * @example
    *     InPlayer.Payment
-   *     .confirmIdealPayment({ sourceId, paymentMethod })
+   *     .confirmIdealPayment('125sour2ce')
    *     .then(data => console.log(data));
    * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
    *       code: '200',
@@ -536,8 +537,8 @@ class Payment extends BaseExtend {
    *    }
    *
    */
-  async confirmIdealPayment(data: IdealData) {
-    if (!data.sourceId) {
+  async confirmIdealPayment(sourceId: string) {
+    if (!sourceId) {
       const response: CustomErrorResponse = {
         status: 400,
         data: {
@@ -550,8 +551,8 @@ class Payment extends BaseExtend {
     }
 
     const body = {
-      payment_method: data.paymentMethod,
-      src_id: data.sourceId,
+      payment_method: 'ideal',
+      src_id: sourceId,
     };
 
     return this.request.authenticatedPost(
