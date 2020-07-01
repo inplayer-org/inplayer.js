@@ -8,7 +8,6 @@ import {
   CreatePaymentRequestBody,
   IdealPaymentData,
   IdealPaymentRequestBody,
-  IdealData,
 } from '../models/IPayment&Subscription';
 import { CustomErrorResponse } from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
@@ -473,14 +472,21 @@ class Payment extends BaseExtend {
    * @async
    * @param {Object} data - Contains the data - {
    *  accessFeeId: number,
-   *  bank: string,
+   *  bank: {string},
    *  returnUrl: {string};
+   *  referrer: string,
    *  brandingId?: number
    *  voucherCode?: {string},
    * }
    * @example
    *     InPlayer.Payment
-   *     .idealPayment({ accessFeeId, bank, returnUrl, brandingId, voucherCode })
+   *     .idealPayment({
+   *        1243,
+   *        'handelsbanken',
+   *        'https://event.inplayer.com/staging',
+   *        'http://google.com',
+   *        143,
+   *        '123qwerty987' })
    *     .then(data => console.log(data));
    * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
    *    code: '200',
@@ -489,10 +495,11 @@ class Payment extends BaseExtend {
    */
   async idealPayment(data: IdealPaymentData) {
     const body: IdealPaymentRequestBody = {
-      payment_method: data.paymentMethod,
+      payment_method: 'ideal',
       access_fee_id: data.accessFeeId,
       bank: data.bank,
       return_url: buildURLwithQueryParams(data.returnUrl, { ippwat: 'ppv' }),
+      referrer: data.referrer,
     };
 
     if (data.brandingId) {
@@ -519,12 +526,10 @@ class Payment extends BaseExtend {
    * Process a request for ideal payment confirmation
    * @method confirmIdealPayment
    * @async
-   * @param {Object} data - Contains the data - {
-   *  sourceId: {string},
-   * }
+   * @param {string},
    * @example
    *     InPlayer.Payment
-   *     .confirmIdealPayment({ sourceId })
+   *     .confirmIdealPayment('125sour2ce')
    *     .then(data => console.log(data));
    * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
    *       code: '200',
@@ -532,10 +537,22 @@ class Payment extends BaseExtend {
    *    }
    *
    */
-  async confirmIdealPayment(data: IdealData) {
+  async confirmIdealPayment(sourceId: string) {
+    if (!sourceId) {
+      const response: CustomErrorResponse = {
+        status: 400,
+        data: {
+          code: 400,
+          message: 'Source Id is a required parameter!',
+        },
+      };
+
+      throw { response };
+    }
+
     const body = {
-      payment_method: data.paymentMethod,
-      src_id: data.sourceId,
+      payment_method: 'ideal',
+      src_id: sourceId,
     };
 
     return this.request.authenticatedPost(

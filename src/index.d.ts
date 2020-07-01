@@ -566,17 +566,12 @@ export declare interface DirectDebitData {
 }
 
 export declare interface IdealPaymentData {
-  paymentMethod: string;
-  returnUrl: string;
   accessFeeId: number;
   bank: string;
+  returnUrl: string;
+  referrer: string;
   brandingId: number;
   voucherCode?: string;
-}
-
-export declare interface IdealData {
-  paymentMethod: string;
-  sourceId: string;
 }
 
 export declare class Payment {
@@ -616,7 +611,7 @@ export declare class Payment {
     data: IdealPaymentData
   ) => Promise<AxiosResponse<CommonResponse>>;
   confirmIdealPayment: (
-    data: IdealData
+    sourceId: string
   ) => Promise<AxiosResponse<CommonResponse>>;
 }
 
