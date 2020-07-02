@@ -513,6 +513,9 @@ export interface Payment extends BaseExtend {
   confirmIdealPayment: (
     sourceId: string
   ) => Promise<AxiosResponse<CommonResponse>>;
+  idealSubscribe: (
+    data: IdealPaymentData
+  ) => Promise<AxiosResponse<CommonResponse>>;
 }
 
 export interface Subscription extends BaseExtend {
