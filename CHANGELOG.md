@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.0.0-beta.12] - 30-06-2020
+
+### Added
+
+- Add referrer as idealPayment attribute
+
+### Fixes
+
+- Remove redundant ideal paymentMethod key
+- Object parameter in confirmIdealPayment function is replaced with string parameter (sourceId)
+- Display error message if source id is not defined
+
+# [3.0.0-beta.11] - 29-06-2020
+
+### Fixes
+
+- Remove redundant DirectDebit paymentMethod key
+
+# [3.0.0-beta.10] - 26-06-2020
+
+### Fixes
+
+- String parameter in confirmIdealPayment function is replaced with object parameter
+
+# [3.0.0-beta.9] - 25-06-2020
+
+### Added
+
+- Ideal payment actions (idealPayment and confirmIdealPayment)
+
+# [3.0.0-beta.8] - 23-05-2020
+
+### Added
+
+- Add missing props `uuid` and `merchant_uuid` in interface `AccountInformationReturn`
+
 # [3.0.0-beta.7] - 18-05-2020
 
 ### Changes

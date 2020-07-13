@@ -86,6 +86,7 @@ export declare interface AccountInformationReturn {
   created_at: number;
   updated_at: number;
   uuid: string;
+  merchant_uuid: string;
 }
 
 export declare interface CreateAccount {
@@ -561,8 +562,16 @@ export declare interface DirectDebitData {
   accessFeeId: number;
   assetId: number;
   voucherCode: string;
-  paymentMethod: 'Direct Debit';
   brandingId?: number;
+}
+
+export declare interface IdealPaymentData {
+  accessFeeId: number;
+  bank: string;
+  returnUrl: string;
+  referrer: string;
+  brandingId: number;
+  voucherCode?: string;
 }
 
 export declare class Payment {
@@ -598,6 +607,12 @@ export declare class Payment {
   confirmPayment(
     paymentIntentId: string
   ): Promise<AxiosResponse<CreatePayment>>;
+  idealPayment: (
+    data: IdealPaymentData
+  ) => Promise<AxiosResponse<CommonResponse>>;
+  confirmIdealPayment: (
+    sourceId: string
+  ) => Promise<AxiosResponse<CommonResponse>>;
 }
 
 export interface CreateSubscriptionData {

@@ -6,6 +6,8 @@ import {
   CreateDirectDebitMandateData,
   DirectDebitData,
   CreatePaymentRequestBody,
+  IdealPaymentData,
+  IdealPaymentRequestBody,
 } from '../models/IPayment&Subscription';
 import { CustomErrorResponse } from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
@@ -407,7 +409,7 @@ class Payment extends BaseExtend {
       access_fee_id: data.accessFeeId,
       item_id: data.assetId,
       voucher_code: data.voucherCode,
-      payment_method: data.paymentMethod,
+      payment_method: 'Direct Debit',
       branding_id: data.brandingId,
     };
 
@@ -448,12 +450,113 @@ class Payment extends BaseExtend {
       item_id: data.assetId,
       access_fee_id: data.accessFeeId,
       voucher_code: data.voucherCode,
-      payment_method: data.paymentMethod,
+      payment_method: 'Direct Debit',
       branding_id: data.brandingId,
     };
 
     return this.request.authenticatedPost(
       API.subscribeV2,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${this.request.getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
+  }
+
+  /**
+   * Process a request for start ideal payment
+   * @method idealPayment
+   * @async
+   * @param {Object} data - Contains the data - {
+   *  accessFeeId: number,
+   *  bank: {string},
+   *  returnUrl: {string};
+   *  referrer: string,
+   *  brandingId?: number
+   *  voucherCode?: {string},
+   * }
+   * @example
+   *     InPlayer.Payment
+   *     .idealPayment({
+   *        1243,
+   *        'handelsbanken',
+   *        'https://event.inplayer.com/staging',
+   *        'http://google.com',
+   *        143,
+   *        '123qwerty987' })
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
+   *    code: '200',
+   *    message: "Submitted for payment",
+   *  }
+   */
+  async idealPayment(data: IdealPaymentData) {
+    const body: IdealPaymentRequestBody = {
+      payment_method: 'ideal',
+      access_fee_id: data.accessFeeId,
+      bank: data.bank,
+      return_url: buildURLwithQueryParams(data.returnUrl, { ippwat: 'ppv' }),
+      referrer: data.referrer,
+    };
+
+    if (data.brandingId) {
+      body.branding_id = data.brandingId;
+    }
+
+    if (data.voucherCode) {
+      body.voucher_code = data.voucherCode;
+    }
+
+    return this.request.authenticatedPost(
+      API.payForAssetV2,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${this.request.getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
+  }
+
+  /**
+   * Process a request for ideal payment confirmation
+   * @method confirmIdealPayment
+   * @async
+   * @param {string},
+   * @example
+   *     InPlayer.Payment
+   *     .confirmIdealPayment('125sour2ce')
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
+   *       code: '200',
+   *       message: "Submitted for payment",
+   *    }
+   *
+   */
+  async confirmIdealPayment(sourceId: string) {
+    if (!sourceId) {
+      const response: CustomErrorResponse = {
+        status: 400,
+        data: {
+          code: 400,
+          message: 'Source Id is a required parameter!',
+        },
+      };
+
+      throw { response };
+    }
+
+    const body = {
+      payment_method: 'ideal',
+      src_id: sourceId,
+    };
+
+    return this.request.authenticatedPost(
+      API.payForAssetV2,
       qs.stringify(body),
       {
         headers: {

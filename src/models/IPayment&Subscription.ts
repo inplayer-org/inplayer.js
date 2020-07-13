@@ -360,7 +360,6 @@ export interface DirectDebitData {
   accessFeeId: number;
   assetId: number;
   voucherCode: string;
-  paymentMethod: 'Direct Debit';
   brandingId?: number;
 }
 
@@ -453,6 +452,30 @@ export interface SetDefaultCard {
   exp_year: number;
 }
 
+export interface IdealPaymentData {
+  accessFeeId: number;
+  bank: string;
+  returnUrl: string;
+  referrer: string;
+  brandingId?: number;
+  voucherCode?: string;
+}
+
+export interface IdealPaymentRequestBody {
+  payment_method: 'ideal';
+  access_fee_id: number;
+  bank: string;
+  return_url: string;
+  referrer: string;
+  branding_id?: number;
+  voucher_code?: string;
+}
+
+export interface IdealData {
+  paymentMethod: 'ideal';
+  sourceId: string;
+}
+
 export interface Payment extends BaseExtend {
   getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
   getPaymentTools(paymentMethodId: number): Promise<AxiosResponse<any>>;
@@ -483,6 +506,12 @@ export interface Payment extends BaseExtend {
   ) => Promise<AxiosResponse<CommonResponse>>;
   directDebitSubscribe: (
     data: DirectDebitData
+  ) => Promise<AxiosResponse<CommonResponse>>;
+  idealPayment: (
+    data: IdealPaymentData
+  ) => Promise<AxiosResponse<CommonResponse>>;
+  confirmIdealPayment: (
+    sourceId: string
   ) => Promise<AxiosResponse<CommonResponse>>;
 }
 
