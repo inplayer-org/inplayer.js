@@ -10,12 +10,13 @@ All notable changes to this project will be documented in this file.
 # [3.0.0-beta.12] - 30-06-2020
 
 ### Added
+
 - Add referrer as idealPayment attribute
 
 ### Fixes
 
 - Remove redundant ideal paymentMethod key
-- Object parameter in confirmIdealPayment function is replaced with string parameter (sourceId) 
+- Object parameter in confirmIdealPayment function is replaced with string parameter (sourceId)
 - Display error message if source id is not defined
 
 # [3.0.0-beta.11] - 29-06-2020
