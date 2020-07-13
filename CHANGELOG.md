@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 # [3.0.0-beta.13] - 02-07-2020
 
 ### Added
+
 - Add ideal subscribe method
 
 # [3.0.0-beta.12] - 30-06-2020
