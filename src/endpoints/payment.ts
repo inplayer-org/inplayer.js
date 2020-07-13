@@ -599,7 +599,7 @@ class Payment extends BaseExtend {
       payment_method: 'ideal',
       access_fee_id: data.accessFeeId,
       bank: data.bank,
-      return_url: data.returnUrl,
+      return_url: buildURLwithQueryParams(data.returnUrl, { ippwat: 'subscription' }),
       referrer: data.referrer,
     };
 
@@ -610,6 +610,51 @@ class Payment extends BaseExtend {
     if (data.voucherCode) {
       body.voucher_code = data.voucherCode;
     }
+
+    return this.request.authenticatedPost(
+      API.subscribeV2,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${this.request.getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
+  }
+
+  /**
+   * Process a request for ideal payment confirmation
+   * @method confirmIdealSubscribe
+   * @async
+   * @param {string},
+   * @example
+   *     InPlayer.Payment
+   *     .confirmIdealSubscribe('125sour2ce')
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
+   *       code: '200',
+   *       message: "Submitted for payment",
+   *    }
+   *
+   */
+  async confirmIdealSubscribe(sourceId: string) {
+    if (!sourceId) {
+      const response: CustomErrorResponse = {
+        status: 400,
+        data: {
+          code: 400,
+          message: 'Source Id is a required parameter!',
+        },
+      };
+
+      throw { response };
+    }
+
+    const body = {
+      payment_method: 'ideal',
+      src_id: sourceId,
+    };
 
     return this.request.authenticatedPost(
       API.subscribeV2,

@@ -616,6 +616,9 @@ export declare class Payment {
   idealSubscribe: (
     data: IdealPaymentData
   ) => Promise<AxiosResponse<CommonResponse>>;
+  confirmIdealSubscribe: (
+    sourceId: string
+  ) => Promise<AxiosResponse<CommonResponse>>;
 }
 
 export interface CreateSubscriptionData {
