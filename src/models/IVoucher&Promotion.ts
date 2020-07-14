@@ -28,14 +28,16 @@ export interface VoucherDiscountPrice {
   amount: number;
 }
 
-export interface VoucherDiscountPriceData {
-  accessFeeId: number;
-  voucherCode: string;
-}
-
 export interface DiscountData {
   voucherCode: string;
-  accessFeeId: number;
+  accessFeeId?: number;
+  itemId?: number;
+}
+
+export interface DiscountBodyData {
+  voucher_code: string;
+  access_fee_id?: number;
+  item_id?: number;
 }
 
 export interface Voucher extends BaseExtend {
