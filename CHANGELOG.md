@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.0.0-beta.14] - 14-07-2020
+
+### Changes
+
+- Extend the getDiscount object attribute with itemId
+
 # [3.0.0-beta.13] - 02-07-2020
 
 ### Added

@@ -1,5 +1,5 @@
 import qs from 'qs';
-import { VoucherDiscountPriceData } from '../models/IVoucher&Promotion';
+import { DiscountData, DiscountBodyData } from '../models/IVoucher&Promotion';
 import { ApiConfig, Request } from '../models/Config';
 import BaseExtend from '../extends/base';
 import { API } from '../constants';
@@ -19,8 +19,9 @@ class Voucher extends BaseExtend {
    * @method getDiscount
    * @async
    * @param {Object} data - {
-   *   accessFeeId: number,
    *   voucherCode: string
+   *   accessFeeId?: number,
+   *   itemId?: number,
    * }
    * @example
    *     InPlayer.Voucher
@@ -31,11 +32,18 @@ class Voucher extends BaseExtend {
    *     .then(data => console.log(data));
    * @returns {AxiosResponse<VoucherDiscountPrice>}
    */
-  async getDiscount(data: VoucherDiscountPriceData) {
-    const body = {
-      access_fee_id: data.accessFeeId,
+  async getDiscount(data: DiscountData) {
+    const body: DiscountBodyData = {
       voucher_code: data.voucherCode,
     };
+
+    if (data.accessFeeId) {
+      body.access_fee_id = data.accessFeeId;
+    }
+
+    if (data.itemId) {
+      body.item_id = data.itemId;
+    }
 
     return this.request.authenticatedPost(API.getDiscount, qs.stringify(body), {
       headers: {

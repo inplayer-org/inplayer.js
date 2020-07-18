@@ -692,7 +692,8 @@ export declare class Subscription {
 
 export interface DiscountData {
   voucherCode: string;
-  accessFeeId: number;
+  accessFeeId?: number;
+  itemId?: number;
 }
 
 export interface VoucherDiscountPrice {
