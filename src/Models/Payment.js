@@ -501,6 +501,7 @@ class Payment {
         accessFeeId: access_fee_id,
         voucherCode: voucher_code = '',
         brandingId: branding_id,
+        referrer,
     }) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
@@ -522,7 +523,8 @@ class Payment {
                     access_fee_id,
                     voucher_code,
                     payment_method: 'Direct Debit',
-                    branding_id
+                    branding_id,
+                    referrer
                 }),
             }
         );
@@ -557,7 +559,8 @@ class Payment {
         assetId: item_id,
         accessFeeId: access_fee_id,
         voucherCode: voucher_code = '',
-        brandingId: branding_id
+        brandingId: branding_id,
+        referrer,
     }) {
         if (!this.Account.isAuthenticated()) {
             errorResponse(401, {
@@ -579,7 +582,8 @@ class Payment {
                     access_fee_id,
                     voucher_code,
                     payment_method: 'Direct Debit',
-                    branding_id
+                    branding_id,
+                    referrer
                 }),
             }
         );
