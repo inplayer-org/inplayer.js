@@ -78,7 +78,7 @@ export interface Request {
   post(path: string, data: any, headers?: Record<string, Record<string, unknown> | string | boolean>): any;
   put(path: string, data: any, headers?: Record<string, Record<string, unknown> | string | boolean>): any;
   patch(path: string, data: any, headers?: Record<string, Record<string, unknown> | string | boolean>): any;
-  delete(path: string, headers?: Record<string, Record<string, unknown> | string | boolean>): any;
+  delete(path: string, headers?: Record<string, Record<string, unknown> | FormData | string | boolean>): any;
   authenticatedGet(path: string, headers?: Record<string, Record<string, unknown> | string | boolean>): any;
   authenticatedPatch(path: string, data: any, headers?: Record<string, Record<string, unknown> | string | boolean>)
   : any;
