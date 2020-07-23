@@ -31,13 +31,13 @@ Alternatively you can include the script like so:
 ### Latest v2 version
 
 ```
-<script src="https://unpkg.com/@inplayer-org/inplayer.js@2.13.6/dist/inplayer.umd.js"></script>
+<script src="https://unpkg.com/@inplayer-org/inplayer.js@v2/dist/inplayer.umd.js"></script>
 ```
 
 ### Latest v3 version
 
 ```
-<script src="https://unpkg.com/@inplayer-org/inplayer.js/dist/inplayer.min.js"></script>
+<script src="https://unpkg.com/@inplayer-org/inplayer.js@v3/dist/inplayer.min.js"></script>
 ```
 
 ### Sign in using grant type: password
