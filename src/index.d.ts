@@ -563,6 +563,7 @@ export declare interface DirectDebitData {
   assetId: number;
   voucherCode: string;
   brandingId?: number;
+  referrer: string;
 }
 
 export declare interface IdealPaymentData {

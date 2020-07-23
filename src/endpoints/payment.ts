@@ -411,6 +411,7 @@ class Payment extends BaseExtend {
       voucher_code: data.voucherCode,
       payment_method: 'Direct Debit',
       branding_id: data.brandingId,
+      referrer: data.referrer,
     };
 
     return this.request.authenticatedPost(
@@ -452,6 +453,7 @@ class Payment extends BaseExtend {
       voucher_code: data.voucherCode,
       payment_method: 'Direct Debit',
       branding_id: data.brandingId,
+      referrer: data.referrer,
     };
 
     return this.request.authenticatedPost(
