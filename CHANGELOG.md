@@ -4,9 +4,9 @@ All notable changes to this project will be documented in this file.
 
 # [2.13.6] - 23-07-2020
 
-### Changes
+### Fixes
 
-- Add referrer to SEPA payments
+- Add missing referrer property to SEPA payment Object
 
 # [2.13.4] - 19-05-2020
 
