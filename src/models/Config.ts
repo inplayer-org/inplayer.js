@@ -74,15 +74,16 @@ export interface Request {
   getToken(): CredentialsConfig;
   setToken(token: string, refreshToken: string, expiresAt: number): void;
   isAuthenticated(): boolean;
-  get(path: string, headers?: Record<string, object | string | boolean>): any;
-  post(path: string, data: any, headers?: Record<string, object | string | boolean>): any;
-  put(path: string, data: any, headers?: Record<string, object | string | boolean>): any;
-  patch(path: string, data: any, headers?: Record<string, object | string | boolean>): any;
-  delete(path: string, headers?: Record<string, object | string | boolean>): any;
-  authenticatedGet(path: string, headers?: Record<string, object | string | boolean>): any;
-  authenticatedPatch(path: string, data: any, headers?: Record<string, object | string | boolean>): any;
-  authenticatedPost(path: string, data: any, headers?: Record<string, object | string | boolean>): any;
-  authenticatedPut(path: string, data: any, headers?: Record<string, object | string | boolean>): any;
-  authenticatedDelete(path: string, headers?: Record<string, object | string | boolean>): any;
+  get(path: string, headers?: Record<string, Record<string, unknown> | string | boolean>): any;
+  post(path: string, data: any, headers?: Record<string, Record<string, unknown> | string | boolean>): any;
+  put(path: string, data: any, headers?: Record<string, Record<string, unknown> | string | boolean>): any;
+  patch(path: string, data: any, headers?: Record<string, Record<string, unknown> | string | boolean>): any;
+  delete(path: string, headers?: Record<string, Record<string, unknown> | string | boolean>): any;
+  authenticatedGet(path: string, headers?: Record<string, Record<string, unknown> | string | boolean>): any;
+  authenticatedPatch(path: string, data: any, headers?: Record<string, Record<string, unknown> | string | boolean>)
+  : any;
+  authenticatedPost(path: string, data: any, headers?: Record<string, Record<string, unknown> | string | boolean>): any;
+  authenticatedPut(path: string, data: any, headers?: Record<string, Record<string, unknown> | string | boolean>): any;
+  authenticatedDelete(path: string, headers?: Record<string, Record<string, unknown> | string | boolean>): any;
   setInstanceConfig(configEnv: Env): void;
 }

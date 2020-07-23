@@ -64,8 +64,8 @@ export interface AccountInformationReturn {
   email: string;
   full_name: string;
   referrer: string;
-  metadata: object;
-  social_apps_metadata: object[];
+  metadata: Record<string, unknown>;
+  social_apps_metadata: Record<string, unknown>[];
   roles: string[];
   completed: boolean;
   created_at: number;
@@ -160,7 +160,7 @@ export interface SignUpData {
   grantType?: 'password' | 'client_credentials' | 'refresh_token';
   clientId: string;
   referrer: string;
-  metadata: object[];
+  metadata: Record<string, unknown>[];
   brandingId: number;
 }
 
@@ -178,7 +178,7 @@ export interface SetNewPasswordData {
 
 export interface UpdateAccountData {
   fullName: string;
-  metadata: object[];
+  metadata: Record<string, unknown>[];
   dateOfBirth: string;
 }
 

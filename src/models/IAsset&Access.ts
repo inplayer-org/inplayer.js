@@ -257,7 +257,7 @@ export interface Asset extends BaseExtend {
     page?: number,
     startDate?: string,
     endDate?: string
-  ): Promise<AxiosResponse<object[]>>;
+  ): Promise<AxiosResponse<Record<string, unknown>[]>>;
   getAccessCode(assetId: number): CodeAccessData | null;
   requestCodeAccess(data: RequestCodeAccessData): Promise<AxiosResponse<CodeAccessData>>;
   releaseAccessCode(assetId: number): Promise<AxiosResponse<CodeAccessData> | null>;

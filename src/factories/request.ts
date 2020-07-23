@@ -89,59 +89,59 @@ export default class Request {
     !this.getToken().isExpired() && this.getToken().token !== '';
 
   // HTTP GET Request - Returns Resolved or Rejected Promise
-  get = (path: string, headers?: Record<string, object | string | boolean>) =>
+  get = (path: string, headers?: Record<string, Record<string, unknown> | string | boolean>) =>
     this.basicInstance.get(path, headers || getHeaders());
 
   // HTTP PATCH Request - Returns Resolved or Rejected Promise
-  patch = (path: string, data: any, headers?: Record<string, object | string | boolean>) =>
+  patch = (path: string, data: any, headers?: Record<string, Record<string, unknown> | string | boolean>) =>
     this.basicInstance.patch(path, data, headers || getHeaders());
 
   // HTTP POST Request - Returns Resolved or Rejected Promise
-  post = (path: string, data: any, headers?: Record<string, object | string | boolean>) =>
+  post = (path: string, data: any, headers?: Record<string, Record<string, unknown> | string | boolean>) =>
     this.basicInstance.post(path, data, headers || getHeaders());
 
   // HTTP PUT Request - Returns Resolved or Rejected Promise
-  put = (path: string, data: any, headers?: Record<string, object | string | boolean>) =>
+  put = (path: string, data: any, headers?: Record<string, Record<string, unknown> | string | boolean>) =>
     this.basicInstance.put(path, data, headers || getHeaders());
 
   // HTTP DELETE Request - Returns Resolved or Rejected Promise
-  delete = (path: string, headers?: Record<string, object | string | boolean>) =>
+  delete = (path: string, headers?: Record<string, Record<string, unknown> | string | boolean>) =>
     this.basicInstance.delete(path, headers || getHeaders());
 
   // HTTP GET Request - Returns Resolved or Rejected Promise
-  authenticatedGet = (path: string, headers?: Record<string, object | string | boolean>) =>
+  authenticatedGet = (path: string, headers?: Record<string, Record<string, unknown> | string | boolean>) =>
     this.authenticatedInstance.get(path, headers || getHeaders());
 
   // HTTP PATCH Request - Returns Resolved or Rejected Promise
   authenticatedPatch = (
     path: string,
     data: any,
-    headers?: Record<string, object | string | boolean>,
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
   ) => this.authenticatedInstance.patch(path, data, headers || getHeaders());
 
   // HTTP POST Request - Returns Resolved or Rejected Promise
   authenticatedPost = (
     path: string,
     data: any,
-    headers?: Record<string, object | string | boolean>,
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
   ) => this.authenticatedInstance.post(path, data, headers || getHeaders());
 
   // HTTP PUT Request - Returns Resolved or Rejected Promise
   authenticatedPut = (
     path: string,
     data: any,
-    headers?: Record<string, object | string | boolean>,
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
   ) => this.authenticatedInstance.put(path, data, headers || getHeaders());
 
   // HTTP DELETE Request - Returns Resolved or Rejected Promise
   authenticatedDelete = (
     path: string,
-    headers?: Record<string, object | string | boolean>,
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
   ) => this.authenticatedInstance.delete(path, headers || getHeaders());
 
   createAuthInterceptor = (axiosConfig: AxiosRequestConfig) => {
     const auth = this.isAuthenticated();
-    // Build and object similar to an Axios error response
+    // Build and Record<string, unknown> similar to an Axios error response
     if (!auth) {
       const response: CustomErrorResponse = {
         status: 401,

@@ -43,15 +43,14 @@ interface DlcLink {
   file_description: string;
 }
 
-
 export interface DLC extends BaseExtend {
   getDlcLinks(assetId: number): Promise<AxiosResponse<DlcLink>>;
 }
 
 export interface Notifications extends BaseExtend {
-  getIotToken(): object;
+  getIotToken(): Record<string, unknown>;
   subscribe(accountUuid: string, callbackParams: any): Promise<boolean>;
-  handleSubscribe(data: object, callbackParams: any, uuid: string): void;
+  handleSubscribe(data: Record<string, unknown>, callbackParams: any, uuid: string): void;
   setClient(client: any): void;
   isSubscribed(): boolean;
   unsubscribe(): void;

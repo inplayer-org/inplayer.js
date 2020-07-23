@@ -22,5 +22,4 @@ const config = {
   production: prodConfig,
 };
 
-
 export default config;
