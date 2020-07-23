@@ -79,8 +79,8 @@ export declare interface AccountInformationReturn {
   email: string;
   full_name: string;
   referrer: string;
-  metadata: object;
-  social_apps_metadata: object[];
+  metadata: Record<string, unknown>;
+  social_apps_metadata: Record<string, unknown>[];
   roles: string[];
   completed: boolean;
   created_at: number;
@@ -136,7 +136,7 @@ export declare interface RestrictionSettingsData {
 }
 
 export declare class Account {
-  constructor(config: object);
+  constructor(config: Record<string, unknown>);
 
   signIn(data: AuthenticateData): Promise<AxiosResponse<CreateAccount>>;
   signUp(data: SignUpData): Promise<AxiosResponse<CreateAccount>>;
@@ -345,7 +345,7 @@ export interface CodeAccessData {
 }
 
 export declare class Asset {
-  constructor(config: object, Account: Account);
+  constructor(config: Record<string, unknown>, Account: Account);
 
   checkAccessForAsset(id: number): Promise<AxiosResponse<GetItemAccessV1>>;
   isFreeTrialUsed(id: number): Promise<AxiosResponse<boolean>>;
@@ -365,7 +365,7 @@ export declare class Asset {
     page?: number,
     startDate?: string,
     endDate?: string
-  ): Promise<AxiosResponse<object[]>>;
+  ): Promise<AxiosResponse<Record<string, unknown>[]>>;
   getAccessCode(assetId: number | string): CodeAccessData;
   requestCodeAccess(
     data: RequestCodeAccessData
@@ -396,7 +396,7 @@ export interface Brand {
 }
 
 export declare class Branding {
-  constructor(config: object);
+  constructor(config: Record<string, unknown>);
 
   getBranding(
     clientId: string,
@@ -413,7 +413,7 @@ declare interface DlcLink {
 }
 
 export declare class DLC {
-  constructor(config: object, Account: Account);
+  constructor(config: Record<string, unknown>, Account: Account);
 
   getDlcLinks(assetId: number): Promise<AxiosResponse<DlcLink>>;
 }
@@ -576,7 +576,7 @@ export declare interface IdealPaymentData {
 }
 
 export declare class Payment {
-  constructor(config: object, Account: Account);
+  constructor(config: Record<string, unknown>, Account: Account);
 
   getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
   getPaymentTools(paymentMethodId: number): Promise<AxiosResponse<any>>;
@@ -675,7 +675,7 @@ export declare interface CreateSubscription {
 }
 
 export declare class Subscription {
-  constructor(config: object, Account: Account);
+  constructor(config: Record<string, unknown>, Account: Account);
 
   getSubscriptions(
     page?: number,
@@ -702,7 +702,7 @@ export interface VoucherDiscountPrice {
 }
 
 export declare class Voucher {
-  constructor(config: object, Account: Account);
+  constructor(config: Record<string, unknown>, Account: Account);
 
   getDiscount(data: DiscountData): Promise<AxiosResponse<VoucherDiscountPrice>>;
 }
@@ -776,11 +776,11 @@ export interface ApiConfig {
 export declare const API: ApiEndpoints;
 
 export declare class Notifications {
-  constructor(config: object, Account: Account);
+  constructor(config: Record<string, unknown>, Account: Account);
 
-  getIotToken(): Promise<object>;
+  getIotToken(): Promise<Record<string, unknown>>;
   subscribe(accountUuid?: string, callbackParams?: any): Promise<boolean>;
-  handleSubscribe(data: object, callbackParams: any, uuid: string): void;
+  handleSubscribe(data: Record<string, unknown>, callbackParams: any, uuid: string): void;
   setClient(client: any): void;
   isSubscribed(): boolean;
   unsubscribe(): void;
