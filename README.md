@@ -28,13 +28,13 @@ npm install --save @inplayer-org/inplayer.js
 
 Alternatively you can include the script like so:
 
-### v2
+### Latest v2 version
 
 ```
-<script src="https://unpkg.com/@inplayer-org/inplayer.js/dist/inplayer.umd.js"></script>
+<script src="https://unpkg.com/@inplayer-org/inplayer.js@2.13.6/dist/inplayer.umd.js"></script>
 ```
 
-### v3
+### Latest v3 version
 
 ```
 <script src="https://unpkg.com/@inplayer-org/inplayer.js/dist/inplayer.min.js"></script>
