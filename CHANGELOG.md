@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.0.0] - 23-07-2020
+
+### Added
+
+- Add ideal subscribe method
+- Ideal payment actions (idealPayment and confirmIdealPayment)
+- Complete rewrite to TypeScript
+- Add axios as HTTP client
+
+### Changes
+
+- Extend the getDiscount object attribute with itemId
+- Add status query param for getSubscriptions endpoint
+- Add referrer param for SEPA payments
+
+### Breaking Changes
+
+- Use v2 endpoint for fetching access fees
+- InPlayer.Account.authenticate rename to InPlayer.Account.signIn
+- InPlayer.Payment.create rename to InPlayer.Payment.createPayment
+- InPlayer.Subscription.create rename to InPlayer.Subscription.createSubscription
+
 # [3.0.0-beta.14] - 14-07-2020
 
 ### Changes
