@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
-- Add referrer to sepa payments
+- Add referrer to SEPA payments
 
 # [2.13.4] - 19-05-2020
 
