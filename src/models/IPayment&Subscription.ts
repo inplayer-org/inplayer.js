@@ -361,6 +361,7 @@ export interface DirectDebitData {
   assetId: number;
   voucherCode: string;
   brandingId?: number;
+  referrer: string;
 }
 
 export interface PayPalParamsData {
