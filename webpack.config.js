@@ -9,7 +9,11 @@ const plugins = [
     new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
-    new CopyWebpackPlugin([{ from: './src/index.d.ts', to: './index.d.ts' }]),
+    new CopyWebpackPlugin({
+        patterns: [
+            { from: './index.d.ts', to: './index.d.ts' },
+        ],
+    }),
 ];
 
 if (PROD) {
