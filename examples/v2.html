@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>InPlayer JS SDK Sandbox</title>
+  <meta charset="UTF-8" />
+  <script src="../dist/inplayer.umd.js"></script>
+</head>
+
+<body>
+  <script>
+    InPlayer.Account.authenticate({
+      email: 'filip@inplayer.com',
+      password: 'reloadreload',
+      referrer: 'http://localhost:3000/',
+      cliendId: 'c62e75f2-e090-4b0b-a3b2-ca70d52f19ac',
+    }).then(data => console.log(data))
+      .catch(error => console.log(error));;
+
+    // InPlayer.Payment.create("eaf00a5b-a7aa-4885-b340-340e9059b371", {
+    //   number: 32423423423423423,
+    //   cardName: "Sarah Ponn",
+    //   expMonth: 9,
+    //   expYear: 2022,
+    //   cvv: 114,
+    //   accessFee: 122049,
+    //   paymentMethod: 1,
+    //   voucherCode: "SARAHTEST",
+    //   referrer: "https://www.everybodyfights.com",
+    //   returnUrl: "https://www.everybodyfights.com"
+    // }).then(data => console.log(data))
+    //   .catch(error => console.log(error));
+  </script>
+</body>
+
+</html>
