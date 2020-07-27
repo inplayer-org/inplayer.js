@@ -1,5 +1,3 @@
-import 'regenerator-runtime/runtime';
-
 import Account from './Models/Account';
 import Asset from './Models/Asset';
 import Payment from './Models/Payment';
