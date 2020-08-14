@@ -342,6 +342,7 @@ export interface CodeAccessData {
   in_use: boolean;
   browser_fingerprint: any;
   code: string;
+  type: string;
 }
 
 export interface CodeAccessSessionsData {
