@@ -67,6 +67,7 @@ export interface ApiEndpoints {
   getBranding: (merchantUuid: string, brandingId: string | number) => string;
   downloadFile: (assetId: number, filename: string) => string;
   requestCodeAccess: string;
+  getAccesCodeSessions: (code: string) => string;
   releaseAccessCode: (code: number) => string;
 }
 

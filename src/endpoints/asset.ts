@@ -180,7 +180,7 @@ class Asset extends BaseExtend {
       31,
     );
 
-    formData.set('id', String(codeAccessData.item_id));
+    formData.set('item_id', String(codeAccessData.item_id));
     formData.set('code', String(codeAccessData.code));
     formData.set('browser_fingerprint', browserFingerprint);
 
@@ -202,6 +202,11 @@ class Asset extends BaseExtend {
     return response;
   }
 
+  async getAccesCodeSessions(code: string) {
+    return this.request.get(
+      API.requestAccessCodeSessions(code),
+    );
+  }
   /**
    * Retrieves the access code and browser fingerprint for the current asset from localStorage
    * Returns null if no access code is present.

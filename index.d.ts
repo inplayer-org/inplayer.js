@@ -344,6 +344,14 @@ export interface CodeAccessData {
   code: string;
 }
 
+export interface CodeAccessSessionsData {
+  id: number;
+  code: string;
+  browser_fingerprint: any;
+  agent_info: string;
+  last_used: number;
+}
+
 export declare class Asset {
   constructor(config: Record<string, unknown>, Account: Account);
 
@@ -370,6 +378,7 @@ export declare class Asset {
   requestCodeAccess(
     data: RequestCodeAccessData
   ): Promise<AxiosResponse<CodeAccessData>>;
+  getAccesCodeSessions(code: string): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
   releaseAccessCode(
     assetId: number | string
   ): Promise<AxiosResponse<CodeAccessData>>;
