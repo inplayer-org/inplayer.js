@@ -87,7 +87,9 @@ export const API = {
     `/branding/paywall/${merchantUuid}/${brandingId}`,
   downloadFile: (assetId: any, filename: any) =>
     `/dlc/${assetId}/${filename}`,
-  requestCodeAccess: '/items/access/codes',
+  requestCodeAccess: '/items/access/codes/entry',
   releaseAccessCode: (code: string | number) =>
     `/items/access/codes/${code}`,
+  requestAccessCodeSessions: (code: string) => `items/access/codes/${code}/sessions`,
+  terminateSession: (code: string, fingerprint: string) => `items/access/codes/${code}/${fingerprint}`,
 };

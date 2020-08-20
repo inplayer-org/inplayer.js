@@ -342,6 +342,15 @@ export interface CodeAccessData {
   in_use: boolean;
   browser_fingerprint: any;
   code: string;
+  type: string;
+}
+
+export interface CodeAccessSessionsData {
+  id: number;
+  code: string;
+  browser_fingerprint: any;
+  agent_info: string;
+  last_used: number;
 }
 
 export declare class Asset {
@@ -370,9 +379,11 @@ export declare class Asset {
   requestCodeAccess(
     data: RequestCodeAccessData
   ): Promise<AxiosResponse<CodeAccessData>>;
+  getAccesCodeSessions(code: string): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
   releaseAccessCode(
     assetId: number | string
   ): Promise<AxiosResponse<CodeAccessData>>;
+  terminateSession(assetId: number): Promise<AxiosResponse<null>>;
   getCloudfrontURL(
     assetId: number,
     videoUrl: string

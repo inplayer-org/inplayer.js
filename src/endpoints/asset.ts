@@ -180,7 +180,7 @@ class Asset extends BaseExtend {
       31,
     );
 
-    formData.set('id', String(codeAccessData.item_id));
+    formData.set('item_id', String(codeAccessData.item_id));
     formData.set('code', String(codeAccessData.code));
     formData.set('browser_fingerprint', browserFingerprint);
 
@@ -202,6 +202,11 @@ class Asset extends BaseExtend {
     return response;
   }
 
+  async getAccesCodeSessions(code: string) {
+    return this.request.get(
+      API.requestAccessCodeSessions(code),
+    );
+  }
   /**
    * Retrieves the access code and browser fingerprint for the current asset from localStorage
    * Returns null if no access code is present.
@@ -252,6 +257,33 @@ class Asset extends BaseExtend {
     const response = await this.request.delete(
       API.releaseAccessCode(accessCode.code),
       { data: formData },
+    );
+
+    localStorage.removeItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId));
+
+    return response;
+  }
+
+  /**
+   * Terminates session for the current browser.
+   * @method terminateSession
+   * @async
+   * @param {number} - assetId
+   * @example
+   *     InPlayer.Asset
+   *     .terminateSession(42599)
+   *     .then(data => console.log(data));
+   * @returns  null
+   */
+  async terminateSession(assetId: number) {
+    const accessCode: CodeAccessData = this.getAccessCode(assetId);
+
+    if (!accessCode) {
+      return null;
+    }
+
+    const response = await this.request.delete(
+      API.terminateSession(accessCode.code, accessCode.browser_fingerprint),
     );
 
     localStorage.removeItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId));
