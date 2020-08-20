@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.1.0] - 20-08-2020
+
+### Added
+
+- Add getAccessCodeSession method
+- Add terminateSession method
+
+### Breaking Changes
+
+- Change api endpoint for requestCodeAccess
+
 # [3.0.0] - 23-07-2020
 
 ### Added

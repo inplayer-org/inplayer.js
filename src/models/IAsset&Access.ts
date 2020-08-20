@@ -235,6 +235,14 @@ export interface CodeAccessData {
   type: string;
 }
 
+export interface CodeAccessSessionsData {
+  id: number;
+  code: string;
+  browser_fingerprint: any;
+  agent_info: string;
+  last_used: number;
+}
+
 export interface CloudfrontUrl {
   video_url: string;
 }
@@ -261,6 +269,7 @@ export interface Asset extends BaseExtend {
   ): Promise<AxiosResponse<Record<string, unknown>[]>>;
   getAccessCode(assetId: number): CodeAccessData | null;
   requestCodeAccess(data: RequestCodeAccessData): Promise<AxiosResponse<CodeAccessData>>;
+  getAccesCodeSessions(code: string): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
   releaseAccessCode(assetId: number): Promise<AxiosResponse<CodeAccessData> | null>;
   terminateSession(assetId: number): Promise<AxiosResponse<null>>;
   getCloudfrontURL(
