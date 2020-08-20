@@ -265,6 +265,33 @@ class Asset extends BaseExtend {
   }
 
   /**
+   * Terminates session for the current browser.
+   * @method terminateSession
+   * @async
+   * @param {number} - assetId
+   * @example
+   *     InPlayer.Asset
+   *     .terminateSession(42599)
+   *     .then(data => console.log(data));
+   * @returns  null
+   */
+  async terminateSession(assetId: number) {
+    const accessCode: CodeAccessData = this.getAccessCode(assetId);
+
+    if (!accessCode) {
+      return null;
+    }
+
+    const response = await this.request.delete(
+      API.terminateSession(accessCode.code, accessCode.browser_fingerprint),
+    );
+
+    localStorage.removeItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId));
+
+    return response;
+  }
+
+  /**
    * Returns a signed Cloudfront URL with the merchant's signature
    * @method getCloudfrontURL
    * @async

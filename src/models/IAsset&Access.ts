@@ -262,6 +262,7 @@ export interface Asset extends BaseExtend {
   getAccessCode(assetId: number): CodeAccessData | null;
   requestCodeAccess(data: RequestCodeAccessData): Promise<AxiosResponse<CodeAccessData>>;
   releaseAccessCode(assetId: number): Promise<AxiosResponse<CodeAccessData> | null>;
+  terminateSession(assetId: number): Promise<AxiosResponse<null>>;
   getCloudfrontURL(
     assetId: number,
     videoUrl: string

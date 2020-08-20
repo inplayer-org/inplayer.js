@@ -69,6 +69,7 @@ export interface ApiEndpoints {
   requestCodeAccess: string;
   getAccesCodeSessions: (code: string) => string;
   releaseAccessCode: (code: number) => string;
+  terminateSession: (assetId: number) => void;
 }
 
 export interface Request {

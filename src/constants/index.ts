@@ -91,4 +91,5 @@ export const API = {
   releaseAccessCode: (code: string | number) =>
     `/items/access/codes/${code}`,
   requestAccessCodeSessions: (code: string) => `items/access/codes/${code}/sessions`,
+  terminateSession: (code: string, fingerprint: string) => `items/access/codes/${code}/${fingerprint}`,
 };
