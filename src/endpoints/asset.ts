@@ -1,7 +1,8 @@
 import Fingerprint2 from 'fingerprintjs2';
 import reduce from 'lodash/reduce';
+import qs from 'qs';
 import { ApiConfig, Request } from '../models/Config';
-import { CodeAccessData } from '../models/IAsset&Access';
+import { CodeAccessData, RequestDataCaptureAccessData } from '../models/IAsset&Access';
 import BaseExtend from '../extends/base';
 import { API } from '../constants';
 /**
@@ -200,6 +201,18 @@ class Asset extends BaseExtend {
     );
 
     return response;
+  }
+
+  async requestDataCaptureNoAuthAccess(accessData: RequestDataCaptureAccessData) {
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+
+    return this.request.post(
+      API.requestDataCaptureNoAuthAccess,
+      qs.stringify(accessData),
+      { headers },
+    );
   }
 
   async getAccesCodeSessions(code: string) {

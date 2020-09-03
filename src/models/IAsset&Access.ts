@@ -235,6 +235,13 @@ export interface CodeAccessData {
   type: string;
 }
 
+export interface RequestDataCaptureAccessData {
+  email: string;
+  full_name: string;
+  company: string;
+  merchant_uuid: string;
+}
+
 export interface CodeAccessSessionsData {
   id: number;
   code: string;
