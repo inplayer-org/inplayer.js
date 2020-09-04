@@ -353,6 +353,13 @@ export interface CodeAccessSessionsData {
   last_used: number;
 }
 
+export interface RequestDataCaptureAccessData {
+  email: string;
+  full_name: string;
+  company: string;
+  merchant_uuid: string;
+}
+
 export declare class Asset {
   constructor(config: Record<string, unknown>, Account: Account);
 
@@ -388,6 +395,7 @@ export declare class Asset {
     assetId: number,
     videoUrl: string
   ): Promise<AxiosResponse<CloudfrontUrl>>;
+  requestDataCaptureNoAuthAccess(accessData: RequestDataCaptureAccessData): Promise<AxiosResponse<CommonResponse>>
 }
 
 export interface Brand {
@@ -773,6 +781,7 @@ export interface ApiEndpoints {
   downloadFile: (assetId: number, filename: string) => string;
   requestCodeAccess: string;
   releaseAccessCode: (code: number) => string;
+  requestDataCaptureNoAuthAccess: string;
 }
 
 export interface ApiConfig {
