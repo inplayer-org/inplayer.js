@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.2.0] - 04-09-2020
+
+### Added
+
+- Add endpoint for dataCaptureNoAuthAccess
+
 # [3.1.0] - 20-08-2020
 
 ### Added
