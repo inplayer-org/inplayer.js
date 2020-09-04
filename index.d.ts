@@ -781,6 +781,7 @@ export interface ApiEndpoints {
   downloadFile: (assetId: number, filename: string) => string;
   requestCodeAccess: string;
   releaseAccessCode: (code: number) => string;
+  requestDataCaptureNoAuthAccess: string;
 }
 
 export interface ApiConfig {
