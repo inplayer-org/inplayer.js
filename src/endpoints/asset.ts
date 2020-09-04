@@ -5,6 +5,7 @@ import { ApiConfig, Request } from '../models/Config';
 import { CodeAccessData, RequestDataCaptureAccessData } from '../models/IAsset&Access';
 import BaseExtend from '../extends/base';
 import { API } from '../constants';
+import { CommonResponse } from '../models/CommonInterfaces';
 /**
  * Contains all Requests connected with assets/items
  *
@@ -202,7 +203,18 @@ class Asset extends BaseExtend {
 
     return response;
   }
-
+  /**
+   * Get access without authentication for asset with access control type data capture
+   * @method requestDataCaptureNoAuthAccess
+   * @async
+   * @param {Object} accessData = {
+   *  email: {string},
+   *  fullname: {string}
+   *  company: {string}
+   *  merchantuuid: {string}
+   * }
+   * @returns {AxiosResponse<CommonResponse>}
+   */
   async requestDataCaptureNoAuthAccess(accessData: RequestDataCaptureAccessData) {
     const headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
