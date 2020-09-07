@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.2.1] - 07-09-2020
+
+### Fixes
+
+- Rename request body parameter to data for deleteAccount
+
 # [3.2.0] - 04-09-2020
 
 ### Added
