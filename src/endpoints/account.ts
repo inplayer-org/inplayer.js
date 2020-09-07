@@ -451,7 +451,7 @@ class Account extends BaseExtend {
           Authorization: `Bearer ${this.request.getToken().token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: qs.stringify(body),
+        data: qs.stringify(body),
       },
     );
 
