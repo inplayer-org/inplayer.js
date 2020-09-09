@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.2.2] - 09-09-2020
+
+### Fixes
+
+- Revert axios version
+
 # [3.2.1] - 07-09-2020
 
 ### Fixes
