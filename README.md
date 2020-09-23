@@ -18,6 +18,11 @@ SDK Documentation can be found:
 - [v2](https://inplayer-org.github.io/inplayer.js/)
 - [v3](https://inplayer-js.netlify.app/)
 
+## Usage
+
+- [HTML](https://github.com/inplayer-org/inplayer.js/blob/v3/examples/v3.html)
+- [React](https://codesandbox.io/s/inplayer-react-js-sdk-yf956?file=/src/App.js)
+
 ## Installation
 
 Install the package from [npm](https://www.npmjs.com/package/@inplayer-org/inplayer.js) and import it in your project.
