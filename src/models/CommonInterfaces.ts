@@ -1,6 +1,11 @@
 import { AxiosResponse } from 'axios';
 import { ApiConfig, Request } from './Config';
 
+export enum Env {
+  Development = 'development',
+  Production = 'production',
+}
+
 export interface BaseExtend {
   config: ApiConfig;
   request: Request;
@@ -54,9 +59,4 @@ export interface Notifications extends BaseExtend {
   setClient(client: any): void;
   isSubscribed(): boolean;
   unsubscribe(): void;
-}
-
-export enum Env {
-  Development = 'development',
-  Production = 'production',
 }

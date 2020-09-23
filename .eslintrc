@@ -54,7 +54,8 @@
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/no-empty-interface": "off",
     "class-methods-use-this": "off",
-    "no-throw-literal": "off"
+    "no-throw-literal": "off",
+    "no-shadow": "warn",
   },
   "settings": {
     "import/resolver": {
