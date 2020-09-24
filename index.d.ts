@@ -787,6 +787,7 @@ export interface ApiEndpoints {
   setDefaultCreditCard: string;
   getDirectDebitMandate: string;
   createDirectDebitMandate: string;
+  validateReceipt: (ecosystem: string) => string;
   // Subscriptions
   getSubscriptions: (limit: number, page: number) => string;
   getSubscription: (id: number) => string;
