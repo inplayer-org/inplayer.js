@@ -69,7 +69,7 @@ export const API = {
   setDefaultCreditCard: '/v2/payments/cards/default',
   getDirectDebitMandate: '/v2/payments/direct-debit/mandate',
   createDirectDebitMandate: '/v2/payments/direct-debit/mandate',
-  validateReceipt: (ecosystem: string) => `v2/external-payments/${ecosystem}/validate`,
+  validateReceipt: (ecoSystem: string) => `v2/external-payments/${ecoSystem}/validate`,
   // Subscriptions
   getSubscriptions: (limit: number, page: number, status: string) => {
     if (status) {

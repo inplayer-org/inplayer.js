@@ -488,7 +488,7 @@ export interface ValidateReceiptData {
   itemId: number;
   accessFeeId: number;
   receipt: string;
-  ecosystem: ReceiptValidationEcosystem;
+  ecoSystem: ReceiptValidationEcosystem;
   amazonUserId?: string;
 }
 

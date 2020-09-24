@@ -605,7 +605,7 @@ export interface ValidateReceiptData {
   itemId: number;
   accessFeeId: number;
   receipt: string;
-  ecosystem: ReceiptValidationEcosystem;
+  ecoSystem: ReceiptValidationEcosystem;
   amazonUserId?: string;
 }
 
@@ -787,7 +787,7 @@ export interface ApiEndpoints {
   setDefaultCreditCard: string;
   getDirectDebitMandate: string;
   createDirectDebitMandate: string;
-  validateReceipt: (ecosystem: string) => string;
+  validateReceipt: (ecoSystem: string) => string;
   // Subscriptions
   getSubscriptions: (limit: number, page: number) => string;
   getSubscription: (id: number) => string;
