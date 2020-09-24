@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Added new method Payment.validateReceipt
+- New method Payment.validateReceipt
 
 # [3.2.2] - 09-09-2020
 
