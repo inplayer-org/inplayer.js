@@ -594,7 +594,7 @@ export declare interface IdealPaymentData {
   voucherCode?: string;
 }
 
-export enum ReceiptValidationEcosystem {
+export enum ReceiptValidationEcoSystem {
   AMAZON = 'amazon',
   APPLE = 'apple',
   GOOGLE_PLAY = 'google-play',
@@ -605,7 +605,7 @@ export interface ValidateReceiptData {
   itemId: number;
   accessFeeId: number;
   receipt: string;
-  ecoSystem: ReceiptValidationEcosystem;
+  ecoSystem: ReceiptValidationEcoSystem;
   amazonUserId?: string;
 }
 
