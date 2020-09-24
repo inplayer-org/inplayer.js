@@ -8,6 +8,7 @@ import {
   CreatePaymentRequestBody,
   IdealPaymentData,
   IdealPaymentRequestBody,
+  ValidateReceiptData,
 } from '../models/IPayment&Subscription';
 import { CustomErrorResponse } from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
@@ -660,6 +661,52 @@ class Payment extends BaseExtend {
 
     return this.request.authenticatedPost(
       API.subscribeV2,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${this.request.getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
+  }
+
+  /**
+   * Validates an In App purchase from Amazon, Apple, GooglePlay or Roku services
+   * @method validateReceipt
+   * @async
+   * @param {Object} data - Contains data - {
+   *  ecosystem: string,
+   *  itemId: number,
+   *  accessFeeId: number,
+   *  receipt: string,
+   *  amazonUserId?: string
+   * }
+   * @example
+   *   InPlayer.Payment
+   *     .validateReceipt({
+   *        ecosystem: 'roku',
+   *        itemId: 123,
+   *        accessFeeId: 19,
+   *        receipt: '123abc,
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
+   *    code: '200',
+   *    message: "Submitted",
+   *  }
+   */
+  async validateReceipt({
+    ecosystem, itemId, accessFeeId, receipt, amazonUserId,
+  }: ValidateReceiptData) {
+    const body = {
+      item_id: itemId,
+      access_fee_id: accessFeeId,
+      receipt,
+      ...(amazonUserId ? { amazon_user_id: amazonUserId } : {}),
+    };
+
+    return this.request.authenticatedPost(
+      API.validateReceipt(ecosystem),
       qs.stringify(body),
       {
         headers: {

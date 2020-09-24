@@ -477,6 +477,21 @@ export interface IdealData {
   sourceId: string;
 }
 
+enum ReceiptValidationEcosystem {
+  AMAZON = 'amazon',
+  APPLE = 'apple',
+  GOOGLE_PLAY = 'google-play',
+  ROKU = 'roku',
+}
+
+export interface ValidateReceiptData {
+  itemId: number;
+  accessFeeId: number;
+  receipt: string;
+  ecosystem: ReceiptValidationEcosystem;
+  amazonUserId?: string;
+}
+
 export interface Payment extends BaseExtend {
   getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
   getPaymentTools(paymentMethodId: number): Promise<AxiosResponse<any>>;
@@ -519,6 +534,9 @@ export interface Payment extends BaseExtend {
   ) => Promise<AxiosResponse<CommonResponse>>;
   confirmIdealSubscribe: (
     sourceId: string
+  ) => Promise<AxiosResponse<CommonResponse>>;
+  validateReceipt: (
+    data: ValidateReceiptData
   ) => Promise<AxiosResponse<CommonResponse>>;
 }
 

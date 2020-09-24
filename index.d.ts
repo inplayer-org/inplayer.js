@@ -594,6 +594,21 @@ export declare interface IdealPaymentData {
   voucherCode?: string;
 }
 
+export enum ReceiptValidationEcosystem {
+  AMAZON = 'amazon',
+  APPLE = 'apple',
+  GOOGLE_PLAY = 'google-play',
+  ROKU = 'roku',
+}
+
+export interface ValidateReceiptData {
+  itemId: number;
+  accessFeeId: number;
+  receipt: string;
+  ecosystem: ReceiptValidationEcosystem;
+  amazonUserId?: string;
+}
+
 export declare class Payment {
   constructor(config: Record<string, unknown>, Account: Account);
 
@@ -638,6 +653,9 @@ export declare class Payment {
   ) => Promise<AxiosResponse<CommonResponse>>;
   confirmIdealSubscribe: (
     sourceId: string
+  ) => Promise<AxiosResponse<CommonResponse>>;
+  validateReceipt: (
+    data: ValidateReceiptData
   ) => Promise<AxiosResponse<CommonResponse>>;
 }
 
@@ -769,6 +787,7 @@ export interface ApiEndpoints {
   setDefaultCreditCard: string;
   getDirectDebitMandate: string;
   createDirectDebitMandate: string;
+  validateReceipt: (ecosystem: string) => string;
   // Subscriptions
   getSubscriptions: (limit: number, page: number) => string;
   getSubscription: (id: number) => string;
