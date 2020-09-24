@@ -477,7 +477,7 @@ export interface IdealData {
   sourceId: string;
 }
 
-enum ReceiptValidationEcoSystem {
+enum ReceiptValidationPlatform {
   AMAZON = 'amazon',
   APPLE = 'apple',
   GOOGLE_PLAY = 'google-play',
@@ -488,7 +488,7 @@ export interface ValidateReceiptData {
   itemId: number;
   accessFeeId: number;
   receipt: string;
-  ecoSystem: ReceiptValidationEcoSystem;
+  platform: ReceiptValidationPlatform;
   amazonUserId?: string;
 }
 

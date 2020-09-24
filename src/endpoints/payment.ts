@@ -676,7 +676,7 @@ class Payment extends BaseExtend {
    * @method validateReceipt
    * @async
    * @param {Object} data - Contains data - {
-   *  ecoSystem: string,
+   *  platform: string,
    *  itemId: number,
    *  accessFeeId: number,
    *  receipt: string,
@@ -685,7 +685,7 @@ class Payment extends BaseExtend {
    * @example
    *   InPlayer.Payment
    *     .validateReceipt({
-   *        ecoSystem: 'roku',
+   *        platform: 'roku',
    *        itemId: 123,
    *        accessFeeId: 19,
    *        receipt: '123abc,
@@ -696,7 +696,7 @@ class Payment extends BaseExtend {
    *  }
    */
   async validateReceipt({
-    ecoSystem, itemId, accessFeeId, receipt, amazonUserId,
+    platform, itemId, accessFeeId, receipt, amazonUserId,
   }: ValidateReceiptData) {
     const body = {
       item_id: itemId,
@@ -706,7 +706,7 @@ class Payment extends BaseExtend {
     };
 
     return this.request.authenticatedPost(
-      API.validateReceipt(ecoSystem),
+      API.validateReceipt(platform),
       qs.stringify(body),
       {
         headers: {
