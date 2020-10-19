@@ -78,12 +78,6 @@ class Account extends BaseExtend {
       },
     );
 
-    this.request.setToken(
-      respData.data.access_token,
-      respData.data.refresh_token,
-      respData.data.expires,
-    );
-
     return respData;
   }
 
@@ -138,12 +132,6 @@ class Account extends BaseExtend {
       {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       },
-    );
-
-    this.request.setToken(
-      resp.data.access_token,
-      resp.data.refresh_token,
-      resp.data.expires,
     );
 
     return resp;

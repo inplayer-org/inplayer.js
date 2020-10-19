@@ -57,27 +57,6 @@ export default class Request {
     return new Credentials(JSON.parse(token));
   };
 
-  /** Sets the Token
-   *  @method setToken
-   *  @param {string} token
-   *  @param {string} refreshToken
-   *  @param {number} expiresAt
-   *  @example
-   *  InPlayer.Account.setToken('344244-242242', '123123121-d1-t1-1ff',1558529593297)
-   */
-  setToken = (token: string, refreshToken: string, expiresAt: number) => {
-    const credentials = new Credentials({
-      token,
-      refreshToken,
-      expires: expiresAt,
-    });
-
-    localStorage.setItem(
-      this.config.INPLAYER_TOKEN_KEY,
-      JSON.stringify(credentials),
-    );
-  };
-
   /**
  * Checks if the user is authenticated
  * @method isAuthenticated
