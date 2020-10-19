@@ -2,21 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
-# [3.4.0] - 19-10-2020
+# [3.3.0] - 19-10-2020
 
 ### Added
 
-- Remove redundant setToken method
+- New method Payment.validateReceipt
 
 ### Changes
 
 - Extended AccessFee with current_phase
 
-# [3.3.0] - 24-09-2020
+### Fixes
 
-### Added
-
-- New method Payment.validateReceipt
+- Remove redundant setToken method
 
 # [3.2.2] - 09-09-2020
 
