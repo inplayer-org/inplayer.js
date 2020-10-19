@@ -284,6 +284,20 @@ export declare interface GeoRestriction {
   type: string;
 }
 
+export declare interface CurrentPhase {
+  access_fee_id: number;
+  anchor_date: number;
+  created_at: number;
+  currency: string;
+  current_price: number;
+  expires_at: number;
+  id: number;
+  season_price: number;
+  starts_at: number;
+  status: string;
+  updated_at: number;
+}
+
 export declare interface GetAccessFee {
   id: number;
   merchant_id: number;
@@ -301,6 +315,7 @@ export declare interface GetAccessFee {
   seasonal_fee: SeasonalFee | null;
   external_fees: Array<ExternalFee> | null;
   geo_restriction: GeoRestriction | null;
+  current_phase: CurrentPhase | null;
 }
 
 export declare interface ExternalItemDetails extends ItemDetailsV1 {
