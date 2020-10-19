@@ -74,7 +74,6 @@ export interface ApiEndpoints {
 
 export interface Request {
   getToken(): CredentialsConfig;
-  setToken(token: string, refreshToken: string, expiresAt: number): void;
   isAuthenticated(): boolean;
   get(path: string, headers?: Record<string, Record<string, unknown> | string | boolean>): any;
   post(path: string, data: any, headers?: Record<string, Record<string, unknown> | string | boolean>): any;

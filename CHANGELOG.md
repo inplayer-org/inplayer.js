@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 # [3.3.1] - 19-10-2020
 
+### Added
+
+- Remove redundant setToken method
+
 ### Changes
 
 - Extended AccessFee with current_phase
