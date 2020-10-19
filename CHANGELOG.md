@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.3.1] - 19-10-2020
+
+### Added
+
+- Remove redundant setToken method
+
 # [3.3.0] - 24-09-2020
 
 ### Added
