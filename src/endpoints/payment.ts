@@ -688,7 +688,7 @@ class Payment extends BaseExtend {
    *        platform: 'roku',
    *        itemId: 123,
    *        accessFeeId: 19,
-   *        receipt: '123abc,
+   *        receipt: '123abc',
    *     .then(data => console.log(data));
    * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
    *    code: '200',
