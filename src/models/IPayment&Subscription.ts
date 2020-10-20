@@ -472,11 +472,6 @@ export interface IdealPaymentRequestBody {
   voucher_code?: string;
 }
 
-export interface IdealData {
-  paymentMethod: 'ideal';
-  sourceId: string;
-}
-
 enum ReceiptValidationPlatform {
   AMAZON = 'amazon',
   APPLE = 'apple',
