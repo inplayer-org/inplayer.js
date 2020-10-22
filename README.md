@@ -18,10 +18,11 @@ SDK Documentation can be found:
 - [v2](https://inplayer-org.github.io/inplayer.js/)
 - [v3](https://inplayer-js.netlify.app/)
 
-## Usage
+## Examples
 
 - [HTML](https://github.com/inplayer-org/inplayer.js/blob/v3/examples/v3.html)
 - [React](https://codesandbox.io/s/inplayer-react-js-sdk-yf956?file=/src/App.js)
+- [React-Native](https://codesandbox.io/s/inplayer-react-native-js-sdk-bvhwz?file=/src/App.js)
 
 ## Installation
 
