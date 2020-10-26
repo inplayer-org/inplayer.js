@@ -1,4 +1,4 @@
-import { AxiosResponse } from "axios";
+import { AxiosResponse } from 'axios';
 
 /* eslint-disable camelcase */
 export interface CredentialsConfig {
@@ -47,13 +47,13 @@ export interface SetPasswordData {
 }
 
 export interface ChangePasswordData
-  extends Omit<SetPasswordData, "brandingId"> {
+  extends Omit<SetPasswordData, 'brandingId'> {
   oldPassword: string;
   brandingId?: number;
 }
 
 export interface DeleteAccountData
-  extends Omit<SetPasswordData, "passwordConfirmation" | "brandingId"> {
+  extends Omit<SetPasswordData, 'passwordConfirmation' | 'brandingId'> {
   brandingId?: number;
 }
 
@@ -65,7 +65,7 @@ export interface UpdateAccountData {
 
 export declare interface AuthenticateData {
   email: string;
-  grantType?: "password" | "client_credentials" | "refresh_token";
+  grantType?: 'password' | 'client_credentials' | 'refresh_token';
   clientId: string;
   clientSecret?: string;
   refreshToken?: string;
@@ -188,6 +188,20 @@ export declare interface ItemType {
   description: string;
 }
 
+export declare interface ItemDetailsV1 {
+  id: number;
+  merchant_id: number;
+  merchant_uuid: string;
+  is_active: boolean;
+  title: string;
+  access_control_type: AccessControlType;
+  item_type: ItemType;
+  age_restriction: Record<string, number>;
+  metadata: Record<string, string>[];
+  created_at: number;
+  updated_at: number;
+}
+
 interface ItemDetailsAccess extends ItemDetailsV1 {
   content: string;
 }
@@ -224,20 +238,6 @@ export declare interface Item {
   template_id: number | null;
   created_at: number;
   update_at: number;
-}
-
-export declare interface ItemDetailsV1 {
-  id: number;
-  merchant_id: number;
-  merchant_uuid: string;
-  is_active: boolean;
-  title: string;
-  access_control_type: AccessControlType;
-  item_type: ItemType;
-  age_restriction: Record<string, number>;
-  metadata: Record<string, string>[];
-  created_at: number;
-  updated_at: number;
 }
 
 export declare interface AccessType {
@@ -618,10 +618,10 @@ export declare interface IdealPaymentData {
 }
 
 export enum ReceiptValidationPlatform {
-  AMAZON = "amazon",
-  APPLE = "apple",
-  GOOGLE_PLAY = "google-play",
-  ROKU = "roku",
+  AMAZON = 'amazon',
+  APPLE = 'apple',
+  GOOGLE_PLAY = 'google-play',
+  ROKU = 'roku',
 }
 
 export interface ValidateReceiptData {
@@ -852,7 +852,7 @@ export declare class Notifications {
   unsubscribe(): void;
 }
 
-type Env = "development" | "production";
+type Env = 'development' | 'production';
 
 export interface LocalStorageMethods {
   setItem: (key: string, value: string) => void;
