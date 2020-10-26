@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios';
+import { AxiosResponse } from "axios";
 
 /* eslint-disable camelcase */
 export interface CredentialsConfig {
@@ -47,13 +47,13 @@ export interface SetPasswordData {
 }
 
 export interface ChangePasswordData
-  extends Omit<SetPasswordData, 'brandingId'> {
+  extends Omit<SetPasswordData, "brandingId"> {
   oldPassword: string;
   brandingId?: number;
 }
 
 export interface DeleteAccountData
-  extends Omit<SetPasswordData, 'passwordConfirmation' | 'brandingId'> {
+  extends Omit<SetPasswordData, "passwordConfirmation" | "brandingId"> {
   brandingId?: number;
 }
 
@@ -65,7 +65,7 @@ export interface UpdateAccountData {
 
 export declare interface AuthenticateData {
   email: string;
-  grantType?: 'password' | 'client_credentials' | 'refresh_token';
+  grantType?: "password" | "client_credentials" | "refresh_token";
   clientId: string;
   clientSecret?: string;
   refreshToken?: string;
@@ -137,6 +137,10 @@ export declare interface RestrictionSettingsData {
 
 export declare class Account {
   constructor(config: Record<string, unknown>);
+
+  getToken(): Credentials;
+  setToken(token: string, refreshToken: string, expiresAt: number): void;
+  removeToken(): void;
 
   signIn(data: AuthenticateData): Promise<AxiosResponse<CreateAccount>>;
   signUp(data: SignUpData): Promise<AxiosResponse<CreateAccount>>;
@@ -401,7 +405,9 @@ export declare class Asset {
   requestCodeAccess(
     data: RequestCodeAccessData
   ): Promise<AxiosResponse<CodeAccessData>>;
-  getAccesCodeSessions(code: string): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
+  getAccesCodeSessions(
+    code: string
+  ): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
   releaseAccessCode(
     assetId: number | string
   ): Promise<AxiosResponse<CodeAccessData>>;
@@ -410,7 +416,9 @@ export declare class Asset {
     assetId: number,
     videoUrl: string
   ): Promise<AxiosResponse<CloudfrontUrl>>;
-  requestDataCaptureNoAuthAccess(accessData: RequestDataCaptureAccessData): Promise<AxiosResponse<CommonResponse>>
+  requestDataCaptureNoAuthAccess(
+    accessData: RequestDataCaptureAccessData
+  ): Promise<AxiosResponse<CommonResponse>>;
 }
 
 export interface Brand {
@@ -610,10 +618,10 @@ export declare interface IdealPaymentData {
 }
 
 export enum ReceiptValidationPlatform {
-  AMAZON = 'amazon',
-  APPLE = 'apple',
-  GOOGLE_PLAY = 'google-play',
-  ROKU = 'roku',
+  AMAZON = "amazon",
+  APPLE = "apple",
+  GOOGLE_PLAY = "google-play",
+  ROKU = "roku",
 }
 
 export interface ValidateReceiptData {
@@ -732,7 +740,7 @@ export declare class Subscription {
   getSubscriptions(
     page?: number,
     limit?: number,
-    status?: string,
+    status?: string
   ): Promise<AxiosResponse<GetSubscription>>;
   getSubscription(id: number): Promise<AxiosResponse<SubscriptionDetails>>;
   cancelSubscription(
@@ -834,13 +842,27 @@ export declare class Notifications {
 
   getIotToken(): Promise<Record<string, unknown>>;
   subscribe(accountUuid?: string, callbackParams?: any): Promise<boolean>;
-  handleSubscribe(data: Record<string, unknown>, callbackParams: any, uuid: string): void;
+  handleSubscribe(
+    data: Record<string, unknown>,
+    callbackParams: any,
+    uuid: string
+  ): void;
   setClient(client: any): void;
   isSubscribed(): boolean;
   unsubscribe(): void;
 }
 
-type Env = 'development' | 'production';
+type Env = "development" | "production";
+
+export interface LocalStorageMethods {
+  setItem: (key: string, value: string) => void;
+  getItem: (key: string) => string | null;
+  removeItem: (key: string) => void;
+}
+
+export type TokenStorageType = LocalStorageMethods & {
+  overrides: LocalStorageMethods;
+};
 
 declare const InPlayer: {
   config: ApiConfig;
@@ -852,6 +874,7 @@ declare const InPlayer: {
   DLC: DLC;
   Branding: Branding;
   Notifications: Notifications;
+  tokenStorage: TokenStorageType;
 
   subscribe(
     accountUuid: string,

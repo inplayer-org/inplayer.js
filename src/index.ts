@@ -15,10 +15,7 @@ import {
   Notifications as NotificationsType,
   Env,
 } from './models/CommonInterfaces';
-import {
-  ApiConfig,
-  Request as RequestType,
-} from './models/Config';
+import { ApiConfig, Request as RequestType } from './models/Config';
 import { Account as AccountType } from './models/IAccount&Authentication';
 import { Asset as AssetType } from './models/IAsset&Access';
 import {
@@ -27,6 +24,7 @@ import {
 } from './models/IPayment&Subscription';
 import { Voucher as VoucherType } from './models/IVoucher&Promotion';
 import { Branding as BrandingType } from './models/IBrand';
+import tokenStorage, { TokenStorageType } from './factories/tokenStorage';
 
 /**
  * Main class. Contains all others methods and websocket subscription
@@ -44,6 +42,7 @@ class InPlayer {
   Branding: BrandingType;
   Notifications: NotificationsType;
   request: RequestType;
+  tokenStorage: TokenStorageType = tokenStorage;
 
   constructor() {
     this.config = config.production;

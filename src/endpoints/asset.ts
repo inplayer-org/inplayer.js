@@ -2,10 +2,15 @@ import Fingerprint2 from 'fingerprintjs2';
 import reduce from 'lodash/reduce';
 import qs from 'qs';
 import { ApiConfig, Request } from '../models/Config';
-import { CodeAccessData, RequestDataCaptureAccessData } from '../models/IAsset&Access';
+import {
+  CodeAccessData,
+  RequestDataCaptureAccessData,
+} from '../models/IAsset&Access';
 import BaseExtend from '../extends/base';
 import { API } from '../constants';
 import { CommonResponse } from '../models/CommonInterfaces';
+import tokenStorage from '../factories/tokenStorage';
+
 /**
  * Contains all Requests connected with assets/items
  *
@@ -186,17 +191,14 @@ class Asset extends BaseExtend {
     formData.set('code', String(codeAccessData.code));
     formData.set('browser_fingerprint', browserFingerprint);
 
-    const response = await this.request.post(
-      API.requestCodeAccess,
-      formData,
-    );
+    const response = await this.request.post(API.requestCodeAccess, formData);
 
     const accessCode: CodeAccessData = {
       ...codeAccessData,
       browser_fingerprint: browserFingerprint,
     };
 
-    localStorage.setItem(
+    tokenStorage.setItem(
       this.config.INPLAYER_ACCESS_CODE_NAME(codeAccessData.item_id),
       JSON.stringify(accessCode),
     );
@@ -215,7 +217,9 @@ class Asset extends BaseExtend {
    * }
    * @returns {AxiosResponse<CommonResponse>}
    */
-  async requestDataCaptureNoAuthAccess(accessData: RequestDataCaptureAccessData) {
+  async requestDataCaptureNoAuthAccess(
+    accessData: RequestDataCaptureAccessData,
+  ) {
     const headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
@@ -228,9 +232,7 @@ class Asset extends BaseExtend {
   }
 
   async getAccesCodeSessions(code: string) {
-    return this.request.get(
-      API.requestAccessCodeSessions(code),
-    );
+    return this.request.get(API.requestAccessCodeSessions(code));
   }
   /**
    * Retrieves the access code and browser fingerprint for the current asset from localStorage
@@ -244,7 +246,7 @@ class Asset extends BaseExtend {
    * @returns  {CodeAccessData | null}
    */
   getAccessCode(assetId: number) {
-    const accessCode = localStorage.getItem(
+    const accessCode = tokenStorage.getItem(
       this.config.INPLAYER_ACCESS_CODE_NAME(assetId),
     );
 
@@ -284,7 +286,7 @@ class Asset extends BaseExtend {
       { data: formData },
     );
 
-    localStorage.removeItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId));
+    tokenStorage.removeItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId));
 
     return response;
   }
@@ -311,7 +313,7 @@ class Asset extends BaseExtend {
       API.terminateSession(accessCode.code, accessCode.browser_fingerprint),
     );
 
-    localStorage.removeItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId));
+    tokenStorage.removeItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId));
 
     return response;
   }
