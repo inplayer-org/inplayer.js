@@ -2,18 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
-# [3.3.2] - 26-10-2020
-
-### Changes
-
-- Re-added getToken and setToken methods
-- Added a new method removeToken
+# [3.4.0] - 30-10-2020
 
 ### Added
 
 - Added a new tokenStorage wrapper for non-web environments
 
-# [3.3.1] - to be published
+### Changes
+
+- Re-added getToken and setToken methods
+- Added a new method removeToken
 
 ### Fixes
 
