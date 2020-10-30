@@ -10,9 +10,9 @@ import {
 } from '../models/IAccount&Authentication';
 import { CustomErrorResponse } from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
-import Credentials from '../factories/credentials';
 import BaseExtend from '../extends/base';
 import { API } from '../constants';
+import tokenStorage from '../factories/tokenStorage';
 
 /**
  * Contains all Requests regarding user/account and authentication
@@ -23,6 +23,31 @@ class Account extends BaseExtend {
   constructor(config: ApiConfig, request: Request) {
     super(config, request);
   }
+
+  /** Retruns the OAuth token
+   *  @method getToken
+   *  @example
+   *  InPlayer.Account.getToken()
+   *  @return {Credentials}
+   */
+  getToken = this.request.getToken;
+
+  /** Sets the Token
+   *  @method setToken
+   *  @param {string} token
+   *  @param {string} refreshToken
+   *  @param {number} expiresAt
+   *  @example
+   *  InPlayer.Account.setToken('344244-242242', '123123121-d1-t1-1ff',1558529593297)
+   */
+  setToken = this.request.setToken;
+
+  /** Removes the token
+   *  @method removeToken
+   *  @example
+   *  InPlayer.Account.removeToken()
+   */
+  removeToken = this.request.removeToken;
 
   /**
    * Signs in the user
@@ -68,14 +93,16 @@ class Account extends BaseExtend {
       body.password = data.password;
     }
 
-    const respData = await this.request.post(
-      API.signIn,
-      qs.stringify(body),
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+    const respData = await this.request.post(API.signIn, qs.stringify(body), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
+    });
+
+    this.request.setToken(
+      respData.data.access_token,
+      respData.data.refresh_token,
+      respData.data.expires,
     );
 
     return respData;
@@ -126,12 +153,14 @@ class Account extends BaseExtend {
       branding_id: data.brandingId,
     };
 
-    const resp = await this.request.post(
-      API.signUp,
-      qs.stringify(body),
-      {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      },
+    const resp = await this.request.post(API.signUp, qs.stringify(body), {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    });
+
+    this.request.setToken(
+      resp.data.access_token,
+      resp.data.refresh_token,
+      resp.data.expires,
     );
 
     return resp;
@@ -202,11 +231,7 @@ class Account extends BaseExtend {
    * @param {string} token - The token string.
    * @param {boolean} deactivate - Should the token be deactivated or activated.
    */
-  async reportSSOtoken(
-    ssoDomain: string,
-    token: string,
-    deactivate = false,
-  ) {
+  async reportSSOtoken(ssoDomain: string, token: string, deactivate = false) {
     const body = new FormData();
 
     body.append('token', token);
@@ -245,13 +270,9 @@ class Account extends BaseExtend {
       branding_id: data.brandingId,
     };
 
-    return this.request.post(
-      API.requestNewPassword,
-      qs.stringify(body),
-      {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      },
-    );
+    return this.request.post(API.requestNewPassword, qs.stringify(body), {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    });
   }
 
   /**
@@ -340,16 +361,12 @@ class Account extends BaseExtend {
       body.date_of_birth = data.dateOfBirth;
     }
 
-    return this.request.put(
-      API.updateAccount,
-      qs.stringify(body),
-      {
-        headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+    return this.request.put(API.updateAccount, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${this.request.getToken().token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-    );
+    });
   }
 
   /**
@@ -382,16 +399,12 @@ class Account extends BaseExtend {
       branding_id: data.brandingId,
     };
 
-    return this.request.post(
-      API.changePassword,
-      qs.stringify(body),
-      {
-        headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+    return this.request.post(API.changePassword, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${this.request.getToken().token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-    );
+    });
   }
 
   /**
@@ -432,19 +445,16 @@ class Account extends BaseExtend {
       branding_id: data.brandingId,
     };
 
-    const response = await this.request.delete(
-      API.deleteAccount,
-      {
-        headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        data: qs.stringify(body),
+    const response = await this.request.delete(API.deleteAccount, {
+      headers: {
+        Authorization: `Bearer ${this.request.getToken().token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-    );
+      data: qs.stringify(body),
+    });
 
-    localStorage.removeItem(this.config.INPLAYER_TOKEN_KEY);
-    localStorage.removeItem(this.config.INPLAYER_IOT_KEY);
+    tokenStorage.removeItem(this.config.INPLAYER_TOKEN_KEY);
+    tokenStorage.removeItem(this.config.INPLAYER_IOT_KEY);
 
     return response;
   }
@@ -472,16 +482,12 @@ class Account extends BaseExtend {
       branding_id: data.brandingId,
     };
 
-    return this.request.post(
-      API.exportData,
-      qs.stringify(body),
-      {
-        headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+    return this.request.post(API.exportData, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${this.request.getToken().token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-    );
+    });
   }
 
   /**
@@ -500,16 +506,12 @@ class Account extends BaseExtend {
       branding_id: brandingId,
     };
 
-    return this.request.post(
-      API.sendPinCode,
-      qs.stringify(body),
-      {
-        headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+    return this.request.post(API.sendPinCode, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${this.request.getToken().token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-    );
+    });
   }
 
   /**
@@ -528,16 +530,12 @@ class Account extends BaseExtend {
       pin_code: pinCode,
     };
 
-    return this.request.post(
-      API.validatePinCode,
-      qs.stringify(body),
-      {
-        headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+    return this.request.post(API.validatePinCode, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${this.request.getToken().token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-    );
+    });
   }
 
   /**
@@ -558,9 +556,7 @@ class Account extends BaseExtend {
 }
 */
   async loadMerchantRestrictionSettings(merchantUuid: string) {
-    return this.request.get(
-      API.merchantRestrictionSettings(merchantUuid),
-    );
+    return this.request.get(API.merchantRestrictionSettings(merchantUuid));
   }
 }
 

@@ -3,6 +3,7 @@ import Credentials from './credentials';
 import { CustomErrorResponse, Env } from '../models/CommonInterfaces';
 import { ApiConfig } from '../models/Config';
 import configOptions from '../config';
+import tokenStorage from './tokenStorage';
 
 // Make maybe to get headers as params
 const getHeaders = () => ({
@@ -38,17 +39,19 @@ export default class Request {
     this.authenticatedInstance = axios.create({
       baseURL: this.config.BASE_URL,
     });
-    this.authenticatedInstance.interceptors.request.use(this.createAuthInterceptor);
-  }
+    this.authenticatedInstance.interceptors.request.use(
+      this.createAuthInterceptor,
+    );
+  };
 
-  /** Retruns the OAuth token
- *  @method getToken
- *  @example
- *  InPlayer.Account.getToken()
- *  @return {Credentials}
- */
+  /** Returns the OAuth token
+   *  @method getToken
+   *  @example
+   *  InPlayer.Account.getToken()
+   *  @return {Credentials}
+   */
   getToken = () => {
-    const token = localStorage.getItem(this.config.INPLAYER_TOKEN_KEY);
+    const token = tokenStorage.getItem(this.config.INPLAYER_TOKEN_KEY);
 
     if (token === undefined || token === null) {
       return new Credentials();
@@ -57,39 +60,85 @@ export default class Request {
     return new Credentials(JSON.parse(token));
   };
 
+  /** Sets the token
+   *  @method setToken
+   *  @param {string} token
+   *  @param {string} refreshToken
+   *  @param {number} expiresAt
+   *  @example
+   *  InPlayer.Account.setToken('344244-242242', '123123121-d1-t1-1ff',1558529593297)
+   */
+  setToken = (token: string, refreshToken: string, expiresAt: number) => {
+    const credentials = new Credentials({
+      token,
+      refreshToken,
+      expires: expiresAt,
+    });
+
+    tokenStorage.setItem(
+      this.config.INPLAYER_TOKEN_KEY,
+      JSON.stringify(credentials),
+    );
+  };
+
+  /** Removes the token
+   *  @method removeToken
+   *  @example
+   *  InPlayer.Account.removeToken()
+   */
+  removeToken = () => {
+    tokenStorage.removeItem(this.config.INPLAYER_TOKEN_KEY);
+    tokenStorage.removeItem(this.config.INPLAYER_IOT_KEY);
+  };
+
   /**
- * Checks if the user is authenticated
- * @method isAuthenticated
- * @example
- *    InPlayer.Account.isAuthenticated()
- * @return {Boolean}
- */
+   * Checks if the user is authenticated
+   * @method isAuthenticated
+   * @example
+   *    InPlayer.Account.isAuthenticated()
+   * @return {Boolean}
+   */
   isAuthenticated = () =>
     !this.getToken().isExpired() && this.getToken().token !== '';
 
   // HTTP GET Request - Returns Resolved or Rejected Promise
-  get = (path: string, headers?: Record<string, Record<string, unknown> | string | boolean>) =>
-    this.basicInstance.get(path, headers || getHeaders());
+  get = (
+    path: string,
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
+  ) => this.basicInstance.get(path, headers || getHeaders());
 
   // HTTP PATCH Request - Returns Resolved or Rejected Promise
-  patch = (path: string, data: any, headers?: Record<string, Record<string, unknown> | string | boolean>) =>
-    this.basicInstance.patch(path, data, headers || getHeaders());
+  patch = (
+    path: string,
+    data: any,
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
+  ) => this.basicInstance.patch(path, data, headers || getHeaders());
 
   // HTTP POST Request - Returns Resolved or Rejected Promise
-  post = (path: string, data: any, headers?: Record<string, Record<string, unknown> | string | boolean>) =>
-    this.basicInstance.post(path, data, headers || getHeaders());
+  post = (
+    path: string,
+    data: any,
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
+  ) => this.basicInstance.post(path, data, headers || getHeaders());
 
   // HTTP PUT Request - Returns Resolved or Rejected Promise
-  put = (path: string, data: any, headers?: Record<string, Record<string, unknown> | string | boolean>) =>
-    this.basicInstance.put(path, data, headers || getHeaders());
+  put = (
+    path: string,
+    data: any,
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
+  ) => this.basicInstance.put(path, data, headers || getHeaders());
 
   // HTTP DELETE Request - Returns Resolved or Rejected Promise
-  delete = (path: string, headers?: Record<string, Record<string, unknown> | string | boolean>) =>
-    this.basicInstance.delete(path, headers || getHeaders());
+  delete = (
+    path: string,
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
+  ) => this.basicInstance.delete(path, headers || getHeaders());
 
   // HTTP GET Request - Returns Resolved or Rejected Promise
-  authenticatedGet = (path: string, headers?: Record<string, Record<string, unknown> | string | boolean>) =>
-    this.authenticatedInstance.get(path, headers || getHeaders());
+  authenticatedGet = (
+    path: string,
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
+  ) => this.authenticatedInstance.get(path, headers || getHeaders());
 
   // HTTP PATCH Request - Returns Resolved or Rejected Promise
   authenticatedPatch = (

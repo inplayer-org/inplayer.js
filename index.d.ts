@@ -138,6 +138,10 @@ export declare interface RestrictionSettingsData {
 export declare class Account {
   constructor(config: Record<string, unknown>);
 
+  getToken(): Credentials;
+  setToken(token: string, refreshToken: string, expiresAt: number): void;
+  removeToken(): void;
+
   signIn(data: AuthenticateData): Promise<AxiosResponse<CreateAccount>>;
   signUp(data: SignUpData): Promise<AxiosResponse<CreateAccount>>;
   signOut(): Promise<AxiosResponse<undefined>>;
@@ -184,6 +188,20 @@ export declare interface ItemType {
   description: string;
 }
 
+export declare interface ItemDetailsV1 {
+  id: number;
+  merchant_id: number;
+  merchant_uuid: string;
+  is_active: boolean;
+  title: string;
+  access_control_type: AccessControlType;
+  item_type: ItemType;
+  age_restriction: Record<string, number>;
+  metadata: Record<string, string>[];
+  created_at: number;
+  updated_at: number;
+}
+
 interface ItemDetailsAccess extends ItemDetailsV1 {
   content: string;
 }
@@ -220,20 +238,6 @@ export declare interface Item {
   template_id: number | null;
   created_at: number;
   update_at: number;
-}
-
-export declare interface ItemDetailsV1 {
-  id: number;
-  merchant_id: number;
-  merchant_uuid: string;
-  is_active: boolean;
-  title: string;
-  access_control_type: AccessControlType;
-  item_type: ItemType;
-  age_restriction: Record<string, number>;
-  metadata: Record<string, string>[];
-  created_at: number;
-  updated_at: number;
 }
 
 export declare interface AccessType {
@@ -401,7 +405,9 @@ export declare class Asset {
   requestCodeAccess(
     data: RequestCodeAccessData
   ): Promise<AxiosResponse<CodeAccessData>>;
-  getAccesCodeSessions(code: string): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
+  getAccesCodeSessions(
+    code: string
+  ): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
   releaseAccessCode(
     assetId: number | string
   ): Promise<AxiosResponse<CodeAccessData>>;
@@ -410,7 +416,9 @@ export declare class Asset {
     assetId: number,
     videoUrl: string
   ): Promise<AxiosResponse<CloudfrontUrl>>;
-  requestDataCaptureNoAuthAccess(accessData: RequestDataCaptureAccessData): Promise<AxiosResponse<CommonResponse>>
+  requestDataCaptureNoAuthAccess(
+    accessData: RequestDataCaptureAccessData
+  ): Promise<AxiosResponse<CommonResponse>>;
 }
 
 export interface Brand {
@@ -732,7 +740,7 @@ export declare class Subscription {
   getSubscriptions(
     page?: number,
     limit?: number,
-    status?: string,
+    status?: string
   ): Promise<AxiosResponse<GetSubscription>>;
   getSubscription(id: number): Promise<AxiosResponse<SubscriptionDetails>>;
   cancelSubscription(
@@ -834,13 +842,27 @@ export declare class Notifications {
 
   getIotToken(): Promise<Record<string, unknown>>;
   subscribe(accountUuid?: string, callbackParams?: any): Promise<boolean>;
-  handleSubscribe(data: Record<string, unknown>, callbackParams: any, uuid: string): void;
+  handleSubscribe(
+    data: Record<string, unknown>,
+    callbackParams: any,
+    uuid: string
+  ): void;
   setClient(client: any): void;
   isSubscribed(): boolean;
   unsubscribe(): void;
 }
 
 type Env = 'development' | 'production';
+
+export interface LocalStorageMethods {
+  setItem: (key: string, value: string) => void;
+  getItem: (key: string) => string | null;
+  removeItem: (key: string) => void;
+}
+
+export type TokenStorageType = LocalStorageMethods & {
+  overrides: LocalStorageMethods;
+};
 
 declare const InPlayer: {
   config: ApiConfig;
@@ -852,6 +874,7 @@ declare const InPlayer: {
   DLC: DLC;
   Branding: Branding;
   Notifications: Notifications;
+  tokenStorage: TokenStorageType;
 
   subscribe(
     accountUuid: string,
