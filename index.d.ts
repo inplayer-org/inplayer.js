@@ -1,4 +1,4 @@
-import { AxiosResponse } from "axios";
+import { AxiosResponse } from 'axios';
 
 /* eslint-disable camelcase */
 export interface CredentialsConfig {
