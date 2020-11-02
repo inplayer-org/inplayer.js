@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios';
+import { AxiosResponse } from "axios";
 
 /* eslint-disable camelcase */
 export interface CredentialsConfig {
@@ -626,25 +626,25 @@ export enum ReceiptValidationPlatform {
 
 interface AmazonPlatformData {
   platform: ReceiptValidationPlatform.AMAZON;
-  receipt: string;
   amazonUserId: string;
 }
 
 interface NonAmazonPlatformData {
   platform: Omit<ReceiptValidationPlatform, ReceiptValidationPlatform.AMAZON>;
-  receipt: string;
   amazonUserId?: never;
 }
 
 type CommonPlatformData = AmazonPlatformData | NonAmazonPlatformData;
 
 interface ReceiptDataWithProductName {
+  receipt: string;
   productName: string;
   itemId?: never;
   accessFeeId?: never;
 }
 
 interface ReceiptDataWithItemIdAndAccessFeeId {
+  receipt: string;
   itemId: number;
   accessFeeId: number;
   productName?: never;
