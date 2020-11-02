@@ -485,7 +485,7 @@ interface AmazonPlatformData {
 }
 
 interface NonAmazonPlatformData {
-  platform: Omit<ReceiptValidationPlatform, ReceiptValidationPlatform.AMAZON>;
+  platform: Exclude<ReceiptValidationPlatform, ReceiptValidationPlatform.AMAZON>;
   amazonUserId?: never;
 }
 
