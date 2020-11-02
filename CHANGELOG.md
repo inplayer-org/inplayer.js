@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.4.1] - 02-11-2020
+
+### Added
+
+- New optional parameter `product_name` to Payment.validatePayment method
+
 # [3.4.0] - 30-10-2020
 
 ### Added
