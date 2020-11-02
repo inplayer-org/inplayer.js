@@ -624,13 +624,37 @@ export enum ReceiptValidationPlatform {
   ROKU = 'roku',
 }
 
-export interface ValidateReceiptData {
+interface AmazonPlatformData {
+  platform: ReceiptValidationPlatform.AMAZON;
+  amazonUserId: string;
+}
+
+interface NonAmazonPlatformData {
+  platform: Exclude<ReceiptValidationPlatform, ReceiptValidationPlatform.AMAZON>;
+  amazonUserId?: never;
+}
+
+type CommonPlatformData = AmazonPlatformData | NonAmazonPlatformData;
+
+interface ReceiptDataWithProductName {
+  receipt: string;
+  productName: string;
+  itemId?: never;
+  accessFeeId?: never;
+}
+
+interface ReceiptDataWithItemIdAndAccessFeeId {
+  receipt: string;
   itemId: number;
   accessFeeId: number;
-  receipt: string;
-  platform: ReceiptValidationPlatform;
-  amazonUserId?: string;
+  productName?: never;
 }
+
+type ReceiptData =
+  | ReceiptDataWithProductName
+  | ReceiptDataWithItemIdAndAccessFeeId;
+
+export type ValidateReceiptData = CommonPlatformData & ReceiptData;
 
 export declare class Payment {
   constructor(config: Record<string, unknown>, Account: Account);

@@ -9,6 +9,7 @@ import {
   IdealPaymentData,
   IdealPaymentRequestBody,
   ValidateReceiptData,
+  ReceiptValidationPlatform,
 } from '../models/IPayment&Subscription';
 import { CustomErrorResponse } from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
@@ -696,17 +697,23 @@ class Payment extends BaseExtend {
    *  }
    */
   async validateReceipt({
-    platform, itemId, accessFeeId, receipt, amazonUserId,
+    platform,
+    receipt,
+    productName: product_name,
+    itemId: item_id,
+    accessFeeId: access_fee_id,
+    amazonUserId: amazon_user_id,
   }: ValidateReceiptData) {
     const body = {
-      item_id: itemId,
-      access_fee_id: accessFeeId,
       receipt,
-      ...(amazonUserId ? { amazon_user_id: amazonUserId } : {}),
+      ...(product_name ? { product_name } : { item_id, access_fee_id }),
+      ...(platform === ReceiptValidationPlatform.AMAZON
+        ? { amazon_user_id }
+        : {}),
     };
 
     return this.request.authenticatedPost(
-      API.validateReceipt(platform),
+      API.validateReceipt(String(platform)),
       qs.stringify(body),
       {
         headers: {

@@ -472,20 +472,44 @@ export interface IdealPaymentRequestBody {
   voucher_code?: string;
 }
 
-enum ReceiptValidationPlatform {
+export enum ReceiptValidationPlatform {
   AMAZON = 'amazon',
   APPLE = 'apple',
   GOOGLE_PLAY = 'google-play',
   ROKU = 'roku',
 }
 
-export interface ValidateReceiptData {
+interface AmazonPlatformData {
+  platform: ReceiptValidationPlatform.AMAZON;
+  amazonUserId: string;
+}
+
+interface NonAmazonPlatformData {
+  platform: Exclude<ReceiptValidationPlatform, ReceiptValidationPlatform.AMAZON>;
+  amazonUserId?: never;
+}
+
+type CommonPlatformData = AmazonPlatformData | NonAmazonPlatformData;
+
+interface ReceiptDataWithProductName {
+  receipt: string;
+  productName: string;
+  itemId?: never;
+  accessFeeId?: never;
+}
+
+interface ReceiptDataWithItemIdAndAccessFeeId {
+  receipt: string;
   itemId: number;
   accessFeeId: number;
-  receipt: string;
-  platform: ReceiptValidationPlatform;
-  amazonUserId?: string;
+  productName?: never;
 }
+
+type ReceiptData =
+  | ReceiptDataWithProductName
+  | ReceiptDataWithItemIdAndAccessFeeId;
+
+export type ValidateReceiptData = CommonPlatformData & ReceiptData;
 
 export interface Payment extends BaseExtend {
   getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
