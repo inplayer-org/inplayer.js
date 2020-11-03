@@ -53,7 +53,7 @@ export interface DLC extends BaseExtend {
 }
 
 export interface Notifications extends BaseExtend {
-  getIotToken(): Record<string, unknown>;
+  getIotToken(): Promise<any>;
   subscribe(accountUuid: string, callbackParams: any): Promise<boolean>;
   handleSubscribe(data: Record<string, unknown>, callbackParams: any, uuid: string): void;
   setClient(client: any): void;
