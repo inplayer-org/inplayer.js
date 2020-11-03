@@ -25,7 +25,7 @@
     "lint:js:fix": "eslint src/** --fix",
     "analyze-bundle": "babel-node ./tools/analyzeBundle.js",
     "prepublishOnly": "yarn build:prod",
-    "build:typedoc": "typedoc"
+    "build:typedoc": "typedoc --options ./typedoc.js ./src"
   },
   "lint-staged": {
     "*.js": [
