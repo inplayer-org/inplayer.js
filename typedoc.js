@@ -1,12 +1,12 @@
 module.exports = {
   out: './docs/',
-  readme: 'none',
   includes: './',
   exclude: [
     '**/__tests__/**/*',
     '**/factories/**/*',
     '**/extends/**/*',
     '**/constants/**/*',
+    '**/helpers/**/*',
   ],
   mode: 'file',
   excludeExternals: true,
