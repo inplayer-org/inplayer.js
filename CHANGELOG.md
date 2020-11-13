@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.4.2] - 12-11-2020
+
+### Changes
+
+- Remove redundant confirmIdealPayment and confirmIdealSubscribe methods
+
 # [3.4.1] - 02-11-2020
 
 ### Added
