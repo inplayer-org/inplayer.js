@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.4.3] - 16-11-2020
+
+### Fixes
+
+- Use encodeURIComponent to encode special code characters
+
 # [3.4.2] - 12-11-2020
 
 ### Changes
