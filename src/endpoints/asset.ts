@@ -309,9 +309,8 @@ class Asset extends BaseExtend {
       return null;
     }
 
-    const properCode = encodeURIComponent(accessCode.code);
     const response = await this.request.delete(
-      API.terminateSession(properCode, accessCode.browser_fingerprint),
+      API.terminateSession(accessCode.code, accessCode.browser_fingerprint),
     );
 
     tokenStorage.removeItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId));
