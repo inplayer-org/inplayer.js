@@ -2,17 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-# [3.4.3] - 16-11-2020
+# [3.5.0] - 17-11-2020
+### Changes
+
+- Remove redundant confirmIdealPayment and confirmIdealSubscribe methods
 
 ### Fixes
 
 - Use encodeURIComponent to encode special code characters
-
-# [3.4.2] - 12-11-2020
-
-### Changes
-
-- Remove redundant confirmIdealPayment and confirmIdealSubscribe methods
 
 # [3.4.1] - 02-11-2020
 
