@@ -3,7 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 
-# [3.5.1] - 17-11-2020
+# [3.5.1] - 18-11-2020
+
 ### Changes
 
 - Remove encodeURIComponent function (Code can't contain special characters)
