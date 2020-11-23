@@ -94,4 +94,5 @@ export const API = {
   requestAccessCodeSessions: (code: string) => `items/access/codes/${code}/sessions`,
   terminateSession: (code: string, fingerprint: string) => `items/access/codes/${code}/${fingerprint}`,
   requestDataCaptureNoAuthAccess: '/v2/accounts/customers/data-capture',
+  getDonations: (assetId: number) => `v2/items/${assetId}/donations`,
 };
