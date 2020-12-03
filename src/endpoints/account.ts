@@ -24,13 +24,21 @@ class Account extends BaseExtend {
     super(config, request);
   }
 
-  /** Retruns the OAuth token
+  /** Returns the OAuth token
    *  @method getToken
    *  @example
    *  InPlayer.Account.getToken()
    *  @return {Credentials}
    */
   getToken = this.request.getToken;
+
+  /** Returns a boolean if the user is authenticated
+   *  @method isAuthenticated
+   *  @example
+   *  InPlayer.Account.isAuthenticated()
+   *  @return {boolean}
+ */
+  isAuthenticated = this.request.isAuthenticated;
 
   /** Sets the Token
    *  @method setToken
