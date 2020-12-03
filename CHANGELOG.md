@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.6.0] - 03-12-2020
+
+### Added
+
+- InPlayer.Account.isAuthenticated method
 
 # [3.5.1] - 18-11-2020
 
