@@ -85,6 +85,8 @@ class Payment extends BaseExtend {
    *  voucherCode?: string,
    *  brandingId?: number,
    *  paymentIntentId?: string,
+   *  isGift?: string,
+   *  receiverEmail?: string,
    * }
    * @example
    *     InPlayer.Payment

@@ -98,6 +98,8 @@ class Subscription extends BaseExtend {
    *  voucherCode?: string
    *  brandingId?: number
    *  returnUrl?: string
+   *  isGift?: string,
+   *  receiverEmail?: string,
    * }
    * @example
    *     InPlayer.Subscription

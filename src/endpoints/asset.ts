@@ -135,6 +135,7 @@ class Asset extends BaseExtend {
    * @param {number} page - The current page / starting index = 0
    * @param {string} startDate - Staring date filter
    * @param {string} endDate - Ending date filter
+   * @param {string} type - Type filter
    * @example
    *     InPlayer.Asset
    *     .getAssetsHistory()
