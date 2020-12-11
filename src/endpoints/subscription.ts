@@ -136,6 +136,11 @@ class Subscription extends BaseExtend {
       body.voucher_code = data.voucherCode;
     }
 
+    if (data.isGift) {
+      body.is_gift = data.isGift;
+      body.receiver_email = data.receiverEmail;
+    }
+
     return this.request.authenticatedPost(
       API.subscribe,
       qs.stringify(body),

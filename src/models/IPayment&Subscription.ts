@@ -290,6 +290,8 @@ export interface CreatePaymentData {
   voucherCode: string;
   brandingId: number;
   returnUrl: string;
+  receiverEmail?: string;
+  isGift?: boolean;
 }
 
 export interface CreatePaymentRequestBody {
@@ -304,6 +306,8 @@ export interface CreatePaymentRequestBody {
   voucher_code?: string;
   branding_id: number;
   return_url: string;
+  receiver_email?: string;
+  is_gift?: boolean;
 }
 
 export interface PaypalParamsData {
@@ -326,6 +330,8 @@ export interface CreateSubscriptionData {
   voucherCode?: string;
   brandingId?: number;
   returnUrl: string;
+  receiverEmail?: string;
+  isGift?: boolean;
 }
 
 export interface CreateSubscriptionRequestBody {
@@ -340,6 +346,8 @@ export interface CreateSubscriptionRequestBody {
   voucher_code?: string;
   branding_id?: number;
   return_url: string;
+  receiver_email?: string;
+  is_gift?: boolean;
 }
 
 export interface SetDefaultCardPerCurrencyData {
