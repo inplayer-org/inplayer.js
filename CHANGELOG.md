@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.6.0] - 03-12-2020
+
+### Added
+
+- InPlayer.Account.isAuthenticated method
+
+# [3.5.1] - 18-11-2020
+
+### Changes
+
+- Remove encodeURIComponent function (Code can't contain special characters)
+
+# [3.5.0] - 17-11-2020
+### Changes
+
+- Remove redundant confirmIdealPayment and confirmIdealSubscribe methods
+
+### Fixes
+
+- Use encodeURIComponent to encode special code characters
+
 # [3.4.1] - 02-11-2020
 
 ### Added

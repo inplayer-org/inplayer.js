@@ -553,14 +553,8 @@ export interface Payment extends BaseExtend {
   idealPayment: (
     data: IdealPaymentData
   ) => Promise<AxiosResponse<CommonResponse>>;
-  confirmIdealPayment: (
-    sourceId: string
-  ) => Promise<AxiosResponse<CommonResponse>>;
   idealSubscribe: (
     data: IdealPaymentData
-  ) => Promise<AxiosResponse<CommonResponse>>;
-  confirmIdealSubscribe: (
-    sourceId: string
   ) => Promise<AxiosResponse<CommonResponse>>;
   validateReceipt: (
     data: ValidateReceiptData
