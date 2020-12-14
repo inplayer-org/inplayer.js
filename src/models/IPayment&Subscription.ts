@@ -306,6 +306,37 @@ export interface CreatePaymentRequestBody {
   return_url: string;
 }
 
+export interface CreateDonationPaymentData {
+  number: number;
+  cardName: string;
+  expMonth: string;
+  expYear: number;
+  cvv: number;
+  paymentMethod: number;
+  referrer: string;
+  voucherCode: string;
+  brandingId: number;
+  returnUrl: string;
+  amount: number;
+  currency: string;
+  assetId: number;
+}
+
+export interface CreateDonationPaymentRequestBody {
+  number: number;
+  card_name: string;
+  exp_month: string;
+  exp_year: number;
+  cvv: number;
+  payment_method: number;
+  referrer: string;
+  branding_id: number;
+  return_url: string;
+  item_id: number;
+  amount: number;
+  currency_iso: string;
+}
+
 export interface PaypalParamsData {
   origin: string;
   accessFeeId: number;
@@ -517,6 +548,10 @@ export interface Payment extends BaseExtend {
   createPayment(data: CreatePaymentData): Promise<AxiosResponse<CreatePayment>>;
   confirmPayment(
     paymentIntentId: string
+  ): Promise<AxiosResponse<CreatePayment>>;
+  confirmDonationPayment(
+    paymentIntentId: string,
+    brandingId: number,
   ): Promise<AxiosResponse<CreatePayment>>;
   getPayPalParams(
     data: PayPalParamsData

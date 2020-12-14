@@ -474,6 +474,22 @@ export interface CreatePaymentData {
   brandingId?: number;
 }
 
+export interface CreateDonationPaymentData {
+  number: number;
+  cardName: string;
+  expMonth: string;
+  expYear: number;
+  cvv: number;
+  paymentMethod: number;
+  referrer: string;
+  voucherCode: string;
+  brandingId: number;
+  returnUrl: string;
+  amount: number;
+  currency: string;
+  assetId: number;
+}
+
 export interface PayPalParamsData {
   origin: string;
   accessFeeId: number;
@@ -662,6 +678,7 @@ export declare class Payment {
   getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
   getPaymentTools(paymentMethodId: number): Promise<AxiosResponse<any>>;
   createPayment(data: CreatePaymentData): Promise<AxiosResponse<CreatePayment>>;
+  createDonationPayment(data: CreateDonationPaymentData): Promise<AxiosResponse<CreatePayment>>;
   getPayPalParams(
     data: PayPalParamsData
   ): Promise<AxiosResponse<GeneratePayPalParameters>>;
@@ -688,6 +705,10 @@ export declare class Payment {
   ) => Promise<AxiosResponse<CommonResponse>>;
   confirmPayment(
     paymentIntentId: string
+  ): Promise<AxiosResponse<CreatePayment>>;
+  confirmDonationPayment(
+    paymentIntentId: string,
+    brandingId: number,
   ): Promise<AxiosResponse<CreatePayment>>;
   idealPayment: (
     data: IdealPaymentData

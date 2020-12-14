@@ -50,6 +50,8 @@ export interface ApiEndpoints {
   getPaymentTools: (paymentMethodId: number) => string;
   payForAsset: string;
   payForAssetV2: string;
+  payForAssetDonation: string;
+  confirmForAssetDonation: string;
   getPayPalParams: string;
   getDefaultCreditCard: string;
   setDefaultCreditCard: string;
