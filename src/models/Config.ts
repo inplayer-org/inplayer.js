@@ -25,7 +25,8 @@ export interface ApiEndpoints {
     size: number,
     page: number,
     startDate?: string,
-    endDate?: string
+    endDate?: string,
+    type?: string,
   ) => string;
   deleteAccount: string;
   exportData: string;

@@ -19,6 +19,7 @@ export const API = {
     page: any,
     startDate: any,
     endDate: any,
+    type?: string,
   ) => {
     let url = `/payments/transactions?exclude=store-payment&size=${size}&page=${page}`;
 
@@ -28,6 +29,10 @@ export const API = {
 
     if (endDate) {
       url += `&endDate=${endDate}`;
+    }
+
+    if (type) {
+      url += `&type=${type}`;
     }
 
     return url;

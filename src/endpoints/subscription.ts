@@ -98,6 +98,8 @@ class Subscription extends BaseExtend {
    *  voucherCode?: string
    *  brandingId?: number
    *  returnUrl?: string
+   *  isGift?: string,
+   *  receiverEmail?: string,
    * }
    * @example
    *     InPlayer.Subscription
@@ -134,6 +136,11 @@ class Subscription extends BaseExtend {
 
     if (data.voucherCode) {
       body.voucher_code = data.voucherCode;
+    }
+
+    if (data.isGift) {
+      body.is_gift = data.isGift;
+      body.receiver_email = data.receiverEmail;
     }
 
     return this.request.authenticatedPost(

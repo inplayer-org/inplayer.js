@@ -399,7 +399,8 @@ export declare class Asset {
     size?: number,
     page?: number,
     startDate?: string,
-    endDate?: string
+    endDate?: string,
+    type?: string,
   ): Promise<AxiosResponse<Record<string, unknown>[]>>;
   getAccessCode(assetId: number | string): CodeAccessData;
   requestCodeAccess(
@@ -472,6 +473,8 @@ export interface CreatePaymentData {
   returnUrl: string;
   voucherCode?: string;
   brandingId?: number;
+  receiverEmail?: string;
+  isGift?: boolean;
 }
 
 export interface PayPalParamsData {
@@ -718,6 +721,8 @@ export interface CreateSubscriptionData {
   voucherCode?: string;
   brandingId?: number;
   returnUrl: string;
+  receiverEmail?: string;
+  isGift?: boolean;
 }
 
 export declare interface SubscriptionDetails {
@@ -807,7 +812,8 @@ export interface ApiEndpoints {
     size: number,
     page: number,
     startDate: string,
-    endDate: string
+    endDate: string,
+    type?: string,
   ) => string;
   deleteAccount: string;
   exportData: string;

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.6.1]
+
+### Added
+
+- New optional parameter type to Asset.getAssetsHistory method
+- New optional parameters isGift and receiverEmail to Payment.createPayment and Subscription.createSubscription methods
+
 # [3.6.0] - 03-12-2020
 
 ### Added

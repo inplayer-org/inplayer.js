@@ -135,6 +135,7 @@ class Asset extends BaseExtend {
    * @param {number} page - The current page / starting index = 0
    * @param {string} startDate - Staring date filter
    * @param {string} endDate - Ending date filter
+   * @param {string} type - Type filter
    * @example
    *     InPlayer.Asset
    *     .getAssetsHistory()
@@ -146,9 +147,10 @@ class Asset extends BaseExtend {
     page = 0,
     startDate?: string,
     endDate?: string,
+    type?: string,
   ) {
     return this.request.authenticatedGet(
-      API.getAssetsHistory(size, page, startDate, endDate),
+      API.getAssetsHistory(size, page, startDate, endDate, type),
       {
         headers: {
           Authorization: `Bearer ${this.request.getToken().token}`,
