@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.6.2]
+
+### Fixes
+
+- Remove register fields random query param
+
 # [3.6.1]
 
 ### Added
