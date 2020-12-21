@@ -43,7 +43,7 @@
   ],
   "dependencies": {
     "aws-iot-device-sdk": "^2.2.6",
-    "axios": "^0.19.2",
+    "axios": "^0.21.0",
     "core-js": "^3.8.1",
     "fingerprintjs2": "^2.1.2",
     "lodash": "^4.17.20",
