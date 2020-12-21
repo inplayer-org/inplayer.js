@@ -146,9 +146,10 @@ class Asset extends BaseExtend {
     page = 0,
     startDate?: string,
     endDate?: string,
+    type?: string,
   ) {
     return this.request.authenticatedGet(
-      API.getAssetsHistory(size, page, startDate, endDate),
+      API.getAssetsHistory(size, page, startDate, endDate, type),
       {
         headers: {
           Authorization: `Bearer ${this.request.getToken().token}`,

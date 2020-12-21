@@ -399,7 +399,8 @@ export declare class Asset {
     size?: number,
     page?: number,
     startDate?: string,
-    endDate?: string
+    endDate?: string,
+    type?: string,
   ): Promise<AxiosResponse<Record<string, unknown>[]>>;
   getAccessCode(assetId: number | string): CodeAccessData;
   requestCodeAccess(
@@ -828,7 +829,8 @@ export interface ApiEndpoints {
     size: number,
     page: number,
     startDate: string,
-    endDate: string
+    endDate: string,
+    type?: string,
   ) => string;
   deleteAccount: string;
   exportData: string;

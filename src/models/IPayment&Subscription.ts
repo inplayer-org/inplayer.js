@@ -314,7 +314,6 @@ export interface CreateDonationPaymentData {
   cvv: number;
   paymentMethod: number;
   referrer: string;
-  voucherCode: string;
   brandingId: number;
   returnUrl: string;
   amount: number;
