@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.6.3] - 22-12-2020
+
+### Changes
+
+- Removed isGift and receiverEmail params from Subscription.createSubscription method
+
 # [3.6.2]
 
 ### Fixes
