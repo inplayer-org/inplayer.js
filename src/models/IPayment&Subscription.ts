@@ -330,8 +330,6 @@ export interface CreateSubscriptionData {
   voucherCode?: string;
   brandingId?: number;
   returnUrl: string;
-  receiverEmail?: string;
-  isGift?: boolean;
 }
 
 export interface CreateSubscriptionRequestBody {
