@@ -12,6 +12,7 @@ import {
   GoogleOrApplePaymentRequestBody,
   ValidateReceiptData,
   ReceiptValidationPlatform,
+  StripePaymentPaymentMethods,
 } from '../models/IPayment&Subscription';
 import { CustomErrorResponse } from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
@@ -535,9 +536,13 @@ class Payment extends BaseExtend {
     );
   }
 
-  async googleOrApplePay({ accessFeeId, referrer }: GoogleOrApplePaymentData) {
+  async googleOrApplePay({
+    accessFeeId,
+    referrer,
+    paymentMethod = StripePaymentPaymentMethods.GOOGLE_PAY_ON_WEB,
+  }: GoogleOrApplePaymentData) {
     const body: GoogleOrApplePaymentRequestBody = {
-      payment_method: 'google pay on web',
+      payment_method: paymentMethod,
       access_fee_id: accessFeeId,
       referrer,
     };
