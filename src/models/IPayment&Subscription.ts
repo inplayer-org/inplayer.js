@@ -478,15 +478,15 @@ export interface IdealPaymentRequestBody {
   voucher_code?: string;
 }
 
+export enum StripePaymentPaymentMethods {
+  APPLE_PAY_ON_WEB = 'apple pay on web',
+  GOOGLE_PAY_ON_WEB = 'google pay on web',
+}
+
 export interface GoogleOrApplePaymentData {
   accessFeeId: number;
   referrer: string;
   paymentMethod?: StripePaymentPaymentMethods;
-}
-
-export enum StripePaymentPaymentMethods {
-  APPLE_PAY_ON_WEB = 'apple pay on web',
-  GOOGLE_PAY_ON_WEB = 'google pay on web',
 }
 
 export interface GoogleOrApplePaymentRequestBody {
