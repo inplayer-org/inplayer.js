@@ -478,6 +478,17 @@ export interface IdealPaymentRequestBody {
   voucher_code?: string;
 }
 
+export interface GoogleOrApplePaymentData {
+  accessFeeId: number;
+  referrer: string;
+}
+
+export interface GoogleOrApplePaymentRequestBody {
+  payment_method: 'apple pay on web' | 'google pay on web';
+  access_fee_id: number;
+  referrer: string;
+}
+
 export enum ReceiptValidationPlatform {
   AMAZON = 'amazon',
   APPLE = 'apple',

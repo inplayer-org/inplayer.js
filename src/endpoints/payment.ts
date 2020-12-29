@@ -8,6 +8,8 @@ import {
   CreatePaymentRequestBody,
   IdealPaymentData,
   IdealPaymentRequestBody,
+  GoogleOrApplePaymentData,
+  GoogleOrApplePaymentRequestBody,
   ValidateReceiptData,
   ReceiptValidationPlatform,
 } from '../models/IPayment&Subscription';
@@ -520,6 +522,25 @@ class Payment extends BaseExtend {
     if (data.voucherCode) {
       body.voucher_code = data.voucherCode;
     }
+
+    return this.request.authenticatedPost(
+      API.payForAssetV2,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${this.request.getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
+  }
+
+  async googleOrApplePay({ accessFeeId, referrer }: GoogleOrApplePaymentData) {
+    const body: GoogleOrApplePaymentRequestBody = {
+      payment_method: 'google pay on web',
+      access_fee_id: accessFeeId,
+      referrer,
+    };
 
     return this.request.authenticatedPost(
       API.payForAssetV2,

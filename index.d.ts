@@ -620,6 +620,11 @@ export declare interface IdealPaymentData {
   voucherCode?: string;
 }
 
+export declare interface GoogleOrApplePaymentData {
+  accessFeeId: number;
+  referrer: string;
+}
+
 export enum ReceiptValidationPlatform {
   AMAZON = 'amazon',
   APPLE = 'apple',
@@ -694,6 +699,9 @@ export declare class Payment {
   ): Promise<AxiosResponse<CreatePayment>>;
   idealPayment: (
     data: IdealPaymentData
+  ) => Promise<AxiosResponse<CommonResponse>>;
+  googleOrApplePay: (
+    data: GoogleOrApplePaymentData
   ) => Promise<AxiosResponse<CommonResponse>>;
   confirmIdealPayment: (
     sourceId: string
