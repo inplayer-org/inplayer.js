@@ -312,7 +312,7 @@ export interface CreateDonationPaymentData {
   expMonth: string;
   expYear: number;
   cvv: number;
-  paymentMethod: number;
+  paymentMethod: string;
   referrer: string;
   brandingId: number;
   returnUrl: string;
@@ -327,7 +327,7 @@ export interface CreateDonationPaymentRequestBody {
   exp_month: string;
   exp_year: number;
   cvv: number;
-  payment_method: number;
+  payment_method: string;
   referrer: string;
   branding_id: number;
   return_url: string;
@@ -551,6 +551,7 @@ export interface Payment extends BaseExtend {
   confirmDonationPayment(
     paymentIntentId: string,
     brandingId: number,
+    paymentMethod: string,
   ): Promise<AxiosResponse<CreatePayment>>;
   getPayPalParams(
     data: PayPalParamsData

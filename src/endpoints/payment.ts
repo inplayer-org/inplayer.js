@@ -252,13 +252,13 @@ class Payment extends BaseExtend {
    * @param {string}
    * @example
    *     InPlayer.Payment
-   *     .confirmDonationPayment('332242', 1)
+   *     .confirmDonationPayment('332242', 1, 'Card')
    *     .then(data => console.log(data));
    * @returns  {AxiosResponse<CreatePayment>} Contains the data - {
    *       message: "Submitted for payment",
    *  }
    */
-  async confirmDonationPayment(paymentIntentId: string, brandingId: number) {
+  async confirmDonationPayment(paymentIntentId: string, brandingId: number, paymentMethod: string) {
     if (!paymentIntentId) {
       const response: CustomErrorResponse = {
         status: 400,
@@ -274,6 +274,7 @@ class Payment extends BaseExtend {
     const body = {
       pi_id: paymentIntentId,
       branding_id: brandingId,
+      payment_method: paymentMethod,
     };
 
     return this.request.authenticatedPost(
