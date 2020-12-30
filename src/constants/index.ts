@@ -71,7 +71,7 @@ export const API = {
   payForAssetV2: '/v2/payments',
   getPayPalParams: '/external-payments',
   payForAssetDonation: '/v2/payments/donation',
-  confirmForAssetDonation: '/v2/payments/donation/confirm',
+  confirmForAssetDonation: '/v2/payments/donation:confirm',
   getDefaultCreditCard: '/v2/payments/cards/default',
   setDefaultCreditCard: '/v2/payments/cards/default',
   getDirectDebitMandate: '/v2/payments/direct-debit/mandate',
