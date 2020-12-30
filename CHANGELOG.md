@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.6.3] - 22-12-2020
+
+### Changes
+
+- Removed isGift and receiverEmail params from Subscription.createSubscription method
+
+# [3.6.2]
+
+### Fixes
+
+- Remove register fields random query param
+
+# [3.6.1]
+
+### Added
+
+- New optional parameter type to Asset.getAssetsHistory method
+- New optional parameters isGift and receiverEmail to Payment.createPayment and Subscription.createSubscription methods
+
+# [3.6.0] - 03-12-2020
+
+### Added
+
+- InPlayer.Account.isAuthenticated method
 
 # [3.5.1] - 18-11-2020
 

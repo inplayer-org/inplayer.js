@@ -10,8 +10,7 @@ export const API = {
   updateAccount: '/accounts',
   changePassword: '/accounts/change-password',
   getRegisterFields: (merchantUuid: any) =>
-    `/accounts/register-fields/${merchantUuid}?rnd=${Math.random()
-             * 15}`,
+    `/accounts/register-fields/${merchantUuid}`,
   getPurchaseHistory: (status: any, page = 0, size = 5) =>
     `/items/access/customers?status=${status}&page=${page}&size=${size}`,
   getAssetsHistory: (

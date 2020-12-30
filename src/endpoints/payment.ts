@@ -87,6 +87,8 @@ class Payment extends BaseExtend {
    *  voucherCode?: string,
    *  brandingId?: number,
    *  paymentIntentId?: string,
+   *  isGift?: string,
+   *  receiverEmail?: string,
    * }
    * @example
    *     InPlayer.Payment
@@ -122,6 +124,11 @@ class Payment extends BaseExtend {
 
     if (data.voucherCode) {
       body.voucher_code = data.voucherCode;
+    }
+
+    if (data.isGift) {
+      body.is_gift = data.isGift;
+      body.receiver_email = data.receiverEmail;
     }
 
     return this.request.authenticatedPost(

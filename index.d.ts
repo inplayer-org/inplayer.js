@@ -492,6 +492,8 @@ export interface CreatePaymentData {
   returnUrl: string;
   voucherCode?: string;
   brandingId?: number;
+  receiverEmail?: string;
+  isGift?: boolean;
 }
 
 export interface CreateDonationPaymentData {
