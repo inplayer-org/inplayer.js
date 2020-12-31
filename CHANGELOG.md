@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.6.4] - 31-12-2020
+
+### Changes
+
+- Add methods and endpoints for donations feature (getDonationOptions, createDonationPayment, confirmDonationPayment)
+
 # [3.6.3] - 22-12-2020
 
 ### Changes

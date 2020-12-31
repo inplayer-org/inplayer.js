@@ -51,6 +51,8 @@ export interface ApiEndpoints {
   getPaymentTools: (paymentMethodId: number) => string;
   payForAsset: string;
   payForAssetV2: string;
+  payForAssetDonation: string;
+  confirmForAssetDonation: string;
   getPayPalParams: string;
   getDefaultCreditCard: string;
   setDefaultCreditCard: string;
@@ -71,6 +73,8 @@ export interface ApiEndpoints {
   getAccesCodeSessions: (code: string) => string;
   releaseAccessCode: (code: number) => string;
   terminateSession: (assetId: number) => void;
+  // Donation
+  getDonations: (assetId: number) => string;
 }
 
 export interface Request {

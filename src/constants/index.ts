@@ -69,6 +69,8 @@ export const API = {
   payForAsset: '/payments',
   payForAssetV2: '/v2/payments',
   getPayPalParams: '/external-payments',
+  payForAssetDonation: '/v2/payments/donation',
+  confirmForAssetDonation: '/v2/payments/donation:confirm',
   getDefaultCreditCard: '/v2/payments/cards/default',
   setDefaultCreditCard: '/v2/payments/cards/default',
   getDirectDebitMandate: '/v2/payments/direct-debit/mandate',
@@ -98,4 +100,5 @@ export const API = {
   requestAccessCodeSessions: (code: string) => `items/access/codes/${code}/sessions`,
   terminateSession: (code: string, fingerprint: string) => `items/access/codes/${code}/${fingerprint}`,
   requestDataCaptureNoAuthAccess: '/v2/accounts/customers/data-capture',
+  getDonations: (assetId: number) => `v2/items/${assetId}/donations`,
 };

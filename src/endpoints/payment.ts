@@ -10,6 +10,8 @@ import {
   IdealPaymentRequestBody,
   ValidateReceiptData,
   ReceiptValidationPlatform,
+  CreateDonationPaymentData,
+  CreateDonationPaymentRequestBody,
 } from '../models/IPayment&Subscription';
 import { CustomErrorResponse } from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
@@ -142,6 +144,71 @@ class Payment extends BaseExtend {
   }
 
   /**
+   * Makes a Donation Payment for a given Authorization token + asset/payment details.
+   * @method createDonationPayment
+   * @async
+   * @param {Object} data - Payment data - {
+   *  number: number || string,
+   *  cardName: string,
+   *  expMonth: number,
+   *  expYear: number,
+   *  cvv: number,
+   *  assetId: number,
+   *  paymentMethod: string,
+   *  referrer: string,
+   *  brandingId?: number,
+   *  amount: number,
+   *  currency: string,
+   * }
+   * @example
+   *     InPlayer.Payment
+   *     .createPayment({
+   *       number: 4111111111111111,
+   *       cardName: 'Test',
+   *       expMonth: 10,
+   *       expYear: 2030,
+   *       cvv: 656,
+   *       assetId: 2341,
+   *       paymentMethod: 'Card',
+   *       referrer: 'http://google.com',
+   *       voucherCode: 'fgh1982gff-0f2grfds'
+   *       brandingId: 1234,
+   *       amount: 1234,
+   *       currency: EUR,
+   *       returnUrl: 'https://event.inplayer.com/staging',
+   *      })
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<CreateDonationPayment>}
+   */
+  async createDonationPayment(data: CreateDonationPaymentData) {
+    const body: CreateDonationPaymentRequestBody = {
+      number: data.number,
+      card_name: data.cardName,
+      exp_month: data.expMonth,
+      exp_year: data.expYear,
+      cvv: data.cvv,
+      payment_method: data.paymentMethod,
+      referrer: data.referrer,
+      branding_id: data.brandingId,
+      currency_iso: data.currency,
+      amount: data.amount,
+      item_id: data.assetId,
+      return_url: buildURLwithQueryParams(data.returnUrl, { ippwat: 'ppv' }),
+    };
+
+    return this.request.authenticatedPost(
+      API.payForAssetDonation,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${this.request.getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
+  }
+
+  /**
    * As part of new bank regulations, we need to provide options for
    * additional authentication during the payment flow for customers
    * @method confirmPayment
@@ -174,6 +241,51 @@ class Payment extends BaseExtend {
 
     return this.request.authenticatedPost(
       API.payForAsset,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${this.request.getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
+  }
+
+  /**
+   * As part of new bank regulations, we need to provide options for
+   * additional authentication during the payment flow for customers
+   * @method confirmDonationPayment
+   * @async
+   * @param {string}
+   * @example
+   *     InPlayer.Payment
+   *     .confirmDonationPayment('332242', 1, 'Card')
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<CreatePayment>} Contains the data - {
+   *       message: "Submitted for payment",
+   *  }
+   */
+  async confirmDonationPayment(paymentIntentId: string, brandingId: number, paymentMethod: string) {
+    if (!paymentIntentId) {
+      const response: CustomErrorResponse = {
+        status: 400,
+        data: {
+          code: 400,
+          message: 'Payment Intend Id is a required parameter!',
+        },
+      };
+
+      throw { response };
+    }
+
+    const body = {
+      pi_id: paymentIntentId,
+      branding_id: brandingId,
+      payment_method: paymentMethod,
+    };
+
+    return this.request.authenticatedPost(
+      API.confirmForAssetDonation,
       qs.stringify(body),
       {
         headers: {

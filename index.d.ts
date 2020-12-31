@@ -249,6 +249,24 @@ export declare interface AccessType {
   updated_at: number;
   created_at: number;
 }
+export interface DonationOption {
+  id: number;
+  item_id: number;
+  amount: number;
+  currency: string;
+  description?: string;
+}
+
+export interface CustomDonationOption {
+  id: number;
+  item_id: number;
+  custom_price_enabled: boolean;
+}
+
+export interface DonationDetails {
+  donations: Array<DonationOption> | null;
+  donation_options: CustomDonationOption;
+}
 
 export declare interface TrialPeriod {
   quantity: number;
@@ -395,6 +413,7 @@ export declare class Asset {
   ): Promise<AxiosResponse<ExternalItemDetails>>;
   getPackage(id: number): Promise<AxiosResponse<GetMerchantPackage>>;
   getAssetAccessFees(id: number): Promise<AxiosResponse<GetAccessFee>>;
+  getDonationOptions(assetId: number): Promise<AxiosResponse<DonationDetails>>;
   getAssetsHistory(
     size?: number,
     page?: number,
@@ -475,6 +494,21 @@ export interface CreatePaymentData {
   brandingId?: number;
   receiverEmail?: string;
   isGift?: boolean;
+}
+
+export interface CreateDonationPaymentData {
+  number: number;
+  cardName: string;
+  expMonth: string;
+  expYear: number;
+  cvv: number;
+  paymentMethod: string;
+  referrer: string;
+  brandingId: number;
+  returnUrl: string;
+  amount: number;
+  currency: string;
+  assetId: number;
 }
 
 export interface PayPalParamsData {
@@ -665,6 +699,7 @@ export declare class Payment {
   getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
   getPaymentTools(paymentMethodId: number): Promise<AxiosResponse<any>>;
   createPayment(data: CreatePaymentData): Promise<AxiosResponse<CreatePayment>>;
+  createDonationPayment(data: CreateDonationPaymentData): Promise<AxiosResponse<CreatePayment>>;
   getPayPalParams(
     data: PayPalParamsData
   ): Promise<AxiosResponse<GeneratePayPalParameters>>;
@@ -691,6 +726,11 @@ export declare class Payment {
   ) => Promise<AxiosResponse<CommonResponse>>;
   confirmPayment(
     paymentIntentId: string
+  ): Promise<AxiosResponse<CreatePayment>>;
+  confirmDonationPayment(
+    paymentIntentId: string,
+    brandingId: number,
+    paymentMethod: string,
   ): Promise<AxiosResponse<CreatePayment>>;
   idealPayment: (
     data: IdealPaymentData

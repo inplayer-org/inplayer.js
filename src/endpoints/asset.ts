@@ -341,6 +341,25 @@ class Asset extends BaseExtend {
       },
     });
   }
+
+  /**
+   * Gets the donation options for the asset.
+   * @method getDonationOptions
+   * @async
+   * @param {number} assetId - The id of the asset
+   * @example
+   *     InPlayer.Donation
+   *     .getDonationOptions(42597)
+   *     .then(data => console.log(data));
+   * @returns {AxiosResponse<DonationDetails>}
+   */
+  async getDonationOptions(assetId: number) {
+    return this.request.authenticatedGet(API.getDonations(assetId), {
+      headers: {
+        Authorization: `Bearer ${this.request.getToken().token}`,
+      },
+    });
+  }
 }
 
 export default Asset;
