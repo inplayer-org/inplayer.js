@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.7.1] - 12-01-2021
+
+### Changes
+
+- Remove use of authenticatedGet in getDonationOptions method
+
 # [3.7.0] - 11-01-2021
 
 ### Added
