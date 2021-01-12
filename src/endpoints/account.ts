@@ -30,7 +30,7 @@ class Account extends BaseExtend {
    *  InPlayer.Account.getToken()
    *  @return {Credentials}
    */
-  getToken = this.request.getToken;
+  getToken = () => this.request.getToken;
 
   /** Returns a boolean if the user is authenticated
    *  @method isAuthenticated
@@ -38,7 +38,7 @@ class Account extends BaseExtend {
    *  InPlayer.Account.isAuthenticated()
    *  @return {boolean}
  */
-  isAuthenticated = this.request.isAuthenticated;
+  isAuthenticated = () => this.request.isAuthenticated;
 
   /** Sets the Token
    *  @method setToken
@@ -48,14 +48,14 @@ class Account extends BaseExtend {
    *  @example
    *  InPlayer.Account.setToken('344244-242242', '123123121-d1-t1-1ff',1558529593297)
    */
-  setToken = this.request.setToken;
+  setToken = () => this.request.setToken;
 
   /** Removes the token
    *  @method removeToken
    *  @example
    *  InPlayer.Account.removeToken()
    */
-  removeToken = this.request.removeToken;
+  removeToken = () => this.request.removeToken;
 
   /**
    * Signs in the user
