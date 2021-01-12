@@ -354,7 +354,7 @@ class Asset extends BaseExtend {
    * @returns {AxiosResponse<DonationDetails>}
    */
   async getDonationOptions(assetId: number) {
-    return this.request.authenticatedGet(API.getDonations(assetId), {
+    return this.request.get(API.getDonations(assetId), {
       headers: {
         Authorization: `Bearer ${this.request.getToken().token}`,
       },
