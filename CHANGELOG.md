@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.7.3] - 13-01-2021
+
+### Fixes
+
+- Add isAuthenticated to Account interface
+
 # [3.7.2] - 12-01-2021
 
 ### Fixes
