@@ -98,7 +98,7 @@ export default class Request {
    *    InPlayer.Account.isAuthenticated()
    * @return {Boolean}
    */
-  isAuthenticated = () =>
+  isAuthenticated = (): boolean =>
     !this.getToken().isExpired() && this.getToken().token !== '';
 
   // HTTP GET Request - Returns Resolved or Rejected Promise
