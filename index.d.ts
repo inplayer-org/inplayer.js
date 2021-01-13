@@ -138,6 +138,7 @@ export declare interface RestrictionSettingsData {
 export declare class Account {
   constructor(config: Record<string, unknown>);
 
+  isAuthenticated(): boolean;
   getToken(): Credentials;
   setToken(token: string, refreshToken: string, expiresAt: number): void;
   removeToken(): void;
