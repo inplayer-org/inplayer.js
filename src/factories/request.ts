@@ -113,7 +113,8 @@ export default class Request implements RequestInterface {
       return;
     }
 
-    return Promise.all(promises).then(() => undefined);
+    // @typescript-eslint/no-empty-function
+    return Promise.all(promises).then(() => {});
   };
 
   /**
