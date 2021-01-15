@@ -55,13 +55,11 @@ export default class Request {
     const tokenString = tokenStorage.getItem(this.config.INPLAYER_TOKEN_KEY);
 
     if (isPromise(tokenString)) {
-      return new Promise<Credentials>(async (resolve) => {
-        const tokenStringResult = await tokenString;
-
-        resolve(createCredentials(String(tokenStringResult)));
-      });
+      return (tokenString as Promise<string>).then((resolvedString) =>
+        createCredentials(resolvedString)
+      );
     } else {
-      return createCredentials(String(tokenString));
+      return createCredentials(tokenString as string);
     }
   };
 
@@ -111,11 +109,7 @@ export default class Request {
     }
 
     if (promises.length) {
-      return new Promise(async (resolve) => {
-        await Promise.all(promises);
-
-        resolve(undefined);
-      });
+      return Promise.all(promises).then(() => {});
     }
   };
 
@@ -130,13 +124,10 @@ export default class Request {
     const tokenObject = this.getToken();
 
     if (isPromise(tokenObject)) {
-      return new Promise<boolean>(async (resolve) => {
-        const result = (await tokenObject) as Credentials;
-
-        const answer = !result.isExpired() && !!result.token;
-
-        resolve(answer);
-      });
+      return (tokenObject as Promise<Credentials>).then(
+        (resolvedCredentials) =>
+          !resolvedCredentials.isExpired() && !!resolvedCredentials.token
+      );
     }
 
     const credentials = tokenObject as Credentials;

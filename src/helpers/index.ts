@@ -1,3 +1,5 @@
+import Credentials from '../factories/credentials';
+
 export const buildURLwithQueryParams = (urlString: string, params: Record<string, string>) => {
   const {
     url,
@@ -19,7 +21,7 @@ export const isPromise = (object: any) => {
   }
 };
 
-export const createCredentials = (tokenObject: string) => {
+export const createCredentials = (tokenObject: string): Credentials => {
   if (!tokenObject) {
     return new Credentials();
   }

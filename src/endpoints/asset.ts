@@ -262,10 +262,10 @@ class Asset extends BaseExtend {
     if (isPromise(accessCode)) {
       return (accessCode as Promise<string>).then((resolvedString) =>
         resolvedString ? JSON.parse(resolvedString) : null
-      );
+      ) as Promise<CodeAccessData>;
     }
 
-    return accessCode ? JSON.parse(accessCode as string) : null;
+    return (accessCode ? JSON.parse(accessCode as string) : null) as CodeAccessData;
   }
 
   /**
@@ -281,7 +281,7 @@ class Asset extends BaseExtend {
    * @returns  {Object}
    */
   async releaseAccessCode(assetId: number) {
-    const accessCode: CodeAccessData = this.getAccessCode(assetId);
+    const accessCode: CodeAccessData = await this.getAccessCode(assetId);
 
     if (!accessCode) {
       return null;
@@ -316,7 +316,7 @@ class Asset extends BaseExtend {
    * @returns  null
    */
   async terminateSession(assetId: number) {
-    const accessCode: CodeAccessData = this.getAccessCode(assetId);
+    const accessCode: CodeAccessData = await this.getAccessCode(assetId);
 
     if (!accessCode) {
       return null;
