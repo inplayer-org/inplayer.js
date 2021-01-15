@@ -109,9 +109,11 @@ export default class Request implements RequestInterface {
       promises.push(removeIotToken as Promise<void>);
     }
 
-    if (promises.length) {
-      return Promise.all(promises).then(() => {});
+    if (!promises.length) {
+      return;
     }
+
+    return Promise.all(promises).then(() => undefined);
   };
 
   /**
