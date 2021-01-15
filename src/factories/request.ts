@@ -113,8 +113,7 @@ export default class Request implements RequestInterface {
       return;
     }
 
-    // @ts-ignore
-    return Promise.all(promises).then(() => {});
+    return Promise.all(promises).then(() => (() => {})());
   };
 
   /**
