@@ -16,9 +16,9 @@ export const buildURLwithQueryParams = (urlString: string, params: Record<string
 export const isPromise = (object: any) => {
   if (Promise && Promise.resolve) {
     return Promise.resolve(object) === object;
-  } else {
-    throw 'Promise not supported in your environment';
   }
+
+  throw 'Promise not supported in your environment';
 };
 
 export const createCredentials = (tokenObject: string): Credentials => {

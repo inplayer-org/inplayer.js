@@ -5,7 +5,6 @@ import { ApiConfig } from '../models/Config';
 import configOptions from '../config';
 import tokenStorage from './tokenStorage';
 import { isPromise, createCredentials } from '../helpers';
-import { Request as RequestInterface } from '../models/Config';
 
 // Make maybe to get headers as params
 const getHeaders = () => ({
@@ -15,7 +14,7 @@ const getHeaders = () => ({
   },
 });
 
-export default class Request implements RequestInterface {
+export default class Request {
   config: ApiConfig;
   basicInstance: AxiosInstance;
   authenticatedInstance: AxiosInstance;
@@ -57,11 +56,9 @@ export default class Request implements RequestInterface {
 
     if (isPromise(tokenString)) {
       return (tokenString as Promise<string>).then((resolvedString) =>
-        createCredentials(resolvedString)
-      );
-    } else {
-      return createCredentials(tokenString as string);
+        createCredentials(resolvedString));
     }
+    return createCredentials(tokenString as string);
   };
 
   /** Sets the token
@@ -81,7 +78,7 @@ export default class Request implements RequestInterface {
 
     return tokenStorage.setItem(
       this.config.INPLAYER_TOKEN_KEY,
-      JSON.stringify(credentials)
+      JSON.stringify(credentials),
     );
   };
 
@@ -94,11 +91,11 @@ export default class Request implements RequestInterface {
     const promises: Array<Promise<void>> = [];
 
     const removeInplayerToken = tokenStorage.removeItem(
-      this.config.INPLAYER_TOKEN_KEY
+      this.config.INPLAYER_TOKEN_KEY,
     );
 
     const removeIotToken = tokenStorage.removeItem(
-      this.config.INPLAYER_IOT_KEY
+      this.config.INPLAYER_IOT_KEY,
     );
 
     if (isPromise(removeInplayerToken)) {
@@ -129,7 +126,7 @@ export default class Request implements RequestInterface {
     if (isPromise(tokenObject)) {
       return (tokenObject as Promise<Credentials>).then(
         (resolvedCredentials) =>
-          !resolvedCredentials.isExpired() && !!resolvedCredentials.token
+          !resolvedCredentials.isExpired() && !!resolvedCredentials.token,
       );
     }
 

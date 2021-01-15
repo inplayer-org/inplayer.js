@@ -81,7 +81,7 @@ class Notifications extends BaseExtend {
 
     await tokenStorage.setItem(
       this.config.INPLAYER_IOT_KEY,
-      JSON.stringify(resp)
+      JSON.stringify(resp),
     );
 
     this.handleSubscribe(resp, callbackParams, accountUuid);

@@ -369,9 +369,11 @@ class Asset extends BaseExtend {
    * @returns {AxiosResponse<DonationDetails>}
    */
   async getDonationOptions(assetId: number) {
+    const tokenObject = await this.request.getToken();
+
     return this.request.get(API.getDonations(assetId), {
       headers: {
-        Authorization: `Bearer ${this.request.getToken().token}`,
+        Authorization: `Bearer ${tokenObject.token}`,
       },
     });
   }

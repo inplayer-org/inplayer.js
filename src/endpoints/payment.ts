@@ -195,12 +195,14 @@ class Payment extends BaseExtend {
       return_url: buildURLwithQueryParams(data.returnUrl, { ippwat: 'ppv' }),
     };
 
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedPost(
       API.payForAssetDonation,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
+          Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
@@ -281,12 +283,14 @@ class Payment extends BaseExtend {
       payment_method: paymentMethod,
     };
 
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedPost(
       API.confirmForAssetDonation,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
+          Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
