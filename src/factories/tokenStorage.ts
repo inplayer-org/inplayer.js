@@ -1,7 +1,7 @@
 export interface LocalStorageMethods {
-  setItem: (key: string, value: string) => void;
-  getItem: (key: string) => string | null;
-  removeItem: (key: string) => void;
+  setItem: (key: string, value: string) => void | Promise<void>;
+  getItem: (key: string) => string | null | Promise<string | null>;
+  removeItem: (key: string) => void | Promise<void>;
 }
 
 export type TokenStorageType = LocalStorageMethods & {
@@ -11,15 +11,11 @@ export type TokenStorageType = LocalStorageMethods & {
 class TokenStorage implements TokenStorageType {
   storage: Record<string, string> = {};
 
-  setItem = (key: string, value: string) => {
-    this.overrides.setItem(key, value);
-  };
+  setItem = (key: string, value: string) => this.overrides.setItem(key, value);
 
   getItem = (key: string) => this.overrides.getItem(key);
 
-  removeItem = (key: string) => {
-    this.overrides.removeItem(key);
-  };
+  removeItem = (key: string) => this.overrides.removeItem(key);
 
   overrides: LocalStorageMethods = {
     setItem: (key: string, value: string) => {

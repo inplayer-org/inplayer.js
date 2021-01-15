@@ -4,6 +4,7 @@ import { CustomErrorResponse, Env } from '../models/CommonInterfaces';
 import { ApiConfig } from '../models/Config';
 import configOptions from '../config';
 import tokenStorage from './tokenStorage';
+import { isPromise, createCredentials } from '../helpers';
 
 // Make maybe to get headers as params
 const getHeaders = () => ({
@@ -51,13 +52,17 @@ export default class Request {
    *  @return {Credentials}
    */
   getToken = () => {
-    const token = tokenStorage.getItem(this.config.INPLAYER_TOKEN_KEY);
+    const tokenString = tokenStorage.getItem(this.config.INPLAYER_TOKEN_KEY);
 
-    if (token === undefined || token === null) {
-      return new Credentials();
+    if (isPromise(tokenString)) {
+      return new Promise<Credentials>(async (resolve) => {
+        const tokenStringResult = await tokenString;
+
+        resolve(createCredentials(String(tokenStringResult)));
+      });
+    } else {
+      return createCredentials(String(tokenString));
     }
-
-    return new Credentials(JSON.parse(token));
   };
 
   /** Sets the token
@@ -75,9 +80,9 @@ export default class Request {
       expires: expiresAt,
     });
 
-    tokenStorage.setItem(
+    return tokenStorage.setItem(
       this.config.INPLAYER_TOKEN_KEY,
-      JSON.stringify(credentials),
+      JSON.stringify(credentials)
     );
   };
 
@@ -87,8 +92,31 @@ export default class Request {
    *  InPlayer.Account.removeToken()
    */
   removeToken = () => {
-    tokenStorage.removeItem(this.config.INPLAYER_TOKEN_KEY);
-    tokenStorage.removeItem(this.config.INPLAYER_IOT_KEY);
+    const promises: Array<Promise<void>> = [];
+
+    const removeInplayerToken = tokenStorage.removeItem(
+      this.config.INPLAYER_TOKEN_KEY
+    );
+
+    const removeIotToken = tokenStorage.removeItem(
+      this.config.INPLAYER_IOT_KEY
+    );
+
+    if (isPromise(removeInplayerToken)) {
+      promises.push(removeInplayerToken as Promise<void>);
+    }
+
+    if (isPromise(removeIotToken)) {
+      promises.push(removeIotToken as Promise<void>);
+    }
+
+    if (promises.length) {
+      return new Promise(async (resolve) => {
+        await Promise.all(promises);
+
+        resolve(undefined);
+      });
+    }
   };
 
   /**
@@ -98,8 +126,23 @@ export default class Request {
    *    InPlayer.Account.isAuthenticated()
    * @return {Boolean}
    */
-  isAuthenticated = (): boolean =>
-    !this.getToken().isExpired() && this.getToken().token !== '';
+  isAuthenticated = () => {
+    const tokenObject = this.getToken();
+
+    if (isPromise(tokenObject)) {
+      return new Promise<boolean>(async (resolve) => {
+        const result = (await tokenObject) as Credentials;
+
+        const answer = !result.isExpired() && !!result.token;
+
+        resolve(answer);
+      });
+    }
+
+    const credentials = tokenObject as Credentials;
+
+    return !credentials.isExpired() && !!credentials.token;
+  };
 
   // HTTP GET Request - Returns Resolved or Rejected Promise
   get = (

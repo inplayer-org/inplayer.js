@@ -40,9 +40,11 @@ class Payment extends BaseExtend {
    * @returns  {AxiosResponse<Array<MerchantPaymentMethod>>}
    */
   async getPaymentMethods() {
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedGet(API.getPaymentMethods, {
       headers: {
-        Authorization: `Bearer ${this.request.getToken().token}`,
+        Authorization: `Bearer ${tokenObject.token}`,
       },
     });
   }
@@ -59,14 +61,13 @@ class Payment extends BaseExtend {
    * @returns  {AxiosResponse<any>}
    */
   async getPaymentTools(paymentMethodId: number) {
-    return this.request.authenticatedGet(
-      API.getPaymentTools(paymentMethodId),
-      {
-        headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
-        },
+    const tokenObject = await this.request.getToken();
+
+    return this.request.authenticatedGet(API.getPaymentTools(paymentMethodId), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
       },
-    );
+    });
   }
 
   /**
@@ -131,16 +132,14 @@ class Payment extends BaseExtend {
       body.receiver_email = data.receiverEmail;
     }
 
-    return this.request.authenticatedPost(
-      API.payForAsset,
-      qs.stringify(body),
-      {
-        headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+    const tokenObject = await this.request.getToken();
+
+    return this.request.authenticatedPost(API.payForAsset, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-    );
+    });
   }
 
   /**
@@ -239,16 +238,14 @@ class Payment extends BaseExtend {
       pi_id: paymentIntentId,
     };
 
-    return this.request.authenticatedPost(
-      API.payForAsset,
-      qs.stringify(body),
-      {
-        headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+    const tokenObject = await this.request.getToken();
+
+    return this.request.authenticatedPost(API.payForAsset, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-    );
+    });
   }
 
   /**
@@ -329,9 +326,11 @@ class Payment extends BaseExtend {
       formData.append('voucher_code', data.voucherCode);
     }
 
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedPost(API.getPayPalParams, formData, {
       headers: {
-        Authorization: `Bearer ${this.request.getToken().token}`,
+        Authorization: `Bearer ${tokenObject.token}`,
       },
     });
   }
@@ -350,13 +349,15 @@ class Payment extends BaseExtend {
    * @returns  {AxiosResponse<PurchaseHistoryCollection[]>}
    */
   async getPurchaseHistory(status = 'active', page: number, limit: number) {
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedGet(
       API.getPurchaseHistory(status, page, limit),
       {
         headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
+          Authorization: `Bearer ${tokenObject.token}`,
         },
-      },
+      }
     );
   }
 
@@ -371,9 +372,11 @@ class Payment extends BaseExtend {
    * @returns  {AxiosResponse<GetDefaultCard>}
    */
   async getDefaultCreditCard() {
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedGet(API.getDefaultCreditCard, {
       headers: {
-        Authorization: `Bearer ${this.request.getToken().token}`,
+        Authorization: `Bearer ${tokenObject.token}`,
       },
     });
   }
@@ -413,15 +416,17 @@ class Payment extends BaseExtend {
       currency_iso: data.currency,
     };
 
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedPut(
       API.setDefaultCreditCard,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
+          Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      },
+      }
     );
   }
 
@@ -448,9 +453,11 @@ class Payment extends BaseExtend {
    * }
    */
   async getDirectDebitMandate() {
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedGet(API.getDirectDebitMandate, {
       headers: {
-        Authorization: `Bearer ${this.request.getToken().token}`,
+        Authorization: `Bearer ${tokenObject.token}`,
       },
     });
   }
@@ -493,15 +500,17 @@ class Payment extends BaseExtend {
       iban: data.iban,
     };
 
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedPost(
       API.createDirectDebitMandate,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
+          Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      },
+      }
     );
   }
 
@@ -535,15 +544,17 @@ class Payment extends BaseExtend {
       referrer: data.referrer,
     };
 
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedPost(
       API.payForAssetV2,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
+          Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      },
+      }
     );
   }
 
@@ -577,16 +588,14 @@ class Payment extends BaseExtend {
       referrer: data.referrer,
     };
 
-    return this.request.authenticatedPost(
-      API.subscribeV2,
-      qs.stringify(body),
-      {
-        headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+    const tokenObject = await this.request.getToken();
+
+    return this.request.authenticatedPost(API.subscribeV2, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-    );
+    });
   }
 
   /**
@@ -633,15 +642,17 @@ class Payment extends BaseExtend {
       body.voucher_code = data.voucherCode;
     }
 
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedPost(
       API.payForAssetV2,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
+          Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      },
+      }
     );
   }
 
@@ -689,16 +700,14 @@ class Payment extends BaseExtend {
       body.voucher_code = data.voucherCode;
     }
 
-    return this.request.authenticatedPost(
-      API.subscribeV2,
-      qs.stringify(body),
-      {
-        headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+    const tokenObject = await this.request.getToken();
+
+    return this.request.authenticatedPost(API.subscribeV2, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-    );
+    });
   }
 
   /**
@@ -741,15 +750,17 @@ class Payment extends BaseExtend {
         : {}),
     };
 
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedPost(
       API.validateReceipt(String(platform)),
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
+          Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      },
+      }
     );
   }
 }

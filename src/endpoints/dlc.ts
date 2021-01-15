@@ -12,20 +12,22 @@ class DLC extends BaseExtend {
     super(config, request);
   }
   /**
-     * Gets all DLC links
-     * @method getDlcLinks
-     * @async
-     * @param {number} assetId - The id of the asset
-     * @example
-     *     InPlayer.DLC
-     *     .getDlcLinks(36320)
-     *     .then(data => console.log(data));
-     * @returns  {AxiosResponse<DlcLink>}
-     */
+   * Gets all DLC links
+   * @method getDlcLinks
+   * @async
+   * @param {number} assetId - The id of the asset
+   * @example
+   *     InPlayer.DLC
+   *     .getDlcLinks(36320)
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<DlcLink>}
+   */
   async getDlcLinks(assetId: number) {
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedGet(API.getDlcLinks(assetId), {
       headers: {
-        Authorization: `Bearer ${this.request.getToken().token}`,
+        Authorization: `Bearer ${tokenObject.token}`,
       },
     });
   }

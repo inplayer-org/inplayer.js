@@ -10,6 +10,7 @@ import BaseExtend from '../extends/base';
 import { API } from '../constants';
 import { CommonResponse } from '../models/CommonInterfaces';
 import tokenStorage from '../factories/tokenStorage';
+import { isPromise } from '../helpers';
 
 /**
  * Contains all Requests connected with assets/items
@@ -32,9 +33,11 @@ class Asset extends BaseExtend {
    * @returns  {AxiosResponse<GetItemAccessV1>}
    */
   async checkAccessForAsset(id: number) {
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedGet(API.checkAccessForAsset(id), {
       headers: {
-        Authorization: `Bearer ${this.request.getToken().token}`,
+        Authorization: `Bearer ${tokenObject.token}`,
       },
     });
   }
@@ -51,9 +54,11 @@ class Asset extends BaseExtend {
    * @returns  {AxiosResponse<boolean>}
    */
   async isFreeTrialUsed(id: number) {
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedGet(API.checkFreeTrial(id), {
       headers: {
-        Authorization: `Bearer ${this.request.getToken().token}`,
+        Authorization: `Bearer ${tokenObject.token}`,
       },
     });
   }
@@ -149,11 +154,13 @@ class Asset extends BaseExtend {
     endDate?: string,
     type?: string,
   ) {
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedGet(
       API.getAssetsHistory(size, page, startDate, endDate, type),
       {
         headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
+          Authorization: `Bearer ${tokenObject.token}`,
         },
       },
     );
@@ -200,9 +207,9 @@ class Asset extends BaseExtend {
       browser_fingerprint: browserFingerprint,
     };
 
-    tokenStorage.setItem(
+    await tokenStorage.setItem(
       this.config.INPLAYER_ACCESS_CODE_NAME(codeAccessData.item_id),
-      JSON.stringify(accessCode),
+      JSON.stringify(accessCode)
     );
 
     return response;
@@ -220,7 +227,7 @@ class Asset extends BaseExtend {
    * @returns {AxiosResponse<CommonResponse>}
    */
   async requestDataCaptureNoAuthAccess(
-    accessData: RequestDataCaptureAccessData,
+    accessData: RequestDataCaptureAccessData
   ) {
     const headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -249,14 +256,18 @@ class Asset extends BaseExtend {
    */
   getAccessCode(assetId: number) {
     const accessCode = tokenStorage.getItem(
-      this.config.INPLAYER_ACCESS_CODE_NAME(assetId),
+      this.config.INPLAYER_ACCESS_CODE_NAME(assetId)
     );
 
-    if (!accessCode) {
-      return null;
+    if (isPromise(accessCode)) {
+      return new Promise(async (resolve) => {
+        const accessCodeResult = await accessCode;
+
+        resolve(accessCodeResult ? JSON.parse(accessCodeResult) : null);
+      });
     }
 
-    return JSON.parse(accessCode);
+    return accessCode ? JSON.parse(accessCode as string) : null;
   }
 
   /**
@@ -288,7 +299,9 @@ class Asset extends BaseExtend {
       { data: formData },
     );
 
-    tokenStorage.removeItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId));
+    await tokenStorage.removeItem(
+      this.config.INPLAYER_ACCESS_CODE_NAME(assetId)
+    );
 
     return response;
   }
@@ -315,7 +328,9 @@ class Asset extends BaseExtend {
       API.terminateSession(accessCode.code, accessCode.browser_fingerprint),
     );
 
-    tokenStorage.removeItem(this.config.INPLAYER_ACCESS_CODE_NAME(assetId));
+    await tokenStorage.removeItem(
+      this.config.INPLAYER_ACCESS_CODE_NAME(assetId)
+    );
 
     return response;
   }
@@ -335,9 +350,11 @@ class Asset extends BaseExtend {
    * }
    */
   async getCloudfrontURL(assetId: number, videoUrl: string) {
+    const tokenObject = await this.request.getToken();
+
     return this.request.get(API.getCloudfrontURL(assetId, videoUrl), {
       headers: {
-        Authorization: `Bearer ${this.request.getToken().token}`,
+        Authorization: `Bearer ${tokenObject.token}`,
       },
     });
   }

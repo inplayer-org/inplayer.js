@@ -13,11 +13,13 @@ class Notifications extends BaseExtend {
   }
 
   async getIotToken() {
+    const tokenObject = await this.request.getToken();
+
     const iotResponse = await this.request.authenticatedGet(
       this.config.AWS_IOT_URL,
       {
         headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
+          Authorization: `Bearer ${tokenObject.token}`,
         },
       },
     );
@@ -55,7 +57,7 @@ class Notifications extends BaseExtend {
       }
     }
 
-    const inplayerIotCreds: any = tokenStorage.getItem(
+    const inplayerIotCreds: any = await tokenStorage.getItem(
       this.config.INPLAYER_IOT_KEY,
     );
 
@@ -77,9 +79,13 @@ class Notifications extends BaseExtend {
 
     const resp = await this.getIotToken();
 
-    tokenStorage.setItem(this.config.INPLAYER_IOT_KEY, JSON.stringify(resp));
+    await tokenStorage.setItem(
+      this.config.INPLAYER_IOT_KEY,
+      JSON.stringify(resp)
+    );
 
     this.handleSubscribe(resp, callbackParams, accountUuid);
+
     return true;
   }
 
