@@ -113,7 +113,7 @@ export default class Request implements RequestInterface {
       return;
     }
 
-    // @typescript-eslint/no-empty-function
+    // @ts-ignore
     return Promise.all(promises).then(() => {});
   };
 
