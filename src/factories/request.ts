@@ -5,6 +5,7 @@ import { ApiConfig } from '../models/Config';
 import configOptions from '../config';
 import tokenStorage from './tokenStorage';
 import { isPromise, createCredentials } from '../helpers';
+import { Request as RequestInterface } from '../models/Config';
 
 // Make maybe to get headers as params
 const getHeaders = () => ({
@@ -14,7 +15,7 @@ const getHeaders = () => ({
   },
 });
 
-export default class Request {
+export default class Request implements RequestInterface {
   config: ApiConfig;
   basicInstance: AxiosInstance;
   authenticatedInstance: AxiosInstance;
