@@ -88,23 +88,10 @@ export default class Request {
    *  InPlayer.Account.removeToken()
    */
   removeToken = (): void | Promise<void> => {
-    const promises: Array<Promise<void>> = [];
-
-    const removeInplayerToken = tokenStorage.removeItem(
-      this.config.INPLAYER_TOKEN_KEY,
-    );
-
-    const removeIotToken = tokenStorage.removeItem(
-      this.config.INPLAYER_IOT_KEY,
-    );
-
-    if (isPromise(removeInplayerToken)) {
-      promises.push(removeInplayerToken as Promise<void>);
-    }
-
-    if (isPromise(removeIotToken)) {
-      promises.push(removeIotToken as Promise<void>);
-    }
+    const promises: Array<Promise<void>> = [
+      tokenStorage.removeItem(this.config.INPLAYER_TOKEN_KEY) as Promise<void>,
+      tokenStorage.removeItem(this.config.INPLAYER_IOT_KEY) as Promise<void>,
+    ].filter((o) => isPromise(o));
 
     if (!promises.length) {
       return undefined;
