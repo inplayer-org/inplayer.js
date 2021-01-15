@@ -110,10 +110,10 @@ export default class Request implements RequestInterface {
     }
 
     if (!promises.length) {
-      return;
+      return undefined;
     }
 
-    return Promise.all(promises).then(() => void 1);
+    return Promise.all(promises).then(() => undefined);
   };
 
   /**
