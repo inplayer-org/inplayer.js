@@ -83,8 +83,8 @@ export interface Request {
     token: string,
     refreshToken: string,
     expiresAt: number,
-  ): Promise<void>;
-  removeToken(): Promise<void>;
+  ): void | Promise<void>;
+  removeToken(): void | Promise<void>;
   isAuthenticated(): boolean | Promise<boolean>;
   get(
     path: string,
