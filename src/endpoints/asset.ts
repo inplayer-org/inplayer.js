@@ -260,11 +260,9 @@ class Asset extends BaseExtend {
     );
 
     if (isPromise(accessCode)) {
-      return new Promise(async (resolve) => {
-        const accessCodeResult = await accessCode;
-
-        resolve(accessCodeResult ? JSON.parse(accessCodeResult) : null);
-      });
+      return (accessCode as Promise<string>).then((resolvedString) =>
+        resolvedString ? JSON.parse(resolvedString) : null
+      );
     }
 
     return accessCode ? JSON.parse(accessCode as string) : null;
