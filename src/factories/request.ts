@@ -90,7 +90,7 @@ export default class Request implements RequestInterface {
    *  @example
    *  InPlayer.Account.removeToken()
    */
-  removeToken = () => {
+  removeToken = (): void | Promise<void> => {
     const promises: Array<Promise<void>> = [];
 
     const removeInplayerToken = tokenStorage.removeItem(
