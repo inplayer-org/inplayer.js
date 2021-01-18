@@ -510,6 +510,7 @@ export interface CreateDonationPaymentData {
   amount: number;
   currency: string;
   assetId: number;
+  donationId: number;
 }
 
 export interface PayPalParamsData {

@@ -323,6 +323,7 @@ export interface CreateDonationPaymentData {
   amount: number;
   currency: string;
   assetId: number;
+  donationId: number;
 }
 
 export interface CreateDonationPaymentRequestBody {
@@ -337,6 +338,7 @@ export interface CreateDonationPaymentRequestBody {
   return_url: string;
   item_id: number;
   amount: number;
+  donation_id: number;
   currency_iso: string;
 }
 

@@ -159,6 +159,7 @@ class Payment extends BaseExtend {
    *  brandingId?: number,
    *  amount: number,
    *  currency: string,
+   *  donationId: number,
    * }
    * @example
    *     InPlayer.Payment
@@ -175,6 +176,7 @@ class Payment extends BaseExtend {
    *       brandingId: 1234,
    *       amount: 1234,
    *       currency: EUR,
+   *       donationId: 4567,
    *       returnUrl: 'https://event.inplayer.com/staging',
    *      })
    *     .then(data => console.log(data));
@@ -193,6 +195,7 @@ class Payment extends BaseExtend {
       currency_iso: data.currency,
       amount: data.amount,
       item_id: data.assetId,
+      donation_id: data.donationId,
       return_url: buildURLwithQueryParams(data.returnUrl, { ippwat: 'ppv' }),
     };
 
