@@ -209,7 +209,7 @@ class Asset extends BaseExtend {
 
     await tokenStorage.setItem(
       this.config.INPLAYER_ACCESS_CODE_NAME(codeAccessData.item_id),
-      JSON.stringify(accessCode)
+      JSON.stringify(accessCode),
     );
 
     return response;
@@ -227,7 +227,7 @@ class Asset extends BaseExtend {
    * @returns {AxiosResponse<CommonResponse>}
    */
   async requestDataCaptureNoAuthAccess(
-    accessData: RequestDataCaptureAccessData
+    accessData: RequestDataCaptureAccessData,
   ) {
     const headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -256,7 +256,7 @@ class Asset extends BaseExtend {
    */
   getAccessCode(assetId: number) {
     const accessCode = tokenStorage.getItem(
-      this.config.INPLAYER_ACCESS_CODE_NAME(assetId)
+      this.config.INPLAYER_ACCESS_CODE_NAME(assetId),
     );
 
     if (isPromise(accessCode)) {
@@ -298,7 +298,7 @@ class Asset extends BaseExtend {
     );
 
     await tokenStorage.removeItem(
-      this.config.INPLAYER_ACCESS_CODE_NAME(assetId)
+      this.config.INPLAYER_ACCESS_CODE_NAME(assetId),
     );
 
     return response;
@@ -327,7 +327,7 @@ class Asset extends BaseExtend {
     );
 
     await tokenStorage.removeItem(
-      this.config.INPLAYER_ACCESS_CODE_NAME(assetId)
+      this.config.INPLAYER_ACCESS_CODE_NAME(assetId),
     );
 
     return response;
