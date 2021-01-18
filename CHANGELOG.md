@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
-- Token storage object's methods and consequently all methods that use them can now be used asynchronously
+- `TokenStorage.overrides` object's methods and consequently all methods that use them can now be used asynchronously
 
 # [3.7.3] - 13-01-2021
 
