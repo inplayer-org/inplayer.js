@@ -91,7 +91,7 @@ export default class Request {
     const promises: Array<Promise<void>> = [
       tokenStorage.removeItem(this.config.INPLAYER_TOKEN_KEY) as Promise<void>,
       tokenStorage.removeItem(this.config.INPLAYER_IOT_KEY) as Promise<void>,
-    ].filter((o) => isPromise(o));
+    ].filter(isPromise);
 
     if (!promises.length) {
       return undefined;
