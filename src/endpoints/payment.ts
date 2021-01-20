@@ -12,6 +12,8 @@ import {
   ReceiptValidationPlatform,
   CreateDonationPaymentData,
   CreateDonationPaymentRequestBody,
+  ConfirmDonationPaymentData,
+  ConfirmDonationPaymentRequestBody,
 } from '../models/IPayment&Subscription';
 import { CustomErrorResponse } from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
@@ -268,7 +270,13 @@ class Payment extends BaseExtend {
    *       message: "Submitted for payment",
    *  }
    */
-  async confirmDonationPayment(paymentIntentId: string, brandingId: number, paymentMethod: string) {
+  async confirmDonationPayment(data: ConfirmDonationPaymentData) {
+    const {
+      paymentIntentId,
+      brandingId,
+      paymentMethod,
+      donationId,
+    } = data;
     if (!paymentIntentId) {
       const response: CustomErrorResponse = {
         status: 400,
@@ -281,10 +289,11 @@ class Payment extends BaseExtend {
       throw { response };
     }
 
-    const body = {
+    const body: ConfirmDonationPaymentRequestBody = {
       pi_id: paymentIntentId,
       branding_id: brandingId,
       payment_method: paymentMethod,
+      donation_id: donationId,
     };
 
     return this.request.authenticatedPost(

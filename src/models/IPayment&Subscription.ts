@@ -323,7 +323,7 @@ export interface CreateDonationPaymentData {
   amount: number;
   currency: string;
   assetId: number;
-  donationId: number;
+  donationId?: number;
 }
 
 export interface CreateDonationPaymentRequestBody {
@@ -338,8 +338,22 @@ export interface CreateDonationPaymentRequestBody {
   return_url: string;
   item_id: number;
   amount: number;
-  donation_id: number;
+  donation_id?: number;
   currency_iso: string;
+}
+
+export interface ConfirmDonationPaymentData {
+  paymentIntentId: string;
+  brandingId: number;
+  paymentMethod: string;
+  donationId?: number;
+}
+
+export interface ConfirmDonationPaymentRequestBody {
+  pi_id: string;
+  branding_id: number;
+  payment_method: string;
+  donation_id?: number;
 }
 
 export interface PaypalParamsData {
@@ -557,9 +571,7 @@ export interface Payment extends BaseExtend {
     paymentIntentId: string
   ): Promise<AxiosResponse<CreatePayment>>;
   confirmDonationPayment(
-    paymentIntentId: string,
-    brandingId: number,
-    paymentMethod: string,
+    data: ConfirmDonationPaymentData
   ): Promise<AxiosResponse<CreatePayment>>;
   getPayPalParams(
     data: PayPalParamsData
