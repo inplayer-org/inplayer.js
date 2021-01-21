@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.7.4] - 21-01-2021
+
+### Changes
+
+- Add optional request param donationId to createDonationPayment and confirmDonationPayment 
+
 # [3.7.3] - 13-01-2021
 
 ### Fixes
