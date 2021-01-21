@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.8.1] - 21-01-2021
+
+### Fixes
+
+- Corrected the return types of `TokenStorage` methods
+
 # [3.8.0] - 21-01-2021
 
 ### Changes
