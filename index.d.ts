@@ -514,6 +514,14 @@ export interface CreateDonationPaymentData {
   amount: number;
   currency: string;
   assetId: number;
+  donationId?: number;
+}
+
+export interface ConfirmDonationPaymentData {
+  paymentIntentId: string;
+  brandingId: number;
+  paymentMethod: string;
+  donationId?: number;
 }
 
 export interface PayPalParamsData {
@@ -733,9 +741,7 @@ export declare class Payment {
     paymentIntentId: string
   ): Promise<AxiosResponse<CreatePayment>>;
   confirmDonationPayment(
-    paymentIntentId: string,
-    brandingId: number,
-    paymentMethod: string,
+    data: ConfirmDonationPaymentData
   ): Promise<AxiosResponse<CreatePayment>>;
   idealPayment: (
     data: IdealPaymentData

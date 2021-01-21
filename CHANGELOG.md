@@ -2,11 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-# [3.8.0] - 15-01-2021
+# [3.8.0] - 21-01-2021
 
 ### Changes
 
 - `TokenStorage.overrides` object's methods and consequently all methods that use them can now be used asynchronously
+- Add optional request param donationId to createDonationPayment and confirmDonationPayment
 
 # [3.7.3] - 13-01-2021
 

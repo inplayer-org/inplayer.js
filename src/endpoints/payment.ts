@@ -12,6 +12,8 @@ import {
   ReceiptValidationPlatform,
   CreateDonationPaymentData,
   CreateDonationPaymentRequestBody,
+  ConfirmDonationPaymentData,
+  ConfirmDonationPaymentRequestBody,
 } from '../models/IPayment&Subscription';
 import { CustomErrorResponse } from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
@@ -158,6 +160,7 @@ class Payment extends BaseExtend {
    *  brandingId?: number,
    *  amount: number,
    *  currency: string,
+   *  donationId: number,
    * }
    * @example
    *     InPlayer.Payment
@@ -174,6 +177,7 @@ class Payment extends BaseExtend {
    *       brandingId: 1234,
    *       amount: 1234,
    *       currency: EUR,
+   *       donationId: 4567,
    *       returnUrl: 'https://event.inplayer.com/staging',
    *      })
    *     .then(data => console.log(data));
@@ -192,6 +196,7 @@ class Payment extends BaseExtend {
       currency_iso: data.currency,
       amount: data.amount,
       item_id: data.assetId,
+      donation_id: data.donationId,
       return_url: buildURLwithQueryParams(data.returnUrl, { ippwat: 'ppv' }),
     };
 
@@ -264,7 +269,13 @@ class Payment extends BaseExtend {
    *       message: "Submitted for payment",
    *  }
    */
-  async confirmDonationPayment(paymentIntentId: string, brandingId: number, paymentMethod: string) {
+  async confirmDonationPayment(data: ConfirmDonationPaymentData) {
+    const {
+      paymentIntentId,
+      brandingId,
+      paymentMethod,
+      donationId,
+    } = data;
     if (!paymentIntentId) {
       const response: CustomErrorResponse = {
         status: 400,
@@ -277,10 +288,11 @@ class Payment extends BaseExtend {
       throw { response };
     }
 
-    const body = {
+    const body: ConfirmDonationPaymentRequestBody = {
       pi_id: paymentIntentId,
       branding_id: brandingId,
       payment_method: paymentMethod,
+      donation_id: donationId,
     };
 
     const tokenObject = await this.request.getToken();
