@@ -3,11 +3,13 @@
 All notable changes to this project will be documented in this file.
 
 # [3.8.2] - 21-01-2021
+
 ### Fixes
 
 - Corrected the return types of `TokenStorage` methods in index.d.ts
 
 # [3.8.1] - 21-01-2021
+
 ### Fixes
 
 - Remove token from localStorage after signOut
