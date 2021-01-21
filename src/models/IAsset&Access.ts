@@ -309,7 +309,7 @@ export interface Asset extends BaseExtend {
     endDate?: string,
     type?: string,
   ): Promise<AxiosResponse<Record<string, unknown>[]>>;
-  getAccessCode(assetId: number): CodeAccessData | null;
+  getAccessCode(assetId: number): CodeAccessData | null | Promise<CodeAccessData | null>;
   requestCodeAccess(data: RequestCodeAccessData): Promise<AxiosResponse<CodeAccessData>>;
   getAccesCodeSessions(code: string): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
   releaseAccessCode(assetId: number): Promise<AxiosResponse<CodeAccessData> | null>;

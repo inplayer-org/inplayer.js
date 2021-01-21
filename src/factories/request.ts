@@ -4,6 +4,7 @@ import { CustomErrorResponse, Env } from '../models/CommonInterfaces';
 import { ApiConfig } from '../models/Config';
 import configOptions from '../config';
 import tokenStorage from './tokenStorage';
+import { isPromise, createCredentials } from '../helpers';
 
 // Make maybe to get headers as params
 const getHeaders = () => ({
@@ -51,13 +52,13 @@ export default class Request {
    *  @return {Credentials}
    */
   getToken = () => {
-    const token = tokenStorage.getItem(this.config.INPLAYER_TOKEN_KEY);
+    const tokenString = tokenStorage.getItem(this.config.INPLAYER_TOKEN_KEY);
 
-    if (token === undefined || token === null) {
-      return new Credentials();
+    if (isPromise(tokenString)) {
+      return (tokenString as Promise<string>).then((resolvedString) =>
+        createCredentials(resolvedString));
     }
-
-    return new Credentials(JSON.parse(token));
+    return createCredentials(tokenString as string);
   };
 
   /** Sets the token
@@ -75,7 +76,7 @@ export default class Request {
       expires: expiresAt,
     });
 
-    tokenStorage.setItem(
+    return tokenStorage.setItem(
       this.config.INPLAYER_TOKEN_KEY,
       JSON.stringify(credentials),
     );
@@ -86,9 +87,17 @@ export default class Request {
    *  @example
    *  InPlayer.Account.removeToken()
    */
-  removeToken = () => {
-    tokenStorage.removeItem(this.config.INPLAYER_TOKEN_KEY);
-    tokenStorage.removeItem(this.config.INPLAYER_IOT_KEY);
+  removeToken = (): void | Promise<void> => {
+    const tasks: Array<void | Promise<void>> = [
+      tokenStorage.removeItem(this.config.INPLAYER_TOKEN_KEY),
+      tokenStorage.removeItem(this.config.INPLAYER_IOT_KEY),
+    ];
+
+    if (!tasks.some(isPromise)) {
+      return undefined;
+    }
+
+    return Promise.all(tasks).then(() => undefined);
   };
 
   /**
@@ -98,8 +107,20 @@ export default class Request {
    *    InPlayer.Account.isAuthenticated()
    * @return {Boolean}
    */
-  isAuthenticated = (): boolean =>
-    !this.getToken().isExpired() && this.getToken().token !== '';
+  isAuthenticated = () => {
+    const tokenObject = this.getToken();
+
+    if (isPromise(tokenObject)) {
+      return (tokenObject as Promise<Credentials>).then(
+        (resolvedCredentials) =>
+          !resolvedCredentials.isExpired() && !!resolvedCredentials.token,
+      );
+    }
+
+    const credentials = tokenObject as Credentials;
+
+    return !credentials.isExpired() && !!credentials.token;
+  };
 
   // HTTP GET Request - Returns Resolved or Rejected Promise
   get = (

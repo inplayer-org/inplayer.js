@@ -78,10 +78,14 @@ export interface ApiEndpoints {
 }
 
 export interface Request {
-  getToken(): CredentialsConfig;
-  setToken(token: string, refreshToken: string, expiresAt: number): void;
-  removeToken(): void;
-  isAuthenticated(): boolean;
+  getToken(): CredentialsConfig | Promise<CredentialsConfig>;
+  setToken(
+    token: string,
+    refreshToken: string,
+    expiresAt: number,
+  ): void | Promise<void>;
+  removeToken(): void | Promise<void>;
+  isAuthenticated(): boolean | Promise<boolean>;
   get(
     path: string,
     headers?: Record<string, Record<string, unknown> | string | boolean>

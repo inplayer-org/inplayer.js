@@ -2,11 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-# [3.7.4] - 21-01-2021
+# [3.8.0] - 21-01-2021
 
 ### Changes
 
-- Add optional request param donationId to createDonationPayment and confirmDonationPayment 
+- `TokenStorage.overrides` object's methods and consequently all methods that use them can now be used asynchronously
+- Add optional request param donationId to createDonationPayment and confirmDonationPayment
 
 # [3.7.3] - 13-01-2021
 
@@ -65,6 +66,7 @@ All notable changes to this project will be documented in this file.
 - Remove encodeURIComponent function (Code can't contain special characters)
 
 # [3.5.0] - 17-11-2020
+
 ### Changes
 
 - Remove redundant confirmIdealPayment and confirmIdealSubscribe methods
