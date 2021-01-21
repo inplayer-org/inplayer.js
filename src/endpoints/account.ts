@@ -190,6 +190,8 @@ class Account extends BaseExtend {
       headers: { Authorization: `Bearer ${tokenObject.token}` },
     });
 
+    await this.request.removeToken();
+
     return response;
   }
 
