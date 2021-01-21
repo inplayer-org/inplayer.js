@@ -144,7 +144,7 @@ export declare class Account {
     token: string,
     refreshToken: string,
     expiresAt: number,
-  ): void | R;
+  ): R | void;
   removeToken<R = void>(): R | void;
 
   signIn(data: AuthenticateData): Promise<AxiosResponse<CreateAccount>>;
