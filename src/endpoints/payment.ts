@@ -373,7 +373,7 @@ class Payment extends BaseExtend {
         headers: {
           Authorization: `Bearer ${tokenObject.token}`,
         },
-      }
+      },
     );
   }
 
@@ -442,7 +442,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      }
+      },
     );
   }
 
@@ -526,7 +526,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      }
+      },
     );
   }
 
@@ -570,7 +570,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      }
+      },
     );
   }
 
@@ -668,7 +668,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      }
+      },
     );
   }
 
@@ -776,7 +776,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      }
+      },
     );
   }
 }

@@ -39,7 +39,7 @@ class Subscription extends BaseExtend {
         headers: {
           Authorization: `Bearer ${tokenObject.token}`,
         },
-      }
+      },
     );
   }
 
@@ -86,7 +86,7 @@ class Subscription extends BaseExtend {
         headers: {
           Authorization: `Bearer ${tokenObject.token}`,
         },
-      }
+      },
     );
   }
 
