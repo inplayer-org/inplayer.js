@@ -138,14 +138,14 @@ export declare interface RestrictionSettingsData {
 export declare class Account {
   constructor(config: Record<string, unknown>);
 
-  isAuthenticated<R = boolean>(): R;
-  getToken<R = Credentials>(): R;
+  isAuthenticated<R = boolean>(): R | boolean;
+  getToken<R = Credentials>(): R | Credentials;
   setToken<R = void>(
     token: string,
     refreshToken: string,
     expiresAt: number,
-  ): R;
-  removeToken<R = void>(): R;
+  ): void | R;
+  removeToken<R = void>(): R | void;
 
   signIn(data: AuthenticateData): Promise<AxiosResponse<CreateAccount>>;
   signUp(data: SignUpData): Promise<AxiosResponse<CreateAccount>>;
@@ -934,9 +934,9 @@ export declare class Notifications {
 type Env = 'development' | 'production';
 
 export interface LocalStorageMethods {
-  setItem: <R = void>(key: string, value: string) => R;
-  getItem: <R = string | null>(key: string) => R;
-  removeItem: <R = void>(key: string) => R;
+  setItem: <R = void>(key: string, value: string) => R | void;
+  getItem: <R = string | null>(key: string) => R | (string | null);
+  removeItem: <R = void>(key: string) => R | void;
 }
 
 export type TokenStorageType = LocalStorageMethods & {
