@@ -934,9 +934,9 @@ export declare class Notifications {
 type Env = 'development' | 'production';
 
 export interface LocalStorageMethods {
-  setItem: (key: string, value: string) => void | Promise<void>;
-  getItem: (key: string) => string | null | Promise<string | null>;
-  removeItem: (key: string) => void | Promise<void>;
+  setItem: <R = void>(key: string, value: string) => R;
+  getItem: <R = string | null>(key: string) => R;
+  removeItem: <R = void>(key: string) => void | R;
 }
 
 export type TokenStorageType = LocalStorageMethods & {
