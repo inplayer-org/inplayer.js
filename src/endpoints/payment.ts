@@ -539,11 +539,15 @@ class Payment extends BaseExtend {
   async googleOrApplePay({
     accessFeeId,
     referrer,
+    brandingId,
+    voucherCode,
     paymentMethod = StripePaymentPaymentMethods.GOOGLE_PAY_ON_WEB,
   }: GoogleOrApplePaymentData) {
     const body: GoogleOrApplePaymentRequestBody = {
       payment_method: paymentMethod,
       access_fee_id: accessFeeId,
+      voucher_code: voucherCode,
+      branding_id: brandingId,
       referrer,
     };
 

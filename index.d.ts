@@ -628,7 +628,9 @@ export enum StripePaymentPaymentMethods {
 export declare interface GoogleOrApplePaymentData {
   accessFeeId: number;
   referrer: string;
+  brandingId: number;
   paymentMethod?: StripePaymentPaymentMethods;
+  voucherCode?: string;
 }
 
 export enum ReceiptValidationPlatform {

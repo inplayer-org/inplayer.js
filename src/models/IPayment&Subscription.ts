@@ -486,12 +486,16 @@ export enum StripePaymentPaymentMethods {
 export interface GoogleOrApplePaymentData {
   accessFeeId: number;
   referrer: string;
+  brandingId: number;
+  voucherCode?: string;
   paymentMethod?: StripePaymentPaymentMethods;
 }
 
 export interface GoogleOrApplePaymentRequestBody {
   payment_method: StripePaymentPaymentMethods;
   access_fee_id: number;
+  voucher_code?: string;
+  branding_id: number;
   referrer: string;
 }
 
