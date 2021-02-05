@@ -536,15 +536,39 @@ class Payment extends BaseExtend {
     );
   }
 
-  async googleOrApplePay({
+  /**
+   * Process a request for start ideal subscribe
+   * @method googlePayPayment
+   * @async
+   * @param {Object} data - Contains the data - {
+   *  accessFeeId: number,
+   *  referrer: string,
+   *  brandingId?: number
+   *  voucherCode?: {string},
+   * }
+   * @example
+   *     InPlayer.Payment
+   *       .googlePayPayment({
+   *          1243,
+   *          'http://google.com',
+   *          143,
+   *          '123qwerty987'
+   *       }).then((data) => {
+   *         console.log(data);
+   *       });
+   * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
+   *    code: '200',
+   *    message: "Submitted for payment",
+   *  }
+   */
+  async googlePayPayment({
     accessFeeId,
     referrer,
     brandingId,
     voucherCode,
-    paymentMethod = StripePaymentPaymentMethods.GOOGLE_PAY_ON_WEB,
   }: GoogleOrApplePaymentData) {
-    const body: GoogleOrApplePaymentRequestBody = {
-      payment_method: paymentMethod,
+    const body: GoogleOrApplePaymentRequestBody<StripePaymentPaymentMethods.GOOGLE_PAY_ON_WEB> = {
+      payment_method: StripePaymentPaymentMethods.GOOGLE_PAY_ON_WEB,
       access_fee_id: accessFeeId,
       voucher_code: voucherCode,
       branding_id: brandingId,
@@ -560,6 +584,57 @@ class Payment extends BaseExtend {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
+    );
+  }
+
+  /**
+   * Process a request for start ideal subscribe
+   * @method applePayPayment
+   * @async
+   * @param {Object} data - Contains the data - {
+   *  accessFeeId: number,
+   *  referrer: string,
+   *  brandingId?: number
+   *  voucherCode?: {string},
+   * }
+   * @example
+   *     InPlayer.Payment
+   *       .googlePayPayment({
+   *          1243,
+   *          'http://google.com',
+   *          143,
+   *          '123qwerty987'
+   *       }).then((data) => {
+   *         console.log(data);
+   *       });
+   * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
+   *    code: '200',
+   *    message: 'Submitted for payment',
+   *  }
+   */
+  async applePayPayment({
+    accessFeeId,
+    referrer,
+    brandingId,
+    voucherCode,
+  }: GoogleOrApplePaymentData) {
+    const body: GoogleOrApplePaymentRequestBody<StripePaymentPaymentMethods.APPLE_PAY_ON_WEB> = {
+      payment_method: StripePaymentPaymentMethods.APPLE_PAY_ON_WEB,
+      access_fee_id: accessFeeId,
+      voucher_code: voucherCode,
+      branding_id: brandingId,
+      referrer,
+    };
+
+    return this.request.authenticatedPost(
+      API.payForAssetV2,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${this.request.getToken().token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
     );
   }
 

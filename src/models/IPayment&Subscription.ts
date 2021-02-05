@@ -488,11 +488,10 @@ export interface GoogleOrApplePaymentData {
   referrer: string;
   brandingId: number;
   voucherCode?: string;
-  paymentMethod?: StripePaymentPaymentMethods;
 }
 
-export interface GoogleOrApplePaymentRequestBody {
-  payment_method: StripePaymentPaymentMethods;
+export interface GoogleOrApplePaymentRequestBody<T extends StripePaymentPaymentMethods> {
+  payment_method: T;
   access_fee_id: number;
   voucher_code?: string;
   branding_id: number;

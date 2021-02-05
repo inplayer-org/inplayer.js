@@ -629,7 +629,6 @@ export declare interface GoogleOrApplePaymentData {
   accessFeeId: number;
   referrer: string;
   brandingId: number;
-  paymentMethod?: StripePaymentPaymentMethods;
   voucherCode?: string;
 }
 
@@ -708,7 +707,10 @@ export declare class Payment {
   idealPayment: (
     data: IdealPaymentData
   ) => Promise<AxiosResponse<CommonResponse>>;
-  googleOrApplePay: (
+  googlePayPayment: (
+    data: GoogleOrApplePaymentData
+  ) => Promise<AxiosResponse<CommonResponse>>;
+  applePayPayment: (
     data: GoogleOrApplePaymentData
   ) => Promise<AxiosResponse<CommonResponse>>;
   confirmIdealPayment: (
