@@ -667,11 +667,6 @@ export declare interface IdealPaymentData {
   voucherCode?: string;
 }
 
-export enum StripePaymentPaymentMethods {
-  APPLE_PAY_ON_WEB = 'apple pay on web',
-  GOOGLE_PAY_ON_WEB = 'google pay on web',
-}
-
 export declare interface GoogleOrApplePaymentData {
   accessFeeId: number;
   referrer: string;
