@@ -740,7 +740,7 @@ class Payment extends BaseExtend {
    * }
    * @example
    *     InPlayer.Payment
-   *       .googlePayPayment({
+   *       .applePayPayment({
    *          1243,
    *          'http://google.com',
    *          143,
