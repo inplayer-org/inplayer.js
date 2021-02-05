@@ -2,6 +2,50 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.8.2] - 21-01-2021
+
+### Fixes
+
+- Corrected the return types of `TokenStorage` methods in index.d.ts
+
+# [3.8.1] - 21-01-2021
+
+### Fixes
+
+- Remove token from localStorage after signOut
+
+# [3.8.0] - 21-01-2021
+
+### Changes
+
+- `TokenStorage.overrides` object's methods and consequently all methods that use them can now be used asynchronously
+- Add optional request param donationId to createDonationPayment and confirmDonationPayment
+
+# [3.7.3] - 13-01-2021
+
+### Fixes
+
+- Add isAuthenticated to Account interface
+
+# [3.7.2] - 12-01-2021
+
+### Fixes
+
+- Account class properties
+
+# [3.7.1] - 12-01-2021
+
+### Fixes
+
+- Remove use of authenticatedGet in getDonationOptions method
+- Change Account class properties to methods
+
+# [3.7.0] - 11-01-2021
+
+### Added
+
+- Donation endpoints (getDonationOptions, createDonationPayment, confirmDonationPayment)
+
 # [3.6.3] - 22-12-2020
 
 ### Changes
@@ -34,6 +78,7 @@ All notable changes to this project will be documented in this file.
 - Remove encodeURIComponent function (Code can't contain special characters)
 
 # [3.5.0] - 17-11-2020
+
 ### Changes
 
 - Remove redundant confirmIdealPayment and confirmIdealSubscribe methods

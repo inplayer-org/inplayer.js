@@ -269,6 +269,25 @@ export interface CloudfrontUrl {
   video_url: string;
 }
 
+export interface DonationOption {
+  id: number;
+  item_id: number;
+  amount: number;
+  currency: string;
+  description?: string;
+}
+
+export interface CustomDonationOption {
+  id: number;
+  item_id: number;
+  custom_price_enabled: boolean;
+}
+
+export interface DonationDetails {
+  donations: Array<DonationOption> | null;
+  donation_options: CustomDonationOption;
+}
+
 export interface Asset extends BaseExtend {
   checkAccessForAsset(id: number): Promise<AxiosResponse<GetItemAccessV1>>;
   isFreeTrialUsed(id: number): Promise<AxiosResponse<any>>;
@@ -290,7 +309,7 @@ export interface Asset extends BaseExtend {
     endDate?: string,
     type?: string,
   ): Promise<AxiosResponse<Record<string, unknown>[]>>;
-  getAccessCode(assetId: number): CodeAccessData | null;
+  getAccessCode(assetId: number): CodeAccessData | null | Promise<CodeAccessData | null>;
   requestCodeAccess(data: RequestCodeAccessData): Promise<AxiosResponse<CodeAccessData>>;
   getAccesCodeSessions(code: string): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
   releaseAccessCode(assetId: number): Promise<AxiosResponse<CodeAccessData> | null>;
@@ -299,4 +318,5 @@ export interface Asset extends BaseExtend {
     assetId: number,
     videoUrl: string
   ): Promise<AxiosResponse<CloudfrontUrl>>;
+  getDonationOptions(assetId: number): Promise<AxiosResponse<DonationDetails>>;
 }

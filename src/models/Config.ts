@@ -51,6 +51,8 @@ export interface ApiEndpoints {
   getPaymentTools: (paymentMethodId: number) => string;
   payForAsset: string;
   payForAssetV2: string;
+  payForAssetDonation: string;
+  confirmForAssetDonation: string;
   getPayPalParams: string;
   getDefaultCreditCard: string;
   setDefaultCreditCard: string;
@@ -71,13 +73,19 @@ export interface ApiEndpoints {
   getAccesCodeSessions: (code: string) => string;
   releaseAccessCode: (code: number) => string;
   terminateSession: (assetId: number) => void;
+  // Donation
+  getDonations: (assetId: number) => string;
 }
 
 export interface Request {
-  getToken(): CredentialsConfig;
-  setToken(token: string, refreshToken: string, expiresAt: number): void;
-  removeToken(): void;
-  isAuthenticated(): boolean;
+  getToken(): CredentialsConfig | Promise<CredentialsConfig>;
+  setToken(
+    token: string,
+    refreshToken: string,
+    expiresAt: number,
+  ): void | Promise<void>;
+  removeToken(): void | Promise<void>;
+  isAuthenticated(): boolean | Promise<boolean>;
   get(
     path: string,
     headers?: Record<string, Record<string, unknown> | string | boolean>
