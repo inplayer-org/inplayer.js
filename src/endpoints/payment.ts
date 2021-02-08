@@ -16,7 +16,7 @@ import {
   CreateDonationPaymentRequestBody,
   ConfirmDonationPaymentData,
   ConfirmDonationPaymentRequestBody,
-  StripePaymentPaymentMethods,
+  StripePaymentMethods,
 } from '../models/IPayment&Subscription';
 import { CustomErrorResponse } from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
@@ -706,8 +706,8 @@ class Payment extends BaseExtend {
     brandingId,
     voucherCode,
   }: GoogleOrApplePaymentData) {
-    const body: GoogleOrApplePaymentRequestBody<StripePaymentPaymentMethods.GOOGLE_PAY_ON_WEB> = {
-      payment_method: StripePaymentPaymentMethods.GOOGLE_PAY_ON_WEB,
+    const body: GoogleOrApplePaymentRequestBody<StripePaymentMethods.GOOGLE_PAY_ON_WEB> = {
+      payment_method: StripePaymentMethods.GOOGLE_PAY_ON_WEB,
       access_fee_id: accessFeeId,
       voucher_code: voucherCode,
       branding_id: brandingId,
@@ -759,8 +759,8 @@ class Payment extends BaseExtend {
     brandingId,
     voucherCode,
   }: GoogleOrApplePaymentData) {
-    const body: GoogleOrApplePaymentRequestBody<StripePaymentPaymentMethods.APPLE_PAY_ON_WEB> = {
-      payment_method: StripePaymentPaymentMethods.APPLE_PAY_ON_WEB,
+    const body: GoogleOrApplePaymentRequestBody<StripePaymentMethods.APPLE_PAY_ON_WEB> = {
+      payment_method: StripePaymentMethods.APPLE_PAY_ON_WEB,
       access_fee_id: accessFeeId,
       voucher_code: voucherCode,
       branding_id: brandingId,
