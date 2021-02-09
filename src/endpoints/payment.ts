@@ -8,6 +8,12 @@ import {
   CreatePaymentRequestBody,
   IdealPaymentData,
   IdealPaymentRequestBody,
+  ValidateReceiptData,
+  ReceiptValidationPlatform,
+  CreateDonationPaymentData,
+  CreateDonationPaymentRequestBody,
+  ConfirmDonationPaymentData,
+  ConfirmDonationPaymentRequestBody,
 } from '../models/IPayment&Subscription';
 import { CustomErrorResponse } from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
@@ -36,9 +42,11 @@ class Payment extends BaseExtend {
    * @returns  {AxiosResponse<Array<MerchantPaymentMethod>>}
    */
   async getPaymentMethods() {
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedGet(API.getPaymentMethods, {
       headers: {
-        Authorization: `Bearer ${this.request.getToken().token}`,
+        Authorization: `Bearer ${tokenObject.token}`,
       },
     });
   }
@@ -55,14 +63,13 @@ class Payment extends BaseExtend {
    * @returns  {AxiosResponse<any>}
    */
   async getPaymentTools(paymentMethodId: number) {
-    return this.request.authenticatedGet(
-      API.getPaymentTools(paymentMethodId),
-      {
-        headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
-        },
+    const tokenObject = await this.request.getToken();
+
+    return this.request.authenticatedGet(API.getPaymentTools(paymentMethodId), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
       },
-    );
+    });
   }
 
   /**
@@ -83,6 +90,8 @@ class Payment extends BaseExtend {
    *  voucherCode?: string,
    *  brandingId?: number,
    *  paymentIntentId?: string,
+   *  isGift?: string,
+   *  receiverEmail?: string,
    * }
    * @example
    *     InPlayer.Payment
@@ -120,12 +129,85 @@ class Payment extends BaseExtend {
       body.voucher_code = data.voucherCode;
     }
 
+    if (data.isGift) {
+      body.is_gift = data.isGift;
+      body.receiver_email = data.receiverEmail;
+    }
+
+    const tokenObject = await this.request.getToken();
+
+    return this.request.authenticatedPost(API.payForAsset, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+  }
+
+  /**
+   * Makes a Donation Payment for a given Authorization token + asset/payment details.
+   * @method createDonationPayment
+   * @async
+   * @param {Object} data - Payment data - {
+   *  number: number || string,
+   *  cardName: string,
+   *  expMonth: number,
+   *  expYear: number,
+   *  cvv: number,
+   *  assetId: number,
+   *  paymentMethod: string,
+   *  referrer: string,
+   *  brandingId?: number,
+   *  amount: number,
+   *  currency: string,
+   *  donationId: number,
+   * }
+   * @example
+   *     InPlayer.Payment
+   *     .createPayment({
+   *       number: 4111111111111111,
+   *       cardName: 'Test',
+   *       expMonth: 10,
+   *       expYear: 2030,
+   *       cvv: 656,
+   *       assetId: 2341,
+   *       paymentMethod: 'Card',
+   *       referrer: 'http://google.com',
+   *       voucherCode: 'fgh1982gff-0f2grfds'
+   *       brandingId: 1234,
+   *       amount: 1234,
+   *       currency: EUR,
+   *       donationId: 4567,
+   *       returnUrl: 'https://event.inplayer.com/staging',
+   *      })
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<CreateDonationPayment>}
+   */
+  async createDonationPayment(data: CreateDonationPaymentData) {
+    const body: CreateDonationPaymentRequestBody = {
+      number: data.number,
+      card_name: data.cardName,
+      exp_month: data.expMonth,
+      exp_year: data.expYear,
+      cvv: data.cvv,
+      payment_method: data.paymentMethod,
+      referrer: data.referrer,
+      branding_id: data.brandingId,
+      currency_iso: data.currency,
+      amount: data.amount,
+      item_id: data.assetId,
+      donation_id: data.donationId,
+      return_url: buildURLwithQueryParams(data.returnUrl, { ippwat: 'ppv' }),
+    };
+
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedPost(
-      API.payForAsset,
+      API.payForAssetDonation,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
+          Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
@@ -163,12 +245,64 @@ class Payment extends BaseExtend {
       pi_id: paymentIntentId,
     };
 
+    const tokenObject = await this.request.getToken();
+
+    return this.request.authenticatedPost(API.payForAsset, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+  }
+
+  /**
+   * As part of new bank regulations, we need to provide options for
+   * additional authentication during the payment flow for customers
+   * @method confirmDonationPayment
+   * @async
+   * @param {string}
+   * @example
+   *     InPlayer.Payment
+   *     .confirmDonationPayment('332242', 1, 'Card')
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<CreatePayment>} Contains the data - {
+   *       message: "Submitted for payment",
+   *  }
+   */
+  async confirmDonationPayment(data: ConfirmDonationPaymentData) {
+    const {
+      paymentIntentId,
+      brandingId,
+      paymentMethod,
+      donationId,
+    } = data;
+    if (!paymentIntentId) {
+      const response: CustomErrorResponse = {
+        status: 400,
+        data: {
+          code: 400,
+          message: 'Payment Intend Id is a required parameter!',
+        },
+      };
+
+      throw { response };
+    }
+
+    const body: ConfirmDonationPaymentRequestBody = {
+      pi_id: paymentIntentId,
+      branding_id: brandingId,
+      payment_method: paymentMethod,
+      donation_id: donationId,
+    };
+
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedPost(
-      API.payForAsset,
+      API.confirmForAssetDonation,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
+          Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
@@ -208,9 +342,11 @@ class Payment extends BaseExtend {
       formData.append('voucher_code', data.voucherCode);
     }
 
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedPost(API.getPayPalParams, formData, {
       headers: {
-        Authorization: `Bearer ${this.request.getToken().token}`,
+        Authorization: `Bearer ${tokenObject.token}`,
       },
     });
   }
@@ -229,11 +365,13 @@ class Payment extends BaseExtend {
    * @returns  {AxiosResponse<PurchaseHistoryCollection[]>}
    */
   async getPurchaseHistory(status = 'active', page: number, limit: number) {
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedGet(
       API.getPurchaseHistory(status, page, limit),
       {
         headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
+          Authorization: `Bearer ${tokenObject.token}`,
         },
       },
     );
@@ -250,9 +388,11 @@ class Payment extends BaseExtend {
    * @returns  {AxiosResponse<GetDefaultCard>}
    */
   async getDefaultCreditCard() {
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedGet(API.getDefaultCreditCard, {
       headers: {
-        Authorization: `Bearer ${this.request.getToken().token}`,
+        Authorization: `Bearer ${tokenObject.token}`,
       },
     });
   }
@@ -292,12 +432,14 @@ class Payment extends BaseExtend {
       currency_iso: data.currency,
     };
 
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedPut(
       API.setDefaultCreditCard,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
+          Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
@@ -327,9 +469,11 @@ class Payment extends BaseExtend {
    * }
    */
   async getDirectDebitMandate() {
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedGet(API.getDirectDebitMandate, {
       headers: {
-        Authorization: `Bearer ${this.request.getToken().token}`,
+        Authorization: `Bearer ${tokenObject.token}`,
       },
     });
   }
@@ -372,12 +516,14 @@ class Payment extends BaseExtend {
       iban: data.iban,
     };
 
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedPost(
       API.createDirectDebitMandate,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
+          Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
@@ -411,14 +557,17 @@ class Payment extends BaseExtend {
       voucher_code: data.voucherCode,
       payment_method: 'Direct Debit',
       branding_id: data.brandingId,
+      referrer: data.referrer,
     };
+
+    const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedPost(
       API.payForAssetV2,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
+          Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
@@ -452,18 +601,17 @@ class Payment extends BaseExtend {
       voucher_code: data.voucherCode,
       payment_method: 'Direct Debit',
       branding_id: data.brandingId,
+      referrer: data.referrer,
     };
 
-    return this.request.authenticatedPost(
-      API.subscribeV2,
-      qs.stringify(body),
-      {
-        headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+    const tokenObject = await this.request.getToken();
+
+    return this.request.authenticatedPost(API.subscribeV2, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-    );
+    });
   }
 
   /**
@@ -510,57 +658,14 @@ class Payment extends BaseExtend {
       body.voucher_code = data.voucherCode;
     }
 
-    return this.request.authenticatedPost(
-      API.payForAssetV2,
-      qs.stringify(body),
-      {
-        headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      },
-    );
-  }
-
-  /**
-   * Process a request for ideal payment confirmation
-   * @method confirmIdealPayment
-   * @async
-   * @param {string},
-   * @example
-   *     InPlayer.Payment
-   *     .confirmIdealPayment('125sour2ce')
-   *     .then(data => console.log(data));
-   * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
-   *       code: '200',
-   *       message: "Submitted for payment",
-   *    }
-   *
-   */
-  async confirmIdealPayment(sourceId: string) {
-    if (!sourceId) {
-      const response: CustomErrorResponse = {
-        status: 400,
-        data: {
-          code: 400,
-          message: 'Source Id is a required parameter!',
-        },
-      };
-
-      throw { response };
-    }
-
-    const body = {
-      payment_method: 'ideal',
-      src_id: sourceId,
-    };
+    const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedPost(
       API.payForAssetV2,
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
+          Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
@@ -611,57 +716,64 @@ class Payment extends BaseExtend {
       body.voucher_code = data.voucherCode;
     }
 
-    return this.request.authenticatedPost(
-      API.subscribeV2,
-      qs.stringify(body),
-      {
-        headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+    const tokenObject = await this.request.getToken();
+
+    return this.request.authenticatedPost(API.subscribeV2, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-    );
+    });
   }
 
   /**
-   * Process a request for ideal payment confirmation
-   * @method confirmIdealSubscribe
+   * Validates an In App purchase from Amazon, Apple, GooglePlay or Roku services
+   * @method validateReceipt
    * @async
-   * @param {string},
+   * @param {Object} data - Contains data - {
+   *  platform: string,
+   *  itemId: number,
+   *  accessFeeId: number,
+   *  receipt: string,
+   *  amazonUserId?: string
+   * }
    * @example
-   *     InPlayer.Payment
-   *     .confirmIdealSubscribe('125sour2ce')
+   *   InPlayer.Payment
+   *     .validateReceipt({
+   *        platform: 'roku',
+   *        itemId: 123,
+   *        accessFeeId: 19,
+   *        receipt: '123abc',
    *     .then(data => console.log(data));
    * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
-   *       code: '200',
-   *       message: "Submitted for payment",
-   *    }
-   *
+   *    code: '200',
+   *    message: "Submitted",
+   *  }
    */
-  async confirmIdealSubscribe(sourceId: string) {
-    if (!sourceId) {
-      const response: CustomErrorResponse = {
-        status: 400,
-        data: {
-          code: 400,
-          message: 'Source Id is a required parameter!',
-        },
-      };
-
-      throw { response };
-    }
-
+  async validateReceipt({
+    platform,
+    receipt,
+    productName: product_name,
+    itemId: item_id,
+    accessFeeId: access_fee_id,
+    amazonUserId: amazon_user_id,
+  }: ValidateReceiptData) {
     const body = {
-      payment_method: 'ideal',
-      src_id: sourceId,
+      receipt,
+      ...(product_name ? { product_name } : { item_id, access_fee_id }),
+      ...(platform === ReceiptValidationPlatform.AMAZON
+        ? { amazon_user_id }
+        : {}),
     };
 
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedPost(
-      API.subscribeV2,
+      API.validateReceipt(String(platform)),
       qs.stringify(body),
       {
         headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
+          Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },

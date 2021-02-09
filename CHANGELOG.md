@@ -2,6 +2,177 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.8.2] - 21-01-2021
+
+### Fixes
+
+- Corrected the return types of `TokenStorage` methods in index.d.ts
+
+# [3.8.1] - 21-01-2021
+
+### Fixes
+
+- Remove token from localStorage after signOut
+
+# [3.8.0] - 21-01-2021
+
+### Changes
+
+- `TokenStorage.overrides` object's methods and consequently all methods that use them can now be used asynchronously
+- Add optional request param donationId to createDonationPayment and confirmDonationPayment
+
+# [3.7.3] - 13-01-2021
+
+### Fixes
+
+- Add isAuthenticated to Account interface
+
+# [3.7.2] - 12-01-2021
+
+### Fixes
+
+- Account class properties
+
+# [3.7.1] - 12-01-2021
+
+### Fixes
+
+- Remove use of authenticatedGet in getDonationOptions method
+- Change Account class properties to methods
+
+# [3.7.0] - 11-01-2021
+
+### Added
+
+- Donation endpoints (getDonationOptions, createDonationPayment, confirmDonationPayment)
+
+# [3.6.3] - 22-12-2020
+
+### Changes
+
+- Removed isGift and receiverEmail params from Subscription.createSubscription method
+
+# [3.6.2]
+
+### Fixes
+
+- Remove register fields random query param
+
+# [3.6.1]
+
+### Added
+
+- New optional parameter type to Asset.getAssetsHistory method
+- New optional parameters isGift and receiverEmail to Payment.createPayment and Subscription.createSubscription methods
+
+# [3.6.0] - 03-12-2020
+
+### Added
+
+- InPlayer.Account.isAuthenticated method
+
+# [3.5.1] - 18-11-2020
+
+### Changes
+
+- Remove encodeURIComponent function (Code can't contain special characters)
+
+# [3.5.0] - 17-11-2020
+
+### Changes
+
+- Remove redundant confirmIdealPayment and confirmIdealSubscribe methods
+
+### Fixes
+
+- Use encodeURIComponent to encode special code characters
+
+# [3.4.1] - 02-11-2020
+
+### Added
+
+- New optional parameter `product_name` to Payment.validatePayment method
+
+# [3.4.0] - 30-10-2020
+
+### Added
+
+- Added a new tokenStorage wrapper for non-web environments
+
+### Changes
+
+- Re-added getToken and setToken methods
+- Added a new method removeToken
+
+### Fixes
+
+- Remove unused IdealData interface
+
+# [3.3.0] - 19-10-2020
+
+### Added
+
+- New method Payment.validateReceipt
+
+### Changes
+
+- Extended AccessFee with current_phase
+
+### Fixes
+
+- Remove redundant setToken method
+
+# [3.2.2] - 09-09-2020
+
+### Fixes
+
+- Revert axios version
+
+# [3.2.1] - 07-09-2020
+
+### Fixes
+
+- Rename request body parameter to data for deleteAccount
+
+# [3.2.0] - 04-09-2020
+
+### Added
+
+- Add endpoint for dataCaptureNoAuthAccess
+
+# [3.1.0] - 20-08-2020
+
+### Added
+
+- Add getAccessCodeSession method
+- Add terminateSession method
+
+### Breaking Changes
+
+- Change api endpoint for requestCodeAccess
+
+# [3.0.0] - 23-07-2020
+
+### Added
+
+- Add ideal subscribe method
+- Ideal payment actions (idealPayment and confirmIdealPayment)
+- Complete rewrite to TypeScript
+- Add axios as HTTP client
+
+### Changes
+
+- Extend the getDiscount object attribute with itemId
+- Add status query param for getSubscriptions endpoint
+- Add referrer param for SEPA payments
+
+### Breaking Changes
+
+- Use v2 endpoint for fetching access fees
+- InPlayer.Account.authenticate rename to InPlayer.Account.signIn
+- InPlayer.Payment.create rename to InPlayer.Payment.createPayment
+- InPlayer.Subscription.create rename to InPlayer.Subscription.createSubscription
+
 # [3.0.0-beta.14] - 14-07-2020
 
 ### Changes

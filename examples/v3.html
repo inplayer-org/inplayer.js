@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>InPlayer JS SDK v3 Sandbox</title>
+  <meta charset="UTF-8" />
+
+  <script src="https://unpkg.com/@inplayer-org/inplayer.js@v3/dist/inplayer.min.js"></script>
+</head>
+
+<body>
+  <script>
+
+    InPlayer.Account.signIn({
+      email: 'inplayer@inplayer.com',
+      password: 'password',
+      referrer: 'http://localhost:3000/',
+      cliendId: 'c62e75f2-e090-4b0b-a3b2-ca70d52f19ac',
+    }).then(data => console.log(data))
+      .catch(error => console.log(error));
+
+    InPlayer.Payment.createPayment("c62e75f2-e090-4b0b-a3b2-ca70d52f19ac", {
+      number: 32423423423423423,
+      cardName: "John Doe",
+      expMonth: 9,
+      expYear: 2022,
+      cvv: 114,
+      accessFee: 122049,
+      paymentMethod: 1,
+      voucherCode: "SARAHTEST",
+      referrer: " ",
+      returnUrl: "https://www.google.com/"
+    }).then(data => console.log(data))
+      .catch(error => console.log(error));
+  </script>
+</body>
+
+</html>

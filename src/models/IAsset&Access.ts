@@ -98,6 +98,20 @@ export interface ExternalFee {
   merchant_id: number;
 }
 
+export interface CurrentPhase {
+  access_fee_id: number;
+  anchor_date: number;
+  created_at: number;
+  currency: string;
+  current_price: number;
+  expires_at: number;
+  id: number;
+  season_price: number;
+  starts_at: number;
+  status: string;
+  updated_at: number;
+}
+
 export interface GetAccessFee {
   id: number;
   merchant_id: number;
@@ -115,6 +129,7 @@ export interface GetAccessFee {
   seasonal_fee: SeasonalFee | null;
   external_fees: Array<ExternalFee> | null;
   geo_restriction: GeoRestriction | null;
+  current_phase: CurrentPhase | null;
 }
 
 export interface PutAccessFee {
@@ -232,10 +247,45 @@ export interface CodeAccessData {
   in_use: boolean;
   browser_fingerprint: any;
   code: string;
+  type: string;
+}
+
+export interface RequestDataCaptureAccessData {
+  email: string;
+  full_name: string;
+  company: string;
+  merchant_uuid: string;
+}
+
+export interface CodeAccessSessionsData {
+  id: number;
+  code: string;
+  browser_fingerprint: any;
+  agent_info: string;
+  last_used: number;
 }
 
 export interface CloudfrontUrl {
   video_url: string;
+}
+
+export interface DonationOption {
+  id: number;
+  item_id: number;
+  amount: number;
+  currency: string;
+  description?: string;
+}
+
+export interface CustomDonationOption {
+  id: number;
+  item_id: number;
+  custom_price_enabled: boolean;
+}
+
+export interface DonationDetails {
+  donations: Array<DonationOption> | null;
+  donation_options: CustomDonationOption;
 }
 
 export interface Asset extends BaseExtend {
@@ -256,13 +306,17 @@ export interface Asset extends BaseExtend {
     size?: number,
     page?: number,
     startDate?: string,
-    endDate?: string
-  ): Promise<AxiosResponse<object[]>>;
-  getAccessCode(assetId: number): CodeAccessData | null;
+    endDate?: string,
+    type?: string,
+  ): Promise<AxiosResponse<Record<string, unknown>[]>>;
+  getAccessCode(assetId: number): CodeAccessData | null | Promise<CodeAccessData | null>;
   requestCodeAccess(data: RequestCodeAccessData): Promise<AxiosResponse<CodeAccessData>>;
+  getAccesCodeSessions(code: string): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
   releaseAccessCode(assetId: number): Promise<AxiosResponse<CodeAccessData> | null>;
+  terminateSession(assetId: number): Promise<AxiosResponse<null>>;
   getCloudfrontURL(
     assetId: number,
     videoUrl: string
   ): Promise<AxiosResponse<CloudfrontUrl>>;
+  getDonationOptions(assetId: number): Promise<AxiosResponse<DonationDetails>>;
 }

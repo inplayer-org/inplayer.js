@@ -1,6 +1,7 @@
 import awsIot from 'aws-iot-device-sdk';
 import { ApiConfig, Request } from '../models/Config';
 import BaseExtend from '../extends/base';
+import tokenStorage from './tokenStorage';
 
 const ONE_HOUR = 60 * 60 * 1000;
 
@@ -12,11 +13,16 @@ class Notifications extends BaseExtend {
   }
 
   async getIotToken() {
-    const iotResponse = await this.request.authenticatedGet(this.config.AWS_IOT_URL, {
-      headers: {
-        Authorization: `Bearer ${this.request.getToken().token}`,
+    const tokenObject = await this.request.getToken();
+
+    const iotResponse = await this.request.authenticatedGet(
+      this.config.AWS_IOT_URL,
+      {
+        headers: {
+          Authorization: `Bearer ${tokenObject.token}`,
+        },
       },
-    });
+    );
 
     return {
       ...iotResponse.data,
@@ -25,7 +31,10 @@ class Notifications extends BaseExtend {
   }
 
   /* Subscribes to Websocket notifications */
-  async subscribe(accountUuid = '', callbackParams: Record<string, (...params: any) => void>) {
+  async subscribe(
+    accountUuid = '',
+    callbackParams: Record<string, (...params: any) => void>,
+  ) {
     if (!accountUuid && accountUuid === '') {
       return false;
     }
@@ -37,7 +46,8 @@ class Notifications extends BaseExtend {
       }
     } else {
       // eslint-disable-next-line no-param-reassign
-      callbackParams.onMessage = (e: any) => console.log('Received message:', e);
+      callbackParams.onMessage = (e: any) =>
+        console.log('Received message:', e);
     }
 
     if (callbackParams && callbackParams.onOpen) {
@@ -47,7 +57,9 @@ class Notifications extends BaseExtend {
       }
     }
 
-    const inplayerIotCreds: any = localStorage.getItem(this.config.INPLAYER_IOT_KEY);
+    const inplayerIotCreds: any = await tokenStorage.getItem(
+      this.config.INPLAYER_IOT_KEY,
+    );
 
     if (!inplayerIotCreds) {
       console.warn('[InPlayer Notifications] Unable to fetch iot credentials');
@@ -67,13 +79,21 @@ class Notifications extends BaseExtend {
 
     const resp = await this.getIotToken();
 
-    localStorage.setItem(this.config.INPLAYER_IOT_KEY, JSON.stringify(resp));
+    await tokenStorage.setItem(
+      this.config.INPLAYER_IOT_KEY,
+      JSON.stringify(resp),
+    );
 
     this.handleSubscribe(resp, callbackParams, accountUuid);
+
     return true;
   }
 
-  handleSubscribe(data: any, callbackParams: Record<string, any>, uuid: string) {
+  handleSubscribe(
+    data: any,
+    callbackParams: Record<string, any>,
+    uuid: string,
+  ) {
     const credentials: any = {
       region: data.region,
       protocol: 'wss',

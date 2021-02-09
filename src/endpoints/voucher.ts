@@ -45,9 +45,11 @@ class Voucher extends BaseExtend {
       body.item_id = data.itemId;
     }
 
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedPost(API.getDiscount, qs.stringify(body), {
       headers: {
-        Authorization: `Bearer ${this.request.getToken().token}`,
+        Authorization: `Bearer ${tokenObject.token}`,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     });

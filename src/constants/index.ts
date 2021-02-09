@@ -10,8 +10,7 @@ export const API = {
   updateAccount: '/accounts',
   changePassword: '/accounts/change-password',
   getRegisterFields: (merchantUuid: any) =>
-    `/accounts/register-fields/${merchantUuid}?rnd=${Math.random()
-             * 15}`,
+    `/accounts/register-fields/${merchantUuid}`,
   getPurchaseHistory: (status: any, page = 0, size = 5) =>
     `/items/access/customers?status=${status}&page=${page}&size=${size}`,
   getAssetsHistory: (
@@ -19,6 +18,7 @@ export const API = {
     page: any,
     startDate: any,
     endDate: any,
+    type?: string,
   ) => {
     let url = `/payments/transactions?exclude=store-payment&size=${size}&page=${page}`;
 
@@ -28,6 +28,10 @@ export const API = {
 
     if (endDate) {
       url += `&endDate=${endDate}`;
+    }
+
+    if (type) {
+      url += `&type=${type}`;
     }
 
     return url;
@@ -65,10 +69,13 @@ export const API = {
   payForAsset: '/payments',
   payForAssetV2: '/v2/payments',
   getPayPalParams: '/external-payments',
+  payForAssetDonation: '/v2/payments/donation',
+  confirmForAssetDonation: '/v2/payments/donation:confirm',
   getDefaultCreditCard: '/v2/payments/cards/default',
   setDefaultCreditCard: '/v2/payments/cards/default',
   getDirectDebitMandate: '/v2/payments/direct-debit/mandate',
   createDirectDebitMandate: '/v2/payments/direct-debit/mandate',
+  validateReceipt: (platform: string) => `v2/external-payments/${platform}/validate`,
   // Subscriptions
   getSubscriptions: (limit: number, page: number, status: string) => {
     if (status) {
@@ -87,7 +94,11 @@ export const API = {
     `/branding/paywall/${merchantUuid}/${brandingId}`,
   downloadFile: (assetId: any, filename: any) =>
     `/dlc/${assetId}/${filename}`,
-  requestCodeAccess: '/items/access/codes',
+  requestCodeAccess: '/items/access/codes/entry',
   releaseAccessCode: (code: string | number) =>
     `/items/access/codes/${code}`,
+  requestAccessCodeSessions: (code: string) => `items/access/codes/${code}/sessions`,
+  terminateSession: (code: string, fingerprint: string) => `items/access/codes/${code}/${fingerprint}`,
+  requestDataCaptureNoAuthAccess: '/v2/accounts/customers/data-capture',
+  getDonations: (assetId: number) => `v2/items/${assetId}/donations`,
 };

@@ -79,8 +79,8 @@ export declare interface AccountInformationReturn {
   email: string;
   full_name: string;
   referrer: string;
-  metadata: object;
-  social_apps_metadata: object[];
+  metadata: Record<string, unknown>;
+  social_apps_metadata: Record<string, unknown>[];
   roles: string[];
   completed: boolean;
   created_at: number;
@@ -136,7 +136,16 @@ export declare interface RestrictionSettingsData {
 }
 
 export declare class Account {
-  constructor(config: object);
+  constructor(config: Record<string, unknown>);
+
+  isAuthenticated<R = boolean>(): R | boolean;
+  getToken<R = Credentials>(): R | Credentials;
+  setToken<R = void>(
+    token: string,
+    refreshToken: string,
+    expiresAt: number,
+  ): R | void;
+  removeToken<R = void>(): R | void;
 
   signIn(data: AuthenticateData): Promise<AxiosResponse<CreateAccount>>;
   signUp(data: SignUpData): Promise<AxiosResponse<CreateAccount>>;
@@ -184,6 +193,20 @@ export declare interface ItemType {
   description: string;
 }
 
+export declare interface ItemDetailsV1 {
+  id: number;
+  merchant_id: number;
+  merchant_uuid: string;
+  is_active: boolean;
+  title: string;
+  access_control_type: AccessControlType;
+  item_type: ItemType;
+  age_restriction: Record<string, number>;
+  metadata: Record<string, string>[];
+  created_at: number;
+  updated_at: number;
+}
+
 interface ItemDetailsAccess extends ItemDetailsV1 {
   content: string;
 }
@@ -222,20 +245,6 @@ export declare interface Item {
   update_at: number;
 }
 
-export declare interface ItemDetailsV1 {
-  id: number;
-  merchant_id: number;
-  merchant_uuid: string;
-  is_active: boolean;
-  title: string;
-  access_control_type: AccessControlType;
-  item_type: ItemType;
-  age_restriction: Record<string, number>;
-  metadata: Record<string, string>[];
-  created_at: number;
-  updated_at: number;
-}
-
 export declare interface AccessType {
   id: number;
   account_id: number;
@@ -244,6 +253,24 @@ export declare interface AccessType {
   period: string;
   updated_at: number;
   created_at: number;
+}
+export interface DonationOption {
+  id: number;
+  item_id: number;
+  amount: number;
+  currency: string;
+  description?: string;
+}
+
+export interface CustomDonationOption {
+  id: number;
+  item_id: number;
+  custom_price_enabled: boolean;
+}
+
+export interface DonationDetails {
+  donations: Array<DonationOption> | null;
+  donation_options: CustomDonationOption;
 }
 
 export declare interface TrialPeriod {
@@ -284,6 +311,20 @@ export declare interface GeoRestriction {
   type: string;
 }
 
+export declare interface CurrentPhase {
+  access_fee_id: number;
+  anchor_date: number;
+  created_at: number;
+  currency: string;
+  current_price: number;
+  expires_at: number;
+  id: number;
+  season_price: number;
+  starts_at: number;
+  status: string;
+  updated_at: number;
+}
+
 export declare interface GetAccessFee {
   id: number;
   merchant_id: number;
@@ -301,6 +342,7 @@ export declare interface GetAccessFee {
   seasonal_fee: SeasonalFee | null;
   external_fees: Array<ExternalFee> | null;
   geo_restriction: GeoRestriction | null;
+  current_phase: CurrentPhase | null;
 }
 
 export declare interface ExternalItemDetails extends ItemDetailsV1 {
@@ -342,10 +384,26 @@ export interface CodeAccessData {
   in_use: boolean;
   browser_fingerprint: any;
   code: string;
+  type: string;
+}
+
+export interface CodeAccessSessionsData {
+  id: number;
+  code: string;
+  browser_fingerprint: any;
+  agent_info: string;
+  last_used: number;
+}
+
+export interface RequestDataCaptureAccessData {
+  email: string;
+  full_name: string;
+  company: string;
+  merchant_uuid: string;
 }
 
 export declare class Asset {
-  constructor(config: object, Account: Account);
+  constructor(config: Record<string, unknown>, Account: Account);
 
   checkAccessForAsset(id: number): Promise<AxiosResponse<GetItemAccessV1>>;
   isFreeTrialUsed(id: number): Promise<AxiosResponse<boolean>>;
@@ -360,23 +418,32 @@ export declare class Asset {
   ): Promise<AxiosResponse<ExternalItemDetails>>;
   getPackage(id: number): Promise<AxiosResponse<GetMerchantPackage>>;
   getAssetAccessFees(id: number): Promise<AxiosResponse<GetAccessFee>>;
+  getDonationOptions(assetId: number): Promise<AxiosResponse<DonationDetails>>;
   getAssetsHistory(
     size?: number,
     page?: number,
     startDate?: string,
-    endDate?: string
-  ): Promise<AxiosResponse<object[]>>;
+    endDate?: string,
+    type?: string,
+  ): Promise<AxiosResponse<Record<string, unknown>[]>>;
   getAccessCode(assetId: number | string): CodeAccessData;
   requestCodeAccess(
     data: RequestCodeAccessData
   ): Promise<AxiosResponse<CodeAccessData>>;
+  getAccesCodeSessions(
+    code: string
+  ): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
   releaseAccessCode(
     assetId: number | string
   ): Promise<AxiosResponse<CodeAccessData>>;
+  terminateSession(assetId: number): Promise<AxiosResponse<null>>;
   getCloudfrontURL(
     assetId: number,
     videoUrl: string
   ): Promise<AxiosResponse<CloudfrontUrl>>;
+  requestDataCaptureNoAuthAccess(
+    accessData: RequestDataCaptureAccessData
+  ): Promise<AxiosResponse<CommonResponse>>;
 }
 
 export interface Brand {
@@ -396,7 +463,7 @@ export interface Brand {
 }
 
 export declare class Branding {
-  constructor(config: object);
+  constructor(config: Record<string, unknown>);
 
   getBranding(
     clientId: string,
@@ -413,7 +480,7 @@ declare interface DlcLink {
 }
 
 export declare class DLC {
-  constructor(config: object, Account: Account);
+  constructor(config: Record<string, unknown>, Account: Account);
 
   getDlcLinks(assetId: number): Promise<AxiosResponse<DlcLink>>;
 }
@@ -430,6 +497,31 @@ export interface CreatePaymentData {
   returnUrl: string;
   voucherCode?: string;
   brandingId?: number;
+  receiverEmail?: string;
+  isGift?: boolean;
+}
+
+export interface CreateDonationPaymentData {
+  number: number;
+  cardName: string;
+  expMonth: string;
+  expYear: number;
+  cvv: number;
+  paymentMethod: string;
+  referrer: string;
+  brandingId: number;
+  returnUrl: string;
+  amount: number;
+  currency: string;
+  assetId: number;
+  donationId?: number;
+}
+
+export interface ConfirmDonationPaymentData {
+  paymentIntentId: string;
+  brandingId: number;
+  paymentMethod: string;
+  donationId?: number;
 }
 
 export interface PayPalParamsData {
@@ -563,6 +655,7 @@ export declare interface DirectDebitData {
   assetId: number;
   voucherCode: string;
   brandingId?: number;
+  referrer: string;
 }
 
 export declare interface IdealPaymentData {
@@ -574,12 +667,52 @@ export declare interface IdealPaymentData {
   voucherCode?: string;
 }
 
+export enum ReceiptValidationPlatform {
+  AMAZON = 'amazon',
+  APPLE = 'apple',
+  GOOGLE_PLAY = 'google-play',
+  ROKU = 'roku',
+}
+
+interface AmazonPlatformData {
+  platform: ReceiptValidationPlatform.AMAZON;
+  amazonUserId: string;
+}
+
+interface NonAmazonPlatformData {
+  platform: Exclude<ReceiptValidationPlatform, ReceiptValidationPlatform.AMAZON>;
+  amazonUserId?: never;
+}
+
+type CommonPlatformData = AmazonPlatformData | NonAmazonPlatformData;
+
+interface ReceiptDataWithProductName {
+  receipt: string;
+  productName: string;
+  itemId?: never;
+  accessFeeId?: never;
+}
+
+interface ReceiptDataWithItemIdAndAccessFeeId {
+  receipt: string;
+  itemId: number;
+  accessFeeId: number;
+  productName?: never;
+}
+
+type ReceiptData =
+  | ReceiptDataWithProductName
+  | ReceiptDataWithItemIdAndAccessFeeId;
+
+export type ValidateReceiptData = CommonPlatformData & ReceiptData;
+
 export declare class Payment {
-  constructor(config: object, Account: Account);
+  constructor(config: Record<string, unknown>, Account: Account);
 
   getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
   getPaymentTools(paymentMethodId: number): Promise<AxiosResponse<any>>;
   createPayment(data: CreatePaymentData): Promise<AxiosResponse<CreatePayment>>;
+  createDonationPayment(data: CreateDonationPaymentData): Promise<AxiosResponse<CreatePayment>>;
   getPayPalParams(
     data: PayPalParamsData
   ): Promise<AxiosResponse<GeneratePayPalParameters>>;
@@ -607,6 +740,9 @@ export declare class Payment {
   confirmPayment(
     paymentIntentId: string
   ): Promise<AxiosResponse<CreatePayment>>;
+  confirmDonationPayment(
+    data: ConfirmDonationPaymentData
+  ): Promise<AxiosResponse<CreatePayment>>;
   idealPayment: (
     data: IdealPaymentData
   ) => Promise<AxiosResponse<CommonResponse>>;
@@ -618,6 +754,9 @@ export declare class Payment {
   ) => Promise<AxiosResponse<CommonResponse>>;
   confirmIdealSubscribe: (
     sourceId: string
+  ) => Promise<AxiosResponse<CommonResponse>>;
+  validateReceipt: (
+    data: ValidateReceiptData
   ) => Promise<AxiosResponse<CommonResponse>>;
 }
 
@@ -674,12 +813,12 @@ export declare interface CreateSubscription {
 }
 
 export declare class Subscription {
-  constructor(config: object, Account: Account);
+  constructor(config: Record<string, unknown>, Account: Account);
 
   getSubscriptions(
     page?: number,
     limit?: number,
-    status?: string,
+    status?: string
   ): Promise<AxiosResponse<GetSubscription>>;
   getSubscription(id: number): Promise<AxiosResponse<SubscriptionDetails>>;
   cancelSubscription(
@@ -701,7 +840,7 @@ export interface VoucherDiscountPrice {
 }
 
 export declare class Voucher {
-  constructor(config: object, Account: Account);
+  constructor(config: Record<string, unknown>, Account: Account);
 
   getDiscount(data: DiscountData): Promise<AxiosResponse<VoucherDiscountPrice>>;
 }
@@ -722,7 +861,8 @@ export interface ApiEndpoints {
     size: number,
     page: number,
     startDate: string,
-    endDate: string
+    endDate: string,
+    type?: string,
   ) => string;
   deleteAccount: string;
   exportData: string;
@@ -749,6 +889,7 @@ export interface ApiEndpoints {
   setDefaultCreditCard: string;
   getDirectDebitMandate: string;
   createDirectDebitMandate: string;
+  validateReceipt: (platform: string) => string;
   // Subscriptions
   getSubscriptions: (limit: number, page: number) => string;
   getSubscription: (id: number) => string;
@@ -761,6 +902,7 @@ export interface ApiEndpoints {
   downloadFile: (assetId: number, filename: string) => string;
   requestCodeAccess: string;
   releaseAccessCode: (code: number) => string;
+  requestDataCaptureNoAuthAccess: string;
 }
 
 export interface ApiConfig {
@@ -775,17 +917,31 @@ export interface ApiConfig {
 export declare const API: ApiEndpoints;
 
 export declare class Notifications {
-  constructor(config: object, Account: Account);
+  constructor(config: Record<string, unknown>, Account: Account);
 
-  getIotToken(): Promise<object>;
+  getIotToken(): Promise<Record<string, unknown>>;
   subscribe(accountUuid?: string, callbackParams?: any): Promise<boolean>;
-  handleSubscribe(data: object, callbackParams: any, uuid: string): void;
+  handleSubscribe(
+    data: Record<string, unknown>,
+    callbackParams: any,
+    uuid: string
+  ): void;
   setClient(client: any): void;
   isSubscribed(): boolean;
   unsubscribe(): void;
 }
 
 type Env = 'development' | 'production';
+
+export interface LocalStorageMethods {
+  setItem: <R = void>(key: string, value: string) => R | void;
+  getItem: <R = string | null>(key: string) => R | (string | null);
+  removeItem: <R = void>(key: string) => R | void;
+}
+
+export type TokenStorageType = LocalStorageMethods & {
+  overrides: LocalStorageMethods;
+};
 
 declare const InPlayer: {
   config: ApiConfig;
@@ -797,6 +953,7 @@ declare const InPlayer: {
   DLC: DLC;
   Branding: Branding;
   Notifications: Notifications;
+  tokenStorage: TokenStorageType;
 
   subscribe(
     accountUuid: string,

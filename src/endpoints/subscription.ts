@@ -31,11 +31,16 @@ class Subscription extends BaseExtend {
    * @returns  {AxiosResponse<GetSubscription>}
    */
   async getSubscriptions(page = 0, limit = 15, status = '') {
-    return this.request.authenticatedGet(API.getSubscriptions(limit, page, status), {
-      headers: {
-        Authorization: `Bearer ${this.request.getToken().token}`,
+    const tokenObject = await this.request.getToken();
+
+    return this.request.authenticatedGet(
+      API.getSubscriptions(limit, page, status),
+      {
+        headers: {
+          Authorization: `Bearer ${tokenObject.token}`,
+        },
       },
-    });
+    );
   }
 
   /**
@@ -52,9 +57,11 @@ class Subscription extends BaseExtend {
    * @returns  {AxiosResponse<SubscriptionDetails>}
    */
   async getSubscription(id: number) {
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedGet(API.getSubscription(id), {
       headers: {
-        Authorization: `Bearer ${this.request.getToken().token}`,
+        Authorization: `Bearer ${tokenObject.token}`,
       },
     });
   }
@@ -71,11 +78,13 @@ class Subscription extends BaseExtend {
    * @returns  {AxiosResponse<CancelSubscription>}
    */
   async cancelSubscription(unsubscribeUrl: string) {
+    const tokenObject = await this.request.getToken();
+
     return this.request.authenticatedGet(
       API.cancelSubscription(unsubscribeUrl),
       {
         headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
+          Authorization: `Bearer ${tokenObject.token}`,
         },
       },
     );
@@ -136,16 +145,14 @@ class Subscription extends BaseExtend {
       body.voucher_code = data.voucherCode;
     }
 
-    return this.request.authenticatedPost(
-      API.subscribe,
-      qs.stringify(body),
-      {
-        headers: {
-          Authorization: `Bearer ${this.request.getToken().token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+    const tokenObject = await this.request.getToken();
+
+    return this.request.authenticatedPost(API.subscribe, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-    );
+    });
   }
 }
 

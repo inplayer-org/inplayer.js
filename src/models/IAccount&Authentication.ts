@@ -23,49 +23,13 @@ export interface SetPasswordData {
   passwordConfirmation: string;
   brandingId: number;
 }
-
-export interface Account extends BaseExtend {
-  signIn(data: AuthenticateData): Promise<AxiosResponse<CreateAccount>>;
-  signUp(data: SignUpData): Promise<AxiosResponse<CreateAccount>>;
-  signOut(): Promise<AxiosResponse<undefined>>;
-  refreshToken(clientId: string): Promise<AxiosResponse<CreateAccount>>;
-  reportSSOtoken(
-    ssoDomain: string,
-    token: string,
-    deactivate: boolean
-  ): Promise<AxiosResponse<any>>;
-  requestNewPassword(
-    data: RequestPasswordData
-  ): Promise<AxiosResponse<CommonResponse>>;
-  setNewPassword(
-    data: SetPasswordData,
-    token?: string
-  ): Promise<AxiosResponse<void>>;
-  getAccountInfo(): Promise<AxiosResponse<AccountInformationReturn>>;
-  getSocialLoginUrls(state: string): Promise<AxiosResponse<ListSocialURLs>>;
-  updateAccount(data: UpdateAccountData): Promise<AxiosResponse<void>>;
-  changePassword(data: ChangePasswordData): Promise<AxiosResponse<void>>;
-  getRegisterFields(
-    merchantUuid: string
-  ): Promise<AxiosResponse<GetRegisterField>>;
-  deleteAccount(data: AccountAuthData): Promise<AxiosResponse<CommonResponse>>;
-  exportData(
-    data: AccountAuthData
-  ): Promise<AxiosResponse<CommonResponse>>;
-  sendPinCode(brandingId?: number): Promise<AxiosResponse<CommonResponse>>;
-  validatePinCode(pinCode: string): Promise<AxiosResponse<CommonResponse>>;
-  loadMerchantRestrictionSettings(
-    merchantUuid: string
-  ): Promise<AxiosResponse<RestrictionSettingsData>>;
-}
-
 export interface AccountInformationReturn {
   id: number;
   email: string;
   full_name: string;
   referrer: string;
-  metadata: object;
-  social_apps_metadata: object[];
+  metadata: Record<string, unknown>;
+  social_apps_metadata: Record<string, unknown>[];
   roles: string[];
   completed: boolean;
   created_at: number;
@@ -160,7 +124,7 @@ export interface SignUpData {
   grantType?: 'password' | 'client_credentials' | 'refresh_token';
   clientId: string;
   referrer: string;
-  metadata: object[];
+  metadata: Record<string, unknown>[];
   brandingId: number;
 }
 
@@ -178,7 +142,7 @@ export interface SetNewPasswordData {
 
 export interface UpdateAccountData {
   fullName: string;
-  metadata: object[];
+  metadata: Record<string, unknown>[];
   dateOfBirth: string;
 }
 
@@ -200,4 +164,39 @@ export interface RestrictionSettingsData {
   merchant_uuid: string;
   created_at: number;
   updated_at: number;
+}
+
+export interface Account extends BaseExtend {
+  signIn(data: AuthenticateData): Promise<AxiosResponse<CreateAccount>>;
+  signUp(data: SignUpData): Promise<AxiosResponse<CreateAccount>>;
+  signOut(): Promise<AxiosResponse<undefined>>;
+  refreshToken(clientId: string): Promise<AxiosResponse<CreateAccount>>;
+  reportSSOtoken(
+    ssoDomain: string,
+    token: string,
+    deactivate: boolean
+  ): Promise<AxiosResponse<any>>;
+  requestNewPassword(
+    data: RequestPasswordData
+  ): Promise<AxiosResponse<CommonResponse>>;
+  setNewPassword(
+    data: SetPasswordData,
+    token?: string
+  ): Promise<AxiosResponse<void>>;
+  getAccountInfo(): Promise<AxiosResponse<AccountInformationReturn>>;
+  getSocialLoginUrls(state: string): Promise<AxiosResponse<ListSocialURLs>>;
+  updateAccount(data: UpdateAccountData): Promise<AxiosResponse<void>>;
+  changePassword(data: ChangePasswordData): Promise<AxiosResponse<void>>;
+  getRegisterFields(
+    merchantUuid: string
+  ): Promise<AxiosResponse<GetRegisterField>>;
+  deleteAccount(data: AccountAuthData): Promise<AxiosResponse<CommonResponse>>;
+  exportData(
+    data: AccountAuthData
+  ): Promise<AxiosResponse<CommonResponse>>;
+  sendPinCode(brandingId?: number): Promise<AxiosResponse<CommonResponse>>;
+  validatePinCode(pinCode: string): Promise<AxiosResponse<CommonResponse>>;
+  loadMerchantRestrictionSettings(
+    merchantUuid: string
+  ): Promise<AxiosResponse<RestrictionSettingsData>>;
 }

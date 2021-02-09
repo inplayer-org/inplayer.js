@@ -18,6 +18,12 @@ SDK Documentation can be found:
 - [v2](https://inplayer-org.github.io/inplayer.js/)
 - [v3](https://inplayer-js.netlify.app/)
 
+## Examples
+
+- [HTML](https://github.com/inplayer-org/inplayer.js/blob/v3/examples/v3.html)
+- [React](https://codesandbox.io/s/inplayer-react-js-sdk-yf956?file=/src/App.js)
+- [React-Native](https://codesandbox.io/s/inplayer-react-native-js-sdk-bvhwz?file=/src/App.js)
+
 ## Installation
 
 Install the package from [npm](https://www.npmjs.com/package/@inplayer-org/inplayer.js) and import it in your project.
@@ -28,16 +34,16 @@ npm install --save @inplayer-org/inplayer.js
 
 Alternatively you can include the script like so:
 
-### v2
+### Latest v2 version
 
 ```
-<script src="https://unpkg.com/@inplayer-org/inplayer.js/dist/inplayer.umd.js"></script>
+<script src="https://unpkg.com/@inplayer-org/inplayer.js@v2/dist/inplayer.umd.js"></script>
 ```
 
-### v3
+### Latest v3 version
 
 ```
-<script src="https://unpkg.com/@inplayer-org/inplayer.js/dist/inplayer.min.js"></script>
+<script src="https://unpkg.com/@inplayer-org/inplayer.js@v3/dist/inplayer.min.js"></script>
 ```
 
 ### Sign in using grant type: password

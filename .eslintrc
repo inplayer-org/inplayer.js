@@ -23,13 +23,30 @@
     "no-useless-constructor": 0,
     "max-classes-per-file": 0,
     "lines-between-class-members": 0,
-    "spaced-comment": [2, "always"],
-    "indent": ["error", 2],
-    "quotes": [2, "single", { "avoidEscape": true }],
+    "spaced-comment": [
+      2,
+      "always"
+    ],
+    "indent": [
+      "error",
+      2
+    ],
+    "quotes": [
+      2,
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ],
     "camelcase": "off",
     "guard-for-in": "off",
     "linebreak-style": "off",
-    "max-len": ["error", { "code": 120 }],
+    "max-len": [
+      "error",
+      {
+        "code": 120
+      }
+    ],
     "implicit-arrow-linebreak": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/indent": "off",
@@ -37,13 +54,20 @@
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/no-empty-interface": "off",
     "class-methods-use-this": "off",
-    "no-throw-literal": "off"
+    "no-throw-literal": "off",
+    "no-shadow": "warn",
   },
   "settings": {
     "import/resolver": {
       "node": {
-        "paths": ["src"],
-        "extensions": [".js", ".jsx", ".ts"]
+        "paths": [
+          "src"
+        ],
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts"
+        ]
       }
     }
   }

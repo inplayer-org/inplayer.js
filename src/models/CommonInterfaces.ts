@@ -1,6 +1,11 @@
 import { AxiosResponse } from 'axios';
 import { ApiConfig, Request } from './Config';
 
+export enum Env {
+  Development = 'development',
+  Production = 'production',
+}
+
 export interface BaseExtend {
   config: ApiConfig;
   request: Request;
@@ -43,21 +48,15 @@ interface DlcLink {
   file_description: string;
 }
 
-
 export interface DLC extends BaseExtend {
   getDlcLinks(assetId: number): Promise<AxiosResponse<DlcLink>>;
 }
 
 export interface Notifications extends BaseExtend {
-  getIotToken(): object;
+  getIotToken(): Promise<any>;
   subscribe(accountUuid: string, callbackParams: any): Promise<boolean>;
-  handleSubscribe(data: object, callbackParams: any, uuid: string): void;
+  handleSubscribe(data: Record<string, unknown>, callbackParams: any, uuid: string): void;
   setClient(client: any): void;
   isSubscribed(): boolean;
   unsubscribe(): void;
-}
-
-export enum Env {
-  Development = 'development',
-  Production = 'production',
 }

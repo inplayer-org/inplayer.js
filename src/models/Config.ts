@@ -25,7 +25,8 @@ export interface ApiEndpoints {
     size: number,
     page: number,
     startDate?: string,
-    endDate?: string
+    endDate?: string,
+    type?: string,
   ) => string;
   deleteAccount: string;
   exportData: string;
@@ -50,6 +51,8 @@ export interface ApiEndpoints {
   getPaymentTools: (paymentMethodId: number) => string;
   payForAsset: string;
   payForAssetV2: string;
+  payForAssetDonation: string;
+  confirmForAssetDonation: string;
   getPayPalParams: string;
   getDefaultCreditCard: string;
   setDefaultCreditCard: string;
@@ -67,22 +70,70 @@ export interface ApiEndpoints {
   getBranding: (merchantUuid: string, brandingId: string | number) => string;
   downloadFile: (assetId: number, filename: string) => string;
   requestCodeAccess: string;
+  getAccesCodeSessions: (code: string) => string;
   releaseAccessCode: (code: number) => string;
+  terminateSession: (assetId: number) => void;
+  // Donation
+  getDonations: (assetId: number) => string;
 }
 
 export interface Request {
-  getToken(): CredentialsConfig;
-  setToken(token: string, refreshToken: string, expiresAt: number): void;
-  isAuthenticated(): boolean;
-  get(path: string, headers?: Record<string, object | string | boolean>): any;
-  post(path: string, data: any, headers?: Record<string, object | string | boolean>): any;
-  put(path: string, data: any, headers?: Record<string, object | string | boolean>): any;
-  patch(path: string, data: any, headers?: Record<string, object | string | boolean>): any;
-  delete(path: string, headers?: Record<string, object | string | boolean>): any;
-  authenticatedGet(path: string, headers?: Record<string, object | string | boolean>): any;
-  authenticatedPatch(path: string, data: any, headers?: Record<string, object | string | boolean>): any;
-  authenticatedPost(path: string, data: any, headers?: Record<string, object | string | boolean>): any;
-  authenticatedPut(path: string, data: any, headers?: Record<string, object | string | boolean>): any;
-  authenticatedDelete(path: string, headers?: Record<string, object | string | boolean>): any;
+  getToken(): CredentialsConfig | Promise<CredentialsConfig>;
+  setToken(
+    token: string,
+    refreshToken: string,
+    expiresAt: number,
+  ): void | Promise<void>;
+  removeToken(): void | Promise<void>;
+  isAuthenticated(): boolean | Promise<boolean>;
+  get(
+    path: string,
+    headers?: Record<string, Record<string, unknown> | string | boolean>
+  ): any;
+  post(
+    path: string,
+    data: any,
+    headers?: Record<string, Record<string, unknown> | string | boolean>
+  ): any;
+  put(
+    path: string,
+    data: any,
+    headers?: Record<string, Record<string, unknown> | string | boolean>
+  ): any;
+  patch(
+    path: string,
+    data: any,
+    headers?: Record<string, Record<string, unknown> | string | boolean>
+  ): any;
+  delete(
+    path: string,
+    headers?: Record<
+      string,
+      Record<string, unknown> | FormData | string | boolean
+    >
+  ): any;
+  authenticatedGet(
+    path: string,
+    headers?: Record<string, Record<string, unknown> | string | boolean>
+  ): any;
+  authenticatedPatch(
+    path: string,
+    data: any,
+    headers?: Record<string, Record<string, unknown> | string | boolean>
+  ): any;
+  authenticatedPost(
+    path: string,
+    data: any,
+    headers?: Record<string, Record<string, unknown> | string | boolean>
+  ): any;
+  authenticatedPut(
+    path: string,
+    data: any,
+    headers?: Record<string, Record<string, unknown> | string | boolean>
+  ): any;
+  authenticatedDelete(
+    path: string,
+    headers?: Record<string, Record<string, unknown> | string | boolean>
+  ): any;
   setInstanceConfig(configEnv: Env): void;
 }

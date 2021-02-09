@@ -290,6 +290,8 @@ export interface CreatePaymentData {
   voucherCode: string;
   brandingId: number;
   returnUrl: string;
+  receiverEmail?: string;
+  isGift?: boolean;
 }
 
 export interface CreatePaymentRequestBody {
@@ -304,6 +306,54 @@ export interface CreatePaymentRequestBody {
   voucher_code?: string;
   branding_id: number;
   return_url: string;
+  receiver_email?: string;
+  is_gift?: boolean;
+}
+
+export interface CreateDonationPaymentData {
+  number: number;
+  cardName: string;
+  expMonth: string;
+  expYear: number;
+  cvv: number;
+  paymentMethod: string;
+  referrer: string;
+  brandingId: number;
+  returnUrl: string;
+  amount: number;
+  currency: string;
+  assetId: number;
+  donationId?: number;
+}
+
+export interface CreateDonationPaymentRequestBody {
+  number: number;
+  card_name: string;
+  exp_month: string;
+  exp_year: number;
+  cvv: number;
+  payment_method: string;
+  referrer: string;
+  branding_id: number;
+  return_url: string;
+  item_id: number;
+  amount: number;
+  donation_id?: number;
+  currency_iso: string;
+}
+
+export interface ConfirmDonationPaymentData {
+  paymentIntentId: string;
+  brandingId: number;
+  paymentMethod: string;
+  donationId?: number;
+}
+
+export interface ConfirmDonationPaymentRequestBody {
+  pi_id: string;
+  branding_id: number;
+  payment_method: string;
+  donation_id?: number;
 }
 
 export interface PaypalParamsData {
@@ -340,6 +390,8 @@ export interface CreateSubscriptionRequestBody {
   voucher_code?: string;
   branding_id?: number;
   return_url: string;
+  receiver_email?: string;
+  is_gift?: boolean;
 }
 
 export interface SetDefaultCardPerCurrencyData {
@@ -361,6 +413,7 @@ export interface DirectDebitData {
   assetId: number;
   voucherCode: string;
   brandingId?: number;
+  referrer: string;
 }
 
 export interface PayPalParamsData {
@@ -471,10 +524,44 @@ export interface IdealPaymentRequestBody {
   voucher_code?: string;
 }
 
-export interface IdealData {
-  paymentMethod: 'ideal';
-  sourceId: string;
+export enum ReceiptValidationPlatform {
+  AMAZON = 'amazon',
+  APPLE = 'apple',
+  GOOGLE_PLAY = 'google-play',
+  ROKU = 'roku',
 }
+
+interface AmazonPlatformData {
+  platform: ReceiptValidationPlatform.AMAZON;
+  amazonUserId: string;
+}
+
+interface NonAmazonPlatformData {
+  platform: Exclude<ReceiptValidationPlatform, ReceiptValidationPlatform.AMAZON>;
+  amazonUserId?: never;
+}
+
+type CommonPlatformData = AmazonPlatformData | NonAmazonPlatformData;
+
+interface ReceiptDataWithProductName {
+  receipt: string;
+  productName: string;
+  itemId?: never;
+  accessFeeId?: never;
+}
+
+interface ReceiptDataWithItemIdAndAccessFeeId {
+  receipt: string;
+  itemId: number;
+  accessFeeId: number;
+  productName?: never;
+}
+
+type ReceiptData =
+  | ReceiptDataWithProductName
+  | ReceiptDataWithItemIdAndAccessFeeId;
+
+export type ValidateReceiptData = CommonPlatformData & ReceiptData;
 
 export interface Payment extends BaseExtend {
   getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
@@ -482,6 +569,9 @@ export interface Payment extends BaseExtend {
   createPayment(data: CreatePaymentData): Promise<AxiosResponse<CreatePayment>>;
   confirmPayment(
     paymentIntentId: string
+  ): Promise<AxiosResponse<CreatePayment>>;
+  confirmDonationPayment(
+    data: ConfirmDonationPaymentData
   ): Promise<AxiosResponse<CreatePayment>>;
   getPayPalParams(
     data: PayPalParamsData
@@ -510,14 +600,11 @@ export interface Payment extends BaseExtend {
   idealPayment: (
     data: IdealPaymentData
   ) => Promise<AxiosResponse<CommonResponse>>;
-  confirmIdealPayment: (
-    sourceId: string
-  ) => Promise<AxiosResponse<CommonResponse>>;
   idealSubscribe: (
     data: IdealPaymentData
   ) => Promise<AxiosResponse<CommonResponse>>;
-  confirmIdealSubscribe: (
-    sourceId: string
+  validateReceipt: (
+    data: ValidateReceiptData
   ) => Promise<AxiosResponse<CommonResponse>>;
 }
 
