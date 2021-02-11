@@ -8,12 +8,15 @@ import {
   CreatePaymentRequestBody,
   IdealPaymentData,
   IdealPaymentRequestBody,
+  GoogleOrApplePaymentData,
+  GoogleOrApplePaymentRequestBody,
   ValidateReceiptData,
   ReceiptValidationPlatform,
   CreateDonationPaymentData,
   CreateDonationPaymentRequestBody,
   ConfirmDonationPaymentData,
   ConfirmDonationPaymentRequestBody,
+  StripePaymentMethods,
 } from '../models/IPayment&Subscription';
 import { CustomErrorResponse } from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
@@ -669,6 +672,112 @@ class Payment extends BaseExtend {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       },
+    );
+  }
+
+  /**
+   * Process a request for start ideal subscribe
+   * @method googlePayPayment
+   * @async
+   * @param {Object} data - Contains the data - {
+   *  accessFeeId: number,
+   *  referrer: string,
+   *  brandingId?: number
+   *  voucherCode?: {string},
+   * }
+   * @example
+   *     InPlayer.Payment
+   *       .googlePayPayment({
+   *          1243,
+   *          'http://google.com',
+   *          143,
+   *          '123qwerty987'
+   *       }).then((data) => {
+   *         console.log(data);
+   *       });
+   * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
+   *    code: '200',
+   *    message: "Submitted for payment",
+   *  }
+   */
+  async googlePayPayment({
+    accessFeeId,
+    referrer,
+    brandingId,
+    voucherCode,
+  }: GoogleOrApplePaymentData) {
+    const body: GoogleOrApplePaymentRequestBody<StripePaymentMethods.GOOGLE_PAY_ON_WEB> = {
+      payment_method: StripePaymentMethods.GOOGLE_PAY_ON_WEB,
+      access_fee_id: accessFeeId,
+      voucher_code: voucherCode,
+      branding_id: brandingId,
+      referrer,
+    };
+
+    const tokenObject = await this.request.getToken();
+
+    return this.request.authenticatedPost(
+      API.payForAssetV2,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${tokenObject.token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    );
+  }
+
+  /**
+   * Process a request for start ideal subscribe
+   * @method applePayPayment
+   * @async
+   * @param {Object} data - Contains the data - {
+   *  accessFeeId: number,
+   *  referrer: string,
+   *  brandingId?: number
+   *  voucherCode?: {string},
+   * }
+   * @example
+   *     InPlayer.Payment
+   *       .applePayPayment({
+   *          1243,
+   *          'http://google.com',
+   *          143,
+   *          '123qwerty987'
+   *       }).then((data) => {
+   *         console.log(data);
+   *       });
+   * @returns  {AxiosResponse<CommonResponse>} Contains the data - {
+   *    code: '200',
+   *    message: 'Submitted for payment',
+   *  }
+   */
+  async applePayPayment({
+    accessFeeId,
+    referrer,
+    brandingId,
+    voucherCode,
+  }: GoogleOrApplePaymentData) {
+    const body: GoogleOrApplePaymentRequestBody<StripePaymentMethods.APPLE_PAY_ON_WEB> = {
+      payment_method: StripePaymentMethods.APPLE_PAY_ON_WEB,
+      access_fee_id: accessFeeId,
+      voucher_code: voucherCode,
+      branding_id: brandingId,
+      referrer,
+    };
+
+    const tokenObject = await this.request.getToken();
+
+    return this.request.authenticatedPost(
+      API.payForAssetV2,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${tokenObject.token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
     );
   }
 

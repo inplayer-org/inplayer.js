@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.9.0] - 05-02-2021
+
+### Added
+
+- New payment methods: InPlayer.Payment.googlePayPayment and InPlayer.Payment.applePayPayment
+
 # [3.8.2] - 21-01-2021
 
 ### Fixes
