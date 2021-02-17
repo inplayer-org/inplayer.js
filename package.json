@@ -1,6 +1,6 @@
 {
   "name": "@inplayer-org/inplayer.js",
-  "version": "3.8.2",
+  "version": "3.9.0",
   "author": "InPlayer",
   "license": "MIT",
   "description": "A Javascript SDK for Inplayer's RESTful API",
@@ -25,6 +25,7 @@
     "lint:js:fix": "eslint src/** --fix",
     "analyze-bundle": "babel-node ./tools/analyzeBundle.js",
     "prepublishOnly": "yarn build:prod",
+    "prebuild:typedoc": "rimraf docs",
     "build:typedoc": "typedoc --options ./typedoc.js ./src"
   },
   "lint-staged": {
