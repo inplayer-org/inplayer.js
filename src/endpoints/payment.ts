@@ -777,7 +777,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      }
+      },
     );
   }
 
