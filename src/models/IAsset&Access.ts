@@ -248,6 +248,7 @@ export interface CodeAccessData {
   browser_fingerprint: any;
   code: string;
   type: string;
+  code_id: number;
 }
 
 export interface RequestDataCaptureAccessData {
@@ -311,8 +312,7 @@ export interface Asset extends BaseExtend {
   ): Promise<AxiosResponse<Record<string, unknown>[]>>;
   getAccessCode(assetId: number): CodeAccessData | null | Promise<CodeAccessData | null>;
   requestCodeAccess(data: RequestCodeAccessData): Promise<AxiosResponse<CodeAccessData>>;
-  getAccesCodeSessions(code: string): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
-  releaseAccessCode(assetId: number): Promise<AxiosResponse<CodeAccessData> | null>;
+  getAccesCodeSessions(codeId: number): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
   terminateSession(assetId: number): Promise<AxiosResponse<null>>;
   getCloudfrontURL(
     assetId: number,
