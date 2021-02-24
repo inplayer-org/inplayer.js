@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.10.0] - 24-02-2021
+
+### Changes
+
+- Code only optimizations: Use code_id instead of code to avoid duplicate sessions for multiple assets and remove redundant releaseAccessCode method
+
 # [3.9.0] - 05-02-2021
 
 ### Added

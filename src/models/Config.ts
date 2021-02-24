@@ -69,10 +69,10 @@ export interface ApiEndpoints {
   getDiscount: string;
   getBranding: (merchantUuid: string, brandingId: string | number) => string;
   downloadFile: (assetId: number, filename: string) => string;
+  // Code only
   requestCodeAccess: string;
-  getAccesCodeSessions: (code: string) => string;
-  releaseAccessCode: (code: number) => string;
-  terminateSession: (assetId: number) => void;
+  requestAccessCodeSessions: (codeId: number) => string;
+  terminateSession: (codeId: number, fingerprint: string) => string;
   // Donation
   getDonations: (assetId: number) => string;
 }

@@ -94,11 +94,11 @@ export const API = {
     `/branding/paywall/${merchantUuid}/${brandingId}`,
   downloadFile: (assetId: any, filename: any) =>
     `/dlc/${assetId}/${filename}`,
-  requestCodeAccess: '/items/access/codes/entry',
-  releaseAccessCode: (code: string | number) =>
-    `/items/access/codes/${code}`,
-  requestAccessCodeSessions: (code: string) => `items/access/codes/${code}/sessions`,
-  terminateSession: (code: string, fingerprint: string) => `items/access/codes/${code}/${fingerprint}`,
   requestDataCaptureNoAuthAccess: '/v2/accounts/customers/data-capture',
+  // Code only
+  requestCodeAccess: '/items/access/codes/entry',
+  requestAccessCodeSessions: (codeId: number) => `items/access/codes/${codeId}/sessions`,
+  terminateSession: (codeId: number, fingerprint: string) => `items/access/codes/${codeId}/${fingerprint}`,
+  // Donation
   getDonations: (assetId: number) => `v2/items/${assetId}/donations`,
 };

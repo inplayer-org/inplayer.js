@@ -205,6 +205,7 @@ class Asset extends BaseExtend {
     const accessCode: CodeAccessData = {
       ...codeAccessData,
       browser_fingerprint: browserFingerprint,
+      code_id: response.data.code_id,
     };
 
     await tokenStorage.setItem(
@@ -214,6 +215,75 @@ class Asset extends BaseExtend {
 
     return response;
   }
+
+  /**
+   * Retrieves the access code and browser fingerprint for the current asset from localStorage
+   * Returns null if no access code is present.
+   * @method getAccessCode
+   * @param {Object} data = {
+   *  assetId: {number},
+   * }
+   * @example
+   *    const accessCode = InPlayer.Asset.getAccessCode(42925);
+   * @returns  {CodeAccessData | null}
+   */
+  getAccessCode(assetId: number) {
+    const accessCode = tokenStorage.getItem(
+      this.config.INPLAYER_ACCESS_CODE_NAME(assetId),
+    );
+
+    if (isPromise(accessCode)) {
+      return (accessCode as Promise<string>).then((resolvedString) =>
+        (resolvedString ? (JSON.parse(resolvedString) as CodeAccessData) : null)) as Promise<CodeAccessData | null>;
+    }
+
+    return accessCode ? (JSON.parse(accessCode as string) as CodeAccessData) : null;
+  }
+
+  /**
+   * Get sessions for the current browser.
+   * @method getAccesCodeSessions
+   * @async
+   * @param {number} - codeId
+   * @example
+   *     InPlayer.Asset
+   *     .getAccesCodeSessions(429)
+   *     .then(data => console.log(data));
+   * @returns  {Object}
+   */
+  async getAccesCodeSessions(codeId: number) {
+    return this.request.get(API.requestAccessCodeSessions(codeId));
+  }
+
+  /**
+   * Terminates session for the current browser.
+   * @method terminateSession
+   * @async
+   * @param {number} - assetId
+   * @example
+   *     InPlayer.Asset
+   *     .terminateSession(42599)
+   *     .then(data => console.log(data));
+   * @returns  null
+   */
+  async terminateSession(assetId: number) {
+    const accessCode: CodeAccessData | null = await this.getAccessCode(assetId);
+
+    if (!accessCode) {
+      return null;
+    }
+
+    const response = await this.request.delete(
+      API.terminateSession(accessCode.code_id, accessCode.browser_fingerprint),
+    );
+
+    await tokenStorage.removeItem(
+      this.config.INPLAYER_ACCESS_CODE_NAME(assetId),
+    );
+
+    return response;
+  }
+
   /**
    * Get access without authentication for asset with access control type data capture
    * @method requestDataCaptureNoAuthAccess
@@ -238,98 +308,6 @@ class Asset extends BaseExtend {
       qs.stringify(accessData),
       { headers },
     );
-  }
-
-  async getAccesCodeSessions(code: string) {
-    return this.request.get(API.requestAccessCodeSessions(code));
-  }
-  /**
-   * Retrieves the access code and browser fingerprint for the current asset from localStorage
-   * Returns null if no access code is present.
-   * @method getAccessCode
-   * @param {Object} data = {
-   *  assetId: {number},
-   * }
-   * @example
-   *    const accessCode = InPlayer.Asset.getAccessCode();
-   * @returns  {CodeAccessData | null}
-   */
-  getAccessCode(assetId: number) {
-    const accessCode = tokenStorage.getItem(
-      this.config.INPLAYER_ACCESS_CODE_NAME(assetId),
-    );
-
-    if (isPromise(accessCode)) {
-      return (accessCode as Promise<string>).then((resolvedString) =>
-        (resolvedString ? (JSON.parse(resolvedString) as CodeAccessData) : null)) as Promise<CodeAccessData | null>;
-    }
-
-    return accessCode ? (JSON.parse(accessCode as string) as CodeAccessData) : null;
-  }
-
-  /**
-   * Releases the access code for the current browser.
-   * @method releaseAccessCode
-   * @async
-   * @param {number} - assetId
-   * @throws Will throw an HTTP 400 error if the code is not in use.
-   * @example
-   *     InPlayer.Asset
-   *     .releaseAccessCode(42599)
-   *     .then(data => console.log(data));
-   * @returns  {Object}
-   */
-  async releaseAccessCode(assetId: number) {
-    const accessCode: CodeAccessData | null = await this.getAccessCode(assetId);
-
-    if (!accessCode) {
-      return null;
-    }
-
-    const formData = new FormData();
-
-    formData.set('id', String(accessCode.item_id));
-    formData.set('browser_fingerprint', accessCode.browser_fingerprint);
-
-    const response = await this.request.delete(
-      API.releaseAccessCode(accessCode.code),
-      { data: formData },
-    );
-
-    await tokenStorage.removeItem(
-      this.config.INPLAYER_ACCESS_CODE_NAME(assetId),
-    );
-
-    return response;
-  }
-
-  /**
-   * Terminates session for the current browser.
-   * @method terminateSession
-   * @async
-   * @param {number} - assetId
-   * @example
-   *     InPlayer.Asset
-   *     .terminateSession(42599)
-   *     .then(data => console.log(data));
-   * @returns  null
-   */
-  async terminateSession(assetId: number) {
-    const accessCode: CodeAccessData | null = await this.getAccessCode(assetId);
-
-    if (!accessCode) {
-      return null;
-    }
-
-    const response = await this.request.delete(
-      API.terminateSession(accessCode.code, accessCode.browser_fingerprint),
-    );
-
-    await tokenStorage.removeItem(
-      this.config.INPLAYER_ACCESS_CODE_NAME(assetId),
-    );
-
-    return response;
   }
 
   /**
