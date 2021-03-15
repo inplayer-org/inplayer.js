@@ -1,7 +1,9 @@
 import qs from 'qs';
 import {
   AuthenticateData,
+  AuthenticateDataV2,
   SignUpData,
+  SignUpDataV2,
   RequestNewPasswordData,
   SetNewPasswordData,
   UpdateAccountData,
@@ -117,6 +119,51 @@ class Account extends BaseExtend {
   }
 
   /**
+   * Signs in the user v2
+   * @method signInV2
+   * @async
+   * @typedef {Object} AxiosResponse<CreateAccount>
+   * @param {AuthenticateDataV2} data - Contains {
+   *  email: string,
+   *  password: string,
+   *  clientId: string,
+   *  referrer: string,
+   * }
+   * @example
+   *     InPlayer.Account.signInV2({
+   *      email: 'test@test.com',
+   *      password: 'test123',
+   *      clientId: '123-123-hf1hd1-12dhd1',
+   *      referrer: 'http://localhost:3000/',
+   *     })
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<CreateAccount>}
+   */
+  async signInV2(data: AuthenticateDataV2) {
+    const body = {
+      client_id: data.clientId,
+      grant_type: 'password',
+      referrer: data.referrer,
+      username: data.email,
+      password: data.password,
+    };
+
+    const respData = await this.request.post(API.signInV2, qs.stringify(body), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+
+    await this.request.setToken(
+      respData.data.access_token,
+      respData.data.refresh_token,
+      respData.data.expires,
+    );
+
+    return respData;
+  }
+
+  /**
    * Signs up/Registers user
    * @method signUp
    * @async
@@ -129,8 +176,7 @@ class Account extends BaseExtend {
    *  type: string,
    *  referrer: string,
    *  brandingId?: number,
-   *  metadata?: { [key: string]: string }\
-   *  dateOfBirth?: string,
+   *  metadata?: { [key: string]: string }
    * }
    * @example
    *     InPlayer.Account.signUp({
@@ -162,6 +208,63 @@ class Account extends BaseExtend {
     };
 
     const resp = await this.request.post(API.signUp, qs.stringify(body), {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    });
+
+    await this.request.setToken(
+      resp.data.access_token,
+      resp.data.refresh_token,
+      resp.data.expires,
+    );
+
+    return resp;
+  }
+
+  /**
+   * Signs up/Registers user v2
+   * @method signUpV2
+   * @async
+   * @param {SignUpDataV2} data - Contains {
+   *  fullName: string,
+   *  email: string
+   *  password: string,
+   *  passwordConfirmation: string,
+   *  clientId: string,
+   *  type: string,
+   *  referrer: string,
+   *  brandingId?: number,
+   *  metadata?: { [key: string]: string }
+   * }
+   * @example
+   *     InPlayer.Account.signUpV2({
+   *      fullName: "test",
+   *      email: "test32@test.com",
+   *      password: "12345678",
+   *      passwordConfirmation: "12345678",
+   *      clientId: "528b1b80-5868-4abc-a9b6-4d3455d719c8",
+   *      type: "consumer",
+   *      referrer: "http://localhost:3000/",
+   *      brandingId?: 12345,
+   *      metadata : { country: "Macedonia" },
+   *     })
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<CreateAccount>}
+   */
+  async signUpV2(data: SignUpDataV2) {
+    const body = {
+      full_name: data.fullName,
+      username: data.email,
+      password: data.password,
+      password_confirmation: data.passwordConfirmation,
+      client_id: data.clientId,
+      type: data.type,
+      referrer: data.referrer,
+      grant_type: 'password',
+      metadata: data.metadata,
+      branding_id: data.brandingId,
+    };
+
+    const resp = await this.request.post(API.signUpV2, qs.stringify(body), {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     });
 

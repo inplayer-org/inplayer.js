@@ -11,8 +11,10 @@ export interface ApiConfig {
 
 export interface ApiEndpoints {
   signIn: string;
+  signInV2: string;
   signOut: string;
   signUp: string;
+  signUpV2: string;
   requestNewPassword: string;
   setNewPassword: (token: string) => string;
   getAccountInfo: string;

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.11.0] - 11-03-2021
+
+### Added
+
+- New account methods: Inplayer.Account.signInV2 and Inplayer.Account.signUpV2
+
 # [3.10.0] - 24-02-2021
 
 ### Changes

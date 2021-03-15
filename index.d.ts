@@ -34,6 +34,18 @@ export interface SignUpData {
   metadata?: { [key: string]: string };
 }
 
+export interface SignUpDataV2 {
+  fullName: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+  type: string;
+  clientId: string;
+  referrer: string;
+  metadata: { [key: string]: string };
+  brandingId: number;
+}
+
 export interface RequestPasswordData {
   email: string;
   merchantUuid: string;
@@ -72,6 +84,13 @@ export declare interface AuthenticateData {
   referrer?: string;
   username?: string;
   password?: string;
+}
+
+export interface AuthenticateDataV2 {
+  email: string;
+  clientId: string;
+  referrer: string;
+  password: string;
 }
 
 export declare interface AccountInformationReturn {
@@ -148,7 +167,9 @@ export declare class Account {
   removeToken<R = void>(): R | void;
 
   signIn(data: AuthenticateData): Promise<AxiosResponse<CreateAccount>>;
+  signInV2(data: AuthenticateDataV2): Promise<AxiosResponse<CreateAccount>>;
   signUp(data: SignUpData): Promise<AxiosResponse<CreateAccount>>;
+  signUpV2(data: SignUpDataV2): Promise<AxiosResponse<CreateAccount>>;
   signOut(): Promise<AxiosResponse<undefined>>;
   refreshToken(clientId: string): Promise<AxiosResponse<CreateAccount>>;
   reportSSOtoken(

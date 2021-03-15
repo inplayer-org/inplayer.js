@@ -1,8 +1,10 @@
 export const API = {
   // Account
   signIn: '/accounts/authenticate',
+  signInV2: '/v2/accounts/authenticate',
   signOut: '/accounts/logout',
   signUp: '/accounts',
+  signUpV2: 'v2/accounts',
   requestNewPassword: '/accounts/forgot-password',
   setNewPassword: (token: any) => `/accounts/forgot-password/${token}`,
   getAccountInfo: '/accounts',
