@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.11.1] - 26-04-2021
+
+### Fixes
+
+- Encode password and confirm password in setNewPassword method due to special characters problem
+
 # [3.11.0] - 11-03-2021
 
 ### Added
