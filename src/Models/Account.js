@@ -367,8 +367,10 @@ class Account {
  * @return {Object}
  */
     async setNewPassword({ password, passwordConfirmation, brandingId }, token = '') {
-        const body = `password=${password}&password_confirmation=${
-            passwordConfirmation
+        const encodedPassword = encodeURIComponent(password);
+        const encodedConfirmPassword = encodeURIComponent(passwordConfirmation);
+        const body = `password=${encodedPassword}&password_confirmation=${
+            encodedConfirmPassword
         }&branding_id=${brandingId}`;
 
         const response = await fetch(this.config.API.setNewPassword(token), {
