@@ -413,7 +413,9 @@ class Account extends BaseExtend {
   async setNewPassword(data: SetNewPasswordData, token = '') {
     // TODO: check logic
     // eslint-disable-next-line max-len
-    const body = `password=${data.password}&password_confirmation=${data.passwordConfirmation}&branding_id=${data.brandingId}`;
+    const password = encodeURIComponent(data.password);
+    const passwordConfirmation = encodeURIComponent(data.passwordConfirmation);
+    const body = `password=${password}&password_confirmation=${passwordConfirmation}&branding_id=${data.brandingId}`;
 
     return this.request.put(API.setNewPassword(token), body, {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
