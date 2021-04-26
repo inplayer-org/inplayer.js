@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.13.9] - 26-04-2021
+
+### Fixes
+
+- The same as in v2.13.7. It was republish again due to `Unable to resolve path to module '@inplayer-org/inplayer.js'` error
+
 # [2.13.7] - 26-04-2021
 
 ### Fixes
