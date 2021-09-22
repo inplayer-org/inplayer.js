@@ -154,6 +154,12 @@ export declare interface RestrictionSettingsData {
   updated_at: number;
 }
 
+export declare interface ExternalAccount {
+  id: number;
+  account_id: number;
+  token: string;
+}
+
 export declare class Account {
   constructor(config: Record<string, unknown>);
 
@@ -198,6 +204,10 @@ export declare class Account {
   loadMerchantRestrictionSettings(
     merchantUuid: string
   ): Promise<AxiosResponse<RestrictionSettingsData>>;
+  syncWithExternalAccount(integration: string, itemId: number): Promise<AxiosResponse<ExternalAccount>>;
+  updateExternalAccount(
+    integration: string, body: Record<string, string | number>
+  ): Promise<AxiosResponse<CommonResponse>>;
 }
 
 export declare interface AccessControlType {
@@ -899,6 +909,7 @@ export interface ApiEndpoints {
   deleteAccount: string;
   exportData: string;
   reportSSOtoken: (ssoDomain: string) => string;
+  externalAccount: (integration: string) => string;
   // Asset
   checkAccessForAsset: (id: number) => string;
   checkFreeTrial: (id: number) => string;
