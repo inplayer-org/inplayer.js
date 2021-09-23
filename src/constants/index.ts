@@ -45,6 +45,7 @@ export const API = {
   validatePinCode: '/v2/accounts/pin-codes/validate',
   merchantRestrictionSettings: (merchantUuid: string) =>
     `/restrictions/settings/${merchantUuid}`,
+  externalAccount: (integration: string) => `/v2/accounts/external/${integration}`,
   // Asset
   checkAccessForAsset: (id: any) => `/items/${id}/access`,
   checkFreeTrial: (id: any) => `/items/used-trial-period/${id}`,
