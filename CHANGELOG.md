@@ -2,11 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
-# [3.11.2] - 23-09-2021
+# [3.11.3] - 23-09-2021
 
 ### Added
 
 - New `Account` methods: `synchWithExternalAccount` and `updateExternalAccount`
+
+# [3.11.2] - 10-05-2021
+
+### fixes
+
+- Due to breaking changes introduced in typedoc 0.20.0 version, the view of our generated docs has been broken. The typedoc version is reverted to 0.19.2.
 
 # [3.11.1] - 26-04-2021
 
