@@ -423,14 +423,14 @@ class Account extends BaseExtend {
   }
 
   /**
-* Return LiveLike profile authorisation data for a purchased Inplayer item
+* Creates or returns an existing external account integrated with an InPlayer fan account
 * @method syncWithExternalAccount
 * @async
 * @param {string} integration - the name of the external integration
 * @param {number} itemId - the Id of the Inplayer item
 * @example
 *     InPlayer.Account
-*     .syncWithExternalAccount(12345)
+*     .syncWithExternalAccount('livelike', 12345)
 *     .then(data => console.log(data));
 * @returns  {AxiosResponse<LivelikeProfile>} Contains the data - {
     "id": 3,
@@ -452,7 +452,7 @@ class Account extends BaseExtend {
   }
 
   /**
-   * Update the nickname of a LiveLike profile
+   * Updates an existing external account integrated with an InPlayer fan account
    * @method updateExternalAccount
    * @async
    * @param {string} integration - the name of the external integration
