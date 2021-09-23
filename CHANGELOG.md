@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.11.2] - 23-09-2021
+
+### Added
+
+- New `Account` methods: `synchWithExternalAccount` and `updateExternalAccount`
+
 # [3.11.1] - 26-04-2021
 
 ### Fixes
