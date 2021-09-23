@@ -423,6 +423,58 @@ class Account extends BaseExtend {
   }
 
   /**
+* Creates or returns an existing external account integrated with an InPlayer fan account
+* @method syncWithExternalAccount
+* @async
+* @param {string} integration - the name of the external integration
+* @param {number} itemId - the Id of the Inplayer item
+* @example
+*     InPlayer.Account
+*     .syncWithExternalAccount('livelike', 12345)
+*     .then(data => console.log(data));
+* @returns  {AxiosResponse<LivelikeProfile>} Contains the data - {
+    "id": 3,
+    "account_id": 54321,
+    "token": '.....'
+  }
+*/
+  async syncWithExternalAccount(integration: string, itemId: number) {
+    const body = { item_id: itemId };
+
+    const tokenObject = await this.request.getToken();
+
+    return this.request.post(API.externalAccount(integration), qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+  }
+
+  /**
+   * Updates an existing external account integrated with an InPlayer fan account
+   * @method updateExternalAccount
+   * @async
+   * @param {string} integration - the name of the external integration
+   * @param {string} nickname - the new nickname value
+   * @example
+   *     InPlayer.Account
+   *     .updateExternalAccount('livelike', { nickname: 'My New Nickname' })
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<undefined>}
+   */
+  async updateExternalAccount(integration: string, body: Record<string, any>) {
+    const tokenObject = await this.request.getToken();
+
+    return this.request.patch(API.externalAccount(integration), qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+  }
+
+  /**
    * Gets the account information for a given auth token
    * @method getAccountInfo
    * @async
