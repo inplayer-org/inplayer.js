@@ -1,6 +1,7 @@
 import Credentials from '../factories/credentials';
+import { CredentialsConfig } from '../models/CommonInterfaces';
 
-export const buildURLwithQueryParams = (urlString: string, params: Record<string, string>) => {
+export const buildURLwithQueryParams = (urlString: string, params: Record<string, string>): string => {
   const {
     url,
     url: { searchParams },
@@ -13,7 +14,9 @@ export const buildURLwithQueryParams = (urlString: string, params: Record<string
   return url.href;
 };
 
-export const isPromise = (object: any) => {
+export const isPromise = (
+  object: void | string | CredentialsConfig | null | Promise<void | string | CredentialsConfig | null>,
+): boolean => {
   if (Promise && Promise.resolve) {
     return Promise.resolve(object) === object;
   }
@@ -29,4 +32,4 @@ export const createCredentials = (tokenObject: string): Credentials => {
   return new Credentials(JSON.parse(tokenObject));
 };
 
-export const createTimestamp = () => Math.floor(Date.now() / 1000);
+export const createTimestamp = (): number => Math.floor(Date.now() / 1000);

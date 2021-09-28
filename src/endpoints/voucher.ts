@@ -1,48 +1,65 @@
+/**
+ * @module Voucher
+ */
 import qs from 'qs';
-import { DiscountData, DiscountBodyData } from '../models/IVoucher&Promotion';
+import { AxiosResponse } from 'axios';
+import { DiscountBodyData, VoucherDiscountPrice } from '../models/IVoucher&Promotion';
 import { ApiConfig, Request } from '../models/Config';
 import BaseExtend from '../extends/base';
 import { API } from '../constants';
-
 /**
  * Contains all Requests regarding vouchers.
  *
  * @class Voucher
  */
-class Voucher extends BaseExtend {
+export class Voucher extends BaseExtend {
   constructor(config: ApiConfig, request: Request) {
     super(config, request);
   }
 
   /**
-   * Gets the discount for a given code.
+   * Gets a discount on the selected price for a given code.
    * @method getDiscount
    * @async
-   * @param {Object} data - {
-   *   voucherCode: string
-   *   accessFeeId?: number,
-   *   itemId?: number,
-   * }
+   * @param {string} voucherCode The voucher's promotional code.
+   * Grants the customers the privilege of using a discount.
+   * @param {number} accessFeeId The id of created access fee for given premium content.
+   * @param {number} itemId The id of created premium content in InPlayer Dashboard (i.e asset id or package id).
    * @example
    *     InPlayer.Voucher
-   *     .getDiscount('/vouchers/discount', {
-   *        accessFeeId: 134,
+   *     .getDiscount({
    *        voucherCode: 'FOOrGmv60pT'
+   *        accessFeeId: 134,
    *     })
    *     .then(data => console.log(data));
-   * @returns {AxiosResponse<VoucherDiscountPrice>}
+   * @returns {AxiosResponse<VoucherDiscountPrice>} Contains the data:
+   * ```typescript
+   * {
+   *    amount: number;
+   * }
+   * ```
    */
-  async getDiscount(data: DiscountData) {
+  // object types must be anonymous(don't use interface or type alias)
+  // in order to data params description to be shown in typedoc
+  async getDiscount({
+    voucherCode,
+    accessFeeId,
+    itemId,
+  }: {
+    voucherCode: string,
+    accessFeeId?: number,
+    itemId?: number
+  }): Promise<AxiosResponse<VoucherDiscountPrice>> {
     const body: DiscountBodyData = {
-      voucher_code: data.voucherCode,
+      voucher_code: voucherCode,
     };
 
-    if (data.accessFeeId) {
-      body.access_fee_id = data.accessFeeId;
+    if (accessFeeId) {
+      body.access_fee_id = accessFeeId;
     }
 
-    if (data.itemId) {
-      body.item_id = data.itemId;
+    if (itemId) {
+      body.item_id = itemId;
     }
 
     const tokenObject = await this.request.getToken();

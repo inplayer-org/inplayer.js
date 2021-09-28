@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import awsIot from 'aws-iot-device-sdk';
 import { ApiConfig, Request } from '../models/Config';
 import BaseExtend from '../extends/base';
@@ -12,7 +13,7 @@ class Notifications extends BaseExtend {
     this.subscription = null;
   }
 
-  async getIotToken() {
+  async getIotToken(): Promise<any> {
     const tokenObject = await this.request.getToken();
 
     const iotResponse = await this.request.authenticatedGet(
@@ -34,7 +35,7 @@ class Notifications extends BaseExtend {
   async subscribe(
     accountUuid = '',
     callbackParams: Record<string, (...params: any) => void>,
-  ) {
+  ): Promise<boolean> {
     if (!accountUuid && accountUuid === '') {
       return false;
     }
@@ -90,10 +91,10 @@ class Notifications extends BaseExtend {
   }
 
   handleSubscribe(
-    data: any,
+    data: Record<string, unknown>,
     callbackParams: Record<string, any>,
     uuid: string,
-  ) {
+  ): void {
     const credentials: any = {
       region: data.region,
       protocol: 'wss',
@@ -125,15 +126,15 @@ class Notifications extends BaseExtend {
     this.setClient(client);
   }
 
-  setClient(client: any) {
+  setClient(client: any): void {
     this.subscription = client;
   }
 
-  isSubscribed() {
+  isSubscribed(): boolean {
     return this.subscription !== null;
   }
 
-  unsubscribe() {
+  unsubscribe(): void {
     if (this.subscription) {
       this.subscription.end();
       this.subscription = null;
