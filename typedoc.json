@@ -1,6 +1,7 @@
 {
   "name": "InPlayer JS SDK",
   "entryPoints": ["src/typedoc"],
+  "entryPointStrategy": "expand",
   "out": "docs",
   "excludeInternal": true
 }
