@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.12.0] - 28-09-2021
+## Changes
+
+- Typedoc version upgraded to 0.22.4
+- The view of our generated docs is changed, due to breaking changes introduces in typedoc 0.20.0 version
+- Moved the directDebitSubscribe and idealSubscribe methods in subscription module and added deprecated description next to them in payments module
+- Added more comprehensive description for methods parameters and responses 
+- Removed redundant getPaymentTools method
+
 # [3.11.3] - 23-09-2021
 
 ### Added
@@ -10,7 +19,7 @@ All notable changes to this project will be documented in this file.
 
 # [3.11.2] - 10-05-2021
 
-### fixes
+### Fixes
 
 - Due to breaking changes introduced in typedoc 0.20.0 version, the view of our generated docs has been broken. The typedoc version is reverted to 0.19.2.
 
