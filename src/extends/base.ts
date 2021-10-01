@@ -9,8 +9,8 @@ class BaseExtend {
     this.config = config;
     this.request = request;
   }
-
-  setConfig = (env: Env) => {
+  /** @internal */
+  setConfig = (env: Env): void => {
     this.config = configOptions[env];
   }
 }

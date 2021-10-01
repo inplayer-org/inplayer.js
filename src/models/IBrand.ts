@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { BaseExtend } from './CommonInterfaces';
 
-export interface Brand {
+export interface BrandingDetails {
   id: number;
   exists: boolean;
   brand_name: string;
@@ -15,16 +15,13 @@ export interface Brand {
   inplayer_protected_label: boolean;
   paywall_footer: string;
   default: boolean;
-}
-
-export interface BrandingData {
-  brandingId: number;
-  merchantUUID: string;
+  template_id: number;
+  terms_url: string;
 }
 
 export interface Branding extends BaseExtend {
   getBranding(
     clientId: string,
-    brandingId: string | number
-  ): Promise<AxiosResponse<Brand>>;
+    brandingId?: string | number
+  ): Promise<AxiosResponse<BrandingDetails>>;
 }

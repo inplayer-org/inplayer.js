@@ -10,19 +10,56 @@ export interface ApiConfig {
 }
 
 export interface ApiEndpoints {
+  // Account
   signIn: string;
   signInV2: string;
   signOut: string;
   signUp: string;
   signUpV2: string;
+  changePassword: string;
   requestNewPassword: string;
   setNewPassword: (token: string) => string;
   getAccountInfo: string;
-  getSocialLoginUrls: (state: string) => string;
   updateAccount: string;
-  changePassword: string;
+  exportData: string;
+  deleteAccount: string;
+  getSocialLoginUrls: (state: string) => string;
   getRegisterFields: (merchantUuid: string) => string;
+  reportSSOtoken: (ssoDomain: string) => string;
+  sendPinCode: string;
+  validatePinCode: string;
+  requestDataCaptureNoAuthAccess: string;
+  // Items
+  getAsset: (assetId: number, merchantUuid: string) => string;
+  getExternalAsset: (
+    assetType: string,
+    externalId: string,
+    merchantUuid?: string
+  ) => string;
+  checkAccessForAsset: (id: number) => string;
+  checkFreeTrial: (id: number) => string;
+  getPackage: (id: number) => string;
+  getAssetAccessFees: (id: number) => string;
+  getCloudfrontURL: (assetId: number, videoUrl: string) => string;
   getPurchaseHistory: (status: string, page?: number, size?: number) => string;
+  // code only
+  requestCodeAccess: string;
+  requestAccessCodeSessions: (codeId: number) => string;
+  terminateSession: (codeId: number, fingerprint: string) => string;
+  // donation
+  getDonations: (assetId: number) => string;
+  // Payment
+  getPaymentMethods: string;
+  payForAsset: string;
+  payForAssetV2: string;
+  getDefaultCreditCard: string;
+  setDefaultCreditCard: string;
+  getPayPalParams: string;
+  getDirectDebitMandate: string;
+  createDirectDebitMandate: string;
+  payForAssetDonation: string;
+  confirmForAssetDonation: string;
+  validateReceipt: (platform: string) => string,
   getAssetsHistory: (
     size: number,
     page: number,
@@ -30,56 +67,22 @@ export interface ApiEndpoints {
     endDate?: string,
     type?: string,
   ) => string;
-  deleteAccount: string;
-  exportData: string;
-  reportSSOtoken: (ssoDomain: string) => string;
-  sendPinCode: string;
-  validatePinCode: string;
-  merchantRestrictionSettings: (merchantUuid: string) => string;
-  // Asset
-  checkAccessForAsset: (id: number) => string;
-  checkFreeTrial: (id: number) => string;
-  getAsset: (assetId: number, merchantUuid: string) => string;
-  getExternalAsset: (
-    assetType: string,
-    externalId: string,
-    merchantUuid?: string
-  ) => string;
-  getPackage: (id: number) => string;
-  getAssetAccessFees: (id: number) => string;
-  getCloudfrontURL: (assetId: number, videoUrl: string) => string;
-  // Payment
-  getPaymentMethods: string;
-  getPaymentTools: (paymentMethodId: number) => string;
-  payForAsset: string;
-  payForAssetV2: string;
-  payForAssetDonation: string;
-  confirmForAssetDonation: string;
-  getPayPalParams: string;
-  getDefaultCreditCard: string;
-  setDefaultCreditCard: string;
-  getDirectDebitMandate: string;
-  createDirectDebitMandate: string;
   // Subscriptions
   getSubscriptions: (limit: number, page: number) => string;
   getSubscription: (id: number) => string;
+  cancelSubscription: (url: string) => string;
   subscribe: string;
   subscribeV2: string;
-  cancelSubscription: (url: string) => string;
-  // Misc
-  getDlcLinks: (id: number) => string;
+  // Voucher
   getDiscount: string;
-  getBranding: (merchantUuid: string, brandingId: string | number) => string;
-  downloadFile: (assetId: number, filename: string) => string;
-  // Code only
-  requestCodeAccess: string;
-  requestAccessCodeSessions: (codeId: number) => string;
-  terminateSession: (codeId: number, fingerprint: string) => string;
-  // Donation
-  getDonations: (assetId: number) => string;
+  // Restrictions
+  merchantRestrictionSettings: (merchantUuid: string) => string;
+  // Branding
+  getBranding: (clientId: string, brandingId: string | number) => string;
 }
 
 export interface Request {
+  isAuthenticated(): boolean | Promise<boolean>;
   getToken(): CredentialsConfig | Promise<CredentialsConfig>;
   setToken(
     token: string,
@@ -87,7 +90,6 @@ export interface Request {
     expiresAt: number,
   ): void | Promise<void>;
   removeToken(): void | Promise<void>;
-  isAuthenticated(): boolean | Promise<boolean>;
   get(
     path: string,
     headers?: Record<string, Record<string, unknown> | string | boolean>

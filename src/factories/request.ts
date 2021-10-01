@@ -1,6 +1,8 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import Credentials from './credentials';
-import { CustomErrorResponse, Env } from '../models/CommonInterfaces';
+import {
+  CustomErrorResponse, Env, CredentialsConfig, Credentials as CredentialInterface,
+} from '../models/CommonInterfaces';
 import { ApiConfig } from '../models/Config';
 import configOptions from '../config';
 import tokenStorage from './tokenStorage';
@@ -32,7 +34,7 @@ export default class Request {
     );
   }
 
-  setInstanceConfig = (configEnv: Env) => {
+  setInstanceConfig = (configEnv: Env): void => {
     this.config = configOptions[configEnv];
     this.basicInstance = axios.create({
       baseURL: this.config.BASE_URL,
@@ -49,9 +51,9 @@ export default class Request {
    *  @method getToken
    *  @example
    *  InPlayer.Account.getToken()
-   *  @return {Credentials}
+   *  @returns {CredentialsConfig}
    */
-  getToken = () => {
+  getToken = (): CredentialsConfig | Promise<CredentialsConfig> => {
     const tokenString = tokenStorage.getItem(this.config.INPLAYER_TOKEN_KEY);
 
     if (isPromise(tokenString)) {
@@ -68,8 +70,9 @@ export default class Request {
    *  @param {number} expiresAt
    *  @example
    *  InPlayer.Account.setToken('344244-242242', '123123121-d1-t1-1ff',1558529593297)
+   *  @returns {void}
    */
-  setToken = (token: string, refreshToken: string, expiresAt: number) => {
+  setToken = (token: string, refreshToken: string, expiresAt: number): void | Promise<void> => {
     const credentials = new Credentials({
       token,
       refreshToken,
@@ -86,6 +89,7 @@ export default class Request {
    *  @method removeToken
    *  @example
    *  InPlayer.Account.removeToken()
+   *  @returns {void}
    */
   removeToken = (): void | Promise<void> => {
     const tasks: Array<void | Promise<void>> = [
@@ -105,19 +109,19 @@ export default class Request {
    * @method isAuthenticated
    * @example
    *    InPlayer.Account.isAuthenticated()
-   * @return {Boolean}
+   * @return {boolean}
    */
-  isAuthenticated = () => {
+  isAuthenticated = (): boolean | Promise<boolean> => {
     const tokenObject = this.getToken();
 
     if (isPromise(tokenObject)) {
-      return (tokenObject as Promise<Credentials>).then(
+      return (tokenObject as Promise<CredentialInterface>).then(
         (resolvedCredentials) =>
           !resolvedCredentials.isExpired() && !!resolvedCredentials.token,
       );
     }
 
-    const credentials = tokenObject as Credentials;
+    const credentials = tokenObject as CredentialInterface;
 
     return !credentials.isExpired() && !!credentials.token;
   };
@@ -126,69 +130,69 @@ export default class Request {
   get = (
     path: string,
     headers?: Record<string, Record<string, unknown> | string | boolean>,
-  ) => this.basicInstance.get(path, headers || getHeaders());
-
-  // HTTP PATCH Request - Returns Resolved or Rejected Promise
-  patch = (
-    path: string,
-    data: any,
-    headers?: Record<string, Record<string, unknown> | string | boolean>,
-  ) => this.basicInstance.patch(path, data, headers || getHeaders());
+  ): any => this.basicInstance.get(path, headers || getHeaders());
 
   // HTTP POST Request - Returns Resolved or Rejected Promise
   post = (
     path: string,
     data: any,
     headers?: Record<string, Record<string, unknown> | string | boolean>,
-  ) => this.basicInstance.post(path, data, headers || getHeaders());
+  ): any => this.basicInstance.post(path, data, headers || getHeaders());
 
   // HTTP PUT Request - Returns Resolved or Rejected Promise
   put = (
     path: string,
     data: any,
     headers?: Record<string, Record<string, unknown> | string | boolean>,
-  ) => this.basicInstance.put(path, data, headers || getHeaders());
+  ): any => this.basicInstance.put(path, data, headers || getHeaders());
+
+   // HTTP PATCH Request - Returns Resolved or Rejected Promise
+   patch = (
+     path: string,
+     data: any,
+     headers?: Record<string, Record<string, unknown> | string | boolean>,
+   ): any => this.basicInstance.patch(path, data, headers || getHeaders());
 
   // HTTP DELETE Request - Returns Resolved or Rejected Promise
   delete = (
     path: string,
     headers?: Record<string, Record<string, unknown> | string | boolean>,
-  ) => this.basicInstance.delete(path, headers || getHeaders());
+  ): any => this.basicInstance.delete(path, headers || getHeaders());
 
   // HTTP GET Request - Returns Resolved or Rejected Promise
   authenticatedGet = (
     path: string,
     headers?: Record<string, Record<string, unknown> | string | boolean>,
-  ) => this.authenticatedInstance.get(path, headers || getHeaders());
+  ): any => this.authenticatedInstance.get(path, headers || getHeaders());
 
   // HTTP PATCH Request - Returns Resolved or Rejected Promise
   authenticatedPatch = (
     path: string,
     data: any,
     headers?: Record<string, Record<string, unknown> | string | boolean>,
-  ) => this.authenticatedInstance.patch(path, data, headers || getHeaders());
+  ): any => this.authenticatedInstance.patch(path, data, headers || getHeaders());
 
   // HTTP POST Request - Returns Resolved or Rejected Promise
   authenticatedPost = (
     path: string,
     data: any,
     headers?: Record<string, Record<string, unknown> | string | boolean>,
-  ) => this.authenticatedInstance.post(path, data, headers || getHeaders());
+  ): any => this.authenticatedInstance.post(path, data, headers || getHeaders());
 
   // HTTP PUT Request - Returns Resolved or Rejected Promise
   authenticatedPut = (
     path: string,
     data: any,
     headers?: Record<string, Record<string, unknown> | string | boolean>,
-  ) => this.authenticatedInstance.put(path, data, headers || getHeaders());
+  ): any => this.authenticatedInstance.put(path, data, headers || getHeaders());
 
   // HTTP DELETE Request - Returns Resolved or Rejected Promise
   authenticatedDelete = (
     path: string,
     headers?: Record<string, Record<string, unknown> | string | boolean>,
-  ) => this.authenticatedInstance.delete(path, headers || getHeaders());
+  ): any => this.authenticatedInstance.delete(path, headers || getHeaders());
 
-  createAuthInterceptor = (axiosConfig: AxiosRequestConfig) => {
+  createAuthInterceptor = (axiosConfig: AxiosRequestConfig): AxiosRequestConfig => {
     const auth = this.isAuthenticated();
     // Build and Record<string, unknown> similar to an Axios error response
     if (!auth) {

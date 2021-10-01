@@ -1,4 +1,5 @@
 import { createTimestamp } from '../helpers';
+import { CredentialsConfig } from '../models/CommonInterfaces';
 
 class Credentials {
   token: string;
@@ -11,11 +12,11 @@ class Credentials {
     this.expires = expires;
   }
 
-  isExpired() {
+  isExpired(): boolean {
     return createTimestamp() > this.expires;
   }
 
-  toObject() {
+  toObject(): CredentialsConfig {
     return {
       token: this.token,
       refreshToken: this.refreshToken,
