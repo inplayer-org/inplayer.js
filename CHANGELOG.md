@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.12.1] - 03-12-2021
+## Changes
+
+- IOT token validity changed from 60 to 30 minutes
+
 # [3.12.0] - 28-09-2021
 ## Changes
 

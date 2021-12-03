@@ -4,7 +4,7 @@ import { ApiConfig, Request } from '../models/Config';
 import BaseExtend from '../extends/base';
 import tokenStorage from './tokenStorage';
 
-const ONE_HOUR = 60 * 60 * 1000;
+const HALF_HOUR = 30 * 60 * 1000;
 
 class Notifications extends BaseExtend {
   subscription: any;
@@ -68,11 +68,9 @@ class Notifications extends BaseExtend {
 
     const iamCreds = JSON.parse(inplayerIotCreds);
 
-    if (
-      iamCreds
-      && iamCreds.expiresAt
-      && new Date().getMilliseconds() - iamCreds.expiresAt > ONE_HOUR // TODO: check if should be ms
-    ) {
+    const now = new Date().getTime();
+
+    if (iamCreds?.expiresAt && now < iamCreds.expiresAt) {
       this.handleSubscribe(iamCreds, callbackParams, accountUuid);
 
       return true;
@@ -82,7 +80,10 @@ class Notifications extends BaseExtend {
 
     await tokenStorage.setItem(
       this.config.INPLAYER_IOT_KEY,
-      JSON.stringify(resp),
+      JSON.stringify({
+        ...resp,
+        expiresAt: new Date().getTime() + HALF_HOUR,
+      }),
     );
 
     this.handleSubscribe(resp, callbackParams, accountUuid);
