@@ -95,7 +95,7 @@ export const API = {
     }
     return url;
   },
-  getSubscription: (id: number): string => `/subscriptions/${id}`,
+  getSubscription: (id: string): string => `/subscriptions/${id}`,
   cancelSubscription: (url: string): string => `${url}`,
   subscribe: '/subscriptions',
   subscribeV2: '/v2/subscriptions',

@@ -859,7 +859,7 @@ export declare class Subscription {
     limit?: number,
     status?: string
   ): Promise<AxiosResponse<GetSubscription>>;
-  getSubscription(id: number): Promise<AxiosResponse<SubscriptionDetails>>;
+  getSubscription(id: string): Promise<AxiosResponse<SubscriptionDetails>>;
   cancelSubscription(
     unsubscribeUrl: string
   ): Promise<AxiosResponse<CancelSubscription>>;
@@ -936,7 +936,7 @@ export interface ApiEndpoints {
   validateReceipt: (platform: string) => string;
   // Subscription
   getSubscriptions: (limit: number, page: number) => string;
-  getSubscription: (id: number) => string;
+  getSubscription: (id: string) => string;
   subscribe: string;
   cancelSubscription: (url: string) => string;
   // Voucher

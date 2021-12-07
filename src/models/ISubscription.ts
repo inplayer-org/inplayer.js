@@ -124,7 +124,7 @@ export interface Subscription extends BaseExtend {
         page?: number,
         limit?: number
     ): Promise<AxiosResponse<GetSubscription>>;
-    getSubscription(id: number): Promise<AxiosResponse<SubscriptionDetails>>;
+    getSubscription(id: string): Promise<AxiosResponse<SubscriptionDetails>>;
     cancelSubscription(
         unsubscribeUrl: string
     ): Promise<AxiosResponse<CancelSubscription>>;

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.12.2] - 07-12-2021
+
+### Changes
+
+- The type of getSubscription method parameter changed to string
+
 # [3.12.1] - 03-12-2021
 ## Changes
 
