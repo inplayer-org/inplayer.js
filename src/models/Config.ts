@@ -69,7 +69,7 @@ export interface ApiEndpoints {
   ) => string;
   // Subscriptions
   getSubscriptions: (limit: number, page: number) => string;
-  getSubscription: (id: number) => string;
+  getSubscription: (id: string) => string;
   cancelSubscription: (url: string) => string;
   subscribe: string;
   subscribeV2: string;

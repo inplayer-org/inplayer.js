@@ -82,7 +82,7 @@ class Subscription extends BaseExtend {
    * @method getSubscription
    * @async
    *
-   * @param {number} id The subscription id.
+   * @param {string} id The subscription id.
    * @example
    *     InPlayer.Subscription
    *     .getSubscription('abcdef')
@@ -106,7 +106,7 @@ class Subscription extends BaseExtend {
    * }
    * ```
    */
-  async getSubscription(id: number): Promise<AxiosResponse<SubscriptionDetails>> {
+  async getSubscription(id: string): Promise<AxiosResponse<SubscriptionDetails>> {
     const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedGet(API.getSubscription(id), {
