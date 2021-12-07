@@ -6,7 +6,7 @@ export interface SignUpData {
   email: string;
   password: string;
   passwordConfirmation: string;
-  type: 'consumer' | 'merchant';
+  type: 'consumer';
   grantType?: 'password' | 'client_credentials' | 'refresh_token';
   clientId: string;
   referrer: string;

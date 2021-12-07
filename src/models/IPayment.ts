@@ -151,8 +151,8 @@ export interface DefaultCreditCardData {
   cardNumber: string;
   cardName: string;
   cvc: number;
-  expMonth: string;
-  expYear: string;
+  expMonth: number;
+  expYear: number;
   currency: string;
 }
 

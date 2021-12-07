@@ -23,10 +23,9 @@ export interface CredentialsConfig {
   expires: number;
 }
 
-export interface Credentials {
-  token: string;
-  refreshToken: string;
-  expires: number;
+export declare class Credentials {
+  constructor(data: CredentialsConfig);
+
   isExpired(): boolean;
   toObject(): CredentialsConfig;
 }
@@ -178,7 +177,7 @@ export declare class Account {
   constructor(config: Record<string, unknown>);
 
   isAuthenticated<R = boolean>(): R | boolean;
-  getToken<R = CredentialsConfig>(): R | CredentialsConfig;
+  getToken<R = Credentials>(): R | Credentials;
   setToken<R = void>(
     token: string,
     refreshToken: string,
@@ -567,8 +566,8 @@ export interface DefaultCreditCardData {
   cardNumber: string;
   cardName: string;
   cvc: number;
-  expMonth: string;
-  expYear: string;
+  expMonth: number;
+  expYear: number;
   currency: string;
 }
 

@@ -529,8 +529,8 @@ class Payment extends BaseExtend {
    * @param {string} cardNumber The card number.
    * @param {string} cardName The cardholder's name.
    * @param {number} cvc The card CVV number.
-   * @param {string} expMonth The card expiration month [1...12].
-   * @param {string} expYear The card expiration year.
+   * @param {number} expMonth The card expiration month [1...12].
+   * @param {number} expYear The card expiration year.
    * @param {string} currency The currency in which the subscription transactions are conducted.
    * @example
    *     InPlayer.Payment
@@ -538,8 +538,8 @@ class Payment extends BaseExtend {
    *          cardNumber: '4242424242424242',
    *          cardName: 'John Doe',
    *          cvc: 123,
-   *          expMonth: '1',
-   *          expYear: '2020',
+   *          expMonth: 1,
+   *          expYear: 2020,
    *          currency: 'EUR'
    *      })
    *     .then(data => console.log(data));
@@ -548,8 +548,8 @@ class Payment extends BaseExtend {
    * {
    *    number: number;
    *    card_name: string;
-   *    exp_month: string;
-   *    exp_year: string;
+   *    exp_month: number;
+   *    exp_year: number;
    * }
    * ```
    */
@@ -566,8 +566,8 @@ class Payment extends BaseExtend {
     cardNumber: string,
     cardName: string,
     cvc: number,
-    expMonth: string,
-    expYear: string,
+    expMonth: number,
+    expYear: number,
     currency: string,
   }): Promise<AxiosResponse<SetDefaultCard>> {
     const body = {
