@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.12.3] - 07-12-2021
+
+### Changes
+
+- Fixed wrong data types
+
 # [3.12.2] - 07-12-2021
 
 ### Changes
