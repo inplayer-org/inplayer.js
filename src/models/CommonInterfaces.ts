@@ -2,6 +2,7 @@ import { ApiConfig, Request } from './Config';
 
 // eslint-disable-next-line no-shadow
 export enum Env {
+  Daily = 'daily',
   Development = 'development',
   Production = 'production',
 }

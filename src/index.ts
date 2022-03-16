@@ -75,15 +75,19 @@ export class InPlayer {
    *  onClose: function
    * }
    * @example
-   *     InPlayer.subscribe(
-   *      'adsasd-d1-cjc1c-1ajaveo',
-   *      {
-   *       onMessage: (message) =>
-   * { let body = JSON.parse(message.body); console.log(body, 'message') },
-   *       onOpen: (e) => console.log('open'),
-   *       onClose: (e) => console.log('close', e)
-   *      }
-   *    )
+   * ```typescript
+   * InPlayer.subscribe(
+   *    'adsasd-d1-cjc1c-1ajaveo',
+   *    {
+   *      onMessage: (message) => {
+   *        let body = JSON.parse(message.body);
+   *        console.log(body, 'message');
+   *      },
+   *      onOpen: (e) => console.log('open'),
+   *      onClose: (e) => console.log('close', e);
+   *    }
+   * )
+   * ```
    */
   subscribe(
     accountUuid: string,

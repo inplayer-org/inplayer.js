@@ -19,6 +19,7 @@
   "scripts": {
     "dev": "webpack --progress --colors --watch",
     "prebuild": "rimraf dist",
+    "build:daily": "cross-env NODE_ENV=daily webpack --config ./webpack.config.js",
     "build:dev": "cross-env NODE_ENV=development webpack --config ./webpack.config.js",
     "build:prod": "cross-env NODE_ENV=production webpack --config ./webpack.config.js",
     "lint": "eslint 'src/**/*.{js,ts,tsx}' --quiet --fix",
