@@ -4,6 +4,7 @@ import { AxiosResponse } from 'axios';
 export enum Env {
   Development = 'development',
   Production = 'production',
+  Daily = 'daily',
 }
 
 // Common response
@@ -971,7 +972,7 @@ export declare class Notifications {
   unsubscribe(): void;
 }
 
-type Env = 'development' | 'production';
+type Env = 'development' | 'production' | 'daily';
 
 export interface LocalStorageMethods {
   setItem: <R = void>(key: string, value: string) => R | void;
