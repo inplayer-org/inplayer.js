@@ -391,6 +391,7 @@ class Payment extends BaseExtend {
    *     })
    *     .then(data => console.log(data));
    * @returns  {AxiosResponse<GeneratePayPalParameters>} Contains the data:
+   * ```typescript
    * {
    *    endpoint: string;
    *    business: string;
@@ -399,6 +400,7 @@ class Payment extends BaseExtend {
    *    return: string;
    *    cancel_return: string;
    * }
+   * ```
    */
   // object types must be anonymous(don't use interface or type alias)
   // in order to data params description to be shown in typedoc
@@ -450,6 +452,7 @@ class Payment extends BaseExtend {
    *     .getPurchaseHistory('active', 0, 5)
    *     .then(data => console.log(data));
    * @returns  {AxiosResponse<PurchaseHistoryCollection[]>} Contains the data:
+   * ```typescript
    * {
    *    total: number;
    *    page: number;
@@ -478,6 +481,7 @@ class Payment extends BaseExtend {
    *      type: string;
    *    }];
    * }
+   * ```
    */
   async getPurchaseHistory(
     status = 'active',

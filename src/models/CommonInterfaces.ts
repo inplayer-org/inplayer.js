@@ -4,6 +4,7 @@ import { ApiConfig, Request } from './Config';
 export enum Env {
   Development = 'development',
   Production = 'production',
+  Daily = 'daily',
 }
 
 export interface BaseExtend {
