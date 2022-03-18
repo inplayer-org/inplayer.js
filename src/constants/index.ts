@@ -99,6 +99,7 @@ export const API = {
   cancelSubscription: (url: string): string => `${url}`,
   subscribe: '/subscriptions',
   subscribeV2: '/v2/subscriptions',
+  subscriptionPlanChange: '/v2/subscriptions/stripe:switch',
 
   // Vouchers
   getDiscount: '/vouchers/discount',

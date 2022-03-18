@@ -8,6 +8,7 @@ import {
   IdealPaymentRequestBody,
   GetDefaultCard,
   SetDefaultCard,
+  ChangeSubscriptionPlanRequestBody,
 } from '../models/ISubscription';
 import { CommonResponse } from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
@@ -241,6 +242,46 @@ class Subscription extends BaseExtend {
     const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedPost(API.subscribe, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+  }
+
+  /**
+   * Changes the subscription plan for a given asset.
+   * @method post
+   * @async
+   * @param {Object} data - {
+   *  access_fee_id: number,
+   *  inplayer_token: number
+   * }
+   * @example
+   *     InPlayer.Subscription
+   *     .changeSubscriptionPlan({
+   *          access_fee_id: 1,
+   *          inplayer_token: S-xxxxx-ST
+   *        }
+   *     )
+   *     .then(data => console.log(data));
+   * @return {Object}
+   */
+  async changeSubscriptionPlan({
+    access_fee_id,
+    inplayer_token,
+  }: {
+    access_fee_id: number,
+    inplayer_token: string,
+   }): Promise<AxiosResponse<CommonResponse>> {
+    const body: ChangeSubscriptionPlanRequestBody = {
+      access_fee_id,
+      inplayer_token,
+    };
+
+    const tokenObject = await this.request.getToken();
+
+    return this.request.authenticatedPost(API.subscriptionPlanChange, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
         'Content-Type': 'application/x-www-form-urlencoded',
