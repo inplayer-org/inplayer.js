@@ -78,10 +78,12 @@ export class InPlayer {
    *     InPlayer.subscribe(
    *      'adsasd-d1-cjc1c-1ajaveo',
    *      {
-   *       onMessage: (message) =>
-   * { let body = JSON.parse(message.body); console.log(body, 'message') },
-   *       onOpen: (e) => console.log('open'),
-   *       onClose: (e) => console.log('close', e)
+   *        onMessage: (message) =>
+   *        {
+   *          let body = JSON.parse(message.body); console.log(body, 'message')
+   *        },
+   *        onOpen: (e) => console.log('open'),
+   *        onClose: (e) => console.log('close', e)
    *      }
    *    )
    */
@@ -128,7 +130,7 @@ export class InPlayer {
   /**
    * Overrides the default configs
    * @method setConfig
-   * @param {String} config 'production', 'development'
+   * @param {String} config 'production', 'development', 'daily'
    * @example
    *     InPlayer.setConfig('development');
    */
