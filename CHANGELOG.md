@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.12.4] - 03-17-2022
+
+### Changes
+
+- Add config object for daily environment
+
 # [3.12.3] - 07-12-2021
 
 ### Changes
