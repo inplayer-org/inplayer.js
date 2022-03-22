@@ -141,8 +141,7 @@ export interface Subscription extends BaseExtend {
         data: CreateSubscriptionData
     ): Promise<AxiosResponse<CommonResponse>>;
     changeSubscriptionPlan(
-        access_fee_id: number,
-        inplayer_token: string
+        data: ChangeSubscriptionPlanRequestBody
     ): Promise<AxiosResponse<ChangeSubscriptionPlanResponse>>;
     directDebitSubscribe: (
         data: DirectDebitData

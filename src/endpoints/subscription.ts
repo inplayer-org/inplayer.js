@@ -9,6 +9,7 @@ import {
   GetDefaultCard,
   SetDefaultCard,
   ChangeSubscriptionPlanRequestBody,
+  ChangeSubscriptionPlanResponse,
 } from '../models/ISubscription';
 import { CommonResponse } from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
@@ -273,12 +274,13 @@ class Subscription extends BaseExtend {
   }: {
     access_fee_id: number,
     inplayer_token: string,
-   }): Promise<AxiosResponse<CommonResponse>> {
+   }): Promise<AxiosResponse<ChangeSubscriptionPlanResponse>> {
     const body: ChangeSubscriptionPlanRequestBody = {
       access_fee_id,
       inplayer_token,
     };
 
+    console.log('Inside changeSubscriptionPlan')
     const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedPost(API.subscriptionPlanChange, qs.stringify(body), {

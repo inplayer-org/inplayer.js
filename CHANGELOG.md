@@ -1,7 +1,11 @@
 # Change Log
 
 All notable changes to this project will be documented in this file.
+# [3.12.5] - 03-17-2022
 
+### Changes
+
+- Add new method in Subscription that changes the subscription plan. The change can either a downgrade or an upgrade.
 # [3.12.4] - 03-17-2022
 
 ### Changes
