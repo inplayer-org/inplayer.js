@@ -280,7 +280,6 @@ class Subscription extends BaseExtend {
       inplayer_token,
     };
 
-    console.log('Inside changeSubscriptionPlan')
     const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedPost(API.subscriptionPlanChange, qs.stringify(body), {
