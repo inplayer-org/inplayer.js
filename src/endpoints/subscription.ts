@@ -262,7 +262,7 @@ class Subscription extends BaseExtend {
    *     InPlayer.Subscription
    *     .changeSubscriptionPlan({
    *          access_fee_id: 1,
-   *          inplayer_token: S-xxxxx-ST
+   *          inplayer_token: 'S-xxxxx-ST'
    *        }
    *     )
    *     .then(data => console.log(data));
