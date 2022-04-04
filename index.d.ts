@@ -850,6 +850,15 @@ export declare interface CancelSubscription {
   status: string;
   timestamp: number;
 }
+
+export interface ChangeSubscriptionPlanRequestBody {
+  access_fee_id: number;
+  inplayer_token: string;
+}
+
+export interface ChangeSubscriptionPlanResponse {
+  message: string;
+}
 export declare class Subscription {
   // eslint-disable-next-line no-shadow
   constructor(config: Record<string, unknown>, Account: Account);
@@ -866,6 +875,9 @@ export declare class Subscription {
   createSubscription(
     data: CreateSubscriptionData
   ): Promise<AxiosResponse<CommonResponse>>;
+  changeSubscriptionPlan(
+    data: ChangeSubscriptionPlanRequestBody
+): Promise<AxiosResponse<ChangeSubscriptionPlanResponse>>;
 }
 
 export interface DiscountData {
@@ -939,6 +951,7 @@ export interface ApiEndpoints {
   getSubscription: (id: string) => string;
   subscribe: string;
   cancelSubscription: (url: string) => string;
+  changeSubscriptionPlan: (accessFeeId: number, inplayerToken: string) => string;
   // Voucher
   getDiscount: string;
   // Branding

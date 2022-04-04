@@ -34,6 +34,7 @@ export interface Item {
   template_id: number | null;
   created_at: number;
   update_at: number;
+  plan_switch_enabled: boolean;
 }
 
 export interface AccessType {

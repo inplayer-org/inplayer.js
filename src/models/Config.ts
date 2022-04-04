@@ -73,6 +73,7 @@ export interface ApiEndpoints {
   cancelSubscription: (url: string) => string;
   subscribe: string;
   subscribeV2: string;
+  changeSubscriptionPlan: (access_fee_id: number, inplayer_token: string) => string;
   // Voucher
   getDiscount: string;
   // Restrictions

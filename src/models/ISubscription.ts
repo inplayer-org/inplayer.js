@@ -82,6 +82,11 @@ export interface CreateSubscriptionRequestBody {
     is_gift?: boolean;
 }
 
+export interface ChangeSubscriptionPlanRequestBody {
+    access_fee_id: number;
+    inplayer_token: string;
+}
+
 export interface IdealPaymentRequestBody {
     payment_method: 'ideal';
     access_fee_id: number;
@@ -119,6 +124,10 @@ export interface SetDefaultCardPerCurrencyData {
   currency: string;
 }
 
+export interface ChangeSubscriptionPlanResponse {
+  message: string;
+}
+
 export interface Subscription extends BaseExtend {
     getSubscriptions(
         page?: number,
@@ -131,6 +140,9 @@ export interface Subscription extends BaseExtend {
     createSubscription(
         data: CreateSubscriptionData
     ): Promise<AxiosResponse<CommonResponse>>;
+    changeSubscriptionPlan(
+        data: ChangeSubscriptionPlanRequestBody
+    ): Promise<AxiosResponse<ChangeSubscriptionPlanResponse>>;
     directDebitSubscribe: (
         data: DirectDebitData
       ) => Promise<AxiosResponse<CommonResponse>>;
