@@ -1,6 +1,11 @@
 # Change Log
 
 All notable changes to this project will be documented in this file.
+# [3.12.7] - 04-05-2022
+
+### Changes
+
+- Updated AWS_IOT_URL for staging and production environments
 # [3.12.6] - 08-03-2022
 
 ### Changes
