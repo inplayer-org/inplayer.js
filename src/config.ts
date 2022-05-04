@@ -29,13 +29,13 @@ export const dailyConfig = {
  * INPLAYER_ACCESS_CODE_NAME = (assetId: number) => `access_code_${assetId}`;
  * IOT_NOTIF_URL = 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com';
  * BASE_URL = 'https://staging-v2.inplayer.com';
- * AWS_IOT_URL = 'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys';
+ * AWS_IOT_URL = 'https://staging-notifications.inplayer.com/';
  * ```
  */
 export const devConfig = {
   ...commonConfig,
   BASE_URL: 'https://staging-v2.inplayer.com',
-  AWS_IOT_URL: 'https://o3871l8vj7.execute-api.eu-west-1.amazonaws.com/staging/iot/keys',
+  AWS_IOT_URL: 'https://staging-notifications.inplayer.com/',
 };
 
 /**
@@ -45,13 +45,13 @@ export const devConfig = {
  * INPLAYER_ACCESS_CODE_NAME = (assetId: number) => `access_code_${assetId}`;
  * IOT_NOTIF_URL = 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com';
  * BASE_URL = 'https://services.inplayer.com';
- * AWS_IOT_URL = 'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys';
+ * AWS_IOT_URL = 'https://notifications.inplayer.com/';
  * ```
  */
 export const prodConfig = {
   ...commonConfig,
   BASE_URL: 'https://services.inplayer.com',
-  AWS_IOT_URL: 'https://eynmuj2g26.execute-api.eu-west-1.amazonaws.com/prod/iot/keys',
+  AWS_IOT_URL: 'https://notifications.inplayer.com/',
 };
 
 /** @internal */
