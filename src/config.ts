@@ -35,7 +35,7 @@ export const dailyConfig = {
 export const devConfig = {
   ...commonConfig,
   BASE_URL: 'https://staging-v2.inplayer.com',
-  AWS_IOT_URL: 'https://staging-notifications.inplayer.com/',
+  AWS_IOT_URL: 'https://staging-notifications.inplayer.com/iot/keys',
 };
 
 /**
@@ -51,7 +51,7 @@ export const devConfig = {
 export const prodConfig = {
   ...commonConfig,
   BASE_URL: 'https://services.inplayer.com',
-  AWS_IOT_URL: 'https://notifications.inplayer.com/',
+  AWS_IOT_URL: 'https://notifications.inplayer.com/iot/keys',
 };
 
 /** @internal */
