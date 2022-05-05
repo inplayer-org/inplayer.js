@@ -29,7 +29,7 @@ export const dailyConfig = {
  * INPLAYER_ACCESS_CODE_NAME = (assetId: number) => `access_code_${assetId}`;
  * IOT_NOTIF_URL = 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com';
  * BASE_URL = 'https://staging-v2.inplayer.com';
- * AWS_IOT_URL = 'https://staging-notifications.inplayer.com/';
+ * AWS_IOT_URL = 'https://staging-notifications.inplayer.com/iot/keys';
  * ```
  */
 export const devConfig = {
@@ -45,7 +45,7 @@ export const devConfig = {
  * INPLAYER_ACCESS_CODE_NAME = (assetId: number) => `access_code_${assetId}`;
  * IOT_NOTIF_URL = 'a3gkl64duktvc4-ats.iot.eu-west-1.amazonaws.com';
  * BASE_URL = 'https://services.inplayer.com';
- * AWS_IOT_URL = 'https://notifications.inplayer.com/';
+ * AWS_IOT_URL = 'https://notifications.inplayer.com/iot/keys';
  * ```
  */
 export const prodConfig = {
