@@ -21,7 +21,7 @@
     "prebuild": "rimraf dist",
     "build:dev": "cross-env NODE_ENV=development webpack --config ./webpack.config.js",
     "build:prod": "cross-env NODE_ENV=production webpack --config ./webpack.config.js",
-    "lint": "eslint \"*/**/*.{js,ts,tsx}\" --quiet --fix",
+    "lint": "eslint \"src/**/*.{js,ts,tsx}\" --quiet --fix",
     "lint:js:fix": "eslint src/** --fix",
     "analyze-bundle": "babel-node ./tools/analyzeBundle.js",
     "prepublishOnly": "yarn build:prod",
