@@ -1047,7 +1047,7 @@ export interface ApiEndpoints {
   getDiscount: string;
   // Branding
   getBranding: (clientId: string, brandingId: string) => string;
-  // NFs
+  // NFTs
   getMerchantMarketplace: (merchantUuid: string) => string,
   getMerchantNFTList: (merchantUuid: string, page: number, size: number, filter: string) => string;
   getMerchantNFT: (merchantUuid: string, nftId: number) => string;
