@@ -956,9 +956,9 @@ export interface GetExchangeRatesResponse {
   rates: ExchangeRate[];
 }
 
-export type GetMyNFTsResponse = GetMerchantNFTListResponse;
+export type GetUserBoughtNFTsResponse = GetMerchantNFTListResponse;
 
-export interface MakeNFTReservationResponse {
+export interface MakeReservationResponse {
   created_at: number;
   updated_at: number;
   description: string;
@@ -984,8 +984,8 @@ export declare class NFTs {
     Promise<AxiosResponse<GetMerchantNFTListResponse>>;
   getMerchantNFT(merchantUuid: string, nftId: number): Promise<AxiosResponse<GetMerchantNFTResponse>>;
   getExchangeRates(fiat: string, invert?: boolean): Promise<AxiosResponse<GetExchangeRatesResponse>>;
-  getMyNFTs(page?: number, size?: number): Promise<AxiosResponse<GetMyNFTsResponse>>;
-  makeNFTReservation(merchantUuid: string, nftId: number): Promise<AxiosResponse<MakeNFTReservationResponse>>;
+  getUserBoughtNFTs(page?: number, size?: number): Promise<AxiosResponse<GetUserBoughtNFTsResponse>>;
+  makeReservation(merchantUuid: string, nftId: number): Promise<AxiosResponse<MakeReservationResponse>>;
 }
 
 export interface ApiEndpoints {
@@ -1052,8 +1052,8 @@ export interface ApiEndpoints {
   getMerchantNFTList: (merchantUuid: string, page: number, size: number, filter: string) => string;
   getMerchantNFT: (merchantUuid: string, nftId: number) => string;
   getExchangeRates: (fiat: string, invert: boolean) => string;
-  getMyNFTs: (page: number, size: number) => string;
-  makeNFTReservation: (merchantUuid: string, nftId: number) => string;
+  getUserBoughtNFTs: (page: number, size: number) => string;
+  makeReservation: (merchantUuid: string, nftId: number) => string;
 }
 
 export interface ApiConfig {

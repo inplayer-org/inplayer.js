@@ -93,6 +93,6 @@ export interface NFTs extends BaseExtend {
     Promise<AxiosResponse<GetMerchantNFTListResponse>>;
   getMerchantNFT(merchantUuid: string, nftId: number): Promise<AxiosResponse<GetMerchantNFTResponse>>;
   getExchangeRates(fiat: string, invert?: boolean): Promise<AxiosResponse<GetExchangeRatesResponse>>;
-  getMyNFTs(page?: number, size?: number): Promise<AxiosResponse<GetMyNFTsResponse>>;
-  makeNFTReservation(merchantUuid: string, nftId: number): Promise<AxiosResponse<MakeNFTReservationResponse>>;
+  getUserBoughtNFTs(page?: number, size?: number): Promise<AxiosResponse<GetMyNFTsResponse>>;
+  makeReservation(merchantUuid: string, nftId: number): Promise<AxiosResponse<MakeNFTReservationResponse>>;
 }

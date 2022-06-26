@@ -115,6 +115,6 @@ export const API = {
   getMerchantNFT: (merchantUuid: string, nftId: number): string => `/v2/nfts/${merchantUuid}/${nftId}`,
   getExchangeRates: (fiat: string, invert: boolean): string =>
     `/v2/nfts/exchange-rate/${fiat}${invert ? '?invert=true' : ''}`,
-  getMyNFTs: (page: number, size: number): string => `/v2/nfts?page=${page}&size=${size}`,
-  makeNFTReservation: (merchantUuid: string, nftId: number): string => `/v2/nfts/${merchantUuid}/${nftId}/reserve`,
+  getUserBoughtNFTs: (page: number, size: number): string => `/v2/nfts?page=${page}&size=${size}`,
+  makeReservation: (merchantUuid: string, nftId: number): string => `/v2/nfts/${merchantUuid}/${nftId}/reserve`,
 };
