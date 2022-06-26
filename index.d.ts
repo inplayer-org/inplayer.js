@@ -1100,6 +1100,7 @@ declare const InPlayer: {
   Subscription: Subscription;
   Voucher: Voucher;
   Branding: Branding;
+  NFTs: NFTs;
   Notifications: Notifications;
   tokenStorage: TokenStorageType;
 
