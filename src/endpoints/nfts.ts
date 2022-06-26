@@ -55,7 +55,7 @@ class NFTs extends BaseExtend {
   async makeNFTReservation(merchantUuid: string, nftId: number): Promise<AxiosResponse<MakeNFTReservationResponse>> {
     const tokenObject = await this.request.getToken();
 
-    return this.request.authenticatedGet(API.makeNFTReservation(merchantUuid, nftId), {
+    return this.request.authenticatedPost(API.makeNFTReservation(merchantUuid, nftId), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
       },
