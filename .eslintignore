@@ -2,5 +2,6 @@
 webpack.config.js
 node_modules
 coverage
+clientside_test
 *.lock
 *.log

@@ -7,6 +7,7 @@ import Payment from './endpoints/payment';
 import Subscription from './endpoints/subscription';
 import Branding from './endpoints/branding';
 import Voucher from './endpoints/voucher';
+import NFTs from './endpoints/nfts';
 import Notifications from './factories/notifications';
 import RequestFactory from './factories/request';
 import tokenStorage, { TokenStorageType } from './factories/tokenStorage';
@@ -23,6 +24,7 @@ import { Asset as AssetType } from './models/IAsset&Access';
 import { Payment as PaymentType } from './models/IPayment';
 import { Subscription as SubscriptionType } from './models/ISubscription';
 import { Voucher as VoucherType } from './models/IVoucher&Promotion';
+import { NFTs as NFTsType } from './models/INFTs';
 import { Branding as BrandingType } from './models/IBrand';
 
 /**
@@ -44,6 +46,8 @@ export class InPlayer {
   /** @internal */
   Voucher: VoucherType;
   /** @internal */
+  NFTs: NFTsType;
+  /** @internal */
   Branding: BrandingType;
   /** @internal */
   Notifications: NotificationsType;
@@ -62,6 +66,7 @@ export class InPlayer {
     this.Voucher = new Voucher(this.config, this.request);
     this.Branding = new Branding(this.config, this.request);
     this.Notifications = new Notifications(this.config, this.request);
+    this.NFTs = new NFTs(this.config, this.request);
   }
 
   /**

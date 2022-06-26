@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios';
 
-// eslint-disable-next-line no-shadow
 export enum Env {
   Development = 'development',
   Production = 'production',
@@ -450,7 +449,6 @@ export interface RequestDataCaptureAccessData {
 }
 
 export declare class Asset {
-  // eslint-disable-next-line no-shadow
   constructor(config: Record<string, unknown>, Account: Account);
 
   checkAccessForAsset(id: number): Promise<AxiosResponse<GetItemAccessV1>>;
@@ -703,7 +701,6 @@ export declare interface GoogleOrApplePaymentData {
   voucherCode?: string;
 }
 
-// eslint-disable-next-line no-shadow
 export enum ReceiptValidationPlatform {
   AMAZON = 'amazon',
   APPLE = 'apple',
@@ -744,7 +741,6 @@ type ReceiptData =
 export type ValidateReceiptData = CommonPlatformData & ReceiptData;
 
 export declare class Payment {
-  // eslint-disable-next-line no-shadow
   constructor(config: Record<string, unknown>, Account: Account);
 
   getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
@@ -860,7 +856,6 @@ export interface ChangeSubscriptionPlanResponse {
   message: string;
 }
 export declare class Subscription {
-  // eslint-disable-next-line no-shadow
   constructor(config: Record<string, unknown>, Account: Account);
 
   getSubscriptions(
@@ -891,10 +886,106 @@ export interface VoucherDiscountPrice {
 }
 
 export declare class Voucher {
-  // eslint-disable-next-line no-shadow
   constructor(config: Record<string, unknown>, Account: Account);
 
   getDiscount(data: DiscountData): Promise<AxiosResponse<VoucherDiscountPrice>>;
+}
+
+type FiatCurrency = string;
+
+export enum CryptoCurrency {
+  ETH = 'ETH',
+  MATIC = 'MATIC',
+  USDC = 'USDC',
+}
+
+export interface GetMerchantMarketplaceResponse {
+  id: number;
+  merchant_uuid: string;
+  name: string;
+  logo_url: string;
+  banner_url: string;
+  created_at: number;
+  updated_at: number;
+  engagement_mode: boolean;
+  url: string;
+  currency: FiatCurrency;
+}
+
+export interface CryptoPrice {
+  amount: number;
+  currency: CryptoCurrency;
+}
+
+export enum Prices {
+  CRYPTO = 'crypto',
+  FIAT = 'fiat',
+}
+
+export interface GetMerchantNFTResponse {
+  id: number;
+  title: string;
+  description: string;
+  thumbnail: string;
+  token_uri: string;
+  merchant_uuid: string;
+  prices: Partial<{
+    [Prices.CRYPTO]: CryptoPrice;
+    [Prices.FIAT]: GetAccessFee
+  }>;
+  published: boolean;
+  supply: number;
+  created_at: number;
+  updated_at: number;
+}
+
+export interface GetMerchantNFTListResponse {
+  collection: GetMerchantNFTResponse[] | null;
+  page: number;
+  size: number;
+  total: number;
+}
+
+interface ExchangeRate {
+  asset_id_quote: CryptoCurrency;
+  rate: number;
+}
+
+export interface GetExchangeRatesResponse {
+  asset_id_base: FiatCurrency;
+  rates: ExchangeRate[];
+}
+
+export type GetMyNFTsResponse = GetMerchantNFTListResponse;
+
+export interface MakeNFTReservationResponse {
+  created_at: number;
+  updated_at: number;
+  description: string;
+  id: number;
+  merchant_uuid: string;
+  prices: Record<string, unknown>;
+  published: boolean;
+  reservation_expires_at: number;
+  reservation_id: number;
+  reservation_owner_id: number;
+  supply: number;
+  thumbnail: string;
+  title: string;
+  token_id: number;
+  token_uri: string;
+}
+
+export declare class NFTs {
+  constructor(config: Record<string, unknown>, Account: Account);
+
+  getMerchantMarketplace(merchantUuid: string): Promise<AxiosResponse<GetMerchantMarketplaceResponse>>;
+  getMerchantNFTList(merchantUuid: string, page?: number, size?: number, filter?: string):
+    Promise<AxiosResponse<GetMerchantNFTListResponse>>;
+  getMerchantNFT(merchantUuid: string, nftId: number): Promise<AxiosResponse<GetMerchantNFTResponse>>;
+  getExchangeRates(fiat: string, invert?: boolean): Promise<AxiosResponse<GetExchangeRatesResponse>>;
+  getMyNFTs(page?: number, size?: number): Promise<AxiosResponse<GetMyNFTsResponse>>;
+  makeNFTReservation(merchantUuid: string, nftId: number): Promise<AxiosResponse<MakeNFTReservationResponse>>;
 }
 
 export interface ApiEndpoints {
@@ -956,6 +1047,13 @@ export interface ApiEndpoints {
   getDiscount: string;
   // Branding
   getBranding: (clientId: string, brandingId: string) => string;
+  // NFs
+  getMerchantMarketplace: (merchantUuid: string) => string,
+  getMerchantNFTList: (merchantUuid: string, page: number, size: number, filter: string) => string;
+  getMerchantNFT: (merchantUuid: string, nftId: number) => string;
+  getExchangeRates: (fiat: string, invert: boolean) => string;
+  getMyNFTs: (page: number, size: number) => string;
+  makeNFTReservation: (merchantUuid: string, nftId: number) => string;
 }
 
 export interface ApiConfig {
@@ -970,7 +1068,6 @@ export interface ApiConfig {
 export declare const API: ApiEndpoints;
 
 export declare class Notifications {
-  // eslint-disable-next-line no-shadow
   constructor(config: Record<string, unknown>, Account: Account);
 
   getIotToken(): Promise<Record<string, unknown>>;

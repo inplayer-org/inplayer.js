@@ -107,4 +107,14 @@ export const API = {
   // Branding
   getBranding: (clientId: string, brandingId: string | number): string =>
     `/branding/paywall/${clientId}/${brandingId}`,
+
+  // NFTs
+  getMerchantMarketplace: (merchantUuid: string): string => `/v2/nfts/marketplaces/${merchantUuid}`,
+  getMerchantNFTList: (merchantUuid: string, page: number, size: number, filter: string): string =>
+    `/v2/nfts/${merchantUuid}?filter=${filter}&page=${page}&size=${size}`,
+  getMerchantNFT: (merchantUuid: string, nftId: number): string => `/v2/nfts/${merchantUuid}/${nftId}`,
+  getExchangeRates: (fiat: string, invert: boolean): string =>
+    `/v2/nfts/exchange-rate/${fiat}${invert ? '?invert=true' : ''}`,
+  getMyNFTs: (page: number, size: number): string => `/v2/nfts?page=${page}&size=${size}`,
+  makeNFTReservation: (merchantUuid: string, nftId: number): string => `/v2/nfts/${merchantUuid}/${nftId}/reserve`,
 };
