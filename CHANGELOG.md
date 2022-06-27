@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.0] - 26-06-2022
+
+### Added
+
+- Introduced a new object `NFTs` with NFT-related endpoints
+
 # [3.12.8] - 05-05-2022
 
 ### Changes

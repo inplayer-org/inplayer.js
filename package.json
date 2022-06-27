@@ -1,6 +1,6 @@
 {
   "name": "@inplayer-org/inplayer.js",
-  "version": "3.12.8",
+  "version": "3.13.0",
   "author": "InPlayer",
   "license": "MIT",
   "description": "A Javascript SDK for Inplayer's RESTful API",
@@ -21,7 +21,7 @@
     "prebuild": "rimraf dist",
     "build:dev": "cross-env NODE_ENV=development webpack --config ./webpack.config.js",
     "build:prod": "cross-env NODE_ENV=production webpack --config ./webpack.config.js",
-    "lint": "eslint 'src/**/*.{js,ts,tsx}' --quiet --fix",
+    "lint": "eslint \"src/**/*.{js,ts,tsx}\" --quiet --fix",
     "lint:js:fix": "eslint src/** --fix",
     "analyze-bundle": "babel-node ./tools/analyzeBundle.js",
     "prepublishOnly": "yarn build:prod",
