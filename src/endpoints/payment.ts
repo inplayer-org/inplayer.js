@@ -638,6 +638,7 @@ class Payment extends BaseExtend {
    * @async
    * @param {string} name The customer's bank full name
    * @param {string} iban The customer's bank IBAN number
+   * @param {string} address The customer's address used for specific countries
    * @example
    *     InPlayer.Payment
    *     .createDirectDebitMandate({
@@ -673,13 +674,16 @@ class Payment extends BaseExtend {
   async createDirectDebitMandate({
     name,
     iban,
+    address,
   }: {
     name: string;
     iban: string;
+    address?: string;
   }): Promise<AxiosResponse<CreateDirectDebitResponse>> {
     const body = {
       name,
       iban,
+      ...(address && { address }),
     };
 
     const tokenObject = await this.request.getToken();
