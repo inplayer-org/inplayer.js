@@ -573,6 +573,7 @@ export interface DefaultCreditCardData {
 export interface DirectDebitMandateData {
   name: string;
   iban: string;
+  address?: string;
 }
 
 export interface DirectDebitChargeData {

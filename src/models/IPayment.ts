@@ -129,6 +129,7 @@ export interface ConfirmDonationPaymentRequestBody {
 export interface CreateDirectDebitMandateData {
   name: string;
   iban: string;
+  address?: string;
 }
 
 export interface DirectDebitData {
@@ -193,6 +194,7 @@ export interface CreateDirectDebitResponse {
 export interface DirectDebitMandateData {
   name: string;
   iban: string;
+  address?: string;
 }
 
 export interface PurchaseDetails {

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.1] - 16-08-2022
+
+### Added
+
+- Added `address` param in direct debit payments method which is needed for specific coutries
+
 # [3.13.0] - 26-06-2022
 
 ### Added
