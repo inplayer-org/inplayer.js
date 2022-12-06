@@ -181,7 +181,7 @@ export declare class Account {
   setToken<R = void>(
     token: string,
     refreshToken: string,
-    expiresAt: number,
+    expiresAt: number
   ): R | void;
   removeToken<R = void>(): R | void;
 
@@ -200,7 +200,7 @@ export declare class Account {
     token?: string
   ): Promise<AxiosResponse<void>>;
   getAccountInfo(): Promise<AxiosResponse<AccountData>>;
-  updateAccount(data: UpdateAccountData): Promise<AxiosResponse<void>>;
+  updateAccount(data: UpdateAccountData): Promise<AxiosResponse<AccountData>>;
   exportData(data: AccountAuthData): Promise<AxiosResponse<CommonResponse>>;
   deleteAccount(data: AccountAuthData): Promise<AxiosResponse<CommonResponse>>;
   getSocialLoginUrls(state: string): Promise<AxiosResponse<ListSocialURLs>>;
@@ -217,9 +217,13 @@ export declare class Account {
   loadMerchantRestrictionSettings(
     merchantUuid: string
   ): Promise<AxiosResponse<RestrictionSettingsData>>;
-  syncWithExternalAccount(integration: string, itemId: number): Promise<AxiosResponse<ExternalAccount>>;
+  syncWithExternalAccount(
+    integration: string,
+    itemId: number
+  ): Promise<AxiosResponse<ExternalAccount>>;
   updateExternalAccount(
-    integration: string, body: Record<string, string | number>
+    integration: string,
+    body: Record<string, string | number>
   ): Promise<AxiosResponse<CommonResponse>>;
 }
 
@@ -470,7 +474,7 @@ export declare class Asset {
     page?: number,
     startDate?: string,
     endDate?: string,
-    type?: string,
+    type?: string
   ): Promise<AxiosResponse<Record<string, unknown>[]>>;
   getAccessCode(assetId: number | string): CodeAccessData;
   requestCodeAccess(
@@ -479,7 +483,9 @@ export declare class Asset {
   getAccesCodeSessions(
     codeId: number
   ): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
-  terminateSession(assetId: number): Promise<AxiosResponse<CommonResponse> | null>;
+  terminateSession(
+    assetId: number
+  ): Promise<AxiosResponse<CommonResponse> | null>;
   getCloudfrontURL(
     assetId: number,
     videoUrl: string
@@ -715,7 +721,10 @@ interface AmazonPlatformData {
 }
 
 interface NonAmazonPlatformData {
-  platform: Exclude<ReceiptValidationPlatform, ReceiptValidationPlatform.AMAZON>;
+  platform: Exclude<
+    ReceiptValidationPlatform,
+    ReceiptValidationPlatform.AMAZON
+  >;
   amazonUserId?: never;
 }
 
@@ -745,8 +754,12 @@ export declare class Payment {
   constructor(config: Record<string, unknown>, Account: Account);
 
   getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
-  createPayment(data: CreatePaymentData): Promise<AxiosResponse<CommonResponse>>;
-  createDonationPayment(data: CreateDonationPaymentData): Promise<AxiosResponse<CommonResponse>>;
+  createPayment(
+    data: CreatePaymentData
+  ): Promise<AxiosResponse<CommonResponse>>;
+  createDonationPayment(
+    data: CreateDonationPaymentData
+  ): Promise<AxiosResponse<CommonResponse>>;
   getPayPalParams(
     data: PayPalParamsData
   ): Promise<AxiosResponse<GeneratePayPalParameters>>;
@@ -873,7 +886,7 @@ export declare class Subscription {
   ): Promise<AxiosResponse<CommonResponse>>;
   changeSubscriptionPlan(
     data: ChangeSubscriptionPlanRequestBody
-): Promise<AxiosResponse<ChangeSubscriptionPlanResponse>>;
+  ): Promise<AxiosResponse<ChangeSubscriptionPlanResponse>>;
 }
 
 export interface DiscountData {
@@ -932,7 +945,7 @@ export interface GetMerchantNFTResponse {
   merchant_uuid: string;
   prices: Partial<{
     [Prices.CRYPTO]: CryptoPrice;
-    [Prices.FIAT]: GetAccessFee
+    [Prices.FIAT]: GetAccessFee;
   }>;
   published: boolean;
   supply: number;
@@ -980,13 +993,31 @@ export interface MakeReservationResponse {
 export declare class NFTs {
   constructor(config: Record<string, unknown>, Account: Account);
 
-  getMerchantMarketplace(merchantUuid: string): Promise<AxiosResponse<GetMerchantMarketplaceResponse>>;
-  getMerchantNFTList(merchantUuid: string, page?: number, size?: number, filter?: string):
-    Promise<AxiosResponse<GetMerchantNFTListResponse>>;
-  getMerchantNFT(merchantUuid: string, nftId: number): Promise<AxiosResponse<GetMerchantNFTResponse>>;
-  getExchangeRates(fiat: string, invert?: boolean): Promise<AxiosResponse<GetExchangeRatesResponse>>;
-  getUserBoughtNFTs(page?: number, size?: number): Promise<AxiosResponse<GetUserBoughtNFTsResponse>>;
-  makeReservation(merchantUuid: string, nftId: number): Promise<AxiosResponse<MakeReservationResponse>>;
+  getMerchantMarketplace(
+    merchantUuid: string
+  ): Promise<AxiosResponse<GetMerchantMarketplaceResponse>>;
+  getMerchantNFTList(
+    merchantUuid: string,
+    page?: number,
+    size?: number,
+    filter?: string
+  ): Promise<AxiosResponse<GetMerchantNFTListResponse>>;
+  getMerchantNFT(
+    merchantUuid: string,
+    nftId: number
+  ): Promise<AxiosResponse<GetMerchantNFTResponse>>;
+  getExchangeRates(
+    fiat: string,
+    invert?: boolean
+  ): Promise<AxiosResponse<GetExchangeRatesResponse>>;
+  getUserBoughtNFTs(
+    page?: number,
+    size?: number
+  ): Promise<AxiosResponse<GetUserBoughtNFTsResponse>>;
+  makeReservation(
+    merchantUuid: string,
+    nftId: number
+  ): Promise<AxiosResponse<MakeReservationResponse>>;
 }
 
 export interface ApiEndpoints {
@@ -1007,7 +1038,7 @@ export interface ApiEndpoints {
     page: number,
     startDate: string,
     endDate: string,
-    type?: string,
+    type?: string
   ) => string;
   deleteAccount: string;
   exportData: string;
@@ -1043,14 +1074,22 @@ export interface ApiEndpoints {
   getSubscription: (id: string) => string;
   subscribe: string;
   cancelSubscription: (url: string) => string;
-  changeSubscriptionPlan: (accessFeeId: number, inplayerToken: string) => string;
+  changeSubscriptionPlan: (
+    accessFeeId: number,
+    inplayerToken: string
+  ) => string;
   // Voucher
   getDiscount: string;
   // Branding
   getBranding: (clientId: string, brandingId: string) => string;
   // NFTs
-  getMerchantMarketplace: (merchantUuid: string) => string,
-  getMerchantNFTList: (merchantUuid: string, page: number, size: number, filter: string) => string;
+  getMerchantMarketplace: (merchantUuid: string) => string;
+  getMerchantNFTList: (
+    merchantUuid: string,
+    page: number,
+    size: number,
+    filter: string
+  ) => string;
   getMerchantNFT: (merchantUuid: string, nftId: number) => string;
   getExchangeRates: (fiat: string, invert: boolean) => string;
   getUserBoughtNFTs: (page: number, size: number) => string;
