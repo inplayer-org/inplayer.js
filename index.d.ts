@@ -173,6 +173,26 @@ export declare interface ExternalAccount {
   token: string;
 }
 
+export interface WatchlistHistory {
+  media_id: string;
+  progress: number;
+  created_at: number;
+  updated_at: number;
+}
+export interface FavoritesData {
+  media_id: string;
+  created_at: number;
+}
+
+export interface CollectionWithCursor<T> {
+  collection: T[];
+  cursor?: string;
+}
+export interface CollectionWithCursorArgs {
+  filter?: 'all' | 'watched' | 'currently_watching';
+  cursor?: string;
+}
+
 export declare class Account {
   constructor(config: Record<string, unknown>);
 
@@ -224,6 +244,23 @@ export declare class Account {
   updateExternalAccount(
     integration: string,
     body: Record<string, string | number>
+  ): Promise<AxiosResponse<CommonResponse>>;
+  getFavorites(): Promise<AxiosResponse<CollectionWithCursor<FavoritesData>>>;
+  getFavorite(mediaId: string): Promise<AxiosResponse<FavoritesData>>;
+  addToFavorites(mediaId: string): Promise<AxiosResponse<FavoritesData>>;
+  deleteFromFavorites(mediaId: string): Promise<AxiosResponse<CommonResponse>>;
+  getWatchHistory(
+    args: CollectionWithCursorArgs
+  ): Promise<AxiosResponse<CollectionWithCursor<WatchlistHistory>>>;
+  getWatchHistoryForItem(
+    mediaId: string
+  ): Promise<AxiosResponse<WatchlistHistory>>;
+  updateWatchHistory(
+    mediaId: string,
+    progress: number
+  ): Promise<AxiosResponse<WatchlistHistory>>;
+  deleteWatchHistoryForItem(
+    mediaId: string
   ): Promise<AxiosResponse<CommonResponse>>;
 }
 
