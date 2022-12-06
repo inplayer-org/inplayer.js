@@ -1,13 +1,13 @@
-import { AxiosResponse } from "axios";
-import { CommonResponse, BaseExtend } from "./CommonInterfaces";
+import { AxiosResponse } from 'axios';
+import { CommonResponse, BaseExtend } from './CommonInterfaces';
 
 export interface SignUpData {
   fullName: string;
   email: string;
   password: string;
   passwordConfirmation: string;
-  type: "consumer";
-  grantType?: "password" | "client_credentials" | "refresh_token";
+  type: 'consumer';
+  grantType?: 'password' | 'client_credentials' | 'refresh_token';
   clientId: string;
   referrer: string;
   metadata?: { [key: string]: string };
@@ -19,7 +19,7 @@ export interface SignUpDataV2 {
   email: string;
   password: string;
   passwordConfirmation: string;
-  type: "consumer";
+  type: 'consumer';
   clientId: string;
   referrer: string;
   metadata?: { [key: string]: string };
@@ -28,7 +28,7 @@ export interface SignUpDataV2 {
 
 export interface AuthenticateData {
   email: string;
-  grantType?: "password" | "client_credentials" | "refresh_token";
+  grantType?: 'password' | 'client_credentials' | 'refresh_token';
   clientId: string;
   clientSecret?: string;
   refreshToken?: string;
@@ -61,7 +61,7 @@ export interface SetNewPasswordData {
 }
 
 export interface ChangePasswordData
-  extends Omit<SetNewPasswordData, "brandingId"> {
+  extends Omit<SetNewPasswordData, 'brandingId'> {
   oldPassword: string;
   brandingId?: number;
 }
@@ -174,7 +174,7 @@ export interface CollectionWithCursor<T> {
   cursor?: string;
 }
 export interface CollectionWithCursorArgs {
-  filter?: "all" | "watched" | "currently_watching";
+  filter?: 'all' | 'watched' | 'currently_watching';
   cursor?: string;
 }
 export interface Account extends BaseExtend {

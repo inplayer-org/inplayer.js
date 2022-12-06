@@ -1,31 +1,31 @@
 export const API = {
   // Account
-  signUp: "/accounts",
-  signUpV2: "v2/accounts",
-  signIn: "/accounts/authenticate",
-  signInV2: "/v2/accounts/authenticate",
-  signOut: "/accounts/logout",
-  changePassword: "/accounts/change-password",
-  requestNewPassword: "/accounts/forgot-password",
+  signUp: '/accounts',
+  signUpV2: 'v2/accounts',
+  signIn: '/accounts/authenticate',
+  signInV2: '/v2/accounts/authenticate',
+  signOut: '/accounts/logout',
+  changePassword: '/accounts/change-password',
+  requestNewPassword: '/accounts/forgot-password',
   setNewPassword: (token: string): string =>
     `/accounts/forgot-password/${token}`,
-  getAccountInfo: "/accounts",
-  updateAccount: "/accounts",
-  exportData: "/accounts/export",
-  deleteAccount: "/accounts/erase",
+  getAccountInfo: '/accounts',
+  updateAccount: '/accounts',
+  exportData: '/accounts/export',
+  deleteAccount: '/accounts/erase',
   getSocialLoginUrls: (state: string): string =>
     `/accounts/social?state=${state}`,
   getRegisterFields: (merchantUuid: string): string =>
     `/accounts/register-fields/${merchantUuid}`,
   reportSSOtoken: (ssoDomain: string): string => `${ssoDomain}/sso/cookie`,
-  sendPinCode: "/v2/accounts/pin-codes/send",
-  validatePinCode: "/v2/accounts/pin-codes/validate",
-  requestDataCaptureNoAuthAccess: "/v2/accounts/customers/data-capture",
+  sendPinCode: '/v2/accounts/pin-codes/send',
+  validatePinCode: '/v2/accounts/pin-codes/validate',
+  requestDataCaptureNoAuthAccess: '/v2/accounts/customers/data-capture',
   externalAccount: (integration: string): string =>
     `/v2/accounts/external/${integration}`,
-  getFavorites: "/v2/accounts/media/favorites",
+  getFavorites: '/v2/accounts/media/favorites',
   getFavorite: (id: string): string => `/v2/accounts/media/favorites/${id}`,
-  getWatchHistory: "/v2/accounts/media/watchlist-history",
+  getWatchHistory: '/v2/accounts/media/watchlist-history',
   getWatchHistoryForItem: (id: string) =>
     `/v2/accounts/media/watchlist-history/${id}`,
   // restrictions
@@ -38,7 +38,7 @@ export const API = {
   getExternalAsset: (
     assetType: string,
     externalId: string,
-    merchantUuid?: string
+    merchantUuid?: string,
   ): string => {
     let url = `/items/assets/external/${assetType}/${externalId}`;
     if (merchantUuid) {
@@ -55,7 +55,7 @@ export const API = {
   getPurchaseHistory: (status: string, page: number, size: number): string =>
     `/items/access/customers?status=${status}&page=${page}&size=${size}`,
   // code only
-  requestCodeAccess: "/items/access/codes/entry",
+  requestCodeAccess: '/items/access/codes/entry',
   requestAccessCodeSessions: (codeId: number): string =>
     `items/access/codes/${codeId}/sessions`,
   terminateSession: (codeId: number, fingerprint: string): string =>
@@ -64,16 +64,16 @@ export const API = {
   getDonations: (id: number): string => `v2/items/${id}/donations`,
 
   // Payments
-  getPaymentMethods: "/payments/methods",
-  payForAsset: "/payments",
-  payForAssetV2: "/v2/payments",
-  getDefaultCreditCard: "/v2/payments/cards/default",
-  setDefaultCreditCard: "/v2/payments/cards/default",
-  getPayPalParams: "/external-payments",
-  getDirectDebitMandate: "/v2/payments/direct-debit/mandate",
-  createDirectDebitMandate: "/v2/payments/direct-debit/mandate",
-  payForAssetDonation: "/v2/payments/donation",
-  confirmForAssetDonation: "/v2/payments/donation:confirm",
+  getPaymentMethods: '/payments/methods',
+  payForAsset: '/payments',
+  payForAssetV2: '/v2/payments',
+  getDefaultCreditCard: '/v2/payments/cards/default',
+  setDefaultCreditCard: '/v2/payments/cards/default',
+  getPayPalParams: '/external-payments',
+  getDirectDebitMandate: '/v2/payments/direct-debit/mandate',
+  createDirectDebitMandate: '/v2/payments/direct-debit/mandate',
+  payForAssetDonation: '/v2/payments/donation',
+  confirmForAssetDonation: '/v2/payments/donation:confirm',
   validateReceipt: (platform: string): string =>
     `v2/external-payments/${platform}/validate`,
   getAssetsHistory: (
@@ -81,7 +81,7 @@ export const API = {
     page: number,
     startDate?: string,
     endDate?: string,
-    type?: string
+    type?: string,
   ): string => {
     let url = `/payments/transactions?exclude=store-payment&size=${size}&page=${page}`;
 
@@ -108,12 +108,12 @@ export const API = {
   },
   getSubscription: (id: string): string => `/subscriptions/${id}`,
   cancelSubscription: (url: string): string => `${url}`,
-  subscribe: "/subscriptions",
-  subscribeV2: "/v2/subscriptions",
-  subscriptionPlanChange: "/v2/subscriptions/stripe:switch",
+  subscribe: '/subscriptions',
+  subscribeV2: '/v2/subscriptions',
+  subscriptionPlanChange: '/v2/subscriptions/stripe:switch',
 
   // Vouchers
-  getDiscount: "/vouchers/discount",
+  getDiscount: '/vouchers/discount',
 
   // Branding
   getBranding: (clientId: string, brandingId: string | number): string =>
@@ -126,13 +126,13 @@ export const API = {
     merchantUuid: string,
     page: number,
     size: number,
-    filter: string
+    filter: string,
   ): string =>
     `/v2/nfts/${merchantUuid}?filter=${filter}&page=${page}&size=${size}`,
   getMerchantNFT: (merchantUuid: string, nftId: number): string =>
     `/v2/nfts/${merchantUuid}/${nftId}`,
   getExchangeRates: (fiat: string, invert: boolean): string =>
-    `/v2/nfts/exchange-rate/${fiat}${invert ? "?invert=true" : ""}`,
+    `/v2/nfts/exchange-rate/${fiat}${invert ? '?invert=true' : ''}`,
   getUserBoughtNFTs: (page: number, size: number): string =>
     `/v2/nfts?page=${page}&size=${size}`,
   makeReservation: (merchantUuid: string, nftId: number): string =>
