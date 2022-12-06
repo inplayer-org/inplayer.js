@@ -1131,11 +1131,11 @@ class Account extends BaseExtend {
    * @returns  {AxiosResponse<CollectionWithCursor<FavoritesData>>} Contains the data:
    * ```typescript
    * {
-   * 	"collection": [{
-   * 		"media_id": "awWEFyPu",
-   * 		"created_at": 1532425425
-   * 	}],
-   * 	"cursor": "https://services.inplayer.com/v2/accounts/media/favorites?cursor=Ksm34SUn3j23j3"
+   *  "collection": [{
+   *    "media_id": "awWEFyPu",
+   *    "created_at": 1532425425
+   *  }],
+   *  "cursor": "https://services.inplayer.com/v2/accounts/media/favorites?cursor=Ksm34SUn3j23j3"
    * }
    * ```
    */
@@ -1163,9 +1163,9 @@ class Account extends BaseExtend {
    * @returns  {AxiosResponse<FavoritesData>} Contains the data:
    * ```typescript
    *  {
-   * 		"media_id": "awWEFyPu",
-   * 		"created_at": 1532425425
-   * 	}
+   *    "media_id": "awWEFyPu",
+   *    "created_at": 1532425425
+   *  }
    * ```
    */
   async getFavorite(mediaId: string): Promise<AxiosResponse<FavoritesData>> {
@@ -1190,9 +1190,9 @@ class Account extends BaseExtend {
    * @returns  {AxiosResponse<FavoritesData>} Contains the data:
    * ```typescript
    *  {
-   * 		"media_id": "awWEFyPu",
-   * 		"created_at": 1532425425
-   * 	}
+   *    "media_id": "awWEFyPu",
+   *    "created_at": 1532425425
+   *  }
    * ```
    */
   async addToFavorites(mediaId: string): Promise<AxiosResponse<FavoritesData>> {
@@ -1221,9 +1221,9 @@ class Account extends BaseExtend {
    * @returns  {AxiosResponse<CommonResponse>} Contains the data:
    * ```typescript
    *  {
-   * 		"message": "Media item has been successfully removed from favorites.",
-   * 		"code": 200
-   * 	}
+   *    "message": "Media item has been successfully removed from favorites.",
+   *    "code": 200
+   *  }
    * ```
    */
   async deleteFromFavorites(
@@ -1242,7 +1242,8 @@ class Account extends BaseExtend {
   /**
    * Returns the viewer's watchlist history
    * @method getWatchHistory
-   * @param {string} filter the filter can be one of all, watched or currently_watching. The default is: currently_watching
+   * @param {string} filter the filter can be one of all, watched or currently_watching.
+   * The default is: currently_watching
    * @param {string} cursor the url for the next page of the results
    * @async
    * @example
@@ -1252,13 +1253,13 @@ class Account extends BaseExtend {
    * @returns  {CollectionWithCursor<WatchlistHistoryData>} Contains the data:
    * ```typescript
    * {
-   * 	"collection": [{
-   * 		"media_id": "awWEFyPu",
+   *  "collection": [{
+   *    "media_id": "awWEFyPu",
    *    "progress": 0.8577555,
-   * 		"created_at": 1532425425,
+   *    "created_at": 1532425425,
    *    "updated_at": 1532425425
-   * 	}],
-   * 	"cursor": "https://services.inplayer.com/v2/accounts/media/watchlist-history?cursor=Ksm34SUn3j23j3"
+   *  }],
+   *  "cursor": "https://services.inplayer.com/v2/accounts/media/watchlist-history?cursor=Ksm34S"
    * }
    * ```
    */
@@ -1292,11 +1293,11 @@ class Account extends BaseExtend {
    * @returns  {AxiosResponse<WatchlistHistoryData>} Contains the data:
    * ```typescript
    *  {
-   * 		"media_id": "awWEFyPu",
+   *    "media_id": "awWEFyPu",
    *    "progress": 0.4848484444,
-   * 		"created_at": 1532425425,
+   *    "created_at": 1532425425,
    *    "updated_at": 1532425425
-   * 	}
+   *  }
    * ```
    */
   async getWatchHistoryForItem(
@@ -1324,11 +1325,11 @@ class Account extends BaseExtend {
    * @returns  {AxiosResponse<WatchlistHistoryData>} Contains the data:
    * ```typescript
    *  {
-   * 		"media_id": "awWEFyPu",
+   *    "media_id": "awWEFyPu",
    *    "progress": 0.3434444,
-   * 		"created_at": 1532425425,
+   *    "created_at": 1532425425,
    *    "updated_at": 1532434467
-   * 	}
+   *   }
    * ```
    */
   async updateWatchHistory(
@@ -1360,9 +1361,9 @@ class Account extends BaseExtend {
    * @returns  {AxiosResponse<CommonResponse>} Contains the data:
    * ```typescript
    *  {
-   * 		"message": "Media item has been successfully removed from the list.",
-   * 		"code": 200
-   * 	}
+   *    "message": "Media item has been successfully removed from the list.",
+   *    "code": 200
+   *  }
    * ```
    */
   async deleteWatchHistoryForItem(
