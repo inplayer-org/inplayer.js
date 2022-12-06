@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.2] - 06-12-2022
+
+### Added
+
+- New `Account` methods for handling account favorites and wachlist history from external source
+
 # [3.13.1] - 16-08-2022
 
 ### Added
@@ -25,6 +31,7 @@ All notable changes to this project will be documented in this file.
 ### Changes
 
 - Updated AWS_IOT_URL for staging and production environments
+
 # [3.12.6] - 08-03-2022
 
 ### Changes
@@ -56,17 +63,19 @@ All notable changes to this project will be documented in this file.
 - The type of getSubscription method parameter changed to string
 
 # [3.12.1] - 03-12-2021
+
 ## Changes
 
 - IOT token validity changed from 60 to 30 minutes
 
 # [3.12.0] - 28-09-2021
+
 ## Changes
 
 - Typedoc version upgraded to 0.22.4
 - The view of our generated docs is changed, due to breaking changes introduces in typedoc 0.20.0 version
 - Moved the directDebitSubscribe and idealSubscribe methods in subscription module and added deprecated description next to them in payments module
-- Added more comprehensive description for methods parameters and responses 
+- Added more comprehensive description for methods parameters and responses
 - Removed redundant getPaymentTools method
 
 # [3.11.3] - 23-09-2021
