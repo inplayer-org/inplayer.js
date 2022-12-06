@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.3] - 06-12-2022
+
+### Added
+
+- Added missing type declarations
+
 # [3.13.2] - 06-12-2022
 
 ### Added
