@@ -25,7 +25,7 @@ export const API = {
     `/v2/accounts/external/${integration}`,
   getFavorites: "/v2/accounts/media/favorites",
   getFavorite: (id: string): string => `/v2/accounts/media/favorites/${id}`,
-  getWatchlistHistory: "/v2/accounts/media/watchlist-history",
+  getWatchHistory: "/v2/accounts/media/watchlist-history",
   getWatchHistoryForItem: (id: string) =>
     `/v2/accounts/media/watchlist-history/${id}`,
   // restrictions

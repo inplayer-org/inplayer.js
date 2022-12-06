@@ -1,9 +1,9 @@
-import { AxiosResponse } from "axios";
+import { AxiosResponse } from 'axios';
 
 export enum Env {
-  Development = "development",
-  Production = "production",
-  Daily = "daily",
+  Development = 'development',
+  Production = 'production',
+  Daily = 'daily',
 }
 
 // Common response
@@ -36,8 +36,8 @@ export interface SignUpData {
   email: string;
   password: string;
   passwordConfirmation: string;
-  type: "consumer" | "merchant";
-  grantType?: "password" | "client_credentials" | "refresh_token";
+  type: 'consumer' | 'merchant';
+  grantType?: 'password' | 'client_credentials' | 'refresh_token';
   clientId: string;
   referrer: string;
   metadata?: { [key: string]: string };
@@ -49,7 +49,7 @@ export interface SignUpDataV2 {
   email: string;
   password: string;
   passwordConfirmation: string;
-  type: "consumer";
+  type: 'consumer';
   clientId: string;
   referrer: string;
   metadata?: { [key: string]: string };
@@ -58,7 +58,7 @@ export interface SignUpDataV2 {
 
 export declare interface AuthenticateData {
   email: string;
-  grantType?: "password" | "client_credentials" | "refresh_token";
+  grantType?: 'password' | 'client_credentials' | 'refresh_token';
   clientId: string;
   clientSecret?: string;
   refreshToken?: string;
@@ -81,7 +81,7 @@ export interface SetNewPasswordData {
 }
 
 export interface ChangePasswordData
-  extends Omit<SetNewPasswordData, "brandingId"> {
+  extends Omit<SetNewPasswordData, 'brandingId'> {
   oldPassword: string;
   brandingId?: number;
 }
@@ -709,10 +709,10 @@ export declare interface GoogleOrApplePaymentData {
 }
 
 export enum ReceiptValidationPlatform {
-  AMAZON = "amazon",
-  APPLE = "apple",
-  GOOGLE_PLAY = "google-play",
-  ROKU = "roku",
+  AMAZON = 'amazon',
+  APPLE = 'apple',
+  GOOGLE_PLAY = 'google-play',
+  ROKU = 'roku',
 }
 
 interface AmazonPlatformData {
@@ -908,9 +908,9 @@ export declare class Voucher {
 type FiatCurrency = string;
 
 export enum CryptoCurrency {
-  ETH = "ETH",
-  MATIC = "MATIC",
-  USDC = "USDC",
+  ETH = 'ETH',
+  MATIC = 'MATIC',
+  USDC = 'USDC',
 }
 
 export interface GetMerchantMarketplaceResponse {
@@ -932,8 +932,8 @@ export interface CryptoPrice {
 }
 
 export enum Prices {
-  CRYPTO = "crypto",
-  FIAT = "fiat",
+  CRYPTO = 'crypto',
+  FIAT = 'fiat',
 }
 
 export interface GetMerchantNFTResponse {

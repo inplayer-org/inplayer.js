@@ -1270,7 +1270,7 @@ class Account extends BaseExtend {
   > {
     const tokenObject = await this.request.getToken();
     return this.request.get(
-      `${API.getWatchlistHistory}?filter=${filter}&cursor=${cursor}`,
+      `${API.getWatchHistory}?filter=${filter}&cursor=${cursor}`,
       {
         headers: {
           Authorization: `Bearer ${tokenObject.token}`,
@@ -1340,7 +1340,7 @@ class Account extends BaseExtend {
       progress: progress,
     };
     const tokenObject = await this.request.getToken();
-    return this.request.patch(API.getWatchlistHistory, qs.stringify(body), {
+    return this.request.patch(API.getWatchHistory, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
         "Content-Type": "application/x-www-form-urlencoded",

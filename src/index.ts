@@ -1,31 +1,31 @@
 /**
  * @module InPlayer
  */
-import Account from './endpoints/account';
-import Asset from './endpoints/asset';
-import Payment from './endpoints/payment';
-import Subscription from './endpoints/subscription';
-import Branding from './endpoints/branding';
-import Voucher from './endpoints/voucher';
-import NFTs from './endpoints/nfts';
-import Notifications from './factories/notifications';
-import RequestFactory from './factories/request';
-import tokenStorage, { TokenStorageType } from './factories/tokenStorage';
-import config from './config';
+import Account from "./endpoints/account";
+import Asset from "./endpoints/asset";
+import Payment from "./endpoints/payment";
+import Subscription from "./endpoints/subscription";
+import Branding from "./endpoints/branding";
+import Voucher from "./endpoints/voucher";
+import NFTs from "./endpoints/nfts";
+import Notifications from "./factories/notifications";
+import RequestFactory from "./factories/request";
+import tokenStorage, { TokenStorageType } from "./factories/tokenStorage";
+import config from "./config";
 
 // types
 import {
   Notifications as NotificationsType,
   Env,
-} from './models/CommonInterfaces';
-import { ApiConfig, Request as RequestType } from './models/Config';
-import { Account as AccountType } from './models/IAccount&Authentication';
-import { Asset as AssetType } from './models/IAsset&Access';
-import { Payment as PaymentType } from './models/IPayment';
-import { Subscription as SubscriptionType } from './models/ISubscription';
-import { Voucher as VoucherType } from './models/IVoucher&Promotion';
-import { NFTs as NFTsType } from './models/INFTs';
-import { Branding as BrandingType } from './models/IBrand';
+} from "./models/CommonInterfaces";
+import { ApiConfig, Request as RequestType } from "./models/Config";
+import { Account as AccountType } from "./models/IAccount&Authentication";
+import { Asset as AssetType } from "./models/IAsset&Access";
+import { Payment as PaymentType } from "./models/IPayment";
+import { Subscription as SubscriptionType } from "./models/ISubscription";
+import { Voucher as VoucherType } from "./models/IVoucher&Promotion";
+import { NFTs as NFTsType } from "./models/INFTs";
+import { Branding as BrandingType } from "./models/IBrand";
 
 /**
  * Main class. Contains all others methods and websocket subscription
@@ -94,13 +94,13 @@ export class InPlayer {
    */
   subscribe(
     accountUuid: string,
-    callbackParams: Record<string, (...params: any) => void>,
+    callbackParams: Record<string, (...params: any) => void>
   ): void {
     if (this.request.isAuthenticated()) {
       this.Notifications.subscribe(accountUuid, callbackParams)
         .then((data: any) => {
           if (!data) {
-            console.error('An error has occured while subscribing.');
+            console.error("An error has occured while subscribing.");
           }
         })
         .catch((error: any) => {
