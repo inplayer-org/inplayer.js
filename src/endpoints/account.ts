@@ -1,5 +1,5 @@
-import qs from 'qs';
-import { AxiosResponse } from 'axios';
+import qs from "qs";
+import { AxiosResponse } from "axios";
 import {
   CreateAccount,
   AccountData,
@@ -10,12 +10,19 @@ import {
   AuthenticateRequestBody,
   UpdateAccountRequestBody,
   AccountProfile,
-} from '../models/IAccount&Authentication';
-import { CommonResponse, CustomErrorResponse } from '../models/CommonInterfaces';
-import { ApiConfig, Request } from '../models/Config';
-import BaseExtend from '../extends/base';
-import { API } from '../constants';
-import tokenStorage from '../factories/tokenStorage';
+  CollectionWithCursor,
+  FavoritesData,
+  WatchlistHistoryData,
+  CollectionWithCursorArgs,
+} from "../models/IAccount&Authentication";
+import {
+  CommonResponse,
+  CustomErrorResponse,
+} from "../models/CommonInterfaces";
+import { ApiConfig, Request } from "../models/Config";
+import BaseExtend from "../extends/base";
+import { API } from "../constants";
+import tokenStorage from "../factories/tokenStorage";
 
 /**
  * Contains all Requests regarding user account and authentication.
@@ -139,18 +146,18 @@ class Account extends BaseExtend {
   }): Promise<AxiosResponse<CreateAccount>> {
     const body: AuthenticateRequestBody = {
       client_id: clientId,
-      grant_type: 'password',
+      grant_type: "password",
       referrer,
     };
 
     if (clientSecret) {
       body.client_secret = clientSecret;
-      body.grant_type = 'client_credentials';
+      body.grant_type = "client_credentials";
     }
 
     if (refreshToken) {
       body.refresh_token = refreshToken;
-      body.grant_type = 'refresh_token';
+      body.grant_type = "refresh_token";
     } else {
       body.username = email;
       body.password = password;
@@ -158,14 +165,14 @@ class Account extends BaseExtend {
 
     const respData = await this.request.post(API.signIn, qs.stringify(body), {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
       },
     });
 
     await this.request.setToken(
       respData.data.access_token,
       respData.data.refresh_token,
-      respData.data.expires,
+      respData.data.expires
     );
 
     return respData;
@@ -228,7 +235,7 @@ class Account extends BaseExtend {
   }): Promise<AxiosResponse<CreateAccountV2>> {
     const body = {
       client_id: clientId,
-      grant_type: 'password',
+      grant_type: "password",
       referrer,
       username: email,
       password,
@@ -236,14 +243,14 @@ class Account extends BaseExtend {
 
     const respData = await this.request.post(API.signInV2, qs.stringify(body), {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
       },
     });
 
     await this.request.setToken(
       respData.data.access_token,
       respData.data.refresh_token,
-      respData.data.expires,
+      respData.data.expires
     );
 
     return respData;
@@ -320,7 +327,7 @@ class Account extends BaseExtend {
     email: string;
     password: string;
     passwordConfirmation: string;
-    type: 'consumer';
+    type: "consumer";
     clientId: string;
     referrer: string;
     metadata?: { [key: string]: string };
@@ -334,19 +341,19 @@ class Account extends BaseExtend {
       client_id: clientId,
       type,
       referrer,
-      grant_type: 'password',
+      grant_type: "password",
       metadata,
       branding_id: brandingId,
     };
 
     const resp = await this.request.post(API.signUp, qs.stringify(body), {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
     });
 
     await this.request.setToken(
       resp.data.access_token,
       resp.data.refresh_token,
-      resp.data.expires,
+      resp.data.expires
     );
 
     return resp;
@@ -414,7 +421,7 @@ class Account extends BaseExtend {
     password,
     passwordConfirmation,
     clientId,
-    type = 'consumer',
+    type = "consumer",
     referrer,
     metadata,
     brandingId,
@@ -424,7 +431,7 @@ class Account extends BaseExtend {
     password: string;
     passwordConfirmation: string;
     clientId: string;
-    type: 'consumer';
+    type: "consumer";
     referrer: string;
     metadata?: { [key: string]: string };
     brandingId?: number;
@@ -437,19 +444,19 @@ class Account extends BaseExtend {
       client_id: clientId,
       type,
       referrer,
-      grant_type: 'password',
+      grant_type: "password",
       metadata,
       branding_id: brandingId,
     };
 
     const resp = await this.request.post(API.signUpV2, qs.stringify(body), {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
     });
 
     await this.request.setToken(
       resp.data.access_token,
       resp.data.refresh_token,
-      resp.data.expires,
+      resp.data.expires
     );
 
     return resp;
@@ -517,7 +524,7 @@ class Account extends BaseExtend {
         status: 401,
         data: {
           code: 401,
-          message: 'The refresh token is not present',
+          message: "The refresh token is not present",
         },
       };
 
@@ -528,15 +535,15 @@ class Account extends BaseExtend {
     const body = {
       refresh_token: tokenObject.refreshToken,
       client_id: clientId,
-      grant_type: 'refresh_token',
+      grant_type: "refresh_token",
     };
 
     const responseData = await this.request.post(
       API.signIn,
       qs.stringify(body),
       {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      },
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      }
     );
 
     return responseData;
@@ -550,15 +557,19 @@ class Account extends BaseExtend {
    * If it is not set the token won't be deactivated.
    * @returns {AxiosResponse<any>}
    */
-  async reportSSOtoken(ssoDomain: string, token: string, deactivate = false): Promise<AxiosResponse<any>> {
+  async reportSSOtoken(
+    ssoDomain: string,
+    token: string,
+    deactivate = false
+  ): Promise<AxiosResponse<any>> {
     const body = new FormData();
 
-    body.append('token', token);
-    body.append('delete', deactivate ? '1' : '0');
+    body.append("token", token);
+    body.append("delete", deactivate ? "1" : "0");
 
     // TODO: Check if global withCredentials works
     return this.request.post(API.reportSSOtoken(ssoDomain), body, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+      headers: { "Content-Type": "multipart/form-data" },
       withCredentials: true,
     });
   }
@@ -606,7 +617,7 @@ class Account extends BaseExtend {
     };
 
     return this.request.post(API.requestNewPassword, qs.stringify(body), {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
     });
   }
 
@@ -632,16 +643,18 @@ class Account extends BaseExtend {
    */
   // object types must be anonymous(don't use interface or type alias)
   // in order to data params description to be shown in typedoc
-  async setNewPassword({
-    password,
-    passwordConfirmation,
-    brandingId,
-  }: {
+  async setNewPassword(
+    {
+      password,
+      passwordConfirmation,
+      brandingId,
+    }: {
       password: string;
       passwordConfirmation: string;
       brandingId: number;
     },
-  token = ''): Promise<AxiosResponse<void>> {
+    token = ""
+  ): Promise<AxiosResponse<void>> {
     // TODO: check logic
     // eslint-disable-next-line max-len
     const encodePassword = encodeURIComponent(password);
@@ -649,21 +662,21 @@ class Account extends BaseExtend {
     const body = `password=${encodePassword}&password_confirmation=${encodePasswordConfirm}&branding_id=${brandingId}`;
 
     return this.request.put(API.setNewPassword(token), body, {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
     });
   }
 
   /**
-* Creates or returns an existing external account integrated with an InPlayer fan account
-* @method syncWithExternalAccount
-* @async
-* @param {string} integration The name of the external integration
-* @param {number} itemId The id of created premium content in InPlayer Dashboard (i.e asset id or package id).
-* @example
-*     InPlayer.Account
-*     .syncWithExternalAccount('livelike', 12345)
-*     .then(data => console.log(data));
-* @returns  {AxiosResponse<AccountProfile>} Contains the data:
+   * Creates or returns an existing external account integrated with an InPlayer fan account
+   * @method syncWithExternalAccount
+   * @async
+   * @param {string} integration The name of the external integration
+   * @param {number} itemId The id of created premium content in InPlayer Dashboard (i.e asset id or package id).
+   * @example
+   *     InPlayer.Account
+   *     .syncWithExternalAccount('livelike', 12345)
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<AccountProfile>} Contains the data:
    * ```typescript
    * {
    *    id: 3, // The record id
@@ -671,18 +684,25 @@ class Account extends BaseExtend {
    *    token: '45b1b30-aa2f1h-9abc-j5dsg-78d36d' // The external integration longlived token
    * }
    * ```
-*/
-  async syncWithExternalAccount(integration: string, itemId: number): Promise<AxiosResponse<AccountProfile>> {
+   */
+  async syncWithExternalAccount(
+    integration: string,
+    itemId: number
+  ): Promise<AxiosResponse<AccountProfile>> {
     const body = { item_id: itemId };
 
     const tokenObject = await this.request.getToken();
 
-    return this.request.post(API.externalAccount(integration), qs.stringify(body), {
-      headers: {
-        Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
+    return this.request.post(
+      API.externalAccount(integration),
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${tokenObject.token}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    );
   }
 
   /**
@@ -700,15 +720,22 @@ class Account extends BaseExtend {
    *     .then(data => console.log(data));
    * @returns  {AxiosResponse<any>}
    */
-  async updateExternalAccount(integration: string, body: Record<string, any>): Promise<AxiosResponse<any>> {
+  async updateExternalAccount(
+    integration: string,
+    body: Record<string, any>
+  ): Promise<AxiosResponse<any>> {
     const tokenObject = await this.request.getToken();
 
-    return this.request.patch(API.externalAccount(integration), qs.stringify(body), {
-      headers: {
-        Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
+    return this.request.patch(
+      API.externalAccount(integration),
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${tokenObject.token}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    );
   }
 
   /**
@@ -769,7 +796,9 @@ class Account extends BaseExtend {
    * }
    * ```
    */
-  async getSocialLoginUrls(state: string): Promise<AxiosResponse<ListSocialURLs>> {
+  async getSocialLoginUrls(
+    state: string
+  ): Promise<AxiosResponse<ListSocialURLs>> {
     return this.request.get(API.getSocialLoginUrls(state));
   }
 
@@ -798,7 +827,7 @@ class Account extends BaseExtend {
     fullName: string;
     metadata?: { [key: string]: string };
     dateOfBirth?: string;
-  }): Promise<AxiosResponse<void>> {
+  }): Promise<AxiosResponse<AccountData>> {
     const body: UpdateAccountRequestBody = {
       full_name: fullName,
     };
@@ -815,7 +844,7 @@ class Account extends BaseExtend {
     return this.request.put(API.updateAccount, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
       },
     });
   }
@@ -865,7 +894,7 @@ class Account extends BaseExtend {
     return this.request.post(API.changePassword, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
       },
     });
   }
@@ -896,7 +925,9 @@ class Account extends BaseExtend {
    * }
    * ```
    */
-  async getRegisterFields(merchantUuid = ''): Promise<AxiosResponse<GetRegisterField>> {
+  async getRegisterFields(
+    merchantUuid = ""
+  ): Promise<AxiosResponse<GetRegisterField>> {
     return this.request.get(API.getRegisterFields(merchantUuid));
   }
 
@@ -938,7 +969,7 @@ class Account extends BaseExtend {
     const response = await this.request.delete(API.deleteAccount, {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
       },
       data: qs.stringify(body),
     });
@@ -989,7 +1020,7 @@ class Account extends BaseExtend {
     return this.request.post(API.exportData, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
       },
     });
   }
@@ -1011,7 +1042,9 @@ class Account extends BaseExtend {
    * }
    * ```
    */
-  async sendPinCode(brandingId: number): Promise<AxiosResponse<CommonResponse>> {
+  async sendPinCode(
+    brandingId: number
+  ): Promise<AxiosResponse<CommonResponse>> {
     const body = {
       branding_id: brandingId,
     };
@@ -1021,7 +1054,7 @@ class Account extends BaseExtend {
     return this.request.post(API.sendPinCode, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
       },
     });
   }
@@ -1043,7 +1076,9 @@ class Account extends BaseExtend {
    * ```
    */
 
-  async validatePinCode(pinCode: string): Promise<AxiosResponse<CommonResponse>> {
+  async validatePinCode(
+    pinCode: string
+  ): Promise<AxiosResponse<CommonResponse>> {
     const body = {
       pin_code: pinCode,
     };
@@ -1053,34 +1088,293 @@ class Account extends BaseExtend {
     return this.request.post(API.validatePinCode, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
       },
     });
   }
 
   /**
-  * Returns restriction settings per Merchant
-  * @method loadMerchantRestrictionSettings
-  * @async
-  * @param {string} merchantUuid The Merchant's unique universal identifier (Merchant UUID).
-  * You can find it on the InPlayer's dashboard at the Account Details section as Account ID.
-  * @example
-  *     InPlayer.Account
-  *     .loadMerchantRestrictionSettings("528b1b80-5868-4abc-a9b6-4d3455d719c8")
-  *     .then(data => console.log(data));
-  * @returns  {AxiosResponse<RestrictionSettingsData>} Contains the data:
-  * ```typescript
-  * {
-  *     "age_verification_type": "pin_code",
-  *     "age_verification_enabled": true,
-  *     "merchant_uuid": "3b39b5ab-b5fc-4ba3-b770-73155d20e61f",
-  *     "created_at": 1532425425,
-  *     "updated_at": 1532425425
-  * }
-  * ```
-  */
-  async loadMerchantRestrictionSettings(merchantUuid: string): Promise<AxiosResponse<RestrictionSettingsData>> {
+   * Returns restriction settings per Merchant
+   * @method loadMerchantRestrictionSettings
+   * @async
+   * @param {string} merchantUuid The Merchant's unique universal identifier (Merchant UUID).
+   * You can find it on the InPlayer's dashboard at the Account Details section as Account ID.
+   * @example
+   *     InPlayer.Account
+   *     .loadMerchantRestrictionSettings("528b1b80-5868-4abc-a9b6-4d3455d719c8")
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<RestrictionSettingsData>} Contains the data:
+   * ```typescript
+   * {
+   *     "age_verification_type": "pin_code",
+   *     "age_verification_enabled": true,
+   *     "merchant_uuid": "3b39b5ab-b5fc-4ba3-b770-73155d20e61f",
+   *     "created_at": 1532425425,
+   *     "updated_at": 1532425425
+   * }
+   * ```
+   */
+  async loadMerchantRestrictionSettings(
+    merchantUuid: string
+  ): Promise<AxiosResponse<RestrictionSettingsData>> {
     return this.request.get(API.merchantRestrictionSettings(merchantUuid));
+  }
+
+  /**
+   * Returns the viewer's favorite media items
+   * @method getFavorites
+   * @async
+   * @example
+   *     InPlayer.Account
+   *     .getFavorites()
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<CollectionWithCursor<FavoritesData>>} Contains the data:
+   * ```typescript
+   * {
+   * 	"collection": [{
+   * 		"media_id": "awWEFyPu",
+   * 		"created_at": 1532425425
+   * 	}],
+   * 	"cursor": "https://services.inplayer.com/v2/accounts/media/favorites?cursor=Ksm34SUn3j23j3"
+   * }
+   * ```
+   */
+  async getFavorites(): Promise<
+    AxiosResponse<CollectionWithCursor<FavoritesData>>
+  > {
+    const tokenObject = await this.request.getToken();
+    return this.request.get(API.getFavorites, {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+  }
+
+  /**
+   * Returns the viewer's favorite media item
+   * @method getFavorite
+   * @param {string} mediaId The external ID
+   * @async
+   * @example
+   *     InPlayer.Account
+   *     .getFavorite()
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<FavoritesData>} Contains the data:
+   * ```typescript
+   *  {
+   * 		"media_id": "awWEFyPu",
+   * 		"created_at": 1532425425
+   * 	}
+   * ```
+   */
+  async getFavorite(mediaId: string): Promise<AxiosResponse<FavoritesData>> {
+    const tokenObject = await this.request.getToken();
+    return this.request.get(API.getFavorite(mediaId), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+  }
+
+  /**
+   * Returns the viewer's favorite media item
+   * @method addToFavorites
+   * @param {string} mediaId The external ID
+   * @async
+   * @example
+   *     InPlayer.Account
+   *     .addToFavorites("awWEFyPu")
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<FavoritesData>} Contains the data:
+   * ```typescript
+   *  {
+   * 		"media_id": "awWEFyPu",
+   * 		"created_at": 1532425425
+   * 	}
+   * ```
+   */
+  async addToFavorites(mediaId: string): Promise<AxiosResponse<FavoritesData>> {
+    const body = {
+      media_id: mediaId,
+    };
+
+    const tokenObject = await this.request.getToken();
+    return this.request.post(API.getFavorites, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+  }
+
+  /**
+   * Deletes viewer's favorite media item
+   * @method getFavorite
+   * @param {string} mediaId The external ID
+   * @async
+   * @example
+   *     InPlayer.Account
+   *     .deleteFromFavorites("awWEFyPu")
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<CommonResponse>} Contains the data:
+   * ```typescript
+   *  {
+   * 		"message": "Media item has been successfully removed from favorites.",
+   * 		"code": 200
+   * 	}
+   * ```
+   */
+  async deleteFromFavorites(
+    mediaId: string
+  ): Promise<AxiosResponse<CommonResponse>> {
+    const tokenObject = await this.request.getToken();
+
+    return this.request.delete(API.getFavorite(mediaId), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+  }
+
+  /**
+   * Returns the viewer's watchlist history
+   * @method getWatchHistory
+   * @param {string} filter the filter can be one of all, watched or currently_watching. The default is: currently_watching
+   * @param {string} cursor the url for the next page of the results
+   * @async
+   * @example
+   *     InPlayer.Account
+   *     .getWatchHistory({filter:"all"})
+   *     .then(data => console.log(data));
+   * @returns  {CollectionWithCursor<WatchlistHistoryData>} Contains the data:
+   * ```typescript
+   * {
+   * 	"collection": [{
+   * 		"media_id": "awWEFyPu",
+   *    "progress": 0.8577555,
+   * 		"created_at": 1532425425,
+   *    "updated_at": 1532425425
+   * 	}],
+   * 	"cursor": "https://services.inplayer.com/v2/accounts/media/watchlist-history?cursor=Ksm34SUn3j23j3"
+   * }
+   * ```
+   */
+  async getWatchHistory({
+    filter = "currently_watching",
+    cursor = "",
+  }: CollectionWithCursorArgs): Promise<
+    AxiosResponse<CollectionWithCursor<WatchlistHistoryData>>
+  > {
+    const tokenObject = await this.request.getToken();
+    return this.request.get(
+      `${API.getWatchlistHistory}?filter=${filter}&cursor=${cursor}`,
+      {
+        headers: {
+          Authorization: `Bearer ${tokenObject.token}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    );
+  }
+
+  /**
+   * Returns the viewer's watchlist history media item
+   * @method getWatchHistoryForItem
+   * @param {string} mediaId The external ID
+   * @async
+   * @example
+   *     InPlayer.Account
+   *     .getWatchHistoryForItem("awWEFyPu")
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<WatchlistHistoryData>} Contains the data:
+   * ```typescript
+   *  {
+   * 		"media_id": "awWEFyPu",
+   *    "progress": 0.4848484444,
+   * 		"created_at": 1532425425,
+   *    "updated_at": 1532425425
+   * 	}
+   * ```
+   */
+  async getWatchHistoryForItem(
+    mediaId: string
+  ): Promise<AxiosResponse<WatchlistHistoryData>> {
+    const tokenObject = await this.request.getToken();
+    return this.request.get(API.getWatchHistoryForItem(mediaId), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+  }
+
+  /**
+   * Updates the viewer's watchlist history media item
+   * @method updateWatchHistory
+   * @param {string} mediaId The external ID
+   * @param {number} progress The progress of the watched video in percent
+   * @async
+   * @example
+   *     InPlayer.Account
+   *     .updateWatchHistory("awWEFyPu", 0.3434)
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<WatchlistHistoryData>} Contains the data:
+   * ```typescript
+   *  {
+   * 		"media_id": "awWEFyPu",
+   *    "progress": 0.3434444,
+   * 		"created_at": 1532425425,
+   *    "updated_at": 1532434467
+   * 	}
+   * ```
+   */
+  async updateWatchHistory(
+    mediaId: string,
+    progress: number
+  ): Promise<AxiosResponse<WatchlistHistoryData>> {
+    const body = {
+      media_id: mediaId,
+      progress: progress,
+    };
+    const tokenObject = await this.request.getToken();
+    return this.request.patch(API.getWatchlistHistory, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+  }
+
+  /**
+   * Deletes viewer's watchlist history media item
+   * @method deleteWatchHistoryForItem
+   * @param {string} mediaId The external ID
+   * @async
+   * @example
+   *     InPlayer.Account
+   *     .deleteWatchHistoryForItem("awWEFyPu")
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<CommonResponse>} Contains the data:
+   * ```typescript
+   *  {
+   * 		"message": "Media item has been successfully removed from the list.",
+   * 		"code": 200
+   * 	}
+   * ```
+   */
+  async deleteWatchHistoryForItem(
+    mediaId: string
+  ): Promise<AxiosResponse<CommonResponse>> {
+    const tokenObject = await this.request.getToken();
+    return this.request.delete(API.getWatchHistoryForItem(mediaId), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
   }
 }
 

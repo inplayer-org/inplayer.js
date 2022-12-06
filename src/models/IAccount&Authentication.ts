@@ -1,13 +1,13 @@
-import { AxiosResponse } from 'axios';
-import { CommonResponse, BaseExtend } from './CommonInterfaces';
+import { AxiosResponse } from "axios";
+import { CommonResponse, BaseExtend } from "./CommonInterfaces";
 
 export interface SignUpData {
   fullName: string;
   email: string;
   password: string;
   passwordConfirmation: string;
-  type: 'consumer';
-  grantType?: 'password' | 'client_credentials' | 'refresh_token';
+  type: "consumer";
+  grantType?: "password" | "client_credentials" | "refresh_token";
   clientId: string;
   referrer: string;
   metadata?: { [key: string]: string };
@@ -19,7 +19,7 @@ export interface SignUpDataV2 {
   email: string;
   password: string;
   passwordConfirmation: string;
-  type: 'consumer';
+  type: "consumer";
   clientId: string;
   referrer: string;
   metadata?: { [key: string]: string };
@@ -28,7 +28,7 @@ export interface SignUpDataV2 {
 
 export interface AuthenticateData {
   email: string;
-  grantType?: 'password' | 'client_credentials' | 'refresh_token';
+  grantType?: "password" | "client_credentials" | "refresh_token";
   clientId: string;
   clientSecret?: string;
   refreshToken?: string;
@@ -61,7 +61,7 @@ export interface SetNewPasswordData {
 }
 
 export interface ChangePasswordData
-  extends Omit<SetNewPasswordData, 'brandingId'> {
+  extends Omit<SetNewPasswordData, "brandingId"> {
   oldPassword: string;
   brandingId?: number;
 }
@@ -158,12 +158,30 @@ export interface RestrictionSettingsData {
   created_at: number;
   updated_at: number;
 }
+export interface WatchlistHistoryData {
+  media_id: string;
+  progress: number;
+  created_at: number;
+  updated_at: number;
+}
+export interface FavoritesData {
+  media_id: string;
+  created_at: number;
+}
 
+export interface CollectionWithCursor<T> {
+  collection: T[];
+  cursor?: string;
+}
+export interface CollectionWithCursorArgs {
+  filter?: "all" | "watched" | "currently_watching";
+  cursor?: string;
+}
 export interface Account extends BaseExtend {
   signUp(data: SignUpData): Promise<AxiosResponse<CreateAccount>>;
   signUpV2(data: SignUpDataV2): Promise<AxiosResponse<CreateAccount>>;
   signIn(data: AuthenticateData): Promise<AxiosResponse<CreateAccount>>;
-  signInV2(data: AuthenticateDataV2): Promise<AxiosResponse<CreateAccountV2>>
+  signInV2(data: AuthenticateDataV2): Promise<AxiosResponse<CreateAccountV2>>;
   signOut(): Promise<AxiosResponse<undefined>>;
   refreshToken(clientId: string): Promise<AxiosResponse<CreateAccount>>;
   changePassword(data: ChangePasswordData): Promise<AxiosResponse<void>>;
@@ -175,10 +193,8 @@ export interface Account extends BaseExtend {
     token?: string
   ): Promise<AxiosResponse<void>>;
   getAccountInfo(): Promise<AxiosResponse<AccountData>>;
-  updateAccount(data: UpdateAccountData): Promise<AxiosResponse<void>>;
-  exportData(
-    data: AccountAuthData
-  ): Promise<AxiosResponse<CommonResponse>>;
+  updateAccount(data: UpdateAccountData): Promise<AxiosResponse<AccountData>>;
+  exportData(data: AccountAuthData): Promise<AxiosResponse<CommonResponse>>;
   deleteAccount(data: AccountAuthData): Promise<AxiosResponse<CommonResponse>>;
   getSocialLoginUrls(state: string): Promise<AxiosResponse<ListSocialURLs>>;
   getRegisterFields(
@@ -191,9 +207,32 @@ export interface Account extends BaseExtend {
   ): Promise<AxiosResponse<any>>;
   sendPinCode(brandingId?: number): Promise<AxiosResponse<CommonResponse>>;
   validatePinCode(pinCode: string): Promise<AxiosResponse<CommonResponse>>;
-  syncWithExternalAccount(integration: string, itemId: number): Promise<AxiosResponse<AccountProfile>>;
-  updateExternalAccount(integratiion: string, body: Record<string, any>): Promise<AxiosResponse<any>>;
+  syncWithExternalAccount(
+    integration: string,
+    itemId: number
+  ): Promise<AxiosResponse<AccountProfile>>;
+  updateExternalAccount(
+    integratiion: string,
+    body: Record<string, any>
+  ): Promise<AxiosResponse<any>>;
   loadMerchantRestrictionSettings(
     merchantUuid: string
   ): Promise<AxiosResponse<RestrictionSettingsData>>;
+  getFavorites(): Promise<AxiosResponse<CollectionWithCursor<FavoritesData>>>;
+  getFavorite(mediaId: string): Promise<AxiosResponse<FavoritesData>>;
+  addToFavorites(mediaId: string): Promise<AxiosResponse<FavoritesData>>;
+  deleteFromFavorites(mediaId: string): Promise<AxiosResponse<CommonResponse>>;
+  getWatchHistory(
+    args: CollectionWithCursorArgs
+  ): Promise<AxiosResponse<CollectionWithCursor<WatchlistHistoryData>>>;
+  getWatchHistoryForItem(
+    mediaId: string
+  ): Promise<AxiosResponse<WatchlistHistoryData>>;
+  updateWatchHistory(
+    mediaId: string,
+    progress: number
+  ): Promise<AxiosResponse<WatchlistHistoryData>>;
+  deleteWatchHistoryForItem(
+    mediaId: string
+  ): Promise<AxiosResponse<CommonResponse>>;
 }
