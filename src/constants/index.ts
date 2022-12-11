@@ -49,6 +49,7 @@ export const API = {
   checkAccessForAsset: (id: number): string => `/items/${id}/access`,
   checkFreeTrial: (id: number): string => `/items/used-trial-period/${id}`,
   getPackage: (id: number): string => `/items/packages/${id}`,
+  getAssetsInPackage: (id: number): string => `items/packages/${id}/items`,
   getAssetAccessFees: (id: number): string => `v2/items/${id}/access-fees`,
   getCloudfrontURL: (id: number, videoUrl: string): string =>
     `/items/${id}/access/cloudfront?url=${videoUrl}`,

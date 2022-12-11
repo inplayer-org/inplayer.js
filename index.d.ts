@@ -455,6 +455,14 @@ export declare interface GetMerchantPackage {
   collection: PackageDetails;
 }
 
+export declare interface GetAssetsInPackage {
+  total: number;
+  page: number;
+  offset: number;
+  limit: number;
+  collection: ItemDetailsV1[];
+}
+
 export declare interface CloudfrontUrl {
   video_url: string;
 }
@@ -504,6 +512,7 @@ export declare class Asset {
     merchantUuid: string
   ): Promise<AxiosResponse<ExternalItemDetails>>;
   getPackage(id: number): Promise<AxiosResponse<GetMerchantPackage>>;
+  getAssetsInPackage(id: number): Promise<AxiosResponse<GetAssetsInPackage>>;
   getAssetAccessFees(id: number): Promise<AxiosResponse<GetAccessFee>>;
   getDonationOptions(assetId: number): Promise<AxiosResponse<DonationDetails>>;
   getAssetsHistory(

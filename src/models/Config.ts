@@ -39,6 +39,7 @@ export interface ApiEndpoints {
   checkAccessForAsset: (id: number) => string;
   checkFreeTrial: (id: number) => string;
   getPackage: (id: number) => string;
+  getAssetsInPackage: (id: number) => string;
   getAssetAccessFees: (id: number) => string;
   getCloudfrontURL: (assetId: number, videoUrl: string) => string;
   getPurchaseHistory: (status: string, page?: number, size?: number) => string;
