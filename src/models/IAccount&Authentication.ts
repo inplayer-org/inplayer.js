@@ -158,7 +158,7 @@ export interface RestrictionSettingsData {
   created_at: number;
   updated_at: number;
 }
-export interface WatchlistHistory {
+export interface WatchHistory {
   media_id: string;
   progress: number;
   created_at: number;
@@ -224,14 +224,12 @@ export interface Account extends BaseExtend {
   deleteFromFavorites(mediaId: string): Promise<AxiosResponse<CommonResponse>>;
   getWatchHistory(
     args: CollectionWithCursorArgs
-  ): Promise<AxiosResponse<CollectionWithCursor<WatchlistHistory>>>;
-  getWatchHistoryForItem(
-    mediaId: string
-  ): Promise<AxiosResponse<WatchlistHistory>>;
+  ): Promise<AxiosResponse<CollectionWithCursor<WatchHistory>>>;
+  getWatchHistoryForItem(mediaId: string): Promise<AxiosResponse<WatchHistory>>;
   updateWatchHistory(
     mediaId: string,
     progress: number
-  ): Promise<AxiosResponse<WatchlistHistory>>;
+  ): Promise<AxiosResponse<WatchHistory>>;
   deleteWatchHistoryForItem(
     mediaId: string
   ): Promise<AxiosResponse<CommonResponse>>;

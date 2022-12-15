@@ -25,9 +25,9 @@ export const API = {
     `/v2/accounts/external/${integration}`,
   getFavorites: '/v2/accounts/media/favorites',
   getFavorite: (id: string): string => `/v2/accounts/media/favorites/${id}`,
-  getWatchHistory: '/v2/accounts/media/watchlist-history',
-  getWatchHistoryForItem: (id: string) =>
-    `/v2/accounts/media/watchlist-history/${id}`,
+  getWatchHistory: '/v2/accounts/media/watch-history',
+  getWatchHistoryForItem: (id: string): string =>
+    `/v2/accounts/media/watch-history/${id}`,
   // restrictions
   merchantRestrictionSettings: (merchantUuid: string): string =>
     `/restrictions/settings/${merchantUuid}`,
