@@ -2,11 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
-# [3.13.4] - 11-12-2022
+# [3.13.5] - 02-02-2023
 
 ### Added
 
 - New `Assets` method `getAssetsInPackage`
+
+# [3.13.4] - 15-12-2022
+
+### Added
+
+- Replaced watchlist history endpoint name with watch history
 
 # [3.13.3] - 06-12-2022
 

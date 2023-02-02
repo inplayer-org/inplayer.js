@@ -12,7 +12,7 @@ import {
   AccountProfile,
   CollectionWithCursor,
   FavoritesData,
-  WatchlistHistory,
+  WatchHistory,
   CollectionWithCursorArgs,
 } from '../models/IAccount&Authentication';
 import {
@@ -1240,7 +1240,7 @@ class Account extends BaseExtend {
   }
 
   /**
-   * Returns the viewer's watchlist history
+   * Returns the viewer's watch history
    * @method getWatchHistory
    * @param {string} filter the filter can be one of all, watched or currently_watching.
    * The default is: currently_watching
@@ -1250,7 +1250,7 @@ class Account extends BaseExtend {
    *     InPlayer.Account
    *     .getWatchHistory({filter:"all"})
    *     .then(data => console.log(data));
-   * @returns  {CollectionWithCursor<WatchlistHistory>} Contains the data:
+   * @returns  {CollectionWithCursor<WatchHistory>} Contains the data:
    * ```typescript
    * {
    *  "collection": [{
@@ -1259,7 +1259,7 @@ class Account extends BaseExtend {
    *    "created_at": 1532425425,
    *    "updated_at": 1532425425
    *  }],
-   *  "cursor": "https://services.inplayer.com/v2/accounts/media/watchlist-history?cursor=Ksm34S"
+   *  "cursor": "https://services.inplayer.com/v2/accounts/media/watch-history?cursor=Ksm34S"
    * }
    * ```
    */
@@ -1267,7 +1267,7 @@ class Account extends BaseExtend {
     filter = 'currently_watching',
     cursor = '',
   }: CollectionWithCursorArgs): Promise<
-    AxiosResponse<CollectionWithCursor<WatchlistHistory>>
+    AxiosResponse<CollectionWithCursor<WatchHistory>>
   > {
     const tokenObject = await this.request.getToken();
     return this.request.get(
@@ -1282,7 +1282,7 @@ class Account extends BaseExtend {
   }
 
   /**
-   * Returns the viewer's watchlist history media item
+   * Returns the viewer's watch history media item
    * @method getWatchHistoryForItem
    * @param {string} mediaId The external ID
    * @async
@@ -1290,7 +1290,7 @@ class Account extends BaseExtend {
    *     InPlayer.Account
    *     .getWatchHistoryForItem("awWEFyPu")
    *     .then(data => console.log(data));
-   * @returns  {AxiosResponse<WatchlistHistory>} Contains the data:
+   * @returns  {AxiosResponse<WatchHistory>} Contains the data:
    * ```typescript
    *  {
    *    "media_id": "awWEFyPu",
@@ -1302,7 +1302,7 @@ class Account extends BaseExtend {
    */
   async getWatchHistoryForItem(
     mediaId: string,
-  ): Promise<AxiosResponse<WatchlistHistory>> {
+  ): Promise<AxiosResponse<WatchHistory>> {
     const tokenObject = await this.request.getToken();
     return this.request.get(API.getWatchHistoryForItem(mediaId), {
       headers: {
@@ -1313,7 +1313,7 @@ class Account extends BaseExtend {
   }
 
   /**
-   * Updates the viewer's watchlist history media item
+   * Updates the viewer's watch history media item
    * @method updateWatchHistory
    * @param {string} mediaId The external ID
    * @param {number} progress The progress of the watched video in percent
@@ -1322,7 +1322,7 @@ class Account extends BaseExtend {
    *     InPlayer.Account
    *     .updateWatchHistory("awWEFyPu", 0.3434)
    *     .then(data => console.log(data));
-   * @returns  {AxiosResponse<WatchlistHistory>} Contains the data:
+   * @returns  {AxiosResponse<WatchHistory>} Contains the data:
    * ```typescript
    *  {
    *    "media_id": "awWEFyPu",
@@ -1335,7 +1335,7 @@ class Account extends BaseExtend {
   async updateWatchHistory(
     mediaId: string,
     progress: number,
-  ): Promise<AxiosResponse<WatchlistHistory>> {
+  ): Promise<AxiosResponse<WatchHistory>> {
     const body = {
       media_id: mediaId,
       progress,
@@ -1350,7 +1350,7 @@ class Account extends BaseExtend {
   }
 
   /**
-   * Deletes viewer's watchlist history media item
+   * Deletes viewer's watch history media item
    * @method deleteWatchHistoryForItem
    * @param {string} mediaId The external ID
    * @async
