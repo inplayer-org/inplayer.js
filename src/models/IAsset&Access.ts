@@ -237,6 +237,14 @@ export interface GetMerchantPackage {
   collection: PackageDetails;
 }
 
+export interface GetAssetsInPackage {
+  total: number;
+  page: number;
+  offset: number;
+  limit: number;
+  collection: ItemDetailsV1[];
+}
+
 export interface RequestCodeAccessData {
   item_id: number;
   code: string;
@@ -362,6 +370,7 @@ export interface Asset extends BaseExtend {
     merchantUuid: string
   ): Promise<AxiosResponse<ExternalItemDetails>>;
   getPackage(id: number): Promise<AxiosResponse<GetMerchantPackage>>;
+  getAssetsInPackage(id: number): Promise<AxiosResponse<GetAssetsInPackage>>;
   getAssetAccessFees(id: number): Promise<AxiosResponse<GetAccessFee>>;
   getAssetsHistory(
     size?: number,

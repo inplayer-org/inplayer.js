@@ -12,6 +12,7 @@ import {
   DonationDetails,
   ExternalItemDetails,
   GetAccessFee,
+  GetAssetsInPackage,
   GetItemAccessV1,
   GetMerchantPackage,
   ItemDetailsV1,
@@ -294,6 +295,45 @@ class Asset extends BaseExtend {
    */
   async getPackage(id: number): Promise<AxiosResponse<GetMerchantPackage>> {
     return this.request.get(API.getPackage(id));
+  }
+
+  /**
+   * Get assets in a package
+   * @method getAssetsInPackage
+   * @async
+   * @param {number} id The id of created package in InPlayer Dashboard.
+   * @example
+   *     InPlayer.Asset
+   *     .getAssetsInPackage(4444)
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<GetAssetsInPackage>} Contains the data:
+   * ```typescript
+   * {
+   *    total: number;
+   *    page: number;
+   *    offset: number;
+   *    limit: number;
+   *    collection: [{
+   *      id: number;
+   *      merchant_id: number;
+   *      is_active: boolean;
+   *      title: string;
+   *      content: string;
+   *      item_type: {
+   *        id: number;
+   *        name: string;
+   *        content_type: string;
+   *        host: string;
+   *        description: string;
+   *      };
+   *      metadata: {};
+   *      items: number;
+   *    }];
+   * }
+   * ```
+   */
+  async getAssetsInPackage(id: number): Promise<AxiosResponse<GetAssetsInPackage>> {
+    return this.request.get(API.getAssetsInPackage(id));
   }
 
   /**
