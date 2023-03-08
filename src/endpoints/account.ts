@@ -14,6 +14,7 @@ import {
   FavoritesData,
   WatchHistory,
   CollectionWithCursorArgs,
+  ProfilesData,
 } from '../models/IAccount&Authentication';
 import {
   CommonResponse,
@@ -1371,6 +1372,95 @@ class Account extends BaseExtend {
   ): Promise<AxiosResponse<CommonResponse>> {
     const tokenObject = await this.request.getToken();
     return this.request.delete(API.getWatchHistoryForItem(mediaId), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+  }
+
+  async getProfiles(): Promise<
+    AxiosResponse<ProfilesData[]>
+    > {
+    const tokenObject = await this.request.getToken();
+    return this.request.get(API.profiles, {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+  }
+
+  async enterProfile(id: string, pin?:number): Promise<AxiosResponse<ProfilesData>> {
+    const body = {
+      pin,
+    };
+    const tokenObject = await this.request.getToken();
+    return this.request.post(`${API.getProfilesItem(id)}/token`, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+  }
+
+  async createProfile(
+    name: string,
+    adult: boolean,
+    avatar_url?: string,
+    pin?:number,
+  ): Promise<
+  AxiosResponse<ProfilesData>
+  > {
+    const body = {
+      name,
+      adult,
+      avatar_url,
+      pin,
+    };
+    const tokenObject = await this.request.getToken();
+    return this.request.post(API.profiles, qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+  }
+
+  async getProfileDetails(
+    id: string,
+  ): Promise<AxiosResponse<ProfilesData>> {
+    const tokenObject = await this.request.getToken();
+    return this.request.get(API.getProfilesItem(id), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+  }
+  async updateProfile(
+    id: string,
+    name: string,
+    avatar_url: string,
+  ): Promise<AxiosResponse<ProfilesData>> {
+    const body = {
+      name,
+      avatar_url,
+    };
+    const tokenObject = await this.request.getToken();
+    return this.request.put(API.getProfilesItem(id), qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+  }
+
+  async deleteProfile(
+    id: string,
+  ): Promise<AxiosResponse<ProfilesData>> {
+    const tokenObject = await this.request.getToken();
+    return this.request.delete(API.getProfilesItem(id), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
         'Content-Type': 'application/x-www-form-urlencoded',
