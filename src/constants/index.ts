@@ -63,6 +63,9 @@ export const API = {
     `items/access/codes/${codeId}/${fingerprint}`,
   // donation
   getDonations: (id: number): string => `v2/items/${id}/donations`,
+  // media signer
+  getSignedMediaToken: (appConfigId: string, mediaId: string): string =>
+    `v2/items/jw-media/token?app_config_id=${appConfigId}&media_id=${mediaId}`,
 
   // Payments
   getPaymentMethods: '/payments/methods',
