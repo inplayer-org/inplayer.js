@@ -43,7 +43,7 @@ export interface ApiEndpoints {
   getAssetAccessFees: (id: number) => string;
   getCloudfrontURL: (assetId: number, videoUrl: string) => string;
   getPurchaseHistory: (status: string, page?: number, size?: number) => string;
-  getSignedMediaToken: (assetId: number, merchantUuid: string) => string;
+  getSignedMediaToken: (appConfigId: string, mediaId: string) => string;
   // code only
   requestCodeAccess: string;
   requestAccessCodeSessions: (codeId: number) => string;
@@ -61,13 +61,13 @@ export interface ApiEndpoints {
   createDirectDebitMandate: string;
   payForAssetDonation: string;
   confirmForAssetDonation: string;
-  validateReceipt: (platform: string) => string,
+  validateReceipt: (platform: string) => string;
   getAssetsHistory: (
     size: number,
     page: number,
     startDate?: string,
     endDate?: string,
-    type?: string,
+    type?: string
   ) => string;
   // Subscriptions
   getSubscriptions: (limit: number, page: number) => string;
@@ -75,7 +75,10 @@ export interface ApiEndpoints {
   cancelSubscription: (url: string) => string;
   subscribe: string;
   subscribeV2: string;
-  changeSubscriptionPlan: (access_fee_id: number, inplayer_token: string) => string;
+  changeSubscriptionPlan: (
+    access_fee_id: number,
+    inplayer_token: string
+  ) => string;
   // Voucher
   getDiscount: string;
   // Restrictions
@@ -90,7 +93,7 @@ export interface Request {
   setToken(
     token: string,
     refreshToken: string,
-    expiresAt: number,
+    expiresAt: number
   ): void | Promise<void>;
   removeToken(): void | Promise<void>;
   get(

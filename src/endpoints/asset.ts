@@ -17,7 +17,6 @@ import {
   GetMerchantPackage,
   ItemDetailsV1,
   RequestDataCaptureAccessData,
-  SignedMediaPayload,
   SignedMediaResponse,
 } from '../models/IAsset&Access';
 import BaseExtend from '../extends/base';
@@ -841,10 +840,10 @@ class Asset extends BaseExtend {
    *    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpX...
    * }
    */
-  async getSignedMediaToken({
-    appConfigId,
-    mediaId,
-  }: SignedMediaPayload): Promise<AxiosResponse<SignedMediaResponse>> {
+  async getSignedMediaToken(
+    appConfigId: string,
+    mediaId: string,
+  ): Promise<AxiosResponse<SignedMediaResponse>> {
     const tokenObject = await this.request.getToken();
 
     return this.request.get(API.getSignedMediaToken(appConfigId, mediaId), {

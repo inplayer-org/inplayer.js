@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.7] - 10-03-2023
+
+### Changes
+
+- Fixed undefined values for `getSignedMediaToken` method
+
 # [3.13.6] - 10-03-2023
 
 ### Added
