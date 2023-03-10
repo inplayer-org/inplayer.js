@@ -357,10 +357,6 @@ export interface AssetsTransactions {
   unique_paying_customers: number;
 }
 
-export interface SignedMediaPayload {
-  mediaId: string;
-  appConfigId: string;
-}
 export interface SignedMediaResponse {
   token: string;
 }

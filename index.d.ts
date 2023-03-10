@@ -1109,7 +1109,7 @@ export interface ApiEndpoints {
   getFreemiumAsset: string;
   getCloudfrontURL: (assetId: number, videoUrl: string) => string;
   requestCodeAccess: string;
-  getSignedMediaToken: (assetId: number, merchantUuid: string) => string;
+  getSignedMediaToken: (appConfigId: string, mediaId: string) => string;
   releaseAccessCode: (code: number) => string;
   requestDataCaptureNoAuthAccess: string;
   // Payment
