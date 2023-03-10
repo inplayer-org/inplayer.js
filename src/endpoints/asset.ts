@@ -17,6 +17,7 @@ import {
   GetMerchantPackage,
   ItemDetailsV1,
   RequestDataCaptureAccessData,
+  SignedMediaResponse,
 } from '../models/IAsset&Access';
 import BaseExtend from '../extends/base';
 import { API } from '../constants';
@@ -59,7 +60,9 @@ class Asset extends BaseExtend {
    * }
    * ```
    */
-  async checkAccessForAsset(id: number): Promise<AxiosResponse<GetItemAccessV1>> {
+  async checkAccessForAsset(
+    id: number,
+  ): Promise<AxiosResponse<GetItemAccessV1>> {
     const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedGet(API.checkAccessForAsset(id), {
@@ -128,7 +131,10 @@ class Asset extends BaseExtend {
    * }
    * ```
    */
-  async getAsset(assetId: number, merchantUuid: string): Promise<AxiosResponse<ItemDetailsV1>> {
+  async getAsset(
+    assetId: number,
+    merchantUuid: string,
+  ): Promise<AxiosResponse<ItemDetailsV1>> {
     return this.request.get(API.getAsset(assetId, merchantUuid));
   }
 
@@ -332,7 +338,9 @@ class Asset extends BaseExtend {
    * }
    * ```
    */
-  async getAssetsInPackage(id: number): Promise<AxiosResponse<GetAssetsInPackage>> {
+  async getAssetsInPackage(
+    id: number,
+  ): Promise<AxiosResponse<GetAssetsInPackage>> {
     return this.request.get(API.getAssetsInPackage(id));
   }
 
@@ -622,7 +630,9 @@ class Asset extends BaseExtend {
    * }
    * ```
    */
-  getAccessCode(assetId: number): CodeAccessData | null | Promise<CodeAccessData | null> {
+  getAccessCode(
+    assetId: number,
+  ): CodeAccessData | null | Promise<CodeAccessData | null> {
     const accessCode = tokenStorage.getItem(
       this.config.INPLAYER_ACCESS_CODE_NAME(assetId),
     );
@@ -632,7 +642,9 @@ class Asset extends BaseExtend {
         (resolvedString ? (JSON.parse(resolvedString) as CodeAccessData) : null)) as Promise<CodeAccessData | null>;
     }
 
-    return accessCode ? (JSON.parse(accessCode as string) as CodeAccessData) : null;
+    return accessCode
+      ? (JSON.parse(accessCode as string) as CodeAccessData)
+      : null;
   }
 
   /**
@@ -655,7 +667,9 @@ class Asset extends BaseExtend {
    * }]
    * ```
    */
-  async getAccesCodeSessions(codeId: number): Promise<AxiosResponse<Array<CodeAccessSessionsData>>> {
+  async getAccesCodeSessions(
+    codeId: number,
+  ): Promise<AxiosResponse<Array<CodeAccessSessionsData>>> {
     return this.request.get(API.requestAccessCodeSessions(codeId));
   }
 
@@ -676,7 +690,9 @@ class Asset extends BaseExtend {
    * }
    * ```
    */
-  async terminateSession(assetId: number): Promise<AxiosResponse<CommonResponse> | null> {
+  async terminateSession(
+    assetId: number,
+  ): Promise<AxiosResponse<CommonResponse> | null> {
     const accessCode: CodeAccessData | null = await this.getAccessCode(assetId);
 
     if (!accessCode) {
@@ -756,7 +772,10 @@ class Asset extends BaseExtend {
    * }
    * ```
    */
-  async getCloudfrontURL(assetId: number, videoUrl: string): Promise<AxiosResponse<CloudfrontUrl>> {
+  async getCloudfrontURL(
+    assetId: number,
+    videoUrl: string,
+  ): Promise<AxiosResponse<CloudfrontUrl>> {
     const tokenObject = await this.request.getToken();
 
     return this.request.get(API.getCloudfrontURL(assetId, videoUrl), {
@@ -793,10 +812,41 @@ class Asset extends BaseExtend {
    * }
    * ```
    */
-  async getDonationOptions(assetId: number): Promise<AxiosResponse<DonationDetails>> {
+  async getDonationOptions(
+    assetId: number,
+  ): Promise<AxiosResponse<DonationDetails>> {
     const tokenObject = await this.request.getToken();
 
     return this.request.get(API.getDonations(assetId), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+      },
+    });
+  }
+
+  /**
+   * Retrieves a signed token for media protection
+   * @method getSignedMediaToken
+   * @async
+   * @param {number} appConfigId The id of the config used on the OTT Web App
+   * @param {number} mediaId The id of the requested media to watch on the OTT Web App
+   * @example
+   *     InPlayer.Asset
+   *     .getSignedMediaToken('slgaIsfX', 'kAscZclP)
+   *     .then(data => console.log(data));
+   * @returns {AxiosResponse<SignedMediaResponse>} Contains the data:
+   * ```typescript
+   * {
+   *    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpX...
+   * }
+   */
+  async getSignedMediaToken(
+    appConfigId: string,
+    mediaId: string,
+  ): Promise<AxiosResponse<SignedMediaResponse>> {
+    const tokenObject = await this.request.getToken();
+
+    return this.request.get(API.getSignedMediaToken(appConfigId, mediaId), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
       },

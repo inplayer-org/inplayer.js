@@ -315,7 +315,7 @@ export interface Gift {
 export interface TransactionsDetails {
   access_fee_description: string;
   action_type: string;
-  charged_amount: number
+  charged_amount: number;
   client_id: string;
   consumer_email: string;
   consumer_id: number;
@@ -357,6 +357,10 @@ export interface AssetsTransactions {
   unique_paying_customers: number;
 }
 
+export interface SignedMediaResponse {
+  token: string;
+}
+
 export interface Asset extends BaseExtend {
   checkAccessForAsset(id: number): Promise<AxiosResponse<GetItemAccessV1>>;
   isFreeTrialUsed(id: number): Promise<AxiosResponse<boolean>>;
@@ -377,15 +381,27 @@ export interface Asset extends BaseExtend {
     page?: number,
     startDate?: string,
     endDate?: string,
-    type?: string,
+    type?: string
   ): Promise<AxiosResponse<AssetsTransactions>>;
-  getAccessCode(assetId: number): CodeAccessData | null | Promise<CodeAccessData | null>;
-  requestCodeAccess(data: RequestCodeAccessData): Promise<AxiosResponse<CodeAccessData>>;
-  getAccesCodeSessions(codeId: number): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
-  terminateSession(assetId: number): Promise<AxiosResponse<CommonResponse> | null>;
+  getAccessCode(
+    assetId: number
+  ): CodeAccessData | null | Promise<CodeAccessData | null>;
+  requestCodeAccess(
+    data: RequestCodeAccessData
+  ): Promise<AxiosResponse<CodeAccessData>>;
+  getAccesCodeSessions(
+    codeId: number
+  ): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
+  terminateSession(
+    assetId: number
+  ): Promise<AxiosResponse<CommonResponse> | null>;
   getCloudfrontURL(
     assetId: number,
     videoUrl: string
   ): Promise<AxiosResponse<CloudfrontUrl>>;
   getDonationOptions(assetId: number): Promise<AxiosResponse<DonationDetails>>;
+  getSignedMediaToken(
+    appConfigId: string,
+    mediaId: string
+  ): Promise<AxiosResponse<SignedMediaResponse>>;
 }

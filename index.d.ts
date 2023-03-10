@@ -494,6 +494,9 @@ export interface RequestDataCaptureAccessData {
   company: string;
   merchant_uuid: string;
 }
+export interface SignedMediaResponse {
+  token: string;
+}
 
 export declare class Asset {
   constructor(config: Record<string, unknown>, Account: Account);
@@ -537,6 +540,10 @@ export declare class Asset {
   requestDataCaptureNoAuthAccess(
     accessData: RequestDataCaptureAccessData
   ): Promise<AxiosResponse<CommonResponse>>;
+  getSignedMediaToken(
+    appConfigId: string,
+    mediaId: string
+  ): Promise<AxiosResponse<SignedMediaResponse>>;
 }
 
 export interface BrandingDetails {
@@ -1102,6 +1109,7 @@ export interface ApiEndpoints {
   getFreemiumAsset: string;
   getCloudfrontURL: (assetId: number, videoUrl: string) => string;
   requestCodeAccess: string;
+  getSignedMediaToken: (appConfigId: string, mediaId: string) => string;
   releaseAccessCode: (code: number) => string;
   requestDataCaptureNoAuthAccess: string;
   // Payment

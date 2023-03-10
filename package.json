@@ -1,6 +1,6 @@
 {
   "name": "@inplayer-org/inplayer.js",
-  "version": "3.13.5",
+  "version": "3.13.7",
   "author": "InPlayer",
   "license": "MIT",
   "description": "A Javascript SDK for Inplayer's RESTful API",
@@ -44,7 +44,7 @@
   ],
   "dependencies": {
     "aws-iot-device-sdk": "^2.2.6",
-    "axios": "^0.19.2",
+    "axios": "^0.21.2",
     "core-js": "^3.8.2",
     "fingerprintjs2": "^2.1.2",
     "lodash": "^4.17.20",
