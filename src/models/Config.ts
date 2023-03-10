@@ -43,6 +43,7 @@ export interface ApiEndpoints {
   getAssetAccessFees: (id: number) => string;
   getCloudfrontURL: (assetId: number, videoUrl: string) => string;
   getPurchaseHistory: (status: string, page?: number, size?: number) => string;
+  getSignedMediaToken: (assetId: number, merchantUuid: string) => string;
   // code only
   requestCodeAccess: string;
   requestAccessCodeSessions: (codeId: number) => string;

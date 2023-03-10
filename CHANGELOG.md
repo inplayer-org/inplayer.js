@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.6] - 10-03-2023
+
+### Added
+
+- Axios version upgraded to newest
+- New `Assets` method `getSignedMediaToken`
+
 # [3.13.5] - 02-02-2023
 
 ### Added
