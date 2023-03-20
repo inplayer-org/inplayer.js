@@ -10,6 +10,7 @@ export enum Env {
 export declare interface CommonResponse {
   code: number;
   message: string;
+  number?: number;
 }
 
 export interface CustomErrorResponse {
@@ -327,6 +328,9 @@ export declare interface Item {
   template_id: number | null;
   created_at: number;
   update_at: number;
+  branding_id: number;
+  event_type: string;
+  is_giftable: boolean;
 }
 
 export declare interface AccessType {
@@ -418,10 +422,16 @@ export declare interface GetAccessFee {
   expires_at: number;
   starts_at: number;
   updated_at: number;
+  title: string;
   created_at: number;
+  merchant_uuid: string;
   access_type: AccessType;
+  plan_switch_enabled: boolean;
   item: Item;
-  trial_period: TrialPeriod;
+  item_id: number;
+  next_phase: CurrentPhase | null;
+  template_id: number | null;
+  trial_period: TrialPeriod | null;
   setup_fee: SetupFee | null;
   seasonal_fee: SeasonalFee | null;
   external_fees: Array<ExternalFee> | null;
@@ -726,6 +736,7 @@ export interface PurchaseDetails {
 export interface PurchaseHistoryCollection {
   purchaseDetails: PurchaseDetails;
   total: number;
+  colection: PurchaseDetails[];
 }
 
 export interface SetDefaultCard {
