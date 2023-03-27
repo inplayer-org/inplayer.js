@@ -28,6 +28,11 @@ export const API = {
   getWatchHistory: '/v2/accounts/media/watch-history',
   getWatchHistoryForItem: (id: string): string =>
     `/v2/accounts/media/watch-history/${id}`,
+
+  profiles: '/v2/accounts/profiles',
+  getProfilesItem: (id: string): string =>
+    `/v2/accounts/profiles/${id}`,
+
   // restrictions
   merchantRestrictionSettings: (merchantUuid: string): string =>
     `/restrictions/settings/${merchantUuid}`,

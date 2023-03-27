@@ -168,6 +168,17 @@ export interface FavoritesData {
   media_id: string;
   created_at: number;
 }
+export interface ProfilesData {
+  id: string,
+  account_id: string,
+  name: string,
+  avatar_url: string,
+  default: boolean,
+  adult: boolean,
+  pin_required: boolean,
+  created_at: number,
+  updated_at: number,
+}
 
 export interface CollectionWithCursor<T> {
   collection: T[];
@@ -233,4 +244,16 @@ export interface Account extends BaseExtend {
   deleteWatchHistoryForItem(
     mediaId: string
   ): Promise<AxiosResponse<CommonResponse>>;
+  getProfiles(): Promise<AxiosResponse<ProfilesData>>;
+  enterProfile(id: string, pin?:number): Promise<AxiosResponse<ProfilesData>>;
+  createProfile(name: string,
+    adult: boolean,
+    avatar_url?: string,
+    pin?:number,): Promise<AxiosResponse<ProfilesData>>;
+    getProfileDetails(id: string): Promise<AxiosResponse<ProfilesData>>;
+    updateProfile(id: string, name: string,
+      avatar_url?: string,
+     ): Promise<AxiosResponse<ProfilesData>>;
+      deleteProfile(id: string): Promise<AxiosResponse<ProfilesData>>;
+
 }
