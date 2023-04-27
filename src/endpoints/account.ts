@@ -4,7 +4,6 @@ import {
   CreateAccount,
   AccountData,
   ListSocialURLs,
-  GetRegisterField,
   RestrictionSettingsData,
   CreateAccountV2,
   AuthenticateRequestBody,
@@ -15,6 +14,7 @@ import {
   WatchHistory,
   CollectionWithCursorArgs,
   ProfilesData,
+  GetRegisterFieldsResponse,
 } from '../models/IAccount&Authentication';
 import {
   CommonResponse,
@@ -928,7 +928,7 @@ class Account extends BaseExtend {
    */
   async getRegisterFields(
     merchantUuid = '',
-  ): Promise<AxiosResponse<GetRegisterField>> {
+  ): Promise<AxiosResponse<GetRegisterFieldsResponse>> {
     return this.request.get(API.getRegisterFields(merchantUuid));
   }
 

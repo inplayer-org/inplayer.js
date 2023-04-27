@@ -33,6 +33,8 @@ export interface Card {
   card_name: string;
   exp_month: string;
   exp_year: string;
+  card_type: string;
+  account_id: number;
 }
 
 export interface GetDefaultCard {

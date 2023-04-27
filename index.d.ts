@@ -149,7 +149,7 @@ export declare interface GetRegisterFieldOption {
   [key: string]: string;
 }
 
-export declare interface GetRegisterField {
+export declare interface RegisterField {
   id: number;
   name: string;
   label: string;
@@ -158,6 +158,10 @@ export declare interface GetRegisterField {
   default_value: string;
   placeholder: string;
   options: GetRegisterFieldOption[];
+}
+
+export interface GetRegisterFieldsResponse {
+  collection: RegisterField[];
 }
 
 export interface RestrictionSettingsData {
@@ -227,7 +231,7 @@ export declare class Account {
   getSocialLoginUrls(state: string): Promise<AxiosResponse<ListSocialURLs>>;
   getRegisterFields(
     merchantUuid: string
-  ): Promise<AxiosResponse<GetRegisterField>>;
+  ): Promise<AxiosResponse<GetRegisterFieldsResponse>>;
   reportSSOtoken(
     ssoDomain: string,
     token: string,
@@ -413,7 +417,7 @@ export declare interface CurrentPhase {
   updated_at: number;
 }
 
-export declare interface GetAccessFee {
+export declare interface AccessFee {
   id: number;
   merchant_id: number;
   amount: number;
@@ -439,8 +443,10 @@ export declare interface GetAccessFee {
   current_phase: CurrentPhase | null;
 }
 
+export type GetAccessFeesResponse = AccessFee[];
+
 export declare interface ExternalItemDetails extends ItemDetailsV1 {
-  access_fees: GetAccessFee[];
+  access_fees: AccessFee[];
   metahash: Record<string, string>;
 }
 
@@ -524,7 +530,7 @@ export declare class Asset {
   ): Promise<AxiosResponse<ExternalItemDetails>>;
   getPackage(id: number): Promise<AxiosResponse<GetMerchantPackage>>;
   getAssetsInPackage(id: number): Promise<AxiosResponse<GetAssetsInPackage>>;
-  getAssetAccessFees(id: number): Promise<AxiosResponse<GetAccessFee>>;
+  getAssetAccessFees(id: number): Promise<AxiosResponse<GetAccessFeesResponse>>;
   getDonationOptions(assetId: number): Promise<AxiosResponse<DonationDetails>>;
   getAssetsHistory(
     size?: number,
@@ -590,7 +596,7 @@ export interface CreatePaymentData {
   expYear: string;
   cvv: number;
   accessFee: number;
-  paymentMethod: string;
+  paymentMethod: number;
   referrer: string;
   returnUrl: string;
   voucherCode?: string;
@@ -704,6 +710,8 @@ export interface Card {
   card_name: string;
   exp_month: string;
   exp_year: string;
+  card_type: string;
+  account_id: number;
 }
 
 export interface GetDefaultCard {
@@ -959,6 +967,7 @@ export interface DiscountData {
 
 export interface VoucherDiscountPrice {
   amount: number;
+  discount_duration: number;
 }
 
 export declare class Voucher {
@@ -1007,7 +1016,7 @@ export interface GetMerchantNFTResponse {
   merchant_uuid: string;
   prices: Partial<{
     [Prices.CRYPTO]: CryptoPrice;
-    [Prices.FIAT]: GetAccessFee;
+    [Prices.FIAT]: AccessFee;
   }>;
   published: boolean;
   supply: number;

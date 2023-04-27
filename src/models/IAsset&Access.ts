@@ -113,7 +113,7 @@ export interface CurrentPhase {
   updated_at: number;
 }
 
-export interface GetAccessFee {
+export interface AccessFee {
   id: number;
   merchant_id: number;
   amount: number;
@@ -132,6 +132,8 @@ export interface GetAccessFee {
   geo_restriction: GeoRestriction | null;
   current_phase: CurrentPhase | null;
 }
+
+export type GetAccessFeesResponse = AccessFee[];
 
 export interface PutAccessFee {
   id: number;
@@ -375,7 +377,7 @@ export interface Asset extends BaseExtend {
   ): Promise<AxiosResponse<ExternalItemDetails>>;
   getPackage(id: number): Promise<AxiosResponse<GetMerchantPackage>>;
   getAssetsInPackage(id: number): Promise<AxiosResponse<GetAssetsInPackage>>;
-  getAssetAccessFees(id: number): Promise<AxiosResponse<GetAccessFee>>;
+  getAssetAccessFees(id: number): Promise<AxiosResponse<GetAccessFeesResponse>>;
   getAssetsHistory(
     size?: number,
     page?: number,
