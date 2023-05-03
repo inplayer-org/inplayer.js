@@ -742,7 +742,7 @@ export interface PurchaseDetails {
 }
 
 export interface GetPurchaseHistoryResponse {
-  colection: PurchaseDetails[];
+  collection: PurchaseDetails[];
   total: number;
 }
 
