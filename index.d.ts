@@ -731,7 +731,7 @@ export interface PurchaseDetails {
   parent_resource_id: string;
   payment_method: string;
   payment_tool: string;
-  purchase_access_fee_description: string;
+  purchased_access_fee_description: string;
   purchased_access_fee_id: number;
   purchased_access_fee_type: string;
   purchased_amount: number;
@@ -741,10 +741,9 @@ export interface PurchaseDetails {
   type: string;
 }
 
-export interface PurchaseHistoryCollection {
-  purchaseDetails: PurchaseDetails;
-  total: number;
+export interface GetPurchaseHistoryResponse {
   colection: PurchaseDetails[];
+  total: number;
 }
 
 export interface SetDefaultCard {
@@ -837,7 +836,7 @@ export declare class Payment {
     status: string,
     page: number,
     limit: number
-  ): Promise<AxiosResponse<PurchaseHistoryCollection[]>>;
+  ): Promise<AxiosResponse<GetPurchaseHistoryResponse>>;
   getDefaultCreditCard(): Promise<AxiosResponse<GetDefaultCard>>;
   setDefaultCreditCard(
     data: DefaultCreditCardData
