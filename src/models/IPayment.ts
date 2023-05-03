@@ -33,6 +33,8 @@ export interface Card {
   card_name: string;
   exp_month: string;
   exp_year: string;
+  card_type: string;
+  account_id: number;
 }
 
 export interface GetDefaultCard {
@@ -210,7 +212,7 @@ export interface PurchaseDetails {
   parent_resource_id: string;
   payment_method: string;
   payment_tool: string;
-  purchase_access_fee_description: string;
+  purchased_access_fee_description: string;
   purchased_access_fee_id: number;
   purchased_access_fee_type: string;
   purchased_amount: number;
@@ -220,8 +222,8 @@ export interface PurchaseDetails {
   type: string;
 }
 
-export interface PurchaseHistoryCollection {
-  purchaseDetails: PurchaseDetails;
+export interface GetPurchaseHistoryResponse {
+  collection: PurchaseDetails[];
   total: number;
 }
 
@@ -326,7 +328,7 @@ export interface Payment extends BaseExtend {
     status: string,
     page: number,
     limit: number
-  ): Promise<AxiosResponse<PurchaseHistoryCollection[]>>;
+  ): Promise<AxiosResponse<GetPurchaseHistoryResponse>>;
   getDefaultCreditCard(): Promise<AxiosResponse<GetDefaultCard>>;
   setDefaultCreditCard(
     data: DefaultCreditCardData

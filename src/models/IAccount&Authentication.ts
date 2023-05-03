@@ -134,7 +134,7 @@ export interface GetRegisterFieldOption {
   [key: string]: string;
 }
 
-export interface GetRegisterField {
+export interface RegisterField {
   id: number;
   name: string;
   label: string;
@@ -143,6 +143,10 @@ export interface GetRegisterField {
   default_value: string;
   placeholder: string;
   options: GetRegisterFieldOption[];
+}
+
+export interface GetRegisterFieldsResponse {
+  collection: RegisterField[];
 }
 
 export interface AccountProfile {

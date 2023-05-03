@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.9] - 27-04-2023
+
+### Changes
+
+- Updated response types for getRegisterFields, getAssetAccessFees, getDiscount, getDefaultCreditCard and getPurchaseHistory
+- Updated request parameter types for createPayment, createSubscription
+
 # [3.13.8] - 10-04-2023
 
 ### Changes

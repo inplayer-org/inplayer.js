@@ -15,6 +15,7 @@ export interface DiscountBodyData {
 
 export interface VoucherDiscountPrice {
   amount: number;
+  discount_duration: number;
 }
 
 export interface Voucher extends BaseExtend {

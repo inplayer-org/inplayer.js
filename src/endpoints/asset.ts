@@ -11,7 +11,7 @@ import {
   CodeAccessSessionsData,
   DonationDetails,
   ExternalItemDetails,
-  GetAccessFee,
+  GetAccessFeesResponse,
   GetAssetsInPackage,
   GetItemAccessV1,
   GetMerchantPackage,
@@ -451,7 +451,7 @@ class Asset extends BaseExtend {
    * }
    * ```
    */
-  async getAssetAccessFees(id: number): Promise<AxiosResponse<GetAccessFee>> {
+  async getAssetAccessFees(id: number): Promise<AxiosResponse<GetAccessFeesResponse>> {
     return this.request.get(API.getAssetAccessFees(id));
   }
 

@@ -11,7 +11,7 @@ import {
   StripePaymentMethods,
   MerchantPaymentMethod,
   GeneratePayPalParameters,
-  PurchaseHistoryCollection,
+  GetPurchaseHistoryResponse,
   GetDefaultCard,
   SetDefaultCard,
   DirectDebitMandateResponse,
@@ -451,7 +451,7 @@ class Payment extends BaseExtend {
    *     InPlayer.Payment
    *     .getPurchaseHistory('active', 0, 5)
    *     .then(data => console.log(data));
-   * @returns  {AxiosResponse<PurchaseHistoryCollection[]>} Contains the data:
+   * @returns  {AxiosResponse<GetPurchaseHistoryResponse>} Contains the data:
    * ```typescript
    * {
    *    total: number;
@@ -487,7 +487,7 @@ class Payment extends BaseExtend {
     status = 'active',
     page = 0,
     limit = 5,
-  ): Promise<AxiosResponse<PurchaseHistoryCollection[]>> {
+  ): Promise<AxiosResponse<GetPurchaseHistoryResponse>> {
     const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedGet(
