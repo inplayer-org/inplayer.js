@@ -632,6 +632,8 @@ export interface PayPalParamsData {
   origin: string;
   accessFeeId: number;
   paymentMethod: number;
+  voucherCode?: string;
+  brandingId?: number;
 }
 
 export interface DefaultCreditCardData {
@@ -703,6 +705,7 @@ export interface GeneratePayPalParameters {
   currency_code: string;
   return: string;
   cancel_return: string;
+  id?: string;
 }
 
 export interface Card {

@@ -8,6 +8,7 @@ export interface GeneratePayPalParameters {
   currency_code: string;
   return: string;
   cancel_return: string;
+  id?: string;
 }
 
 export interface AssetValue {

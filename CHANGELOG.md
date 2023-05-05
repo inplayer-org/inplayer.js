@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.10] - 05-05-2023
+
+### Changes
+
+- Updated request parameter types and response types for getPayPalParams
+
 # [3.13.9] - 27-04-2023
 
 ### Changes
