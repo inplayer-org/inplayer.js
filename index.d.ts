@@ -226,7 +226,9 @@ export declare class Account {
   ): Promise<AxiosResponse<void>>;
   getAccountInfo(): Promise<AxiosResponse<AccountData>>;
   updateAccount(data: UpdateAccountData): Promise<AxiosResponse<AccountData>>;
-  exportData(data: AccountAuthData): Promise<AxiosResponse<CommonResponse>>;
+  exportData(
+    data: Omit<AccountAuthData, 'password'> & { password?: string }
+  ): Promise<AxiosResponse<CommonResponse>>;
   deleteAccount(data: AccountAuthData): Promise<AxiosResponse<CommonResponse>>;
   getSocialLoginUrls(state: string): Promise<AxiosResponse<ListSocialURLs>>;
   getRegisterFields(

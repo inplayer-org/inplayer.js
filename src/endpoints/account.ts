@@ -1008,7 +1008,7 @@ class Account extends BaseExtend {
     password,
     brandingId,
   }: {
-    password: string;
+    password?: string;
     brandingId?: number;
   }): Promise<AxiosResponse<CommonResponse>> {
     const body = {
