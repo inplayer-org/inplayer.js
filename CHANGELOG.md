@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.12] - 25-05-2023
+
+### Changes
+
+- Updated `core-js` dependency to v3.19.2
+
 # [3.13.11] - 15-05-2023
 
 ### Changes
