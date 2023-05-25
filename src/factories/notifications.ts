@@ -1,9 +1,10 @@
+/* eslint-disable no-console */
 import awsIot from 'aws-iot-device-sdk';
 import { ApiConfig, Request } from '../models/Config';
 import BaseExtend from '../extends/base';
 import tokenStorage from './tokenStorage';
 
-const ONE_HOUR = 60 * 60 * 1000;
+const HALF_HOUR = 30 * 60 * 1000;
 
 class Notifications extends BaseExtend {
   subscription: any;
@@ -12,7 +13,7 @@ class Notifications extends BaseExtend {
     this.subscription = null;
   }
 
-  async getIotToken() {
+  async getIotToken(): Promise<any> {
     const tokenObject = await this.request.getToken();
 
     const iotResponse = await this.request.authenticatedGet(
@@ -34,7 +35,7 @@ class Notifications extends BaseExtend {
   async subscribe(
     accountUuid = '',
     callbackParams: Record<string, (...params: any) => void>,
-  ) {
+  ): Promise<boolean> {
     if (!accountUuid && accountUuid === '') {
       return false;
     }
@@ -67,11 +68,9 @@ class Notifications extends BaseExtend {
 
     const iamCreds = JSON.parse(inplayerIotCreds);
 
-    if (
-      iamCreds
-      && iamCreds.expiresAt
-      && new Date().getMilliseconds() - iamCreds.expiresAt > ONE_HOUR // TODO: check if should be ms
-    ) {
+    const now = new Date().getTime();
+
+    if (iamCreds?.expiresAt && now < iamCreds.expiresAt) {
       this.handleSubscribe(iamCreds, callbackParams, accountUuid);
 
       return true;
@@ -81,7 +80,10 @@ class Notifications extends BaseExtend {
 
     await tokenStorage.setItem(
       this.config.INPLAYER_IOT_KEY,
-      JSON.stringify(resp),
+      JSON.stringify({
+        ...resp,
+        expiresAt: new Date().getTime() + HALF_HOUR,
+      }),
     );
 
     this.handleSubscribe(resp, callbackParams, accountUuid);
@@ -90,10 +92,10 @@ class Notifications extends BaseExtend {
   }
 
   handleSubscribe(
-    data: any,
+    data: Record<string, unknown>,
     callbackParams: Record<string, any>,
     uuid: string,
-  ) {
+  ): void {
     const credentials: any = {
       region: data.region,
       protocol: 'wss',
@@ -125,15 +127,15 @@ class Notifications extends BaseExtend {
     this.setClient(client);
   }
 
-  setClient(client: any) {
+  setClient(client: any): void {
     this.subscription = client;
   }
 
-  isSubscribed() {
+  isSubscribed(): boolean {
     return this.subscription !== null;
   }
 
-  unsubscribe() {
+  unsubscribe(): void {
     if (this.subscription) {
       this.subscription.end();
       this.subscription = null;

@@ -2,6 +2,150 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.11] - 15-05-2023
+
+### Changes
+
+- Updated request parameter type of exportData ('password' field is now optional)
+
+# [3.13.10] - 05-05-2023
+
+### Changes
+
+- Updated request parameter types and response types for getPayPalParams
+
+# [3.13.9] - 27-04-2023
+
+### Changes
+
+- Updated response types for getRegisterFields, getAssetAccessFees, getDiscount, getDefaultCreditCard and getPurchaseHistory
+- Updated request parameter types for createPayment, createSubscription
+
+# [3.13.8] - 10-04-2023
+
+### Changes
+
+- Fixed wrong Payment types
+
+# [3.13.7] - 10-03-2023
+
+### Changes
+
+- Fixed undefined values for `getSignedMediaToken` method
+
+# [3.13.6] - 10-03-2023
+
+### Added
+
+- Axios version upgraded to newest
+- New `Assets` method `getSignedMediaToken`
+
+# [3.13.5] - 02-02-2023
+
+### Added
+
+- New `Assets` method `getAssetsInPackage`
+
+# [3.13.4] - 15-12-2022
+
+### Added
+
+- Replaced watchlist history endpoint name with watch history
+
+# [3.13.3] - 06-12-2022
+
+### Added
+
+- Added missing type declarations
+
+# [3.13.2] - 06-12-2022
+
+### Added
+
+- New `Account` methods for handling account favorites and wachlist history from external source
+
+# [3.13.1] - 16-08-2022
+
+### Added
+
+- Added `address` param in direct debit payments method which is needed for specific coutries
+
+# [3.13.0] - 26-06-2022
+
+### Added
+
+- Introduced a new object `NFTs` with NFT-related endpoints
+
+# [3.12.8] - 05-05-2022
+
+### Changes
+
+- Fixed AWS_IOT_URL for staging and production environments
+
+# [3.12.7] - 04-05-2022
+
+### Changes
+
+- Updated AWS_IOT_URL for staging and production environments
+
+# [3.12.6] - 08-03-2022
+
+### Changes
+
+- Updated AWS_IOT_URL for daily environment
+
+# [3.12.5] - 03-17-2022
+
+### Changes
+
+- Add new method in Subscription that changes the existing subscription plan. The change can either be a downgrade or an upgrade.
+
+# [3.12.4] - 03-17-2022
+
+### Changes
+
+- Add config object for daily environment
+
+# [3.12.3] - 07-12-2021
+
+### Changes
+
+- Fixed wrong data types
+
+# [3.12.2] - 07-12-2021
+
+### Changes
+
+- The type of getSubscription method parameter changed to string
+
+# [3.12.1] - 03-12-2021
+
+## Changes
+
+- IOT token validity changed from 60 to 30 minutes
+
+# [3.12.0] - 28-09-2021
+
+## Changes
+
+- Typedoc version upgraded to 0.22.4
+- The view of our generated docs is changed, due to breaking changes introduces in typedoc 0.20.0 version
+- Moved the directDebitSubscribe and idealSubscribe methods in subscription module and added deprecated description next to them in payments module
+- Added more comprehensive description for methods parameters and responses
+- Removed redundant getPaymentTools method
+
+# [3.11.3] - 23-09-2021
+
+### Added
+
+- New `Account` methods: `synchWithExternalAccount` and `updateExternalAccount`
+
+# [3.11.2] - 10-05-2021
+
+### Fixes
+
+- Due to breaking changes introduced in typedoc 0.20.0 version, the view of our generated docs has been broken. The typedoc version is reverted to 0.19.2.
+
 # [3.11.1] - 26-04-2021
 
 ### Fixes

@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { BaseExtend } from './CommonInterfaces';
+import { BaseExtend, CommonResponse } from './CommonInterfaces';
 
 export interface AccessControlType {
   id: number;
@@ -34,6 +34,7 @@ export interface Item {
   template_id: number | null;
   created_at: number;
   update_at: number;
+  plan_switch_enabled: boolean;
 }
 
 export interface AccessType {
@@ -112,7 +113,7 @@ export interface CurrentPhase {
   updated_at: number;
 }
 
-export interface GetAccessFee {
+export interface AccessFee {
   id: number;
   merchant_id: number;
   amount: number;
@@ -131,6 +132,8 @@ export interface GetAccessFee {
   geo_restriction: GeoRestriction | null;
   current_phase: CurrentPhase | null;
 }
+
+export type GetAccessFeesResponse = AccessFee[];
 
 export interface PutAccessFee {
   id: number;
@@ -236,19 +239,28 @@ export interface GetMerchantPackage {
   collection: PackageDetails;
 }
 
+export interface GetAssetsInPackage {
+  total: number;
+  page: number;
+  offset: number;
+  limit: number;
+  collection: ItemDetailsV1[];
+}
+
 export interface RequestCodeAccessData {
   item_id: number;
   code: string;
 }
 
-export interface CodeAccessData {
-  item_id: number;
-  content: any;
-  in_use: boolean;
-  browser_fingerprint: any;
-  code: string;
-  type: string;
+export interface AccessCodeData extends RequestCodeAccessData {
+  browser_fingerprint: string;
   code_id: number;
+}
+
+export interface CodeAccessData extends AccessCodeData {
+  content: string;
+  in_use: boolean;
+  type: string;
 }
 
 export interface RequestDataCaptureAccessData {
@@ -261,7 +273,7 @@ export interface RequestDataCaptureAccessData {
 export interface CodeAccessSessionsData {
   id: number;
   code: string;
-  browser_fingerprint: any;
+  browser_fingerprint: string;
   agent_info: string;
   last_used: number;
 }
@@ -289,9 +301,71 @@ export interface DonationDetails {
   donation_options: CustomDonationOption;
 }
 
+export interface Device {
+  type: string;
+  os: string;
+  model: string;
+}
+
+export interface Gift {
+  buyer_email: string;
+  code: string;
+  id: number;
+  receiver_email: string;
+}
+
+export interface TransactionsDetails {
+  access_fee_description: string;
+  action_type: string;
+  charged_amount: number;
+  client_id: string;
+  consumer_email: string;
+  consumer_id: number;
+  continent: string;
+  country: string;
+  country_iso: string;
+  created_at: string;
+  currency_iso: string;
+  device: Device;
+  donation_description: string;
+  exchange_rate: number;
+  expires_at: string;
+  gateway_name: string;
+  gift: Gift;
+  ip_address: string;
+  issued_by: number;
+  item_access_id: number;
+  item_id: number;
+  item_title: string;
+  item_type: string;
+  merchant_id: number;
+  note: string;
+  payment_history_id: number;
+  payment_method_name: string;
+  payment_tool_info: string;
+  payment_tool_token: string;
+  referrer: string;
+  settlement_currency: string;
+  timestamp: number;
+  transaction_token: string;
+  trx_token: string;
+  voucher_code: string;
+  voucher_discount: string;
+}
+
+export interface AssetsTransactions {
+  collection: Array<TransactionsDetails>;
+  total: number;
+  unique_paying_customers: number;
+}
+
+export interface SignedMediaResponse {
+  token: string;
+}
+
 export interface Asset extends BaseExtend {
   checkAccessForAsset(id: number): Promise<AxiosResponse<GetItemAccessV1>>;
-  isFreeTrialUsed(id: number): Promise<AxiosResponse<any>>;
+  isFreeTrialUsed(id: number): Promise<AxiosResponse<boolean>>;
   getAsset(
     assetId: number,
     merchantUuid: string
@@ -302,21 +376,34 @@ export interface Asset extends BaseExtend {
     merchantUuid: string
   ): Promise<AxiosResponse<ExternalItemDetails>>;
   getPackage(id: number): Promise<AxiosResponse<GetMerchantPackage>>;
-  getAssetAccessFees(id: number): Promise<AxiosResponse<GetAccessFee>>;
+  getAssetsInPackage(id: number): Promise<AxiosResponse<GetAssetsInPackage>>;
+  getAssetAccessFees(id: number): Promise<AxiosResponse<GetAccessFeesResponse>>;
   getAssetsHistory(
     size?: number,
     page?: number,
     startDate?: string,
     endDate?: string,
-    type?: string,
-  ): Promise<AxiosResponse<Record<string, unknown>[]>>;
-  getAccessCode(assetId: number): CodeAccessData | null | Promise<CodeAccessData | null>;
-  requestCodeAccess(data: RequestCodeAccessData): Promise<AxiosResponse<CodeAccessData>>;
-  getAccesCodeSessions(codeId: number): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
-  terminateSession(assetId: number): Promise<AxiosResponse<null>>;
+    type?: string
+  ): Promise<AxiosResponse<AssetsTransactions>>;
+  getAccessCode(
+    assetId: number
+  ): CodeAccessData | null | Promise<CodeAccessData | null>;
+  requestCodeAccess(
+    data: RequestCodeAccessData
+  ): Promise<AxiosResponse<CodeAccessData>>;
+  getAccesCodeSessions(
+    codeId: number
+  ): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
+  terminateSession(
+    assetId: number
+  ): Promise<AxiosResponse<CommonResponse> | null>;
   getCloudfrontURL(
     assetId: number,
     videoUrl: string
   ): Promise<AxiosResponse<CloudfrontUrl>>;
   getDonationOptions(assetId: number): Promise<AxiosResponse<DonationDetails>>;
+  getSignedMediaToken(
+    appConfigId: string,
+    mediaId: string
+  ): Promise<AxiosResponse<SignedMediaResponse>>;
 }

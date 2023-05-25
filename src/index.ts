@@ -1,88 +1,72 @@
+/**
+ * @module InPlayer
+ */
 import Account from './endpoints/account';
 import Asset from './endpoints/asset';
 import Payment from './endpoints/payment';
 import Subscription from './endpoints/subscription';
 import Branding from './endpoints/branding';
 import Voucher from './endpoints/voucher';
-import DLC from './endpoints/dlc';
+import NFTs from './endpoints/nfts';
 import Notifications from './factories/notifications';
 import RequestFactory from './factories/request';
+import tokenStorage, { TokenStorageType } from './factories/tokenStorage';
 import config from './config';
 
 // types
 import {
-  DLC as DLCType,
   Notifications as NotificationsType,
   Env,
 } from './models/CommonInterfaces';
 import { ApiConfig, Request as RequestType } from './models/Config';
 import { Account as AccountType } from './models/IAccount&Authentication';
 import { Asset as AssetType } from './models/IAsset&Access';
-import {
-  Payment as PaymentType,
-  Subscription as SubscriptionType,
-} from './models/IPayment&Subscription';
+import { Payment as PaymentType } from './models/IPayment';
+import { Subscription as SubscriptionType } from './models/ISubscription';
 import { Voucher as VoucherType } from './models/IVoucher&Promotion';
+import { NFTs as NFTsType } from './models/INFTs';
 import { Branding as BrandingType } from './models/IBrand';
-import tokenStorage, { TokenStorageType } from './factories/tokenStorage';
 
 /**
  * Main class. Contains all others methods and websocket subscription
  *
  * @class InPlayer
  */
-class InPlayer {
+export class InPlayer {
+  /** @internal */
   config: ApiConfig;
+  /** @internal */
   Account: AccountType;
+  /** @internal */
   Asset: AssetType;
+  /** @internal */
   Payment: PaymentType;
+  /** @internal */
   Subscription: SubscriptionType;
+  /** @internal */
   Voucher: VoucherType;
-  DLC: DLCType;
+  /** @internal */
+  NFTs: NFTsType;
+  /** @internal */
   Branding: BrandingType;
+  /** @internal */
   Notifications: NotificationsType;
+  /** @internal */
   request: RequestType;
+  /** @internal */
   tokenStorage: TokenStorageType = tokenStorage;
 
   constructor() {
     this.config = config.production;
     this.request = new RequestFactory(this.config);
-    /**
-     * @property Account
-     * @type Account
-     */
     this.Account = new Account(this.config, this.request);
-    /**
-     * @property Asset
-     * @type Asset
-     */
     this.Asset = new Asset(this.config, this.request);
-    /**
-     * @property Payment
-     * @type Payment
-     */
     this.Payment = new Payment(this.config, this.request);
-    /**
-     * @property Subscription
-     * @type Subscription
-     */
     this.Subscription = new Subscription(this.config, this.request);
-    /**
-     * @property Voucher
-     * @type Voucher
-     */
     this.Voucher = new Voucher(this.config, this.request);
-    /**
-     * @property Voucher
-     * @type Voucher
-     */
-    this.DLC = new DLC(this.config, this.request);
-    /**
-     * @property Branding
-     * @type Branding
-     */
     this.Branding = new Branding(this.config, this.request);
     this.Notifications = new Notifications(this.config, this.request);
+    this.NFTs = new NFTs(this.config, this.request);
   }
 
   /**
@@ -99,17 +83,19 @@ class InPlayer {
    *     InPlayer.subscribe(
    *      'adsasd-d1-cjc1c-1ajaveo',
    *      {
-   *       onMessage: (message) =>
-   * { let body = JSON.parse(message.body); console.log(body, 'message') },
-   *       onOpen: (e) => console.log('open'),
-   *       onClose: (e) => console.log('close', e)
+   *        onMessage: (message) =>
+   *        {
+   *          let body = JSON.parse(message.body); console.log(body, 'message')
+   *        },
+   *        onOpen: (e) => console.log('open'),
+   *        onClose: (e) => console.log('close', e)
    *      }
    *    )
    */
   subscribe(
     accountUuid: string,
     callbackParams: Record<string, (...params: any) => void>,
-  ) {
+  ): void {
     if (this.request.isAuthenticated()) {
       this.Notifications.subscribe(accountUuid, callbackParams)
         .then((data: any) => {
@@ -132,7 +118,7 @@ class InPlayer {
    *        InPlayer.isSubscribed()
    * @returns {boolean}
    */
-  isSubscribed() {
+  isSubscribed(): boolean {
     return this.Notifications.isSubscribed();
   }
 
@@ -141,26 +127,24 @@ class InPlayer {
    * @method unsubscribe
    * @example
    *     InPlayer.unsubscribe()
-   * @return {Boolean}
    */
-  unsubscribe() {
+  unsubscribe(): void {
     this.Notifications.unsubscribe();
   }
 
   /**
    * Overrides the default configs
    * @method setConfig
-   * @param {String} config 'production', 'development'
+   * @param {String} config 'production', 'development', 'daily'
    * @example
    *     InPlayer.setConfig('development');
    */
-  setConfig(env: Env) {
+  setConfig(env: Env): void {
     this.config = config[env];
     this.request.setInstanceConfig(env);
     this.Account.setConfig(env);
     this.Asset.setConfig(env);
     this.Branding.setConfig(env);
-    this.DLC.setConfig(env);
     this.Notifications.setConfig(env);
     this.Payment.setConfig(env);
     this.Subscription.setConfig(env);

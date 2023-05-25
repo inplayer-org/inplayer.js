@@ -1,106 +1,149 @@
 export const API = {
   // Account
+  signUp: '/accounts',
+  signUpV2: 'v2/accounts',
   signIn: '/accounts/authenticate',
   signInV2: '/v2/accounts/authenticate',
   signOut: '/accounts/logout',
-  signUp: '/accounts',
-  signUpV2: 'v2/accounts',
-  requestNewPassword: '/accounts/forgot-password',
-  setNewPassword: (token: any) => `/accounts/forgot-password/${token}`,
-  getAccountInfo: '/accounts',
-  getSocialLoginUrls: (state: any) => `/accounts/social?state=${state}`,
-  updateAccount: '/accounts',
   changePassword: '/accounts/change-password',
-  getRegisterFields: (merchantUuid: any) =>
+  requestNewPassword: '/accounts/forgot-password',
+  setNewPassword: (token: string): string =>
+    `/accounts/forgot-password/${token}`,
+  getAccountInfo: '/accounts',
+  updateAccount: '/accounts',
+  exportData: '/accounts/export',
+  deleteAccount: '/accounts/erase',
+  getSocialLoginUrls: (state: string): string =>
+    `/accounts/social?state=${state}`,
+  getRegisterFields: (merchantUuid: string): string =>
     `/accounts/register-fields/${merchantUuid}`,
-  getPurchaseHistory: (status: any, page = 0, size = 5) =>
+  reportSSOtoken: (ssoDomain: string): string => `${ssoDomain}/sso/cookie`,
+  sendPinCode: '/v2/accounts/pin-codes/send',
+  validatePinCode: '/v2/accounts/pin-codes/validate',
+  requestDataCaptureNoAuthAccess: '/v2/accounts/customers/data-capture',
+  externalAccount: (integration: string): string =>
+    `/v2/accounts/external/${integration}`,
+  getFavorites: '/v2/accounts/media/favorites',
+  getFavorite: (id: string): string => `/v2/accounts/media/favorites/${id}`,
+  getWatchHistory: '/v2/accounts/media/watch-history',
+  getWatchHistoryForItem: (id: string): string =>
+    `/v2/accounts/media/watch-history/${id}`,
+
+  profiles: '/v2/accounts/profiles',
+  getProfilesItem: (id: string): string =>
+    `/v2/accounts/profiles/${id}`,
+
+  // restrictions
+  merchantRestrictionSettings: (merchantUuid: string): string =>
+    `/restrictions/settings/${merchantUuid}`,
+
+  // Items
+  getAsset: (id: number, merchantUuid: string): string =>
+    `/items/${merchantUuid}/${id}`,
+  getExternalAsset: (
+    assetType: string,
+    externalId: string,
+    merchantUuid?: string,
+  ): string => {
+    let url = `/items/assets/external/${assetType}/${externalId}`;
+    if (merchantUuid) {
+      url += `?merchant_uuid=${merchantUuid}`;
+    }
+    return url;
+  },
+  checkAccessForAsset: (id: number): string => `/items/${id}/access`,
+  checkFreeTrial: (id: number): string => `/items/used-trial-period/${id}`,
+  getPackage: (id: number): string => `/items/packages/${id}`,
+  getAssetsInPackage: (id: number): string => `items/packages/${id}/items`,
+  getAssetAccessFees: (id: number): string => `v2/items/${id}/access-fees`,
+  getCloudfrontURL: (id: number, videoUrl: string): string =>
+    `/items/${id}/access/cloudfront?url=${videoUrl}`,
+  getPurchaseHistory: (status: string, page: number, size: number): string =>
     `/items/access/customers?status=${status}&page=${page}&size=${size}`,
+  // code only
+  requestCodeAccess: '/items/access/codes/entry',
+  requestAccessCodeSessions: (codeId: number): string =>
+    `items/access/codes/${codeId}/sessions`,
+  terminateSession: (codeId: number, fingerprint: string): string =>
+    `items/access/codes/${codeId}/${fingerprint}`,
+  // donation
+  getDonations: (id: number): string => `v2/items/${id}/donations`,
+  // media signer
+  getSignedMediaToken: (appConfigId: string, mediaId: string): string =>
+    `v2/items/jw-media/token?app_config_id=${appConfigId}&media_id=${mediaId}`,
+
+  // Payments
+  getPaymentMethods: '/payments/methods',
+  payForAsset: '/payments',
+  payForAssetV2: '/v2/payments',
+  getDefaultCreditCard: '/v2/payments/cards/default',
+  setDefaultCreditCard: '/v2/payments/cards/default',
+  getPayPalParams: '/external-payments',
+  getDirectDebitMandate: '/v2/payments/direct-debit/mandate',
+  createDirectDebitMandate: '/v2/payments/direct-debit/mandate',
+  payForAssetDonation: '/v2/payments/donation',
+  confirmForAssetDonation: '/v2/payments/donation:confirm',
+  validateReceipt: (platform: string): string =>
+    `v2/external-payments/${platform}/validate`,
   getAssetsHistory: (
-    size: any,
-    page: any,
-    startDate: any,
-    endDate: any,
+    size: number,
+    page: number,
+    startDate?: string,
+    endDate?: string,
     type?: string,
-  ) => {
+  ): string => {
     let url = `/payments/transactions?exclude=store-payment&size=${size}&page=${page}`;
 
     if (startDate) {
       url += `&startDate=${startDate}`;
     }
-
     if (endDate) {
       url += `&endDate=${endDate}`;
     }
-
     if (type) {
       url += `&type=${type}`;
     }
 
     return url;
   },
-  deleteAccount: '/accounts/erase',
-  exportData: '/accounts/export',
-  reportSSOtoken: (ssoDomain: any) => `${ssoDomain}/sso/cookie`,
-  sendPinCode: '/v2/accounts/pin-codes/send',
-  validatePinCode: '/v2/accounts/pin-codes/validate',
-  merchantRestrictionSettings: (merchantUuid: string) =>
-    `/restrictions/settings/${merchantUuid}`,
-  // Asset
-  checkAccessForAsset: (id: any) => `/items/${id}/access`,
-  checkFreeTrial: (id: any) => `/items/used-trial-period/${id}`,
-  getAsset: (assetId: any, merchantUuid: any) =>
-    `/items/${merchantUuid}/${assetId}`,
-  getExternalAsset: (
-    assetType: any,
-    externalId: any,
-    merchantUuid: any,
-  ) => {
-    if (merchantUuid) {
-      return `/items/assets/external/${assetType}/${externalId}?merchant_uuid=${merchantUuid}`;
-    }
-    return `/items/assets/external/${assetType}/${externalId}`;
-  },
-  getPackage: (id: any) => `/items/packages/${id}`,
-  getAssetAccessFees: (id: number) => `v2/items/${id}/access-fees`,
-  getCloudfrontURL: (assetId: any, videoUrl: any) =>
-    `/items/${assetId}/access/cloudfront?url=${videoUrl}`,
-  // Payment
-  getPaymentMethods: '/payments/methods',
-  getPaymentTools: (paymentMethodId: any) =>
-    `/payments/method/${paymentMethodId}/tools`,
-  payForAsset: '/payments',
-  payForAssetV2: '/v2/payments',
-  getPayPalParams: '/external-payments',
-  payForAssetDonation: '/v2/payments/donation',
-  confirmForAssetDonation: '/v2/payments/donation:confirm',
-  getDefaultCreditCard: '/v2/payments/cards/default',
-  setDefaultCreditCard: '/v2/payments/cards/default',
-  getDirectDebitMandate: '/v2/payments/direct-debit/mandate',
-  createDirectDebitMandate: '/v2/payments/direct-debit/mandate',
-  validateReceipt: (platform: string) => `v2/external-payments/${platform}/validate`,
+
   // Subscriptions
-  getSubscriptions: (limit: number, page: number, status: string) => {
+  getSubscriptions: (limit: number, page: number, status?: string): string => {
+    let url = `/subscriptions?limit=${limit}&page=${page}`;
     if (status) {
-      return `/subscriptions?limit=${limit}&page=${page}&status=${status}`;
+      url += `&status=${status}`;
     }
-    return `/subscriptions?limit=${limit}&page=${page}`;
+    return url;
   },
-  getSubscription: (id: number) => `/subscriptions/${id}`,
+  getSubscription: (id: string): string => `/subscriptions/${id}`,
+  cancelSubscription: (url: string): string => `${url}`,
   subscribe: '/subscriptions',
-  cancelSubscription: (url: string) => `${url}`,
   subscribeV2: '/v2/subscriptions',
-  // Misc
-  getDlcLinks: (id: any) => `/dlc/${id}/links`,
+  subscriptionPlanChange: '/v2/subscriptions/stripe:switch',
+
+  // Vouchers
   getDiscount: '/vouchers/discount',
-  getBranding: (merchantUuid: any, brandingId: any) =>
-    `/branding/paywall/${merchantUuid}/${brandingId}`,
-  downloadFile: (assetId: any, filename: any) =>
-    `/dlc/${assetId}/${filename}`,
-  requestDataCaptureNoAuthAccess: '/v2/accounts/customers/data-capture',
-  // Code only
-  requestCodeAccess: '/items/access/codes/entry',
-  requestAccessCodeSessions: (codeId: number) => `items/access/codes/${codeId}/sessions`,
-  terminateSession: (codeId: number, fingerprint: string) => `items/access/codes/${codeId}/${fingerprint}`,
-  // Donation
-  getDonations: (assetId: number) => `v2/items/${assetId}/donations`,
+
+  // Branding
+  getBranding: (clientId: string, brandingId: string | number): string =>
+    `/branding/paywall/${clientId}/${brandingId}`,
+
+  // NFTs
+  getMerchantMarketplace: (merchantUuid: string): string =>
+    `/v2/nfts/marketplaces/${merchantUuid}`,
+  getMerchantNFTList: (
+    merchantUuid: string,
+    page: number,
+    size: number,
+    filter: string,
+  ): string =>
+    `/v2/nfts/${merchantUuid}?filter=${filter}&page=${page}&size=${size}`,
+  getMerchantNFT: (merchantUuid: string, nftId: number): string =>
+    `/v2/nfts/${merchantUuid}/${nftId}`,
+  getExchangeRates: (fiat: string, invert: boolean): string =>
+    `/v2/nfts/exchange-rate/${fiat}${invert ? '?invert=true' : ''}`,
+  getUserBoughtNFTs: (page: number, size: number): string =>
+    `/v2/nfts?page=${page}&size=${size}`,
+  makeReservation: (merchantUuid: string, nftId: number): string =>
+    `/v2/nfts/${merchantUuid}/${nftId}/reserve`,
 };

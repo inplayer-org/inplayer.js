@@ -11,7 +11,7 @@ class Credentials {
     this.expires = expires;
   }
 
-  isExpired() {
+  isExpired(): boolean {
     return createTimestamp() > this.expires;
   }
 
