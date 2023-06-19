@@ -337,6 +337,7 @@ export declare interface Item {
   branding_id: number;
   event_type: string;
   is_giftable: boolean;
+  plan_switch_enabled: boolean;
 }
 
 export declare interface AccessType {
