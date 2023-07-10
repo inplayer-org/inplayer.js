@@ -279,7 +279,7 @@ export declare class Account {
   deleteWatchHistoryForItem(
     mediaId: string
   ): Promise<AxiosResponse<CommonResponse>>;
-  getProfiles(): Promise<AxiosResponse<ProfilesData>>;
+  getProfiles(): Promise<AxiosResponse<ProfilesData[]>>;
   enterProfile(id: string, pin?: number): Promise<AxiosResponse<ProfilesData>>;
   createProfile(
     name: string,
