@@ -257,6 +257,7 @@ export interface Account extends BaseExtend {
     getProfileDetails(id: string): Promise<AxiosResponse<ProfilesData>>;
     updateProfile(id: string, name: string,
       avatar_url?: string,
+      adult?: boolean,
      ): Promise<AxiosResponse<ProfilesData>>;
       deleteProfile(id: string): Promise<AxiosResponse<ProfilesData>>;
 

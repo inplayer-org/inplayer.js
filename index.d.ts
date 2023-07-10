@@ -257,7 +257,7 @@ export declare class Account {
   enterProfile(id: string, pin?: number): Promise<AxiosResponse<ProfilesData>>;
   createProfile(name: string, adult: boolean, avatar_url?: string, pin?: number): Promise<AxiosResponse<ProfilesData>>;
   getProfileDetails(id: string): Promise<AxiosResponse<ProfilesData>>;
-  updateProfile(id: string, name: string, avatar_url?: string): Promise<AxiosResponse<ProfilesData>>;
+  updateProfile(id: string, name: string, avatar_url?: string, adult?: boolean): Promise<AxiosResponse<ProfilesData>>;
   deleteProfile(id: string): Promise<AxiosResponse<ProfilesData>>;
 }
 
