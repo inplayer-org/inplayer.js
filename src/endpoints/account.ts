@@ -1442,10 +1442,12 @@ class Account extends BaseExtend {
     id: string,
     name: string,
     avatar_url: string,
+    adult: boolean,
   ): Promise<AxiosResponse<ProfilesData>> {
     const body = {
       name,
       avatar_url,
+      adult,
     };
     const tokenObject = await this.request.getToken();
     return this.request.put(API.getProfilesItem(id), qs.stringify(body), {

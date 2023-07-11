@@ -81,8 +81,7 @@ export interface SetNewPasswordData {
   brandingId: number;
 }
 
-export interface ChangePasswordData
-  extends Omit<SetNewPasswordData, 'brandingId'> {
+export interface ChangePasswordData extends Omit<SetNewPasswordData, 'brandingId'> {
   oldPassword: string;
   brandingId?: number;
 }
@@ -198,16 +197,28 @@ export interface CollectionWithCursorArgs {
   cursor?: string;
 }
 
+export interface ProfilesData {
+  id: string;
+  account_id: string;
+  name: string;
+  avatar_url: string;
+  default: boolean;
+  adult: boolean;
+  pin_required: boolean;
+  created_at: number;
+  updated_at: number;
+  credentials: {
+    access_token: string;
+    expires: number;
+  };
+}
+
 export declare class Account {
   constructor(config: Record<string, unknown>);
 
   isAuthenticated<R = boolean>(): R | boolean;
   getToken<R = Credentials>(): R | Credentials;
-  setToken<R = void>(
-    token: string,
-    refreshToken: string,
-    expiresAt: number
-  ): R | void;
+  setToken<R = void>(token: string, refreshToken: string, expiresAt: number): R | void;
   removeToken<R = void>(): R | void;
 
   signUp(data: SignUpData): Promise<AxiosResponse<CreateAccount>>;
@@ -217,56 +228,37 @@ export declare class Account {
   signOut(): Promise<AxiosResponse<undefined>>;
   refreshToken(clientId: string): Promise<AxiosResponse<CreateAccount>>;
   changePassword(data: ChangePasswordData): Promise<AxiosResponse<void>>;
-  requestNewPassword(
-    data: RequestNewPasswordData
-  ): Promise<AxiosResponse<CommonResponse>>;
-  setNewPassword(
-    data: SetNewPasswordData,
-    token?: string
-  ): Promise<AxiosResponse<void>>;
+  requestNewPassword(data: RequestNewPasswordData): Promise<AxiosResponse<CommonResponse>>;
+  setNewPassword(data: SetNewPasswordData, token?: string): Promise<AxiosResponse<void>>;
   getAccountInfo(): Promise<AxiosResponse<AccountData>>;
   updateAccount(data: UpdateAccountData): Promise<AxiosResponse<AccountData>>;
-  exportData(
-    data: Omit<AccountAuthData, 'password'> & { password?: string }
-  ): Promise<AxiosResponse<CommonResponse>>;
+  exportData(data: Omit<AccountAuthData, 'password'> & { password?: string }): Promise<AxiosResponse<CommonResponse>>;
   deleteAccount(data: AccountAuthData): Promise<AxiosResponse<CommonResponse>>;
   getSocialLoginUrls(state: string): Promise<AxiosResponse<ListSocialURLs>>;
-  getRegisterFields(
-    merchantUuid: string
-  ): Promise<AxiosResponse<GetRegisterFieldsResponse>>;
-  reportSSOtoken(
-    ssoDomain: string,
-    token: string,
-    retire: boolean
-  ): Promise<AxiosResponse<any>>;
+  getRegisterFields(merchantUuid: string): Promise<AxiosResponse<GetRegisterFieldsResponse>>;
+  reportSSOtoken(ssoDomain: string, token: string, retire: boolean): Promise<AxiosResponse<any>>;
   sendPinCode(brandingId: number): Promise<AxiosResponse<CommonResponse>>;
   validatePinCode(pinCode: string): Promise<AxiosResponse<CommonResponse>>;
-  loadMerchantRestrictionSettings(
-    merchantUuid: string
-  ): Promise<AxiosResponse<RestrictionSettingsData>>;
-  syncWithExternalAccount(
-    integration: string,
-    itemId: number
-  ): Promise<AxiosResponse<ExternalAccount>>;
+  loadMerchantRestrictionSettings(merchantUuid: string): Promise<AxiosResponse<RestrictionSettingsData>>;
+  syncWithExternalAccount(integration: string, itemId: number): Promise<AxiosResponse<ExternalAccount>>;
   updateExternalAccount(
     integration: string,
-    body: Record<string, string | number>
+    body: Record<string, string | number>,
   ): Promise<AxiosResponse<CommonResponse>>;
   getFavorites(): Promise<AxiosResponse<CollectionWithCursor<FavoritesData>>>;
   getFavorite(mediaId: string): Promise<AxiosResponse<FavoritesData>>;
   addToFavorites(mediaId: string): Promise<AxiosResponse<FavoritesData>>;
   deleteFromFavorites(mediaId: string): Promise<AxiosResponse<CommonResponse>>;
-  getWatchHistory(
-    args: CollectionWithCursorArgs
-  ): Promise<AxiosResponse<CollectionWithCursor<WatchHistory>>>;
+  getWatchHistory(args: CollectionWithCursorArgs): Promise<AxiosResponse<CollectionWithCursor<WatchHistory>>>;
   getWatchHistoryForItem(mediaId: string): Promise<AxiosResponse<WatchHistory>>;
-  updateWatchHistory(
-    mediaId: string,
-    progress: number
-  ): Promise<AxiosResponse<WatchHistory>>;
-  deleteWatchHistoryForItem(
-    mediaId: string
-  ): Promise<AxiosResponse<CommonResponse>>;
+  updateWatchHistory(mediaId: string, progress: number): Promise<AxiosResponse<WatchHistory>>;
+  deleteWatchHistoryForItem(mediaId: string): Promise<AxiosResponse<CommonResponse>>;
+  getProfiles(): Promise<AxiosResponse<ProfilesData[]>>;
+  enterProfile(id: string, pin?: number): Promise<AxiosResponse<ProfilesData>>;
+  createProfile(name: string, adult: boolean, avatar_url?: string, pin?: number): Promise<AxiosResponse<ProfilesData>>;
+  getProfileDetails(id: string): Promise<AxiosResponse<ProfilesData>>;
+  updateProfile(id: string, name: string, avatar_url?: string, adult?: boolean): Promise<AxiosResponse<ProfilesData>>;
+  deleteProfile(id: string): Promise<AxiosResponse<ProfilesData>>;
 }
 
 // Items
@@ -522,14 +514,11 @@ export declare class Asset {
 
   checkAccessForAsset(id: number): Promise<AxiosResponse<GetItemAccessV1>>;
   isFreeTrialUsed(id: number): Promise<AxiosResponse<boolean>>;
-  getAsset(
-    assetId: number,
-    merchantUuid: string
-  ): Promise<AxiosResponse<ItemDetailsV1>>;
+  getAsset(assetId: number, merchantUuid: string): Promise<AxiosResponse<ItemDetailsV1>>;
   getExternalAsset(
     assetType: string,
     externalId: string,
-    merchantUuid: string
+    merchantUuid: string,
   ): Promise<AxiosResponse<ExternalItemDetails>>;
   getPackage(id: number): Promise<AxiosResponse<GetMerchantPackage>>;
   getAssetsInPackage(id: number): Promise<AxiosResponse<GetAssetsInPackage>>;
@@ -540,29 +529,15 @@ export declare class Asset {
     page?: number,
     startDate?: string,
     endDate?: string,
-    type?: string
+    type?: string,
   ): Promise<AxiosResponse<Record<string, unknown>[]>>;
   getAccessCode(assetId: number | string): CodeAccessData;
-  requestCodeAccess(
-    data: RequestCodeAccessData
-  ): Promise<AxiosResponse<CodeAccessData>>;
-  getAccesCodeSessions(
-    codeId: number
-  ): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
-  terminateSession(
-    assetId: number
-  ): Promise<AxiosResponse<CommonResponse> | null>;
-  getCloudfrontURL(
-    assetId: number,
-    videoUrl: string
-  ): Promise<AxiosResponse<CloudfrontUrl>>;
-  requestDataCaptureNoAuthAccess(
-    accessData: RequestDataCaptureAccessData
-  ): Promise<AxiosResponse<CommonResponse>>;
-  getSignedMediaToken(
-    appConfigId: string,
-    mediaId: string
-  ): Promise<AxiosResponse<SignedMediaResponse>>;
+  requestCodeAccess(data: RequestCodeAccessData): Promise<AxiosResponse<CodeAccessData>>;
+  getAccesCodeSessions(codeId: number): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
+  terminateSession(assetId: number): Promise<AxiosResponse<CommonResponse> | null>;
+  getCloudfrontURL(assetId: number, videoUrl: string): Promise<AxiosResponse<CloudfrontUrl>>;
+  requestDataCaptureNoAuthAccess(accessData: RequestDataCaptureAccessData): Promise<AxiosResponse<CommonResponse>>;
+  getSignedMediaToken(appConfigId: string, mediaId: string): Promise<AxiosResponse<SignedMediaResponse>>;
 }
 
 export interface BrandingDetails {
@@ -586,10 +561,7 @@ export interface BrandingDetails {
 export declare class Branding {
   constructor(config: Record<string, unknown>);
 
-  getBranding(
-    clientId: string,
-    brandingId?: string | number
-  ): Promise<AxiosResponse<BrandingDetails>>;
+  getBranding(clientId: string, brandingId?: string | number): Promise<AxiosResponse<BrandingDetails>>;
 }
 
 export interface CreatePaymentData {
@@ -796,10 +768,7 @@ interface AmazonPlatformData {
 }
 
 interface NonAmazonPlatformData {
-  platform: Exclude<
-    ReceiptValidationPlatform,
-    ReceiptValidationPlatform.AMAZON
-  >;
+  platform: Exclude<ReceiptValidationPlatform, ReceiptValidationPlatform.AMAZON>;
   amazonUserId?: never;
 }
 
@@ -819,9 +788,7 @@ interface ReceiptDataWithItemIdAndAccessFeeId {
   productName?: never;
 }
 
-type ReceiptData =
-  | ReceiptDataWithProductName
-  | ReceiptDataWithItemIdAndAccessFeeId;
+type ReceiptData = ReceiptDataWithProductName | ReceiptDataWithItemIdAndAccessFeeId;
 
 export type ValidateReceiptData = CommonPlatformData & ReceiptData;
 
@@ -829,63 +796,25 @@ export declare class Payment {
   constructor(config: Record<string, unknown>, Account: Account);
 
   getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
-  createPayment(
-    data: CreatePaymentData
-  ): Promise<AxiosResponse<CommonResponse>>;
-  createDonationPayment(
-    data: CreateDonationPaymentData
-  ): Promise<AxiosResponse<CommonResponse>>;
-  getPayPalParams(
-    data: PayPalParamsData
-  ): Promise<AxiosResponse<GeneratePayPalParameters>>;
-  getPurchaseHistory(
-    status: string,
-    page: number,
-    limit: number
-  ): Promise<AxiosResponse<GetPurchaseHistoryResponse>>;
+  createPayment(data: CreatePaymentData): Promise<AxiosResponse<CommonResponse>>;
+  createDonationPayment(data: CreateDonationPaymentData): Promise<AxiosResponse<CommonResponse>>;
+  getPayPalParams(data: PayPalParamsData): Promise<AxiosResponse<GeneratePayPalParameters>>;
+  getPurchaseHistory(status: string, page: number, limit: number): Promise<AxiosResponse<GetPurchaseHistoryResponse>>;
   getDefaultCreditCard(): Promise<AxiosResponse<GetDefaultCard>>;
-  setDefaultCreditCard(
-    data: DefaultCreditCardData
-  ): Promise<AxiosResponse<SetDefaultCard>>;
-  getDirectDebitMandate: () => Promise<
-    AxiosResponse<DirectDebitMandateResponse>
-  >;
-  createDirectDebitMandate: (
-    data: DirectDebitMandateData
-  ) => Promise<AxiosResponse<CreateDirectDebitResponse>>;
-  directDebitCharge: (
-    data: DirectDebitData
-  ) => Promise<AxiosResponse<CommonResponse>>;
-  directDebitSubscribe: (
-    data: DirectDebitData
-  ) => Promise<AxiosResponse<CommonResponse>>;
-  confirmPayment(
-    paymentIntentId: string
-  ): Promise<AxiosResponse<CommonResponse>>;
-  confirmDonationPayment(
-    data: ConfirmDonationPaymentData
-  ): Promise<AxiosResponse<CommonResponse>>;
-  idealPayment: (
-    data: IdealPaymentData
-  ) => Promise<AxiosResponse<CommonResponse>>;
-  googlePayPayment: (
-    data: GoogleOrApplePaymentData
-  ) => Promise<AxiosResponse<CommonResponse>>;
-  applePayPayment: (
-    data: GoogleOrApplePaymentData
-  ) => Promise<AxiosResponse<CommonResponse>>;
-  confirmIdealPayment: (
-    sourceId: string
-  ) => Promise<AxiosResponse<CommonResponse>>;
-  idealSubscribe: (
-    data: IdealPaymentData
-  ) => Promise<AxiosResponse<CommonResponse>>;
-  confirmIdealSubscribe: (
-    sourceId: string
-  ) => Promise<AxiosResponse<CommonResponse>>;
-  validateReceipt: (
-    data: ValidateReceiptData
-  ) => Promise<AxiosResponse<CommonResponse>>;
+  setDefaultCreditCard(data: DefaultCreditCardData): Promise<AxiosResponse<SetDefaultCard>>;
+  getDirectDebitMandate: () => Promise<AxiosResponse<DirectDebitMandateResponse>>;
+  createDirectDebitMandate: (data: DirectDebitMandateData) => Promise<AxiosResponse<CreateDirectDebitResponse>>;
+  directDebitCharge: (data: DirectDebitData) => Promise<AxiosResponse<CommonResponse>>;
+  directDebitSubscribe: (data: DirectDebitData) => Promise<AxiosResponse<CommonResponse>>;
+  confirmPayment(paymentIntentId: string): Promise<AxiosResponse<CommonResponse>>;
+  confirmDonationPayment(data: ConfirmDonationPaymentData): Promise<AxiosResponse<CommonResponse>>;
+  idealPayment: (data: IdealPaymentData) => Promise<AxiosResponse<CommonResponse>>;
+  googlePayPayment: (data: GoogleOrApplePaymentData) => Promise<AxiosResponse<CommonResponse>>;
+  applePayPayment: (data: GoogleOrApplePaymentData) => Promise<AxiosResponse<CommonResponse>>;
+  confirmIdealPayment: (sourceId: string) => Promise<AxiosResponse<CommonResponse>>;
+  idealSubscribe: (data: IdealPaymentData) => Promise<AxiosResponse<CommonResponse>>;
+  confirmIdealSubscribe: (sourceId: string) => Promise<AxiosResponse<CommonResponse>>;
+  validateReceipt: (data: ValidateReceiptData) => Promise<AxiosResponse<CommonResponse>>;
 }
 
 export interface CreateSubscriptionData {
@@ -947,20 +876,12 @@ export interface ChangeSubscriptionPlanResponse {
 export declare class Subscription {
   constructor(config: Record<string, unknown>, Account: Account);
 
-  getSubscriptions(
-    page?: number,
-    limit?: number,
-    status?: string
-  ): Promise<AxiosResponse<GetSubscription>>;
+  getSubscriptions(page?: number, limit?: number, status?: string): Promise<AxiosResponse<GetSubscription>>;
   getSubscription(id: string): Promise<AxiosResponse<SubscriptionDetails>>;
-  cancelSubscription(
-    unsubscribeUrl: string
-  ): Promise<AxiosResponse<CancelSubscription>>;
-  createSubscription(
-    data: CreateSubscriptionData
-  ): Promise<AxiosResponse<CommonResponse>>;
+  cancelSubscription(unsubscribeUrl: string): Promise<AxiosResponse<CancelSubscription>>;
+  createSubscription(data: CreateSubscriptionData): Promise<AxiosResponse<CommonResponse>>;
   changeSubscriptionPlan(
-    data: ChangeSubscriptionPlanRequestBody
+    data: ChangeSubscriptionPlanRequestBody,
   ): Promise<AxiosResponse<ChangeSubscriptionPlanResponse>>;
 }
 
@@ -1069,31 +990,17 @@ export interface MakeReservationResponse {
 export declare class NFTs {
   constructor(config: Record<string, unknown>, Account: Account);
 
-  getMerchantMarketplace(
-    merchantUuid: string
-  ): Promise<AxiosResponse<GetMerchantMarketplaceResponse>>;
+  getMerchantMarketplace(merchantUuid: string): Promise<AxiosResponse<GetMerchantMarketplaceResponse>>;
   getMerchantNFTList(
     merchantUuid: string,
     page?: number,
     size?: number,
-    filter?: string
+    filter?: string,
   ): Promise<AxiosResponse<GetMerchantNFTListResponse>>;
-  getMerchantNFT(
-    merchantUuid: string,
-    nftId: number
-  ): Promise<AxiosResponse<GetMerchantNFTResponse>>;
-  getExchangeRates(
-    fiat: string,
-    invert?: boolean
-  ): Promise<AxiosResponse<GetExchangeRatesResponse>>;
-  getUserBoughtNFTs(
-    page?: number,
-    size?: number
-  ): Promise<AxiosResponse<GetUserBoughtNFTsResponse>>;
-  makeReservation(
-    merchantUuid: string,
-    nftId: number
-  ): Promise<AxiosResponse<MakeReservationResponse>>;
+  getMerchantNFT(merchantUuid: string, nftId: number): Promise<AxiosResponse<GetMerchantNFTResponse>>;
+  getExchangeRates(fiat: string, invert?: boolean): Promise<AxiosResponse<GetExchangeRatesResponse>>;
+  getUserBoughtNFTs(page?: number, size?: number): Promise<AxiosResponse<GetUserBoughtNFTsResponse>>;
+  makeReservation(merchantUuid: string, nftId: number): Promise<AxiosResponse<MakeReservationResponse>>;
 }
 
 export interface ApiEndpoints {
@@ -1109,13 +1016,7 @@ export interface ApiEndpoints {
   changePassword: string;
   getRegisterFields: (merchantUuid: string) => string;
   getPurchaseHistory: (status: string, page?: number, size?: number) => string;
-  getAssetsHistory: (
-    size: number,
-    page: number,
-    startDate: string,
-    endDate: string,
-    type?: string
-  ) => string;
+  getAssetsHistory: (size: number, page: number, startDate: string, endDate: string, type?: string) => string;
   deleteAccount: string;
   exportData: string;
   reportSSOtoken: (ssoDomain: string) => string;
@@ -1124,11 +1025,7 @@ export interface ApiEndpoints {
   checkAccessForAsset: (id: number) => string;
   checkFreeTrial: (id: number) => string;
   getAsset: (assetId: number, merchantUuid: string) => string;
-  getExternalAsset: (
-    assetType: string,
-    externalId: string,
-    merchantUuid?: string
-  ) => string;
+  getExternalAsset: (assetType: string, externalId: string, merchantUuid?: string) => string;
   getPackage: (id: number) => string;
   getAssetAccessFees: (id: number) => string;
   getFreemiumAsset: string;
@@ -1151,22 +1048,14 @@ export interface ApiEndpoints {
   getSubscription: (id: string) => string;
   subscribe: string;
   cancelSubscription: (url: string) => string;
-  changeSubscriptionPlan: (
-    accessFeeId: number,
-    inplayerToken: string
-  ) => string;
+  changeSubscriptionPlan: (accessFeeId: number, inplayerToken: string) => string;
   // Voucher
   getDiscount: string;
   // Branding
   getBranding: (clientId: string, brandingId: string) => string;
   // NFTs
   getMerchantMarketplace: (merchantUuid: string) => string;
-  getMerchantNFTList: (
-    merchantUuid: string,
-    page: number,
-    size: number,
-    filter: string
-  ) => string;
+  getMerchantNFTList: (merchantUuid: string, page: number, size: number, filter: string) => string;
   getMerchantNFT: (merchantUuid: string, nftId: number) => string;
   getExchangeRates: (fiat: string, invert: boolean) => string;
   getUserBoughtNFTs: (page: number, size: number) => string;
@@ -1189,11 +1078,7 @@ export declare class Notifications {
 
   getIotToken(): Promise<Record<string, unknown>>;
   subscribe(accountUuid?: string, callbackParams?: any): Promise<boolean>;
-  handleSubscribe(
-    data: Record<string, unknown>,
-    callbackParams: any,
-    uuid: string
-  ): void;
+  handleSubscribe(data: Record<string, unknown>, callbackParams: any, uuid: string): void;
   setClient(client: any): void;
   isSubscribed(): boolean;
   unsubscribe(): void;
@@ -1221,10 +1106,7 @@ declare const InPlayer: {
   Notifications: Notifications;
   tokenStorage: TokenStorageType;
 
-  subscribe(
-    accountUuid: string,
-    callbackParams: Record<string, (...params: any) => void>
-  ): void;
+  subscribe(accountUuid: string, callbackParams: Record<string, (...params: any) => void>): void;
   isSubscribed(): boolean;
   unsubscribe(): void;
   setConfig(env: Env): void;

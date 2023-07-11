@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.14] - 10-07-2023
+
+- Updated TypeScript types for `Account` module to include Profiles methods and types
+
+# [3.13.13] - 19-06-2023
+
+- Added `plan_switch_enabled` field to `Item` type
+
 # [3.13.12] - 25-05-2023
 
 ### Changes
