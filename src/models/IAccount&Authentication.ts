@@ -173,15 +173,19 @@ export interface FavoritesData {
   created_at: number;
 }
 export interface ProfilesData {
-  id: string,
-  account_id: string,
-  name: string,
-  avatar_url: string,
-  default: boolean,
-  adult: boolean,
-  pin_required: boolean,
-  created_at: number,
-  updated_at: number,
+  id: string;
+  account_id: string;
+  name: string;
+  avatar_url: string;
+  default: boolean;
+  adult: boolean;
+  pin_required: boolean;
+  created_at: number;
+  updated_at: number;
+  credentials: {
+    access_token: string;
+    expires: number;
+  };
 }
 
 export interface CollectionWithCursor<T> {
@@ -209,7 +213,9 @@ export interface Account extends BaseExtend {
   ): Promise<AxiosResponse<void>>;
   getAccountInfo(): Promise<AxiosResponse<AccountData>>;
   updateAccount(data: UpdateAccountData): Promise<AxiosResponse<AccountData>>;
-  exportData(data: Omit<AccountAuthData, 'password'> & {password?: string}): Promise<AxiosResponse<CommonResponse>>;
+  exportData(
+    data: Omit<AccountAuthData, 'password'> & { password?: string }
+  ): Promise<AxiosResponse<CommonResponse>>;
   deleteAccount(data: AccountAuthData): Promise<AxiosResponse<CommonResponse>>;
   getSocialLoginUrls(state: string): Promise<AxiosResponse<ListSocialURLs>>;
   getRegisterFields(
@@ -249,16 +255,19 @@ export interface Account extends BaseExtend {
     mediaId: string
   ): Promise<AxiosResponse<CommonResponse>>;
   getProfiles(): Promise<AxiosResponse<ProfilesData>>;
-  enterProfile(id: string, pin?:number): Promise<AxiosResponse<ProfilesData>>;
-  createProfile(name: string,
+  enterProfile(id: string, pin?: number): Promise<AxiosResponse<ProfilesData>>;
+  createProfile(
+    name: string,
     adult: boolean,
     avatar_url?: string,
-    pin?:number,): Promise<AxiosResponse<ProfilesData>>;
-    getProfileDetails(id: string): Promise<AxiosResponse<ProfilesData>>;
-    updateProfile(id: string, name: string,
-      avatar_url?: string,
-      adult?: boolean,
-     ): Promise<AxiosResponse<ProfilesData>>;
-      deleteProfile(id: string): Promise<AxiosResponse<ProfilesData>>;
-
+    pin?: number
+  ): Promise<AxiosResponse<ProfilesData>>;
+  getProfileDetails(id: string): Promise<AxiosResponse<ProfilesData>>;
+  updateProfile(
+    id: string,
+    name: string,
+    avatar_url?: string,
+    adult?: boolean
+  ): Promise<AxiosResponse<ProfilesData>>;
+  deleteProfile(id: string): Promise<AxiosResponse<ProfilesData>>;
 }
