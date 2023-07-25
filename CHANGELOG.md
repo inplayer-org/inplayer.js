@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.15] - 24-07-2023
+
+- Added `getFeatureFlags` method and `FeatureFlagData` type to `Account` module
+
 # [3.13.14] - 10-07-2023
 
 - Updated TypeScript types for `Account` module to include Profiles methods and types

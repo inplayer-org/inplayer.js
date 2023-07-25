@@ -213,6 +213,11 @@ export interface ProfilesData {
   };
 }
 
+export interface FeatureFlagData {
+  name: string;
+  enabled: boolean;
+}
+
 export declare class Account {
   constructor(config: Record<string, unknown>);
 
@@ -259,6 +264,7 @@ export declare class Account {
   getProfileDetails(id: string): Promise<AxiosResponse<ProfilesData>>;
   updateProfile(id: string, name: string, avatar_url?: string, adult?: boolean): Promise<AxiosResponse<ProfilesData>>;
   deleteProfile(id: string): Promise<AxiosResponse<ProfilesData>>;
+  getFeatureFlags(): Promise<AxiosResponse<FeatureFlagData[]>>;
 }
 
 // Items

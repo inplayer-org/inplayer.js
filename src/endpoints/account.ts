@@ -15,11 +15,9 @@ import {
   CollectionWithCursorArgs,
   ProfilesData,
   GetRegisterFieldsResponse,
+  FeatureFlagData,
 } from '../models/IAccount&Authentication';
-import {
-  CommonResponse,
-  CustomErrorResponse,
-} from '../models/CommonInterfaces';
+import { CommonResponse, CustomErrorResponse } from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
 import BaseExtend from '../extends/base';
 import { API } from '../constants';
@@ -170,11 +168,7 @@ class Account extends BaseExtend {
       },
     });
 
-    await this.request.setToken(
-      respData.data.access_token,
-      respData.data.refresh_token,
-      respData.data.expires,
-    );
+    await this.request.setToken(respData.data.access_token, respData.data.refresh_token, respData.data.expires);
 
     return respData;
   }
@@ -248,11 +242,7 @@ class Account extends BaseExtend {
       },
     });
 
-    await this.request.setToken(
-      respData.data.access_token,
-      respData.data.refresh_token,
-      respData.data.expires,
-    );
+    await this.request.setToken(respData.data.access_token, respData.data.refresh_token, respData.data.expires);
 
     return respData;
   }
@@ -351,11 +341,7 @@ class Account extends BaseExtend {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     });
 
-    await this.request.setToken(
-      resp.data.access_token,
-      resp.data.refresh_token,
-      resp.data.expires,
-    );
+    await this.request.setToken(resp.data.access_token, resp.data.refresh_token, resp.data.expires);
 
     return resp;
   }
@@ -454,11 +440,7 @@ class Account extends BaseExtend {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     });
 
-    await this.request.setToken(
-      resp.data.access_token,
-      resp.data.refresh_token,
-      resp.data.expires,
-    );
+    await this.request.setToken(resp.data.access_token, resp.data.refresh_token, resp.data.expires);
 
     return resp;
   }
@@ -539,13 +521,9 @@ class Account extends BaseExtend {
       grant_type: 'refresh_token',
     };
 
-    const responseData = await this.request.post(
-      API.signIn,
-      qs.stringify(body),
-      {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      },
-    );
+    const responseData = await this.request.post(API.signIn, qs.stringify(body), {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    });
 
     return responseData;
   }
@@ -558,11 +536,7 @@ class Account extends BaseExtend {
    * If it is not set the token won't be deactivated.
    * @returns {AxiosResponse<any>}
    */
-  async reportSSOtoken(
-    ssoDomain: string,
-    token: string,
-    deactivate = false,
-  ): Promise<AxiosResponse<any>> {
+  async reportSSOtoken(ssoDomain: string, token: string, deactivate = false): Promise<AxiosResponse<any>> {
     const body = new FormData();
 
     body.append('token', token);
@@ -686,24 +660,17 @@ class Account extends BaseExtend {
    * }
    * ```
    */
-  async syncWithExternalAccount(
-    integration: string,
-    itemId: number,
-  ): Promise<AxiosResponse<AccountProfile>> {
+  async syncWithExternalAccount(integration: string, itemId: number): Promise<AxiosResponse<AccountProfile>> {
     const body = { item_id: itemId };
 
     const tokenObject = await this.request.getToken();
 
-    return this.request.post(
-      API.externalAccount(integration),
-      qs.stringify(body),
-      {
-        headers: {
-          Authorization: `Bearer ${tokenObject.token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+    return this.request.post(API.externalAccount(integration), qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-    );
+    });
   }
 
   /**
@@ -721,22 +688,15 @@ class Account extends BaseExtend {
    *     .then(data => console.log(data));
    * @returns  {AxiosResponse<any>}
    */
-  async updateExternalAccount(
-    integration: string,
-    body: Record<string, any>,
-  ): Promise<AxiosResponse<any>> {
+  async updateExternalAccount(integration: string, body: Record<string, any>): Promise<AxiosResponse<any>> {
     const tokenObject = await this.request.getToken();
 
-    return this.request.patch(
-      API.externalAccount(integration),
-      qs.stringify(body),
-      {
-        headers: {
-          Authorization: `Bearer ${tokenObject.token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+    return this.request.patch(API.externalAccount(integration), qs.stringify(body), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-    );
+    });
   }
 
   /**
@@ -797,9 +757,7 @@ class Account extends BaseExtend {
    * }
    * ```
    */
-  async getSocialLoginUrls(
-    state: string,
-  ): Promise<AxiosResponse<ListSocialURLs>> {
+  async getSocialLoginUrls(state: string): Promise<AxiosResponse<ListSocialURLs>> {
     return this.request.get(API.getSocialLoginUrls(state));
   }
 
@@ -926,9 +884,7 @@ class Account extends BaseExtend {
    * }
    * ```
    */
-  async getRegisterFields(
-    merchantUuid = '',
-  ): Promise<AxiosResponse<GetRegisterFieldsResponse>> {
+  async getRegisterFields(merchantUuid = ''): Promise<AxiosResponse<GetRegisterFieldsResponse>> {
     return this.request.get(API.getRegisterFields(merchantUuid));
   }
 
@@ -1043,9 +999,7 @@ class Account extends BaseExtend {
    * }
    * ```
    */
-  async sendPinCode(
-    brandingId: number,
-  ): Promise<AxiosResponse<CommonResponse>> {
+  async sendPinCode(brandingId: number): Promise<AxiosResponse<CommonResponse>> {
     const body = {
       branding_id: brandingId,
     };
@@ -1077,9 +1031,7 @@ class Account extends BaseExtend {
    * ```
    */
 
-  async validatePinCode(
-    pinCode: string,
-  ): Promise<AxiosResponse<CommonResponse>> {
+  async validatePinCode(pinCode: string): Promise<AxiosResponse<CommonResponse>> {
     const body = {
       pin_code: pinCode,
     };
@@ -1115,9 +1067,7 @@ class Account extends BaseExtend {
    * }
    * ```
    */
-  async loadMerchantRestrictionSettings(
-    merchantUuid: string,
-  ): Promise<AxiosResponse<RestrictionSettingsData>> {
+  async loadMerchantRestrictionSettings(merchantUuid: string): Promise<AxiosResponse<RestrictionSettingsData>> {
     return this.request.get(API.merchantRestrictionSettings(merchantUuid));
   }
 
@@ -1140,9 +1090,7 @@ class Account extends BaseExtend {
    * }
    * ```
    */
-  async getFavorites(): Promise<
-    AxiosResponse<CollectionWithCursor<FavoritesData>>
-    > {
+  async getFavorites(): Promise<AxiosResponse<CollectionWithCursor<FavoritesData>>> {
     const tokenObject = await this.request.getToken();
     return this.request.get(API.getFavorites, {
       headers: {
@@ -1227,9 +1175,7 @@ class Account extends BaseExtend {
    *  }
    * ```
    */
-  async deleteFromFavorites(
-    mediaId: string,
-  ): Promise<AxiosResponse<CommonResponse>> {
+  async deleteFromFavorites(mediaId: string): Promise<AxiosResponse<CommonResponse>> {
     const tokenObject = await this.request.getToken();
 
     return this.request.delete(API.getFavorite(mediaId), {
@@ -1267,19 +1213,14 @@ class Account extends BaseExtend {
   async getWatchHistory({
     filter = 'currently_watching',
     cursor = '',
-  }: CollectionWithCursorArgs): Promise<
-    AxiosResponse<CollectionWithCursor<WatchHistory>>
-  > {
+  }: CollectionWithCursorArgs): Promise<AxiosResponse<CollectionWithCursor<WatchHistory>>> {
     const tokenObject = await this.request.getToken();
-    return this.request.get(
-      `${API.getWatchHistory}?filter=${filter}&cursor=${cursor}`,
-      {
-        headers: {
-          Authorization: `Bearer ${tokenObject.token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+    return this.request.get(`${API.getWatchHistory}?filter=${filter}&cursor=${cursor}`, {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-    );
+    });
   }
 
   /**
@@ -1301,9 +1242,7 @@ class Account extends BaseExtend {
    *  }
    * ```
    */
-  async getWatchHistoryForItem(
-    mediaId: string,
-  ): Promise<AxiosResponse<WatchHistory>> {
+  async getWatchHistoryForItem(mediaId: string): Promise<AxiosResponse<WatchHistory>> {
     const tokenObject = await this.request.getToken();
     return this.request.get(API.getWatchHistoryForItem(mediaId), {
       headers: {
@@ -1333,10 +1272,7 @@ class Account extends BaseExtend {
    *   }
    * ```
    */
-  async updateWatchHistory(
-    mediaId: string,
-    progress: number,
-  ): Promise<AxiosResponse<WatchHistory>> {
+  async updateWatchHistory(mediaId: string, progress: number): Promise<AxiosResponse<WatchHistory>> {
     const body = {
       media_id: mediaId,
       progress,
@@ -1367,9 +1303,7 @@ class Account extends BaseExtend {
    *  }
    * ```
    */
-  async deleteWatchHistoryForItem(
-    mediaId: string,
-  ): Promise<AxiosResponse<CommonResponse>> {
+  async deleteWatchHistoryForItem(mediaId: string): Promise<AxiosResponse<CommonResponse>> {
     const tokenObject = await this.request.getToken();
     return this.request.delete(API.getWatchHistoryForItem(mediaId), {
       headers: {
@@ -1379,9 +1313,7 @@ class Account extends BaseExtend {
     });
   }
 
-  async getProfiles(): Promise<
-    AxiosResponse<ProfilesData[]>
-    > {
+  async getProfiles(): Promise<AxiosResponse<ProfilesData[]>> {
     const tokenObject = await this.request.getToken();
     return this.request.get(API.profiles, {
       headers: {
@@ -1391,7 +1323,7 @@ class Account extends BaseExtend {
     });
   }
 
-  async enterProfile(id: string, pin?:number): Promise<AxiosResponse<ProfilesData>> {
+  async enterProfile(id: string, pin?: number): Promise<AxiosResponse<ProfilesData>> {
     const body = {
       pin,
     };
@@ -1408,10 +1340,8 @@ class Account extends BaseExtend {
     name: string,
     adult: boolean,
     avatar_url?: string,
-    pin?:number,
-  ): Promise<
-  AxiosResponse<ProfilesData>
-  > {
+    pin?: number,
+  ): Promise<AxiosResponse<ProfilesData>> {
     const body = {
       name,
       adult,
@@ -1427,9 +1357,7 @@ class Account extends BaseExtend {
     });
   }
 
-  async getProfileDetails(
-    id: string,
-  ): Promise<AxiosResponse<ProfilesData>> {
+  async getProfileDetails(id: string): Promise<AxiosResponse<ProfilesData>> {
     const tokenObject = await this.request.getToken();
     return this.request.get(API.getProfilesItem(id), {
       headers: {
@@ -1458,11 +1386,35 @@ class Account extends BaseExtend {
     });
   }
 
-  async deleteProfile(
-    id: string,
-  ): Promise<AxiosResponse<ProfilesData>> {
+  async deleteProfile(id: string): Promise<AxiosResponse<ProfilesData>> {
     const tokenObject = await this.request.getToken();
     return this.request.delete(API.getProfilesItem(id), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+  }
+
+  /**
+   * Returns the feature flags for the current account
+   * @method getFeatureFlags
+   * @async
+   * @example
+   *    InPlayer.Account
+   *    .getFeatureFlags()
+   *    .then(data => console.log(data));
+   * @returns  {AxiosResponse<FeatureFlagData[]>} Contains the data:
+   * ```typescript
+   * [{
+   *   "name": "feature_name",
+   *   "enabled": true,
+   * }]
+   * ```
+   */
+  async getFeatureFlags(): Promise<AxiosResponse<FeatureFlagData[]>> {
+    const tokenObject = await this.request.getToken();
+    return this.request.get(API.featureFlags, {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
         'Content-Type': 'application/x-www-form-urlencoded',
