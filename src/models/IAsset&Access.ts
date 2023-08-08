@@ -170,7 +170,7 @@ export interface ItemDetailsAccess extends ItemDetailsV1 {
 }
 
 export interface ExternalItemDetails extends ItemDetailsV1 {
-  access_fees: GetAccessFee[];
+  access_fees: AccessFee[];
   metahash: Record<string, string>;
 }
 
@@ -369,7 +369,7 @@ export interface Asset extends BaseExtend {
   getAsset(
     assetId: number,
     merchantUuid?: string
-  ): Promise<AxiosResponse<ItemDetailsV1>>;
+  ): Promise<AxiosResponse<ExternalItemDetails>>;
   getExternalAsset(
     assetType: string,
     externalId: string,

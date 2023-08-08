@@ -134,7 +134,7 @@ class Asset extends BaseExtend {
   async getAsset(
     assetId: number,
     merchantUuid?: string,
-  ): Promise<AxiosResponse<ItemDetailsV1>> {
+  ): Promise<AxiosResponse<ExternalItemDetails>> {
     return this.request.get(API.getAsset(assetId, merchantUuid));
   }
 
