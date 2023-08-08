@@ -133,7 +133,7 @@ class Asset extends BaseExtend {
    */
   async getAsset(
     assetId: number,
-    merchantUuid: string,
+    merchantUuid?: string,
   ): Promise<AxiosResponse<ItemDetailsV1>> {
     return this.request.get(API.getAsset(assetId, merchantUuid));
   }

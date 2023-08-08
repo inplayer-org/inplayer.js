@@ -368,7 +368,7 @@ export interface Asset extends BaseExtend {
   isFreeTrialUsed(id: number): Promise<AxiosResponse<boolean>>;
   getAsset(
     assetId: number,
-    merchantUuid: string
+    merchantUuid?: string
   ): Promise<AxiosResponse<ItemDetailsV1>>;
   getExternalAsset(
     assetType: string,
