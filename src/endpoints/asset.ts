@@ -98,7 +98,7 @@ class Asset extends BaseExtend {
    * @method getAsset
    * @async
    * @param {number} assetId The id of created premium content in InPlayer Dashboard (i.e asset id).
-   * @param {string} merchantUuid The Merchant's unique universal identifier (Merchant UUID).
+   * @param {string?} merchantUuid The Merchant's unique universal identifier (Merchant UUID).
    * You can find it on the InPlayer's dashboard at the Account Details section as Account ID.
    * @example
    *     InPlayer.Asset
