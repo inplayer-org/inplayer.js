@@ -31,7 +31,7 @@ export const API = {
   merchantRestrictionSettings: (merchantUuid: string): string => `/restrictions/settings/${merchantUuid}`,
 
   // Items
-  getAsset: (id: number, merchantUuid: string): string => `/items/${merchantUuid}/${id}`,
+  getAsset: (id: number, merchantUuid?: string): string => `/items/${merchantUuid ? `${merchantUuid}/` : ''}${id}`,
   getExternalAsset: (assetType: string, externalId: string, merchantUuid?: string): string => {
     let url = `/items/assets/external/${assetType}/${externalId}`;
     if (merchantUuid) {

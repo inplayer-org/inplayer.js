@@ -520,7 +520,7 @@ export declare class Asset {
 
   checkAccessForAsset(id: number): Promise<AxiosResponse<GetItemAccessV1>>;
   isFreeTrialUsed(id: number): Promise<AxiosResponse<boolean>>;
-  getAsset(assetId: number, merchantUuid: string): Promise<AxiosResponse<ItemDetailsV1>>;
+  getAsset(assetId: number, merchantUuid: string): Promise<AxiosResponse<ExternalItemDetails>>;
   getExternalAsset(
     assetType: string,
     externalId: string,

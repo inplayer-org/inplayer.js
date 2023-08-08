@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.16] - 08-08-2023
+
+- Modified `merchantUuid` parameter in `getAsset` method to be optional
+
 # [3.13.15] - 24-07-2023
 
 - Added `getFeatureFlags` method and `FeatureFlagData` type to `Account` module
