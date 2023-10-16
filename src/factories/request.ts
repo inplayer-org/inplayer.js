@@ -20,6 +20,7 @@ export default class Request {
   config: ApiConfig;
   basicInstance: AxiosInstance;
   authenticatedInstance: AxiosInstance;
+  customAxiosConfig: AxiosRequestConfig; // New property to hold custom config
 
   constructor(config: ApiConfig) {
     this.config = config;
@@ -32,6 +33,8 @@ export default class Request {
     this.authenticatedInstance.interceptors.request.use(
       this.createAuthInterceptor,
     );
+
+    this.customAxiosConfig = {}; // Initialize with an empty object
   }
 
   setInstanceConfig = (configEnv: Env): void => {
@@ -42,6 +45,26 @@ export default class Request {
     this.authenticatedInstance = axios.create({
       baseURL: this.config.BASE_URL,
     });
+    this.authenticatedInstance.interceptors.request.use(
+      this.createAuthInterceptor,
+    );
+  };
+
+  // Step 1: Create a new method `setAxiosConfig`
+  setAxiosConfig = (customConfig: AxiosRequestConfig) => {
+    this.customAxiosConfig = customConfig;
+
+    // Merge custom config with the default config
+    this.basicInstance = axios.create({
+      ...this.config,
+      ...customConfig,
+    });
+
+    this.authenticatedInstance = axios.create({
+      ...this.config,
+      ...customConfig,
+    });
+
     this.authenticatedInstance.interceptors.request.use(
       this.createAuthInterceptor,
     );
