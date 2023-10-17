@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.19] - 17-10-2023
+
+- Modified type `CreatePaymentData`
+
 # [3.13.18] - 17-10-2023
 
 - Modified type `CreateSubscriptionData`

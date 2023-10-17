@@ -631,11 +631,11 @@ export declare class Branding {
 }
 
 export interface CreatePaymentData {
-  number: number | string;
+  number: string;
   cardName: string;
   expMonth: string;
   expYear: string;
-  cvv: number;
+  cvv: string;
   accessFee: number;
   paymentMethod: number;
   referrer: string;

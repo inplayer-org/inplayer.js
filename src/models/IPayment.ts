@@ -52,11 +52,11 @@ export interface SetDefaultCardPerCurrencyData {
 }
 
 export interface CreatePaymentData {
-  number: number;
+  number: string;
   cardName: string;
   expMonth: string;
   expYear: string;
-  cvv: number;
+  cvv: string;
   accessFee: number;
   paymentMethod: number;
   referrer: string;
@@ -266,7 +266,9 @@ export interface GoogleOrApplePaymentData {
   voucherCode?: string;
 }
 
-export interface GoogleOrApplePaymentRequestBody<T extends StripePaymentMethods> {
+export interface GoogleOrApplePaymentRequestBody<
+  T extends StripePaymentMethods
+> {
   payment_method: T;
   access_fee_id: number;
   voucher_code?: string;
@@ -287,7 +289,10 @@ export interface AmazonPlatformData {
 }
 
 export interface NonAmazonPlatformData {
-  platform: Exclude<ReceiptValidationPlatform, ReceiptValidationPlatform.AMAZON>;
+  platform: Exclude<
+    ReceiptValidationPlatform,
+    ReceiptValidationPlatform.AMAZON
+  >;
   amazonUserId?: never;
 }
 
@@ -315,7 +320,9 @@ export type ValidateReceiptData = CommonPlatformData & ReceiptData;
 
 export interface Payment extends BaseExtend {
   getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
-  createPayment(data: CreatePaymentData): Promise<AxiosResponse<CommonResponse>>;
+  createPayment(
+    data: CreatePaymentData
+  ): Promise<AxiosResponse<CommonResponse>>;
   confirmPayment(
     paymentIntentId: string
   ): Promise<AxiosResponse<CommonResponse>>;
