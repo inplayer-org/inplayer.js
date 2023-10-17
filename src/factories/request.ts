@@ -51,26 +51,6 @@ export default class Request {
     );
   };
 
-  // Step 1: Create a new method `setAxiosConfig`
-  setAxiosConfig = (customConfig: AxiosRequestConfig) => {
-    this.customAxiosConfig = customConfig;
-
-    // Merge custom config with the default config
-    this.basicInstance = axios.create({
-      ...this.config,
-      ...customConfig,
-    });
-
-    this.authenticatedInstance = axios.create({
-      ...this.config,
-      ...customConfig,
-    });
-
-    this.authenticatedInstance.interceptors.request.use(
-      this.createAuthInterceptor,
-    );
-  };
-
   /** Returns the OAuth token
    *  @method getToken
    *  @example
