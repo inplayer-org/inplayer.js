@@ -22,19 +22,20 @@ export default class Request {
   authenticatedInstance: AxiosInstance;
   customAxiosConfig: AxiosRequestConfig; // New property to hold custom config
 
-  constructor(config: ApiConfig) {
+  constructor(config: ApiConfig, customConfig?: AxiosRequestConfig) {
     this.config = config;
+    this.customAxiosConfig = customConfig || {}; // Initialize with an empty object if customConfig is not provided
     this.basicInstance = axios.create({
       baseURL: this.config.BASE_URL,
+      ...this.customAxiosConfig, // Spread the custom config options
     });
     this.authenticatedInstance = axios.create({
       baseURL: this.config.BASE_URL,
+      ...this.customAxiosConfig, // Spread the custom config options
     });
     this.authenticatedInstance.interceptors.request.use(
       this.createAuthInterceptor,
     );
-
-    this.customAxiosConfig = {}; // Initialize with an empty object
   }
 
   setInstanceConfig = (configEnv: Env): void => {
