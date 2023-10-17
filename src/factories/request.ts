@@ -22,31 +22,28 @@ export default class Request {
   authenticatedInstance: AxiosInstance;
   customAxiosConfig?: AxiosRequestConfig;
 
-  constructor(config: ApiConfig, customConfig?: AxiosRequestConfig) {
+  constructor(config: ApiConfig) {
     this.config = config;
-    this.basicInstance = axios.create({});
-    this.authenticatedInstance = axios.create({});
-    this.setAxiosConfig(customConfig);
-  }
-
-  setAxiosConfig = (customConfig?: AxiosRequestConfig, configEnv?: Env) => {
-    if (configEnv) {
-      this.config = configOptions[configEnv];
-    }
-    this.customAxiosConfig = customConfig || {};
-
     this.basicInstance = axios.create({
       baseURL: this.config.BASE_URL,
-      ...this.config,
-      ...customConfig,
     });
-
     this.authenticatedInstance = axios.create({
       baseURL: this.config.BASE_URL,
-      ...this.config,
+    });
+    this.authenticatedInstance.interceptors.request.use(
+      this.createAuthInterceptor,
+    );
+  }
+  setInstanceConfig = (configEnv: Env, customConfig?: AxiosRequestConfig | undefined): void => {
+    this.config = configOptions[configEnv];
+    this.basicInstance = axios.create({
+      baseURL: this.config.BASE_URL,
       ...customConfig,
     });
-
+    this.authenticatedInstance = axios.create({
+      baseURL: this.config.BASE_URL,
+      ...customConfig,
+    });
     this.authenticatedInstance.interceptors.request.use(
       this.createAuthInterceptor,
     );
@@ -151,12 +148,12 @@ export default class Request {
     headers?: Record<string, Record<string, unknown> | string | boolean>,
   ): any => this.basicInstance.put(path, data, headers || getHeaders());
 
-   // HTTP PATCH Request - Returns Resolved or Rejected Promise
-   patch = (
-     path: string,
-     data: any,
-     headers?: Record<string, Record<string, unknown> | string | boolean>,
-   ): any => this.basicInstance.patch(path, data, headers || getHeaders());
+  // HTTP PATCH Request - Returns Resolved or Rejected Promise
+  patch = (
+    path: string,
+    data: any,
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
+  ): any => this.basicInstance.patch(path, data, headers || getHeaders());
 
   // HTTP DELETE Request - Returns Resolved or Rejected Promise
   delete = (

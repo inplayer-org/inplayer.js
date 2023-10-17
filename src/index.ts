@@ -142,7 +142,7 @@ export class InPlayer {
    */
   setConfig(env: Env, axiosConfig?: AxiosRequestConfig): void {
     this.config = config[env];
-    this.request.setAxiosConfig(axiosConfig, env);
+    this.request.setInstanceConfig(env, axiosConfig);
     this.Account.setConfig(env);
     this.Asset.setConfig(env);
     this.Branding.setConfig(env);
