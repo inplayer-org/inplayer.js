@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios';
+import { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export enum Env {
   Development = 'development',
@@ -1115,7 +1115,7 @@ declare const InPlayer: {
   subscribe(accountUuid: string, callbackParams: Record<string, (...params: any) => void>): void;
   isSubscribed(): boolean;
   unsubscribe(): void;
-  setConfig(env: Env): void;
+  setConfig(env: Env, axiosConfig?: AxiosRequestConfig): void;
 };
 
 export default InPlayer;

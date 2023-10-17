@@ -20,32 +20,33 @@ export default class Request {
   config: ApiConfig;
   basicInstance: AxiosInstance;
   authenticatedInstance: AxiosInstance;
-  customAxiosConfig: AxiosRequestConfig; // New property to hold custom config
+  customAxiosConfig?: AxiosRequestConfig;
 
   constructor(config: ApiConfig, customConfig?: AxiosRequestConfig) {
     this.config = config;
-    this.customAxiosConfig = customConfig || {}; // Initialize with an empty object if customConfig is not provided
-    this.basicInstance = axios.create({
-      baseURL: this.config.BASE_URL,
-      ...this.customAxiosConfig, // Spread the custom config options
-    });
-    this.authenticatedInstance = axios.create({
-      baseURL: this.config.BASE_URL,
-      ...this.customAxiosConfig, // Spread the custom config options
-    });
-    this.authenticatedInstance.interceptors.request.use(
-      this.createAuthInterceptor,
-    );
+    this.basicInstance = axios.create({});
+    this.authenticatedInstance = axios.create({});
+    this.setAxiosConfig(customConfig);
   }
 
-  setInstanceConfig = (configEnv: Env): void => {
-    this.config = configOptions[configEnv];
+  setAxiosConfig = (customConfig?: AxiosRequestConfig, configEnv?: Env) => {
+    if (configEnv) {
+      this.config = configOptions[configEnv];
+    }
+    this.customAxiosConfig = customConfig || {};
+
     this.basicInstance = axios.create({
       baseURL: this.config.BASE_URL,
+      ...this.config,
+      ...customConfig,
     });
+
     this.authenticatedInstance = axios.create({
       baseURL: this.config.BASE_URL,
+      ...this.config,
+      ...customConfig,
     });
+
     this.authenticatedInstance.interceptors.request.use(
       this.createAuthInterceptor,
     );

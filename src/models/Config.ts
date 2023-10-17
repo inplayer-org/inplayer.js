@@ -1,3 +1,4 @@
+import { AxiosRequestConfig } from 'axios';
 import { CredentialsConfig, Env } from './CommonInterfaces';
 
 export interface ApiConfig {
@@ -145,5 +146,5 @@ export interface Request {
     path: string,
     headers?: Record<string, Record<string, unknown> | string | boolean>
   ): any;
-  setInstanceConfig(configEnv: Env): void;
+  setAxiosConfig(axiosConfig?: AxiosRequestConfig, env?: Env): void;
 }

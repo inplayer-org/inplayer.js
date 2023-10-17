@@ -1,6 +1,7 @@
 /**
  * @module InPlayer
  */
+import { AxiosRequestConfig } from 'axios';
 import Account from './endpoints/account';
 import Asset from './endpoints/asset';
 import Payment from './endpoints/payment';
@@ -139,9 +140,9 @@ export class InPlayer {
    * @example
    *     InPlayer.setConfig('development');
    */
-  setConfig(env: Env): void {
+  setConfig(env: Env, axiosConfig?: AxiosRequestConfig): void {
     this.config = config[env];
-    this.request.setInstanceConfig(env);
+    this.request.setAxiosConfig(axiosConfig, env);
     this.Account.setConfig(env);
     this.Asset.setConfig(env);
     this.Branding.setConfig(env);
