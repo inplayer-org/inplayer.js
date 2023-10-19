@@ -146,5 +146,5 @@ export interface Request {
     path: string,
     headers?: Record<string, Record<string, unknown> | string | boolean>
   ): any;
-  setInstanceConfig(configEnv: Env, axiosConfig?: AxiosRequestConfig,): void;
+  setInstanceConfig(configEnv: Env, axiosConfig?: AxiosRequestConfig): void;
 }
