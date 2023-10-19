@@ -20,7 +20,6 @@ export default class Request {
   config: ApiConfig;
   basicInstance: AxiosInstance;
   authenticatedInstance: AxiosInstance;
-  customAxiosConfig?: AxiosRequestConfig;
 
   constructor(config: ApiConfig) {
     this.config = config;
