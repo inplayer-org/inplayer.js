@@ -33,14 +33,15 @@ export default class Request {
       this.createAuthInterceptor,
     );
   }
-
-  setInstanceConfig = (configEnv: Env): void => {
+  setInstanceConfig = (configEnv: Env, customConfig?: AxiosRequestConfig | undefined): void => {
     this.config = configOptions[configEnv];
     this.basicInstance = axios.create({
       baseURL: this.config.BASE_URL,
+      ...customConfig,
     });
     this.authenticatedInstance = axios.create({
       baseURL: this.config.BASE_URL,
+      ...customConfig,
     });
     this.authenticatedInstance.interceptors.request.use(
       this.createAuthInterceptor,
@@ -146,12 +147,12 @@ export default class Request {
     headers?: Record<string, Record<string, unknown> | string | boolean>,
   ): any => this.basicInstance.put(path, data, headers || getHeaders());
 
-   // HTTP PATCH Request - Returns Resolved or Rejected Promise
-   patch = (
-     path: string,
-     data: any,
-     headers?: Record<string, Record<string, unknown> | string | boolean>,
-   ): any => this.basicInstance.patch(path, data, headers || getHeaders());
+  // HTTP PATCH Request - Returns Resolved or Rejected Promise
+  patch = (
+    path: string,
+    data: any,
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
+  ): any => this.basicInstance.patch(path, data, headers || getHeaders());
 
   // HTTP DELETE Request - Returns Resolved or Rejected Promise
   delete = (
