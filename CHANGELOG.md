@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.20] - 06-11-2023
+
+### Added
+
+- Added setConfig second parameter to allow for custom axios instance
+
 # [3.13.19] - 17-10-2023
 
 - Modified type `CreatePaymentData`
