@@ -60,7 +60,8 @@ export interface SetNewPasswordData {
   brandingId: number;
 }
 
-export interface ChangePasswordData extends Omit<SetNewPasswordData, 'brandingId'> {
+export interface ChangePasswordData
+  extends Omit<SetNewPasswordData, 'brandingId'> {
   oldPassword: string;
   brandingId?: number;
 }
@@ -129,9 +130,7 @@ export interface ListSocialURLs {
   code: number;
 }
 
-export interface GetRegisterFieldOption {
-  [key: string]: string;
-}
+export type RegisterFieldOptions = Record<string, string>;
 
 export interface RegisterField {
   id: number;
@@ -141,7 +140,7 @@ export interface RegisterField {
   required: boolean;
   default_value: string;
   placeholder: string;
-  options: GetRegisterFieldOption[];
+  options: RegisterFieldOptions;
 }
 
 export interface GetRegisterFieldsResponse {
@@ -208,33 +207,71 @@ export interface Account extends BaseExtend {
   signOut(): Promise<AxiosResponse<undefined>>;
   refreshToken(clientId: string): Promise<AxiosResponse<CreateAccount>>;
   changePassword(data: ChangePasswordData): Promise<AxiosResponse<void>>;
-  requestNewPassword(data: RequestNewPasswordData): Promise<AxiosResponse<CommonResponse>>;
-  setNewPassword(data: SetNewPasswordData, token?: string): Promise<AxiosResponse<void>>;
+  requestNewPassword(
+    data: RequestNewPasswordData
+  ): Promise<AxiosResponse<CommonResponse>>;
+  setNewPassword(
+    data: SetNewPasswordData,
+    token?: string
+  ): Promise<AxiosResponse<void>>;
   getAccountInfo(): Promise<AxiosResponse<AccountData>>;
   updateAccount(data: UpdateAccountData): Promise<AxiosResponse<AccountData>>;
-  exportData(data: Omit<AccountAuthData, 'password'> & { password?: string }): Promise<AxiosResponse<CommonResponse>>;
+  exportData(
+    data: Omit<AccountAuthData, 'password'> & { password?: string }
+  ): Promise<AxiosResponse<CommonResponse>>;
   deleteAccount(data: AccountAuthData): Promise<AxiosResponse<CommonResponse>>;
   getSocialLoginUrls(state: string): Promise<AxiosResponse<ListSocialURLs>>;
-  getRegisterFields(merchantUuid: string): Promise<AxiosResponse<GetRegisterField>>;
-  reportSSOtoken(ssoDomain: string, token: string, deactivate: boolean): Promise<AxiosResponse<any>>;
+  getRegisterFields(
+    merchantUuid: string
+  ): Promise<AxiosResponse<GetRegisterField>>;
+  reportSSOtoken(
+    ssoDomain: string,
+    token: string,
+    deactivate: boolean
+  ): Promise<AxiosResponse<any>>;
   sendPinCode(brandingId?: number): Promise<AxiosResponse<CommonResponse>>;
   validatePinCode(pinCode: string): Promise<AxiosResponse<CommonResponse>>;
-  syncWithExternalAccount(integration: string, itemId: number): Promise<AxiosResponse<AccountProfile>>;
-  updateExternalAccount(integratiion: string, body: Record<string, any>): Promise<AxiosResponse<any>>;
-  loadMerchantRestrictionSettings(merchantUuid: string): Promise<AxiosResponse<RestrictionSettingsData>>;
+  syncWithExternalAccount(
+    integration: string,
+    itemId: number
+  ): Promise<AxiosResponse<AccountProfile>>;
+  updateExternalAccount(
+    integratiion: string,
+    body: Record<string, any>
+  ): Promise<AxiosResponse<any>>;
+  loadMerchantRestrictionSettings(
+    merchantUuid: string
+  ): Promise<AxiosResponse<RestrictionSettingsData>>;
   getFavorites(): Promise<AxiosResponse<CollectionWithCursor<FavoritesData>>>;
   getFavorite(mediaId: string): Promise<AxiosResponse<FavoritesData>>;
   addToFavorites(mediaId: string): Promise<AxiosResponse<FavoritesData>>;
   deleteFromFavorites(mediaId: string): Promise<AxiosResponse<CommonResponse>>;
-  getWatchHistory(args: CollectionWithCursorArgs): Promise<AxiosResponse<CollectionWithCursor<WatchHistory>>>;
+  getWatchHistory(
+    args: CollectionWithCursorArgs
+  ): Promise<AxiosResponse<CollectionWithCursor<WatchHistory>>>;
   getWatchHistoryForItem(mediaId: string): Promise<AxiosResponse<WatchHistory>>;
-  updateWatchHistory(mediaId: string, progress: number): Promise<AxiosResponse<WatchHistory>>;
-  deleteWatchHistoryForItem(mediaId: string): Promise<AxiosResponse<CommonResponse>>;
+  updateWatchHistory(
+    mediaId: string,
+    progress: number
+  ): Promise<AxiosResponse<WatchHistory>>;
+  deleteWatchHistoryForItem(
+    mediaId: string
+  ): Promise<AxiosResponse<CommonResponse>>;
   getProfiles(): Promise<AxiosResponse<ProfilesData>>;
   enterProfile(id: string, pin?: number): Promise<AxiosResponse<ProfilesData>>;
-  createProfile(name: string, adult: boolean, avatar_url?: string, pin?: number): Promise<AxiosResponse<ProfilesData>>;
+  createProfile(
+    name: string,
+    adult: boolean,
+    avatar_url?: string,
+    pin?: number
+  ): Promise<AxiosResponse<ProfilesData>>;
   getProfileDetails(id: string): Promise<AxiosResponse<ProfilesData>>;
-  updateProfile(id: string, name: string, avatar_url?: string, adult?: boolean): Promise<AxiosResponse<ProfilesData>>;
+  updateProfile(
+    id: string,
+    name: string,
+    avatar_url?: string,
+    adult?: boolean
+  ): Promise<AxiosResponse<ProfilesData>>;
   deleteProfile(id: string): Promise<AxiosResponse<ProfilesData>>;
   getFeatureFlags(): Promise<AxiosResponse<FeatureFlagData[]>>;
 }

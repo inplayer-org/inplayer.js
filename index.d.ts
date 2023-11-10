@@ -145,9 +145,7 @@ export declare interface ListSocialURLs {
   code: number;
 }
 
-export declare interface GetRegisterFieldOption {
-  [key: string]: string;
-}
+export type RegisterFieldOptions = Record<string, string>;
 
 export declare interface RegisterField {
   id: number;
@@ -157,7 +155,7 @@ export declare interface RegisterField {
   required: boolean;
   default_value: string;
   placeholder: string;
-  options: GetRegisterFieldOption[];
+  options: RegisterFieldOptions;
 }
 
 export interface GetRegisterFieldsResponse {
