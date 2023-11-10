@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.21] - 10-11-2023
+
+### Changes
+
+- Corrected `options` type in `RegisterField`
+
 # [3.13.20] - 06-11-2023
 
 ### Added
