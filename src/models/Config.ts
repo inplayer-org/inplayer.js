@@ -44,6 +44,8 @@ export interface ApiEndpoints {
   getAssetAccessFees: (id: number) => string;
   getCloudfrontURL: (assetId: number, videoUrl: string) => string;
   getPurchaseHistory: (status: string, page?: number, size?: number) => string;
+  getPaymentHistory: string;
+  getBillingReceipt: (trxToken: string) => string;
   getSignedMediaToken: (appConfigId: string, mediaId: string) => string;
   // code only
   requestCodeAccess: string;

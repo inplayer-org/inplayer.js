@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.22] - 15-11-2023
+
+### Added
+
+- Method `InPlayer.Payment.getPaymentHistory` - retrieves collection of payment history
+- Method `InPlayer.Payment.getBillingReceipt` - generates PDF document for given trxToken
+
 # [3.13.21] - 10-11-2023
 
 ### Changes

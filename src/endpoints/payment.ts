@@ -12,12 +12,16 @@ import {
   MerchantPaymentMethod,
   GeneratePayPalParameters,
   GetPurchaseHistoryResponse,
+  GetPaymentHistoryResponse,
   GetDefaultCard,
   SetDefaultCard,
   DirectDebitMandateResponse,
   CreateDirectDebitResponse,
 } from '../models/IPayment';
-import { CommonResponse, CustomErrorResponse } from '../models/CommonInterfaces';
+import {
+  CommonResponse,
+  CustomErrorResponse,
+} from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
 import { buildURLwithQueryParams } from '../helpers';
 import BaseExtend from '../extends/base';
@@ -52,7 +56,9 @@ class Payment extends BaseExtend {
    * ]
    * ```
    */
-  async getPaymentMethods(): Promise<AxiosResponse<Array<MerchantPaymentMethod>>> {
+  async getPaymentMethods(): Promise<
+    AxiosResponse<Array<MerchantPaymentMethod>>
+    > {
     const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedGet(API.getPaymentMethods, {
@@ -219,7 +225,9 @@ class Payment extends BaseExtend {
    * }
    * ```
    */
-  async createDonationPayment(data: CreateDonationPaymentData): Promise<AxiosResponse<CreateDonationPaymentData>> {
+  async createDonationPayment(
+    data: CreateDonationPaymentData,
+  ): Promise<AxiosResponse<CreateDonationPaymentData>> {
     const body: CreateDonationPaymentRequestBody = {
       number: data.number,
       card_name: data.cardName,
@@ -271,7 +279,9 @@ class Payment extends BaseExtend {
    * }
    * ```
    */
-  async confirmPayment(paymentIntentId: string): Promise<AxiosResponse<CommonResponse>> {
+  async confirmPayment(
+    paymentIntentId: string,
+  ): Promise<AxiosResponse<CommonResponse>> {
     if (!paymentIntentId) {
       const response: CustomErrorResponse = {
         status: 400,
@@ -501,6 +511,74 @@ class Payment extends BaseExtend {
   }
 
   /**
+   * Gets payment history
+   * @method getPaymentHistory
+   * @async
+   * @example
+   *     InPlayer.Payment
+   *     .getPaymentHistory()
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<GetPaymentHistoryResponse>} Contains the data:
+   * ```typescript
+   * {
+   *     total: number;
+   *     collection: [{
+   *      merchant_id: number;
+   *      consumer_id: number;
+   *      gateway_id: number;
+   *      transaction_token: string;
+   *      payment_tool_token: string;
+   *      trx_token: string;
+   *      payment_method_name: string;
+   *      action_type: string;
+   *      item_access_id: number;
+   *      item_id: number;
+   *      item_type: string;
+   *      item_title: string;
+   *      charged_amount: number;
+   *      currency_iso: string;
+   *      note: string;
+   *      created_at: number;
+   *    }];
+   * }
+   * ```
+   */
+  async getPaymentHistory(): Promise<AxiosResponse<GetPaymentHistoryResponse>> {
+    const tokenObject = await this.request.getToken();
+
+    return this.request.authenticatedGet(API.getPaymentHistory(), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+      },
+    });
+  }
+
+  /**
+   * Generates billing receipt
+   * @method getBillingReceipt
+   * @async
+   * @example
+   *     InPlayer.Payment
+   *     .getBillingReceipt({trxToken: 'trx123'})
+   *     .then(data => console.log(data));
+   * @returns  {AxiosResponse<Blob>}
+   * Contains the data: PDF document (blob)
+   */
+  async getBillingReceipt({
+    trxToken,
+  }: {
+    trxToken: string;
+  }): Promise<AxiosResponse<Blob>> {
+    const tokenObject = await this.request.getToken();
+
+    return this.request.authenticatedGet(API.getBillingReceipt(trxToken), {
+      headers: {
+        Authorization: `Bearer ${tokenObject.token}`,
+      },
+    });
+  }
+
+  /**
    * Gets the default credit card per currency used for subscription rebills
    * @deprecated
    * Please use the one from Subscription module i.e
@@ -567,12 +645,12 @@ class Payment extends BaseExtend {
     expYear,
     currency,
   }: {
-    cardNumber: string,
-    cardName: string,
-    cvc: number,
-    expMonth: number,
-    expYear: number,
-    currency: string,
+    cardNumber: string;
+    cardName: string;
+    cvc: number;
+    expMonth: number;
+    expYear: number;
+    currency: string;
   }): Promise<AxiosResponse<SetDefaultCard>> {
     const body = {
       number: cardNumber,
@@ -622,7 +700,9 @@ class Payment extends BaseExtend {
    * }
    * ```
    */
-  async getDirectDebitMandate(): Promise<AxiosResponse<DirectDebitMandateResponse>> {
+  async getDirectDebitMandate(): Promise<
+    AxiosResponse<DirectDebitMandateResponse>
+    > {
     const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedGet(API.getDirectDebitMandate, {
@@ -797,7 +877,7 @@ class Payment extends BaseExtend {
     voucherCode,
     brandingId,
     referrer,
-  }:{
+  }: {
     accessFeeId: number;
     assetId: number;
     voucherCode: string;
@@ -958,7 +1038,9 @@ class Payment extends BaseExtend {
       payment_method: 'ideal',
       access_fee_id: accessFeeId,
       bank,
-      return_url: buildURLwithQueryParams(returnUrl, { ippwat: 'subscription' }),
+      return_url: buildURLwithQueryParams(returnUrl, {
+        ippwat: 'subscription',
+      }),
       referrer,
     };
 
