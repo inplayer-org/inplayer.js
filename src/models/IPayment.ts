@@ -227,6 +227,28 @@ export interface GetPurchaseHistoryResponse {
   collection: PurchaseDetails[];
   total: number;
 }
+export interface PaymentHistory {
+  merchant_id: number;
+  consumer_id: number;
+  gateway_id: number;
+  transaction_token: string;
+  payment_tool_token: string;
+  trx_token: string;
+  payment_method_name: string;
+  action_type: string;
+  item_access_id: number;
+  item_id: number;
+  item_type: string;
+  item_title: string;
+  charged_amount: number;
+  currency_iso: string;
+  note: string;
+  created_at: number;
+}
+export interface GetPaymentHistoryResponse {
+  collection: PaymentHistory[];
+  total: number;
+}
 
 export interface SetDefaultCard {
   number: number;
@@ -312,6 +334,10 @@ export interface ReceiptDataWithItemIdAndAccessFeeId {
   productName?: never;
 }
 
+export interface GetBillingReceiptParams {
+  trxToken: string;
+}
+
 export type ReceiptData =
   | ReceiptDataWithProductName
   | ReceiptDataWithItemIdAndAccessFeeId;
@@ -337,6 +363,10 @@ export interface Payment extends BaseExtend {
     page: number,
     limit: number
   ): Promise<AxiosResponse<GetPurchaseHistoryResponse>>;
+  getPaymentHistory(): Promise<AxiosResponse<GetPaymentHistoryResponse>>;
+  getBillingReceipt(
+    data: GetBillingReceiptParams
+  ): Promise<AxiosResponse<Blob>>;
   getDefaultCreditCard(): Promise<AxiosResponse<GetDefaultCard>>;
   setDefaultCreditCard(
     data: DefaultCreditCardData

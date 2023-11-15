@@ -787,7 +787,28 @@ export interface GetPurchaseHistoryResponse {
   collection: PurchaseDetails[];
   total: number;
 }
-
+export interface PaymentHistory {
+  merchant_id: number;
+  consumer_id: number;
+  gateway_id: number;
+  transaction_token: string;
+  payment_tool_token: string;
+  trx_token: string;
+  payment_method_name: string;
+  action_type: string;
+  item_access_id: number;
+  item_id: number;
+  item_type: string;
+  item_title: string;
+  charged_amount: number;
+  currency_iso: string;
+  note: string;
+  created_at: number;
+}
+export interface GetPaymentHistoryResponse {
+  collection: PaymentHistory[];
+  total: number;
+}
 export interface SetDefaultCard {
   number: number;
   card_name: string;
@@ -855,6 +876,10 @@ interface ReceiptDataWithItemIdAndAccessFeeId {
   productName?: never;
 }
 
+export interface GetBillingReceiptParams {
+  trxToken: string;
+}
+
 type ReceiptData =
   | ReceiptDataWithProductName
   | ReceiptDataWithItemIdAndAccessFeeId;
@@ -879,6 +904,10 @@ export declare class Payment {
     page: number,
     limit: number
   ): Promise<AxiosResponse<GetPurchaseHistoryResponse>>;
+  getPaymentHistory(): Promise<AxiosResponse<GetPaymentHistoryResponse>>;
+  getBillingReceipt(
+    data: GetBillingReceiptParams
+  ): Promise<AxiosResponse<Blob>>;
   getDefaultCreditCard(): Promise<AxiosResponse<GetDefaultCard>>;
   setDefaultCreditCard(
     data: DefaultCreditCardData
@@ -1145,6 +1174,8 @@ export interface ApiEndpoints {
   changePassword: string;
   getRegisterFields: (merchantUuid: string) => string;
   getPurchaseHistory: (status: string, page?: number, size?: number) => string;
+  getPaymentHistory: string;
+  getBillingReceipt: (trxToken: string) => string;
   getAssetsHistory: (
     size: number,
     page: number,
