@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.24] - 16-11-2023
+
+### Changes
+
+- Updated `InPlayer.Payment.getBillingReceipt` response type to be blob moved outside of headers
+
 # [3.13.23] - 16-11-2023
 
 ### Changes
