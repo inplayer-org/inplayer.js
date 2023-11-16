@@ -58,7 +58,7 @@ class Payment extends BaseExtend {
    */
   async getPaymentMethods(): Promise<
     AxiosResponse<Array<MerchantPaymentMethod>>
-    > {
+  > {
     const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedGet(API.getPaymentMethods, {
@@ -226,7 +226,7 @@ class Payment extends BaseExtend {
    * ```
    */
   async createDonationPayment(
-    data: CreateDonationPaymentData,
+    data: CreateDonationPaymentData
   ): Promise<AxiosResponse<CreateDonationPaymentData>> {
     const body: CreateDonationPaymentRequestBody = {
       number: data.number,
@@ -254,7 +254,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      },
+      }
     );
   }
 
@@ -280,7 +280,7 @@ class Payment extends BaseExtend {
    * ```
    */
   async confirmPayment(
-    paymentIntentId: string,
+    paymentIntentId: string
   ): Promise<AxiosResponse<CommonResponse>> {
     if (!paymentIntentId) {
       const response: CustomErrorResponse = {
@@ -375,7 +375,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      },
+      }
     );
   }
 
@@ -496,7 +496,7 @@ class Payment extends BaseExtend {
   async getPurchaseHistory(
     status = 'active',
     page = 0,
-    limit = 5,
+    limit = 5
   ): Promise<AxiosResponse<GetPurchaseHistoryResponse>> {
     const tokenObject = await this.request.getToken();
 
@@ -506,7 +506,7 @@ class Payment extends BaseExtend {
         headers: {
           Authorization: `Bearer ${tokenObject.token}`,
         },
-      },
+      }
     );
   }
 
@@ -573,6 +573,7 @@ class Payment extends BaseExtend {
 
     return this.request.authenticatedGet(API.getBillingReceipt(trxToken), {
       headers: {
+        responseType: 'blob',
         Authorization: `Bearer ${tokenObject.token}`,
       },
     });
@@ -671,7 +672,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      },
+      }
     );
   }
 
@@ -702,7 +703,7 @@ class Payment extends BaseExtend {
    */
   async getDirectDebitMandate(): Promise<
     AxiosResponse<DirectDebitMandateResponse>
-    > {
+  > {
     const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedGet(API.getDirectDebitMandate, {
@@ -776,7 +777,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      },
+      }
     );
   }
 
@@ -838,7 +839,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      },
+      }
     );
   }
 
@@ -978,7 +979,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      },
+      }
     );
   }
 
@@ -1120,7 +1121,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      },
+      }
     );
   }
 
@@ -1182,7 +1183,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      },
+      }
     );
   }
 
@@ -1248,7 +1249,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      },
+      }
     );
   }
 }
