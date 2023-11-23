@@ -52,7 +52,7 @@ Alternatively you can include the script like so:
 InPlayer.Account.signIn({
     email: 'test@test.com',
     password: '12345678',
-    cliendId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
+    clientId: 'b0899d7f-66da-40fc-8eeb-36cad735589c',
     referrer: 'http://localhost:3000/'
 }).then(data => console.log(data));
 ```
