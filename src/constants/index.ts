@@ -42,7 +42,7 @@ export const API = {
   getExternalAsset: (
     assetType: string,
     externalId: string,
-    merchantUuid?: string
+    merchantUuid?: string,
   ): string => {
     let url = `/items/assets/external/${assetType}/${externalId}`;
     if (merchantUuid) {
@@ -94,7 +94,7 @@ export const API = {
     page: number,
     startDate?: string,
     endDate?: string,
-    type?: string
+    type?: string,
   ): string => {
     let url = `/payments/transactions?exclude=store-payment&size=${size}&page=${page}`;
 
@@ -148,7 +148,7 @@ export const API = {
     merchantUuid: string,
     page: number,
     size: number,
-    filter: string
+    filter: string,
   ): string =>
     `/v2/nfts/${merchantUuid}?filter=${filter}&page=${page}&size=${size}`,
   getMerchantNFT: (merchantUuid: string, nftId: number): string =>

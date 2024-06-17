@@ -35,7 +35,7 @@ export interface ApiEndpoints {
   getExternalAsset: (
     assetType: string,
     externalId: string,
-    merchantUuid?: string
+    merchantUuid?: string,
   ) => string;
   checkAccessForAsset: (id: number) => string;
   checkFreeTrial: (id: number) => string;
@@ -73,7 +73,7 @@ export interface ApiEndpoints {
     page: number,
     startDate?: string,
     endDate?: string,
-    type?: string
+    type?: string,
   ) => string;
   // Subscriptions
   getSubscriptions: (limit: number, page: number) => string;
@@ -83,7 +83,7 @@ export interface ApiEndpoints {
   subscribeV2: string;
   changeSubscriptionPlan: (
     access_fee_id: number,
-    inplayer_token: string
+    inplayer_token: string,
   ) => string;
   // Voucher
   getDiscount: string;
@@ -99,57 +99,57 @@ export interface Request {
   setToken(
     token: string,
     refreshToken: string,
-    expiresAt: number
+    expiresAt: number,
   ): void | Promise<void>;
   removeToken(): void | Promise<void>;
   get(
     path: string,
-    headers?: Record<string, Record<string, unknown> | string | boolean>
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
   ): any;
   post(
     path: string,
     data: any,
-    headers?: Record<string, Record<string, unknown> | string | boolean>
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
   ): any;
   put(
     path: string,
     data: any,
-    headers?: Record<string, Record<string, unknown> | string | boolean>
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
   ): any;
   patch(
     path: string,
     data: any,
-    headers?: Record<string, Record<string, unknown> | string | boolean>
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
   ): any;
   delete(
     path: string,
     headers?: Record<
       string,
       Record<string, unknown> | FormData | string | boolean
-    >
+    >,
   ): any;
   authenticatedGet(
     path: string,
-    headers?: Record<string, Record<string, unknown> | string | boolean>
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
   ): any;
   authenticatedPatch(
     path: string,
     data: any,
-    headers?: Record<string, Record<string, unknown> | string | boolean>
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
   ): any;
   authenticatedPost(
     path: string,
     data: any,
-    headers?: Record<string, Record<string, unknown> | string | boolean>
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
   ): any;
   authenticatedPut(
     path: string,
     data: any,
-    headers?: Record<string, Record<string, unknown> | string | boolean>
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
   ): any;
   authenticatedDelete(
     path: string,
-    headers?: Record<string, Record<string, unknown> | string | boolean>
+    headers?: Record<string, Record<string, unknown> | string | boolean>,
   ): any;
   setInstanceConfig(configEnv: Env, axiosConfig?: AxiosRequestConfig): void;
 }

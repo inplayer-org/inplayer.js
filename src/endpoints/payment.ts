@@ -228,7 +228,7 @@ class Payment extends BaseExtend {
    * ```
    */
   async createDonationPayment(
-    data: CreateDonationPaymentData
+    data: CreateDonationPaymentData,
   ): Promise<AxiosResponse<CreateDonationPaymentData>> {
     const body: CreateDonationPaymentRequestBody = {
       number: data.number,
@@ -256,7 +256,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      }
+      },
     );
   }
 
@@ -282,7 +282,7 @@ class Payment extends BaseExtend {
    * ```
    */
   async confirmPayment(
-    paymentIntentId: string
+    paymentIntentId: string,
   ): Promise<AxiosResponse<CommonResponse>> {
     if (!paymentIntentId) {
       const response: CustomErrorResponse = {
@@ -377,7 +377,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      }
+      },
     );
   }
 
@@ -498,7 +498,7 @@ class Payment extends BaseExtend {
   async getPurchaseHistory(
     status = 'active',
     page = 0,
-    limit = 5
+    limit = 5,
   ): Promise<AxiosResponse<GetPurchaseHistoryResponse>> {
     const tokenObject = await this.request.getToken();
 
@@ -508,7 +508,7 @@ class Payment extends BaseExtend {
         headers: {
           Authorization: `Bearer ${tokenObject.token}`,
         },
-      }
+      },
     );
   }
 
@@ -674,7 +674,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      }
+      },
     );
   }
 
@@ -779,7 +779,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      }
+      },
     );
   }
 
@@ -841,7 +841,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      }
+      },
     );
   }
 
@@ -981,7 +981,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      }
+      },
     );
   }
 
@@ -1123,7 +1123,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      }
+      },
     );
   }
 
@@ -1185,7 +1185,7 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      }
+      },
     );
   }
 
@@ -1251,13 +1251,13 @@ class Payment extends BaseExtend {
           Authorization: `Bearer ${tokenObject.token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      }
+      },
     );
   }
 
   async getSitePlans(
     siteId: string,
-    plansIds?: string[]
+    plansIds?: string[],
   ): Promise<AxiosResponse<PlansListResponse>> {
     return this.request.get(API.getSitePlans(siteId, plansIds), {
       headers: {
@@ -1269,7 +1269,7 @@ class Payment extends BaseExtend {
 
   async getSitePlanPrices(
     siteId: string,
-    planId: string
+    planId: string,
   ): Promise<AxiosResponse<PlanPricesResponse>> {
     return this.request.get(API.getSitePlanPrices(siteId, planId), {
       headers: {
