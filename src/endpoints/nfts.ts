@@ -8,7 +8,7 @@ import {
   GetMerchantNFTResponse,
   GetExchangeRatesResponse,
   GetMyNFTsResponse,
-  MakeNFTReservationResponse,
+  MakeNFTReservationResponse
 } from '../models/INFTs';
 
 /**
@@ -28,7 +28,9 @@ class NFTs extends BaseExtend {
    * @param {string} merchantUuid The Merchant's unique universal identifier (Merchant UUID).
    * @returns Promise<AxiosResponse<GetMerchantMarketplaceResponse>>
    */
-  async getMerchantMarketplace(merchantUuid: string): Promise<AxiosResponse<GetMerchantMarketplaceResponse>> {
+  async getMerchantMarketplace(
+    merchantUuid: string
+  ): Promise<AxiosResponse<GetMerchantMarketplaceResponse>> {
     return this.request.get(API.getMerchantMarketplace(merchantUuid));
   }
 
@@ -47,9 +49,11 @@ class NFTs extends BaseExtend {
     merchantUuid: string,
     page = 1,
     size = 50,
-    filter = 'published',
+    filter = 'published'
   ): Promise<AxiosResponse<GetMerchantNFTListResponse>> {
-    return this.request.get(API.getMerchantNFTList(merchantUuid, page, size, filter));
+    return this.request.get(
+      API.getMerchantNFTList(merchantUuid, page, size, filter)
+    );
   }
 
   /**
@@ -60,7 +64,10 @@ class NFTs extends BaseExtend {
    * @param {number} nftId The unique NFT identifier
    * @returns Promise<AxiosResponse<GetMerchantNFTResponse>>
    */
-  async getMerchantNFT(merchantUuid: string, nftId: number): Promise<AxiosResponse<GetMerchantNFTResponse>> {
+  async getMerchantNFT(
+    merchantUuid: string,
+    nftId: number
+  ): Promise<AxiosResponse<GetMerchantNFTResponse>> {
     return this.request.get(API.getMerchantNFT(merchantUuid, nftId));
   }
 
@@ -71,7 +78,10 @@ class NFTs extends BaseExtend {
    * @param {boolean} invert Whether the returned rates to be in their inverted exchange rates
    * @returns Promise<AxiosResponse<GetExchangeRatesResponse>>
    */
-  async getExchangeRates(fiat: string, invert = false): Promise<AxiosResponse<GetExchangeRatesResponse>> {
+  async getExchangeRates(
+    fiat: string,
+    invert = false
+  ): Promise<AxiosResponse<GetExchangeRatesResponse>> {
     return this.request.get(API.getExchangeRates(fiat, invert));
   }
 
@@ -83,13 +93,16 @@ class NFTs extends BaseExtend {
    * @param {number} size The maximum mumber of items returned in the response. Defaults to 50
    * @returns Promise<AxiosResponse<GetMyNFTsResponse>>
    */
-  async getUserBoughtNFTs(page = 1, size = 50): Promise<AxiosResponse<GetMyNFTsResponse>> {
+  async getUserBoughtNFTs(
+    page = 1,
+    size = 50
+  ): Promise<AxiosResponse<GetMyNFTsResponse>> {
     const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedGet(API.getUserBoughtNFTs(page, size), {
       headers: {
-        Authorization: `Bearer ${tokenObject.token}`,
-      },
+        Authorization: `Bearer ${tokenObject.token}`
+      }
     });
   }
 
@@ -101,14 +114,20 @@ class NFTs extends BaseExtend {
    * @param {number} nftId The unique NFT identifier
    * @returns Promise<AxiosResponse<MakeNFTReservationResponse>>
    */
-  async makeReservation(merchantUuid: string, nftId: number): Promise<AxiosResponse<MakeNFTReservationResponse>> {
+  async makeReservation(
+    merchantUuid: string,
+    nftId: number
+  ): Promise<AxiosResponse<MakeNFTReservationResponse>> {
     const tokenObject = await this.request.getToken();
 
-    return this.request.authenticatedPost(API.makeReservation(merchantUuid, nftId), {
-      headers: {
-        Authorization: `Bearer ${tokenObject.token}`,
-      },
-    });
+    return this.request.authenticatedPost(
+      API.makeReservation(merchantUuid, nftId),
+      {
+        headers: {
+          Authorization: `Bearer ${tokenObject.token}`
+        }
+      }
+    );
   }
 }
 

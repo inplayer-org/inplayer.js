@@ -15,9 +15,12 @@ import {
   CollectionWithCursorArgs,
   ProfilesData,
   GetRegisterFieldsResponse,
-  FeatureFlagData,
+  FeatureFlagData
 } from '../models/IAccount&Authentication';
-import { CommonResponse, CustomErrorResponse } from '../models/CommonInterfaces';
+import {
+  CommonResponse,
+  CustomErrorResponse
+} from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
 import BaseExtend from '../extends/base';
 import { API } from '../constants';
@@ -133,7 +136,7 @@ class Account extends BaseExtend {
     clientSecret,
     refreshToken,
     referrer,
-    password,
+    password
   }: {
     email: string;
     clientId: string;
@@ -146,7 +149,7 @@ class Account extends BaseExtend {
     const body: AuthenticateRequestBody = {
       client_id: clientId,
       grant_type: 'password',
-      referrer,
+      referrer
     };
 
     if (clientSecret) {
@@ -164,11 +167,15 @@ class Account extends BaseExtend {
 
     const respData = await this.request.post(API.signIn, qs.stringify(body), {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
 
-    await this.request.setToken(respData.data.access_token, respData.data.refresh_token, respData.data.expires);
+    await this.request.setToken(
+      respData.data.access_token,
+      respData.data.refresh_token,
+      respData.data.expires
+    );
 
     return respData;
   }
@@ -221,7 +228,7 @@ class Account extends BaseExtend {
     email,
     clientId,
     referrer,
-    password,
+    password
   }: {
     email: string;
     clientId: string;
@@ -233,16 +240,20 @@ class Account extends BaseExtend {
       grant_type: 'password',
       referrer,
       username: email,
-      password,
+      password
     };
 
     const respData = await this.request.post(API.signInV2, qs.stringify(body), {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
 
-    await this.request.setToken(respData.data.access_token, respData.data.refresh_token, respData.data.expires);
+    await this.request.setToken(
+      respData.data.access_token,
+      respData.data.refresh_token,
+      respData.data.expires
+    );
 
     return respData;
   }
@@ -312,7 +323,7 @@ class Account extends BaseExtend {
     clientId,
     referrer,
     metadata,
-    brandingId,
+    brandingId
   }: {
     fullName: string;
     email: string;
@@ -334,14 +345,18 @@ class Account extends BaseExtend {
       referrer,
       grant_type: 'password',
       metadata,
-      branding_id: brandingId,
+      branding_id: brandingId
     };
 
     const resp = await this.request.post(API.signUp, qs.stringify(body), {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     });
 
-    await this.request.setToken(resp.data.access_token, resp.data.refresh_token, resp.data.expires);
+    await this.request.setToken(
+      resp.data.access_token,
+      resp.data.refresh_token,
+      resp.data.expires
+    );
 
     return resp;
   }
@@ -411,7 +426,7 @@ class Account extends BaseExtend {
     type = 'consumer',
     referrer,
     metadata,
-    brandingId,
+    brandingId
   }: {
     fullName: string;
     email: string;
@@ -433,14 +448,18 @@ class Account extends BaseExtend {
       referrer,
       grant_type: 'password',
       metadata,
-      branding_id: brandingId,
+      branding_id: brandingId
     };
 
     const resp = await this.request.post(API.signUpV2, qs.stringify(body), {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     });
 
-    await this.request.setToken(resp.data.access_token, resp.data.refresh_token, resp.data.expires);
+    await this.request.setToken(
+      resp.data.access_token,
+      resp.data.refresh_token,
+      resp.data.expires
+    );
 
     return resp;
   }
@@ -458,7 +477,7 @@ class Account extends BaseExtend {
     const tokenObject = await this.request.getToken();
 
     const response = await this.request.get(API.signOut, {
-      headers: { Authorization: `Bearer ${tokenObject.token}` },
+      headers: { Authorization: `Bearer ${tokenObject.token}` }
     });
 
     await this.request.removeToken();
@@ -507,8 +526,8 @@ class Account extends BaseExtend {
         status: 401,
         data: {
           code: 401,
-          message: 'The refresh token is not present',
-        },
+          message: 'The refresh token is not present'
+        }
       };
 
       // eslint-disable-next-line no-throw-literal
@@ -518,12 +537,16 @@ class Account extends BaseExtend {
     const body = {
       refresh_token: tokenObject.refreshToken,
       client_id: clientId,
-      grant_type: 'refresh_token',
+      grant_type: 'refresh_token'
     };
 
-    const responseData = await this.request.post(API.signIn, qs.stringify(body), {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    });
+    const responseData = await this.request.post(
+      API.signIn,
+      qs.stringify(body),
+      {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      }
+    );
 
     return responseData;
   }
@@ -536,7 +559,11 @@ class Account extends BaseExtend {
    * If it is not set the token won't be deactivated.
    * @returns {AxiosResponse<any>}
    */
-  async reportSSOtoken(ssoDomain: string, token: string, deactivate = false): Promise<AxiosResponse<any>> {
+  async reportSSOtoken(
+    ssoDomain: string,
+    token: string,
+    deactivate = false
+  ): Promise<AxiosResponse<any>> {
     const body = new FormData();
 
     body.append('token', token);
@@ -545,7 +572,7 @@ class Account extends BaseExtend {
     // TODO: Check if global withCredentials works
     return this.request.post(API.reportSSOtoken(ssoDomain), body, {
       headers: { 'Content-Type': 'multipart/form-data' },
-      withCredentials: true,
+      withCredentials: true
     });
   }
 
@@ -579,7 +606,7 @@ class Account extends BaseExtend {
   async requestNewPassword({
     email,
     merchantUuid,
-    brandingId,
+    brandingId
   }: {
     email: string;
     merchantUuid: string;
@@ -588,11 +615,11 @@ class Account extends BaseExtend {
     const body = {
       email,
       merchant_uuid: merchantUuid,
-      branding_id: brandingId,
+      branding_id: brandingId
     };
 
     return this.request.post(API.requestNewPassword, qs.stringify(body), {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     });
   }
 
@@ -622,13 +649,13 @@ class Account extends BaseExtend {
     {
       password,
       passwordConfirmation,
-      brandingId,
+      brandingId
     }: {
       password: string;
       passwordConfirmation: string;
       brandingId: number;
     },
-    token = '',
+    token = ''
   ): Promise<AxiosResponse<void>> {
     // TODO: check logic
     // eslint-disable-next-line max-len
@@ -637,7 +664,7 @@ class Account extends BaseExtend {
     const body = `password=${encodePassword}&password_confirmation=${encodePasswordConfirm}&branding_id=${brandingId}`;
 
     return this.request.put(API.setNewPassword(token), body, {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     });
   }
 
@@ -660,17 +687,24 @@ class Account extends BaseExtend {
    * }
    * ```
    */
-  async syncWithExternalAccount(integration: string, itemId: number): Promise<AxiosResponse<AccountProfile>> {
+  async syncWithExternalAccount(
+    integration: string,
+    itemId: number
+  ): Promise<AxiosResponse<AccountProfile>> {
     const body = { item_id: itemId };
 
     const tokenObject = await this.request.getToken();
 
-    return this.request.post(API.externalAccount(integration), qs.stringify(body), {
-      headers: {
-        Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
+    return this.request.post(
+      API.externalAccount(integration),
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${tokenObject.token}`,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
+    );
   }
 
   /**
@@ -688,15 +722,22 @@ class Account extends BaseExtend {
    *     .then(data => console.log(data));
    * @returns  {AxiosResponse<any>}
    */
-  async updateExternalAccount(integration: string, body: Record<string, any>): Promise<AxiosResponse<any>> {
+  async updateExternalAccount(
+    integration: string,
+    body: Record<string, any>
+  ): Promise<AxiosResponse<any>> {
     const tokenObject = await this.request.getToken();
 
-    return this.request.patch(API.externalAccount(integration), qs.stringify(body), {
-      headers: {
-        Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
+    return this.request.patch(
+      API.externalAccount(integration),
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${tokenObject.token}`,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
+    );
   }
 
   /**
@@ -730,7 +771,7 @@ class Account extends BaseExtend {
     const tokenObject = await this.request.getToken();
 
     return this.request.get(API.getAccountInfo, {
-      headers: { Authorization: `Bearer ${tokenObject.token}` },
+      headers: { Authorization: `Bearer ${tokenObject.token}` }
     });
   }
 
@@ -757,7 +798,9 @@ class Account extends BaseExtend {
    * }
    * ```
    */
-  async getSocialLoginUrls(state: string): Promise<AxiosResponse<ListSocialURLs>> {
+  async getSocialLoginUrls(
+    state: string
+  ): Promise<AxiosResponse<ListSocialURLs>> {
     return this.request.get(API.getSocialLoginUrls(state));
   }
 
@@ -781,14 +824,14 @@ class Account extends BaseExtend {
   async updateAccount({
     fullName,
     metadata,
-    dateOfBirth,
+    dateOfBirth
   }: {
     fullName: string;
     metadata?: { [key: string]: string };
     dateOfBirth?: string;
   }): Promise<AxiosResponse<AccountData>> {
     const body: UpdateAccountRequestBody = {
-      full_name: fullName,
+      full_name: fullName
     };
 
     if (metadata) {
@@ -803,8 +846,8 @@ class Account extends BaseExtend {
     return this.request.put(API.updateAccount, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -834,7 +877,7 @@ class Account extends BaseExtend {
     password,
     passwordConfirmation,
     oldPassword,
-    brandingId,
+    brandingId
   }: {
     password: string;
     passwordConfirmation: string;
@@ -845,7 +888,7 @@ class Account extends BaseExtend {
       old_password: oldPassword,
       password,
       password_confirmation: passwordConfirmation,
-      branding_id: brandingId,
+      branding_id: brandingId
     };
 
     const tokenObject = await this.request.getToken();
@@ -853,8 +896,8 @@ class Account extends BaseExtend {
     return this.request.post(API.changePassword, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -884,7 +927,9 @@ class Account extends BaseExtend {
    * }
    * ```
    */
-  async getRegisterFields(merchantUuid = ''): Promise<AxiosResponse<GetRegisterFieldsResponse>> {
+  async getRegisterFields(
+    merchantUuid = ''
+  ): Promise<AxiosResponse<GetRegisterFieldsResponse>> {
     return this.request.get(API.getRegisterFields(merchantUuid));
   }
 
@@ -911,14 +956,14 @@ class Account extends BaseExtend {
    */
   async deleteAccount({
     password,
-    brandingId,
+    brandingId
   }: {
     password: string;
     brandingId?: number;
   }): Promise<AxiosResponse<CommonResponse>> {
     const body = {
       password,
-      branding_id: brandingId,
+      branding_id: brandingId
     };
 
     const tokenObject = await this.request.getToken();
@@ -926,14 +971,14 @@ class Account extends BaseExtend {
     const response = await this.request.delete(API.deleteAccount, {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
-      data: qs.stringify(body),
+      data: qs.stringify(body)
     });
 
     await Promise.all([
       tokenStorage.removeItem(this.config.INPLAYER_TOKEN_KEY),
-      tokenStorage.removeItem(this.config.INPLAYER_IOT_KEY),
+      tokenStorage.removeItem(this.config.INPLAYER_IOT_KEY)
     ]);
 
     return response;
@@ -962,14 +1007,14 @@ class Account extends BaseExtend {
    */
   async exportData({
     password,
-    brandingId,
+    brandingId
   }: {
     password?: string;
     brandingId?: number;
   }): Promise<AxiosResponse<CommonResponse>> {
     const body = {
       password,
-      branding_id: brandingId,
+      branding_id: brandingId
     };
 
     const tokenObject = await this.request.getToken();
@@ -977,8 +1022,8 @@ class Account extends BaseExtend {
     return this.request.post(API.exportData, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -999,9 +1044,11 @@ class Account extends BaseExtend {
    * }
    * ```
    */
-  async sendPinCode(brandingId: number): Promise<AxiosResponse<CommonResponse>> {
+  async sendPinCode(
+    brandingId: number
+  ): Promise<AxiosResponse<CommonResponse>> {
     const body = {
-      branding_id: brandingId,
+      branding_id: brandingId
     };
 
     const tokenObject = await this.request.getToken();
@@ -1009,8 +1056,8 @@ class Account extends BaseExtend {
     return this.request.post(API.sendPinCode, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -1031,9 +1078,11 @@ class Account extends BaseExtend {
    * ```
    */
 
-  async validatePinCode(pinCode: string): Promise<AxiosResponse<CommonResponse>> {
+  async validatePinCode(
+    pinCode: string
+  ): Promise<AxiosResponse<CommonResponse>> {
     const body = {
-      pin_code: pinCode,
+      pin_code: pinCode
     };
 
     const tokenObject = await this.request.getToken();
@@ -1041,8 +1090,8 @@ class Account extends BaseExtend {
     return this.request.post(API.validatePinCode, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -1067,7 +1116,9 @@ class Account extends BaseExtend {
    * }
    * ```
    */
-  async loadMerchantRestrictionSettings(merchantUuid: string): Promise<AxiosResponse<RestrictionSettingsData>> {
+  async loadMerchantRestrictionSettings(
+    merchantUuid: string
+  ): Promise<AxiosResponse<RestrictionSettingsData>> {
     return this.request.get(API.merchantRestrictionSettings(merchantUuid));
   }
 
@@ -1090,13 +1141,15 @@ class Account extends BaseExtend {
    * }
    * ```
    */
-  async getFavorites(): Promise<AxiosResponse<CollectionWithCursor<FavoritesData>>> {
+  async getFavorites(): Promise<
+    AxiosResponse<CollectionWithCursor<FavoritesData>>
+    > {
     const tokenObject = await this.request.getToken();
     return this.request.get(API.getFavorites, {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -1122,8 +1175,8 @@ class Account extends BaseExtend {
     return this.request.get(API.getFavorite(mediaId), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -1146,15 +1199,15 @@ class Account extends BaseExtend {
    */
   async addToFavorites(mediaId: string): Promise<AxiosResponse<FavoritesData>> {
     const body = {
-      media_id: mediaId,
+      media_id: mediaId
     };
 
     const tokenObject = await this.request.getToken();
     return this.request.post(API.getFavorites, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -1175,14 +1228,16 @@ class Account extends BaseExtend {
    *  }
    * ```
    */
-  async deleteFromFavorites(mediaId: string): Promise<AxiosResponse<CommonResponse>> {
+  async deleteFromFavorites(
+    mediaId: string
+  ): Promise<AxiosResponse<CommonResponse>> {
     const tokenObject = await this.request.getToken();
 
     return this.request.delete(API.getFavorite(mediaId), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -1212,15 +1267,20 @@ class Account extends BaseExtend {
    */
   async getWatchHistory({
     filter = 'currently_watching',
-    cursor = '',
-  }: CollectionWithCursorArgs): Promise<AxiosResponse<CollectionWithCursor<WatchHistory>>> {
+    cursor = ''
+  }: CollectionWithCursorArgs): Promise<
+    AxiosResponse<CollectionWithCursor<WatchHistory>>
+  > {
     const tokenObject = await this.request.getToken();
-    return this.request.get(`${API.getWatchHistory}?filter=${filter}&cursor=${cursor}`, {
-      headers: {
-        Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
+    return this.request.get(
+      `${API.getWatchHistory}?filter=${filter}&cursor=${cursor}`,
+      {
+        headers: {
+          Authorization: `Bearer ${tokenObject.token}`,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
+    );
   }
 
   /**
@@ -1242,13 +1302,15 @@ class Account extends BaseExtend {
    *  }
    * ```
    */
-  async getWatchHistoryForItem(mediaId: string): Promise<AxiosResponse<WatchHistory>> {
+  async getWatchHistoryForItem(
+    mediaId: string
+  ): Promise<AxiosResponse<WatchHistory>> {
     const tokenObject = await this.request.getToken();
     return this.request.get(API.getWatchHistoryForItem(mediaId), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -1272,17 +1334,20 @@ class Account extends BaseExtend {
    *   }
    * ```
    */
-  async updateWatchHistory(mediaId: string, progress: number): Promise<AxiosResponse<WatchHistory>> {
+  async updateWatchHistory(
+    mediaId: string,
+    progress: number
+  ): Promise<AxiosResponse<WatchHistory>> {
     const body = {
       media_id: mediaId,
-      progress,
+      progress
     };
     const tokenObject = await this.request.getToken();
     return this.request.patch(API.getWatchHistory, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -1303,13 +1368,15 @@ class Account extends BaseExtend {
    *  }
    * ```
    */
-  async deleteWatchHistoryForItem(mediaId: string): Promise<AxiosResponse<CommonResponse>> {
+  async deleteWatchHistoryForItem(
+    mediaId: string
+  ): Promise<AxiosResponse<CommonResponse>> {
     const tokenObject = await this.request.getToken();
     return this.request.delete(API.getWatchHistoryForItem(mediaId), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -1318,42 +1385,49 @@ class Account extends BaseExtend {
     return this.request.get(API.profiles, {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
-  async enterProfile(id: string, pin?: number): Promise<AxiosResponse<ProfilesData>> {
+  async enterProfile(
+    id: string,
+    pin?: number
+  ): Promise<AxiosResponse<ProfilesData>> {
     const body = {
-      pin,
+      pin
     };
     const tokenObject = await this.request.getToken();
-    return this.request.post(`${API.getProfilesItem(id)}/token`, qs.stringify(body), {
-      headers: {
-        Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
+    return this.request.post(
+      `${API.getProfilesItem(id)}/token`,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${tokenObject.token}`,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
+    );
   }
 
   async createProfile(
     name: string,
     adult: boolean,
     avatar_url?: string,
-    pin?: number,
+    pin?: number
   ): Promise<AxiosResponse<ProfilesData>> {
     const body = {
       name,
       adult,
       avatar_url,
-      pin,
+      pin
     };
     const tokenObject = await this.request.getToken();
     return this.request.post(API.profiles, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -1362,27 +1436,27 @@ class Account extends BaseExtend {
     return this.request.get(API.getProfilesItem(id), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
   async updateProfile(
     id: string,
     name: string,
     avatar_url: string,
-    adult: boolean,
+    adult: boolean
   ): Promise<AxiosResponse<ProfilesData>> {
     const body = {
       name,
       avatar_url,
-      adult,
+      adult
     };
     const tokenObject = await this.request.getToken();
     return this.request.put(API.getProfilesItem(id), qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -1391,8 +1465,8 @@ class Account extends BaseExtend {
     return this.request.delete(API.getProfilesItem(id), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -1417,8 +1491,8 @@ class Account extends BaseExtend {
     return this.request.get(API.featureFlags, {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 }

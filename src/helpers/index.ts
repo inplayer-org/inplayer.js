@@ -1,10 +1,13 @@
 import Credentials from '../factories/credentials';
 import { CredentialsConfig } from '../models/CommonInterfaces';
 
-export const buildURLwithQueryParams = (urlString: string, params: Record<string, string>): string => {
+export const buildURLwithQueryParams = (
+  urlString: string,
+  params: Record<string, string>
+): string => {
   const {
     url,
-    url: { searchParams },
+    url: { searchParams }
   } = { url: new URL(urlString) };
 
   Object.keys(params).forEach((key: string) => {
@@ -15,7 +18,12 @@ export const buildURLwithQueryParams = (urlString: string, params: Record<string
 };
 
 export const isPromise = (
-  object: void | string | CredentialsConfig | null | Promise<void | string | CredentialsConfig | null>,
+  object:
+    | void
+    | string
+    | CredentialsConfig
+    | null
+    | Promise<void | string | CredentialsConfig | null>
 ): boolean => {
   if (Promise && Promise.resolve) {
     return Promise.resolve(object) === object;

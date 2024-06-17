@@ -17,7 +17,7 @@ import config from './config';
 // types
 import {
   Notifications as NotificationsType,
-  Env,
+  Env
 } from './models/CommonInterfaces';
 import { ApiConfig, Request as RequestType } from './models/Config';
 import { Account as AccountType } from './models/IAccount&Authentication';
@@ -95,7 +95,7 @@ export class InPlayer {
    */
   subscribe(
     accountUuid: string,
-    callbackParams: Record<string, (...params: any) => void>,
+    callbackParams: Record<string, (...params: any) => void>
   ): void {
     if (this.request.isAuthenticated()) {
       this.Notifications.subscribe(accountUuid, callbackParams)

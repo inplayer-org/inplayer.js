@@ -20,21 +20,21 @@ class Notifications extends BaseExtend {
       this.config.AWS_IOT_URL,
       {
         headers: {
-          Authorization: `Bearer ${tokenObject.token}`,
-        },
-      },
+          Authorization: `Bearer ${tokenObject.token}`
+        }
+      }
     );
 
     return {
       ...iotResponse.data,
-      iotEndpoint: this.config.IOT_NOTIF_URL,
+      iotEndpoint: this.config.IOT_NOTIF_URL
     };
   }
 
   /* Subscribes to Websocket notifications */
   async subscribe(
     accountUuid = '',
-    callbackParams: Record<string, (...params: any) => void>,
+    callbackParams: Record<string, (...params: any) => void>
   ): Promise<boolean> {
     if (!accountUuid && accountUuid === '') {
       return false;
@@ -59,7 +59,7 @@ class Notifications extends BaseExtend {
     }
 
     const inplayerIotCreds: any = await tokenStorage.getItem(
-      this.config.INPLAYER_IOT_KEY,
+      this.config.INPLAYER_IOT_KEY
     );
 
     if (!inplayerIotCreds) {
@@ -82,8 +82,8 @@ class Notifications extends BaseExtend {
       this.config.INPLAYER_IOT_KEY,
       JSON.stringify({
         ...resp,
-        expiresAt: new Date().getTime() + HALF_HOUR,
-      }),
+        expiresAt: new Date().getTime() + HALF_HOUR
+      })
     );
 
     this.handleSubscribe(resp, callbackParams, accountUuid);
@@ -94,7 +94,7 @@ class Notifications extends BaseExtend {
   handleSubscribe(
     data: Record<string, unknown>,
     callbackParams: Record<string, any>,
-    uuid: string,
+    uuid: string
   ): void {
     const credentials: any = {
       region: data.region,
@@ -103,7 +103,7 @@ class Notifications extends BaseExtend {
       secretKey: data.secretKey,
       sessionToken: data.sessionToken,
       port: 443,
-      host: data.iotEndpoint,
+      host: data.iotEndpoint
     };
 
     /* eslint-disable new-cap */

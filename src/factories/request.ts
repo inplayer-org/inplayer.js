@@ -1,7 +1,10 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import Credentials from './credentials';
 import {
-  CustomErrorResponse, Env, CredentialsConfig, Credentials as CredentialInterface,
+  CustomErrorResponse,
+  Env,
+  CredentialsConfig,
+  Credentials as CredentialInterface
 } from '../models/CommonInterfaces';
 import { ApiConfig } from '../models/Config';
 import configOptions from '../config';
@@ -12,8 +15,8 @@ import { isPromise, createCredentials } from '../helpers';
 const getHeaders = () => ({
   headers: {
     Accept: 'application/json',
-    'Content-Type': 'application/json',
-  },
+    'Content-Type': 'application/json'
+  }
 });
 
 export default class Request {
@@ -24,27 +27,30 @@ export default class Request {
   constructor(config: ApiConfig) {
     this.config = config;
     this.basicInstance = axios.create({
-      baseURL: this.config.BASE_URL,
+      baseURL: this.config.BASE_URL
     });
     this.authenticatedInstance = axios.create({
-      baseURL: this.config.BASE_URL,
+      baseURL: this.config.BASE_URL
     });
     this.authenticatedInstance.interceptors.request.use(
-      this.createAuthInterceptor,
+      this.createAuthInterceptor
     );
   }
-  setInstanceConfig = (configEnv: Env, customConfig?: AxiosRequestConfig | undefined): void => {
+  setInstanceConfig = (
+    configEnv: Env,
+    customConfig?: AxiosRequestConfig | undefined
+  ): void => {
     this.config = configOptions[configEnv];
     this.basicInstance = axios.create({
       baseURL: this.config.BASE_URL,
-      ...customConfig,
+      ...customConfig
     });
     this.authenticatedInstance = axios.create({
       baseURL: this.config.BASE_URL,
-      ...customConfig,
+      ...customConfig
     });
     this.authenticatedInstance.interceptors.request.use(
-      this.createAuthInterceptor,
+      this.createAuthInterceptor
     );
   };
 
@@ -58,8 +64,7 @@ export default class Request {
     const tokenString = tokenStorage.getItem(this.config.INPLAYER_TOKEN_KEY);
 
     if (isPromise(tokenString)) {
-      return (tokenString as Promise<string>).then((resolvedString) =>
-        createCredentials(resolvedString));
+      return (tokenString as Promise<string>).then((resolvedString) => createCredentials(resolvedString));
     }
     return createCredentials(tokenString as string);
   };
@@ -73,16 +78,20 @@ export default class Request {
    *  InPlayer.Account.setToken('344244-242242', '123123121-d1-t1-1ff',1558529593297)
    *  @returns {void}
    */
-  setToken = (token: string, refreshToken: string, expiresAt: number): void | Promise<void> => {
+  setToken = (
+    token: string,
+    refreshToken: string,
+    expiresAt: number
+  ): void | Promise<void> => {
     const credentials = new Credentials({
       token,
       refreshToken,
-      expires: expiresAt,
+      expires: expiresAt
     });
 
     return tokenStorage.setItem(
       this.config.INPLAYER_TOKEN_KEY,
-      JSON.stringify(credentials),
+      JSON.stringify(credentials)
     );
   };
 
@@ -95,7 +104,7 @@ export default class Request {
   removeToken = (): void | Promise<void> => {
     const tasks: Array<void | Promise<void>> = [
       tokenStorage.removeItem(this.config.INPLAYER_TOKEN_KEY),
-      tokenStorage.removeItem(this.config.INPLAYER_IOT_KEY),
+      tokenStorage.removeItem(this.config.INPLAYER_IOT_KEY)
     ];
 
     if (!tasks.some(isPromise)) {
@@ -118,7 +127,7 @@ export default class Request {
     if (isPromise(tokenObject)) {
       return (tokenObject as Promise<CredentialInterface>).then(
         (resolvedCredentials) =>
-          !resolvedCredentials.isExpired() && !!resolvedCredentials.token,
+          !resolvedCredentials.isExpired() && !!resolvedCredentials.token
       );
     }
 
@@ -130,70 +139,74 @@ export default class Request {
   // HTTP GET Request - Returns Resolved or Rejected Promise
   get = (
     path: string,
-    headers?: Record<string, Record<string, unknown> | string | boolean>,
+    headers?: Record<string, Record<string, unknown> | string | boolean>
   ): any => this.basicInstance.get(path, headers || getHeaders());
 
   // HTTP POST Request - Returns Resolved or Rejected Promise
   post = (
     path: string,
     data: any,
-    headers?: Record<string, Record<string, unknown> | string | boolean>,
+    headers?: Record<string, Record<string, unknown> | string | boolean>
   ): any => this.basicInstance.post(path, data, headers || getHeaders());
 
   // HTTP PUT Request - Returns Resolved or Rejected Promise
   put = (
     path: string,
     data: any,
-    headers?: Record<string, Record<string, unknown> | string | boolean>,
+    headers?: Record<string, Record<string, unknown> | string | boolean>
   ): any => this.basicInstance.put(path, data, headers || getHeaders());
 
   // HTTP PATCH Request - Returns Resolved or Rejected Promise
   patch = (
     path: string,
     data: any,
-    headers?: Record<string, Record<string, unknown> | string | boolean>,
+    headers?: Record<string, Record<string, unknown> | string | boolean>
   ): any => this.basicInstance.patch(path, data, headers || getHeaders());
 
   // HTTP DELETE Request - Returns Resolved or Rejected Promise
   delete = (
     path: string,
-    headers?: Record<string, Record<string, unknown> | string | boolean>,
+    headers?: Record<string, Record<string, unknown> | string | boolean>
   ): any => this.basicInstance.delete(path, headers || getHeaders());
 
   // HTTP GET Request - Returns Resolved or Rejected Promise
   authenticatedGet = (
     path: string,
-    headers?: Record<string, Record<string, unknown> | string | boolean>,
+    headers?: Record<string, Record<string, unknown> | string | boolean>
   ): any => this.authenticatedInstance.get(path, headers || getHeaders());
 
   // HTTP PATCH Request - Returns Resolved or Rejected Promise
   authenticatedPatch = (
     path: string,
     data: any,
-    headers?: Record<string, Record<string, unknown> | string | boolean>,
-  ): any => this.authenticatedInstance.patch(path, data, headers || getHeaders());
+    headers?: Record<string, Record<string, unknown> | string | boolean>
+  ): any =>
+    this.authenticatedInstance.patch(path, data, headers || getHeaders());
 
   // HTTP POST Request - Returns Resolved or Rejected Promise
   authenticatedPost = (
     path: string,
     data: any,
-    headers?: Record<string, Record<string, unknown> | string | boolean>,
-  ): any => this.authenticatedInstance.post(path, data, headers || getHeaders());
+    headers?: Record<string, Record<string, unknown> | string | boolean>
+  ): any =>
+    this.authenticatedInstance.post(path, data, headers || getHeaders());
 
   // HTTP PUT Request - Returns Resolved or Rejected Promise
   authenticatedPut = (
     path: string,
     data: any,
-    headers?: Record<string, Record<string, unknown> | string | boolean>,
+    headers?: Record<string, Record<string, unknown> | string | boolean>
   ): any => this.authenticatedInstance.put(path, data, headers || getHeaders());
 
   // HTTP DELETE Request - Returns Resolved or Rejected Promise
   authenticatedDelete = (
     path: string,
-    headers?: Record<string, Record<string, unknown> | string | boolean>,
+    headers?: Record<string, Record<string, unknown> | string | boolean>
   ): any => this.authenticatedInstance.delete(path, headers || getHeaders());
 
-  createAuthInterceptor = (axiosConfig: AxiosRequestConfig): AxiosRequestConfig => {
+  createAuthInterceptor = (
+    axiosConfig: AxiosRequestConfig
+  ): AxiosRequestConfig => {
     const auth = this.isAuthenticated();
     // Build and Record<string, unknown> similar to an Axios error response
     if (!auth) {
@@ -201,8 +214,8 @@ export default class Request {
         status: 401,
         data: {
           code: 401,
-          message: 'The user is not authenticated.',
-        },
+          message: 'The user is not authenticated.'
+        }
       };
       throw { response };
     }
