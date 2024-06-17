@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.24] - 17-06-2024
+
+### Added
+
+- Method `InPlayer.Payment.getSitePlans`
+- Method `InPlayer.Payment.getSitePlanPrices`
+- Method `InPlayer.Asset.getSiteEntitlements`
+
 # [3.13.24] - 16-11-2023
 
 ### Changes

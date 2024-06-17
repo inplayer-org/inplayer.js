@@ -18,6 +18,7 @@ import {
   ItemDetailsV1,
   RequestDataCaptureAccessData,
   SignedMediaResponse,
+  SiteEntitlementsResponse,
 } from '../models/IAsset&Access';
 import BaseExtend from '../extends/base';
 import { API } from '../constants';
@@ -451,7 +452,9 @@ class Asset extends BaseExtend {
    * }
    * ```
    */
-  async getAssetAccessFees(id: number): Promise<AxiosResponse<GetAccessFeesResponse>> {
+  async getAssetAccessFees(
+    id: number,
+  ): Promise<AxiosResponse<GetAccessFeesResponse>> {
     return this.request.get(API.getAssetAccessFees(id));
   }
 
@@ -639,7 +642,8 @@ class Asset extends BaseExtend {
 
     if (isPromise(accessCode)) {
       return (accessCode as Promise<string>).then((resolvedString) =>
-        (resolvedString ? (JSON.parse(resolvedString) as CodeAccessData) : null)) as Promise<CodeAccessData | null>;
+        resolvedString ? (JSON.parse(resolvedString) as CodeAccessData) : null,
+      ) as Promise<CodeAccessData | null>;
     }
 
     return accessCode
@@ -851,6 +855,23 @@ class Asset extends BaseExtend {
         Authorization: `Bearer ${tokenObject.token}`,
       },
     });
+  }
+
+  async getSiteEntitlements(
+    siteId: string,
+  ): Promise<AxiosResponse<SiteEntitlementsResponse>> {
+    const tokenObject = await this.request.getToken();
+
+    const headers: Record<string, string> = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    };
+
+    if (tokenObject.token) {
+      headers.Authorization = `Bearer ${tokenObject.token}`;
+    }
+
+    return this.request.get(API.getSiteEntitlements(siteId), { headers });
   }
 }
 

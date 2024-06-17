@@ -73,6 +73,8 @@ export const API = {
   // media signer
   getSignedMediaToken: (appConfigId: string, mediaId: string): string =>
     `v2/items/jw-media/token?app_config_id=${appConfigId}&media_id=${mediaId}`,
+  getSiteEntitlements: (siteId: string): string =>
+    `/v3/sites/${siteId}/entitlements`,
 
   // Payments
   getPaymentMethods: '/payments/methods',
@@ -108,6 +110,15 @@ export const API = {
 
     return url;
   },
+  getSitePlans: (siteId: string, plansIds: string[] = []) =>
+    `/v3/sites/${siteId}/plans${
+      plansIds.length
+        ? `q=id:(${plansIds.map((planId) => `"${planId}"`).join(' OR ')})`
+        : ''
+    }`,
+
+  getSitePlanPrices: (siteId: string, planId: string) =>
+    `/v3/sites/${siteId}/plans/${planId}/prices`,
 
   // Subscriptions
   getSubscriptions: (limit: number, page: number, status?: string): string => {

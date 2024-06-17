@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { BaseExtend, CommonResponse } from './CommonInterfaces';
+import { PlansListResponse } from './IPayment';
 
 export interface AccessControlType {
   id: number;
@@ -363,17 +364,19 @@ export interface SignedMediaResponse {
   token: string;
 }
 
+export type SiteEntitlementsResponse = PlansListResponse;
+
 export interface Asset extends BaseExtend {
   checkAccessForAsset(id: number): Promise<AxiosResponse<GetItemAccessV1>>;
   isFreeTrialUsed(id: number): Promise<AxiosResponse<boolean>>;
   getAsset(
     assetId: number,
-    merchantUuid?: string
+    merchantUuid?: string,
   ): Promise<AxiosResponse<ExternalItemDetails>>;
   getExternalAsset(
     assetType: string,
     externalId: string,
-    merchantUuid: string
+    merchantUuid: string,
   ): Promise<AxiosResponse<ExternalItemDetails>>;
   getPackage(id: number): Promise<AxiosResponse<GetMerchantPackage>>;
   getAssetsInPackage(id: number): Promise<AxiosResponse<GetAssetsInPackage>>;
@@ -383,27 +386,30 @@ export interface Asset extends BaseExtend {
     page?: number,
     startDate?: string,
     endDate?: string,
-    type?: string
+    type?: string,
   ): Promise<AxiosResponse<AssetsTransactions>>;
   getAccessCode(
-    assetId: number
+    assetId: number,
   ): CodeAccessData | null | Promise<CodeAccessData | null>;
   requestCodeAccess(
-    data: RequestCodeAccessData
+    data: RequestCodeAccessData,
   ): Promise<AxiosResponse<CodeAccessData>>;
   getAccesCodeSessions(
-    codeId: number
+    codeId: number,
   ): Promise<AxiosResponse<Array<CodeAccessSessionsData>>>;
   terminateSession(
-    assetId: number
+    assetId: number,
   ): Promise<AxiosResponse<CommonResponse> | null>;
   getCloudfrontURL(
     assetId: number,
-    videoUrl: string
+    videoUrl: string,
   ): Promise<AxiosResponse<CloudfrontUrl>>;
   getDonationOptions(assetId: number): Promise<AxiosResponse<DonationDetails>>;
   getSignedMediaToken(
     appConfigId: string,
-    mediaId: string
+    mediaId: string,
   ): Promise<AxiosResponse<SignedMediaResponse>>;
+  getSiteEntitlements(
+    siteId: string,
+  ): Promise<AxiosResponse<SiteEntitlementsResponse>>;
 }

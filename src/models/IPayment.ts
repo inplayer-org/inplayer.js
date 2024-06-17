@@ -344,52 +344,122 @@ export type ReceiptData =
 
 export type ValidateReceiptData = CommonPlatformData & ReceiptData;
 
+type JwListResponse<
+  N extends string = string,
+  T extends Record<string, unknown> = Record<string, unknown>
+> = {
+  page: number;
+  total: number;
+  page_length: number;
+} & {
+  [P in N]: T[];
+};
+
+export type PlanDetailsResponse = {
+  id: string;
+  original_id: number;
+  metadata: {
+    name: string;
+    access_model: 'svod' | 'authvod' | 'free';
+    tags: {
+      include: string[];
+      exclude: string[];
+    };
+    custom_params: {
+      include: Record<string, string>;
+      exclude: Record<string, string>;
+    };
+  };
+  relationships: {
+    prices?: { id: string; type: 'price' }[];
+  };
+  created: string;
+  last_modified: string;
+  type: 'plan';
+  schema: string;
+};
+
+export type PlansListResponse = JwListResponse<'plans', PlanDetailsResponse>;
+
+export type PlanPrice = {
+  id: string;
+  access: {
+    period: 'month' | 'year';
+    quantity: number;
+    type: 'subscription';
+  };
+  metadata: {
+    amount: number;
+    currency: string;
+    name: string;
+    trial?: { period: 'day'; quantity: number } | null;
+  };
+  original_id: number;
+  relationships: {
+    plans?: { id: string; type: 'plan' }[];
+  };
+  schema: string;
+  type: 'price';
+};
+
+export type PlanPricesResponse = JwListResponse<'prices', PlanPrice>;
+
 export interface Payment extends BaseExtend {
   getPaymentMethods(): Promise<AxiosResponse<MerchantPaymentMethod[]>>;
   createPayment(
-    data: CreatePaymentData
+    data: CreatePaymentData,
   ): Promise<AxiosResponse<CommonResponse>>;
   confirmPayment(
-    paymentIntentId: string
+    paymentIntentId: string,
   ): Promise<AxiosResponse<CommonResponse>>;
   confirmDonationPayment(
-    data: ConfirmDonationPaymentData
+    data: ConfirmDonationPaymentData,
   ): Promise<AxiosResponse<CommonResponse>>;
   getPayPalParams(
-    data: PayPalParamsData
+    data: PayPalParamsData,
   ): Promise<AxiosResponse<GeneratePayPalParameters>>;
   getPurchaseHistory(
     status: string,
     page: number,
-    limit: number
+    limit: number,
   ): Promise<AxiosResponse<GetPurchaseHistoryResponse>>;
   getPaymentHistory(): Promise<AxiosResponse<GetPaymentHistoryResponse>>;
   getBillingReceipt(
-    data: GetBillingReceiptParams
+    data: GetBillingReceiptParams,
   ): Promise<AxiosResponse<Blob>>;
   getDefaultCreditCard(): Promise<AxiosResponse<GetDefaultCard>>;
   setDefaultCreditCard(
-    data: DefaultCreditCardData
+    data: DefaultCreditCardData,
   ): Promise<AxiosResponse<SetDefaultCard>>;
   getDirectDebitMandate: () => Promise<
     AxiosResponse<DirectDebitMandateResponse>
   >;
   createDirectDebitMandate: (
-    data: DirectDebitMandateData
+    data: DirectDebitMandateData,
   ) => Promise<AxiosResponse<CreateDirectDebitResponse>>;
   directDebitCharge: (
-    data: DirectDebitData
+    data: DirectDebitData,
   ) => Promise<AxiosResponse<CommonResponse>>;
   directDebitSubscribe: (
-    data: DirectDebitData
+    data: DirectDebitData,
   ) => Promise<AxiosResponse<CommonResponse>>;
   idealPayment: (
-    data: IdealPaymentData
+    data: IdealPaymentData,
   ) => Promise<AxiosResponse<CommonResponse>>;
   idealSubscribe: (
-    data: IdealPaymentData
+    data: IdealPaymentData,
   ) => Promise<AxiosResponse<CommonResponse>>;
   validateReceipt: (
-    data: ValidateReceiptData
+    data: ValidateReceiptData,
   ) => Promise<AxiosResponse<CommonResponse>>;
+
+  getSitePlans: (
+    siteId: string,
+    plansIds?: string[],
+  ) => Promise<AxiosResponse<PlansListResponse>>;
+
+  getSitePlanPrices: (
+    siteId: string,
+    planId: string,
+  ) => Promise<AxiosResponse<PlanPricesResponse>>;
 }

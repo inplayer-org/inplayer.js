@@ -17,6 +17,8 @@ import {
   SetDefaultCard,
   DirectDebitMandateResponse,
   CreateDirectDebitResponse,
+  PlansListResponse,
+  PlanPricesResponse,
 } from '../models/IPayment';
 import {
   CommonResponse,
@@ -58,7 +60,7 @@ class Payment extends BaseExtend {
    */
   async getPaymentMethods(): Promise<
     AxiosResponse<Array<MerchantPaymentMethod>>
-    > {
+  > {
     const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedGet(API.getPaymentMethods, {
@@ -703,7 +705,7 @@ class Payment extends BaseExtend {
    */
   async getDirectDebitMandate(): Promise<
     AxiosResponse<DirectDebitMandateResponse>
-    > {
+  > {
     const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedGet(API.getDirectDebitMandate, {
@@ -1251,6 +1253,30 @@ class Payment extends BaseExtend {
         },
       },
     );
+  }
+
+  async getSitePlans(
+    siteId: string,
+    plansIds?: string[],
+  ): Promise<AxiosResponse<PlansListResponse>> {
+    return this.request.get(API.getSitePlans(siteId, plansIds), {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  async getSitePlanPrices(
+    siteId: string,
+    planId: string,
+  ): Promise<AxiosResponse<PlanPricesResponse>> {
+    return this.request.get(API.getSitePlanPrices(siteId, planId), {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
   }
 }
 
