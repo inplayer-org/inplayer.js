@@ -18,6 +18,7 @@ import {
   ItemDetailsV1,
   RequestDataCaptureAccessData,
   SignedMediaResponse,
+  SiteEntitlementsResponse,
 } from '../models/IAsset&Access';
 import BaseExtend from '../extends/base';
 import { API } from '../constants';
@@ -61,7 +62,7 @@ class Asset extends BaseExtend {
    * ```
    */
   async checkAccessForAsset(
-    id: number,
+    id: number
   ): Promise<AxiosResponse<GetItemAccessV1>> {
     const tokenObject = await this.request.getToken();
 
@@ -133,7 +134,7 @@ class Asset extends BaseExtend {
    */
   async getAsset(
     assetId: number,
-    merchantUuid?: string,
+    merchantUuid?: string
   ): Promise<AxiosResponse<ExternalItemDetails>> {
     return this.request.get(API.getAsset(assetId, merchantUuid));
   }
@@ -257,10 +258,10 @@ class Asset extends BaseExtend {
   async getExternalAsset(
     assetType: string,
     externalId: string,
-    merchantUuid = '',
+    merchantUuid = ''
   ): Promise<AxiosResponse<ExternalItemDetails>> {
     return this.request.get(
-      API.getExternalAsset(assetType, externalId, merchantUuid),
+      API.getExternalAsset(assetType, externalId, merchantUuid)
     );
   }
 
@@ -339,7 +340,7 @@ class Asset extends BaseExtend {
    * ```
    */
   async getAssetsInPackage(
-    id: number,
+    id: number
   ): Promise<AxiosResponse<GetAssetsInPackage>> {
     return this.request.get(API.getAssetsInPackage(id));
   }
@@ -451,7 +452,9 @@ class Asset extends BaseExtend {
    * }
    * ```
    */
-  async getAssetAccessFees(id: number): Promise<AxiosResponse<GetAccessFeesResponse>> {
+  async getAssetAccessFees(
+    id: number
+  ): Promise<AxiosResponse<GetAccessFeesResponse>> {
     return this.request.get(API.getAssetAccessFees(id));
   }
 
@@ -530,7 +533,7 @@ class Asset extends BaseExtend {
     page = 0,
     startDate?: string,
     endDate?: string,
-    type?: string,
+    type?: string
   ): Promise<AxiosResponse<AssetsTransactions>> {
     const tokenObject = await this.request.getToken();
 
@@ -540,7 +543,7 @@ class Asset extends BaseExtend {
         headers: {
           Authorization: `Bearer ${tokenObject.token}`,
         },
-      },
+      }
     );
   }
 
@@ -584,9 +587,9 @@ class Asset extends BaseExtend {
       reduce(
         browserDetails,
         (acc: string, details: Record<string, any>) => `${acc}${details.value}`,
-        '',
+        ''
       ),
-      31,
+      31
     );
 
     formData.set('item_id', String(item_id));
@@ -604,7 +607,7 @@ class Asset extends BaseExtend {
 
     await tokenStorage.setItem(
       this.config.INPLAYER_ACCESS_CODE_NAME(item_id),
-      JSON.stringify(accessCode),
+      JSON.stringify(accessCode)
     );
 
     return response;
@@ -631,15 +634,16 @@ class Asset extends BaseExtend {
    * ```
    */
   getAccessCode(
-    assetId: number,
+    assetId: number
   ): CodeAccessData | null | Promise<CodeAccessData | null> {
     const accessCode = tokenStorage.getItem(
-      this.config.INPLAYER_ACCESS_CODE_NAME(assetId),
+      this.config.INPLAYER_ACCESS_CODE_NAME(assetId)
     );
 
     if (isPromise(accessCode)) {
       return (accessCode as Promise<string>).then((resolvedString) =>
-        (resolvedString ? (JSON.parse(resolvedString) as CodeAccessData) : null)) as Promise<CodeAccessData | null>;
+        resolvedString ? (JSON.parse(resolvedString) as CodeAccessData) : null
+      ) as Promise<CodeAccessData | null>;
     }
 
     return accessCode
@@ -668,7 +672,7 @@ class Asset extends BaseExtend {
    * ```
    */
   async getAccesCodeSessions(
-    codeId: number,
+    codeId: number
   ): Promise<AxiosResponse<Array<CodeAccessSessionsData>>> {
     return this.request.get(API.requestAccessCodeSessions(codeId));
   }
@@ -691,7 +695,7 @@ class Asset extends BaseExtend {
    * ```
    */
   async terminateSession(
-    assetId: number,
+    assetId: number
   ): Promise<AxiosResponse<CommonResponse> | null> {
     const accessCode: CodeAccessData | null = await this.getAccessCode(assetId);
 
@@ -700,11 +704,11 @@ class Asset extends BaseExtend {
     }
 
     const response = await this.request.delete(
-      API.terminateSession(accessCode.code_id, accessCode.browser_fingerprint),
+      API.terminateSession(accessCode.code_id, accessCode.browser_fingerprint)
     );
 
     await tokenStorage.removeItem(
-      this.config.INPLAYER_ACCESS_CODE_NAME(assetId),
+      this.config.INPLAYER_ACCESS_CODE_NAME(assetId)
     );
 
     return response;
@@ -751,7 +755,7 @@ class Asset extends BaseExtend {
     return this.request.post(
       API.requestDataCaptureNoAuthAccess,
       qs.stringify(accessData),
-      { headers },
+      { headers }
     );
   }
 
@@ -774,7 +778,7 @@ class Asset extends BaseExtend {
    */
   async getCloudfrontURL(
     assetId: number,
-    videoUrl: string,
+    videoUrl: string
   ): Promise<AxiosResponse<CloudfrontUrl>> {
     const tokenObject = await this.request.getToken();
 
@@ -813,7 +817,7 @@ class Asset extends BaseExtend {
    * ```
    */
   async getDonationOptions(
-    assetId: number,
+    assetId: number
   ): Promise<AxiosResponse<DonationDetails>> {
     const tokenObject = await this.request.getToken();
 
@@ -842,7 +846,7 @@ class Asset extends BaseExtend {
    */
   async getSignedMediaToken(
     appConfigId: string,
-    mediaId: string,
+    mediaId: string
   ): Promise<AxiosResponse<SignedMediaResponse>> {
     const tokenObject = await this.request.getToken();
 
@@ -851,6 +855,23 @@ class Asset extends BaseExtend {
         Authorization: `Bearer ${tokenObject.token}`,
       },
     });
+  }
+
+  async getSiteEntitlements(
+    siteId: string
+  ): Promise<AxiosResponse<SiteEntitlementsResponse>> {
+    const tokenObject = await this.request.getToken();
+
+    const headers: Record<string, string> = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    };
+
+    if (tokenObject.token) {
+      headers.Authorization = `Bearer ${tokenObject.token}`;
+    }
+
+    return this.request.get(API.getSiteEntitlements(siteId), { headers });
   }
 }
 

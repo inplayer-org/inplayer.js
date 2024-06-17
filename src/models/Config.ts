@@ -47,6 +47,7 @@ export interface ApiEndpoints {
   getPaymentHistory: string;
   getBillingReceipt: (trxToken: string) => string;
   getSignedMediaToken: (appConfigId: string, mediaId: string) => string;
+  getSiteEntitlements: (siteId: string) => string;
   // code only
   requestCodeAccess: string;
   requestAccessCodeSessions: (codeId: number) => string;
@@ -65,6 +66,8 @@ export interface ApiEndpoints {
   payForAssetDonation: string;
   confirmForAssetDonation: string;
   validateReceipt: (platform: string) => string;
+  getSitePlans: (siteId: string, plansIds?: string[]) => string;
+  getSitePlanPrices: (siteId: string, planId: string) => string;
   getAssetsHistory: (
     size: number,
     page: number,

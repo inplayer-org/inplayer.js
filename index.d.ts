@@ -553,6 +553,68 @@ export interface SignedMediaResponse {
   token: string;
 }
 
+type JwListResponse<
+  N extends string = string,
+  T extends Record<string, unknown> = Record<string, unknown>
+> = {
+  page: number;
+  total: number;
+  page_length: number;
+} & {
+  [P in N]: T[];
+};
+
+export type PlanDetailsResponse = {
+  id: string;
+  original_id: number;
+  metadata: {
+    name: string;
+    access_model: 'svod' | 'authvod' | 'free';
+    tags: {
+      include: string[];
+      exclude: string[];
+    };
+    custom_params: {
+      include: Record<string, string>;
+      exclude: Record<string, string>;
+    };
+  };
+  relationships: {
+    prices?: { id: string; type: 'price' }[];
+  };
+  created: string;
+  last_modified: string;
+  type: 'plan';
+  schema: string;
+};
+
+export type PlansListResponse = JwListResponse<'plans', PlanDetailsResponse>;
+
+export type PlanPrice = {
+  id: string;
+  access: {
+    period: 'month' | 'year';
+    quantity: number;
+    type: 'subscription';
+  };
+  metadata: {
+    amount: number;
+    currency: string;
+    name: string;
+    trial?: { period: 'day'; quantity: number } | null;
+  };
+  original_id: number;
+  relationships: {
+    plans?: { id: string; type: 'plan' }[];
+  };
+  schema: string;
+  type: 'price';
+};
+
+export type PlanPricesResponse = JwListResponse<'prices', PlanPrice>;
+
+export type SiteEntitlementsResponse = PlansListResponse;
+
 export declare class Asset {
   constructor(config: Record<string, unknown>, Account: Account);
 
@@ -599,6 +661,9 @@ export declare class Asset {
     appConfigId: string,
     mediaId: string
   ): Promise<AxiosResponse<SignedMediaResponse>>;
+  getSiteEntitlements(
+    siteId: string
+  ): Promise<AxiosResponse<SiteEntitlementsResponse>>;
 }
 
 export interface BrandingDetails {
@@ -951,6 +1016,14 @@ export declare class Payment {
   validateReceipt: (
     data: ValidateReceiptData
   ) => Promise<AxiosResponse<CommonResponse>>;
+  getSitePlans: (
+    siteId: string,
+    plansIds?: string[]
+  ) => Promise<AxiosResponse<PlansListResponse>>;
+  getSitePlanPrices: (
+    siteId: string,
+    planId: string
+  ) => Promise<AxiosResponse<PlanPricesResponse>>;
 }
 
 export interface CreateSubscriptionData {

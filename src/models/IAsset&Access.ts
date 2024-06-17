@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { BaseExtend, CommonResponse } from './CommonInterfaces';
+import { PlansListResponse } from './IPayment';
 
 export interface AccessControlType {
   id: number;
@@ -363,6 +364,8 @@ export interface SignedMediaResponse {
   token: string;
 }
 
+export type SiteEntitlementsResponse = PlansListResponse;
+
 export interface Asset extends BaseExtend {
   checkAccessForAsset(id: number): Promise<AxiosResponse<GetItemAccessV1>>;
   isFreeTrialUsed(id: number): Promise<AxiosResponse<boolean>>;
@@ -406,4 +409,7 @@ export interface Asset extends BaseExtend {
     appConfigId: string,
     mediaId: string
   ): Promise<AxiosResponse<SignedMediaResponse>>;
+  getSiteEntitlements(
+    siteId: string
+  ): Promise<AxiosResponse<SiteEntitlementsResponse>>;
 }
