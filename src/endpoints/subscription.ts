@@ -9,7 +9,7 @@ import {
   GetDefaultCard,
   SetDefaultCard,
   ChangeSubscriptionPlanRequestBody,
-  ChangeSubscriptionPlanResponse,
+  ChangeSubscriptionPlanResponse
 } from '../models/ISubscription';
 import { CommonResponse } from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
@@ -66,16 +66,20 @@ class Subscription extends BaseExtend {
    * }
    * ```
    */
-  async getSubscriptions(page = 0, limit = 15, status = ''): Promise<AxiosResponse<GetSubscription>> {
+  async getSubscriptions(
+    page = 0,
+    limit = 15,
+    status = ''
+  ): Promise<AxiosResponse<GetSubscription>> {
     const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedGet(
       API.getSubscriptions(limit, page, status),
       {
         headers: {
-          Authorization: `Bearer ${tokenObject.token}`,
-        },
-      },
+          Authorization: `Bearer ${tokenObject.token}`
+        }
+      }
     );
   }
 
@@ -108,13 +112,15 @@ class Subscription extends BaseExtend {
    * }
    * ```
    */
-  async getSubscription(id: string): Promise<AxiosResponse<SubscriptionDetails>> {
+  async getSubscription(
+    id: string
+  ): Promise<AxiosResponse<SubscriptionDetails>> {
     const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedGet(API.getSubscription(id), {
       headers: {
-        Authorization: `Bearer ${tokenObject.token}`,
-      },
+        Authorization: `Bearer ${tokenObject.token}`
+      }
     });
   }
 
@@ -139,16 +145,18 @@ class Subscription extends BaseExtend {
    * }
    * ```
    */
-  async cancelSubscription(unsubscribeUrl: string): Promise<AxiosResponse<CancelSubscription>> {
+  async cancelSubscription(
+    unsubscribeUrl: string
+  ): Promise<AxiosResponse<CancelSubscription>> {
     const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedGet(
       API.cancelSubscription(unsubscribeUrl),
       {
         headers: {
-          Authorization: `Bearer ${tokenObject.token}`,
-        },
-      },
+          Authorization: `Bearer ${tokenObject.token}`
+        }
+      }
     );
   }
 
@@ -209,7 +217,7 @@ class Subscription extends BaseExtend {
     referrer,
     voucherCode,
     brandingId,
-    returnUrl,
+    returnUrl
   }: {
     number: number;
     cardName: string;
@@ -233,7 +241,7 @@ class Subscription extends BaseExtend {
       payment_method: paymentMethod,
       referrer,
       branding_id: brandingId,
-      return_url: returnUrl,
+      return_url: returnUrl
     };
 
     if (voucherCode) {
@@ -245,8 +253,8 @@ class Subscription extends BaseExtend {
     return this.request.authenticatedPost(API.subscribe, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -270,24 +278,28 @@ class Subscription extends BaseExtend {
    */
   async changeSubscriptionPlan({
     access_fee_id,
-    inplayer_token,
+    inplayer_token
   }: {
-    access_fee_id: number,
-    inplayer_token: string,
-   }): Promise<AxiosResponse<ChangeSubscriptionPlanResponse>> {
+    access_fee_id: number;
+    inplayer_token: string;
+  }): Promise<AxiosResponse<ChangeSubscriptionPlanResponse>> {
     const body: ChangeSubscriptionPlanRequestBody = {
       access_fee_id,
-      inplayer_token,
+      inplayer_token
     };
 
     const tokenObject = await this.request.getToken();
 
-    return this.request.authenticatedPost(API.subscriptionPlanChange, qs.stringify(body), {
-      headers: {
-        Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
+    return this.request.authenticatedPost(
+      API.subscriptionPlanChange,
+      qs.stringify(body),
+      {
+        headers: {
+          Authorization: `Bearer ${tokenObject.token}`,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
+    );
   }
 
   /**
@@ -321,8 +333,8 @@ class Subscription extends BaseExtend {
     assetId,
     voucherCode,
     brandingId,
-    referrer,
-  }:{
+    referrer
+  }: {
     accessFeeId: number;
     assetId: number;
     voucherCode: string;
@@ -335,7 +347,7 @@ class Subscription extends BaseExtend {
       voucher_code: voucherCode,
       payment_method: 'Direct Debit',
       branding_id: brandingId,
-      referrer,
+      referrer
     };
 
     const tokenObject = await this.request.getToken();
@@ -343,8 +355,8 @@ class Subscription extends BaseExtend {
     return this.request.authenticatedPost(API.subscribeV2, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -388,7 +400,7 @@ class Subscription extends BaseExtend {
     returnUrl,
     referrer,
     brandingId,
-    voucherCode,
+    voucherCode
   }: {
     accessFeeId: number;
     bank: string;
@@ -401,8 +413,10 @@ class Subscription extends BaseExtend {
       payment_method: 'ideal',
       access_fee_id: accessFeeId,
       bank,
-      return_url: buildURLwithQueryParams(returnUrl, { ippwat: 'subscription' }),
-      referrer,
+      return_url: buildURLwithQueryParams(returnUrl, {
+        ippwat: 'subscription'
+      }),
+      referrer
     };
 
     if (brandingId) {
@@ -418,8 +432,8 @@ class Subscription extends BaseExtend {
     return this.request.authenticatedPost(API.subscribeV2, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -448,8 +462,8 @@ class Subscription extends BaseExtend {
 
     return this.request.authenticatedGet(API.getDefaultCreditCard, {
       headers: {
-        Authorization: `Bearer ${tokenObject.token}`,
-      },
+        Authorization: `Bearer ${tokenObject.token}`
+      }
     });
   }
 
@@ -492,14 +506,14 @@ class Subscription extends BaseExtend {
     cvc,
     expMonth,
     expYear,
-    currency,
+    currency
   }: {
-    cardNumber: string,
-    cardName: string,
-    cvc: number,
-    expMonth: number,
-    expYear: number,
-    currency: string,
+    cardNumber: string;
+    cardName: string;
+    cvc: number;
+    expMonth: number;
+    expYear: number;
+    currency: string;
   }): Promise<AxiosResponse<SetDefaultCard>> {
     const body = {
       number: cardNumber,
@@ -507,7 +521,7 @@ class Subscription extends BaseExtend {
       cvv: cvc,
       exp_month: expMonth,
       exp_year: expYear,
-      currency_iso: currency,
+      currency_iso: currency
     };
 
     const tokenObject = await this.request.getToken();
@@ -518,9 +532,9 @@ class Subscription extends BaseExtend {
       {
         headers: {
           Authorization: `Bearer ${tokenObject.token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      },
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
     );
   }
 }

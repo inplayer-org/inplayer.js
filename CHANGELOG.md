@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-# [3.13.24] - 17-06-2024
+# [3.13.25] - 17-06-2024
 
 ### Added
 

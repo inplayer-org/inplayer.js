@@ -53,7 +53,7 @@ class Branding extends BaseExtend {
    */
   async getBranding(
     clientId: string,
-    brandingId: number | 'default' = 'default',
+    brandingId: number | 'default' = 'default'
   ): Promise<AxiosResponse<BrandingDetails>> {
     return this.request.get(API.getBranding(clientId, brandingId));
   }

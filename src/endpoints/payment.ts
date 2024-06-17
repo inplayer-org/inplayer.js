@@ -18,11 +18,11 @@ import {
   DirectDebitMandateResponse,
   CreateDirectDebitResponse,
   PlansListResponse,
-  PlanPricesResponse,
+  PlanPricesResponse
 } from '../models/IPayment';
 import {
   CommonResponse,
-  CustomErrorResponse,
+  CustomErrorResponse
 } from '../models/CommonInterfaces';
 import { ApiConfig, Request } from '../models/Config';
 import { buildURLwithQueryParams } from '../helpers';
@@ -60,13 +60,13 @@ class Payment extends BaseExtend {
    */
   async getPaymentMethods(): Promise<
     AxiosResponse<Array<MerchantPaymentMethod>>
-  > {
+    > {
     const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedGet(API.getPaymentMethods, {
       headers: {
-        Authorization: `Bearer ${tokenObject.token}`,
-      },
+        Authorization: `Bearer ${tokenObject.token}`
+      }
     });
   }
 
@@ -133,7 +133,7 @@ class Payment extends BaseExtend {
     brandingId,
     returnUrl,
     receiverEmail,
-    isGift,
+    isGift
   }: {
     number: number;
     cardName: string;
@@ -159,7 +159,7 @@ class Payment extends BaseExtend {
       payment_method: paymentMethod,
       referrer,
       branding_id: brandingId,
-      return_url: buildURLwithQueryParams(returnUrl, { ippwat: 'ppv' }),
+      return_url: buildURLwithQueryParams(returnUrl, { ippwat: 'ppv' })
     };
 
     if (voucherCode) {
@@ -176,8 +176,8 @@ class Payment extends BaseExtend {
     return this.request.authenticatedPost(API.payForAsset, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -228,7 +228,7 @@ class Payment extends BaseExtend {
    * ```
    */
   async createDonationPayment(
-    data: CreateDonationPaymentData,
+    data: CreateDonationPaymentData
   ): Promise<AxiosResponse<CreateDonationPaymentData>> {
     const body: CreateDonationPaymentRequestBody = {
       number: data.number,
@@ -243,7 +243,7 @@ class Payment extends BaseExtend {
       amount: data.amount,
       item_id: data.assetId,
       donation_id: data.donationId,
-      return_url: buildURLwithQueryParams(data.returnUrl, { ippwat: 'ppv' }),
+      return_url: buildURLwithQueryParams(data.returnUrl, { ippwat: 'ppv' })
     };
 
     const tokenObject = await this.request.getToken();
@@ -254,9 +254,9 @@ class Payment extends BaseExtend {
       {
         headers: {
           Authorization: `Bearer ${tokenObject.token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      },
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
     );
   }
 
@@ -282,22 +282,22 @@ class Payment extends BaseExtend {
    * ```
    */
   async confirmPayment(
-    paymentIntentId: string,
+    paymentIntentId: string
   ): Promise<AxiosResponse<CommonResponse>> {
     if (!paymentIntentId) {
       const response: CustomErrorResponse = {
         status: 400,
         data: {
           code: 400,
-          message: 'Payment Intend Id is a required parameter!',
-        },
+          message: 'Payment Intend Id is a required parameter!'
+        }
       };
 
       throw { response };
     }
 
     const body = {
-      pi_id: paymentIntentId,
+      pi_id: paymentIntentId
     };
 
     const tokenObject = await this.request.getToken();
@@ -305,8 +305,8 @@ class Payment extends BaseExtend {
     return this.request.authenticatedPost(API.payForAsset, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -341,7 +341,7 @@ class Payment extends BaseExtend {
     paymentIntentId,
     brandingId,
     paymentMethod,
-    donationId,
+    donationId
   }: {
     paymentIntentId: string;
     brandingId: number;
@@ -353,8 +353,8 @@ class Payment extends BaseExtend {
         status: 400,
         data: {
           code: 400,
-          message: 'Payment Intend Id is a required parameter!',
-        },
+          message: 'Payment Intend Id is a required parameter!'
+        }
       };
 
       throw { response };
@@ -364,7 +364,7 @@ class Payment extends BaseExtend {
       pi_id: paymentIntentId,
       branding_id: brandingId,
       payment_method: paymentMethod,
-      donation_id: donationId,
+      donation_id: donationId
     };
 
     const tokenObject = await this.request.getToken();
@@ -375,9 +375,9 @@ class Payment extends BaseExtend {
       {
         headers: {
           Authorization: `Bearer ${tokenObject.token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      },
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
     );
   }
 
@@ -421,7 +421,7 @@ class Payment extends BaseExtend {
     accessFeeId,
     paymentMethod,
     voucherCode,
-    brandingId,
+    brandingId
   }: {
     origin: string;
     accessFeeId: number;
@@ -444,8 +444,8 @@ class Payment extends BaseExtend {
 
     return this.request.authenticatedPost(API.getPayPalParams, formData, {
       headers: {
-        Authorization: `Bearer ${tokenObject.token}`,
-      },
+        Authorization: `Bearer ${tokenObject.token}`
+      }
     });
   }
 
@@ -498,7 +498,7 @@ class Payment extends BaseExtend {
   async getPurchaseHistory(
     status = 'active',
     page = 0,
-    limit = 5,
+    limit = 5
   ): Promise<AxiosResponse<GetPurchaseHistoryResponse>> {
     const tokenObject = await this.request.getToken();
 
@@ -506,9 +506,9 @@ class Payment extends BaseExtend {
       API.getPurchaseHistory(status, page, limit),
       {
         headers: {
-          Authorization: `Bearer ${tokenObject.token}`,
-        },
-      },
+          Authorization: `Bearer ${tokenObject.token}`
+        }
+      }
     );
   }
 
@@ -550,8 +550,8 @@ class Payment extends BaseExtend {
 
     return this.request.authenticatedGet(API.getPaymentHistory(), {
       headers: {
-        Authorization: `Bearer ${tokenObject.token}`,
-      },
+        Authorization: `Bearer ${tokenObject.token}`
+      }
     });
   }
 
@@ -567,7 +567,7 @@ class Payment extends BaseExtend {
    * Contains the data: PDF document (blob)
    */
   async getBillingReceipt({
-    trxToken,
+    trxToken
   }: {
     trxToken: string;
   }): Promise<AxiosResponse<Blob>> {
@@ -576,8 +576,8 @@ class Payment extends BaseExtend {
     return this.request.authenticatedGet(API.getBillingReceipt(trxToken), {
       responseType: 'blob',
       headers: {
-        Authorization: `Bearer ${tokenObject.token}`,
-      },
+        Authorization: `Bearer ${tokenObject.token}`
+      }
     });
   }
 
@@ -599,8 +599,8 @@ class Payment extends BaseExtend {
 
     return this.request.authenticatedGet(API.getDefaultCreditCard, {
       headers: {
-        Authorization: `Bearer ${tokenObject.token}`,
-      },
+        Authorization: `Bearer ${tokenObject.token}`
+      }
     });
   }
 
@@ -646,7 +646,7 @@ class Payment extends BaseExtend {
     cvc,
     expMonth,
     expYear,
-    currency,
+    currency
   }: {
     cardNumber: string;
     cardName: string;
@@ -661,7 +661,7 @@ class Payment extends BaseExtend {
       cvv: cvc,
       exp_month: expMonth,
       exp_year: expYear,
-      currency_iso: currency,
+      currency_iso: currency
     };
 
     const tokenObject = await this.request.getToken();
@@ -672,9 +672,9 @@ class Payment extends BaseExtend {
       {
         headers: {
           Authorization: `Bearer ${tokenObject.token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      },
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
     );
   }
 
@@ -705,13 +705,13 @@ class Payment extends BaseExtend {
    */
   async getDirectDebitMandate(): Promise<
     AxiosResponse<DirectDebitMandateResponse>
-  > {
+    > {
     const tokenObject = await this.request.getToken();
 
     return this.request.authenticatedGet(API.getDirectDebitMandate, {
       headers: {
-        Authorization: `Bearer ${tokenObject.token}`,
-      },
+        Authorization: `Bearer ${tokenObject.token}`
+      }
     });
   }
 
@@ -757,7 +757,7 @@ class Payment extends BaseExtend {
   async createDirectDebitMandate({
     name,
     iban,
-    address,
+    address
   }: {
     name: string;
     iban: string;
@@ -766,7 +766,7 @@ class Payment extends BaseExtend {
     const body = {
       name,
       iban,
-      ...(address && { address }),
+      ...(address && { address })
     };
 
     const tokenObject = await this.request.getToken();
@@ -777,9 +777,9 @@ class Payment extends BaseExtend {
       {
         headers: {
           Authorization: `Bearer ${tokenObject.token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      },
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
     );
   }
 
@@ -814,7 +814,7 @@ class Payment extends BaseExtend {
     assetId,
     voucherCode,
     brandingId,
-    referrer,
+    referrer
   }: {
     accessFeeId: number;
     assetId: number;
@@ -828,7 +828,7 @@ class Payment extends BaseExtend {
       voucher_code: voucherCode,
       payment_method: 'Direct Debit',
       branding_id: brandingId,
-      referrer,
+      referrer
     };
 
     const tokenObject = await this.request.getToken();
@@ -839,9 +839,9 @@ class Payment extends BaseExtend {
       {
         headers: {
           Authorization: `Bearer ${tokenObject.token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      },
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
     );
   }
 
@@ -879,7 +879,7 @@ class Payment extends BaseExtend {
     assetId,
     voucherCode,
     brandingId,
-    referrer,
+    referrer
   }: {
     accessFeeId: number;
     assetId: number;
@@ -893,7 +893,7 @@ class Payment extends BaseExtend {
       voucher_code: voucherCode,
       payment_method: 'Direct Debit',
       branding_id: brandingId,
-      referrer,
+      referrer
     };
 
     const tokenObject = await this.request.getToken();
@@ -901,8 +901,8 @@ class Payment extends BaseExtend {
     return this.request.authenticatedPost(API.subscribeV2, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -946,7 +946,7 @@ class Payment extends BaseExtend {
     returnUrl,
     referrer,
     brandingId,
-    voucherCode,
+    voucherCode
   }: {
     accessFeeId: number;
     bank: string;
@@ -960,7 +960,7 @@ class Payment extends BaseExtend {
       access_fee_id: accessFeeId,
       bank,
       return_url: buildURLwithQueryParams(returnUrl, { ippwat: 'ppv' }),
-      referrer,
+      referrer
     };
 
     if (brandingId) {
@@ -979,9 +979,9 @@ class Payment extends BaseExtend {
       {
         headers: {
           Authorization: `Bearer ${tokenObject.token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      },
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
     );
   }
 
@@ -1028,7 +1028,7 @@ class Payment extends BaseExtend {
     returnUrl,
     referrer,
     brandingId,
-    voucherCode,
+    voucherCode
   }: {
     accessFeeId: number;
     bank: string;
@@ -1042,9 +1042,9 @@ class Payment extends BaseExtend {
       access_fee_id: accessFeeId,
       bank,
       return_url: buildURLwithQueryParams(returnUrl, {
-        ippwat: 'subscription',
+        ippwat: 'subscription'
       }),
-      referrer,
+      referrer
     };
 
     if (brandingId) {
@@ -1060,8 +1060,8 @@ class Payment extends BaseExtend {
     return this.request.authenticatedPost(API.subscribeV2, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
   }
 
@@ -1098,7 +1098,7 @@ class Payment extends BaseExtend {
     accessFeeId,
     referrer,
     brandingId,
-    voucherCode,
+    voucherCode
   }: {
     accessFeeId: number;
     referrer: string;
@@ -1110,7 +1110,7 @@ class Payment extends BaseExtend {
       access_fee_id: accessFeeId,
       voucher_code: voucherCode,
       branding_id: brandingId,
-      referrer,
+      referrer
     };
 
     const tokenObject = await this.request.getToken();
@@ -1121,9 +1121,9 @@ class Payment extends BaseExtend {
       {
         headers: {
           Authorization: `Bearer ${tokenObject.token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      },
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
     );
   }
 
@@ -1160,7 +1160,7 @@ class Payment extends BaseExtend {
     accessFeeId,
     referrer,
     brandingId,
-    voucherCode,
+    voucherCode
   }: {
     accessFeeId: number;
     referrer: string;
@@ -1172,7 +1172,7 @@ class Payment extends BaseExtend {
       access_fee_id: accessFeeId,
       voucher_code: voucherCode,
       branding_id: brandingId,
-      referrer,
+      referrer
     };
 
     const tokenObject = await this.request.getToken();
@@ -1183,9 +1183,9 @@ class Payment extends BaseExtend {
       {
         headers: {
           Authorization: `Bearer ${tokenObject.token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      },
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
     );
   }
 
@@ -1224,7 +1224,7 @@ class Payment extends BaseExtend {
     productName: product_name,
     itemId: item_id,
     accessFeeId: access_fee_id,
-    amazonUserId: amazon_user_id,
+    amazonUserId: amazon_user_id
   }: {
     platform: ReceiptValidationPlatform;
     receipt: string;
@@ -1238,7 +1238,7 @@ class Payment extends BaseExtend {
       ...(product_name ? { product_name } : { item_id, access_fee_id }),
       ...(platform === ReceiptValidationPlatform.AMAZON
         ? { amazon_user_id }
-        : {}),
+        : {})
     };
 
     const tokenObject = await this.request.getToken();
@@ -1249,33 +1249,33 @@ class Payment extends BaseExtend {
       {
         headers: {
           Authorization: `Bearer ${tokenObject.token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      },
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
     );
   }
 
   async getSitePlans(
     siteId: string,
-    plansIds?: string[],
+    plansIds?: string[]
   ): Promise<AxiosResponse<PlansListResponse>> {
     return this.request.get(API.getSitePlans(siteId, plansIds), {
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+        'Content-Type': 'application/json'
+      }
     });
   }
 
   async getSitePlanPrices(
     siteId: string,
-    planId: string,
+    planId: string
   ): Promise<AxiosResponse<PlanPricesResponse>> {
     return this.request.get(API.getSitePlanPrices(siteId, planId), {
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+        'Content-Type': 'application/json'
+      }
     });
   }
 }
