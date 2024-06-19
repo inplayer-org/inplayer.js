@@ -110,12 +110,8 @@ export const API = {
 
     return url;
   },
-  getSitePlans: (siteId: string, plansIds: string[] = []) =>
-    `/v3/sites/${siteId}/plans${
-      plansIds.length
-        ? `?q=id:(${plansIds.map((planId) => `"${planId}"`).join(' OR ')})`
-        : ''
-    }`,
+  getSitePlans: (siteId: string, searchString?: string) =>
+    `/v3/sites/${siteId}/plans${searchString ? `?${searchString}` : ''}`,
 
   getSitePlanPrices: (siteId: string, planId: string) =>
     `/v3/sites/${siteId}/plans/${planId}/prices`,

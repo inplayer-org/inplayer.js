@@ -66,7 +66,7 @@ export interface ApiEndpoints {
   payForAssetDonation: string;
   confirmForAssetDonation: string;
   validateReceipt: (platform: string) => string;
-  getSitePlans: (siteId: string, plansIds?: string[]) => string;
+  getSitePlans: (siteId: string, searchString: string) => string;
   getSitePlanPrices: (siteId: string, planId: string) => string;
   getAssetsHistory: (
     size: number,
