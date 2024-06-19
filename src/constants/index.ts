@@ -113,7 +113,7 @@ export const API = {
   getSitePlans: (siteId: string, plansIds: string[] = []) =>
     `/v3/sites/${siteId}/plans${
       plansIds.length
-        ? `q=id:(${plansIds.map((planId) => `"${planId}"`).join(' OR ')})`
+        ? `?q=id:(${plansIds.map((planId) => `"${planId}"`).join(' OR ')})`
         : ''
     }`,
 
