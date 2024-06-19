@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.26] - 19-06-2024
+
+### Fixes
+
+- Search string for `InPlayer.Payment.getSitePlans` appended without `?`
+
 # [3.13.25] - 17-06-2024
 
 ### Added
