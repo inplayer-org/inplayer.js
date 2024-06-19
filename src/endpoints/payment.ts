@@ -1257,9 +1257,9 @@ class Payment extends BaseExtend {
 
   async getSitePlans(
     siteId: string,
-    plansIds?: string[]
+    searchString?: string
   ): Promise<AxiosResponse<PlansListResponse>> {
-    return this.request.get(API.getSitePlans(siteId, plansIds), {
+    return this.request.get(API.getSitePlans(siteId, searchString), {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'

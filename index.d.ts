@@ -1018,7 +1018,7 @@ export declare class Payment {
   ) => Promise<AxiosResponse<CommonResponse>>;
   getSitePlans: (
     siteId: string,
-    plansIds?: string[]
+    searchString?: string
   ) => Promise<AxiosResponse<PlansListResponse>>;
   getSitePlanPrices: (
     siteId: string,

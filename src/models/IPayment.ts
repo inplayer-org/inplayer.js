@@ -455,7 +455,7 @@ export interface Payment extends BaseExtend {
 
   getSitePlans: (
     siteId: string,
-    plansIds?: string[],
+    searchString?: string,
   ) => Promise<AxiosResponse<PlansListResponse>>;
 
   getSitePlanPrices: (
