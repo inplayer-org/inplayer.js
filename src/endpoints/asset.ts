@@ -15,7 +15,6 @@ import {
   GetAssetsInPackage,
   GetItemAccessV1,
   GetMerchantPackage,
-  ItemDetailsV1,
   RequestDataCaptureAccessData,
   SignedMediaResponse,
   SiteEntitlementsResponse
@@ -849,10 +848,10 @@ class Asset extends BaseExtend {
     mediaId: string
   ): Promise<AxiosResponse<SignedMediaResponse>> {
     const tokenObject = await this.request.getToken();
-    const headers = {};
+    const headers: Record<string, string> = {};
 
     if (tokenObject.token) {
-      headers['Authorization'] = `Bearer ${tokenObject.token}`;
+      headers.Authorization = `Bearer ${tokenObject.token}`;
     }
 
     return this.request.get(API.getSignedMediaToken(appConfigId, mediaId), {
@@ -864,10 +863,10 @@ class Asset extends BaseExtend {
     siteId: string
   ): Promise<AxiosResponse<SiteEntitlementsResponse>> {
     const tokenObject = await this.request.getToken();
-    const headers = {};
+    const headers: Record<string, string> = {};
 
     if (tokenObject.token) {
-      headers['Authorization'] = `Bearer ${tokenObject.token}`;
+      headers.Authorization = `Bearer ${tokenObject.token}`;
     }
 
     return this.request.get(API.getSiteEntitlements(siteId), { headers });
