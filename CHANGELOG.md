@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# [3.13.28] - 20-06-2024
+
+### Fixes
+
+- Send authorization header for `getSignedMediaToken` conditionally
+
 # [3.13.27] - 19-06-2024
 
 ### Changes
