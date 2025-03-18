@@ -18,7 +18,7 @@ export const commonConfig = {
  */
 export const dailyConfig = {
   ...commonConfig,
-  BASE_URL: 'accessTokenhttps://api.users.bonneville.com',
+  BASE_URL: 'https://api.users.bonneville.com',
   AWS_IOT_URL: 'https://daily-notifications.inplayer.com/iot/keys'
 };
 
@@ -34,7 +34,7 @@ export const dailyConfig = {
  */
 export const devConfig = {
   ...commonConfig,
-  BASE_URL: 'https://staging-v2.inplayer.com',
+  BASE_URL: 'https://api.users.bonneville.com',
   AWS_IOT_URL: 'https://staging-notifications.inplayer.com/iot/keys'
 };
 
@@ -50,7 +50,7 @@ export const devConfig = {
  */
 export const prodConfig = {
   ...commonConfig,
-  BASE_URL: 'https://services.inplayer.com',
+  BASE_URL: 'https://api.users.bonneville.com',
   AWS_IOT_URL: 'https://notifications.inplayer.com/iot/keys'
 };
 
