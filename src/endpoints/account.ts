@@ -1343,7 +1343,7 @@ class Account extends BaseExtend {
       progress
     };
     const tokenObject = await this.request.getToken();
-    return this.request.patch(API.getWatchHistory, qs.stringify(body), {
+    return this.request.put(API.getWatchHistory, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
         'Content-Type': 'application/x-www-form-urlencoded'
