@@ -1203,7 +1203,7 @@ class Account extends BaseExtend {
     };
 
     const tokenObject = await this.request.getToken();
-    return this.request.put(API.getFavorites, qs.stringify(body), {
+    return this.request.post(API.getFavorites, qs.stringify(body), {
       headers: {
         Authorization: `Bearer ${tokenObject.token}`,
         'Content-Type': 'application/x-www-form-urlencoded'
