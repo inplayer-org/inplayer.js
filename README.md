@@ -1,3 +1,5 @@
+**THIS REPOSITORY IS MOVED TO GITLAB**
+
 <h1 align="center">
   <a target="_blank" href="https://inplayer-org.github.io/inplayer.js/">
     <img src="https://assets.inplayer.com/images/inplayer-256.png" alt="inplayer-js" title="InPlayer JS SDK" width="300">
